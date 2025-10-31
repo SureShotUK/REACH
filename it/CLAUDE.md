@@ -73,6 +73,7 @@ Based on previous sessions, the user:
 
 This project has specialized agents available:
 - `windows-virtual-assistant-security` - Specialized assistance for Windows virtualization and security topics
+- `gemini-it-security-researcher` - Expert research agent for IT security topics, vulnerabilities, standards, and best practices
 
 ## Project-Specific Commands
 
