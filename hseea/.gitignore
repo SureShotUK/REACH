@@ -1,0 +1,24 @@
+# Sensitive or confidential documents
+**/confidential/
+**/private/
+**/*CONFIDENTIAL*
+**/*PRIVATE*
+
+# Personal data that shouldn't be committed
+**/employee-records/
+**/medical-records/
+**/incident-reports/personal-data/
+
+# Temporary files
+*.tmp
+~$*
+.DS_Store
+Thumbs.db
+
+# Large files that should be stored elsewhere
+*.zip
+*.tar.gz
+
+# Backup files
+*.bak
+*.backup

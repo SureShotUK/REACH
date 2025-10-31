@@ -1,0 +1,121 @@
+Permit Application Overview
+The grid reference SE 78168 47996 (the outflow of the drain) is in the catchment of the River Derwent. This is a highly sensitive environmental area; the Derwent is a designated Site of Special Scientific Interest (SSSI) and a Special Area of Conservation (SAC) due to its important wildlife and our site is a designated Impact Zone for the SSSI. 
+This means that the level of scrutiny from the Environment Agency will be extremely high. Their primary goal will be to protect this sensitive site, so our application must be flawless. It also means that the penalties for non-compliance would be severe, a criminal prosecution in the higher courts with the potential for an unlimited fine and up to 5 years imprisonment. Recent fines for water companies have reached tens of millions of pounds. The EA can impose a stop notice requiring the company to stop the discharge immediately, failure to comply is a criminal offence and will result in further penalties. 
+It’s important to understand how the EA will view the permit application. The reverse osmosis (RO) process concentrates the substances already present in the potable water (like chlorine, salts, and minerals). Discharging this high-salinity, potentially chlorinated water into a small stream is the EA's primary concern, as it can be toxic to aquatic life.
+Our application will need to focus on proving we can manage these concentrated substances.
+
+________________________________________
+1. Estimated Permit Application Fees (Unchanged)
+The SSSI status does not affect the fee payable for a permit. The fee structure is based on the type of discharge and its volume, not the sensitivity of the location. Therefore, an estimation of the fee calculation and constituent parts are given below (Table 1.3.11-12 in LIT 17156) .
+Daily Discharge Volume (Litres/Day)	Daily Discharge Volume (m3/day)	Base Application Charge	Additional Assessments*	Total Estimated Application Fee
+2,000	2	£3,940	+ £6,870	£10,810
+5,000	5	£3,940	+ £6,870	£10,810
+10,000	10	£7,829	+ £6,870	£14,700
+20,000	20	£7,829	+ £6,870	£14,700
+35,000	35	£7,829	+ £6,870	£14,700
+50,000	50	£7,829	+ £6,870	£14,700
+*Additional Assessments breakdown (Page 109 of LIT 17156):
+•	Specific Substances Assessment (Ref 1.19.11): £4,114. For the concentrated chlorine and salts (TDS).
+•	Habitats Assessment (Ref 1.19.10): £2,218. 100% required due to the SSSI/SAC catchment.
+•	Advertising Charge (Ref 10(a)): £538. This will be mandatory for a sensitive location.
+________________________________________
+2. Precautions & Testing (Revised)
+Our focus shifts from chemical management to proving we can manage the concentration and timing of the discharge.
+Key Precautions (Treatment Plan)
+1.	De-chlorination (Still Critical): This remains the highest priority. The RO process concentrates the chlorine from the mains water, and this is highly toxic to the aquatic life in the SSSI. We must install an effective de-chlorination system (e.g., an activated carbon filter) on the concentrate line.
+2.	Buffer Tank & Controlled Release: This is now the core of the application. You cannot simply discharge the intermittent flow directly. You will need a holding tank to store the concentrate. This tank must be fitted with a system (e.g., a pump or valve on a timer) that slowly bleeds the concentrate into the stream over a 24-hour period. This ensures the stream's natural flow can dilute it, even when you are not operating.
+3.	TDS / Salinity Management: This is our main challenge. The concentrate will be a high-salinity 'brine' compared to the freshwater stream. Our entire application will rest on proving that even after the controlled release (precaution #2), the final mixed concentration in the stream is safe.
+Required Testing (Evidence)
+We need to gather data to build a "mass balance" calculation to prove to the EA that the discharge is safe.
+•	Baseline Stream Analysis (Essential): We must commission a water quality survey of the stream. Critically, this must include:
+o	Low Flow Data: We need the stream's flow rate during a dry period (its "Q95" flow). This is the EA's worst-case scenario for dilution.
+o	Baseline Chemistry: We need to know the stream's existing (upstream) conductivity/TDS, pH, and temperature.
+•	Effluent Analysis (Simplified): Because you use no chemicals, this is simpler. We need:
+o	A chemical analysis of the incoming mains water (from your water authority).
+o	A chemical analysis of your final RO concentrate.
+o	This will allow us to state "The concentrate contains only X, Y, and Z, which are present in the original mains water, at 3x concentration."
+•	De-chlorination Proof: We must test the water after the de-chlorination system to prove to the EA that the Total Residual Oxidant (TRO) level is below the detection limit (or at a safe level, e.g., <0.01 mg/l).
+________________________________________
+3. Key Unknowns
+The success of the permit now rests on one critical unknown:
+•	The Stream's Dilution Capacity: This is the single biggest risk to the project. We know the discharge volume (e.g., 50,000 litres/day). But if the small stream's low-flow rate is, for example, only 100,000 litres/day, there is not enough water to dilute the concentrate safely, and the EA will almost certainly refuse the permit. If the stream's flow is 5,000,000 litres/day, we have a very strong case.
+
+________________________________________
+4. Next Steps Environmental Testing – Getting a Consultant
+1. Define the Service You Need
+When contacting potential consultants, be clear about the scope of work. We need more than just raw data; we need a full assessment and report suitable for submitting to the EA. Key services to ask for include:
+•	Hydrometric Survey / Flow Gauging: Specifically to determine the stream's low-flow statistics (Q95). Ask how they plan to establish this (e.g., site visits during dry periods, correlation with EA data).
+•	Water Quality Sampling & Analysis:
+o	Baseline: Upstream of your proposed discharge point.
+o	Effluent: Analysis of your RO concentrate after de-chlorination.
+•	Discharge Impact Assessment / Mixing Zone Analysis: This is the core report. The consultant will use the flow and quality data to model how the discharge mixes in the stream and predict the concentration of key parameters (especially conductivity/TDS and residual chlorine) downstream. They must assess this against relevant Environmental Quality Standards (EQS).
+•	H1 Environmental Risk Assessment: This is the EA's standard format for assessing risks, which the consultant should complete as part of the application support.
+•	Permit Application Support: Ideally, the consultant should compile the technical parts of the permit application for you, using the data gathered.
+________________________________________
+2. 🔍 Where to Find Consultants
+•	Professional Body Directories: These are the best starting points. Look for consultancies listed under water quality, hydrology, or environmental permitting:
+o	CIWEM (Chartered Institution of Water and Environmental Management): They have a Business Partners Directory and potentially lists of chartered members. This is highly relevant for water-related issues.
+o	CIEEM (Chartered Institute of Ecology and Environmental Management): They have a Registered Practices Directory, useful if ecological impacts are a primary concern (which they are here).
+o	IEMA (Institute of Environmental Management and Assessment): Some larger consultancies are members and might be listed.
+o	Society for the Environment (SocEnv): Their directory lists individual Chartered Environmentalists (CEnv), often searchable by employer.
+•	General Online Search: Use terms like:
+o	"Environmental consultant Yorkshire"
+o	"Hydrology consultant UK"
+o	"Water quality survey York"
+o	"Discharge permit consultant"
+o	"SSSI impact assessment consultant"
+•	Recommendations: Ask other local businesses (especially industrial ones) if they have used consultants for environmental permits.
+________________________________________
+3. ✅ How to Choose the Right Consultant
+Once you have a shortlist, vet them carefully:
+•	Relevant Experience (Crucial): Ask for specific examples (case studies) of projects where they have successfully obtained discharge permits from the EA, especially for discharges into sensitive environments like SSSIs or SACs.
+•	Accreditation:
+o	Ensure the laboratory they use for water quality analysis is UKAS accredited for the specific parameters being tested (e.g., conductivity, chlorine).
+o	Check if the consultancy itself is registered with CIWEM or CIEEM, or employs Chartered members (MCIWEM, CEnv, CEcol).
+•	Scope of Service: Confirm they will produce the full impact assessment report and help prepare the permit application, not just provide raw data.
+•	Local Knowledge (Advantageous): A firm familiar with the River Derwent catchment and the local EA office may navigate the process more smoothly.
+•	Cost vs. Value: Get quotes from 2-3 firms. Don't just pick the cheapest; consider their experience and the thoroughness of their proposed methodology. A weak assessment report will likely lead to permit refusal.
+________________________________________
+4. 📋 Briefing the Consultant for a Quote
+To get an accurate quote, provide potential consultants with the following:
+•	Project Description: Discharge of RO concentrate (no added chemicals) from treating mains water.
+•	Location: The exact grid reference (SE 78168 47996) and mention it's a small stream in the River Derwent SSSI/SAC catchment.
+•	Discharge Details: The range of daily volumes (2,000 to 50,000 litres/day) and the intermittent nature (operating hours, approx. 4 days/week).
+•	Your Aim: To obtain a Bespoke Environmental Permit for the discharge.
+•	Required Services: List the key services from step 1 (flow gauging, water quality, impact assessment, permit support).
+This level of detail will help them understand the complexity (especially due to the SSSI/SAC) and provide a realistic quote and timeline.
+
+Consultant Fees
+Service Component	Purpose	Estimated Cost Range (Guidance Only)
+Project Management & Application Submission	Pre-application discussions with the Environment Agency (EA), gathering site data, completing the main EA application forms (A, B2, B3), and overall project coordination.	£3,000 – £8,000
+Desk Study & Baseline Data Gathering	Reviewing River Derwent catchment data, flow rates, water quality objectives, and the specific SSSI/SAC requirements. This informs the model parameters.	£1,500 – £4,000
+Detailed Impact Assessment	The most crucial and costly component. This includes: 
+Mixing Zone Modelling: Using specialist software (e.g., MIKE or CORMIX) to model how your specific effluent plumes (e.g., conductivity, residual chlorine) will dilute in the river. 
+Habitat Regulations Assessment (HRA) Screening: A formal assessment to ensure the discharge will not have a "likely significant effect" on the River Derwent's SSSI/SAC features. 
+Final Technical Report: Compiling all data and modelling results into the formal report required by the EA to justify your proposed discharge limits.	£6,000 – £18,000+
+Total Estimated Consultant Fee	(Sum of above ranges)	£10,500 – £30,000+
+
+Key Factors Driving the Cost
+1.	Water Body Status: Discharging to the River Derwent (an SSSI/SAC), the EA requires a much higher level of detail and scrutiny. This necessitates advanced modelling and the HRA/Ecological Impact Assessment, which significantly increases consultant time and complexity compared to a discharge into a non-sensitive watercourse.
+2.	Effluent Characteristics: If your effluent contains substances of specific concern (like high levels of residual chlorine or suspended solids), the consultant will need to run more complex models for each pollutant, driving up the modelling cost.
+3.	Discharge Volume: A larger volume means a larger potential impact, requiring more robust and conservative modelling assumptions.
+You should always obtain quotes from several specialist environmental consultancies before proceeding.
+________________________________________
+4. Filter Cost
+Flow Rate Scenario	Required Flow Rate (m³/hour)	Estimated Cost Range (Equipment Only)	Notes
+8 hours/day operation	6.25 m³/hr	£4,000 – £8,000	This is typically achieved with a single large vessel or a dual-vessel system. The largest commercial units found online typically handle flow rates up to around 12 m³/hr.
+24 hours/day operation	2.08 m³/hr	£2,000 – £5,000	This lower hourly flow rate can be managed by smaller, standard industrial carbon filter vessels.
+High Peak Flow	10 m³/hr to 20 m³/hr	£8,000 – £12,000+	If the system needs to handle the entire daily volume in a short burst, a custom-designed array of multiple large vessels or a bespoke system will be required.
+
+
+6. Total Costs
+Permit Cost (One off) £14,700
+Consultancy Cost (one off) £21,500
+Filtration £8,000
+Total £44,200
+
+Subsistence Fee (Annually) P121 / P122 of EA Permit Fees 
+20m3 – 100m3 per day £4,184 / £3,774 (no OSM / with OSM)
+5m3 – 20m3 per day £2,212 / £2,120 (no OSM / with OSM)
+Ongoing annual charges £4,184 - £2,212 plus monitoring.
+OSM – Operator Self Monitoring 
