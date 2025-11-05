@@ -1,6 +1,8 @@
 # Project Status
 
-**Last Updated**: 2025-11-05
+**Last Updated**: 2025-11-05 13:35
+
+**GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
 The terminai repository contains three specialized project folders for domain-specific knowledge management: HSEEA (health/safety/environment), IT (infrastructure/security), and REACH (chemical compliance). New REACH project created for UK chemical import compliance research with critical non-compliance situation identified requiring immediate action.
