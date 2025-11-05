@@ -7,8 +7,8 @@
 
 ## THE CRITICAL MISUNDERSTANDING
 
-### You Said:
-> "I assumed that the registration of the substance was already done if it appears in the REACH register, and Urea does appear in the register."
+### Question:
+> "If a substance appears in the REACH register, and Urea does appear in the register does it need to be re-registered again by every entity that wants to import it into the UK?"
 
 ### The Problem:
 **There are now TWO separate REACH registers:**

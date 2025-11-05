@@ -1,0 +1,10 @@
+https://www.hse.gov.uk/reach/new-registration.htm
+https://www.netregs.org.uk/environmental-topics/materials-fuels-and-equipment/registration-evaluation-authorisation-and-restriction-of-chemicals-reach/reach-legislation/
+https://www.netregs.org.uk/environmental-topics/materials-fuels-and-equipment/registration-evaluation-authorisation-and-restriction-of-chemicals-reach/manufacturers-and-importers-of-chemicals-reach-responsibilities/
+https://ecomundo.eu/en/blog/navigating-uk-reach-registration-guide-post-brexit
+https://www.cirs-group.com/en/chemicals/uk-reach-registration
+https://rpaltd.co.uk/services/uk-reach-registration/
+https://www.hse.gov.uk/reach/reach-registration.htm
+https://www.hse.gov.uk/reach/authorisation.htm
+https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations
+https://www.hse.gov.uk/reach/about.htm

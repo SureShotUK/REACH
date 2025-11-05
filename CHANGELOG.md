@@ -8,7 +8,49 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased] - 2025-11-05
 
-### Added
+### Added - DUIN Eligibility Discovery (Session 16:30)
+- **CRITICAL DISCOVERY**: User eligible for late DUIN submission (first import March 31, 2019 from EU supplier)
+  - Changes compliance status from "criminal offense" to "deferred deadline until October 27, 2028"
+  - Transforms timeline from immediate action to 3-year registration preparation (2026-2028)
+- **DUIN Application Folder** (`/REACH/DUIN_Application/`) - Complete submission package:
+  - `README.md` - Quick start guide, FAQ, immediate action plan (4,500 words)
+  - `HSE_Inquiry_Email_Draft.md` - Ready-to-send email template for ukreach@hse.gov.uk
+  - `DUIN_Submission_Checklist.md` - 6-phase comprehensive checklist (preparation to acceptance)
+  - `Historical_Evidence_Documentation.md` - Evidence gathering template for 2019-2020 imports (8,000 words)
+  - `Post_DUIN_Registration_Pathway.md` - 3-year roadmap for full registration (9,500 words)
+  - `Cost_Estimate.md` - Detailed cost breakdown for straightforward consortium route (7,000 words)
+    - Base estimate: £35k-£38k total (consortium membership, consultant, HSE fees, internal time, legal)
+    - Conservative estimate: £23,619 (lower bound)
+    - Higher estimate: £57,994 (upper bound)
+    - Comparison: £35k consortium vs £140k-£324k individual (73-88% savings)
+    - Payment timeline: 2026 (£17k), 2027 (£10k), 2028 (£12k)
+- **Comprehensive Discussion Document** (`REACH_Discussion.md` - 16,000 words):
+  - Crown Court penalties (unlimited fines, up to 2 years imprisonment) with Regulation 17 REACH Enforcement Regulations 2008 references
+  - Detailed "downstream user" definition under EU REACH Article 3(13) with pre-Brexit status explanation
+  - How Brexit converted downstream users to importers (critical for understanding DUIN eligibility)
+  - Late DUIN eligibility criteria with statutory references (The REACH etc. (Amendment etc.) (EU Exit) Regulations 2020)
+  - Registration deadlines by tonnage: 100-1000 t/yr = Oct 27, 2028; 1000+ t/yr or CMR = Oct 27, 2026
+  - UK REACH vs EU REACH post-Brexit separation and lack of mutual recognition
+  - ECHA public database vs HSE (no public search - must contact HSE directly)
+  - Urea-specific information: CAS 57-13-6, EC 200-315-5, low hazard profile, common uses
+  - 8 strategies for finding UK REACH Urea consortiums (consultancies: RPA Ltd, Knoell, Ecomundo; trade associations: AIC, CIA, BPF)
+- **Research URLs** (`REACH/ResearchURLs.md`) - Curated list of UK REACH official sources
+
+### Changed
+- `REACH/UK_vs_EU_REACH_Critical_Distinction.md` - Added comprehensive "What Was a Downstream User Under EU REACH?" section
+  - Pre-Brexit status explanation (intra-EU trade = downstream user)
+  - Post-Brexit status change (EU to GB = import, triggers registration)
+  - Comparison table showing status change overnight
+  - Why DUIN mechanism was created (Brexit transition support for thousands of converted importers)
+
+### Documentation
+- Enhanced downstream user definition throughout REACH documentation
+- Added detailed explanation of Article 127E UK REACH (DUIN mechanism)
+- Clarified customs supervision exemption (temporary storage/re-export only, not free circulation)
+- Defined CMR substances (Carcinogenic, Mutagenic, Reprotoxic) with priority deadlines
+- Documented late DUIN submission process (original deadline Oct 27, 2021, still accepting late submissions)
+
+### Added - Earlier Session (13:35)
 - **GitHub Repository**: Pushed REACH project to https://github.com/SureShotUK/REACH.git
   - Configured git remote origin
   - Pushed all REACH documentation (8 files, 50,000 words)

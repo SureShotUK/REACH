@@ -1,19 +1,25 @@
 # Project Status
 
-**Last Updated**: 2025-11-05 13:35
+**Last Updated**: 2025-11-05 16:30
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
-The terminai repository contains three specialized project folders for domain-specific knowledge management: HSEEA (health/safety/environment), IT (infrastructure/security), and REACH (chemical compliance). New REACH project created for UK chemical import compliance research with critical non-compliance situation identified requiring immediate action.
+The terminai repository contains three specialized project folders for domain-specific knowledge management: HSEEA (health/safety/environment), IT (infrastructure/security), and REACH (chemical compliance). REACH project expanded with critical DUIN eligibility discovery - user qualifies for late DUIN submission changing compliance situation from criminal offense to manageable 3-year registration pathway.
 
 ## Active Work Areas
-- **REACH Project - UK Chemical Compliance**: 🆕 NEW PROJECT - URGENT
+- **REACH Project - UK Chemical Compliance**: 🎯 DUIN ELIGIBILITY DISCOVERED
   - `/REACH/` - UK REACH compliance research for Urea imports (>100 tonnes/year)
-  - **Critical finding**: Currently non-compliant, importing illegally, criminal offense
-  - **Immediate action required**: STOP importing, engage legal counsel, contact HSE
-  - **Compliance strategy**: Switch to GB supplier (Option A - recommended)
-  - **Documents created**: 8 comprehensive documents (50,000 words, 130 pages)
+  - **CRITICAL DISCOVERY**: User eligible for late DUIN (first import: March 31, 2019 from EU)
+  - **Status changed**: From "criminal offense" to "deferred deadline until October 27, 2028"
+  - **New timeline**: 3-year registration pathway (2026-2028) vs. immediate action required
+  - **DUIN Application folder created**: 6 comprehensive documents for immediate submission
+    - HSE inquiry email draft (ready to send)
+    - DUIN submission checklist (6-phase process)
+    - Historical evidence documentation template
+    - 3-year post-DUIN registration pathway
+    - Cost estimate (£35k-£38k straightforward consortium route)
+  - **Documents total**: 15 comprehensive documents (100,000+ words, 250+ pages)
     - Research: `uk_reach_overview.md` (8,000 words)
     - Reports: `compliance_assessment_urgent.md` (12,000 words)
     - Costs: `cost_estimates.md` (6,000 words)
@@ -62,27 +68,32 @@ The terminai repository contains three specialized project folders for domain-sp
 - **HSEEA Research Agent** (2025-10-31): Created gemini-hseea-researcher agent for UK HSE/EA research
 
 ## Blocked/Pending
-- **REACH Compliance - URGENT**: User must STOP importing Urea immediately (currently illegal)
 - **VPN Testing**: User needs to complete Windows 11 client configuration and test connection
 - **Firewall Configuration**: May need manual firewall rules on Draytek (unclear if auto-configured in firmware 4.5.1)
 
 ## Next Priorities
 
 ### REACH Project (CRITICAL - This Week)
-1. **STOP importing Urea immediately** - eliminate ongoing criminal liability
-2. Read compliance assessment report (`/REACH/reports/compliance_assessment_urgent.md`)
-3. Engage legal counsel specializing in chemicals/REACH (budget £2k-£5k)
-4. Engage REACH regulatory consultant (budget £1k-£3k)
-5. Brief senior management on non-compliance and legal risks
-6. Begin researching GB-based Urea suppliers with UK REACH registrations
-7. Draft HSE disclosure email (after legal counsel review)
-8. Contact HSE to voluntarily disclose situation
+1. **Complete and send HSE inquiry email** to ukreach@hse.gov.uk (template ready in DUIN_Application folder)
+2. **Begin gathering 2019-2020 import evidence** (March 31, 2019 invoice, shipping docs, SDS)
+3. **Complete Historical_Evidence_Documentation.md** template sections
+4. Brief senior management on DUIN eligibility discovery (changes situation from criminal offense to Oct 2028 deadline)
+5. Brief finance department on £40k budget requirement spread over 2026-2028
 
-### REACH Project (Weeks 2-8)
-9. Verify GB supplier UK REACH registrations (use templates)
-10. Select GB supplier(s) and negotiate supply agreements
-11. Resume legal imports as downstream user
-12. Implement ongoing compliance procedures
+### REACH Project (Weeks 2-4)
+6. Receive HSE response on late DUIN process
+7. Complete evidence package (invoices, shipping documents, supplier info from 2019-2020)
+8. Submit late DUIN via UK REACH IT system following HSE guidance
+9. Obtain DUIN acceptance confirmation from HSE
+10. Update compliance status documentation
+
+### REACH Project (2026-2028)
+11. Research UK REACH Urea consortiums (RPA Ltd, Knoell, Ecomundo - see Cost_Estimate.md)
+12. Contact industry associations (AIC, CIA, BPF) for consortium information
+13. Engage REACH consultant and join consortium
+14. Complete IUCLID registration dossier, CSA, and CSR
+15. **Submit full UK REACH registration by September 1, 2028** (internal deadline with 8-week buffer)
+16. **LEGAL DEADLINE: October 27, 2028**
 
 ### IT Project
 13. Distribute `Mobile_Laptop_WIFI_Summary.md` to staff as quick reference
