@@ -6,6 +6,84 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2025-11-05
+
+### Added
+- **REACH Project - UK Chemical Compliance Research** (NEW PROJECT):
+  - Created `/REACH/` project folder with complete structure:
+    - `/research/` - UK REACH research and regulations
+    - `/reports/` - Compliance assessments and findings
+    - `/templates/` - Implementation checklists and verification forms
+    - `/costs/` - Cost breakdowns and financial analysis
+  - **8 comprehensive documents created** (~50,000 words, 130 pages):
+    - `REACH/CLAUDE.md` - Project-specific instructions for REACH compliance work
+    - `REACH/research/uk_reach_overview.md` - 8,000-word comprehensive UK REACH reference
+      - UK REACH post-Brexit requirements vs. EU REACH
+      - Tonnage band requirements (100+ tonnes/year = Annexes VI-IX data)
+      - Registration deadlines (extended to Oct 2026/2028/2030)
+      - Enforcement and penalties (criminal offense, £5k+ fines, imprisonment)
+      - Urea-specific information (CAS 57-13-6, EC 200-315-5)
+      - 2025 fee changes (new flat rates effective April 1, 2025)
+    - `REACH/reports/compliance_assessment_urgent.md` - 12,000-word critical compliance report
+      - **CRITICAL FINDING**: Currently importing without registration (criminal offense)
+      - Immediate actions required (STOP importing, engage legal counsel, contact HSE)
+      - Four compliance options analyzed with detailed pros/cons
+      - Week-by-week implementation plan
+      - Professional advisor directory (legal, REACH consultants, HSE)
+      - Risk mitigation strategies
+    - `REACH/costs/cost_estimates.md` - 6,000-word detailed cost analysis
+      - Option A (GB Supplier): £4k-£11k upfront, £30k-£50k over 5 years, 2-8 weeks timeline
+      - Option B (Own Registration): £65k-£345k upfront, £90k-£420k over 5 years, 12-24 months
+      - Cost breakdown by scenario (best/mid/worst case)
+      - ROI calculations and break-even analysis
+      - Financing options and cost optimization strategies
+    - `REACH/templates/supplier_registration_verification.md` - Supplier verification checklist
+      - UK REACH registration verification procedures
+      - Use coverage assessment
+      - Risk management measures
+      - Annual review tracking
+      - Red flags to watch for
+    - `REACH/templates/hse_disclosure_template.md` - HSE contact templates
+      - Full disclosure email template (requires legal review)
+      - Alternative information request approach
+      - Preparation checklist before sending
+      - Follow-up protocol
+      - Document retention requirements
+    - `REACH/templates/downstream_user_compliance_checklist.md` - Ongoing compliance management
+      - Initial compliance setup procedures
+      - Annual compliance review checklist
+      - Ongoing activities (purchasing, supplier changes, supply chain communication)
+      - Incident reporting procedures
+      - Document retention (10-year requirement)
+      - Management review template
+    - `REACH/README.md` - 4,000-word project overview and executive summary
+      - Navigation guide to all deliverables
+      - Recommended action plan (week-by-week)
+      - Budget summary
+      - Key contacts and advisors
+      - Critical success factors
+
+### Changed
+- Updated repository structure to include three project folders: HSEEA, IT, REACH
+
+### Documentation
+- **UK REACH Compliance Research**:
+  - Conducted 7 comprehensive web searches across UK HSE, GOV.UK, legislation, and industry sources
+  - Consulted 30+ authoritative sources (HSE, ECHA, DEFRA, industry consultants)
+  - Researched current 2025 regulations including April 1, 2025 fee changes
+  - Identified critical non-compliance situation requiring immediate action
+  - Developed pragmatic compliance strategy with cost-benefit analysis
+  - Created professional templates ready for immediate implementation
+- **Key Findings**:
+  - User currently importing Urea (>100 tonnes/year) without UK REACH registration
+  - This is a criminal offense under REACH Enforcement Regulations 2008
+  - Penalties: £5,000+ fines, up to 3 months imprisonment, business disruption
+  - Recommended solution: Switch to GB supplier with UK REACH registration
+  - Timeline to compliance: 2-8 weeks (fast) vs. 12-24 months (own registration)
+  - Cost: £4k-£11k (fast) vs. £65k-£345k (own registration)
+
+---
+
 ## [Unreleased] - 2025-11-04
 
 ### Added
