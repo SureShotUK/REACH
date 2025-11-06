@@ -1,31 +1,39 @@
 # Project Status
 
-**Last Updated**: 2025-11-05 16:30
+**Last Updated**: 2025-11-06 09:00
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
-The terminai repository contains three specialized project folders for domain-specific knowledge management: HSEEA (health/safety/environment), IT (infrastructure/security), and REACH (chemical compliance). REACH project expanded with critical DUIN eligibility discovery - user qualifies for late DUIN submission changing compliance situation from criminal offense to manageable 3-year registration pathway.
+The terminai repository contains three specialized project folders for domain-specific knowledge management: HSEEA (health/safety/environment), IT (infrastructure/security), and REACH (chemical compliance). REACH project refined with >1000 t/year tonnage band cost updates and SME status advantages. Two new comprehensive documents created: FARM REACH LoA explanation (£40k budget recommendation) and Only Representative clarification (EU vs non-EU supplier treatment identical under UK REACH).
 
 ## Active Work Areas
-- **REACH Project - UK Chemical Compliance**: 🎯 DUIN ELIGIBILITY DISCOVERED
-  - `/REACH/` - UK REACH compliance research for Urea imports (>100 tonnes/year)
+- **REACH Project - UK Chemical Compliance**: 🎯 COST ESTIMATES REFINED FOR >1000 T/YEAR + SME
+  - `/REACH/` - UK REACH compliance research for Urea imports (>1000 tonnes/year, SME business)
   - **CRITICAL DISCOVERY**: User eligible for late DUIN (first import: March 31, 2019 from EU)
-  - **Status changed**: From "criminal offense" to "deferred deadline until October 27, 2028"
-  - **New timeline**: 3-year registration pathway (2026-2028) vs. immediate action required
-  - **DUIN Application folder created**: 6 comprehensive documents for immediate submission
+  - **Status**: Deferred deadline until October 27, 2028 (3-year registration pathway)
+  - **Tonnage band confirmed**: >1000 t/year (requires Annex X data, 60-70% higher costs)
+  - **SME status**: Provides £1,482-£2,165 HSE fee savings vs. large enterprise
+  - **DUIN Application folder**: 6 comprehensive documents for immediate submission
     - HSE inquiry email draft (ready to send)
     - DUIN submission checklist (6-phase process)
     - Historical evidence documentation template
     - 3-year post-DUIN registration pathway
-    - Cost estimate (£35k-£38k straightforward consortium route)
-  - **Documents total**: 15 comprehensive documents (100,000+ words, 250+ pages)
+    - **Cost estimate updated**: £35k-£45k (most realistic), £50k recommended budget
+  - **New documents added** (Session 2025-11-06):
+    - `FARM_LoA.md` - Letter of Access explanation (€3,322 pricing, £40k total budget)
+    - `Only_Representative_Explained.md` - OR clarification (EU vs non-EU identical treatment)
+  - **Documents total**: 18 comprehensive documents (135,000+ words, 350+ pages)
     - Research: `uk_reach_overview.md` (8,000 words)
     - Reports: `compliance_assessment_urgent.md` (12,000 words)
-    - Costs: `cost_estimates.md` (6,000 words)
+    - Costs: `cost_estimates.md` (15,000 words - updated for >1000 t/year)
+    - Explanatory: `FARM_LoA.md` (11,000 words), `Only_Representative_Explained.md` (10,000 words)
     - Templates: 3 implementation checklists
-  - **Timeline to compliance**: 2-8 weeks (Option A) vs. 12-24 months (Option B)
-  - **Cost**: £4k-£11k (Option A) vs. £65k-£345k (Option B)
+    - Discussion: `REACH_Discussion.md` (16,000 words)
+  - **Updated cost estimates**:
+    - LoA route: £30k-£40k (recommended for SME with straightforward substance)
+    - Full consortium: £45k-£56k
+    - Total program with DUIN: £39k-£63k (2025-2028)
 - **IT Project - Cross-Platform Security Documentation**: ✨ EXPANDED
   - `WIFI_Best_Practices_for_Laptops_and_Mobiles.md` - 26,000-word comprehensive cross-platform guide
   - `Mobile_Laptop_WIFI_Summary.md` - Ultra-concise single-page summary

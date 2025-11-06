@@ -6,6 +6,75 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2025-11-06
+
+### Added - >1000 t/year Cost Updates & LoA/OR Explanations (Session 09:00)
+- **FARM_LoA.md** - Comprehensive Letter of Access explanation (11,000 words):
+  - What FARM REACH consortium is and how LoA licensing works
+  - Confirmed pricing: €3,322 (~£2,850) for Urea >1000 t/year LoA
+  - Complete cost comparison: LoA route (£24k-£40k) vs full consortium (£34k-£62k)
+  - Savings analysis: £10,000-£22,000 via LoA route for straightforward substances
+  - 6-step process: contact, review, sign, engage consultant, complete registration
+  - 25+ specific questions to ask FARM REACH during Q1 2026 inquiry
+  - Risk assessment: all low/very low for well-studied substance like Urea
+  - When full consortium might be better: complex uses, multiple substances, large company
+  - Complete action plan timeline Q4 2025 through Q3 2028
+  - FAQ addressing 10 common concerns (one-time payment, sharing LoA, data ownership)
+  - Budget recommendation revised: £40,000 (LoA route with contingency)
+- **Only_Representative_Explained.md** - OR mechanism clarification (10,000 words):
+  - Comprehensive OR definition: GB-based entity representing non-GB manufacturer
+  - Who appoints OR: manufacturer only (NOT importer)
+  - GB-based entity legal requirements
+  - **CRITICAL FINDING: NO DIFFERENCE between EU and non-EU suppliers under UK REACH**
+    - Both are "non-GB" from UK perspective
+    - Identical treatment, process, requirements
+    - Post-Brexit: EU suppliers went from "same regulatory area" to "non-GB manufacturers"
+  - Brexit impact analysis: downstream users became importers overnight (why DUIN exists)
+  - Cost comparison: Supplier appointing OR (£48k-£110k) vs self-registration (£37k-£54k)
+  - When OR is better: supplier has many GB customers, low volume, limited budget
+  - When self-registration is better: high volume (>1000 t/year), control, flexibility, business-critical
+  - Email template for asking supplier about OR appointment (ready to send)
+  - Analysis: user's supplier likely doesn't have OR (DUIN eligibility proves it)
+  - Verification methods: SDS Section 1, HSE inquiry, supplier documentation
+  - Scenario analysis: what if supplier appoints OR after you register (maintain or withdraw)
+  - Recommendation: Self-registration for >1000 t/year, business-critical imports
+
+### Changed
+- **DUIN_Application/Cost_Estimate.md** - Complete rewrite for >1000 t/year tonnage band with SME status:
+  - Updated tonnage band: 100-1000 t/year → **>1000 t/year** throughout
+  - Added Annex X data requirements explanation (long-term toxicity, reproductive, ecotoxicology)
+  - Added SME fee structure: Micro (£57), Small (£399), Medium (£740), Large (£2,222)
+  - SME savings: £1,482-£2,165 vs large enterprise
+  - Confirmed HSE flat-fee structure (no tonnage-based increase as of April 2025)
+  - Previous >1000 t/year fee: £29,419 → New fee: £57-£2,222 (massive savings under 2025 structure)
+  - FARM REACH LoA pricing confirmed: €3,322 for >1000 t/year
+  - Consortium cost range: £15,000-£30,000 (vs £8,000-£18,000 for 100-1000 t/year)
+  - Consultant costs: £12,750-£26,000 (70% increase due to Annex X complexity)
+  - Three detailed costing scenarios:
+    - Scenario 1 (LoA route, minimum): £33,824
+    - Scenario 2 (full consortium, recommended): £55,952
+    - Scenario 3 (conservative budget): £48,481
+  - Comparison table: 100-1000 t/year vs >1000 t/year (60-70% cost increase)
+  - Why costs increase: Annex X data package, enhanced CSR, additional consultant workload
+  - Cost-saving strategies for SMEs (8 strategies, £12k-£30k potential savings)
+  - Budget approval template with business case for board presentation
+  - DUIN submission costs: £1,000-£2,000 (free HSE submission, minimal associated costs)
+  - Total program budget: £39,000-£63,000 (2025-2028 including DUIN)
+  - Recommended board approval: £50,000 (LoA route) or £65,000 (full consortium with buffer)
+  - Document expanded: 610 lines → 927 lines (~15,000 words)
+
+### Documentation
+- Clarified Annex X requirements for >1000 t/year band (additional testing beyond Annexes VI-IX)
+- Explained why Urea costs lower despite Annex X (well-studied substance, data exists)
+- Detailed SME classification system (employee count, turnover, balance sheet thresholds)
+- Documented FARM REACH consortium as confirmed LoA source for Urea
+- Explained Letter of Access vs full consortium membership trade-offs
+- Clarified Only Representative mechanism and manufacturer vs importer roles
+- **Critical clarification: EU and non-EU suppliers treated identically under UK REACH (both "non-GB")**
+- Explained Brexit impact: intra-EU trade (downstream user) → cross-border (importer)
+- Provided email templates for supplier OR inquiry
+- Added verification methods for checking supplier OR status
+
 ## [Unreleased] - 2025-11-05
 
 ### Added - DUIN Eligibility Discovery (Session 16:30)
