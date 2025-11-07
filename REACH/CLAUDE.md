@@ -6,9 +6,9 @@ This project contains research and compliance guidance for UK REACH (Registratio
 
 **Business Context:**
 - Substance: Urea (CAS 57-13-6)
-- Import volume: >100 tonnes per year
-- Current status: Currently importing
-- Primary goal: Compliance assessment
+- Import volume: 1000+ tonnes per year (HIGH VOLUME - DEADLINE: 27th October 2026)
+- Current status: Currently importing (MUST ACHIEVE COMPLIANCE BEFORE DEADLINE)
+- Primary goal: Urgent compliance resolution (11 months remaining)
 
 ## Project Objectives
 
@@ -24,7 +24,7 @@ This project contains research and compliance guidance for UK REACH (Registratio
 
 ## Research Priorities
 
-1. UK REACH registration requirements for substances >100 tonnes/year
+1. UK REACH registration requirements for substances 1000+ tonnes/year (URGENT - deadline: 27th October 2026)
 2. Transitional arrangements from EU REACH to UK REACH
 3. Specific requirements for Urea (existing registrations, data requirements)
 4. Importer obligations vs. manufacturer obligations

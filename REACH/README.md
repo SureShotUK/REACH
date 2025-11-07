@@ -2,8 +2,9 @@
 
 **Project Created:** November 5, 2025
 **Substance:** Urea (CAS 57-13-6)
-**Import Volume:** >100 tonnes per year
-**Compliance Status:** NON-COMPLIANT (Urgent action required)
+**Import Volume:** 1000+ tonnes per year
+**Compliance Deadline:** 27th October 2026
+**Time Remaining:** 11 months to achieve compliance
 
 ---
 
@@ -15,16 +16,16 @@ This project contains comprehensive research, compliance assessment, cost analys
 
 ## CRITICAL FINDING
 
-**Your business is currently non-compliant with UK REACH regulations.**
+**Your business must achieve UK REACH compliance by 27th October 2026.**
 
-You are importing Urea (>100 tonnes/year) without:
+You are importing Urea (1000+ tonnes/year) without:
 - UK REACH registration
 - Grandfathered EU REACH registration
 - DUIN (Downstream User Import Notification)
 
-**This is a criminal offense under UK law with penalties including fines up to £5,000+ and potential imprisonment.**
+**After the deadline, continued imports without registration will be a criminal offense under UK law with penalties including fines and potential imprisonment.**
 
-**IMMEDIATE ACTION REQUIRED:** STOP importing and read the compliance assessment report.
+**URGENT ACTION REQUIRED:** Begin compliance process immediately - registration typically takes 12-24 months.
 
 ---
 
@@ -37,12 +38,12 @@ You are importing Urea (>100 tonnes/year) without:
 #### uk_reach_overview.md
 Comprehensive overview of UK REACH requirements including:
 - Legal obligations for importers
-- Tonnage band requirements for >100 tonnes/year
+- Tonnage band requirements for 1000+ tonnes/year
 - Transition arrangements and grandfathering
-- Registration deadlines (October 27, 2028)
+- Registration deadlines (27th October 2026 for 1000+ tonnes/year)
 - Enforcement and penalties
 - Urea-specific information
-- Data requirements (Annexes VI-IX)
+- Data requirements (full Annex package)
 
 **Key takeaway:** You must either have a UK REACH registration or purchase from a GB supplier who has one.
 

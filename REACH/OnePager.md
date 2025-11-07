@@ -16,11 +16,15 @@ Your registration obligation depends on **WHERE** you import from, not whether t
 
 ### The Law: Article 5 - "No Data, No Market"
 
-> **The REACH etc. (Amendment etc.) (EU Exit) Regulations 2020 (SI 2020/1577), Article 5:**
->
-> "A person must not manufacture a substance in Great Britain or place a substance on the market in Great Britain unless that substance has been registered in accordance with Title II [Registration]."
+**Article 5 of Regulation (EC) No 1907/2006 (UK REACH):**
 
-**"Placing on the market"** is defined in **Article 2(8)** as:
+> "Substances on their own, in mixtures or in articles shall not be manufactured in Great Britain or placed on the market unless they have been registered"
+
+**Source:** https://www.legislation.gov.uk/eur/2006/1907/article/5
+
+This provision was amended for UK law by SI 2019/758 and SI 2020/1577, substituting "Great Britain" for "the Community".
+
+**"Placing on the market"** is defined in **Article 3(12)** as:
 > "Supplying or making available, whether in return for payment or free of charge, to a third party. **Import shall be deemed to be placing on the market**."
 
 ### What This Means For You
@@ -51,10 +55,15 @@ Your registration obligation depends on **WHERE** you import from, not whether t
 
 ### The Legislation
 
-**Regulation 8 of The REACH Enforcement Regulations 2008 (SI 2008/2852):**
-> "A person is guilty of an offence if the person contravenes or fails to comply with Article 5 [no data, no market principle]."
+**Regulation 11 of The REACH Enforcement Regulations 2008 (SI 2008/2852):**
 
-**Penalties:** Magistrates Court: £5,000 fine + 3 months imprisonment; Crown Court: unlimited fine + longer imprisonment
+Establishes that it is an offence for a person to contravene a listed REACH provision (Article 5 is listed in Schedule 1).
+
+**Regulation 12 - Penalties:**
+- **Summary conviction (Magistrates Court):** Fine not exceeding the statutory maximum or imprisonment not exceeding 3 months, or both
+- **Conviction on indictment (Crown Court):** Fine or imprisonment not exceeding 2 years, or both
+
+**Source:** https://www.legislation.gov.uk/uksi/2008/2852/regulation/11
 
 ---
 
@@ -140,9 +149,9 @@ START: Do you use Urea in GB?
 
 Someone else's UK REACH registration for Urea does NOT allow you to import. Here's why:
 
-**Article 5 states:** "A **person** must not place a substance on the market **unless that substance has been registered**."
+**Article 5 states:** "**Substances** on their own, in mixtures or in articles shall not be manufactured in Great Britain or placed on the market **unless they have been registered**."
 
-The key word is **"person"** - each legal entity must have a registration or use an Only Representative.
+Each legal entity that places a substance on the market (including importers) must have a registration or use an Only Representative.
 
 **Think of it like a driving license:**
 - Just because someone else has a license to drive doesn't mean YOU can drive
@@ -159,9 +168,9 @@ Similarly:
 **Article 5 does NOT apply to downstream users.**
 
 If you buy Urea from a GB-based supplier who holds UK REACH registration:
-- You are NOT "placing on the market" (Article 2(8) - "import shall be deemed to be placing on the market")
+- You are NOT "placing on the market" (Article 3(12) - "import shall be deemed to be placing on the market")
 - You are NOT required to register (Article 3(13) - you are a downstream user)
-- The GB supplier is the "person placing on the market" and THEY hold the registration
+- The GB supplier is the entity placing on the market and THEY hold the registration
 
 **This is why the compliance assessment recommended switching to GB supplier:**
 - ✓ Fast (2-8 weeks)
@@ -174,18 +183,18 @@ If you buy Urea from a GB-based supplier who holds UK REACH registration:
 ## SPECIFIC LEGISLATIVE REFERENCES
 
 ### Primary Legislation
-**The REACH etc. (Amendment etc.) (EU Exit) Regulations 2020 (SI 2020/1577)**
+**Regulation (EC) No 1907/2006 (UK REACH) - as amended by SI 2019/758 and SI 2020/1577**
 - Establishes UK REACH post-Brexit
 - Article 5: No data, no market principle
-- Article 2(8): Definition of "placing on the market" (includes import)
+- Article 3(12): Definition of "placing on the market" (includes import)
 - Article 3(13): Definition of "downstream user"
 - Article 37-38: Downstream user obligations
 
 ### Enforcement Legislation
 **The REACH Enforcement Regulations 2008 (SI 2008/2852)** (as amended)
-- Regulation 8: Article 5 breach is a criminal offense
-- Regulation 17: Penalties (magistrates: £5,000 + 3 months; crown court: unlimited + longer)
-- Regulation 20: Personal liability for company directors/officers
+- Regulation 11: Establishes that contravening listed REACH provisions (including Article 5) is a criminal offense
+- Regulation 12: Penalties (summary conviction: statutory maximum fine + 3 months; indictment: fine + up to 2 years)
+- Schedule 1: Lists Article 5 as an enforceable provision
 
 ### Registration Deadlines
 **The REACH (Amendment) Regulations 2023 (SI 2023/958)**
@@ -219,7 +228,7 @@ If you buy Urea from a GB-based supplier who holds UK REACH registration:
 Just because "Urea is registered" by Company X does not mean YOU can import it. Each importer needs their own registration or to use an Only Representative.
 
 ### 2. "Import" = "Placing on the Market"
-If you bring Urea into GB from outside GB, YOU are "placing on the market" under Article 2(8), and Article 5 applies to YOU.
+If you bring Urea into GB from outside GB, YOU are "placing on the market" under Article 3(12), and Article 5 applies to YOU.
 
 ### 3. Downstream Users Are Exempt
 If you buy from a GB supplier (not import yourself), you are a downstream user under Article 3(13), and Article 5 does NOT require you to register.
@@ -291,14 +300,16 @@ All four must be YES to proceed.
 
 ---
 
-**This is UK law under The REACH etc. (Amendment etc.) (EU Exit) Regulations 2020, Article 5.**
+**This is UK law under Regulation (EC) No 1907/2006 (UK REACH), Article 5.**
 
-**Your current imports from outside GB without registration are a criminal offense under The REACH Enforcement Regulations 2008, Regulation 8.**
+**Your current imports from outside GB without registration are a criminal offense under The REACH Enforcement Regulations 2008, Regulation 11.**
 
 **IMMEDIATE ACTION: Stop importing and switch to GB supplier (see compliance_assessment_urgent.md).**
 
 ---
 
 **Document Created:** November 5, 2025
-**Legislative References:** SI 2020/1577, SI 2008/2852, SI 2023/958
+**Last Updated:** November 7, 2025
+**Legislative References:** Regulation (EC) No 1907/2006 (UK REACH), SI 2019/758, SI 2020/1577, SI 2008/2852, SI 2023/958
 **Official Guidance:** HSE UK REACH (hse.gov.uk/reach/)
+**Legislation Links:** https://www.legislation.gov.uk/eur/2006/1907 | https://www.legislation.gov.uk/uksi/2008/2852

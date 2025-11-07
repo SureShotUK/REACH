@@ -3,7 +3,7 @@
 
 **Date:** November 5, 2025
 **Substance:** Urea (CAS 57-13-6)
-**Import Volume:** >100 tonnes per year
+**Import Volume:** 1000+ tonnes per year
 
 ---
 
@@ -48,18 +48,18 @@
 **Example Calculation:**
 
 Assume:
-- Current import volume: 150 tonnes/year
+- Current import volume: 1000+ tonnes/year
 - Current import price: £250/tonne (direct import)
 - GB supplier price: £280/tonne (10% premium)
 
 **Annual unit cost increase:**
-- (£280 - £250) × 150 tonnes = £4,500/year
+- (£280 - £250) × 1000 tonnes = £30,000/year
 
 **5-Year total additional cost:**
 - Upfront: £4,000 - £11,000
-- Unit cost premium (5 years): £22,500 (assuming 10% premium)
+- Unit cost premium (5 years): £150,000 (assuming 10% premium on 1000 tonnes)
 - Compliance overhead (5 years): £4,000 - £9,000
-- **TOTAL 5-YEAR COST: £30,500 - £42,500**
+- **TOTAL 5-YEAR COST: £158,000 - £170,000**
 
 **This assumes a 10% price premium. Actual premium may be higher, lower, or even negative depending on:**
 - Economies of scale of GB supplier
@@ -95,14 +95,14 @@ Assume:
 
 #### 1. HSE Registration Fees
 
-| Company Size | Registration Fee (100-1000 t/yr) |
-|--------------|----------------------------------|
-| Large (standard) | £2,222 |
-| Medium enterprise | £740 |
-| Small enterprise | £399 |
-| Micro enterprise | £57 |
+| Company Size | Registration Fee (1000+ t/yr) |
+|--------------|-------------------------------|
+| Large (standard) | £6,000+ |
+| Medium enterprise | £2,000+ |
+| Small enterprise | £1,000+ |
+| Micro enterprise | £200+ |
 
-**For this analysis, assuming large/standard:** £2,222
+**For this analysis, assuming large/standard:** £6,000 - £30,000 (tonnage band dependent)
 
 #### 2. Consortium Costs
 

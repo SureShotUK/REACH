@@ -2,17 +2,17 @@
 ## Urea Imports - UK REACH Non-Compliance
 
 **Date:** November 5, 2025
-**Status:** CRITICAL - NON-COMPLIANT
+**Status:** URGENT - COMPLIANCE REQUIRED BY 27TH OCTOBER 2026
 **Substance:** Urea (CAS 57-13-6)
-**Import Volume:** >100 tonnes per year
+**Import Volume:** 1000+ tonnes per year
 
 ---
 
 ## EXECUTIVE SUMMARY
 
-**Your business is currently operating illegally.** You are importing Urea into Great Britain without the required UK REACH registration, which constitutes a criminal offense under UK law.
+**Your business must achieve UK REACH compliance before 27th October 2026.** You are importing Urea (1000+ tonnes/year) into Great Britain without the required UK REACH registration. After the deadline, continued imports will constitute a criminal offense under UK law.
 
-**Immediate Action Required:** STOP IMPORTING until compliance is established.
+**Immediate Action Required:** Begin compliance process now - registration typically takes 12-24 months.
 
 ---
 
@@ -26,13 +26,14 @@
 | Grandfathered EU REACH | ❌ NOT APPLICABLE | Did not hold/transfer EU registration |
 | DUIN Notification | ❌ NOT SUBMITTED | No deferred deadline benefit |
 | Legal Importer Status | ✓ YES | Importing directly from outside GB |
-| Import Volume | >100 tonnes/year | Requires Annex VI-IX data |
+| Import Volume | 1000+ tonnes/year | Requires full Annex data package |
+| Registration Deadline | 27th October 2026 | 11 months remaining |
 
 ### Legal Position
 
-**You are in breach of Article 5 of UK REACH** - the "no data, no market" principle. This prohibits the import of substances that have not been registered according to REACH requirements.
+**After 27th October 2026, you will be in breach of Article 5 of UK REACH** - the "no data, no market" principle. This prohibits the import of substances at 1000+ tonnes/year that have not been registered according to REACH requirements.
 
-**This is a criminal offense** under The REACH Enforcement Regulations 2008.
+**Importing after the deadline without registration is a criminal offense** under The REACH Enforcement Regulations 2008.
 
 ### Potential Consequences
 
@@ -60,13 +61,13 @@
 
 ---
 
-## IMMEDIATE ACTIONS (Within 1-7 Days)
+## IMMEDIATE ACTIONS (Within 1-30 Days)
 
-### Priority 1: STOP IMPORTING (TODAY)
-- Cease all imports of Urea immediately
-- Do not place any new import orders
-- Notify your supplier of the compliance issue
-- Inform customers of potential supply disruption
+### Priority 1: ASSESS COMPLIANCE PATH (THIS WEEK)
+- Review all three compliance options (GB supplier, own registration, supplier OR)
+- Calculate timeline requirements (12-24 months for registration)
+- Determine budget availability
+- Brief management on urgency and options
 
 ### Priority 2: Contact HSE (Within 2 Business Days)
 - **Email:** ukreach@hse.gov.uk

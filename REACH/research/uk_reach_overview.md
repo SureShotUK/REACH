@@ -27,8 +27,8 @@ UK REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) 
 UK REACH uses tonnage bands that determine data requirements and deadlines:
 - 1-10 tonnes/year
 - 10-100 tonnes/year
-- **100-1000 tonnes/year** ← Your category
-- 1000+ tonnes/year
+- 100-1000 tonnes/year
+- **1000+ tonnes/year** ← Our category
 
 ### Data Requirements for 100+ Tonnes/Year
 
@@ -56,7 +56,7 @@ Companies that held EU REACH registrations as GB-based legal entities before Bre
 GB-based companies that were downstream users under EU REACH (importing from EU suppliers with EU REACH registrations) could submit a DUIN to defer registration:
 - This converted their status from "downstream user" to "importer"
 - Allows deferred registration deadlines based on tonnage band
-- **If submitted, registration not required until October 27, 2028 for 100+ tonnes/year**
+- **If submitted, registration not required until October 27, 2026 for 1000+ tonnes/year**
 
 ---
 
@@ -68,17 +68,17 @@ Original deadlines were extended by 3 years in July 2023:
 
 | Tonnage Band | Original Deadline | Extended Deadline |
 |--------------|-------------------|-------------------|
-| 1000+ t/yr OR CMR/high hazard | Oct 27, 2023 | Oct 27, 2026 |
-| 100-1000 t/yr | Oct 27, 2025 | **Oct 27, 2028** |
+| 1000+ t/yr OR CMR/high hazard | Oct 27, 2023 | **Oct 27, 2026** |
+| 100-1000 t/yr | Oct 27, 2025 | Oct 27, 2028 |
 | 1-100 t/yr | Oct 27, 2027 | Oct 27, 2030 |
 
-**Your deadline: October 27, 2028** (if DUIN was submitted, or for new registrations)
+**Our deadline: October 27, 2026** (if DUIN was submitted, or for new registrations)
 
 ---
 
 ## Current Compliance Status - CRITICAL QUESTIONS
 
-Since you are currently importing >100 tonnes/year of Urea, you MUST be in one of these situations:
+Since you are currently importing >1000 tonnes/year of Urea, we MUST be in one of these situations:
 
 ### Option 1: Grandfathered Registration
 - You (or your supplier) held an EU REACH registration as a GB entity before Brexit
