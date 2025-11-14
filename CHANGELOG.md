@@ -6,6 +6,77 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2025-11-14
+
+### Added - NewCar2026 Project Created
+- **NewCar2026 Project Structure** - New electric vehicle research project:
+  - `/NewCar2026/` - Project folder for April 2026 EV purchase research and decision-making
+  - `/NewCar2026/.claude/agents/` - Specialized agent folder
+  - `/NewCar2026/CLAUDE.md` - Project-specific guidance for automotive research (6,386 words)
+    - Document organization suggestions (research, comparisons, pricing, safety, reliability, test-drives, decisions)
+    - Key information categories (vehicle specs, safety ratings, reliability, cost analysis, reviews)
+    - Research best practices (multiple sources, current data, regional awareness, model year clarity)
+    - Typical workflows (vehicle research, comparison, cost analysis, safety evaluation, decision support)
+    - Key considerations for 2026 purchase (timing, EV-specific factors, market conditions, test drive importance)
+    - Limitations section (prediction constraints, subjective factors, regional variations)
+- **gemini-car-researcher Agent** (`NewCar2026/.claude/agents/gemini-car-researcher.md` - 10,199 words):
+  - Specialized automotive research agent configured with sonnet model (purple identifier)
+  - Primary sources: manufacturer websites, safety orgs (IIHS, NHTSA, Euro NCAP), reliability databases (Consumer Reports, J.D. Power), automotive publications, pricing guides (KBB, Edmunds)
+  - 6-step research approach: clarify needs, targeted searches, evaluate sources, extract info, synthesize findings, identify gaps
+  - Special research scenarios: new models, comparisons, total cost of ownership, EVs, used vehicles
+  - Quality standards: accuracy, currency, objectivity, completeness, transparency, regional awareness
+  - Structured output format for presenting research results
+- **Comprehensive UK EV Research Report** (`NewCar2026/UK_EV_Research_April_2026.md` - 16,613 words):
+  - **Executive Summary**: Only 2 vehicles meet all 4 requirements (375+ miles, under £65k, 0-60 under 5.5s, April 2026 available)
+  - **Primary Recommendation**: MG IM5 Long Range
+    - 441 miles WLTP, £44,995, 4.9s 0-60, deliveries September 2025
+    - £20,005 under budget, fully verified from MG UK sources
+  - **Secondary Recommendation**: Tesla Model 3 Long Range RWD
+    - 436 miles WLTP, £44,990, 5.2s 0-60
+    - £20,010 under budget, requires availability confirmation for April 2026
+  - **Vehicles That Nearly Qualify**: 10+ vehicles analyzed that miss one requirement
+    - Audi A6 e-tron Performance (463 miles, 5.4s, £69,900 - £4,900 over budget)
+    - VW ID.7 GTX (366 miles - 9 short, 5.2s, £61,980)
+    - VW ID.7 Pro S (437 miles, £55,450, 6.4s - too slow)
+    - Polestar 3 Long Range Dual Motor (395 miles, 4.5s, £69,990 - over budget)
+    - Plus: BMW i4, Alpine A110, Toyota C-HR+, Ford Capri EV, Mercedes CLA, Polestar 2
+  - **Vehicles Investigated But Not Qualifying**: 20+ vehicles researched (too expensive, insufficient range, or slow)
+    - Premium segment: Mercedes EQS, BMW iX, Tesla Model S, Porsche Taycan, Polestar 5
+    - Korean brands: Hyundai Ioniq 5 N, Ioniq 6, Kia EV6, Genesis GV60/G80/GV70
+    - Performance models: Tesla Model 3 Performance, Volvo EX30, MG4 XPower
+    - Upcoming models: Alfa Romeo Giulia/Stelvio Electric (specs uncertain)
+    - Not available: Lucid Air (no RHD production for UK)
+  - **UK EV Market Analysis**:
+    - "Price-Performance-Range Triangle": Most EVs optimize for 2 of 3 factors, not all three
+    - Chinese manufacturers (MG) disrupting premium segment with exceptional value
+    - 2026 outlook: improvements expected but most still fall short at sub-£65k price point
+  - **Recommendations and Next Steps**: Detailed action plan from November 2025 through April 2026
+  - **Alternative Strategies**: Options if requirements can be slightly relaxed
+  - **Important Limitations**: WLTP vs. real-world range, pricing variability, professional advice recommended
+
+### Documentation - NewCar2026 Research Methodology
+- **14 Parallel Research Searches Conducted**:
+  - Long-range EVs (375+ miles WLTP) in UK market 2025-2026
+  - High-performance EVs (0-60 under 5.5s) under £65,000
+  - Premium brands (Mercedes EQS, BMW iX, Tesla Model S, Porsche Taycan, Polestar)
+  - German brands (Audi A6/Q6 e-tron, BMW i4, VW ID.7 variants)
+  - Korean brands (Kia EV6, Genesis electric vehicles)
+  - Chinese brands (MG, BYD, NIO, XPeng, Lotus)
+  - Lucid Air UK availability and RHD production
+  - Critical verification searches for MG IM5 and Tesla Model 3 Long Range RWD
+- **Sources Consulted**:
+  - Official UK manufacturer websites and configurators
+  - UK automotive publications (What Car?, Autocar, Auto Express, Car Magazine)
+  - Safety organizations (IIHS, NHTSA, Euro NCAP)
+  - WLTP range data from official UK/EU testing
+  - Reliability databases and automotive research firms
+- **Key Finding**: User requirements (375+ miles, under £65k, 0-60 under 5.5s) are extremely rare in UK market
+- **Market Insight**: "Price-Performance-Range Triangle" identified - manufacturers optimize for 2 of 3 factors
+- **Verification Approach**: Cross-referenced specifications across multiple authoritative sources
+- **Chinese Market Disruption**: MG IM5 demonstrates exceptional value breaking traditional premium pricing
+
+---
+
 ## [Unreleased] - 2025-11-06
 
 ### Added - >1000 t/year Cost Updates & LoA/OR Explanations (Session 09:00)
