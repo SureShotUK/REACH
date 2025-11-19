@@ -53,6 +53,15 @@ Always address when relevant:
 ```
 /it/
 ├── CLAUDE.md                    # This file
+├── SESSION_LOG.md               # Session tracking and history
+├── PROJECT_STATUS.md            # Current project status
+├── CHANGELOG.md                 # Version-style change tracking
+├── VPN_Benefits.md              # VPN security pros/cons analysis
+├── VPN_Comparisons.md           # Commercial VPN provider comparison
+├── WIFI_Best_Practices_for_Laptops_and_Mobiles.md
+├── Mobile_Laptop_WIFI_Summary.md
+├── Draytek_Connect.md           # Draytek router VPN configuration
+├── L2TP_over_IPsec.md          # L2TP VPN protocol documentation
 ├── virtual_virus_test.md        # VM security and virus isolation guide
 ├── virtual_machine_types.md     # Overview of VM types and differences
 ├── type1_hypervisors.md         # Homelab Type 1 hypervisor setup guide
@@ -67,7 +76,30 @@ Based on previous sessions, the user:
 - Appreciates honest assessment of legal/ethical implications
 - Is interested in homelab and virtualization technologies
 - Wants both theoretical understanding and practical implementation
+- Appreciates thorough research using specialized agents (gemini-it-security-researcher)
+- Values authoritative source citation (NIST, CISA, NSA, SANS, OWASP)
+- Prefers comprehensive comparison tables with verified data
+- Wants both security theory and practical recommendations
 - Environment: Windows 11 with WSL2 access
+
+## Documentation Workflow
+
+### VPN and Network Security Research
+When researching VPN or network security topics:
+- Use the `gemini-it-security-researcher` agent for authoritative information
+- Cross-reference NIST, CISA, NSA, SANS Institute, OWASP guidance
+- Verify security claims through independent audit reports
+- Include both user-friendly and technical perspectives
+- Provide comparison tables for product/feature comparisons
+- Include current pricing and feature data with date verification
+- Address jurisdiction and privacy implications
+
+### Research Quality Standards
+- Verify independent security audits (Deloitte, KPMG, Securitum, Cure53)
+- Check court-tested no-logs policies where applicable
+- Include real-world incidents and transparency reports
+- Cross-reference multiple authoritative sources
+- Use current data (specify year: 2025)
 
 ## Project-Specific Agents
 
