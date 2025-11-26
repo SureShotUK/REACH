@@ -1,14 +1,33 @@
 # Project Status
 
-**Last Updated**: 2025-11-14 14:19
+**Last Updated**: 2025-11-26 14:35
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
-The terminai repository contains four specialized project folders for domain-specific knowledge management: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), and NewCar2026 (electric vehicle research). NewCar2026 project created with gemini-car-researcher agent and comprehensive UK EV market research identifying only 2 vehicles meeting strict requirements: MG IM5 Long Range (£44,995) and Tesla Model 3 Long Range RWD (£44,990).
+The terminai repository contains five specialized project folders for domain-specific knowledge management: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), and XmlDotnetCoding (C# XML trade reporting). XmlDotnetCoding project created with comprehensive XML processing tools for reading and reverse-engineering UK derivatives trade reports.
 
 ## Active Work Areas
-- **NewCar2026 Project - Electric Vehicle Research**: 🆕 PROJECT CREATED
+- **XmlDotnetCoding Project - C# XML Trade Reporting**: 🆕 PROJECT CREATED (2025-11-26)
+  - `/XmlDotnetCoding/` - C# tools for reading and processing UK derivatives trade reports (XML)
+  - **Purpose**: Reverse-engineer XML trade reports back into TradeAndValuationProperties data models
+  - **Three specialized agents**:
+    - `csharp-xml-expert` - XML parsing, serialization, and class design
+    - `csharp-reviewer` - C# code quality and best practices
+    - `dotnet-tester` - Unit testing specialist (xUnit/NUnit/MSTest)
+  - **TradeFileReader.cs** (314 lines):
+    - Reads DerivativesTradeReportV03 from Pyld element in XML
+    - Extracts TradeReport32Choice__1 items from report arrays
+    - Identifies report types (New/Modify/Correction/Termination/Error)
+    - Handles XML namespace navigation and XmlSerializer
+  - **ReadUKReportsFromXml.cs** (956 lines):
+    - Converts XML reports to `List<TradeAndValuationProperties>`
+    - Supports NEWT, MODI, TERM, EROR action types
+    - Extracts LEI identifiers (database enriches other counterparty data)
+    - Complete data extraction: dates, prices, notionals, commodities, options
+    - Four DerivativeEvent overloads for variant types (6__1, 6__2, 6__4, 6__5)
+  - **Next**: Testing, additional commodity types, unit tests, XML validation
+- **NewCar2026 Project - Electric Vehicle Research**: 🆕 PROJECT CREATED (2025-11-14)
   - `/NewCar2026/` - Vehicle research and decision-making for April 2026 EV purchase
   - **User Requirements**: 375+ miles WLTP, under £65,000, 0-60 mph under 5.5s, UK available April 2026
   - **Critical Finding**: Only 2 vehicles meet ALL requirements in UK market
@@ -65,6 +84,15 @@ The terminai repository contains four specialized project folders for domain-spe
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **XmlDotnetCoding Project Created** (2025-11-26) - C# XML processing for trade reports:
+  - Created project structure with `/XmlDotnetCoding/` folder and `.claude/` configuration
+  - Developed three specialized agents (csharp-xml-expert, csharp-reviewer, dotnet-tester)
+  - Built TradeFileReader.cs (314 lines) for parsing UK derivatives trade reports
+  - Built ReadUKReportsFromXml.cs (956 lines) for reverse-engineering XML to TradeAndValuationProperties
+  - Supports all trade action types: NEWT, MODI, TERM, EROR
+  - Extracts LEI identifiers only; database enrichment handles counterparty details
+  - Complete data extraction: dates, identifiers, contract data, prices, notionals, commodities, options
+  - Fixed bugs: DerivativeEvent overloads, NotionalQuantity structure, TpSpecified checks
 - **NewCar2026 Project Created** (2025-11-14) - Electric vehicle research project:
   - Created project structure with `/NewCar2026/` folder
   - Developed gemini-car-researcher agent (10,199 words) specialized for automotive research
@@ -158,8 +186,15 @@ The terminai repository contains four specialized project folders for domain-spe
   - `/REACH/costs/` - Cost estimates and financial analysis
   - `/REACH/templates/` - Implementation templates (supplier verification, HSE contact, compliance checklists)
   - `/REACH/README.md` - Project overview and executive summary
-- `/terminai/NewCar2026/` - Electric vehicle research and decision-making 🆕
+- `/terminai/NewCar2026/` - Electric vehicle research and decision-making
   - `/NewCar2026/CLAUDE.md` - Project guidance for automotive research
   - `/NewCar2026/.claude/agents/` - gemini-car-researcher agent
   - `/NewCar2026/UK_EV_Research_April_2026.md` - Comprehensive UK EV research report
+- `/terminai/XmlDotnetCoding/` - C# XML trade report processing 🆕
+  - `/XmlDotnetCoding/CLAUDE.md` - Project guidance for C# XML processing
+  - `/XmlDotnetCoding/.claude/agents/` - C# specialized agents (xml-expert, reviewer, tester)
+  - `/XmlDotnetCoding/Code/TradeFileReader.cs` - XML reader for derivatives trade reports
+  - `/XmlDotnetCoding/Code/ReadUKReportsFromXml.cs` - Reverse-engineering XML to data models
+  - `/XmlDotnetCoding/Code/TradeAndValuationProperties.cs` - Target data model
+  - `/XmlDotnetCoding/Code/WriteUKReportsToXml.cs` - Write logic (for reference)
 - `/terminai/.claude/commands/` - Shared slash commands across projects

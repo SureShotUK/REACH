@@ -6,6 +6,86 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2025-11-26
+
+### Added - XmlDotnetCoding Project Created
+- **XmlDotnetCoding Project Structure** - New C# XML processing project:
+  - `/XmlDotnetCoding/` - Project folder for C# XML trade report processing
+  - `/XmlDotnetCoding/.claude/agents/` - Three specialized C# agents
+  - `/XmlDotnetCoding/CLAUDE.md` - Project-specific guidance for C# XML processing
+    - C# code standards (modern features, naming conventions, documentation)
+    - XML processing approaches (XmlSerializer, LINQ to XML, XmlReader)
+    - File organization suggestions
+    - Testing requirements
+    - Development workflow
+    - Common code patterns and examples
+- **Three C# Specialized Agents**:
+  - `csharp-xml-expert.md` - XML parsing, serialization, and class design specialist
+    - XML reading approaches (XmlSerializer, XDocument, XmlReader, DataContractSerializer)
+    - Class design for XML (attributes, namespaces, custom serialization)
+    - Best practices for validation, error handling, performance
+  - `csharp-reviewer.md` - C# code quality and best practices reviewer
+    - Code quality checklist (naming, documentation, access modifiers)
+    - Modern C# features review (nullable types, pattern matching, collection expressions)
+    - Error handling and performance assessment
+    - Security best practices
+  - `dotnet-tester.md` - Unit testing specialist (xUnit/NUnit/MSTest)
+    - Testing frameworks and assertion libraries
+    - AAA pattern and test naming conventions
+    - Test data management and parameterized tests
+    - XML testing scenarios and code coverage
+- **TradeFileReader.cs** (314 lines) - Core XML reader for UK derivatives trade reports:
+  - `ReadTradeFile(string filePath)` - Reads XML and extracts DerivativesTradeReportV03 from Pyld element
+  - `ReadTradeFileAsDocument(string filePath)` - Returns full Document object wrapper
+  - `GetTradeReportItems(DerivativesTradeReportV03)` - Extracts TradeReport32Choice__1 items from report
+  - `GetTradeReportItems(TradeData57Choice__1)` - Alternative overload for direct TradData access
+  - `GetTradeReportItemsWithType()` - Returns items with type identification (New/Modify/Correction/etc.)
+  - XML namespace handling with XmlNamespaceManager
+  - XmlSerializer deserialization with XmlNodeReader
+  - Comprehensive error handling and XML documentation
+  - Type identification helper (maps TradeData42__1-8 to readable names)
+- **ReadUKReportsFromXml.cs** (956 lines) - Reverse-engineering XML to TradeAndValuationProperties:
+  - Main method: `ReadTradeReportsFromFile(string)` - Reads XML file and returns `List<TradeAndValuationProperties>`
+  - Converter: `ConvertToTradeAndValuationProperties(DerivativesTradeReportV03)` - Converts parsed report
+  - Support for all four trade action types:
+    - NEWT (New trade) - TradeData42__1
+    - MODI (Modification) - TradeData42__2
+    - TERM (Termination) - TradeData42__4
+    - EROR (Error) - TradeData42__7
+  - Counterparty data extraction (LEI identifiers only; database enriches other data)
+  - Contract data extraction (type, asset class, product classification, ISIN, UPI, settlement currency)
+  - Transaction data extraction (UTI, venue, dates, delivery type, PTRR flag)
+  - Price extraction (monetary/percentage with currency)
+  - Notional amount extraction (both legs with schedule periods)
+  - Notional quantity extraction (both legs, total quantities only)
+  - Commodity extraction (Energy/Oil products with base/sub/further sub products)
+  - Option extraction (type, style, premium, strike price, maturity date)
+  - Clearing data extraction (obligation, status, CCP, timestamp, intra-group)
+  - Master agreement extraction (type, other details, version)
+  - Derivative event extraction with four overloads (DerivativeEvent6__1, 6__2, 6__4, 6__5)
+  - Helper methods for all sub-components with null safety
+
+### Changed
+- **PROJECT_STATUS.md** - Updated to include XmlDotnetCoding project
+  - Added to "Active Work Areas" section
+  - Added to "Recently Completed" section
+  - Added to "Key Files & Structure" section
+  - Updated "Current State" summary to reference five projects
+
+### Fixed
+- **ReadUKReportsFromXml.cs** - Bug fixes during development:
+  - Added missing `DerivativeEvent6__2` overload for MODI trades
+  - Added missing `DerivativeEvent6__4` overload for TERM trades
+  - Removed incorrect `TpSpecified` checks from DerivativeEvent6__1 and 6__2 (property doesn't exist)
+  - Fixed `ExtractNotionalQuantity()` - removed non-existent `SchdlPrd` references (NotionalQuantity9__1 only has TtlQty)
+
+### Documentation
+- Created comprehensive session documentation in SESSION_LOG.md
+- Updated PROJECT_STATUS.md with XmlDotnetCoding project details
+- Added CHANGELOG.md entry for new project
+
+---
+
 ## [Unreleased] - 2025-11-14
 
 ### Added - NewCar2026 Project Created

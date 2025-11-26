@@ -4,6 +4,74 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2025-11-26 12:20
+
+### Summary
+Created new XmlDotnetCoding project for C# XML processing with comprehensive tools for reading UK trade reports and reverse-engineering XML back to TradeAndValuationProperties objects. Built TradeFileReader for parsing derivatives trade reports and ReadUKReportsFromXml for converting XML reports back to data models, with support for all trade action types (NEWT, MODI, TERM, EROR).
+
+### Work Completed
+- **Created XmlDotnetCoding project structure**
+  - Set up `/XmlDotnetCoding/` folder with `.claude/` configuration
+  - Created project-specific `CLAUDE.md` with C# and XML processing guidance
+  - Established `.claude/agents/` folder with three specialized agents
+- **Created three specialized C# agents**:
+  - `csharp-xml-expert.md` - XML parsing, serialization, and class design specialist
+  - `csharp-reviewer.md` - C# code quality and best practices reviewer
+  - `dotnet-tester.md` - Unit testing specialist for xUnit/NUnit/MSTest
+- **Built TradeFileReader.cs** - Core XML reader with multiple capabilities:
+  - `ReadTradeFile(string filePath)` - Reads XML and extracts DerivativesTradeReportV03 from Pyld element
+  - `ReadTradeFileAsDocument(string filePath)` - Returns full Document object
+  - `GetTradeReportItems()` - Extracts TradeReport32Choice__1 items from Items array (2 overloads)
+  - `GetTradeReportItemsWithType()` - Returns items with type identification (New/Modify/Correction/etc.)
+  - Handles XML namespace navigation and XmlSerializer deserialization
+  - Comprehensive error handling and XML documentation
+- **Built ReadUKReportsFromXml.cs** - Reverse-engineering tool (956 lines):
+  - Converts XML trade reports back to `List<TradeAndValuationProperties>`
+  - Supports all four action types: NEWT (New), MODI (Modify), TERM (Termination), EROR (Error)
+  - Extracts LEI identifiers only for counterparties (database enrichment handled by properties)
+  - Complete trade data extraction: dates, identifiers, contract data, prices, notional amounts/quantities, commodities, options
+  - Helper methods for all sub-components: counterparty, contract, transaction, clearing, master agreement, price, notional, commodity, option, derivative event
+  - Four DerivativeEvent overloads for different event types (6__1, 6__2, 6__4, 6__5)
+  - Mirrors WriteUKReportsToXml logic in reverse for accurate data reconstruction
+
+### Files Changed
+- `XmlDotnetCoding/.claude/agents/csharp-xml-expert.md` - New XML processing specialist agent
+- `XmlDotnetCoding/.claude/agents/csharp-reviewer.md` - New code review specialist agent
+- `XmlDotnetCoding/.claude/agents/dotnet-tester.md` - New testing specialist agent
+- `XmlDotnetCoding/CLAUDE.md` - New project guidance for C# XML processing
+- `XmlDotnetCoding/Code/TradeFileReader.cs` - New XML trade file reader (314 lines)
+- `XmlDotnetCoding/Code/ReadUKReportsFromXml.cs` - New reverse-engineering reader (956 lines)
+
+### Git Commits
+- No commits yet (session work not committed)
+
+### Key Decisions
+- **LEI-only extraction**: Only LEI identifiers extracted for counterparties; other data (nature, sector, country) enriched from database via TradeAndValuationProperties property setters
+- **Mirrored logic**: ReadUKReportsFromXml mirrors WriteUKReportsToXml structure for maintainability
+- **Type-based routing**: Used switch expressions to route different trade action types to appropriate converter methods
+- **Overload pattern**: Created multiple overloads for DerivativeEvent types (6__1, 6__2, 6__4, 6__5) to handle variant types
+- **Fixed NotionalQuantity**: Removed non-existent SchdlPrd references (NotionalQuantity9__1 only has TtlQty, not schedule periods)
+- **Fixed TpSpecified**: Removed incorrect TpSpecified checks from DerivativeEvent6__1 and 6__2 (property doesn't exist)
+
+### Reference Documents
+- **Existing user files analyzed**:
+  - `XmlDotnetCoding/Code/TradeAndValuationProperties.cs` - Target data model (1,232 lines)
+  - `XmlDotnetCoding/Code/WriteUKReportsToXml.cs` - Write logic to reverse (1,049 lines)
+  - `XmlDotnetCoding/Code/auth_030_001_03_FCAUG_DATTAR_1_0_0.cs` - Generated XML classes (360KB)
+  - `XmlDotnetCoding/Code/ExampleReport.xml` - Sample trade report for testing
+
+### Next Actions
+- [ ] Test TradeFileReader with actual ExampleReport.xml file
+- [ ] Test ReadUKReportsFromXml end-to-end conversion
+- [ ] Add support for additional commodity types beyond Energy/Oil
+- [ ] Implement remaining trade action types (CORR, POSC, REVI, ValtnUpd) if needed
+- [ ] Create unit tests using dotnet-tester agent
+- [ ] Add XML validation against XSD schemas
+- [ ] Consider adding convenience methods for common query patterns
+- [ ] Document usage examples in CLAUDE.md
+
+---
+
 ## Session 2025-11-14 14:19
 
 ### Summary
