@@ -4,6 +4,35 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2025-12-02
+
+### Added
+- **Fixed Ladder Compliance Documentation Suite**:
+  - `Emergency_Escape_Ladder.md` - Comprehensive 15-section guide covering emergency escape ladder legislation, inspection requirements, and compliance (81KB)
+  - `Fixed_Ladders_Compliance.md` - Complete Work at Height Regulations 2005 compliance guide for work access ladders (26KB)
+  - `Competent_Person_Fixed_Ladder_Inspections.md` - Detailed inspector qualification and competence requirements (13KB)
+  - `Ladder_Types.md` - HSE perspective on ladder classifications and legal definitions (6KB)
+- Key regulatory distinctions documented:
+  - Emergency escape ladders vs. work access ladders (different primary legislation and inspection regimes)
+  - Building Regulations Approved Document B position on vertical ladders as means of escape
+  - BS 8210:2020 requirement for 5-yearly structural engineer surveys of fire escape ladders
+  - RRF(SO) 2005 requirements for emergency exit signage, lighting, and accessibility
+- Comprehensive inspection frequency tables and compliance checklists
+- Cross-referenced document set with navigation between related ladder compliance topics
+
+### Changed
+
+### Fixed
+
+### Documentation
+- Emergency_Escape_Ladder.md covers Regulatory Reform (Fire Safety) Order 2005, PUWER 1998, Work at Height Regulations 2005, Building Regulations Approved Document B, BS 8210:2020
+- All ladder documents include extensive legislative references with hyperlinks to legislation.gov.uk and HSE guidance
+- Documented that vertical ladders are NOT acceptable as primary means of escape but may serve as supplementary routes
+- Clarified that emergency escape ladders require 12-monthly inspections (less than work ladders) but 5-yearly structural surveys (more stringent)
+- Established that competent person for inspections requires no mandatory qualifications - based on knowledge + experience + training
+
+---
+
 ## [Unreleased] - 2025-10-31
 
 ### Added
