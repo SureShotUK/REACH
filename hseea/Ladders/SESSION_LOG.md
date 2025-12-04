@@ -18,6 +18,7 @@ Clarified retrospective application of BS 4211:2005+A1:2008 design standards to 
 
 ### Files Changed
 - `Emergency_Escape_Ladder.md` - Added 138 lines of new content clarifying retrospective application of design standards (lines 142-257 and updated checklist at lines 796-822)
+- `../CLAUDE.md` - Added "Retrospective Application of Standards" principle to HSE/EA-Specific Principles section
 
 ### Key Decisions
 - **Grandfathering principle confirmed**: Pre-2006 ladders are NOT required to retrofit to BS 4211:2005+A1:2008 design standards
@@ -35,9 +36,13 @@ Clarified retrospective application of BS 4211:2005+A1:2008 design standards to 
 ### User Context
 User has a fixed emergency escape ladder installed prior to 2006 that has only undergone minor maintenance (paint, rust treatment, bolt tightening). The ladder is used solely for emergency escape, never for work access.
 
+### Impact on Project Guidance
+- Updated project CLAUDE.md with retrospective application principle - will apply to future HSE compliance queries across all equipment types (pressure systems, electrical installations, machinery, etc.)
+
 ### Next Actions
 - [ ] Regenerate Emergency_Escape_Ladder.pdf from updated .md file
 - [ ] Consider whether similar clarification needed for General_Ladders_Compliance.md
 - [ ] Ensure structural engineer is briefed on grandfathering vs current standards during next 5-yearly survey
+- [ ] Apply retrospective standards principle when reviewing other equipment types in future sessions
 
 ---

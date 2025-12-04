@@ -24,6 +24,7 @@ All notable changes to the Ladders compliance documentation will be documented i
 - Documented ongoing safety obligations that apply regardless of installation date
 - Added clear triggers for when existing ladders must comply with current standards
 - Provided practical guidance for structural engineer discussions during 5-yearly surveys
+- Updated ../CLAUDE.md with "Retrospective Application of Standards" principle for broader HSE compliance guidance
 
 ## [Previous] - 2025-12-03
 

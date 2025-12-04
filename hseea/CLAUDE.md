@@ -85,6 +85,13 @@ When the user provides PDF documents:
 
 **Limitations**: Recognize when professional advice is needed. Complex compliance questions, major hazards, or legal interpretations may require consultation with HSE inspectors, environmental consultants, or occupational safety professionals.
 
+**Retrospective Application of Standards**: When advising on compliance with British Standards or design specifications, always clarify whether the standard applies retrospectively to existing installations or only to new installations. The general principle in UK regulations is that design standards apply from the date of installation ("grandfathering"), but ongoing safety obligations under PUWER, HSWA, and other primary legislation continue to apply regardless of installation date. Always distinguish between:
+- **Design/construction standards** (typically not retrospective) - e.g., BS 4211 for fixed ladders, BS 7671 for electrical installations
+- **Ongoing safety maintenance obligations** (always apply) - e.g., PUWER requirement to maintain in safe condition, HSWA duty of care
+- **Triggers requiring current standards compliance** (substantial modifications, replacements, relocations, major upgrades)
+
+This principle applies broadly across HSE compliance including pressure systems, electrical installations, machinery, access equipment, ventilation systems, fire safety equipment, and structural elements. When users ask about older installations, first establish the installation date and modification history before advising on standards compliance.
+
 ## Typical Workflows
 
 **Document Review**: User uploads PDF → Extract key requirements → Ask clarifying questions about site context and applicability → Summarize in plain English → Identify required actions → Suggest implementation approach
