@@ -84,6 +84,40 @@ Example: Clients are marked as failed in the `connectToServer` function in src/s
 - Reserve bash tools exclusively for actual system commands and terminal operations
 - NEVER use bash echo or command-line tools to communicate with the user
 
+### Hyperlinks and External References
+
+When including hyperlinks to external resources in markdown documents:
+
+**Link Format Requirements:**
+- **ALWAYS use HTML anchor format** with `target="_blank"` attribute
+- Links must open in a new tab: `<a href="URL" target="_blank">Link Text</a>`
+- **NEVER use markdown link format** `[text](URL)` in documentation files
+
+**Link Verification:**
+- **Test all URLs before including them** in documents using the WebFetch tool
+- If a URL returns 404 or fails to load, search for the correct current URL using WebSearch
+- **Do not include broken links** - verify first, include second
+- Pay attention to URL changes, redirects, and updated publication references
+- Check for superseded publications (e.g., INDG455 replaced by LA455)
+
+**Examples:**
+
+✓ **Correct:**
+```html
+<a href="https://www.hse.gov.uk/work-at-height/ladders/index.htm" target="_blank">HSE: Safe Use of Ladders</a>
+```
+
+✗ **Incorrect:**
+```markdown
+[HSE: Safe Use of Ladders](https://www.hse.gov.uk/work-at-height/ladders/index.htm)
+```
+
+**Verification Process:**
+1. Before adding any link, use WebFetch to verify the URL exists and loads correctly
+2. If WebFetch returns 404, use WebSearch to find the current correct URL
+3. Only after successful verification, add the link in HTML format with `target="_blank"`
+4. For government/regulatory links, check if publications have been superseded or updated
+
 ## Session Management
 
 ### Shared Commands
