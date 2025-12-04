@@ -6,6 +6,61 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2025-12-04 08:07
+
+### Summary
+Corrected critical inaccuracy in Emergency_Escape_Ladder.md regarding Approved Document B section 3.28. Fixed documentation to accurately reflect that fixed ladders ARE acceptable as means of escape for areas not normally occupied (plant rooms, etc.) where conventional stairs are impractical and not used by members of the public.
+
+### Work Completed
+- Reviewed and corrected `Ladders/Emergency_Escape_Ladder.md` section 1 to accurately quote Approved Document B section 3.28
+- Updated Executive Summary to reflect correct regulatory position on fixed ladders
+- Revised Building Regulations Position section with direct quote from section 3.28
+- Updated comparison table in section 6 to show accurate Building Regulations status
+- Corrected Building Regulations Check guidance in section 7 (Practical Compliance)
+- Updated compliance checklist in section 11 to reference section 3.28 criteria
+- Updated Building Regulations Approval section 3 with correct approval criteria
+- Organized all ladder-related files into `Ladders/` subfolder for better structure
+
+### Files Changed
+- `Ladders/Emergency_Escape_Ladder.md` - CORRECTED: Multiple sections updated to accurately reflect Approved Document B section 3.28 requirements
+  - Lines 7-10: Executive Summary corrected
+  - Lines 16-52: Section 1 completely rewritten with accurate quote and requirements
+  - Line 358: Comparison table Building Regulations Status corrected
+  - Lines 403-409: Building Regulations Check guidance updated
+  - Lines 158-163: Building Regulations Approval section corrected
+  - Line 668: Compliance checklist item updated
+- Ladder files reorganized into `Ladders/` folder (moved from root hseea directory)
+
+### Git Commits
+- `9849f21` - Add comprehensive fixed ladder compliance documentation suite (previous session)
+
+### Key Decisions
+- **Critical Correction**: Fixed incorrect statement that vertical ladders are "NOT acceptable" as means of escape. Section 3.28 clearly states they ARE acceptable for specific circumstances
+- **Accurate Regulatory Position**: Fixed ladders are compliant for:
+  1. Areas NOT used by members of the public
+  2. Areas not normally occupied (plant rooms, equipment spaces, roof access)
+  3. Where conventional stair would be impractical
+- **Documentation Accuracy**: Ensured all references throughout the document consistently reflect the correct section 3.28 requirements
+- **File Organization**: Moved all ladder files into `Ladders/` subfolder for better repository structure
+
+### Reference Documents
+- **Approved Document B: Fire Safety, Section 3.28** - Direct quote: "Fixed ladders should not be provided as a means of escape for members of the public. They should only be provided where a conventional stair is impractical, such as for access to plant rooms which are not normally occupied."
+- `Ladders/Emergency_Escape_Ladder.md` - Corrected documentation
+- User's specific use case confirmed compliant: ladders for staff access to plant rooms/areas not normally occupied
+
+### Key Findings
+- **User's Use Case is Compliant**: Fixed ladders for plant rooms and areas not normally occupied, where conventional stairs are impractical, fully comply with Approved Document B section 3.28
+- **Not Supplementary - Primary is Acceptable**: The previous documentation incorrectly suggested fixed ladders could only be "supplementary." Section 3.28 permits them as the primary means of escape for qualifying areas
+- **Three Criteria Must Be Met**: NOT for public + NOT normally occupied + Stair impractical
+
+### Next Actions
+- [ ] Commit the corrected Emergency_Escape_Ladder.md and folder reorganization
+- [ ] Review other ladder documents for any similar inaccuracies
+- [ ] Consider adding a specific section on "Plant Room Compliance" with practical examples
+- [ ] Update any references to emergency escape ladders in other documents to reflect accurate section 3.28 position
+
+---
+
 ## Session 2025-12-02 21:20
 
 ### Summary

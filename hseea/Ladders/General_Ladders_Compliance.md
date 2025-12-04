@@ -1,8 +1,8 @@
-# Fixed Ladders and Hooped/Caged Ladders - Legislation and Compliance Guide
+# General Ladder - Legislation and Compliance Guide
 
 ## Executive Summary
 
-Fixed ladders in the UK are regulated primarily by the **Work at Height Regulations 2005**, supplemented by **BS 4211:2005+A1:2008** (UK standard) and **BS EN ISO 14122-4:2016** (European/international standard). They are subject to PUWER 1998 for maintenance and inspection requirements but generally NOT subject to LOLER 1998.
+Ladders in the UK are regulated primarily by the **Work at Height Regulations 2005**, supplemented by **BS 4211:2005+A1:2008** (UK standard) and **BS EN ISO 14122-4:2016** (European/international standard). They are subject to PUWER 1998 for maintenance and inspection requirements but generally NOT subject to LOLER 1998.
 
 **Critical Safety Note:** HSE research shows that hoops/cages on fixed ladders do NOT provide complete fall arrest capability and may interfere with personal fall arrest systems.
 

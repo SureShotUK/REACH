@@ -1,10 +1,12 @@
 # Project Status
 
-**Last Updated**: 2025-12-02
+**Last Updated**: 2025-12-04
 
 ## Current State
 
 This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide and a comprehensive four-document ladder compliance suite covering emergency escape ladders, work access ladders, inspector qualifications, and ladder type classifications.
+
+**Recent Update**: Critical accuracy correction made to Emergency_Escape_Ladder.md to properly reflect Approved Document B section 3.28 requirements. Fixed ladders ARE acceptable as means of escape for areas not normally occupied (plant rooms, etc.) where conventional stairs are impractical and not used by members of the public.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
@@ -19,11 +21,16 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Recently Completed
 
+- **Critical Documentation Correction** (2025-12-04):
+  - Corrected `Ladders/Emergency_Escape_Ladder.md` to accurately reflect Approved Document B section 3.28
+  - Fixed ladders confirmed acceptable for plant rooms and areas not normally occupied
+  - Updated all relevant sections throughout the document for consistency
+  - Organized ladder files into `Ladders/` subfolder
 - **Fixed Ladder Documentation Suite** (4 comprehensive documents):
-  - `Emergency_Escape_Ladder.md` - Complete regulatory guide for emergency-only ladders with RRF(SO) 2005 compliance
-  - `Fixed_Ladders_Compliance.md` - Work at Height Regulations 2005 compliance for work access ladders
-  - `Competent_Person_Fixed_Ladder_Inspections.md` - Inspector qualification and competence requirements
-  - `Ladder_Types.md` - HSE perspective on ladder classifications and legal definitions
+  - `Ladders/Emergency_Escape_Ladder.md` - Complete regulatory guide for emergency-only ladders with RRF(SO) 2005 compliance
+  - `Ladders/Fixed_Ladders_Compliance.md` - Work at Height Regulations 2005 compliance for work access ladders
+  - `Ladders/Competent_Person_Fixed_Ladder_Inspections.md` - Inspector qualification and competence requirements
+  - `Ladders/Ladder_Types.md` - HSE perspective on ladder classifications and legal definitions
 - Multi-project directory structure with shared context files and commands
 - Shared `/terminai/CLAUDE.md` for cross-project guidance
 - Symlinked shared commands (end-session, sync-session) to all project folders
@@ -50,6 +57,7 @@ None.
 ## Key Files & Structure
 
 ### Project Structure (hseea)
+- `/Ladders/` - Fixed ladder compliance documentation suite (emergency escape and work access)
 - `/regulations/` - Official regulatory documents and legal requirements
 - `/guidance/` - HSE guidance series (HSG), INDG publications, best practice guides
 - `/assessments/` - Risk assessments, COSHH assessments, environmental assessments

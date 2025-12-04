@@ -4,6 +4,37 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2025-12-04
+
+### Added
+- `Ladders/` subfolder for organized ladder compliance documentation
+
+### Changed
+- **CRITICAL CORRECTION**: `Ladders/Emergency_Escape_Ladder.md` - Fixed inaccurate statement about Approved Document B section 3.28
+  - Executive Summary: Corrected to reflect fixed ladders ARE acceptable for specific circumstances
+  - Section 1: Completely rewritten with accurate quote from section 3.28
+  - Section 3: Updated Building Regulations Approval criteria
+  - Section 6: Corrected comparison table Building Regulations Status
+  - Section 7: Updated Building Regulations Check guidance
+  - Section 11: Updated compliance checklist to reference section 3.28 criteria
+- Moved all ladder documentation files into `Ladders/` subfolder for better organization
+
+### Fixed
+- **Regulatory Accuracy**: Corrected incorrect statement that fixed ladders are "NOT acceptable as primary means of escape"
+- **Section 3.28 Compliance**: Documentation now accurately reflects that fixed ladders ARE acceptable when:
+  1. NOT for members of the public
+  2. Areas not normally occupied (plant rooms, equipment spaces, roof access)
+  3. Where conventional stair would be impractical
+- Updated all cross-references throughout Emergency_Escape_Ladder.md to consistently reflect accurate section 3.28 requirements
+
+### Documentation
+- Added direct quote from Approved Document B section 3.28 in Emergency_Escape_Ladder.md
+- Clarified acceptable use cases: plant rooms, equipment spaces, areas not normally occupied
+- Corrected guidance for Building Control approval process
+- Updated practical compliance section to reflect accurate regulatory position
+
+---
+
 ## [Unreleased] - 2025-12-02
 
 ### Added

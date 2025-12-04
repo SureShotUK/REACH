@@ -4,7 +4,10 @@
 
 Fixed or hooped ladders used **solely for emergency escape** are subject to different regulatory requirements than ladders used for normal work access. The primary legislation is the **Regulatory Reform (Fire Safety) Order 2005** (fire safety), with additional requirements under **PUWER 1998** (maintenance) and **Building Regulations Approved Document B** (design).
 
-**Critical Finding:** Vertical ladders (fixed or hooped) are **NOT considered acceptable as primary means of escape** under Building Regulations Approved Document B. However, they may be installed as **supplementary emergency escape routes** where other means of escape exist.
+**Critical Finding:** Under **Approved Document B section 3.28**, fixed ladders ARE acceptable as a means of escape in specific circumstances:
+- They should **NOT** be provided for members of the public
+- They should **ONLY** be provided where a conventional stair is impractical
+- They are suitable for areas **not normally occupied** (such as plant rooms)
 
 **Key Distinction:** Emergency escape ladders that are NEVER used for work access have reduced inspection frequency requirements compared to ladders used for normal work, but must still be maintained in serviceable condition and kept available at all times.
 
@@ -14,19 +17,38 @@ Fixed or hooped ladders used **solely for emergency escape** are subject to diff
 
 ### Building Regulations Position
 
-**Approved Document B: Fire Safety** explicitly states that vertical escape ladders (including fixed ladders) are **NOT acceptable** as compliant means of escape.
+**Approved Document B: Fire Safety, Section 3.28** states:
 
-**Reasoning:**
+> "Fixed ladders should not be provided as a means of escape for members of the public. They should only be provided where a conventional stair is impractical, such as for access to plant rooms which are not normally occupied."
+
+**Key Requirements for Acceptable Use:**
+
+Fixed ladders ARE acceptable as a means of escape provided:
+
+1. **NOT for members of the public** - Only for staff, maintenance personnel, or authorized persons
+2. **Areas not normally occupied** - Such as plant rooms, roof access, equipment spaces
+3. **Where conventional stair is impractical** - Due to space constraints, infrequent access needs, or building layout
+
+**When Fixed Ladders Are NOT Acceptable:**
+
+- As primary means of escape for occupied workspaces (offices, production areas, etc.)
+- For members of the public
+- In areas with regular occupancy where a conventional stair is practical
+- As sole means of escape for areas with high occupancy numbers
+
+**Practical Considerations (From Approved Document B):**
+
+Approved Document B notes concerns with vertical ladders:
 - Additional time required to use them
 - Limit the number of people who can escape simultaneously
 - Potential for people to be trapped waiting behind others
 - Reliance on maintenance without guaranteed availability
 - Risk of vandalism or deterioration without detection
 
-**However:** Approved Document B "would not prohibit their use as an additional feature" - meaning they can serve as supplementary escape routes where adequate primary means of escape exist elsewhere.
+**However:** For plant rooms and similar spaces not normally occupied, where staff access is infrequent and a conventional stair is impractical, fixed ladders are an acceptable and compliant means of escape under section 3.28.
 
 **Sources:**
-- <a href="https://www.gov.uk/government/publications/fire-safety-approved-document-b" target="_blank">Building Regulations Approved Document B: Fire Safety</a>
+- <a href="https://www.gov.uk/government/publications/fire-safety-approved-document-b" target="_blank">Building Regulations Approved Document B: Fire Safety (Section 3.28)</a>
 - <a href="https://www.labc.co.uk/news/when-means-escape-unacceptable" target="_blank">LABC: When Means of Escape is Unacceptable</a>
 
 ### Work at Height Regulations 2005 - Limited Application
@@ -133,7 +155,12 @@ Additional requirements for machinery access ladders (may apply if escape ladder
 
 **Important:** If installing a new emergency escape ladder or modifying an existing means of escape, Building Regulations approval may be required. Consult with Building Control before installation.
 
-**Note:** Building Control will likely reject a proposal for vertical ladder as **primary** means of escape, but may accept as **supplementary** escape route.
+**Note:** Building Control will approve fixed ladders as means of escape if they comply with **Approved Document B section 3.28**:
+- NOT for members of the public
+- Area is not normally occupied (plant rooms, equipment spaces, etc.)
+- Conventional stair would be impractical
+
+Fixed ladders serving regularly occupied workspaces or public areas will NOT be approved as compliant means of escape.
 
 ---
 
@@ -312,7 +339,7 @@ A **competent person** for emergency escape ladder inspections must have:
 
 **Can internal employees be competent persons?** **YES** - provided they have appropriate knowledge, experience, and training.
 
-**Refer to:** `Competent_Person_Fixed_Ladder_Inspections.md` for detailed guidance on competence requirements.
+**Refer to:** `Competent Person Fixed Ladder Inspections.pdf` for detailed guidance on competence requirements.
 
 ### Who Must Conduct Structural Surveys?
 
@@ -333,7 +360,7 @@ A **competent person** for emergency escape ladder inspections must have:
 | Aspect | Ladders for Normal Work Access | Emergency Escape Ladders (Never Used for Work) |
 |--------|-------------------------------|-----------------------------------------------|
 | **Primary Legislation** | Work at Height Regulations 2005 + PUWER 1998 | Regulatory Reform (Fire Safety) Order 2005 + PUWER 1998 |
-| **Building Regulations Status** | Acceptable for low-risk, short-duration work | **NOT acceptable as primary means of escape** (can be supplementary) |
+| **Building Regulations Status** | Acceptable for low-risk, short-duration work | **Acceptable for plant rooms/areas not normally occupied** (Approved Document B s.3.28) where conventional stair impractical |
 | **Risk Assessment (WAHR Schedule 6)** | **Required** - must justify ladder use over safer alternatives | **Not applicable** - emergency use is not "work at height" |
 | **Pre-Use Checks** | **Daily** - before each use by users | **Not applicable** - ladder not used in normal operations |
 | **Detailed Visual Inspections** | **6-12 monthly** (based on frequency of use and environment) | **12 monthly** (can be less frequent as no wear from regular use) |
@@ -375,12 +402,15 @@ A **competent person** for emergency escape ladder inspections must have:
 
 **Step 1: Confirm Status**
 - Verify ladder is **genuinely never used for work access**
-- If ladder is occasionally used for maintenance/inspection access, it must comply with FULL work ladder requirements (see `Fixed_Ladders_Compliance.md`)
+- If ladder is occasionally used for maintenance/inspection access, it must comply with FULL work ladder requirements (see `General Ladders Compliance.pdf`)
 - Document that ladder is designated **"Emergency Escape Only - Not for Work Access"**
 
 **Step 2: Building Regulations Check**
-- Confirm ladder is **supplementary** means of escape (not primary/sole escape route)
-- Verify adequate alternative means of escape exist
+- Confirm ladder use complies with **Approved Document B section 3.28**:
+  - NOT for members of the public
+  - Area is not normally occupied (e.g., plant room, roof access, equipment space)
+  - Conventional stair would be impractical
+- If ladder is for regularly occupied workspace or public areas, it does NOT comply with section 3.28
 - If in doubt, consult Building Control or fire risk assessor
 
 **Step 3: Fire Risk Assessment**
@@ -638,9 +668,9 @@ If replacement required, consider:
 ### Initial Setup
 
 - [ ] Confirm ladder status: Is it **genuinely** emergency use only, or is it occasionally used for work access?
-- [ ] If occasionally used for work: Apply FULL work ladder requirements (see `Fixed_Ladders_Compliance.md`)
+- [ ] If occasionally used for work: Apply FULL work ladder requirements (see `General Ladders Compliance.pdf`)
 - [ ] Install signage: "Emergency Escape Only - Not for Work Access" + "No Unauthorized Access"
-- [ ] Verify ladder is **supplementary** means of escape (not primary/sole route)
+- [ ] Verify ladder complies with **Approved Document B section 3.28**: NOT for public, area not normally occupied, conventional stair impractical
 - [ ] Include ladder in fire risk assessment under RRF(SO) 2005
 - [ ] Check adequacy of emergency lighting at ladder location
 - [ ] Verify emergency exit signage is compliant and visible
@@ -662,7 +692,7 @@ If replacement required, consider:
 - [ ] Monthly visual checks established and assigned to responsible person
 - [ ] Monthly check records maintained (logbook or electronic)
 - [ ] Annual detailed inspection scheduled (every 12 months)
-- [ ] Competent person appointed for annual inspections (see `Competent_Person_Fixed_Ladder_Inspections.md`)
+- [ ] Competent person appointed for annual inspections (see `Competent Person Fixed Ladder Inspections.pdf`)
 - [ ] Five-yearly structural engineer survey scheduled
 - [ ] Qualified structural engineer engaged for 5-yearly surveys
 - [ ] Post-event inspection procedure established (triggers defined, responsible person identified)
@@ -828,7 +858,7 @@ This document provides guidance based on current UK legislation, British Standar
 ### Key Limitations:
 
 - This guidance is specific to **emergency escape ladders that are NEVER used for work access**
-- If your ladder is occasionally used for work access (e.g., maintenance), it must comply with **full work ladder requirements** - see `Fixed_Ladders_Compliance.md`
+- If your ladder is occasionally used for work access (e.g., maintenance), it must comply with **full work ladder requirements** - see `General Ladders Compliance.pdf`
 - Design standards (BS 4211, BS EN ISO 14122-4) are referenced for guidance but site-specific professional assessment may be required
 - Building Regulations approval may be required for new installations or alterations - consult Building Control
 - Fire authority may have local requirements or interpretations - consult with local fire service
@@ -843,8 +873,6 @@ This document provides guidance based on current UK legislation, British Standar
 
 This document is part of a series on ladder compliance:
 
-- **`Fixed_Ladders_Compliance.md`** - Comprehensive guidance on fixed ladders used for normal work access
-- **`Competent_Person_Fixed_Ladder_Inspections.md`** - Qualification requirements for inspectors
-- **`Ladder_Types.md`** - Overview of different ladder types from HSE perspective
-
-For general health and safety compliance guidance, refer to the shared `CLAUDE.md` at `/terminai/CLAUDE.md` and the project-specific `CLAUDE.md` at `/terminai/hseea/CLAUDE.md`.
+- **`General Ladders Compliance.pdf`** - Comprehensive guidance on fixed ladders used for normal work access
+- **`Competent Person Fixed Ladder Inspections.pdf`** - Qualification requirements for inspectors
+- **`Ladder Types.pdf`** - Overview of different ladder types from HSE perspective
