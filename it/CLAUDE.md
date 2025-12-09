@@ -65,8 +65,43 @@ Always address when relevant:
 ├── virtual_virus_test.md        # VM security and virus isolation guide
 ├── virtual_machine_types.md     # Overview of VM types and differences
 ├── type1_hypervisors.md         # Homelab Type 1 hypervisor setup guide
-└── mac_on_windows.md            # macOS on Windows for iOS development
+├── mac_on_windows.md            # macOS on Windows for iOS development
+└── parsing/                     # Financial data processing
+    ├── DailyStatementParser.cs
+    ├── Program.cs
+    ├── GetStoneXOTCDailyValuesConsole.csproj
+    ├── StoneXAccountData.cs
+    ├── StoneXTradeData.cs
+    └── Example.csv
 ```
+
+## C# Development Workflow
+
+### Financial Data Processing Projects
+When working with financial data parsing (like StoneX daily statements):
+- Use explicit date format parsing with `CultureInfo.InvariantCulture` for non-standard formats (e.g., dd-MMM-yyyy)
+- Handle multi-page document parsing by skipping page markers but continuing data extraction
+- Implement deduplication strategies based on composite keys (e.g., TradeId + StartDate + EndDate)
+- Parse currency values carefully, handling $, commas, and negative values in parentheses
+- Create demo applications to test parsing logic before database integration
+- User prefers .NET 8.0 with C# 12 features (collection expressions, primary constructors)
+
+### Parser Development Patterns
+When building data parsers for complex documents:
+- **Start by finding document structure markers** (e.g., "Daily Statement", section headers)
+- **Extract metadata first** (dates, identifiers) before parsing detailed data
+- **Handle multi-line data fields** by concatenating across rows with look-ahead/look-back logic
+- **Use reference index passing** (`ref int index`) for complex multi-row parsing where each parse operation advances the position
+- **Implement Try/Parse patterns** with explicit error handling and graceful fallbacks
+- **Skip formatting elements** (page breaks, repeated headers, company info) but continue parsing data
+- **Test iteratively** with real sample data to catch edge cases early
+- **Field offset awareness**: When passing pre-parsed fields as parameters, skip them in subsequent array indexing
+
+### Code Organization Preferences
+- Separate parsing logic into focused helper methods (e.g., `ParseTradeSection`, `ParseAccountSection`, `ParseDate`, `ParseCurrency`)
+- Create dedicated model classes for data structures (separate from parsing logic)
+- Build demo/test applications alongside main implementation
+- Use meaningful variable names that reflect business domain (TradeId, MarketValue, etc.)
 
 ## User Preferences
 
@@ -81,6 +116,13 @@ Based on previous sessions, the user:
 - Prefers comprehensive comparison tables with verified data
 - Wants both security theory and practical recommendations
 - Environment: Windows 11 with WSL2 access
+
+### Development Preferences
+- **C# Development**: .NET 8.0, C# 12 features (collection expressions, primary constructors)
+- **Iterative debugging**: Values working through issues step-by-step with clear explanations
+- **Code quality**: Prefers robust error handling and graceful fallbacks
+- **Testing approach**: Create demo applications to verify functionality before production integration
+- **Code organization**: Separate concerns with focused helper methods and dedicated model classes
 
 ## Documentation Workflow
 
