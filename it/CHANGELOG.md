@@ -2,6 +2,35 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2025-12-09
+
+### Added
+- `parsing/DailyStatementParser.cs` (466 lines): Complete C# parser for StoneX daily statement PDFs
+  - Parses "Daily Statement" sections first to extract published dates
+  - Extracts trade data from "Open Positions and Market Values" sections
+  - Handles multi-page documents with page break continuation
+  - Multi-line contract description concatenation
+  - Long vs Short position determination via "Long Avg"/"Short Avg" markers
+  - Trade deduplication by TradeId + StartDate + EndDate
+  - Account information parsing from last section
+  - Multiple date format support (dd-MMM-yyyy, dd/MM/yyyy, etc.)
+  - Currency parsing with $, commas, and negative values in parentheses
+
+- `parsing/Program.cs` (119 lines): Demo console application
+  - Comprehensive trade data display with all details
+  - Complete account information output with margins and balances
+  - Summary statistics and totals
+
+- `parsing/GetStoneXOTCDailyValuesConsole.csproj`: .NET 8.0 console application project
+
+### Fixed
+- Date parsing format compatibility (dd-MMM-yyyy format now works with CultureInfo.InvariantCulture)
+- Field offset error in ParseTradeDataRow (now starts at partIndex=1 to skip date field)
+- Page break handling (parser now continues across multiple pages)
+
+### Changed
+- Parser flow refactored to find "Daily Statement" sections first, then associate dates with subsections
+
 ## [Unreleased] - 2025-11-19
 
 ### Added

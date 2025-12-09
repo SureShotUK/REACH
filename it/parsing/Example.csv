@@ -1,0 +1,227 @@
+Daily Statement
+17-Sep-2025
+StoneX Financial Ltd,The Fuel Trading Company Limited
+Example Company
+1st Floor Moor House 120 London Wall London EC2Y 5ET
+Telephone +44 (0)20 3580 6000 Fax +44 (0)20 3580 6001,Street,Account Number: 1234567890
+Town,Post code,Group Account Number: 1234567890
+Registered in England and Wales Company No. 5616586,United Kingdom,Broker Code: LON05
+Authorised and regulated by the Financial Conduct Authority FRN: 446717,Segregation Status: Non Segregated
+Activity
+New Trades
+Commodity New Trades
+Trade Date,Trade Id,Global Id,Long,Short,Contract Description,Start Date,End Date,Ref Month,Trigger/Barrier,Trade Price,Commission,Premium
+17-Sep-2025,40094683,0,5.00,ICE Gasoil Asian Swap USD/MT,01-Nov-2025,28-Nov-2025,$687.00,0.00,$0.00
+5.00,0.00,$0.00
+ULSD 10ppm Cargoes CIF NWE (Platts) Asian Swap
+17-Sep-2025,40094679,0,0.50,01-Nov-2025,28-Nov-2025,$702.25,0.00,$0.00
+USD/MT
+0.50,0.00,$0.00
+0.00,$0.00
+Open Positions and Market Values
+Commodity Open Positions
+Trade Date,Trade Id,Global Id,Long,Short,Contract Description,Start Date,End Date,Ref Month,Trigger/Barrier,Trade Price,Market Price,Native MV,MarketValue
+30-Jul-2025,38457393,0,10.00,ICE Gasoil Asian Swap USD/MT,01-Sep-2025,30-Sep-2025,$690.25,700.045454,$0.00,($9795.45)
+Short Avg,$690.25
+10.00,$0.00,($9795.45)
+17-Sep-2025,40094683,0,5.00,ICE Gasoil Asian Swap USD/MT,01-Nov-2025,28-Nov-2025,$687.00,682.3375,$0.00,$2331.25
+Short Avg,$687.00
+5.00,$0.00,$2331.25
+23-Jun-2025,37332530,502618,0.10,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Dec-2025,31-Dec-2025,$740.00,719.318,$0.00,($2068.20)
+Long Avg,$740.00
+0.10,$0.00,($2068.20)
+23-Jun-2025,37332533,502618,0.10,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Jan-2026,30-Jan-2026,$740.00,714.429,$0.00,($2557.10)
+Long Avg,$740.00
+0.10,$0.00,($2557.10)
+23-Jun-2025,37332536,502618,0.10,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Feb-2026,27-Feb-2026,$740.00,710.20,$0.00,($2980.00)
+Long Avg,$740.00
+0.10,$0.00,($2980.00)
+23-Jun-2025,37332539,502618,0.10,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Mar-2026,31-Mar-2026,$740.00,704.295,$0.00,($3570.50)
+Long Avg,$740.00
+Page 1 of 3
+StoneX Financial Ltd is a subsidiary of StoneX Group Inc. www.stonex.com
+Daily Statement
+17-Sep-2025
+StoneX Financial Ltd,Example Company
+Example Company
+1st Floor Moor House 120 London Wall London EC2Y 5ET
+Telephone +44 (0)20 3580 6000 Fax +44 (0)20 3580 6001,Street,Account Number: 1234567890
+Town,Post code,Group Account Number: 1234567890
+Registered in England and Wales Company No. 5616586,United Kingdom,Broker Code: LON05
+Authorised and regulated by the Financial Conduct Authority FRN: 446717,Segregation Status: Non Segregated
+Trade Date,Trade Id,Global Id,Long,Short,Contract Description,Start Date,End Date,Ref Month,Trigger/Barrier,Trade Price,Market Price,Native MV,MarketValue
+0.10,$0.00,($3570.50)
+18-Jun-2025,37190898,0,0.30,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Jun-2026,30-Jun-2026,$720.00,694.705,$0.00,($7588.50)
+Long Avg,$720.00
+0.30,$0.00,($7588.50)
+04-Jul-2025,37742422,0,0.30,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Jul-2026,31-Jul-2026,$674.00,693.902,$0.00,$5970.60
+Long Avg,$674.00
+0.30,$0.00,$5970.60
+ULSD 10ppm Cargoes CIF NWE (Platts) Asian Swap
+30-Jul-2025,38457365,0,1.00,01-Sep-2025,30-Sep-2025,$701.50,712.422318,$0.00,$10922.32
+USD/MT
+Long Avg,$701.50
+1.00,$0.00,$10922.32
+ULSD 10ppm Cargoes CIF NWE (Platts) Asian Swap
+17-Sep-2025,40094679,0,0.50,01-Nov-2025,28-Nov-2025,$702.25,696.588,$0.00,($2831.00)
+USD/MT
+Long Avg,$702.25
+0.50,$0.00,($2831.00)
+($12166.58)
+Page 2 of 3
+StoneX Financial Ltd is a subsidiary of StoneX Group Inc. www.stonex.com
+Daily Statement
+17-Sep-2025
+StoneX Financial Ltd,Example Company
+Example Company
+1st Floor Moor House 120 London Wall London EC2Y 5ET
+Telephone +44 (0)20 3580 6000 Fax +44 (0)20 3580 6001,Street,Account Number: 1234567890
+Town,Post code,Group Account Number: 1234567890
+Registered in England and Wales Company No. 5616586,United Kingdom,Broker Code: LON05
+Authorised and regulated by the Financial Conduct Authority FRN: 446717,Segregation Status: Non Segregated
+Account Information
+Currency,USD
+Cash Beginning Balance,$0.00
+Commission,$0.00
+Net Profit/Loss,$0.00
+Other Cash Movements,$0.00
+Cash Ending Balance,$0.00
+Market Value of Open,($12166.58)
+Positions
+Market Value of Deferred,$0.00
+Premiums
+Unsettled Premiums,$0.00
+Net Liquidating Value,($12166.58)
+Initial Margin,($27401.34)
+Margin Call,($39567.92)
+Disclaimers
+2025 © StoneX Financial Ltd (“SFL”) all rights reserved is registered in England and Wales company no. 5616586. SFL is authorised and regulated by the Financial Conduct Authority (registration number FRN:446717) to provide services to professional and eligible customers including: arrangement execution and where
+required clearing derivative transactions in exchange traded futures and options. SFL is also authorised to engage in the arrangement and execution of transactions in certain OTC products certain securities trading precious metals trading and payment services to eligible customers. SFL is authorised & regulated by the
+Financial Conduct Authority under the Payment Services Regulations 2017 for the provision of payment services. SFL is a category 1 ring-dealing member of the London Metal Exchange. In addition SFL also engages in other physically delivered commodities business and other general business activities which are
+unregulated and not required to be authorised by the Financial Conduct Authority. Trading swaps over-the-counter derivatives exchange-traded derivatives and options and securities involve substantial risk and is not suitable for all investors. You are advised to perform an independent investigation of any transaction to
+determine whether any transaction is suitable for you. Past performance is not indicative of future results prices/ invested sum is subject to market risks which may result in appreciation or depreciation. The ownership of any investment decision(s) shall exclusively vest with yourself after analysing all possible risk factors and
+by exercise of your independent discretion and none of the StoneX Group Inc entities shall be liable or held liable for any consequences thereof. This statement of account is provided confidentially for information purposes only in accordance with our records on the given statement date. You are required to notify SFL
+immediately of any errors in this account statement. This statement shall be deemed verified and conclusively binding on the expiry of the business days permitted in the governing agreement between you and SFL.
+Page 3 of 3
+StoneX Financial Ltd is a subsidiary of StoneX Group Inc. www.stonex.com
+Daily Statement
+17-Sep-2025
+StoneX Financial Ltd,Example Company
+1st Floor Moor House 120 London Wall London EC2Y 5ET
+Telephone +44 (0)20 3580 6000 Fax +44 (0)20 3580 6001,Street,Account Number: 1234567890
+Town,Post code
+Registered in England and Wales Company No. 5616586,United Kingdom
+Authorised and regulated by the Financial Conduct Authority FRN: 446717,Segregation Status: Non Segregated
+Activity
+New Trades
+Commodity New Trades
+Trade Date,Trade Id,Global Id,Long,Short,Contract Description,Start Date,End Date,Ref Month,Trigger/Barrier,Trade Price,Commission,Premium
+17-Sep-2025,4098765,0,5.00,ICE Gasoil Asian Swap USD/MT,01-Nov-2025,28-Nov-2025,$687.00,0.00,$0.00
+5.00,0.00,$0.00
+ULSD 10ppm Cargoes CIF NWE (Platts) Asian Swap
+17-Sep-2025,4567890,0,0.50,01-Nov-2025,28-Nov-2025,$702.25,0.00,$0.00
+USD/MT
+0.50,0.00,$0.00
+0.00,$0.00
+Open Positions and Market Values
+Commodity Open Positions
+Trade Date,Trade Id,Global Id,Long,Short,Contract Description,Start Date,End Date,Ref Month,Trigger/Barrier,Trade Price,Market Price,Native MV,MarketValue
+30-Jul-2025,1234567,0,10.00,ICE Gasoil Asian Swap USD/MT,01-Sep-2025,30-Sep-2025,$690.25,700.045454,$0.00,($9795.45)
+Short Avg,$690.25
+10.00,$0.00,($9795.45)
+17-Sep-2025,1098765,0,5.00,ICE Gasoil Asian Swap USD/MT,01-Nov-2025,28-Nov-2025,$687.00,682.3375,$0.00,$2331.25
+Short Avg,$687.00
+5.00,$0.00,$2331.25
+23-Jun-2025,12345678,654321,0.10,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Dec-2025,31-Dec-2025,$740.00,719.318,$0.00,($2068.20)
+Long Avg,$740.00
+0.10,$0.00,($2068.20)
+23-Jun-2025,9876543,654321,0.10,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Jan-2026,30-Jan-2026,$740.00,714.429,$0.00,($2557.10)
+Long Avg,$740.00
+0.10,$0.00,($2557.10)
+23-Jun-2025,23456789,654321,0.10,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Feb-2026,27-Feb-2026,$740.00,710.20,$0.00,($2980.00)
+Long Avg,$740.00
+0.10,$0.00,($2980.00)
+23-Jun-2025,87654321,654321,0.10,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Mar-2026,31-Mar-2026,$740.00,704.295,$0.00,($3570.50)
+Long Avg,$740.00
+Page 1 of 4
+StoneX Financial Ltd is a subsidiary of StoneX Group Inc. www.stonex.com
+Daily Statement
+17-Sep-2025
+StoneX Financial Ltd,Example Company
+1st Floor Moor House 120 London Wall London EC2Y 5ET
+Telephone +44 (0)20 3580 6000 Fax +44 (0)20 3580 6001,Street,Account Number: 1234567890
+Town,Post code
+Registered in England and Wales Company No. 5616586,United Kingdom
+Authorised and regulated by the Financial Conduct Authority FRN: 446717,Segregation Status: Non Segregated
+Trade Date,Trade Id,Global Id,Long,Short,Contract Description,Start Date,End Date,Ref Month,Trigger/Barrier,Trade Price,Market Price,Native MV,MarketValue
+0.10,$0.00,($3570.50)
+18-Jun-2025,96325874,0,0.30,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Jun-2026,30-Jun-2026,$720.00,694.705,$0.00,($7588.50)
+Long Avg,$720.00
+0.30,$0.00,($7588.50)
+04-Jul-2025,14785236,0,0.30,Jet CIF NWE Cargoes (Platts) Asian Swap USD/MT,01-Jul-2026,31-Jul-2026,$674.00,693.902,$0.00,$5970.60
+Long Avg,$674.00
+0.30,$0.00,$5970.60
+ULSD 10ppm Cargoes CIF NWE (Platts) Asian Swap
+30-Jul-2025,85214789,0,1.00,01-Sep-2025,30-Sep-2025,$701.50,712.422318,$0.00,$10922.32
+USD/MT
+Long Avg,$701.50
+1.00,$0.00,$10922.32
+ULSD 10ppm Cargoes CIF NWE (Platts) Asian Swap
+17-Sep-2025,65498731,0,0.50,01-Nov-2025,28-Nov-2025,$702.25,696.588,$0.00,($2831.00)
+USD/MT
+Long Avg,$702.25
+0.50,$0.00,($2831.00)
+($12166.58)
+Page 2 of 4
+StoneX Financial Ltd is a subsidiary of StoneX Group Inc. www.stonex.com
+Daily Statement
+17-Sep-2025
+StoneX Financial Ltd,Example Company
+1st Floor Moor House 120 London Wall London EC2Y 5ET
+Telephone +44 (0)20 3580 6000 Fax +44 (0)20 3580 6001,Street,Account Number: 1234567890
+Town,Post code
+Registered in England and Wales Company No. 5616586,United Kingdom
+Authorised and regulated by the Financial Conduct Authority FRN: 446717,Segregation Status: Non Segregated
+Account Information
+Currency,USD
+Cash Beginning Balance,$0.00
+Commission,$0.00
+Net Profit/Loss,$0.00
+Other Cash Movements,$0.00
+Cash Ending Balance,$0.00
+Market Value of Open,($12166.58)
+Positions
+Market Value of Deferred,$0.00
+Premiums
+Unsettled Premiums,$0.00
+Net Liquidating Value,($12166.58)
+Variation Margin,($12166.58)
+Variation Margin Threshold,$100000.00
+Variation Margin Excess/Deficit,$87833.42
+Initial Margin,($27401.34)
+Initial Margin Threshold,$400000.00
+Initial Margin Excess/Deficit,$372598.66
+Withdrawable Funds,$0.00
+Minimum Transfer Amount,$0.00
+Rounding,$0.00
+Funds Due,$0.00
+Page 3 of 4
+StoneX Financial Ltd is a subsidiary of StoneX Group Inc. www.stonex.com
+Daily Statement
+17-Sep-2025
+StoneX Financial Ltd,Example Company
+1st Floor Moor House 120 London Wall London EC2Y 5ET
+Telephone +44 (0)20 3580 6000 Fax +44 (0)20 3580 6001,Street,Account Number: 1234567890
+Town,Post code
+Registered in England and Wales Company No. 5616586,United Kingdom
+Authorised and regulated by the Financial Conduct Authority FRN: 446717,Segregation Status: Non Segregated
+Disclaimers
+2025 © StoneX Financial Ltd (“SFL”) all rights reserved is registered in England and Wales company no. 5616586. SFL is authorised and regulated by the Financial Conduct Authority (registration number FRN:446717) to provide services to professional and eligible customers including: arrangement execution and where
+required clearing derivative transactions in exchange traded futures and options. SFL is also authorised to engage in the arrangement and execution of transactions in certain OTC products certain securities trading precious metals trading and payment services to eligible customers. SFL is authorised & regulated by the
+Financial Conduct Authority under the Payment Services Regulations 2017 for the provision of payment services. SFL is a category 1 ring-dealing member of the London Metal Exchange. In addition SFL also engages in other physically delivered commodities business and other general business activities which are
+unregulated and not required to be authorised by the Financial Conduct Authority. Trading swaps over-the-counter derivatives exchange-traded derivatives and options and securities involve substantial risk and is not suitable for all investors. You are advised to perform an independent investigation of any transaction to
+determine whether any transaction is suitable for you. Past performance is not indicative of future results prices/ invested sum is subject to market risks which may result in appreciation or depreciation. The ownership of any investment decision(s) shall exclusively vest with yourself after analysing all possible risk factors and
+by exercise of your independent discretion and none of the StoneX Group Inc entities shall be liable or held liable for any consequences thereof. This statement of account is provided confidentially for information purposes only in accordance with our records on the given statement date. You are required to notify SFL
+immediately of any errors in this account statement. This statement shall be deemed verified and conclusively binding on the expiry of the business days permitted in the governing agreement between you and SFL.
+Page 4 of 4
+StoneX Financial Ltd is a subsidiary of StoneX Group Inc. www.stonex.com
