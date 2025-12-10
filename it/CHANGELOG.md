@@ -2,6 +2,23 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2025-12-10
+
+### Added
+- `parsing/DailyStatementParser.cs`: Cash Settlement section parsing capability (~200 additional lines)
+  - `FindCashSettlementSections()` method: Locates all "Cash Settlements" sections and associates with Daily Statement dates
+  - `ParseCashSettlementSection()` method: Parses cash settlement data rows with section boundary detection and total line handling
+  - `ParseCashSettlementDataRow()` method: Extracts individual cash settlement entries with two-line format handling
+  - Field mappings: Cash Amount → MarketValue, Settlement Price → MarketPrice
+  - Handles cash settlement-specific fields: Type, Description, Expiry Date, Applied On
+  - Integrated into main Parse() workflow before trade section parsing
+  - Consistent error handling and page break skipping patterns
+
+- `parsing/ExampleWithCashSettlement.csv`: Sample data file demonstrating Cash Settlement section format
+
+### Changed
+- `parsing/DailyStatementParser.cs`: Parse() method updated to include cash settlement parsing step
+
 ## [Unreleased] - 2025-12-09
 
 ### Added

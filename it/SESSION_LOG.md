@@ -4,6 +4,52 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2025-12-10 13:45
+
+### Summary
+Extended the StoneX daily statement parser to handle Cash Settlement sections. Added three new methods to parse cash settlement data and map it to the existing StoneXTradeData model with field mappings for Cash Amount → MarketValue and Settlement Price → MarketPrice.
+
+### Work Completed
+- Extended `parsing/DailyStatementParser.cs` with Cash Settlement parsing capability
+  - Added `FindCashSettlementSections()`: Locates all "Cash Settlements" sections and associates them with Daily Statement dates
+  - Added `ParseCashSettlementSection()`: Parses cash settlement data rows with proper section boundary detection
+  - Added `ParseCashSettlementDataRow()`: Extracts individual cash settlement entries with two-line format handling
+  - Implemented field mapping: Cash Amount → MarketValue, Settlement Price → MarketPrice
+  - Handles cash settlement-specific format with Type, Description, Expiry Date, Applied On fields
+  - Integrated cash settlement parsing into main Parse() method workflow
+  - Follows existing parser patterns for page breaks, header skipping, and error handling
+- Provided `parsing/ExampleWithCashSettlement.csv` as test data
+
+### Files Changed
+- `parsing/DailyStatementParser.cs` - Extended with 3 new methods (~200 additional lines)
+  - Modified `Parse()` method to include cash settlement parsing before trade parsing
+  - Added `FindCashSettlementSections()` method (lines 138-154)
+  - Added `ParseCashSettlementSection()` method (lines 156-225)
+  - Added `ParseCashSettlementDataRow()` method (lines 227-318)
+- `parsing/ExampleWithCashSettlement.csv` - Added as test data showing Cash Settlement format
+
+### Git Commits
+None yet - changes need to be committed.
+
+### Key Decisions
+- **Field mappings**: Cash Amount → MarketValue, Settlement Price → MarketPrice (as requested by user)
+- **Parse order**: Cash settlements parsed before trade sections to maintain logical document flow
+- **Two-line format**: Cash settlement rows span two lines (main data + quantity/cash confirmation)
+- **Long/Short determination**: Based on quantity sign from confirmation line
+- **Date mapping**: Applied On → StartDate, Expiry Date → EndDate
+- **GlobalId handling**: Set to null for cash settlements (not present in this section)
+- **Deduplication**: Cash settlements use same deduplication logic as trades (TradeId + StartDate + EndDate)
+
+### Reference Documents
+- `parsing/ExampleWithCashSettlement.csv` - Sample file showing Cash Settlement section format (lines 11-18, 98-105)
+
+### Next Actions
+- [ ] Test cash settlement parsing with real data
+- [ ] Verify field mappings match database schema expectations
+- [ ] Consider if cash settlements need separate model or can reuse StoneXTradeData
+
+---
+
 ## Session 2025-12-09 13:30
 
 ### Summary
