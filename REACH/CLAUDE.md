@@ -73,6 +73,25 @@ Primary sources to prioritize:
 - Flag areas where professional legal/regulatory advice is strongly recommended
 - Be specific about what the business needs to do vs. what suppliers should handle
 
+## IUCLID Technical Guidance
+
+When assisting with IUCLID 6 Cloud issues:
+
+1. **Common "Create Dossier" Unavailable Issues:**
+   - Check Legal Entity exists (Main menu → Legal Entities)
+   - Verify Working Context is set (upper-right corner, select "REACH" or "UK REACH")
+   - Confirm minimum sections complete: 1.1, 1.2, 1.4
+   - Run Validation Assistant to identify failures
+
+2. **Two-System Architecture:**
+   - IUCLID 6 Cloud (ECHA) = Dossier preparation
+   - Comply with UK REACH (HSE/Defra) = Submission portal
+   - Requires separate accounts for each
+
+3. **Reference Guide:**
+   - See IUCLID_Inquiry_Dossier_Guide.md for complete workflow
+   - HSE IT Support: ukreachitsupport@defra.gov.uk
+
 ## Document Organization
 
 Research and findings should be organized into:
