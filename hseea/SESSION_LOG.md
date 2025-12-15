@@ -6,6 +6,59 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2025-12-15 10:07
+
+### Summary
+Created comprehensive RO concentrate treatment and disposal planning documentation with detailed stream assessment, cross-sectional flow calculations, and cost analysis for interim tankering to Yorkshire Water Naburn STW. Calculated disposal costs for 5-day working week operation at three production scenarios (10k, 30k, 50k L/day).
+
+### Work Completed
+- Created `water/` directory for water discharge and treatment documentation
+- Developed `water/TreatmentPlan.md` with comprehensive disposal planning including:
+  - Stream cross-sectional profile with detailed depth measurements
+  - Cross-sectional area calculation using trapezoidal rule (0.4608 m²)
+  - Flow velocity measurement and volumetric flow rate calculation (2.02 ML/day)
+  - Yorkshire Water Naburn STW facility details and disposal costs
+  - Monthly cost analysis tables for three production scenarios
+  - Cost-benefit analysis comparing tankering vs. direct discharge permit
+- Integrated `water/StreamProfile.png` image into documentation
+- Calculated disposal costs based on 5-day working week (260 working days/year)
+- Provided annual trip requirements for waste haulage (93-465 trips/year depending on volume)
+
+### Files Changed
+- `water/TreatmentPlan.md` - NEW: Comprehensive RO concentrate treatment plan (181 lines)
+  - Stream assessment with U-shaped channel profile
+  - Trapezoidal rule area calculation: 0.4608 m²
+  - Flow rate calculation: 2,019,168 L/day from 3m/59.17s velocity measurement
+  - Naburn STW address: Naburn Lane, Naburn, York, YO19 4RN
+  - Monthly cost tables for 10k, 30k, and 50k L/day production rates
+  - Internal haulage (£250/28m³) vs external haulage (£400/28m³) comparison
+  - Annual cost projections: £46,650-£303,000 depending on volume and haulage method
+
+### Git Commits
+- No commits yet - files pending in working directory
+
+### Key Decisions
+- **5-Day Working Week Basis**: Calculated all costs based on 260 working days per year rather than 365 days continuous operation, reflecting actual industrial operation patterns
+- **Cost Calculation Method**: Annual costs calculated first, then divided by 12 for monthly averages to ensure accuracy
+- **Trip Calculation**: Annual volume ÷ 28m³ rounded up to whole trips, ensuring realistic haulage requirements
+- **Dilution Assessment**: Stream flow of 2.02 ML/day provides substantial dilution capacity for future permit application
+- **Interim Strategy**: Tankering costs documented to support business case for direct discharge permit application
+
+### Reference Documents
+- <a href="https://www.wastebook.co.uk/directory/naburn-sewage-treatment-works-yorkshire-water-services-limited/" target="_blank">Yorkshire Water Naburn STW - Wastebook</a>
+- <a href="https://www.wasteservicing.co.uk/waste-company/367312/naburn-sewage-treatment-works-yorkshire-water" target="_blank">Naburn STW Details - Waste Servicing</a>
+- `water/StreamProfile.png` - Stream cross-sectional profile diagram
+- User-provided stream measurements: width 1.9m, depths at 5 measurement points creating U-shaped profile
+
+### Next Actions
+- [ ] Obtain RO concentrate water quality test results (TDS, conductivity, pH, contaminants)
+- [ ] Calculate dilution ratios for EA permit application once test results available
+- [ ] Complete Environment Agency discharge consent application form
+- [ ] Implement buffer tank and dosing pump system for controlled discharge
+- [ ] Establish discharge monitoring regime as required by permit conditions
+
+---
+
 ## Session 2025-12-04 08:07
 
 ### Summary

@@ -4,6 +4,29 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2025-12-15
+
+### Added
+- `water/` directory for water discharge and treatment planning documentation
+- `water/TreatmentPlan.md` - Comprehensive RO concentrate treatment and disposal plan including:
+  - Stream cross-sectional assessment with U-shaped profile (0.4608 m² area)
+  - Flow rate calculations: 2,019,168 L/day (~2.02 ML/day)
+  - Yorkshire Water Naburn STW facility details and disposal costs
+  - Monthly cost analysis tables for 10k, 30k, and 50k L/day production rates
+  - Annual cost projections: £46,650-£303,000 (based on 5-day working week)
+  - Cost comparison: internal haulage (£250/28m³) vs external haulage (£400/28m³)
+  - Trip requirements: 93-465 annual trips depending on volume
+  - Cost-benefit analysis for interim tankering vs. direct discharge permit
+
+### Documentation
+- Detailed trapezoidal rule calculation for stream cross-sectional area
+- Flow velocity measurement methodology (3m distance in 59.17 seconds)
+- 5-day working week (260 days/year) cost calculation basis
+- Yorkshire Water Naburn STW address: Naburn Lane, Naburn, York, YO19 4RN
+- Next steps for EA discharge consent application outlined
+
+---
+
 ## [Unreleased] - 2025-12-04
 
 ### Added
