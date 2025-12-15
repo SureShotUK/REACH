@@ -1,10 +1,10 @@
 # REACH Project - Current Status
 
-**Last Updated**: 2025-11-07
+**Last Updated**: 2025-12-15
 
 ## Current State
 
-UK REACH compliance project for Urea imports. **CRITICAL DATA CORRECTED THIS SESSION**: Volume is 1000+ tonnes/year (not >100 t/year) and deadline is 27th October 2026 (not Oct 2025). Project now has accurate baseline data for compliance planning.
+UK REACH compliance project for Urea imports. User has completed DUIN registration with HSE and is now progressing to Article 26 Inquiry submission phase using IUCLID 6 Cloud. Comprehensive inquiry dossier creation guide completed to address specific technical issues with IUCLID interface.
 
 ## Project Parameters (VERIFIED ACCURATE)
 
@@ -16,13 +16,20 @@ UK REACH compliance project for Urea imports. **CRITICAL DATA CORRECTED THIS SES
 
 ## Active Work Areas
 
-- **Documentation**: Core research and compliance assessment complete, now being corrected for accurate volume/deadline
-- **Consultant Research**: 50 UK REACH consultants reviewed and ranked in Ranked_Consultants.md
-- **Cost Analysis**: Cost estimates provided but being updated for 1000+ tonne volume impacts
+- **IUCLID Inquiry Dossier**: Creating Article 26 Inquiry in IUCLID 6 Cloud (current phase)
+- **Account Setup**: ECHA trial account and Defra account configuration in progress
+- **Technical Troubleshooting**: Resolving "Create Dossier" unavailable issue (Legal Entity + Working Context)
+- **Documentation**: Comprehensive IUCLID step-by-step guide completed
+- **Consultant Research**: 50 UK REACH consultants reviewed and ranked (for post-inquiry full registration phase)
 - **Templates**: Three compliance templates created for downstream user operations
 
 ## Recently Completed
 
+- ✅ **DUIN registration** with REACH UK (prerequisite completed)
+- ✅ **IUCLID Inquiry Dossier Guide** - 14-part comprehensive guide (550+ lines)
+- ✅ **Technical troubleshooting research** - Identified 3 root causes for "Create Dossier" unavailable
+- ✅ **Account requirements clarified** - ECHA trial + Defra accounts for two-system architecture
+- ✅ **Minimum IUCLID sections identified** - Sections 1.1, 1.2, 1.4 required for inquiry
 - ✅ Comprehensive UK REACH research and overview
 - ✅ Urgent compliance assessment with three pathway options
 - ✅ Detailed cost analysis (all options)
@@ -30,27 +37,31 @@ UK REACH compliance project for Urea imports. **CRITICAL DATA CORRECTED THIS SES
 - ✅ Template documents (supplier verification, HSE disclosure, downstream user checklist)
 - ✅ **CRITICAL FIX**: Corrected volume from ">100 t/year" to "1000+ tonnes/year"
 - ✅ **CRITICAL FIX**: Corrected deadline from "Oct 27, 2025" to "27th October 2026"
-- ✅ Updated all core documentation with accurate parameters
 
 ## Blocked/Pending
 
+- ⏳ **User action required**: Fix IUCLID Legal Entity and Working Context settings
+- ⏳ **User action required**: Complete IUCLID sections 1.1, 1.2, 1.4 for Urea
+- ⏳ **User action required**: Create and submit inquiry dossier via Comply with UK REACH
+- ⏳ **Waiting on HSE**: Inquiry number assignment (after submission)
 - ⏳ Need to complete corrections in remaining files (OnePager.md, uk_reach_overview.md, DUIN folder)
-- ⏳ Need to verify all template documents have correct volume/deadline references
 - ⏳ Cost-benefit analysis may need revision at 1000+ tonne volume (own registration more viable?)
 
 ## Next Priorities
 
-1. **Complete data corrections** - Review all remaining files for volume/deadline errors
-2. **Re-evaluate compliance strategy** - At 1000+ tonnes, own registration may be more economically justified vs. GB supplier premium
-3. **Refine cost estimates** - Update GB supplier unit cost impact calculations for 1000+ volume
-4. **User decisions** - User needs to choose compliance pathway and begin implementation
-5. **Timeline planning** - With 11 months to deadline and 12-24 month registration timeline, immediate action required
+1. **Complete Article 26 Inquiry** - User to follow IUCLID guide and submit inquiry dossier
+2. **Receive Inquiry Number** - Access Substance Group for Urea registrants
+3. **Data Sharing Negotiations** - Contact other registrants for Letter of Access (LoA) to existing data
+4. **Full Registration Planning** - Prepare comprehensive dossier (Annexes VII-XI) for October 2026 deadline
+5. **Consultant Engagement** - Engage Tier 1 consultant if pursuing own registration (SGS/Intertek/Ecomundo)
+6. **Complete data corrections** - Review all remaining files for volume/deadline errors (lower priority)
 
 ## Key Files & Structure
 
 ### Core Documentation
 - `/REACH/CLAUDE.md` - Project context and instructions (✅ corrected)
 - `/REACH/README.md` - Project overview and action plan (✅ corrected)
+- `/REACH/IUCLID_Inquiry_Dossier_Guide.md` - **NEW**: Complete IUCLID 6 Cloud step-by-step guide (14 parts)
 
 ### Research & Analysis
 - `/REACH/research/uk_reach_overview.md` - Comprehensive REACH requirements (⚠️ needs volume correction)

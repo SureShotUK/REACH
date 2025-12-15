@@ -4,7 +4,32 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [Unreleased] - 2025-11-07
+## [Unreleased] - 2025-12-15
+
+### Added
+- **IUCLID_Inquiry_Dossier_Guide.md**: Comprehensive 14-part guide for creating Article 26 Inquiry dossiers in IUCLID 6 Cloud
+  - Complete workflow from prerequisites to HSE submission
+  - Troubleshooting section identifying 3 root causes for "Create Dossier" unavailable issue
+  - Quick reference checklist (13 sections) for tracking progress
+  - All official HSE and ECHA resource links with verification
+  - Clarification of two-system architecture (IUCLID vs Comply with UK REACH)
+
+### Documentation
+- Researched latest IUCLID 6 Cloud and GB REACH Article 26 Inquiry requirements using gemini-researcher agent
+- Identified minimum IUCLID sections required for inquiry: 1.1 (Identification), 1.2 (Composition), 1.4 (Analytical Information)
+- Documented ECHA trial account vs. full subscription capabilities and limitations
+- Clarified Legal Entity setup as critical prerequisite (most common blocker)
+- Documented Working Context configuration requirement (often missed)
+
+### Progress
+- User completed DUIN registration with REACH UK
+- User created IUCLID 6 Cloud trial account
+- User added Urea substance to IUCLID (experiencing "Create Dossier" unavailable issue)
+- Project advanced from initial research phase to active inquiry dossier creation phase
+
+---
+
+## [Previous] - 2025-11-07
 
 ### Fixed
 - **CRITICAL**: Corrected import volume from ">100 tonnes/year" to "1000+ tonnes/year" across all core documentation

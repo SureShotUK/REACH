@@ -4,6 +4,81 @@ This file tracks all Claude Code sessions for the REACH compliance project.
 
 ---
 
+## Session 2025-12-15 15:30
+
+### Summary
+Created comprehensive step-by-step guide for IUCLID 6 Cloud inquiry dossier creation for GB REACH Article 26 Inquiry. User progressing from DUIN registration to inquiry submission phase. Deployed gemini-researcher agent to compile most current IUCLID/HSE documentation into practical troubleshooting guide addressing user's specific issue: "Create Dossier" option unavailable in IUCLID.
+
+### Work Completed
+- Deployed gemini-researcher agent to research latest IUCLID 6 Cloud and GB REACH inquiry dossier documentation
+- Created comprehensive 14-part guide covering complete inquiry dossier workflow:
+  - Prerequisites and account setup (ECHA trial account + Defra account)
+  - Legal Entity setup (identified as #1 cause of "Create Dossier" unavailable)
+  - Working Context configuration (CRITICAL setting often missed)
+  - Substance dataset creation and validation
+  - Minimum IUCLID sections required (1.1, 1.2, 1.4, 14)
+  - Dossier creation, validation, and export process
+  - HSE submission via "Comply with UK REACH" portal
+  - Comprehensive troubleshooting for common issues
+  - Quick reference checklist for tracking progress
+- Gathered user-specific context via AskUserQuestion tool:
+  - IUCLID version: 6 Cloud (web-based)
+  - Tonnage band: >1000 tonnes/year
+  - Jurisdiction: GB REACH (UK)
+  - Substance: Urea (CAS 57-13-6, mono-constituent)
+
+### Files Changed
+- `REACH/IUCLID_Inquiry_Dossier_Guide.md` - New comprehensive guide (14 parts, ~550 lines)
+
+### Git Commits
+- None yet - new file staged for end-of-session commit
+
+### Key Decisions
+- **Identified root cause**: "Create Dossier" unavailable typically due to:
+  1. Missing Legal Entity setup in IUCLID
+  2. No Working Context selected (must set to "REACH" or "UK REACH")
+  3. Incomplete substance dataset (Sections 1.1, 1.2, 1.4 not complete)
+- **Two-system architecture clarified**:
+  - IUCLID 6 Cloud (ECHA) = dossier preparation system
+  - Comply with UK REACH (HSE/Defra) = submission portal
+  - Requires separate accounts for each system
+- **Trial account limitations**: Test accounts CAN create/validate dossiers but NOT make legally valid submissions
+- **Article 26 Inquiry is mandatory first step**: No pre-registration option in UK REACH; inquiry required to access Substance Group
+
+### Reference Documents
+- <a href="https://echa.europa.eu/documents/10162/22308542/manual_inquiry_en.pdf/65b360f7-1f37-4dbd-ba29-22940273cd32" target="_blank">ECHA Manual: How to prepare an inquiry dossier (PDF)</a>
+- <a href="https://www.hse.gov.uk/reach/new-registration.htm" target="_blank">HSE: Guidance for new registrants under UK REACH</a>
+- <a href="https://www.hse.gov.uk/reach/using-comply-with-uk-reach.htm" target="_blank">HSE: Using Comply with UK REACH</a>
+- <a href="https://iuclid6.echa.europa.eu/faq" target="_blank">IUCLID 6 FAQ</a>
+- HSE UK REACH IT Support: ukreachitsupport@defra.gov.uk
+
+### Next Actions
+- [ ] User to verify Legal Entity exists in IUCLID 6 Cloud (Main menu → Legal Entities)
+- [ ] User to set Working Context to "REACH" in Urea substance dataset (upper-right corner)
+- [ ] User to complete minimum IUCLID sections 1.1, 1.2, and 1.4
+- [ ] User to run Validation Assistant and fix all failures
+- [ ] User to create inquiry dossier following guide steps
+- [ ] User to export .i6z file and submit via Comply with UK REACH portal
+- [ ] After inquiry number received: Access Substance Group and begin data sharing negotiations
+- [ ] Timeline planning: Inquiry → Substance Group access → Data sharing → Full registration (by Oct 2026)
+
+### Registration Timeline Context
+- **Current Phase**: Article 26 Inquiry (no deadline, but must complete first)
+- **Inquiry Processing**: HSE aims for prompt processing (no specific SLA)
+- **Post-Inquiry**: Data sharing negotiations (can take months - start early!)
+- **Full Registration Deadline**: 27th October 2026 (10 months remaining)
+- **Recommended Inquiry Completion**: Q1 2026 to allow adequate data sharing time
+
+### Technical Notes
+- IUCLID 6 Cloud auto-updates (user always on latest version)
+- .i6z file format = compressed XML archive with all dossier data
+- Trial account storage limit: 100MB total
+- Inquiry dossier typical size: <10MB (much smaller than full registration)
+- Minimum data for inquiry: Substance identity + analytical confirmation
+- Full registration will require: All Annexes VII-XI data (extensive)
+
+---
+
 ## Session 2025-11-07 15:30
 
 ### Summary
