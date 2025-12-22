@@ -1,67 +1,87 @@
 # REACH Project - Current Status
 
-**Last Updated**: 2025-12-15
+**Last Updated**: 2025-12-22
 
 ## Current State
 
-UK REACH compliance project for Urea imports. User has completed DUIN registration with HSE and is now progressing to Article 26 Inquiry submission phase using IUCLID 6 Cloud. Comprehensive inquiry dossier creation guide completed to address specific technical issues with IUCLID interface.
+UK REACH compliance project for Urea imports. **MAJOR UPDATE (22 Dec 2025)**: UK Government announced 3-year extension to registration deadlines. New deadline is 27 October 2029 (was 27 October 2026). However, Alternative Transitional Registration model (ATRm) has NOT been finalized and must be published by October 2027 to provide required 2-year transition period. **No registration preparation work can commence until ATRm is published** - estimated ~22 month waiting period.
 
-## Project Parameters (VERIFIED ACCURATE)
+## Project Parameters (UPDATED 22 DEC 2025)
 
 - **Substance**: Urea (CAS 57-13-6)
 - **Volume**: 1000+ tonnes/year (highest tonnage band)
-- **Deadline**: 27th October 2026 (11 months remaining)
-- **Current Status**: No UK REACH registration in place
-- **Time to Compliance**: 12-24 months for registration (must start immediately)
+- **Original Deadline**: 27th October 2026 (now extended)
+- **NEW Deadline**: 27th October 2029 (3-year extension - Option 1)
+- **ATRm Status**: NOT finalized - "under consideration"
+- **ATRm Publication Deadline**: October 2027 (latest, for 2-year transition)
+- **Current Phase**: Monitoring phase - no action required until ATRm published
+- **Time to Compliance**: 3-4 months registration work (once ATRm is published)
 
 ## Active Work Areas
 
-- **IUCLID Inquiry Dossier**: Creating Article 26 Inquiry in IUCLID 6 Cloud (current phase)
-- **Account Setup**: ECHA trial account and Defra account configuration in progress
-- **Technical Troubleshooting**: Resolving "Create Dossier" unavailable issue (Legal Entity + Working Context)
-- **Documentation**: Comprehensive IUCLID step-by-step guide completed
-- **Consultant Research**: 50 UK REACH consultants reviewed and ranked (for post-inquiry full registration phase)
+- **Timeline Monitoring**: Passive monitoring for ATRm publication (expected 2026 legislation, must be by Oct 2027)
+- **Government Announcement Analysis**: UpdateDec25.md created documenting new timeline and ATRm constraints
+- **Consultant Relationships**: Periodic (annual) check-ins with CS Regulatory (low priority until 2027)
+- **Documentation**: All major planning documents complete; project now in waiting phase
+
+## Previous Work (Now on Hold Pending ATRm)
+
+- **IUCLID Inquiry Dossier**: Article 26 Inquiry process (may be superseded by ATRm framework)
+- **Consultant Research**: 50 UK REACH consultants reviewed and ranked
 - **Templates**: Three compliance templates created for downstream user operations
 
 ## Recently Completed
 
+- ✅ **UpdateDec25.md** - Comprehensive government announcement analysis (22 Dec 2025)
+  - New timeline: 27 Oct 2029, 2030, 2031 (Option 1 selected)
+  - ATRm 2-year transition period constraint analysis
+  - Consultant discussions summary (CS Regulatory, TT Environmental, Valpak)
+  - Three-phase next steps (2025-2027 monitoring, 2027 ATRm publication, 2027-2029 implementation)
+- ✅ **Consultant preference order established**: CS Regulatory → TT Environmental → Valpak
+- ✅ **Timeline constraint identified**: ~22 month waiting period until ATRm publication (Oct 2027)
 - ✅ **DUIN registration** with REACH UK (prerequisite completed)
 - ✅ **IUCLID Inquiry Dossier Guide** - 14-part comprehensive guide (550+ lines)
 - ✅ **Technical troubleshooting research** - Identified 3 root causes for "Create Dossier" unavailable
-- ✅ **Account requirements clarified** - ECHA trial + Defra accounts for two-system architecture
-- ✅ **Minimum IUCLID sections identified** - Sections 1.1, 1.2, 1.4 required for inquiry
 - ✅ Comprehensive UK REACH research and overview
 - ✅ Urgent compliance assessment with three pathway options
 - ✅ Detailed cost analysis (all options)
 - ✅ Consultant ranking (Tier 1-4, 50 consultants assessed)
 - ✅ Template documents (supplier verification, HSE disclosure, downstream user checklist)
 - ✅ **CRITICAL FIX**: Corrected volume from ">100 t/year" to "1000+ tonnes/year"
-- ✅ **CRITICAL FIX**: Corrected deadline from "Oct 27, 2025" to "27th October 2026"
+- ✅ **CRITICAL FIX**: Corrected deadline from "Oct 27, 2025" to "27th October 2026" (now 2029)
 
 ## Blocked/Pending
 
-- ⏳ **User action required**: Fix IUCLID Legal Entity and Working Context settings
-- ⏳ **User action required**: Complete IUCLID sections 1.1, 1.2, 1.4 for Urea
-- ⏳ **User action required**: Create and submit inquiry dossier via Comply with UK REACH
-- ⏳ **Waiting on HSE**: Inquiry number assignment (after submission)
-- ⏳ Need to complete corrections in remaining files (OnePager.md, uk_reach_overview.md, DUIN folder)
-- ⏳ Cost-benefit analysis may need revision at 1000+ tonne volume (own registration more viable?)
+- ⏳ **Waiting on Government**: ATRm framework publication (expected 2026, must be by Oct 2027)
+- ⏳ **All registration work blocked**: Cannot proceed until ATRm requirements are defined
+- ⏳ **IUCLID work paused**: Article 26 Inquiry process may be superseded by ATRm
+- ⏳ **Consultant engagement paused**: No point engaging until ATRm framework is known
+- ⏳ **Cost analysis outdated**: All previous cost estimates may not apply under ATRm model
 
 ## Next Priorities
 
-1. **Complete Article 26 Inquiry** - User to follow IUCLID guide and submit inquiry dossier
-2. **Receive Inquiry Number** - Access Substance Group for Urea registrants
-3. **Data Sharing Negotiations** - Contact other registrants for Letter of Access (LoA) to existing data
-4. **Full Registration Planning** - Prepare comprehensive dossier (Annexes VII-XI) for October 2026 deadline
-5. **Consultant Engagement** - Engage Tier 1 consultant if pursuing own registration (SGS/Intertek/Ecomundo)
-6. **Complete data corrections** - Review all remaining files for volume/deadline errors (lower priority)
+### 2025-2027: Monitoring Phase (Current)
+1. **Monitor ATRm publication** - Watch for government legislation (expected 2026)
+2. **Review legislation when published** - Understand new requirements
+3. **Periodic consultant check-ins** - Annual updates with CS Regulatory (non-urgent)
+4. **Continue normal operations** - Import Urea as usual under transitional provisions
+
+### October 2027: ATRm Publication Expected
+5. **Immediate consultant engagement** - Contact CS Regulatory for urgent requirements analysis
+6. **Gap analysis** - Understand what data/work is needed under ATRm
+7. **Cost estimation** - Get updated cost estimates based on actual ATRm
+
+### 2027-2029: Implementation Phase
+8. **Execute registration** - Follow ATRm process (3-4 months work)
+9. **Target completion** - July 2029 (3 months before Oct 2029 deadline)
 
 ## Key Files & Structure
 
 ### Core Documentation
-- `/REACH/CLAUDE.md` - Project context and instructions (✅ corrected)
-- `/REACH/README.md` - Project overview and action plan (✅ corrected)
-- `/REACH/IUCLID_Inquiry_Dossier_Guide.md` - **NEW**: Complete IUCLID 6 Cloud step-by-step guide (14 parts)
+- `/REACH/CLAUDE.md` - Project context and instructions
+- `/REACH/README.md` - Project overview and action plan
+- `/REACH/UpdateDec25.md` - **NEW**: Government announcement analysis and updated timeline (22 Dec 2025)
+- `/REACH/IUCLID_Inquiry_Dossier_Guide.md` - Complete IUCLID 6 Cloud step-by-step guide (may be superseded by ATRm)
 
 ### Research & Analysis
 - `/REACH/research/uk_reach_overview.md` - Comprehensive REACH requirements (⚠️ needs volume correction)
@@ -110,8 +130,25 @@ UK REACH compliance project for Urea imports. User has completed DUIN registrati
 
 ## Notes
 
-**IMPORTANT**: This session corrected fundamental project parameters. Previous documentation incorrectly stated volume as ">100 tonnes/year" and deadline as "October 27, 2025" (implying deadline had passed). Correct parameters are:
-- Volume: 1000+ tonnes/year (highest band, most stringent requirements)
-- Deadline: 27th October 2026 (11 months remaining, tight but achievable)
+### Timeline Updates
 
-This correction significantly impacts the entire compliance strategy and cost analysis. All future work should use these verified parameters.
+**22 December 2025**: Government announced 3-year extension to REACH registration deadlines (Option 1 selected):
+- **New deadline**: 27 October 2029 (was 27 October 2026)
+- **Complete timeline**: Oct 2029, Oct 2030, Oct 2031 (one-year gaps)
+- **ATRm status**: NOT finalized, "under consideration"
+- **Critical constraint**: ATRm must be published by October 2027 to provide 2-year transition period
+- **Current phase**: Monitoring phase - no registration work can commence until ATRm published
+- **Waiting period**: ~22 months (Dec 2025 → Oct 2027)
+
+**Previous corrections (7 November 2025)**: Corrected fundamental project parameters from incorrectly stated volume ">100 tonnes/year" and deadline "October 27, 2025" to correct parameters:
+- Volume: 1000+ tonnes/year (highest band, most stringent requirements)
+- Deadline: 27th October 2026 (now extended to 2029)
+
+### Strategic Implications
+
+The 3-year extension fundamentally changes project urgency:
+- **From**: Urgent compliance crisis (11 months to deadline)
+- **To**: Extended monitoring phase (~22 months wait, then 2-year implementation)
+- **Impact**: All previous registration work now on hold pending ATRm framework
+- **Opportunity**: Government designing cost-reduced ATRm to be less burdensome than EU REACH
+- **Risk**: ATRm publication delay would compress available implementation time

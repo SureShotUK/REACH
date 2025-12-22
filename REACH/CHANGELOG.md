@@ -4,6 +4,43 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased] - 2025-12-22
+
+### Added
+- **UpdateDec25.md**: Comprehensive government announcement analysis and timeline update
+  - Government selection of Option 1 (3-year extension with 1-year gaps)
+  - New registration deadlines: 27 Oct 2029, 27 Oct 2030, 27 Oct 2031
+  - ATRm 2-year transition period constraint analysis
+  - Consultant discussions summary (CS Regulatory, TT Environmental, Valpak)
+  - Three-phase action plan (2025-2027 monitoring, 2027 ATRm publication, 2027-2029 implementation)
+  - Operational planning guidance for waiting period and implementation phases
+
+### Changed
+- **PROJECT_STATUS.md**: Updated for 3-year deadline extension and ATRm waiting period
+  - New deadline: 27 October 2029 (was 27 October 2026)
+  - Current phase: Monitoring (no action required until ATRm published)
+  - All registration work now on hold pending ATRm framework
+  - Active work areas shifted to passive monitoring activities
+  - Next priorities restructured into three time-phased sections
+- **SESSION_LOG.md**: Added comprehensive session entry for government announcement analysis
+
+### Documentation
+- Analyzed 28-page government consultation response document (LegislationUpdate22ndDec2025.pdf)
+- Identified critical timeline constraint: ATRm must be published by October 2027 for 2-year transition
+- Documented consultant preference order with rationale (CS Regulatory preferred due to Valpak subcontracting)
+- Established waiting period: ~22 months (December 2025 → October 2027) before registration work can begin
+- Clarified government rationale for Option 1 despite 70% industry preference for Option 2
+- Noted timeline risk: 2-week HSE approval assumes error-free submission (recommend 3-4 month buffer)
+
+### Strategic Impact
+- **Urgency shift**: From 11-month compliance crisis to ~22-month passive monitoring phase
+- **Work blockage**: All registration preparation work blocked until ATRm framework published
+- **Cost deferral**: No consultant fees or registration costs needed until late 2027
+- **Framework uncertainty**: ATRm designed to reduce costs vs. EU REACH, but requirements unknown
+- **Business operations**: Continue importing Urea normally under transitional provisions until 2027
+
+---
+
 ## [Unreleased] - 2025-12-15
 
 ### Added
