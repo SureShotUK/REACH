@@ -6,6 +6,88 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-01-06 14:30
+
+### Summary
+Created comprehensive three-year HSE strategic plan for AdBlue manufacturing site with legal compliance framework, detailed implementation roadmap, budget allocation, and supporting training matrix template in both markdown and CSV formats.
+
+### Work Completed
+- Gathered site-specific information through structured questioning to understand baseline HSE status and priorities
+- Created `Three_Year_HSE_Strategic_Plan.md` - comprehensive 550+ line strategic plan covering:
+  - Legal compliance framework with record retention requirements and competent person structure
+  - Detailed tables for H&S, environmental, and chemical/REACH record retention periods
+  - Year-by-year implementation plans (2026-2028) broken down by quarter
+  - Budget allocation totaling £30,000 over 3 years (£11k, £10k, £9k per year)
+  - Legal duties by area (COSHH, workplace transport, work at height, racking, fire, environmental, welfare)
+  - Training requirements, annual compliance activities, and supplier recommendations
+- Created `Training_Matrix_Template.md` - comprehensive training management system including:
+  - Part 1: Training requirements reference (mandatory training by role with frequencies and costs)
+  - Part 2: Individual staff training matrices for 4 warehouse operatives and 4 office staff
+  - Part 3: Training schedule planner with renewal alerts
+  - Part 4: Training provider contacts directory
+  - Tips, FAQs, and quick reference guides
+- Created `Training_Matrix_Template.csv` - Excel-compatible version with 52 rows of training records
+- User corrected Three_Year_HSE_Strategic_Plan.md to update external specialist support budget to £2,500/year and adjust COSHH substances list
+
+### Files Changed
+- `hseea/Three_Year_HSE_Strategic_Plan.md` - NEW: Three-year HSE strategic plan (550+ lines)
+  - Executive summary with current position, 3-year vision, and £30k investment overview
+  - Legal compliance framework: record types, retention periods, competent person requirements
+  - Year 1 (2026): Foundation building - £11,000 budget, quarterly action plans
+  - Year 2 (2027): System embedding - £10,000 budget, proactive monitoring, contractor management
+  - Year 3 (2028): Optimization - £9,000 budget, ISO alignment, environmental excellence
+  - Annual recurring compliance costs: £3,850/year from Year 2
+  - Appendices: supplier recommendations, applicable regulations, useful resources
+- `hseea/Training_Matrix_Template.md` - NEW: Training matrix template (600+ lines)
+  - Comprehensive training requirements by role (forklift, manual handling, COSHH, first aid, etc.)
+  - Individual tracking matrices for each staff member with dates, expiry, providers, certificates
+  - 2026 training schedule planner and renewals alert list
+  - Training provider contact directory organized by training type
+  - Quick reference guide and 10 tips for effective training management
+- `hseea/Training_Matrix_Template.csv` - NEW: CSV version of training matrix
+  - 52 rows covering all 12 staff members (8 employees) and their required training
+  - Excel-compatible format for filtering, sorting, and conditional formatting
+  - Columns: Name, Role, Training Type, Required, Status, Dates, Provider, Cost, Notes
+
+### Git Commits
+- No commits yet - files pending in working directory
+
+### Key Decisions
+- **Budget Alignment**: £30k total over 3 years fits within user's £5-15k annual budget constraint for small operation (<£2M turnover)
+- **Competent Person Structure**: NEBOSH-qualified internal person as primary competent person with £2,500/year budget for external specialist support
+- **Phased Approach**: Year 1 focuses on foundations and compliance baseline, Year 2 on embedding systems, Year 3 on optimization and ISO alignment
+- **Training Investment Priority**: Year 1 Q3 focuses on critical training delivery (forklift, manual handling, COSHH) after NEBOSH completion
+- **Record Retention Framework**: Comprehensive tables showing legal requirements ranging from 2 years (waste transfer notes) to 40 years (health surveillance) to permanent (asbestos)
+- **Dual Format Training Matrix**: Created both markdown (reference/documentation) and CSV (operational tracking) versions to support different use cases
+- **Site-Specific Context**: Plan tailored to AdBlue manufacturing with 4 warehouse operatives, 4 office staff, visiting drivers, forklift operations, and chemical handling
+- **Environmental Review Priority**: Year 1 Q1 environmental compliance review to determine waste water discharge arrangements and permit requirements
+
+### Reference Documents
+- Three-year plan references multiple HSE regulations: MHSWR 1999, RIDDOR 2013, COSHH 2002, LOLER 1998, PUWER 1998, Work at Height Regulations 2005, Fire Safety Order 2005, UK REACH
+- Training matrix includes legal basis for each training type with renewal frequencies
+- Links to HSE guidance resources, environmental permits guidance, and professional body websites (SEMA, IFE, IFSM)
+
+### Next Actions
+- [ ] Add actual staff names to training matrix template (replace "Operative 1", "Office Staff 1", etc.)
+- [ ] Conduct training needs analysis to populate current training status for all 12 staff
+- [ ] Schedule NEBOSH General Certificate completion (if not already scheduled)
+- [ ] Engage environmental consultant for Year 1 Q1 compliance review (£1,500 budget allocated)
+- [ ] Begin Year 1 Q1 activities: environmental review, training matrix population, NEBOSH completion
+- [ ] Consider creating additional supporting documents (risk assessment templates, inspection checklists, COSHH assessment templates)
+- [ ] Populate training provider contacts in Part 4 of training matrix with local suppliers
+- [ ] Set up calendar reminders for training renewals 3 months in advance
+
+### Context Notes
+- User is currently taking NEBOSH General Certificate - expected to complete mid-2026
+- Current HSE status: Basic compliance in place (H&S policy, risk assessments, emergency procedures) but need systematic management
+- Training records currently informal - need to formalize into systematic tracking
+- Environmental waste water disposal arrangements currently under review
+- No major HSE issues currently - proactive planning for improvements
+- Site operates 5-day working week (260 days/year) - relevant for future environmental permit calculations
+- User correctly identified that AdBlue and urea are not within COMAH scope (not toxic to aquatic life)
+
+---
+
 ## Session 2025-12-15 10:07
 
 ### Summary

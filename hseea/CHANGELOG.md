@@ -4,6 +4,40 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-01-06
+
+### Added
+- `Three_Year_HSE_Strategic_Plan.md` - Comprehensive three-year HSE strategic plan (550+ lines) for AdBlue manufacturing site including:
+  - Executive summary: current position, 3-year vision, £30k investment overview
+  - Legal compliance framework with record retention requirements (H&S, environmental, REACH records)
+  - Competent person structure: NEBOSH-qualified internal lead + £2,500/year external specialists
+  - Year 1 (2026): Foundation building - £11k budget with quarterly action plans
+  - Year 2 (2027): System embedding - £10k budget, proactive monitoring, contractor management
+  - Year 3 (2028): Optimization - £9k budget, ISO alignment, environmental excellence
+  - Detailed tables for record retention periods (2 years to 40 years to permanent)
+  - Legal duties by area: COSHH, workplace transport, work at height, racking, fire, environmental, welfare
+  - Annual recurring compliance costs: £3,850/year from Year 2
+  - Appendices: supplier recommendations, applicable regulations, HSE/EA resource links
+- `Training_Matrix_Template.md` - Comprehensive training management system (600+ lines) including:
+  - Part 1: Training requirements reference with mandatory training by role, frequencies, costs
+  - Part 2: Individual staff training matrices for 4 warehouse operatives and 4 office staff
+  - Part 3: Training schedule planner with monthly calendar and renewals alert list
+  - Part 4: Training provider contacts directory organized by training type
+  - Quick reference guide, 10 tips for effective training management, FAQs
+- `Training_Matrix_Template.csv` - Excel-compatible training matrix (52 rows):
+  - All 12 staff members with required training types
+  - Columns: Name, Role, Training Type, Required, Status, Dates, Provider, Cost, Notes
+  - Ready for filtering, sorting, conditional formatting in Excel/Google Sheets
+
+### Documentation
+- Detailed legal compliance framework covering what records must be kept and for how long
+- Competent person requirements under MHSWR 1999 Regulation 7 explained
+- Year-by-year quarterly implementation roadmap for systematic HSE management
+- Training renewal frequency guide (HSE induction: 2 years, Forklift: 3-5 years, First Aid: 3 years, etc.)
+- Budget allocation aligned to small operation constraints (<£2M turnover, £5-15k/year HSE budget)
+
+---
+
 ## [Unreleased] - 2025-12-15
 
 ### Added

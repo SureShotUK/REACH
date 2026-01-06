@@ -1,0 +1,54 @@
+Name,Role,Training Type,Required,Status,Date Completed,Expiry Date,Renewal Frequency,Training Provider,Certificate Reference,Estimated Cost,Notes
+Operative 1,Warehouse Operative,HSE Induction,Yes,Required,,,Every 2 years,Internal,,£0,Company-specific H&S rules and emergency procedures
+Operative 1,Warehouse Operative,Forklift Operator,Yes,Required,,,Every 3-5 years,,,£300-400,RTITB/AITT/ITSSAR accredited training required
+Operative 1,Warehouse Operative,Manual Handling,Yes,Required,,,Every 2-3 years,,,£400 (on-site group),Specific to lifting bags/drums/awkward loads
+Operative 1,Warehouse Operative,COSHH Awareness,Yes,Required,,,Every 2 years,,,£400 (on-site group),Urea/AdBlue/cleaning chemicals
+Operative 1,Warehouse Operative,Spillage Response,Yes,Required,,,Every 2 years,Internal or External,,£0-200,Specific to urea/AdBlue spills
+Operative 1,Warehouse Operative,Fire Warden,Optional,Not Required,,,Every 2-3 years,,,£100-150,Fire extinguisher use and evacuation procedures
+Operative 1,Warehouse Operative,First Aid at Work,Optional,Not Required,,,Every 3 years (2-day refresher),,,£250-350,FAW certificate provides higher level than EFAW
+Operative 1,Warehouse Operative,Working at Height,If Applicable,Not Required,,,Every 2-3 years,,,£150-200,Only if accessing high racking or roof areas
+Operative 2,Warehouse Operative,HSE Induction,Yes,Required,,,Every 2 years,Internal,,£0,Company-specific H&S rules and emergency procedures
+Operative 2,Warehouse Operative,Forklift Operator,Yes,Required,,,Every 3-5 years,,,£300-400,RTITB/AITT/ITSSAR accredited training required
+Operative 2,Warehouse Operative,Manual Handling,Yes,Required,,,Every 2-3 years,,,£400 (on-site group),Specific to lifting bags/drums/awkward loads
+Operative 2,Warehouse Operative,COSHH Awareness,Yes,Required,,,Every 2 years,,,£400 (on-site group),Urea/AdBlue/cleaning chemicals
+Operative 2,Warehouse Operative,Spillage Response,Yes,Required,,,Every 2 years,Internal or External,,£0-200,Specific to urea/AdBlue spills
+Operative 2,Warehouse Operative,Fire Warden,Optional,Not Required,,,Every 2-3 years,,,£100-150,Fire extinguisher use and evacuation procedures
+Operative 2,Warehouse Operative,First Aid at Work,Optional,Not Required,,,Every 3 years (2-day refresher),,,£250-350,FAW certificate provides higher level than EFAW
+Operative 2,Warehouse Operative,Working at Height,If Applicable,Not Required,,,Every 2-3 years,,,£150-200,Only if accessing high racking or roof areas
+Operative 3,Warehouse Operative,HSE Induction,Yes,Required,,,Every 2 years,Internal,,£0,Company-specific H&S rules and emergency procedures
+Operative 3,Warehouse Operative,Forklift Operator,Yes,Required,,,Every 3-5 years,,,£300-400,RTITB/AITT/ITSSAR accredited training required
+Operative 3,Warehouse Operative,Manual Handling,Yes,Required,,,Every 2-3 years,,,£400 (on-site group),Specific to lifting bags/drums/awkward loads
+Operative 3,Warehouse Operative,COSHH Awareness,Yes,Required,,,Every 2 years,,,£400 (on-site group),Urea/AdBlue/cleaning chemicals
+Operative 3,Warehouse Operative,Spillage Response,Yes,Required,,,Every 2 years,Internal or External,,£0-200,Specific to urea/AdBlue spills
+Operative 3,Warehouse Operative,Fire Warden,Optional,Not Required,,,Every 2-3 years,,,£100-150,Fire extinguisher use and evacuation procedures
+Operative 3,Warehouse Operative,First Aid at Work,Optional,Not Required,,,Every 3 years (2-day refresher),,,£250-350,FAW certificate provides higher level than EFAW
+Operative 3,Warehouse Operative,Working at Height,If Applicable,Not Required,,,Every 2-3 years,,,£150-200,Only if accessing high racking or roof areas
+Operative 4,Warehouse Operative,HSE Induction,Yes,Required,,,Every 2 years,Internal,,£0,Company-specific H&S rules and emergency procedures
+Operative 4,Warehouse Operative,Forklift Operator,Yes,Required,,,Every 3-5 years,,,£300-400,RTITB/AITT/ITSSAR accredited training required
+Operative 4,Warehouse Operative,Manual Handling,Yes,Required,,,Every 2-3 years,,,£400 (on-site group),Specific to lifting bags/drums/awkward loads
+Operative 4,Warehouse Operative,COSHH Awareness,Yes,Required,,,Every 2 years,,,£400 (on-site group),Urea/AdBlue/cleaning chemicals
+Operative 4,Warehouse Operative,Spillage Response,Yes,Required,,,Every 2 years,Internal or External,,£0-200,Specific to urea/AdBlue spills
+Operative 4,Warehouse Operative,Fire Warden,Optional,Not Required,,,Every 2-3 years,,,£100-150,Fire extinguisher use and evacuation procedures
+Operative 4,Warehouse Operative,First Aid at Work,Optional,Not Required,,,Every 3 years (2-day refresher),,,£250-350,FAW certificate provides higher level than EFAW
+Operative 4,Warehouse Operative,Working at Height,If Applicable,Not Required,,,Every 2-3 years,,,£150-200,Only if accessing high racking or roof areas
+Office Staff 1,Office Staff,HSE Induction,Yes,Required,,,Every 2 years,Internal,,£0,Company-specific H&S rules and emergency procedures
+Office Staff 1,Office Staff,DSE (Display Screen Equipment),Yes,Required,,,Every 2-3 years,Internal or Online,,£0-50,Screen setup and workstation assessment
+Office Staff 1,Office Staff,Fire Warden,Optional,Not Required,,,Every 2-3 years,,,£100-150,Fire extinguisher use and evacuation procedures
+Office Staff 1,Office Staff,First Aid at Work,Optional,Not Required,,,Every 3 years (2-day refresher),,,£250-350,FAW certificate provides higher level than EFAW
+Office Staff 1,Office Staff,Manual Handling,If Applicable,Not Required,,,Every 2-3 years,,,£400 (on-site group),Only if handling archive boxes etc
+Office Staff 1,Office Staff,NEBOSH General Certificate,If HSE Role,Not Required,,,No expiry (CPD recommended),,,£1200-1800,Provides competent person qualification
+Office Staff 2,Office Staff,HSE Induction,Yes,Required,,,Every 2 years,Internal,,£0,Company-specific H&S rules and emergency procedures
+Office Staff 2,Office Staff,DSE (Display Screen Equipment),Yes,Required,,,Every 2-3 years,Internal or Online,,£0-50,Screen setup and workstation assessment
+Office Staff 2,Office Staff,Fire Warden,Optional,Not Required,,,Every 2-3 years,,,£100-150,Fire extinguisher use and evacuation procedures
+Office Staff 2,Office Staff,First Aid at Work,Optional,Not Required,,,Every 3 years (2-day refresher),,,£250-350,FAW certificate provides higher level than EFAW
+Office Staff 2,Office Staff,Manual Handling,If Applicable,Not Required,,,Every 2-3 years,,,£400 (on-site group),Only if handling archive boxes etc
+Office Staff 3,Office Staff,HSE Induction,Yes,Required,,,Every 2 years,Internal,,£0,Company-specific H&S rules and emergency procedures
+Office Staff 3,Office Staff,DSE (Display Screen Equipment),Yes,Required,,,Every 2-3 years,Internal or Online,,£0-50,Screen setup and workstation assessment
+Office Staff 3,Office Staff,Fire Warden,Optional,Not Required,,,Every 2-3 years,,,£100-150,Fire extinguisher use and evacuation procedures
+Office Staff 3,Office Staff,First Aid at Work,Optional,Not Required,,,Every 3 years (2-day refresher),,,£250-350,FAW certificate provides higher level than EFAW
+Office Staff 3,Office Staff,Manual Handling,If Applicable,Not Required,,,Every 2-3 years,,,£400 (on-site group),Only if handling archive boxes etc
+Office Staff 4,Office Staff,HSE Induction,Yes,Required,,,Every 2 years,Internal,,£0,Company-specific H&S rules and emergency procedures
+Office Staff 4,Office Staff,DSE (Display Screen Equipment),Yes,Required,,,Every 2-3 years,Internal or Online,,£0-50,Screen setup and workstation assessment
+Office Staff 4,Office Staff,Fire Warden,Optional,Not Required,,,Every 2-3 years,,,£100-150,Fire extinguisher use and evacuation procedures
+Office Staff 4,Office Staff,First Aid at Work,Optional,Not Required,,,Every 3 years (2-day refresher),,,£250-350,FAW certificate provides higher level than EFAW
+Office Staff 4,Office Staff,Manual Handling,If Applicable,Not Required,,,Every 2-3 years,,,£400 (on-site group),Only if handling archive boxes etc
