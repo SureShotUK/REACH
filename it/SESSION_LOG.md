@@ -4,6 +4,53 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-01-15 (Time Unknown)
+
+### Summary
+Provided technical guidance for loading PDF files into MemoryStream using PdfSharp library. User encountered error when trying to save document opened in Import mode to MemoryStream.
+
+### Work Completed
+- Diagnosed issue with `PdfDocumentOpenMode.Import` preventing document save operations
+- Explained that Import mode is specifically for extracting pages to other documents, not for general reading/saving
+- Provided two solutions:
+  1. **Direct file read (recommended)**: Use `File.ReadAllBytes()` to load PDF bytes directly into MemoryStream without PdfSharp overhead
+  2. **PdfSharp with correct mode**: Change from `Import` to `Modify` mode to allow save operations
+- User confirmed Option 1 (direct file read) worked successfully
+- Explained appropriate `PdfDocumentOpenMode` values for different subsequent operations (Import for page extraction, ReadOnly for reading/text extraction)
+
+### Files Changed
+None - session was technical guidance only, user implemented solution independently.
+
+### Git Commits
+None - no code changes made during this session.
+
+### Key Decisions
+- **Approach selected**: Direct file read using `File.ReadAllBytes()` + `MemoryStream` constructor
+- **Rationale**: Simpler, faster, no PdfSharp parsing overhead when just loading file into memory
+- **When to use PdfSharp**: Open MemoryStream later with appropriate mode (Import/ReadOnly) for actual PDF operations
+- **Pattern**: Separate concerns - file loading vs PDF processing
+
+### Reference Documents
+None - verbal technical guidance session on PdfSharp library usage.
+
+### Code Pattern Provided
+```csharp
+internal static MemoryStream GetFileAsMemoryStream(string pdfFilePath)
+{
+    if (!File.Exists(pdfFilePath))
+        throw new FileNotFoundException($"PDF file not found: {pdfFilePath}");
+
+    byte[] pdfBytes = File.ReadAllBytes(pdfFilePath);
+    return new MemoryStream(pdfBytes);
+}
+```
+
+### Next Actions
+- [ ] User may implement page extraction methods using the MemoryStream
+- [ ] User may implement text extraction methods using the MemoryStream
+
+---
+
 ## Session 2025-12-12 (Time Unknown)
 
 ### Summary
