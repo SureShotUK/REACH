@@ -4,6 +4,32 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-01-19
+
+### Added
+- `3_Year_HSE_Plan.md` - Updated three-year HSE strategic plan (650+ lines) incorporating actual budget data:
+  - Total investment revised to £36,255 (from original £30k estimate)
+  - Year 1 (2026): £24,606 budget including £15,824 waste water infrastructure + £8,282 recurring costs + £500 NEBOSH
+  - Year 2 (2027): £3,942 budget (recurring compliance costs only)
+  - Year 3 (2028): £7,707 budget (recurring costs with significant training investment)
+  - Hybrid structure: Detailed quarterly breakdown for Year 1, annual objectives for Years 2-3
+  - Objectives aligned with HSE3yrObjectives.csv timeline (waste water assessment, training system, fire marshal plan, NEBOSH, HSE management system, driver H&S review, occupational health assessment, culture review, waste optimization)
+  - Budget integration from HSE5yrRecurringCosts.csv with actual recurring costs per year
+  - Internal time activities clearly marked as £0 throughout budget tables
+  - Retained full legal compliance framework section from original plan
+
+### Changed
+- `Three_Year_HSE_Strategic_Plan.md` renamed to `Three_Year_HSE_Strategic_Plan_old.md` (preserved as reference)
+
+### Documentation
+- Budget updated to reflect actual recurring costs from CSV data analysis
+- Year 1 budget now includes major waste water infrastructure project (£15,824)
+- Quarterly objectives for Year 1 mapped to specific CSV timeline items (Q1-Q4)
+- Annual objectives for Years 2-3 focused on operational embedding and cultural development
+- Budget breakdown by category added: recurring compliance (£19,931), waste water (£15,824), NEBOSH (£500)
+
+---
+
 ## [Unreleased] - 2026-01-06
 
 ### Added

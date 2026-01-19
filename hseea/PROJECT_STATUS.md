@@ -1,23 +1,26 @@
 # Project Status
 
-**Last Updated**: 2025-12-15
+**Last Updated**: 2026-01-19
 
 ## Current State
 
-This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, and water discharge permit planning documentation.
+This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, and an updated three-year HSE strategic plan with realistic budget allocations.
 
-**Recent Update**: Created comprehensive three-year HSE strategic plan (`Three_Year_HSE_Strategic_Plan.md`) for AdBlue manufacturing site with detailed legal compliance framework, yearly implementation roadmap (2026-2028), £30k budget allocation, and supporting training matrix template in markdown and CSV formats. Plan provides complete record retention requirements, competent person structure, and quarterly action plans for transitioning from basic compliance to systematic HSE management.
+**Recent Update**: Created updated three-year HSE strategic plan (`3_Year_HSE_Plan.md`) incorporating actual recurring costs from CSV budget data and specific quarterly/annual objectives. Total investment now £36,255 over 3 years (£24.6k Year 1, £3.9k Year 2, £7.7k Year 3), with Year 1 including major waste water infrastructure project (£15,824). Plan uses hybrid structure: detailed quarterly breakdown for Year 1 foundation building, then annual objectives for Years 2-3 operational phase.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
 ## Active Work Areas
 
-- **Three-Year HSE Strategic Planning**: Completed - Comprehensive 2026-2028 strategic plan created with legal compliance framework
-  - Legal record retention requirements documented (H&S, environmental, REACH)
-  - Competent person structure defined (NEBOSH-qualified internal + external specialists)
-  - Year-by-year implementation plans with quarterly milestones
-  - £30k budget allocation across 3 years (£11k, £10k, £9k)
-  - Training matrix template created in markdown and CSV formats
+- **Three-Year HSE Strategic Planning**: Updated - Comprehensive 2026-2028 strategic plan revised with actual budget data
+  - New file: `3_Year_HSE_Plan.md` replacing original strategic plan
+  - Budget updated to £36,255 total based on actual recurring costs from CSV data
+  - Year 1 (2026): £24,606 - includes £15,824 waste water infrastructure + £8,282 recurring + £500 NEBOSH
+  - Year 2 (2027): £3,942 - recurring compliance costs only
+  - Year 3 (2028): £7,707 - recurring costs with significant training investment
+  - Year 1 maintains detailed quarterly structure; Years 2-3 use annual objectives format
+  - Objectives aligned with HSE3yrObjectives.csv timeline
+  - Training matrix template previously created remains current
 - **Water Discharge Permit Planning**: Active - RO concentrate disposal planning and EA permit preparation
   - Stream assessment completed: 2.02 ML/day flow capacity
   - Interim disposal costs calculated for Yorkshire Water Naburn STW
@@ -30,13 +33,21 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Recently Completed
 
-- **Three-Year HSE Strategic Plan** (2026-01-06):
-  - Created `Three_Year_HSE_Strategic_Plan.md` - comprehensive 550+ line strategic plan
+- **Three-Year HSE Strategic Plan Update** (2026-01-19):
+  - Created `3_Year_HSE_Plan.md` - updated 650+ line strategic plan with actual budget data
+  - Incorporated `HSE5yrRecurringCosts.csv` data: £8,282 (2026), £3,942 (2027), £7,707 (2028)
+  - Incorporated `HSE3yrObjectives.csv` timeline with quarterly/annual objectives
+  - Total investment revised to £36,255 (from original £30k estimate)
+  - Year 1 (2026): £24,606 - major waste water infrastructure investment (£15,824) + recurring compliance
+  - Year 2 (2027): £3,942 - focus on embedding HSE into daily operations, driver H&S review
+  - Year 3 (2028): £7,707 - occupational health assessment, HSE culture review, waste optimization
+  - Hybrid structure: Quarterly breakdown for Year 1, annual objectives for Years 2-3
+  - Retained full legal compliance framework from original plan
+  - Internal time activities clearly marked as £0 throughout
+- **Three-Year HSE Strategic Plan - Original Version** (2026-01-06):
+  - Created `Three_Year_HSE_Strategic_Plan.md` (now renamed to `Three_Year_HSE_Strategic_Plan_old.md`)
   - Legal compliance framework with record retention requirements (2 years to permanent)
-  - Competent person structure: NEBOSH internal lead + £2,500/year external specialist support
-  - Year 1 (2026): Foundation building - £11k budget, environmental review, COSHH updates, critical training
-  - Year 2 (2027): System embedding - £10k budget, proactive monitoring, contractor management, specialist reviews
-  - Year 3 (2028): Optimization - £9k budget, ISO alignment, environmental excellence
+  - Competent person structure: NEBOSH internal lead + external specialist support
   - Created `Training_Matrix_Template.md` (600+ lines) and `Training_Matrix_Template.csv` (52 training records)
   - Templates include training requirements, individual tracking matrices, schedule planner, provider directory
   - Plan tailored to AdBlue manufacturing: 4 warehouse operatives, 4 office staff, forklift operations, chemical handling
@@ -71,12 +82,14 @@ None.
 
 ## Next Priorities
 
-1. **Implement Year 1 Q1 of Three-Year HSE Plan** (Jan-Mar 2026):
-   - Populate training matrix with actual staff names and current training status
-   - Engage environmental consultant for compliance baseline review (£1,500 allocated)
-   - Ensure NEBOSH General Certificate completion is scheduled
-   - Conduct training needs analysis for all 12 staff members
-   - Document current waste streams and contractor arrangements
+1. **Implement Year 1 Q1 of Updated Three-Year HSE Plan** (Jan-Mar 2026):
+   - Engage environmental consultant for waste water assessment
+   - Implement training system using Training_Matrix_Template.md
+   - Develop fire marshal evacuation plan
+   - Complete WorkNest H&S Policy with consultancy support
+   - Commission fire risk assessment for 1 Toft Green office
+   - Complete Q1 PAT testing and fire extinguisher checks
+   - Document all current waste streams and contractor arrangements
 2. **Complete EA Water Discharge Permit Application**:
    - Obtain RO concentrate water quality test results
    - Calculate dilution ratios for various discharge rates

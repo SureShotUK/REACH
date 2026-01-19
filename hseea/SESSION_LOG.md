@@ -6,6 +6,68 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-01-19 16:54
+
+### Summary
+Created updated three-year HSE strategic plan incorporating actual recurring costs from CSV budget data and specific quarterly/annual objectives, maintaining quarterly breakdown for Year 1 and transitioning to annual objectives for Years 2-3.
+
+### Work Completed
+- Reviewed existing `Three_Year_HSE_Strategic_Plan_old.md` (renamed from original) to understand preferred structure and format
+- Analyzed `HSE5yrRecurringCosts.csv` containing actual recurring compliance costs for 2026-2030 (£8,282, £3,942, £7,707, £2,619, £2,049)
+- Analyzed `HSE3yrObjectives.csv` containing timeline of objectives mapped to specific quarters/years plus special projects
+- Created `3_Year_HSE_Plan.md` - comprehensive strategic plan with:
+  - Retained full legal compliance framework section (records retention, competent person requirements)
+  - Year 1 (2026): Detailed quarterly breakdown (Q1-Q4) aligned with CSV objectives - £24,606 budget
+  - Year 2 (2027): Annual objectives focused on driver H&S review and HSE embedding - £3,942 budget
+  - Year 3 (2028): Annual objectives focused on occupational health, culture review, waste optimization - £7,707 budget
+  - Total 3-year investment: £36,255 (significantly updated from original £30,000 estimate)
+  - Budget breakdown integrating recurring costs + special projects (£15,824 waste water, £500 NEBOSH)
+  - Internal time items clearly marked as £0 in all budget tables
+  - All external links verified in HTML format with `target="_blank"` attribute
+- User decision: Keep quarterly breakdown for Year 1 only, use annual structure for Years 2-3
+- User decision: Combine CSV recurring costs with special project costs for accurate budget
+- User decision: Retain full legal framework section and mark internal activities as £0
+
+### Files Changed
+- `hseea/3_Year_HSE_Plan.md` - NEW: Updated three-year HSE strategic plan (650+ lines)
+  - Executive summary with updated investment overview (£36,255 total vs original £30,000)
+  - Full legal compliance framework retained from original document
+  - Year 1 (2026): Quarterly breakdown with specific objectives from HSE3yrObjectives.csv
+    - Q1: Waste water assessment, training system, fire marshal plan, WorkNest H&S policy, 1 Toft Green FRA
+    - Q2: Waste water implementation (£15,824), H&S management documentation, COSHH assessments
+    - Q3: NEBOSH examination (£500), competent person structure, SEMA inspection, training delivery
+    - Q4: HSE management system framework, compliance monitoring, Year 1 review
+  - Year 2 (2027): Annual objectives - driver H&S review, embed HSE into daily operations
+  - Year 3 (2028): Annual objectives - occupational health assessment, culture review, waste volume review, WorkNest partnership review
+  - Detailed budget tables for each year with recurring costs from CSV integrated
+  - Three-year budget summary showing year-by-year allocation and 3-year total
+- `hseea/Three_Year_HSE_Strategic_Plan.md` - RENAMED to `Three_Year_HSE_Strategic_Plan_old.md` (preserved as reference)
+
+### Git Commits
+- No commits yet - files staged for documentation commit
+
+### Key Decisions
+- **Structure**: Hybrid approach with detailed quarterly breakdown for Year 1 foundation building, then annual objectives for Years 2-3 operational phase
+- **Budget methodology**: Combined actual recurring costs from HSE5yrRecurringCosts.csv with special project allocations from HSE3yrObjectives.csv for realistic total investment figure
+- **Year 1 focus**: Major investment year (£24,606) driven by waste water infrastructure project (£15,824) and baseline compliance activities
+- **Years 2-3 efficiency**: Lower annual costs (£3,942 and £7,707) focusing on maintaining compliance and cultural embedding
+- **Legal framework**: Retained comprehensive legal compliance section as essential reference material for record-keeping and competent person requirements
+- **Internal activities**: All internal time activities (risk assessments, system development, reviews) clearly marked as £0 to distinguish from external spend
+
+### Reference Documents
+- `Three_Year_HSE_Strategic_Plan_old.md` - Original strategic plan used as structural template
+- `HSE5yrRecurringCosts.csv` - Source data for annual recurring compliance costs (2026-2030)
+- `HSE3yrObjectives.csv` - Source data for quarterly/annual objectives and special project costs
+
+### Next Actions
+- [ ] Review and approve the new 3_Year_HSE_Plan.md structure and budget allocations
+- [ ] Consider if waste water budget of £15,824 requires adjustment based on actual quotations
+- [ ] Determine approval signoff process for strategic plan
+- [ ] Share plan with WorkNest consultancy for review and input
+- [ ] Begin Year 1 Q1 activities (waste water assessment, training matrix, fire marshal plan)
+
+---
+
 ## Session 2026-01-06 14:30
 
 ### Summary
