@@ -6,6 +6,61 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-01-21
+
+### Added - Canada Project Created
+- **Canada Project Structure** - New Canadian financial compliance project:
+  - `/Canada/` - Project folder for Canadian securities compliance for UK firms
+  - `/Canada/.claude/agents/` - Specialized agent folder
+  - `/Canada/.claude/commands/` - Shared command symlinks
+  - `/Canada/CLAUDE.md` - Comprehensive project guidance (10,000+ words)
+    - International dealer exemption focus (Section 8.18 of NI 31-103)
+    - Multi-jurisdictional awareness (13 Canadian securities regulators)
+    - Permitted client restrictions and qualification criteria
+    - UK-Canada regulatory coordination and FCA equivalency
+    - Document organization structure (regulations, guidance, registration, compliance, exemptions, cross-border)
+    - Key compliance areas (NI 31-103, registration exemptions, business conduct, passport system)
+    - Typical workflows (regulatory research, exemption analysis, client qualification, compliance program design)
+    - Canadian Securities Administrators (CSA) structure and harmonization mechanisms
+    - Provincial/territorial regulator overview with jurisdictional differences
+    - Cost-benefit analysis of international dealer exemptions vs. full registration
+    - Language requirements awareness (Québec French-language requirements)
+- **gemini-canadian-financial-compliance-researcher Agent** (7,500+ words):
+  - Specialized for Canadian securities regulation research
+  - Primary sources: CSA, OSC, AMF, BCSC, ASC, CanLII, FCA (UK)
+  - Focus areas: international dealer exemptions, permitted client definitions, NI 31-103
+  - Multi-jurisdictional research methodology
+  - National/multilateral instrument research techniques (NI, MI, staff notices)
+  - Exemptive relief and precedent decision analysis
+  - Passport system navigation and Québec coordination
+  - Cross-border UK-Canada regulatory coordination expertise
+  - Key topics mastery: Section 8.18, permitted client definition, books and records, business conduct
+  - Red flags identification: outdated guidance, jurisdictional assumptions, terminology confusion
+- **Canada settings.local.json** - Permissions configuration:
+  - WebFetch permissions for Canadian regulator sites (CSA, OSC, AMF, BCSC, ASC, CanLII)
+  - WebFetch permission for FCA (UK home regulator context)
+  - Git operations permissions
+  - WebSearch permissions
+- **Shared commands symlinked**:
+  - `/end-session` command available in Canada directory
+  - `/sync-session` command available in Canada directory
+
+### Changed
+- **PROJECT_STATUS.md** - Updated to include Canada project
+  - Added to "Active Work Areas" section with detailed structure
+  - Added to "Recently Completed" section
+  - Added to "Key Files & Structure" section
+  - Added "Canada Project" to "Next Priorities" section
+  - Updated "Current State" summary to reference six projects
+- **SESSION_LOG.md** - Added comprehensive session entry for Canada project creation
+
+### Documentation
+- Created comprehensive session documentation in SESSION_LOG.md (2026-01-21 session)
+- Updated PROJECT_STATUS.md with Canada project details
+- Added CHANGELOG.md entry for new project
+
+---
+
 ## [Unreleased] - 2025-11-26
 
 ### Added - XmlDotnetCoding Project Created
