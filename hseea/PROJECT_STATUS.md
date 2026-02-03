@@ -1,17 +1,18 @@
 # Project Status
 
-**Last Updated**: 2026-01-19
+**Last Updated**: 2026-02-03
 
 ## Current State
 
-This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, and an updated three-year HSE strategic plan with realistic budget allocations.
+This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, and a noise assessment report with full CNAWR 2005 compliance analysis.
 
-**Recent Update**: Created updated three-year HSE strategic plan (`3_Year_HSE_Plan.md`) incorporating actual recurring costs from CSV budget data and specific quarterly/annual objectives. Total investment now £36,255 over 3 years (£24.6k Year 1, £3.9k Year 2, £7.7k Year 3), with Year 1 including major waste water infrastructure project (£15,824). Plan uses hybrid structure: detailed quarterly breakdown for Year 1 foundation building, then annual objectives for Years 2-3 operational phase.
+**Recent Update**: Created `assessments/NoiseAssessment.md` — a full noise assessment based on 9-area site measurements. Two worker types assessed: machine operator (LEP,d 82.4 dB(A), lower action value exceeded) and Area 5 worker (LEP,d 77.8 dB(A), below lower action value). Upper action value not exceeded by either role. Compliance-mapped recommendations included covering dosimetry, engineering controls, HPD availability, health surveillance, and training duties.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
 ## Active Work Areas
 
+- **Noise Assessment**: Active — `assessments/NoiseAssessment.md` created and revised with actual working pattern. Key next steps: commission full-shift personal dosimetry (priority — Area 5 worker at 77.8 dB(A) is close to the 80 dB(A) boundary); investigate engineering controls for Area 1; enrol machine operator in health surveillance; formalise and document current working pattern
 - **Three-Year HSE Strategic Planning**: Updated - Comprehensive 2026-2028 strategic plan revised with actual budget data
   - New file: `3_Year_HSE_Plan.md` replacing original strategic plan
   - Budget updated to £36,255 total based on actual recurring costs from CSV data
@@ -33,6 +34,16 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Recently Completed
 
+- **Noise Assessment** (2026-02-03):
+  - Created `assessments/NoiseAssessment.md` — full noise assessment from `NoiseLimits.csv` site measurements
+  - 9 areas measured with Martindale SP79 Class 2 meter; dB(A) and dB(C) min/max recorded over 5-minute periods
+  - Machine operates 4 hrs/day; two worker types assessed using equal energy (3 dB doubling) method
+  - Machine operator: LEP,d 82.4 dB(A) (range 81.6–83.1) — lower action value exceeded; Regs 5, 7, 8, 9 duties apply
+  - Area 5 worker: LEP,d 77.8 dB(A) — below lower action value; no specific duties triggered (confirmed robust to ±1.5 dB uncertainty)
+  - Upper action value (85 dB(A)) not exceeded → Reg 6 mandatory noise reduction programme not triggered
+  - Significant low-frequency propagation from Area 3 identified (dB(C)–dB(A) difference up to 20 dB in distant areas)
+  - Engineering controls focused on Area 1 (dominant LEP,d contributor); acoustic specialist consultation recommended for low-frequency treatment
+  - Compliance position summary included in recommendations section
 - **Three-Year HSE Strategic Plan Update** (2026-01-19):
   - Created `3_Year_HSE_Plan.md` - updated 650+ line strategic plan with actual budget data
   - Incorporated `HSE5yrRecurringCosts.csv` data: £8,282 (2026), £3,942 (2027), £7,707 (2028)

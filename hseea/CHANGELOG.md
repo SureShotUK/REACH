@@ -4,6 +4,25 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-02-03
+
+### Added
+- `assessments/NoiseAssessment.md` — Full noise assessment report (290 lines) based on 9-area site measurements from `NoiseLimits.csv`:
+  - Legal framework section: CNAWR 2005 thresholds verified against legislation.gov.uk (lower AV 80, upper AV 85, limit value 87 dB(A) with HPD counted)
+  - Measurement methodology: Martindale SP79 Class 2 limitations documented (±1.5 dB uncertainty, snapshot vs TWA distinction)
+  - TWA dose calculations for two worker types using equal energy method:
+    - Machine operator: 82.4 dB(A) estimated LEP,d (range 81.6–83.1) — above lower action value
+    - Area 5 worker: 77.8 dB(A) estimated LEP,d — below lower action value (robust to measurement uncertainty)
+  - Peak sound pressure analysis: all areas well below 135 dB(C) action value
+  - Low-frequency content analysis: significant dB(C)–dB(A) divergence in distant areas (up to 20 dB) indicating structural propagation
+  - Compliance-mapped recommendations: duties under Regs 5, 7, 8, 9 for machine operator; dosimetry, engineering controls (Area 1 focus), HPD availability, health surveillance, training
+
+### Documentation
+- Noise assessment distinguishes between legal duties triggered at each threshold and good-practice measures — important because the upper action value is not exceeded, so Regulation 6 mandatory noise reduction programme and mandatory HPD enforcement do not apply
+- Compliance position summary included at top of recommendations section for quick reference
+
+---
+
 ## [Unreleased] - 2026-01-19
 
 ### Added

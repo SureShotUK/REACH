@@ -6,6 +6,54 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-03
+
+### Summary
+Created a noise assessment report (`assessments/NoiseAssessment.md`) from site measurements recorded in `NoiseLimits.csv`. The assessment was initially written with hypothetical exposure scenarios, then revised after the user provided the actual working pattern — which changed the compliance outcomes: the upper action value is not exceeded, and the Area 5 worker falls below the lower action value.
+
+### Work Completed
+- Read and interpreted `assessments/NoiseLimits.csv` — 9-area noise survey data (dB(A) and dB(C) min/max from 5-minute measurements with Martindale SP79 Class 2 meter)
+- Gathered key working-pattern information via clarifying questions: 8-hour shifts, 30 min – 2 hrs in noisy areas, rotating staff in Area 3
+- Verified CNAWR 2005 regulatory thresholds against legislation.gov.uk and HSE sources:
+  - Lower action value: 80 dB(A) | Upper action value: 85 dB(A) | Limit value: 87 dB(A) (HPD attenuation counted)
+  - Confirmed the limit value is 87 dB(A) (not 85) — a key nuance: HPD reduction is factored in only for the limit value (Regulation 4(5))
+- Created initial `assessments/NoiseAssessment.md` with three hypothetical exposure scenarios (A/B/C), yielding estimated LEP,d of 80.0–85.9 dB(A)
+- User then provided the actual shift pattern: machine operates 4 hrs/day; two worker types (machine operator cycling through Areas 1/2/3/4/8; Area 5 worker stationary); breaks in separate quiet building
+- Recalculated LEP,d for both roles using equal energy (3 dB doubling) method:
+  - **Machine operator: 82.4 dB(A)** (range 81.6–83.1 depending on exact cycle timing) — above lower AV, below upper AV
+  - **Area 5 worker: 77.8 dB(A)** — below lower AV; remains below 80 even with ±1.5 dB Class 2 uncertainty (79.3 dB(A))
+- Revised NoiseAssessment.md sections 1, 5.2, 6, and 7 to reflect actual work pattern and updated compliance position
+- Added compliance position summary to Section 7 mapping findings to specific regulation duties
+
+### Files Changed
+- `assessments/NoiseAssessment.md` — NEW: Full noise assessment report (290 lines). Created with initial scenario-based analysis, then revised with actual working pattern. Covers legal framework, measurement methodology and Class 2 limitations, results, TWA dose calculations for two worker types, peak and low-frequency analysis, compliance-mapped recommendations
+- `assessments/NoiseLimits.csv` — Source data; read only, not modified
+
+### Key Decisions
+- **Dose calculation basis**: Maximum measured dB(A) used throughout for worst-case conservatism. Noted as a limitation — actual doses will be lower when formal Leq dosimetry is used
+- **Machine operator time split**: Mid-range values used for representative calculation (3.5 min Area 1, 3 min Area 8); sensitivity range of ±1 dB presented to show the conclusion is robust across the stated time variations
+- **Area 5 worker boundary check**: Explicitly tested the effect of +1.5 dB measurement uncertainty — LEP,d rises to 79.3 dB(A), still below 80. This gives confidence the Area 5 worker position is sound even with Class 2 instrument tolerance
+- **Compliance position**: Upper action value not exceeded → Regulation 6 mandatory noise reduction programme and Regulation 7(2) mandatory HPD enforcement are NOT triggered. This is the key regulatory difference from the initial scenario-based assessment
+- **Engineering controls focus**: Targeted at Area 1 (not Area 3) because that is where the machine operator spends most time and it is the dominant LEP,d contributor. Area 3 pass-throughs are only seconds per cycle
+- **Administrative controls**: Formalising the current working pattern (rather than changing it) is the recommended action — the pattern already keeps dose below the upper AV; the risk is it being altered ad hoc
+- **Dosimetry priority**: Recommended as highest priority because the Area 5 worker at 77.8 dB(A) is close enough to the 80 dB(A) boundary that formal dosimetry should confirm the position before concluding no duties apply
+
+### Reference Documents
+- `assessments/NoiseLimits.csv` — Source measurement data (9 areas, dB(A) and dB(C) min/max)
+- The Control of Noise at Work Regulations 2005 (S.I. 2005/1643) — Regulation 4 (verified at legislation.gov.uk)
+- HSE: Noise at Work — Regulations (verified at hse.gov.uk/noise/regulations.htm)
+- INDG362: Noise at Work — A Brief Guide (HSE publication)
+
+### Next Actions
+- [ ] Commission full-shift personal dosimetry for both machine operator and Area 5 worker roles to formally confirm LEP,d values and satisfy Regulation 8 record-keeping
+- [ ] Investigate engineering controls (sound absorption, barriers) for Area 1 — consult acoustic specialist given the low-frequency propagation identified
+- [ ] Formalise and document the current machine operator working pattern (cycle times and area sequence)
+- [ ] Enrol machine operator in health surveillance programme (baseline audiometry)
+- [ ] Deliver noise risk information and training to relevant workers; document delivery
+- [ ] Fill in placeholder fields in NoiseAssessment.md (dates, assessor name, site name)
+
+---
+
 ## Session 2026-01-19 16:54
 
 ### Summary
