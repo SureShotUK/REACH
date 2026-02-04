@@ -77,6 +77,13 @@ When the user provides PDF documents:
 
 **Accurate References**: Always cite specific regulations, guidance document numbers (e.g., HSG65, INDG163), and relevant sections when providing compliance advice.
 
+**Regulation Hyperlinks**: Whenever a document references a specific UK regulation (an Act of Parliament, a Statutory Instrument, or an individual regulation within an SI), hyperlink it to legislation.gov.uk. Use the HTML anchor format with `target="_blank"` as specified in the shared CLAUDE.md link format requirements. Always verify the URL with WebFetch before inserting. Common URL patterns:
+- SI regulation: `https://www.legislation.gov.uk/uksi/YEAR/NUMBER/regulation/N/made`
+- Act section: `https://www.legislation.gov.uk/ukpga/YEAR/NUMBER/section/N`
+- SI contents: `https://www.legislation.gov.uk/uksi/YEAR/NUMBER/contents/made`
+
+Verify the regulation title and content match the context — do not assume numbering is correct. If a document already contains a plain-text regulation reference (e.g. "Regulation 6"), convert it to a hyperlink. If a regulation number appears to be mislabelled (e.g. citing Regulation 8 for a duty that sits in Regulation 5), correct it before linking.
+
 **UK-Specific Context**: This business operates under UK law. Do not conflate with US OSHA, EU directives, or other jurisdictions unless explicitly relevant.
 
 **Manufacturing vs. Office Considerations**: Different regulatory requirements and risk profiles apply to industrial/manufacturing operations versus office/commercial settings. Consider which environment is relevant to the user's query.
