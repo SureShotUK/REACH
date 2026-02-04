@@ -6,6 +6,44 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-04
+
+### Summary
+Updated the machine operator working pattern in the noise assessment and recalculated the 8-hour TWA dose. The shorter cycle (5.5 min) and reduced time in Area 8 pushed LEP,d from 82.4 to 84.1 dB(A). The regulatory conclusion is unchanged — lower action value duties apply, upper action value not exceeded — but the margin to the upper action value has dropped to 0.9 dB, which required strengthening several recommendations.
+
+### Work Completed
+- Recalculated machine operator LEP,d with new working pattern: 4 min Area 1, ~15 sec pass-throughs of Areas 2 and 3, ~30 sec each in Areas 4 and 8
+- Verified calculation with Python script using equal energy method; confirmed sensitivity range (83.8–84.5 dB(A)) across plausible timing variations of ±15 sec in Areas 4 and 8
+- Updated `assessments/NoiseAssessment.md` sections 5.2, 6, and 7 (eight discrete edits)
+- Updated Section 7.1 (dosimetry) to flag the operator's proximity to the upper action value as the primary reason for urgency
+- Strengthened Section 7.2 (engineering controls) to reflect Area 1 now accounting for 73% of the noisy operating period
+- Added new bullet to Section 7.3 (administrative controls) recommending review of the Area 1/Area 8 time balance
+
+### Files Changed
+- `assessments/NoiseAssessment.md` — REVISED: Machine operator cycle updated, LEP,d recalculated (82.4 → 84.1 dB(A)), findings and recommendations updated throughout
+
+### Git Commits
+- `5a06d6b` - Recalculate machine operator LEP,d for updated working pattern
+
+### Key Decisions
+- **Cycle time basis**: User specified 4 min in Area 1 and "around 30 seconds" each in Areas 4 and 8. Sensitivity analysis varied the "around" values from 15–45 sec; the result moved by less than ±0.5 dB. The conclusion (above lower AV, below upper AV) is robust across the entire plausible range
+- **Area 1 dominance**: The reduced Area 8 time (96 min → 21 min) means the operator no longer has a significant "quiet dilution" period during the machine cycle. Area 1 at 87.4 dB(A) now drives the LEP,d; Area 8 at 68.8 dB(A) contributes negligibly to dose
+- **Dosimetry priority raised**: With only 0.9 dB margin to the upper action value, dosimetry is now critical for both worker types but for different reasons — the operator to confirm whether upper AV duties are triggered, the Area 5 worker to confirm the lower AV position
+- **No change to regulatory conclusion**: LEP,d of 84.1 is still below 85 dB(A). Regulation 6 mandatory noise reduction programme and Regulation 7(2) mandatory HPD enforcement remain not triggered based on these screening estimates
+
+### Reference Documents
+- `assessments/NoiseAssessment.md` — Updated noise assessment report
+- `assessments/NoiseLimits.csv` — Original measurement data (unchanged)
+
+### Next Actions
+- [ ] Commission full-shift personal dosimetry — now the highest priority given 0.9 dB margin to upper action value
+- [ ] Investigate engineering controls for Area 1 (sound absorption, barriers) — consult acoustic specialist for low-frequency treatment
+- [ ] Review whether operational duties allow more time in Area 8 or other quieter areas to increase margin
+- [ ] Enrol machine operator in health surveillance programme (baseline audiometry)
+- [ ] Fill in placeholder fields in NoiseAssessment.md (dates, assessor name, site name)
+
+---
+
 ## Session 2026-02-03
 
 ### Summary

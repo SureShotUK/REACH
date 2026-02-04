@@ -4,6 +4,24 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-02-04
+
+### Changed
+- `assessments/NoiseAssessment.md` — Machine operator working pattern updated and LEP,d recalculated:
+  - Cycle revised to 5.5 min (4 min Area 1, ~15 sec Areas 2 & 3, ~30 sec each Areas 4 & 8)
+  - LEP,d: 82.4 → 84.1 dB(A) (range 83.8–84.5); margin to upper action value now 0.9 dB
+  - Area 1 now accounts for 73% of the noisy operating period (was ~47%)
+  - Regulatory conclusion unchanged: lower action value duties apply, upper action value not exceeded
+  - Section 7.1: Dosimetry priority raised — operator proximity to upper AV flagged as primary reason
+  - Section 7.2: Engineering controls strengthened to reflect Area 1 dominance
+  - Section 7.3: New bullet added — review Area 1/Area 8 time balance to improve margin
+
+### Documentation
+- Sensitivity analysis added: varying Areas 4 & 8 timing from 15–45 sec each changes LEP,d by less than ±0.5 dB; conclusion robust across full range
+- All references to the previous LEP,d (82.4 dB(A)) updated consistently across findings summary, compliance position summary, and recommendations
+
+---
+
 ## [Unreleased] - 2026-02-03
 
 ### Added

@@ -1,18 +1,18 @@
 # Project Status
 
-**Last Updated**: 2026-02-03
+**Last Updated**: 2026-02-04
 
 ## Current State
 
 This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, and a noise assessment report with full CNAWR 2005 compliance analysis.
 
-**Recent Update**: Created `assessments/NoiseAssessment.md` — a full noise assessment based on 9-area site measurements. Two worker types assessed: machine operator (LEP,d 82.4 dB(A), lower action value exceeded) and Area 5 worker (LEP,d 77.8 dB(A), below lower action value). Upper action value not exceeded by either role. Compliance-mapped recommendations included covering dosimetry, engineering controls, HPD availability, health surveillance, and training duties.
+**Recent Update**: Machine operator working pattern revised in `assessments/NoiseAssessment.md`. LEP,d recalculated from 82.4 to 84.1 dB(A) (range 83.8–84.5) following a shorter cycle that concentrates 73% of the noisy operating period in Area 1. Margin to the upper action value is now 0.9 dB; regulatory conclusion unchanged but dosimetry is now the highest-priority action. Area 5 worker LEP,d unchanged at 77.8 dB(A).
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
 ## Active Work Areas
 
-- **Noise Assessment**: Active — `assessments/NoiseAssessment.md` created and revised with actual working pattern. Key next steps: commission full-shift personal dosimetry (priority — Area 5 worker at 77.8 dB(A) is close to the 80 dB(A) boundary); investigate engineering controls for Area 1; enrol machine operator in health surveillance; formalise and document current working pattern
+- **Noise Assessment**: Active — `assessments/NoiseAssessment.md` revised with updated operator working pattern (LEP,d 84.1 dB(A), 0.9 dB below upper action value). Key next steps: commission full-shift personal dosimetry (highest priority — operator within 1 dB of upper AV, Area 5 worker close to lower AV); investigate engineering controls for Area 1 (73% of noisy period); review Area 1/Area 8 time balance; enrol machine operator in health surveillance
 - **Three-Year HSE Strategic Planning**: Updated - Comprehensive 2026-2028 strategic plan revised with actual budget data
   - New file: `3_Year_HSE_Plan.md` replacing original strategic plan
   - Budget updated to £36,255 total based on actual recurring costs from CSV data
@@ -34,15 +34,19 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Recently Completed
 
-- **Noise Assessment** (2026-02-03):
+- **Noise Assessment — Working Pattern Update** (2026-02-04):
+  - Machine operator cycle revised: 4 min Area 1, ~15 sec Areas 2 & 3 (pass-through), ~30 sec each Areas 4 & 8
+  - Shorter cycle (5.5 min vs 7.5 min) yields ~44 cycles/shift; Area 1 now 73% of operating period (was ~47%)
+  - LEP,d recalculated: 84.1 dB(A) (range 83.8–84.5) — up from 82.4; margin to upper AV now 0.9 dB
+  - Regulatory conclusion unchanged: lower AV duties apply, upper AV not exceeded based on screening estimates
+  - Dosimetry priority elevated: operator within 1 dB of upper AV threshold
+  - Engineering controls section strengthened (Area 1 dominance); new admin control bullet on Area 1/8 balance
+- **Noise Assessment — Initial Creation** (2026-02-03):
   - Created `assessments/NoiseAssessment.md` — full noise assessment from `NoiseLimits.csv` site measurements
   - 9 areas measured with Martindale SP79 Class 2 meter; dB(A) and dB(C) min/max recorded over 5-minute periods
   - Machine operates 4 hrs/day; two worker types assessed using equal energy (3 dB doubling) method
-  - Machine operator: LEP,d 82.4 dB(A) (range 81.6–83.1) — lower action value exceeded; Regs 5, 7, 8, 9 duties apply
   - Area 5 worker: LEP,d 77.8 dB(A) — below lower action value; no specific duties triggered (confirmed robust to ±1.5 dB uncertainty)
-  - Upper action value (85 dB(A)) not exceeded → Reg 6 mandatory noise reduction programme not triggered
   - Significant low-frequency propagation from Area 3 identified (dB(C)–dB(A) difference up to 20 dB in distant areas)
-  - Engineering controls focused on Area 1 (dominant LEP,d contributor); acoustic specialist consultation recommended for low-frequency treatment
   - Compliance position summary included in recommendations section
 - **Three-Year HSE Strategic Plan Update** (2026-01-19):
   - Created `3_Year_HSE_Plan.md` - updated 650+ line strategic plan with actual budget data
