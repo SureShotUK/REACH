@@ -132,27 +132,27 @@ The machine operator's duties involve a repeating cycle during the 4-hour operat
 
 | Area | Time per cycle | Notes |
 |------|----------------|-------|
-| 1 | 3–4 min | Primary working position |
+| 1 | 4 min | Primary working position |
 | 2 | ~15 sec | Brief pass-through |
 | 3 | ~15 sec | Brief pass-through |
-| 4 | ~1 min | Occasional — averaged to ~0.5 min per cycle |
-| 8 | 2–4 min | Between tasks |
+| 4 | ~30 sec | Short visit |
+| 8 | ~30 sec | Short visit |
 
-Using mid-range values (3.5 min in Area 1, 3 min in Area 8), each cycle is approximately 7.5 minutes. Over the 240-minute operating period this gives approximately 32 repeating cycles with the following total time breakdown:
+Each cycle is approximately 5.5 minutes. Over the 240-minute operating period this gives approximately 44 repeating cycles with the following total time breakdown:
 
 | Location | dB(A) Max | Total Time | Fraction of 8-hr shift |
 |----------|-----------|------------|------------------------|
-| Area 1 | 87.4 | 112 min | 0.233 |
-| Area 2 | 88.1 | 8 min | 0.017 |
-| Area 3 | 91.9 | 8 min | 0.017 |
-| Area 4 | 82.0 | 16 min | 0.033 |
-| Area 8 | 68.8 | 96 min | 0.200 |
+| Area 1 | 87.4 | 175 min | 0.365 |
+| Area 2 | 88.1 | 11 min | 0.023 |
+| Area 3 | 91.9 | 11 min | 0.023 |
+| Area 4 | 82.0 | 22 min | 0.046 |
+| Area 8 | 68.8 | 21 min | 0.044 |
 | Quiet work (machine off) | 60 | 180 min | 0.375 |
 | Breaks | 65 | 60 min | 0.125 |
 
-**Estimated LEP,d (Machine Operator): 82.4 dB(A)**
+**Estimated LEP,d (Machine Operator): 84.1 dB(A)**
 
-This exceeds the lower action value of 80 dB(A) but is below the upper action value of 85 dB(A). Varying the time in Area 1 across the stated 3–4 minute range changes the result by approximately ±1 dB, giving an overall range of **81.6–83.1 dB(A)**. The conclusion — above the lower action value, below the upper action value — holds across the entire range.
+This exceeds the lower action value of 80 dB(A) but is below the upper action value of 85 dB(A), with a margin of only 0.9 dB. Varying the time in Areas 4 and 8 across a plausible range (15–45 seconds each) changes the result by less than ±0.5 dB, giving an overall range of **83.8–84.5 dB(A)**. The conclusion — above the lower action value, below the upper action value — holds across this range, though the reduced margin underlines the importance of confirming actual exposure by full-shift dosimetry (Recommendation 7.1).
 
 #### Area 5 Worker
 
@@ -192,17 +192,17 @@ Low-frequency noise attenuates poorly with distance and is resistant to conventi
 
 ## 6. Findings Summary
 
-1. **Machine operator:** Estimated LEP,d of **82.4 dB(A)** (range 81.6–83.1 dB(A)), which exceeds the lower action value of 80 dB(A). This is below the upper action value of 85 dB(A) and well below the limit value of 87 dB(A). The duties triggered at the lower action value apply to this worker type.
+1. **Machine operator:** Estimated LEP,d of **84.1 dB(A)** (range 83.8–84.5 dB(A)), which exceeds the lower action value of 80 dB(A). This is below the upper action value of 85 dB(A), but with a margin of only 0.9 dB. The duties triggered at the lower action value apply to this worker type. The proximity to the upper action value means that formal dosimetry is needed to confirm whether upper action value duties are also triggered.
 
 2. **Area 5 worker:** Estimated LEP,d of **77.8 dB(A)**, which is below the lower action value of 80 dB(A). No exposure action value duties are triggered at this level. The instantaneous maximum recorded in Area 5 (80.8 dB(A)) does briefly exceed 80 dB(A), but this does not affect the 8-hour TWA assessment.
 
-3. The upper action value of 85 dB(A) is **not exceeded** by either worker type. The mandatory noise reduction programme (Regulation 6) and mandatory HPD enforcement duties are therefore not triggered.
+3. The upper action value of 85 dB(A) is **not exceeded** by either worker type based on these estimates. The mandatory noise reduction programme (Regulation 6) and mandatory HPD enforcement duties are therefore not triggered at this stage. The machine operator's estimated LEP,d of 84.1 dB(A) is, however, within 1 dB of this threshold — formal dosimetry is needed to confirm the position.
 
 4. **Peak sound pressure levels are well within limits** across all areas. No action is required for peaks.
 
 5. **Significant low-frequency noise propagation** is occurring from Area 3 into more distant areas, as evidenced by elevated dB(C) readings in Areas 7–9. This should be considered if engineering controls are pursued.
 
-6. The noise source in Area 3 is confirmed as not reducible at source. The current working pattern — which limits time in the highest-noise areas to seconds per cycle — is effective in keeping the machine operator's LEP,d below the upper action value.
+6. The noise source in Area 3 is confirmed as not reducible at source. The current working pattern limits time in the highest-noise areas (Areas 2 and 3) to brief pass-throughs of seconds per cycle. This is effective, but the operator now spends approximately 73% of the noisy operating period in Area 1 (87.4 dB(A) max), which is the dominant contributor to LEP,d. The resulting margin below the upper action value is 0.9 dB.
 
 ---
 
@@ -210,17 +210,17 @@ Low-frequency noise attenuates poorly with distance and is resistant to conventi
 
 The following recommendations address the legal duties triggered by the findings and include good-practice measures where appropriate. Recommendations are grouped by the hierarchy of controls. Elimination and substitution of the noise source are not applicable, as the machinery in Area 3 cannot be made quieter.
 
-**Compliance position summary:** The machine operator's estimated exposure exceeds the lower action value, triggering duties under Regulations 5 (assessment), 7 (hearing protection availability), 8 (record keeping), and 9 (health surveillance). The upper action value is not exceeded, so the mandatory noise reduction programme under Regulation 6 and mandatory HPD enforcement under Regulation 7(2) are not triggered. The Area 5 worker's estimated exposure is below the lower action value; no specific regulatory duties are triggered for this role at the current estimated level, though this should be confirmed by formal dosimetry.
+**Compliance position summary:** The machine operator's estimated exposure of 84.1 dB(A) exceeds the lower action value, triggering duties under Regulations 5 (assessment), 7 (hearing protection availability), 8 (record keeping), and 9 (health surveillance). The upper action value of 85 dB(A) is not exceeded based on these estimates, so the mandatory noise reduction programme under Regulation 6 and mandatory HPD enforcement under Regulation 7(2) are not triggered at this stage. However, with only 0.9 dB of margin, formal dosimetry (Recommendation 7.1) is needed to confirm this position. The Area 5 worker's estimated exposure is below the lower action value; no specific regulatory duties are triggered for this role at the current estimated level, though this should be confirmed by formal dosimetry.
 
 ### 7.1 Commission Full-Shift Personal Dosimetry
 
 The 5-minute screening measurements in this report are not a formal noise dose assessment. To satisfy the documentation requirements of Regulation 8 and to confirm the estimated LEP,d values, **personal noise dosimeters should be worn by workers covering both the machine operator and Area 5 roles, over complete 8-hour shifts**.
 
-This is particularly important for the Area 5 worker, whose estimated LEP,d of 77.8 dB(A) is relatively close to the lower action value. If formal dosimetry confirms LEP,d at or above 80 dB(A) for this role, the full set of lower action value duties would then apply to Area 5 workers.
+This is particularly important for two reasons. First, the machine operator's estimated LEP,d of 84.1 dB(A) is within 1 dB of the upper action value; dosimetry is needed to confirm whether upper action value duties (mandatory noise reduction programme, mandatory HPD enforcement, hearing protection zones) are triggered. Second, the Area 5 worker's estimated LEP,d of 77.8 dB(A) is relatively close to the lower action value — if dosimetry confirms LEP,d at or above 80 dB(A) for this role, the full set of lower action value duties would then apply.
 
 ### 7.2 Engineering Controls — Noise Reduction in Area 1
 
-The employer has a duty under Regulation 6 to reduce noise exposure so far as reasonably practicable (SFAIRP), regardless of whether the upper action value is exceeded. The machine operator spends approximately half of the 4-hour noisy period in **Area 1**, which is the dominant contributor to their estimated LEP,d. Reducing noise levels in Area 1 is therefore the single most effective engineering measure available.
+The employer has a duty under Regulation 6 to reduce noise exposure so far as reasonably practicable (SFAIRP), regardless of whether the upper action value is exceeded. The machine operator now spends approximately **73% of the 4-hour noisy period in Area 1**, which is the dominant contributor to their estimated LEP,d. Reducing noise levels in Area 1 is therefore the single most effective engineering measure available, and carries particular weight given that the estimated LEP,d of 84.1 dB(A) is within 1 dB of the upper action value.
 
 Options to investigate:
 
@@ -232,11 +232,12 @@ An acoustic specialist should be consulted if low-frequency noise control is to 
 
 ### 7.3 Administrative Controls
 
-The current working pattern already limits time in the highest-noise areas (Areas 2 and 3) to a few seconds per cycle, which is effective in keeping the machine operator's LEP,d well below the upper action value. To maintain this position:
+The current working pattern limits time in the highest-noise areas (Areas 2 and 3) to brief pass-throughs of seconds per cycle. This is effective in keeping the machine operator below the upper action value, though the margin is now only 0.9 dB. To maintain and, if possible, improve this position:
 
 - **Formalise and document the current working pattern** so that it is maintained consistently and is not altered on an ad hoc basis.
 - **Ensure no worker spends extended periods in Areas 2 or 3.** If operational requirements change, this noise assessment must be reviewed before any change to the pattern is implemented.
 - **Restrict access** to Areas 1–3 to those workers who require it for their duties.
+- **Review the balance between Areas 1 and 8.** The operator currently spends approximately 73% of the noisy period in Area 1 (87.4 dB(A) max) and only 9% in Area 8 (68.8 dB(A) max). If operational duties allow more time in quieter areas, this would reduce the estimated LEP,d and increase the margin below the upper action value.
 
 ### 7.4 Hearing Protection
 
