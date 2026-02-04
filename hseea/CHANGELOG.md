@@ -7,18 +7,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased] - 2026-02-04
 
 ### Changed
-- `assessments/NoiseAssessment.md` — Machine operator working pattern updated and LEP,d recalculated:
-  - Cycle revised to 5.5 min (4 min Area 1, ~15 sec Areas 2 & 3, ~30 sec each Areas 4 & 8)
-  - LEP,d: 82.4 → 84.1 dB(A) (range 83.8–84.5); margin to upper action value now 0.9 dB
-  - Area 1 now accounts for 73% of the noisy operating period (was ~47%)
-  - Regulatory conclusion unchanged: lower action value duties apply, upper action value not exceeded
-  - Section 7.1: Dosimetry priority raised — operator proximity to upper AV flagged as primary reason
-  - Section 7.2: Engineering controls strengthened to reflect Area 1 dominance
-  - Section 7.3: New bullet added — review Area 1/Area 8 time balance to improve margin
+- `assessments/NoiseAssessment.md` — Regulation 6 scope clarified and assessment restructured (uncommitted):
+  - Section 2 legal duties expanded into numbered lists; Reg 6(1) SFAIRP and Reg 6(2) programme distinguished with individual hyperlinks
+  - Compliance position summary (Section 7) expanded into bulleted list; Regulation 10 duties added
+  - Dosimetry recommendation section removed; recommendation sections renumbered 7.1–7.5
+  - Review section updated to remove dosimetry trigger
+  - Placeholder fields filled: dates, assessor name, site name and address, noise source description
+  - Site map image reference added (NoiseAssessmentLocations.png)
+- `assessments/NoiseAssessment.md` — Final machine operator timings and regulation hyperlinks (commits 7ced2c5, 9c7496f):
+  - Operator timings finalised; LEP,d 83.1 dB(A), margin to upper action value 1.9 dB
+  - All bare regulation references converted to verified hyperlinks to legislation.gov.uk
+  - Mislabelled "Regulation 8" in closing note corrected to Regulation 5(6)
+
+### Fixed
+- Contradiction between Section 7 compliance summary and Section 7.2 regarding Regulation 6 scope resolved: Reg 6(1) SFAIRP duty applies at all exposure levels; only Reg 6(2) mandatory programme is conditional on the upper action value
 
 ### Documentation
-- Sensitivity analysis added: varying Areas 4 & 8 timing from 15–45 sec each changes LEP,d by less than ±0.5 dB; conclusion robust across full range
-- All references to the previous LEP,d (82.4 dB(A)) updated consistently across findings summary, compliance position summary, and recommendations
+- Weekly LEP,w calculated: 82.1 dB(A) for 4 days documented pattern + 1 day Area 9 (64.1 dB(A)) full shift. Day 5 contributes ~1.3% of weekly energy; result above lower AV (80), below upper AV (85) with 2.9 dB margin
+- CLAUDE.md rule added: hyperlink and verify all regulation references in documents before inserting; correct mislabelled regulation numbers before linking
 
 ---
 

@@ -6,6 +6,38 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-04 (2)
+
+### Summary
+Calculated weekly personal noise exposure (LEP,w) for the machine operator under a 4-day documented pattern / 1-day Area 9 scenario. Identified and resolved a contradiction in the assessment regarding the scope of Regulation 6: Section 7's compliance summary implied no Reg 6 duty below the upper action value, while Section 7.2 correctly stated the SFAIRP duty applies regardless. Verified against legislation.gov.uk that Reg 6 has two tiers — Reg 6(1) general SFAIRP (all levels) and Reg 6(2) mandatory programme (upper AV only). User updated the assessment accordingly, also removing the dosimetry section and restructuring the legal duties and compliance summary.
+
+### Work Completed
+- Calculated LEP,w = 82.1 dB(A) for 4 days on documented pattern (LEP,d 83.1) + 1 day at Area 9 noise (64.1 dB(A)) for full 8-hour shift. Day 5 contributes ~1.3% of weekly energy; the result is driven by the four documented-pattern days. Weekly value remains above lower action value (80) and below upper action value (85), with a margin of 2.9 dB to the upper AV
+- Verified Regulation 6 structure against legislation.gov.uk: Reg 6(1) is a general SFAIRP duty applying at all exposure levels; Reg 6(2) is the mandatory programme of organisational and technical measures, triggered only at or above the upper action value
+- Identified the contradiction: Section 7 compliance summary conflated the two tiers by stating "the mandatory noise reduction programme under Regulation 6... [is] not triggered" in a way that implied no Reg 6 duty existed at all. Section 7.2 was the correct statement
+
+### Files Changed
+- `assessments/NoiseAssessment.md` — User edited (uncommitted): placeholder fields filled (dates, name, site); Section 2 legal duties restructured into numbered lists with individual regulation hyperlinks distinguishing Reg 6(1) from Reg 6(2); site map image added; dosimetry recommendation section (was 7.1) removed and all references to it throughout; compliance position summary expanded into bulleted list with Regulation 10 added; recommendation sections renumbered 7.1–7.5; review section updated to remove dosimetry trigger
+
+### Git Commits
+- None this session (user edits uncommitted)
+
+### Key Decisions
+- **Regulation 6 two-tier structure**: Reg 6(1) SFAIRP duty applies at all exposure levels and is not conditional on any threshold. Reg 6(2) mandatory programme is only triggered at or above the upper action value of 85 dB(A). Section 7.2's existing statement was correct; Section 7 compliance summary needed to be more precise
+- **Dosimetry section removed**: User removed Section 7.1 (Commission Full-Shift Personal Dosimetry) and all cross-references. Previously this was flagged as highest priority given 0.9 dB margin to upper AV — but that margin was subsequently revised back to 1.9 dB in commits 7ced2c5/9c7496f (undocumented in previous session log)
+
+### Reference Documents
+- `assessments/NoiseAssessment.md` — Noise assessment report (current working version, uncommitted)
+- legislation.gov.uk Regulation 6: https://www.legislation.gov.uk/uksi/2005/1643/regulation/6/made
+
+### Next Actions
+- [ ] Commit uncommitted NoiseAssessment.md changes
+- [ ] Commission full-shift personal dosimetry — still relevant given 1.9 dB margin to upper action value, even though the recommendation section has been removed from the assessment
+- [ ] Investigate engineering controls for Area 1
+- [ ] Enrol machine operator in health surveillance programme (baseline audiometry)
+
+---
+
 ## Session 2026-02-04
 
 ### Summary
