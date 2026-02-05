@@ -49,7 +49,20 @@ If you are unsure about any of the above, speak to your fire marshal or manager.
 ![Evacuation Diagram](ToftGreenEvacPath.png)
 ---
 
-## 4. When You Hear the Alarm
+## 4. If You Discover a Fire
+
+If you become aware of a fire — for example, you see flames, smell smoke, or notice unusual heat — act as follows:
+
+1. **Stay calm.** Do not panic. Act quickly but deliberately.
+2. **Raise the alarm immediately.** Press the nearest fire alarm call point. If you cannot safely reach one, leave the building and call **999** directly, or report the fire to a fire marshal.
+3. **Warn others.** Shout to alert anyone nearby so they can begin to evacuate.
+4. **Do not attempt to fight the fire unless you have been trained to do so.** If you have received fire extinguisher training and the fire is very small and contained, you may tackle it — but only if you can do so safely without blocking your escape route. Never delay your evacuation to fight a fire.
+5. **Evacuate.** Once you have raised the alarm, follow the steps in Sections 5 and 6 of this plan to leave the building safely.
+6. **Report the fire.** At the assembly point, tell the Head Fire Marshal or assembly point warden the location of the fire and what you observed. This information will be passed to the fire and rescue service.
+
+---
+
+## 5. When You Hear the Alarm
 
 1. **Assume it is a genuine emergency.** Do not ignore the alarm or assume it is a test unless you have been formally informed in advance by an authorised person.
 2. **Stop work immediately.** Do not delay your evacuation to finish a task or shut down equipment, unless the equipment can be isolated safely and without slowing your exit.
@@ -58,7 +71,7 @@ If you are unsure about any of the above, speak to your fire marshal or manager.
 
 ---
 
-## 5. Leaving the Building
+## 6. Leaving the Building
 
 1. Move towards your **nearest safe exit**. Follow the green evacuation route signs displayed throughout the building.
 2. If your nearest exit is blocked or unsafe, use your **secondary exit route**. If that is also blocked, seek guidance from a fire marshal.
@@ -69,7 +82,7 @@ If you are unsure about any of the above, speak to your fire marshal or manager.
 
 ---
 
-## 6. If You Encounter Smoke or Fire
+## 7. If You Encounter Smoke or Fire
 
 1. If you encounter smoke, **stay as low as possible.** Crawl on your hands and knees if necessary — the air near the floor will be significantly cleaner and more breathable.
 2. If your route is blocked by fire or heavy smoke, **do not attempt to pass through it.** Turn back and find an alternative exit route.
@@ -80,7 +93,7 @@ If you are unsure about any of the above, speak to your fire marshal or manager.
 
 ---
 
-## 7. Helping Others
+## 8. Helping Others
 
 1. If you notice a **vulnerable person** — for example, someone with a mobility or sensory impairment, a pregnant colleague, or a visitor unfamiliar with the building — offer to guide them towards the exit.
 2. If you are aware of a **visitor or contractor** on the premises, guide them towards the nearest exit and on to the assembly point.
@@ -88,7 +101,7 @@ If you are unsure about any of the above, speak to your fire marshal or manager.
 
 ---
 
-## 8. At the Assembly Point
+## 9. At the Assembly Point
 
 1. Proceed directly to the **designated assembly point.** Do not linger near the building or move to a different location.
 2. Stay with your **department or team group** so that you can be accounted for in the headcount.
@@ -98,7 +111,7 @@ If you are unsure about any of the above, speak to your fire marshal or manager.
 
 ---
 
-## 9. Waiting for the All-Clear
+## 10. Waiting for the All-Clear
 
 1. **Do not re-enter the building** under any circumstances until the fire and rescue service or the Head Fire Marshal has formally confirmed it is safe to do so.
 2. Remain at the assembly point and stay calm. The fire and rescue service will be contacted and will advise when it is safe to return.
@@ -106,7 +119,7 @@ If you are unsure about any of the above, speak to your fire marshal or manager.
 
 ---
 
-## 10. Common Mistakes to Avoid
+## 11. Common Mistakes to Avoid
 
 | Mistake | Why It Is Dangerous |
 |---------|---------------------|
@@ -116,10 +129,11 @@ If you are unsure about any of the above, speak to your fire marshal or manager.
 | Propping fire doors open | Allows fire and smoke to spread freely through the building |
 | Blocking the area near building exits | Prevents others from evacuating safely |
 | Re-entering the building before the all-clear | The building may still contain fire, smoke, or structural hazards |
+| Attempting to fight a fire without training | Risks serious burns and delays evacuation, putting you and others in danger |
 
 ---
 
-## 11. Training and Drills
+## 12. Training and Drills
 
 All employees are required to participate in fire evacuation drills. These are carried out at regular intervals to ensure that everyone on the premises is familiar with the procedure and can carry it out calmly and efficiently.
 

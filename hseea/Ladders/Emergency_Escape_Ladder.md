@@ -147,7 +147,7 @@ Additional requirements for machinery access ladders (may apply if escape ladder
 
 Ladders **installed or designed after 2005** must comply with:
 - BS 4211:2005+A1:2008, OR
-- BS EN ISO 14122-4:2016 (if applicable)
+- BS EN ISO 14122-4:2016 (fixed ladders in stationary machinery, including non-powered adjustable and movable parts)
 
 This includes:
 - ✓ Newly installed emergency escape ladders
@@ -156,7 +156,7 @@ This includes:
 
 #### Existing Installations (Pre-2006)
 
-Ladders **installed before 2005/2006** are generally **"grandfathered"** under the principle that design standards apply from the date of installation, not retrospectively.
+Ladders **installed before 2005/2006** are *generally* **"grandfathered"** under the principle that design standards apply from the date of installation, not retrospectively.
 
 **What This Means:**
 - You are **NOT required** to upgrade an existing pre-2006 ladder to meet BS 4211:2005+A1:2008 design specifications

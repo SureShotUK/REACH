@@ -73,6 +73,8 @@ Every fire marshal must be familiar with the following before an evacuation occu
 | Sign-in boards | Location of the sign-in boards (nominated person — sign-in boards responsibility) |
 | Vulnerable persons | Any individuals in their zone who may require assistance, and whether a personal evacuation plan (PEP) is in place |
 
+A diagram of the assembly point and evacuation route is at the top of the next page.
+
 ---
 
 ## 5. Evacuation Procedure
@@ -83,34 +85,36 @@ Every fire marshal must be familiar with the following before an evacuation occu
 2. Stop all work immediately. Secure or isolate any machinery or processes that can be left safely; do not delay evacuation to shut down equipment.
 3. Remain calm. Speak clearly and assertively to guide occupants in your zone.
 
+![Evacuation Diagram](ToftGreenEvacPath.png)
+
+
 ### Phase 2 — Evacuation of the Zone
 
 4. Instruct all occupants in your designated zone to evacuate immediately via the nearest safe exit route.
-5. **Do not use lifts** at any time during an evacuation.
-6. Assist or direct vulnerable persons towards the exit. Where a personal evacuation plan (PEP) is in place for an individual, follow that plan.
-7. **Conduct a sweep** of your zone before leaving: check all rooms, offices, toilets, storerooms, and any other spaces that could be occupied, to confirm they are empty.
-8. **Close all fire doors** behind you as you evacuate. Do not lock them.
+5. Assist or direct vulnerable persons towards the exit. Where a personal evacuation plan (PEP) is in place for an individual, follow that plan.
+6. **Conduct a sweep** of your zone before leaving: check all rooms, offices, toilets, storerooms, and any other spaces that could be occupied, to confirm they are empty.
+7. **Close all fire doors** behind you as you evacuate. Do not lock them.
 
 ### Phase 3 — Nominated Person Duties
 
-9. The **nominated person (grab bag)** must collect the **grab bag** on the way out of the building.
-10. The **nominated person (sign-in boards)** must collect the **sign-in boards** on the way out, **if it is safe to do so**. If the route past the sign-in boards is blocked, smoke-affected, or otherwise unsafe, this person must proceed directly to the assembly point and report the situation to the Head Fire Marshal.
+8. The **nominated person (grab bag)** must collect the **grab bag** on the way out of the building.
+9. The **nominated person (sign-in boards)** must collect the **sign-in boards** on the way out, **if it is safe to do so**. If the route past the sign-in boards is blocked, smoke-affected, or otherwise unsafe, this person must proceed directly to the assembly point and report the situation to the Head Fire Marshal.
 
 ### Phase 4 — Route to Assembly Point
 
-11. Follow the designated evacuation route to the assembly point. If the primary route is blocked or unsafe, use the secondary route.
-12. If smoke is encountered, **stay as low as possible** and crawl if necessary — cleaner air will be near floor level.
-13. On reaching the assembly point, guide occupants to their designated zone area.
+10. Follow the designated evacuation route to the assembly point. If the primary route is blocked or unsafe, use the secondary route.
+11. If smoke is encountered, **stay as low as possible** and crawl if necessary — cleaner air will be near floor level.
+12. On reaching the assembly point, guide occupants to their designated zone area.
 
 ### Phase 5 — Assembly Point Procedures
 
-14. Remain with your zone group at the assembly point.
-15. Assist the Head Fire Marshal or Assembly Point Warden with the headcount. Use the sign-in boards (if collected) to verify that all registered persons are present.
-16. **Immediately report any persons unaccounted for** to the Head Fire Marshal.
+13. Remain with your zone group at the assembly point.
+14. Assist the Head Fire Marshal or Assembly Point Warden with the headcount. Use the sign-in boards (if collected) to verify that all registered persons are present.
+15. **Immediately report any persons unaccounted for** to the Head Fire Marshal.
 
 ### Phase 6 — Briefing the Fire and Rescue Service
 
-17. On arrival of the fire and rescue service, the Head Fire Marshal or designated coordinator must provide:
+16. On arrival of the fire and rescue service, the Head Fire Marshal or designated coordinator must provide:
     - The nature of the alarm (if known)
     - The location of the suspected fire or hazard
     - The number of people on site and any persons unaccounted for
@@ -118,8 +122,8 @@ Every fire marshal must be familiar with the following before an evacuation occu
 
 ### Phase 7 — Holding and Stand Down
 
-18. **Do not allow anyone to re-enter the building** until the fire and rescue service or Head Fire Marshal has formally confirmed it is safe to do so.
-19. Once the all-clear has been given, occupants may re-enter in an orderly manner.
+17. **Do not allow anyone to re-enter the building** until the fire and rescue service or Head Fire Marshal has formally confirmed it is safe to do so.
+18. Once the all-clear has been given, occupants may re-enter in an orderly manner.
 
 ---
 

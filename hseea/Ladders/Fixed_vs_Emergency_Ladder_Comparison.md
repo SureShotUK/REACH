@@ -274,121 +274,7 @@ Is the fixed ladder EVER used for work activities?
 
 ---
 
-## 6. COST AND RESOURCE IMPLICATIONS
-
-### Approximate Compliance Costs
-
-| Cost Element | Emergency Escape Only | Occasional Work Access |
-|-------------|----------------------|----------------------|
-| **Initial Compliance** | £500-£2,000 (signage, emergency lighting, initial inspection) | £1,000-£5,000+ (risk assessment, safety cage retrofit if needed, initial inspection, user training) |
-| **Annual Inspections** | £200-£500 (competent person annual inspection) | £300-£800 (more frequent inspections, 6-12 monthly) |
-| **Five-Yearly Surveys** | £500-£1,500 (structural engineer survey) | Not standard requirement (unless specific concerns) |
-| **Training Costs** | £0 (no user training required) | £200-£500 per year (initial training + refresher training for new/existing users) |
-| **Emergency Lighting** | £300-£1,000 (installation) + £100-£200/year (testing, maintenance) | £0 (not required unless dual purpose) |
-| **Safety Cage Retrofit** | £0-£3,000 (recommended but not mandatory) | £2,000-£5,000 (mandatory if over 2.4m and no fall arrest alternative) |
-| **Ongoing Maintenance** | £200-£500/year (painting, cleaning, minor repairs) | £300-£800/year (higher wear due to regular use) |
-
-**Total First Year (Estimate):**
-- **Emergency Escape Only:** £1,500-£5,000
-- **Occasional Work Access:** £2,000-£7,500+ (higher if safety cage retrofit needed)
-
-**Total Annual Ongoing (Estimate):**
-- **Emergency Escape Only:** £400-£1,200
-- **Occasional Work Access:** £800-£2,100
-
-**Note:** Costs are approximate and vary significantly based on ladder height, location (internal/external), condition, and regional labor rates.
-
-### Resource Requirements
-
-| Resource | Emergency Escape Only | Occasional Work Access |
-|----------|----------------------|----------------------|
-| **Internal Staff Time** | Low - monthly visual checks (30 min/month) | High - pre-use checks before each use, training coordination, risk assessment reviews |
-| **External Specialist Time** | Annual inspection + 5-yearly structural survey | 6-12 monthly inspections (more frequent), potentially fall arrest system maintenance |
-| **Management Oversight** | Fire safety coordinator role | H&S coordinator + supervision of trained users |
-| **Documentation Burden** | Moderate - fire risk assessment, inspection records, emergency lighting tests | High - work risk assessment, training records, inspection records, justification documentation |
-
-**Key Difference:** Work access ladders require **significantly more ongoing resource commitment** (training, pre-use checks, more frequent inspections) compared to emergency-only.
-
----
-
-## 7. DUAL-PURPOSE LADDERS
-
-### Ladder Used for BOTH Emergency Escape AND Occasional Work Access
-
-**Which Requirements Apply?** **BOTH - the MORE STRINGENT requirements from each apply.**
-
-**Must Comply With:**
-
-**From Work Access Requirements (WAHR + PUWER):**
-- ✓ Work at height risk assessment with justification for ladder use
-- ✓ Safety cages/hoops OR fall arrest (mandatory over 2.4m)
-- ✓ User training for all workers
-- ✓ Pre-use checks before each work use
-- ✓ 6-12 monthly detailed inspections
-- ✓ Three points of contact during work use
-
-**From Emergency Escape Requirements (RRF(SO)):**
-- ✓ Fire risk assessment including ladder as means of escape
-- ✓ Emergency exit signage (green/white, illuminated)
-- ✓ Emergency lighting (adequate intensity, operates on mains failure)
-- ✓ Kept clear at all times
-- ✓ Must not be locked so it cannot be immediately opened
-- ✓ Five-yearly structural engineer surveys (best practice)
-
-**Inspection Frequency:** **6-12 monthly** (work access requirement, more frequent than emergency-only 12 monthly)
-
-**Training:** **Mandatory** for all workers who use ladder for work access; not required for other building occupants who may use in emergency
-
-**Enforcement:** Subject to inspection by **BOTH** Fire and Rescue Service (emergency escape adequacy) **AND** HSE (work safety)
-
-**Documentation:** Must maintain **BOTH** fire risk assessment **AND** work at height risk assessment
-
-**Practical Implication:** Dual-purpose ladders have the **highest compliance burden** - combination of both regimes. Consider whether this is truly necessary or if separate emergency and work access routes would be more practical.
-
----
-
-## 8. CONVERSION BETWEEN CLASSIFICATIONS
-
-### Converting Emergency-Only Ladder to Work Access
-
-**Scenario:** You have an emergency-only ladder and now want to use it for occasional maintenance access.
-
-**New Requirements Triggered:**
-1. **Conduct work at height risk assessment** (WAHR Reg 6) with justification for ladder use
-2. **Install safety cage/hoops** if over 2.4m and not already present (WAHR Schedule 6) - this is substantial modification
-3. **Implement user training program** for all workers (PUWER Reg 9)
-4. **Establish pre-use check system** (WAHR Schedule 6 Para 3)
-5. **Increase inspection frequency** from 12-monthly to 6-12 monthly (PUWER Reg 6)
-6. **Maintain emergency escape requirements** (signage, lighting, accessibility) - now dual purpose
-
-**Cost Implication:** Significant if safety cage retrofit required (£2,000-£5,000+) plus ongoing training and inspection costs.
-
-**Alternative:** Consider whether mobile access equipment (MEWP, scaffold tower) would be more appropriate for occasional work access, leaving existing ladder as emergency-only.
-
-### Converting Work Access Ladder to Emergency-Only
-
-**Scenario:** You install alternative work access (new staircase, MEWP) and want to designate existing work ladder as emergency-only.
-
-**Requirements That Can Be Reduced:**
-1. **User training** no longer required (unless workers still use ladder)
-2. **Pre-use checks** no longer required (ladder not used in normal operations)
-3. **Inspection frequency** can reduce from 6-12 monthly to 12 monthly
-
-**NEW Requirements Triggered:**
-1. **Emergency exit signage** must be installed (RRF(SO) Art 14)
-2. **Emergency lighting** must be installed if natural light inadequate (RRF(SO) Art 14)
-3. **Fire risk assessment** must include ladder as means of escape (RRF(SO) Art 9)
-4. **Five-yearly structural engineer surveys** recommended (BS 8210:2020)
-5. **Must be kept clear** at all times (legal requirement under RRF(SO))
-6. **Must not be locked** so it cannot be immediately opened (RRF(SO) Art 14)
-
-**Cost Implication:** May INCREASE costs due to emergency lighting installation (£300-£1,000) and ongoing testing, plus structural engineer surveys. However, REDUCES ongoing costs by eliminating training and reducing inspection frequency.
-
-**Practical Consideration:** Only convert to emergency-only if ladder genuinely meets Approved Document B s.3.28 criteria (areas not normally occupied, not for public, conventional stair impractical). Building Control or fire risk assessor should confirm suitability.
-
----
-
-## 9. COMMON COMPLIANCE GAPS
+## 6. COMMON COMPLIANCE GAPS
 
 ### Emergency Escape Only Ladders - Common Deficiencies
 
@@ -420,7 +306,7 @@ Is the fixed ladder EVER used for work activities?
 
 ---
 
-## 10. DECISION MATRIX: SHOULD YOU RECLASSIFY YOUR LADDER?
+## 7. DECISION MATRIX: SHOULD YOU RECLASSIFY YOUR LADDER?
 
 ### Current Classification: Emergency Escape Only
 
@@ -437,8 +323,6 @@ Is the fixed ladder EVER used for work activities?
 4. Increase inspection frequency
 5. Maintain emergency escape requirements (now dual purpose)
 
-**Estimated Cost:** £2,000-£7,500 first year (if cage retrofit needed) + £800-£2,100/year ongoing
-
 **Consider Keeping as Emergency-Only IF:**
 - ✓ Ladder is genuinely NEVER used for work access
 - ✓ Alternative work access exists and is always used (stairs, MEWP, scaffolding)
@@ -451,8 +335,6 @@ Is the fixed ladder EVER used for work activities?
 - Five-yearly structural surveys
 - Fire risk assessment
 - Kept clear at all times
-
-**Estimated Cost:** £1,500-£5,000 first year + £400-£1,200/year ongoing
 
 ---
 
@@ -472,8 +354,6 @@ Is the fixed ladder EVER used for work activities?
 5. Establish 5-yearly structural survey program
 6. Cease user training (if workers no longer use ladder)
 
-**Estimated Cost:** May INCREASE initially (emergency lighting £300-£1,000) but REDUCE ongoing (no training, less frequent inspections)
-
 **Consider Keeping as Work Access IF:**
 - ✓ Ladder is still occasionally needed for work (even rarely)
 - ✓ Platform still requires access for inspections/maintenance
@@ -487,11 +367,9 @@ Is the fixed ladder EVER used for work activities?
 - Pre-use checks
 - 6-12 monthly inspections
 
-**Estimated Cost:** £2,000-£7,500 first year (if remedial works needed) + £800-£2,100/year ongoing
-
 ---
 
-## 11. PRACTICAL RECOMMENDATIONS
+## 8. PRACTICAL RECOMMENDATIONS
 
 ### For Businesses with Fixed Ladders
 
@@ -571,7 +449,7 @@ When encountering fixed ladders during inspections, clarify:
 
 ---
 
-## 12. SUMMARY TABLE: QUICK REFERENCE
+## 9. SUMMARY TABLE: QUICK REFERENCE
 
 | Requirement | Emergency Escape Only | Occasional Work Access | Dual Purpose |
 |------------|----------------------|----------------------|--------------|
@@ -594,19 +472,19 @@ When encountering fixed ladders during inspections, clarify:
 
 ---
 
-## 13. RELATED DOCUMENTS
+## 10. RELATED DOCUMENTS
 
 This comparison document should be read alongside:
 
-- **Emergency_Escape_Ladder.md** - Comprehensive guidance on emergency escape-only fixed ladders (Fire Safety Order requirements, inspection regimes, fire authority compliance)
+- **Emergency Escape Ladder.pdf** - Comprehensive guidance on emergency escape-only fixed ladders (Fire Safety Order requirements, inspection regimes, fire authority compliance)
 
-- **Fixed_Ladder_Use_At_Work.md** - Comprehensive guidance on fixed ladders for occasional work access (WAHR requirements, risk assessment, user training, safety features)
+- **Fixed Ladder Use At Work.pdf** - Comprehensive guidance on fixed ladders for occasional work access (WAHR requirements, risk assessment, user training, safety features)
 
 - **Competent Person Fixed Ladder Inspections.pdf** (if available) - Detailed guidance on competence requirements for inspectors
 
 ---
 
-## 14. SOURCES AND REFERENCES
+## 11. SOURCES AND REFERENCES
 
 ### UK Legislation
 
@@ -635,7 +513,7 @@ This comparison document should be read alongside:
 
 ---
 
-## 15. IMPORTANT DISCLAIMER
+## 12. IMPORTANT DISCLAIMER
 
 This comparison document provides guidance on the different requirements for fixed ladders under UK legislation. It does **NOT** constitute legal advice or professional engineering advice.
 
