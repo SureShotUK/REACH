@@ -6,7 +6,7 @@
 
 This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, and a noise assessment report with full CNAWR 2005 compliance analysis.
 
-**Recent Update**: Fire marshal evacuation plan created (`FireMarshalEvacPlan.md`) — completes the Year 1 Q1 deliverable from the three-year HSE plan. Two nominated persons (grab bag and sign-in boards) are defined as separate roles. All Fire Safety Order article links verified. Needs site-specific details populated and first training/drill scheduled.
+**Recent Update**: Employee fire evacuation plan created (`FireEvacPlan.md`) — complements the fire marshal plan (`FireMarshalEvacPlan.md`) created in the previous session. Together the two documents complete the fire evacuation procedure deliverable from Year 1 Q1 of the three-year HSE plan. User has added the Toft Green evacuation route diagram to the employee plan. Both plans need to be committed and distributed; first evacuation drill should be scheduled.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
@@ -34,6 +34,12 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Recently Completed
 
+- **Employee Fire Evacuation Plan** (2026-02-05):
+  - Created `FireEvacPlan.md` — employee-facing evacuation procedure grounded in HSWA 1974 s.7 and the Fire Safety Order 2005
+  - 11 sections: alarm response, leaving the building, smoke/fire, helping others, assembly point, all-clear, common mistakes, training
+  - User added Toft Green evacuation route diagram (`ToftGreenEvacPath.png`) to Section 3
+  - No lift references (office has no lifts)
+  - Pending: commit both evacuation plans; distribute to staff; schedule first drill
 - **Fire Marshal Evacuation Plan** (2026-02-05):
   - Created `FireMarshalEvacPlan.md` — full evacuation procedure grounded in the Fire Safety Order 2005
   - Four roles: Fire Marshal, Nominated Person (grab bag), Nominated Person (sign-in boards), Head Fire Marshal
@@ -110,7 +116,7 @@ None.
 1. **Implement Year 1 Q1 of Updated Three-Year HSE Plan** (Jan-Mar 2026):
    - Engage environmental consultant for waste water assessment
    - Implement training system using Training_Matrix_Template.md
-   - ~~Develop fire marshal evacuation plan~~ — completed (`FireMarshalEvacPlan.md`); populate site-specific details and schedule first drill
+   - ~~Develop fire evacuation plans~~ — completed: `FireMarshalEvacPlan.md` (marshal duties) and `FireEvacPlan.md` (all employees); commit both, distribute to staff, and schedule first drill
    - Complete WorkNest H&S Policy with consultancy support
    - Commission fire risk assessment for 1 Toft Green office
    - Complete Q1 PAT testing and fire extinguisher checks
@@ -131,6 +137,7 @@ None.
 ## Key Files & Structure
 
 ### Project Structure (hseea)
+- `FireEvacPlan.md` - Employee fire evacuation procedure (HSWA 1974 s.7 + Fire Safety Order 2005)
 - `FireMarshalEvacPlan.md` - Fire marshal evacuation procedure (Fire Safety Order 2005 compliant)
 - `/water/` - Water discharge and treatment planning documentation (EA permit applications)
 - `/Ladders/` - Fixed ladder compliance documentation suite (emergency escape and work access)

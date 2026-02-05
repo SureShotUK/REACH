@@ -4,6 +4,18 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-02-05 (2)
+
+### Added
+- `FireEvacPlan.md` — Employee fire evacuation procedure (127 lines):
+  - Legal basis: HSWA 1974 s.7 (employee duty) and Regulatory Reform (Fire Safety) Order 2005 (Articles 14, 15, 19, 21); all URLs verified against legislation.gov.uk
+  - 11 sections structured as standalone reference points for general employees: Know Your Building (with Toft Green evacuation diagram), When You Hear the Alarm, Leaving the Building, If You Encounter Smoke or Fire, Helping Others, At the Assembly Point, Waiting for the All-Clear, Common Mistakes to Avoid, Training and Drills
+  - Cross-references `FireMarshalEvacPlan.md` for fire marshal-specific duties
+  - No lift references — office premises have no lifts
+  - User added evacuation route diagram (`ToftGreenEvacPath.png`) and caption to Section 3
+
+---
+
 ## [Unreleased] - 2026-02-05
 
 ### Added

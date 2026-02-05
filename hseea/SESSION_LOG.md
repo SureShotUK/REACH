@@ -6,6 +6,45 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-05 (2)
+
+### Summary
+Created `FireEvacPlan.md` — an employee-facing fire evacuation procedure document. The plan covers all best-practice steps from alarm response through to the all-clear, grounded in the Fire Safety Order 2005 and HSWA 1974 s.7. User added a site-specific evacuation diagram (`ToftGreenEvacPath.png`) to Section 3 after the initial draft.
+
+### Work Completed
+- Created `FireEvacPlan.md` (127 lines) covering: legal basis (HSWA 1974 s.7, Fire Safety Order 2005 Articles 14, 15, 19, 21); 11 sections structured for employee reference — Know Your Building, When You Hear the Alarm, Leaving the Building, If You Encounter Smoke or Fire, Helping Others, At the Assembly Point, Waiting for the All-Clear, Common Mistakes to Avoid, Training and Drills
+- Verified HSWA 1974 s.7 URL against legislation.gov.uk (correct chapter number is 37, not 53); reused already-verified Fire Safety Order article links from `FireMarshalEvacPlan.md`
+- No lift references included as per user instruction (office has no lifts)
+- User added evacuation route diagram reference (`ToftGreenEvacPath.png`) and introductory caption to Section 3
+
+### Files Changed
+- `FireEvacPlan.md` — NEW: Employee fire evacuation plan (127 lines). Cross-references `FireMarshalEvacPlan.md` for fire marshal duties. User added `ToftGreenEvacPath.png` image embed and caption in Section 3
+
+### Git Commits
+- None this session (file not yet committed)
+
+### Key Decisions
+- **Employee-focused structure**: Sections are designed as standalone reference points (an employee can look up "what do I do if I encounter smoke?" without reading the whole document). Section-local step numbering rather than sequential numbering across the plan
+- **Common Mistakes table**: Included as a practical quick-reference for the most frequent evacuation errors, with a plain-English explanation of why each is dangerous
+- **No lift references**: User confirmed office has no lifts; all lift-related guidance omitted entirely rather than being worded as inapplicable
+- **HSWA 1974 s.7 as the employee duty anchor**: The Fire Safety Order places duties on the responsible person; HSWA 1974 s.7 is the statute that places duties directly on employees. Both are referenced in the legal basis section
+- **Companion document relationship**: `FireEvacPlan.md` is explicitly positioned as the general employee plan; `FireMarshalEvacPlan.md` covers the additional fire marshal duties. Section 2 cross-references the marshal plan
+
+### Reference Documents
+- `FireEvacPlan.md` — the new employee evacuation plan
+- `FireMarshalEvacPlan.md` — companion fire marshal evacuation plan (created previous session)
+- `ToftGreenEvacPath.png` — evacuation route diagram (added by user; referenced in Section 3)
+- Health and Safety at Work etc. Act 1974 s.7 — verified at legislation.gov.uk/ukpga/1974/37/section/7
+- Regulatory Reform (Fire Safety) Order 2005 — Articles 14, 15, 19, 21 (all previously verified)
+
+### Next Actions
+- [ ] Commit `FireEvacPlan.md` and `ToftGreenEvacPath.png`
+- [ ] Populate any remaining site-specific details (e.g. named assembly point location if not shown on diagram)
+- [ ] Distribute the employee plan to all staff and confirm receipt
+- [ ] Schedule first evacuation drill covering both plans
+
+---
+
 ## Session 2026-02-05
 
 ### Summary
