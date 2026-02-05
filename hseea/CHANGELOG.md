@@ -4,6 +4,19 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-02-05
+
+### Added
+- `FireMarshalEvacPlan.md` — Fire marshal evacuation procedure document (175 lines):
+  - Legal basis: Regulatory Reform (Fire Safety) Order 2005 (Articles 13, 14, 15, 16, 19, 21) as amended by Fire Safety Act 2021; all article URLs verified against legislation.gov.uk
+  - Four roles defined: Fire Marshal (zone duties), Nominated Person — Grab Bag, Nominated Person — Sign-In Boards (separate individual, with safety caveat), Head Fire Marshal / Assembly Point Warden
+  - 7-phase evacuation procedure: alarm response → zone evacuation and sweep → nominated person duties → route to assembly point → headcount → fire service briefing → holding and stand down
+  - Special considerations: vulnerable persons and personal evacuation plans (PEPs), dangerous substances (SDSs in grab bag, Article 16 duty), visitor and contractor briefing
+  - Training requirements under Article 21; annual drill best practice
+  - Post-evacuation report requirements and sign-in board retention
+
+---
+
 ## [Unreleased] - 2026-02-04
 
 ### Changed

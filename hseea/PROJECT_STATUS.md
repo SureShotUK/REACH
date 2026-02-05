@@ -1,12 +1,12 @@
 # Project Status
 
-**Last Updated**: 2026-02-04
+**Last Updated**: 2026-02-05
 
 ## Current State
 
 This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, and a noise assessment report with full CNAWR 2005 compliance analysis.
 
-**Recent Update**: Noise assessment finalised with LEP,d 83.1 dB(A) for the machine operator (1.9 dB margin to upper action value). Regulation 6 scope clarified: Reg 6(1) SFAIRP duty applies at all levels; Reg 6(2) mandatory programme only at or above the upper AV. Dosimetry recommendation section removed by user. Assessment placeholder fields filled, legal duties restructured, sections renumbered. Weekly LEP,w calculated at 82.1 dB(A) for a 4-day pattern / 1-day Area 9 scenario. Uncommitted edits pending.
+**Recent Update**: Fire marshal evacuation plan created (`FireMarshalEvacPlan.md`) — completes the Year 1 Q1 deliverable from the three-year HSE plan. Two nominated persons (grab bag and sign-in boards) are defined as separate roles. All Fire Safety Order article links verified. Needs site-specific details populated and first training/drill scheduled.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
@@ -34,6 +34,12 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Recently Completed
 
+- **Fire Marshal Evacuation Plan** (2026-02-05):
+  - Created `FireMarshalEvacPlan.md` — full evacuation procedure grounded in the Fire Safety Order 2005
+  - Four roles: Fire Marshal, Nominated Person (grab bag), Nominated Person (sign-in boards), Head Fire Marshal
+  - 7-phase procedure, special considerations (vulnerable persons, dangerous substances, visitors), training and record-keeping sections
+  - All Fire Safety Order article links verified; Fire Safety Act 2021 linked
+  - Pending: site-specific details (zone assignments, locations, named nominees), first training session, first drill
 - **Noise Assessment — Regulation 6 clarification and restructure** (2026-02-04):
   - Verified Reg 6 two-tier structure against legislation.gov.uk: Reg 6(1) SFAIRP applies at all levels; Reg 6(2) programme only at upper AV
   - Resolved contradiction between Section 7 compliance summary and Section 7.2
@@ -104,7 +110,7 @@ None.
 1. **Implement Year 1 Q1 of Updated Three-Year HSE Plan** (Jan-Mar 2026):
    - Engage environmental consultant for waste water assessment
    - Implement training system using Training_Matrix_Template.md
-   - Develop fire marshal evacuation plan
+   - ~~Develop fire marshal evacuation plan~~ — completed (`FireMarshalEvacPlan.md`); populate site-specific details and schedule first drill
    - Complete WorkNest H&S Policy with consultancy support
    - Commission fire risk assessment for 1 Toft Green office
    - Complete Q1 PAT testing and fire extinguisher checks
@@ -125,6 +131,7 @@ None.
 ## Key Files & Structure
 
 ### Project Structure (hseea)
+- `FireMarshalEvacPlan.md` - Fire marshal evacuation procedure (Fire Safety Order 2005 compliant)
 - `/water/` - Water discharge and treatment planning documentation (EA permit applications)
 - `/Ladders/` - Fixed ladder compliance documentation suite (emergency escape and work access)
 - `/regulations/` - Official regulatory documents and legal requirements

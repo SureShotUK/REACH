@@ -6,6 +6,40 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-05
+
+### Summary
+Created `FireMarshalEvacPlan.md` — a full fire marshal evacuation procedure document grounded in the Regulatory Reform (Fire Safety) Order 2005. The plan was initially drafted with a single nominated person covering both the grab bag and sign-in boards, then revised at user request to split those duties into two separate nominated persons. All regulation references were verified against legislation.gov.uk before insertion.
+
+### Work Completed
+- Created `FireMarshalEvacPlan.md` covering: legal basis (Fire Safety Order 2005 Articles 13–16, 19, 21; Fire Safety Act 2021); four distinct roles (Fire Marshal, Nominated Person — Grab Bag, Nominated Person — Sign-In Boards, Head Fire Marshal); a 7-phase evacuation procedure; special considerations (vulnerable persons, dangerous substances, visitors/contractors); training requirements; and post-evacuation record keeping
+- Verified all legislation.gov.uk URLs before inserting: Fire Safety Order 2005 contents, Fire Safety Act 2021 contents, Articles 13, 14, 15, 16, 19, and 21
+- Revised the document to distinguish the two nominated person roles after user feedback — Sections 3.2 and 3.3 now define separate individuals for grab bag and sign-in board collection; Phase 3 steps 9 and 10 and the pre-evacuation preparation table were updated accordingly
+
+### Files Changed
+- `FireMarshalEvacPlan.md` — NEW: Fire marshal evacuation procedure (175 lines). Sections: Legal Basis, Purpose and Scope, Roles and Responsibilities (4 roles), Pre-Evacuation Preparation, Evacuation Procedure (7 phases), Special Considerations, Training, Record Keeping
+
+### Git Commits
+- None this session (file not yet committed)
+
+### Key Decisions
+- **Two nominated persons**: Grab bag and sign-in board collection are assigned to separate individuals. The sign-in board role carries an explicit safety caveat — if collection is unsafe the person proceeds to the assembly point and reports to the Head Fire Marshal
+- **Article 15 as the primary evacuation article**: Article 15 of the Fire Safety Order covers procedures for serious and imminent danger and the appointment of competent evacuation personnel — this is the article that most directly underpins the evacuation procedure itself. Articles 13 (detection/equipment), 14 (routes/exits), 16 (dangerous substances), 19 (information), and 21 (training) are referenced for their specific scope
+- **Fire Safety Act 2021 included**: The Act (c. 24) amended the scope of the Fire Safety Order to cover the structure, external walls, and flat entrance doors of multi-domestic buildings. Linked for completeness as the most recent primary legislation amendment to the Order
+
+### Reference Documents
+- `FireMarshalEvacPlan.md` — the new evacuation plan
+- Regulatory Reform (Fire Safety) Order 2005 — Articles 13, 14, 15, 16, 19, 21 (all verified at legislation.gov.uk)
+- Fire Safety Act 2021 (c. 24) — verified at legislation.gov.uk
+
+### Next Actions
+- [ ] Commit `FireMarshalEvacPlan.md`
+- [ ] Populate site-specific details (zone assignments, assembly point location, grab bag and sign-in board locations, named nominated persons)
+- [ ] Schedule initial fire marshal training session covering the plan contents
+- [ ] Schedule first evacuation drill
+
+---
+
 ## Session 2026-02-04 (2)
 
 ### Summary
