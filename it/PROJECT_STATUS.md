@@ -1,13 +1,22 @@
 # IT Project Status
 
-**Last Updated**: 2026-01-15
+**Last Updated**: 2026-02-06
 
 ## Current State
-Active development project focused on IT infrastructure, security, and financial data processing. StoneX daily statement parser now includes Cash Settlement section parsing in addition to trade and account data extraction. User has working PDF loading mechanism using PdfSharp and is ready to implement page extraction or text extraction from PDFs.
+Active IT infrastructure and security documentation project with focus on Zero Trust Network Access (ZTNA) evaluation and deployment planning. Complete ZTNA market research and two comprehensive deployment guides (Tailscale and IPSec) created for 35-user, 3-office hybrid workforce. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
 
 ## Active Work Areas
 
-### Financial Data Processing (Current Focus)
+### Zero Trust Network Access (ZTNA) - Current Focus
+- **Status**: Research complete, deployment guides created, ready for pilot deployment
+- **Files**: `ZTNA_Provider_Research_2026.md`, `Tailscale_Hybrid_Deployment_Guide.md`, `IPSec_SonicWall_Deployment_Guide.md`
+- **Coverage**: Complete market research (6 providers), two deployment approaches, PostgreSQL ODBC, RDP, Azure AD SSO
+- **Environment**: 35 hybrid workers across 3 offices (SonicWall TZ270 x2, Draytek router x1)
+- **Primary recommendation**: Tailscale ($2,520/year) for "stupid simple" hybrid worker experience
+- **Budget alternative**: IPSec + SonicWall Mobile Connect ($0-500/year)
+- **Next**: Get SonicWall quote, pilot Tailscale free tier at Office3, performance testing, user feedback
+
+### Financial Data Processing
 - **Status**: Parser extended with Cash Settlement support, ready for testing
 - **Files**: `parsing/DailyStatementParser.cs`, `parsing/Program.cs`, `parsing/GetStoneXOTCDailyValuesConsole.csproj`
 - **Coverage**: StoneX daily statement PDF parsing, cash settlement extraction, trade data extraction, account information processing
@@ -35,6 +44,18 @@ Active development project focused on IT infrastructure, security, and financial
 - **Coverage**: VM security, hypervisor comparison, homelab setup
 
 ## Recently Completed
+
+### Session 2026-02-06
+- ✅ Comprehensive ZTNA market research with 6 provider evaluations
+- ✅ Complete Tailscale hybrid deployment guide (58 pages)
+- ✅ Complete IPSec + SonicWall Mobile Connect deployment guide (53 pages)
+- ✅ PostgreSQL ODBC configuration for both solutions
+- ✅ RDP configuration and optimization guides
+- ✅ Azure AD SSO integration documentation
+- ✅ Performance analysis (P2P mesh vs relay vs traditional VPN)
+- ✅ Cost-benefit analysis ($0-2,520/year range)
+- ✅ User experience optimization for hybrid workers
+- ✅ Comprehensive troubleshooting sections for both approaches
 
 ### Session 2026-01-15
 - ✅ Technical guidance for PdfSharp MemoryStream handling
@@ -86,10 +107,13 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **Test cash settlement parsing** - Verify parsing works with real cash settlement data
-2. **Database integration for StoneX parser** - Implement database update logic for both trades and cash settlements
-3. **Production error handling** - Add logging and error reporting for parser
-4. **Parser unit tests** - Create test suite for edge cases and validation (including cash settlements)
+1. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
+2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
+3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh
+4. **RDP connectivity testing** - Verify automated scheduled tasks work over ZTNA
+5. **User feedback collection** - Gather hybrid worker experience feedback (office vs remote)
+6. **Test cash settlement parsing** - Verify parsing works with real cash settlement data
+7. **Database integration for StoneX parser** - Implement database update logic for both trades and cash settlements
 
 ### Medium Priority
 5. Continue expanding public WiFi security best practices
@@ -104,6 +128,11 @@ None currently. All active documentation areas progressing as planned.
 10. Container security documentation
 
 ## Key Files & Structure
+
+### Zero Trust Network Access (ZTNA)
+- `ZTNA_Provider_Research_2026.md` - Complete market research and provider comparison (58 pages, 1,057 lines)
+- `Tailscale_Hybrid_Deployment_Guide.md` - Full Tailscale deployment guide (58 pages, 1,852 lines)
+- `IPSec_SonicWall_Deployment_Guide.md` - Full IPSec/SonicWall deployment guide (53 pages, 1,495 lines)
 
 ### Financial Data Processing
 - `parsing/DailyStatementParser.cs` - StoneX daily statement parser with cash settlement support (~680 lines)

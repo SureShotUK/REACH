@@ -2,6 +2,74 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-02-06
+
+### Added
+- `ZTNA_Provider_Research_2026.md` (58 pages, 1,057 lines): Comprehensive Zero Trust Network Access market research
+  - Evaluated 6 ZTNA providers: Tailscale, Twingate, Cloudflare Zero Trust, ZeroTier, NordLayer, SonicWall Cloud Secure Edge
+  - Budget-focused analysis under $10/user/month ($350/month for 35 users)
+  - Detailed pricing comparison: Tailscale ($2,520/year), Twingate ($2,100/year), Cloudflare (FREE-$2,940/year), IPSec ($0-500/year)
+  - Feature comparison matrices: Site-to-site networking, RDP support, ODBC database access, Azure AD SSO integration
+  - Performance benchmarks for PostgreSQL queries: P2P mesh (1-5ms), relay (10-50ms), traditional VPN (50-200ms+)
+  - Top recommendations with cost-benefit analysis for 35-user, 3-office hybrid environment
+  - Special consideration for SonicWall TZ270 Gen 7+ native ZTNA capability
+  - Deployment approach comparison (minimal change, full migration, hybrid with SonicWall)
+
+- `Tailscale_Hybrid_Deployment_Guide.md` (58 pages, 1,852 lines): Complete Tailscale deployment guide for hybrid workers
+  - Architecture overview: Peer-to-peer mesh networking with subnet routers at all 3 offices
+  - Phase 1: Pilot deployment at Office3 with free tier (3 users, 2 weeks validation)
+  - Phase 2: Subnet router deployment at Office1 and Office2 (transparent office access)
+  - Phase 3: Azure AD SSO integration with Microsoft 365 (one-time sign-in, inherits MFA)
+  - Phase 4: Client deployment via Intune/GPO with auto-install configuration
+  - Phase 5: ACL configuration for granular access control
+  - PostgreSQL ODBC configuration: psqlODBC driver setup, DSN configuration, Excel Power Query integration
+  - RDP configuration: Host setup, MagicDNS for easy hostnames, performance optimization
+  - Testing & validation checklist: Office and remote scenarios, performance benchmarks, failover testing
+  - 1-page user quick-start guide: "Sign in once with Microsoft, you're done"
+  - Comprehensive troubleshooting: Connectivity issues, performance problems, ACL enforcement, Azure AD auth failures
+  - Maintenance & operations: Daily/weekly/monthly/quarterly/annual procedures
+  - Appendices: CLI reference, cost summary, support resources
+
+- `IPSec_SonicWall_Deployment_Guide.md` (53 pages, 1,495 lines): Traditional IPSec + SSL VPN deployment guide
+  - Architecture overview: Site-to-site IPSec tunnels + SonicWall Mobile Connect for remote access
+  - Phase 1: IPSec tunnel configuration (Office1 TZ270 ↔ Office3 Draytek)
+    - Detailed SonicWall configuration: VPN policy, NAT exemption, access rules
+    - Detailed Draytek configuration: VPN profile, IKE/IPsec proposals, firewall rules
+  - Phase 2: Optional IPSec tunnel (Office2 ↔ Office3 for redundancy)
+  - Phase 3: Routing configuration for all three offices
+  - Phase 4: SonicWall Mobile Connect SSL VPN setup
+    - SSL VPN server configuration, IP address pools
+    - Local user accounts or Azure AD/SAML SSO integration
+    - Split tunneling vs full tunnel configuration
+  - Phase 5: Client deployment via Intune/GPO or manual installation
+  - PostgreSQL ODBC configuration (identical to Tailscale approach)
+  - RDP configuration and optimization
+  - Testing & validation: Office users (transparent), remote users (manual VPN), hybrid workers
+  - Remote worker user guide: "Connect VPN first, then work" with troubleshooting
+  - Comprehensive troubleshooting: Tunnel connectivity, remote user authentication, performance optimization
+  - Maintenance & operations procedures
+  - Appendices: SonicWall/Draytek CLI commands, cost summary ($0), comparison to Tailscale
+
+### Documentation
+- Deployed `gemini-it-security-researcher` agent for ZTNA market research with focus on:
+  - Budget constraints (under $10/user/month)
+  - Small business requirements (35 users, 3 offices)
+  - Specific use cases: PostgreSQL ODBC via Excel, RDP access, site-to-site networking
+  - Hybrid worker support (office and remote access with minimal user interaction)
+  - Integration with existing infrastructure (SonicWall TZ270, Draytek router)
+- Cross-referenced authoritative sources: NIST, CISA, NSA, SANS Institute, OWASP
+- Verified vendor documentation: Tailscale, Twingate, Cloudflare, SonicWall, Draytek
+- Included 2026 current pricing and feature data
+- Optimized for "stupid simple" user experience requirement (auto-connect, zero daily interaction)
+
+### Changed
+- Updated project focus to prioritize ZTNA deployment planning alongside existing areas
+- Tailscale recommended over traditional VPN for hybrid workers due to seamless experience
+  - Cost: $2,520/year vs $0-500/year
+  - User experience: Auto-connects everywhere vs manual "Connect VPN" button
+  - Performance: P2P mesh (10-50ms) vs hub-spoke (50-150ms)
+  - Decision rationale: Hybrid workers forgetting VPN = failed access = helpdesk tickets
+
 ## [Unreleased] - 2026-01-15
 
 ### Documentation

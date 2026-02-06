@@ -4,6 +4,112 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-02-06 14:30
+
+### Summary
+Comprehensive research and deployment guide creation for Zero Trust Network Access (ZTNA) solutions. Evaluated 6+ ZTNA providers and created two complete deployment guides (Tailscale and IPSec) for a 35-user, 3-office hybrid workforce with specific focus on PostgreSQL database access and "stupid simple" user experience.
+
+### Work Completed
+- Deployed `gemini-it-security-researcher` agent for comprehensive ZTNA market research
+- Created **ZTNA_Provider_Research_2026.md** (58 pages, 1,057 lines):
+  - Evaluated 6 ZTNA providers: Tailscale, Twingate, Cloudflare Zero Trust, ZeroTier, NordLayer, SonicWall Cloud Secure Edge
+  - Budget analysis under $10/user/month target ($350/month for 35 users)
+  - Detailed pricing comparison: Tailscale ($2,520/year), Twingate ($2,100/year), Cloudflare (FREE-$2,940/year)
+  - Performance benchmarks for PostgreSQL ODBC queries (1-5ms P2P, 10-50ms relay, 50-200ms+ traditional VPN)
+  - Feature comparison matrices (site-to-site, RDP support, Azure AD SSO, performance)
+  - Top recommendations with cost-benefit analysis
+  - Special consideration for SonicWall TZ270 native ZTNA capability (Gen 7+)
+- Created **Tailscale_Hybrid_Deployment_Guide.md** (58 pages, 1,852 lines):
+  - Complete phased deployment plan (pilot → production) over 6 weeks
+  - Subnet router configuration for transparent office access (no client needed for office-based work)
+  - Azure AD SSO integration with Microsoft 365 (one-time sign-in)
+  - Intune and GPO auto-deployment instructions for 35 laptops
+  - PostgreSQL ODBC configuration for database access via Excel
+  - RDP configuration and performance optimization
+  - ACL configuration for granular security controls
+  - 1-page user quick-start guide (literally "sign in once with Microsoft, you're done")
+  - Comprehensive troubleshooting guide (connectivity, performance, ACL issues)
+  - Maintenance and operations procedures
+- Created **IPSec_SonicWall_Deployment_Guide.md** (53 pages, 1,495 lines):
+  - Traditional IPSec site-to-site VPN approach ($0 cost using existing hardware)
+  - Step-by-step SonicWall TZ270 configuration (Office1 & Office2)
+  - Step-by-step Draytek router configuration (Office3)
+  - IPSec tunnel setup (Office1 ↔ Office3, optional Office2 ↔ Office3)
+  - NAT exemption configuration for VPN traffic
+  - SonicWall Mobile Connect SSL VPN setup for remote workers
+  - Azure AD/SAML SSO option for unified authentication
+  - PostgreSQL ODBC configuration (identical to Tailscale approach)
+  - RDP configuration and performance optimization
+  - Remote worker user guide ("Connect VPN first, then work")
+  - Comprehensive troubleshooting (tunnel issues, authentication failures, performance)
+  - Comparison appendix: IPSec vs Tailscale trade-offs
+
+### Files Changed
+- `ZTNA_Provider_Research_2026.md` - Created comprehensive ZTNA market research (1,057 lines)
+- `Tailscale_Hybrid_Deployment_Guide.md` - Created complete Tailscale deployment guide (1,852 lines)
+- `IPSec_SonicWall_Deployment_Guide.md` - Created complete IPSec/SonicWall deployment guide (1,495 lines)
+
+### Git Commits
+- `b5ce3ec` - Add comprehensive ZTNA research and deployment guides for multi-site environment
+
+### Key Decisions
+- **Primary recommendation: Tailscale** for hybrid workers prioritizing "stupid simple" experience ($2,520/year)
+  - Rationale: Auto-connects everywhere, users never think about VPN, best performance (P2P mesh)
+  - User requirement: "Ideally they don't even know it's on their machines"
+- **Budget alternative: IPSec + Mobile Connect** for cost-conscious deployments ($0-500/year)
+  - Rationale: Uses existing SonicWall/Draytek hardware, office users completely transparent
+  - Trade-off: Remote workers must manually connect VPN (violates "stupid simple" requirement for hybrid workers)
+- **Deployment approach: Phased rollout**
+  - Start with Office3 pilot (3 users, free tier) to validate before full deployment
+  - Progressive expansion: Office3 → Office2 → Office1 over 6 weeks
+- **PostgreSQL access method**: ODBC via Excel (consistent across both solutions)
+- **Authentication**: Azure AD SSO for seamless Microsoft 365 integration
+- **Architecture**: Subnet routers for office transparency, clients for remote/hybrid workers
+
+### Environment Specifications
+- **Office1**: 24 users, SonicWall TZ270 (Gen 7), PostgreSQL on Ubuntu 24.04, 3 RDP PCs, 10.1.0.0/24
+- **Office2**: 8 users, SonicWall TZ270, existing IPSec tunnel to Office1, 10.2.0.0/24
+- **Office3**: 3 users, Draytek router, local database, simple broadband, 10.3.0.0/24
+- **Total**: 35 hybrid workers (alternate between office and remote work)
+- **Use cases**:
+  - All 35 users → Office1 PostgreSQL database via Excel ODBC
+  - Office1 users → Office3 local database (previously required VPN)
+  - RDP to Office1 PCs (manual and automated scheduled tasks)
+
+### Reference Documents
+- `/mnt/c/Users/SteveIrwin/terminai/it/ZTNA_Provider_Research_2026.md` - Complete ZTNA market research
+- `/mnt/c/Users/SteveIrwin/terminai/it/Tailscale_Hybrid_Deployment_Guide.md` - Tailscale deployment guide
+- `/mnt/c/Users/SteveIrwin/terminai/it/IPSec_SonicWall_Deployment_Guide.md` - IPSec/SonicWall deployment guide
+- Authoritative sources: NIST, CISA, NSA, SANS, OWASP, vendor documentation
+- Tailscale documentation: <a href="https://tailscale.com/kb/" target="_blank">https://tailscale.com/kb/</a>
+- SonicWall documentation: <a href="https://www.sonicwall.com/support/" target="_blank">https://www.sonicwall.com/support/</a>
+
+### Technical Highlights
+- **Performance analysis**:
+  - Tailscale P2P: 1-5ms overhead (near-LAN performance)
+  - Twingate relay: 10-50ms overhead (acceptable for Excel)
+  - Traditional VPN: 50-200ms+ (hairpinning bottleneck)
+- **Cost comparison**:
+  - Tailscale: $2,520/year ($6/user/month)
+  - Twingate: $2,100/year ($5/user/month, lowest cost)
+  - Cloudflare: FREE for up to 50 users (covers all 35)
+  - IPSec + Mobile Connect: $0-500/year
+- **User experience priority**: "Stupid simple" requirement drove Tailscale recommendation over IPSec
+  - Tailscale: Auto-connects everywhere, zero daily user interaction
+  - IPSec: Office transparent, but remote workers must remember to "click Connect"
+  - For hybrid workers, forgetting VPN = failed database access = helpdesk tickets
+
+### Next Actions
+- [ ] Get SonicWall Cloud Secure Edge quote (if TZ270s are Gen 7+ compatible)
+- [ ] Start Tailscale free tier pilot at Office3 (3 users, validates approach)
+- [ ] Test PostgreSQL ODBC performance over Tailscale mesh
+- [ ] Test RDP connectivity for automated scheduled tasks
+- [ ] Evaluate user feedback: "Did you notice any difference office vs home?"
+- [ ] Decision point: Tailscale vs IPSec based on pilot results and budget approval
+- [ ] Create deployment schedule (6-week phased rollout)
+
+---
+
 ## Session 2026-01-15 (Time Unknown)
 
 ### Summary
