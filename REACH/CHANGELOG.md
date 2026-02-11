@@ -4,6 +4,77 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased] - 2026-02-11
+
+### Added
+- **HVO Project Established**: Complete new substance compliance project for HVO (Hydrotreated Vegetable Oil)
+- **HVO/HVO_Research.md**: Comprehensive research summary (388 lines)
+  - Current UK REACH registration status (UK-01-9638319484-0-0004)
+  - Classification and hazards (Flammable Liquid Cat 3, Aspiration Toxicity Cat 1)
+  - All compliance pathway options with cost comparisons
+  - SME fee reductions (Small SME: £399 vs. £2,222 standard)
+  - Deadline: 27 October 2030 (1-100 tonne band)
+- **HVO/HVO_Strategy.md**: Detailed lowest-cost compliance strategy (801 lines)
+  - Strategy 1: GB supplier (downstream user) - £0 cost, 6-8 weeks, RECOMMENDED
+  - Strategy 2: Join consortium - £3,049-£9,399, 4-6 months
+  - Week-by-week implementation timelines
+  - Decision framework and cost-benefit analysis
+  - Break-even analysis and risk assessment
+- **HVO/HVO_Consortium_Registration_Guide.md**: SME-specific registration guide (317 lines)
+  - Tailored for Small SME (<50 employees, 1-100 tonnes/year)
+  - 6-step registration process with verified HSE/GOV.UK links
+  - £399 Small SME registration fee confirmed
+  - Complete checklist and timeline (4-6 months)
+  - Quick reference table with all official resources
+- **HVO/HVO_Status_Clarification.md**: Critical DUIN eligibility clarification (55 lines)
+  - DUIN is per-substance, not per-company
+  - Urea DUIN does NOT cover HVO
+  - Must register BEFORE importing from non-GB sources
+  - Exception: GB supplier route allows immediate import
+- **research/HVO_UK_REACH_Research.md**: Full gemini-researcher report (1,019 lines, 13,000+ words)
+
+### Changed
+- **PROJECT_STATUS.md**: Updated to reflect dual-substance project (Urea monitoring + HVO active)
+  - Added HVO project parameters and status
+  - Separated Urea and HVO active work areas
+  - Updated priorities with HVO immediate actions
+  - Added HVO file structure section
+- **SESSION_LOG.md**: Added comprehensive HVO session entry with DUIN clarification
+- **Urea Prills Suppliers.xlsx**: Minor updates
+
+### Fixed
+- **Broken HSE link**: Corrected non-working transitional registration URL
+  - OLD: `https://www.hse.gov.uk/reach/transitional-registration.htm` (404)
+  - NEW: `https://www.hse.gov.uk/reach/duin.htm` (verified working)
+- **All weblinks verified**: Confirmed all HSE and GOV.UK sources functional
+
+### Documentation
+- Deployed gemini-researcher agent for comprehensive HVO analysis (13,000+ word output)
+- Verified HVO UK REACH registration UK-01-9638319484-0-0004 active
+- Confirmed all costs from official HSE fees table
+- Confirmed all deadlines from official HSE/GOV.UK guidance
+- Formatted HVO_Status_Clarification.md for improved markdown appearance
+
+### Critical Compliance Findings
+- **DUIN is per-substance**: Existing DUIN for Urea does NOT provide any coverage for HVO
+- **New substances require registration BEFORE import**: No grace period for substances not imported pre-Brexit
+- **Must register or use GB supplier**: Cannot import HVO from non-GB sources without:
+  1. Own UK REACH registration (join consortium: £3,049-£9,399, 4-6 months), OR
+  2. Purchasing from GB supplier with registration (downstream user: £0, immediate)
+- **Legal requirement**: Registration must be complete BEFORE imports reach 1 tonne/year
+
+### Research Sources Verified
+All official sources linked and confirmed working:
+- HSE DUIN Guidance (includes transitional deadlines)
+- HSE UK REACH Fees Table (£399 Small SME confirmed)
+- GOV.UK Joint Registrations and Data Sharing
+- GOV.UK Comply with UK REACH Service
+- HSE New Registrants Guidance
+- HSE UK REACH Roles
+- ECHA Cloud Services (IUCLID 6)
+
+---
+
 ## [Unreleased] - 2025-12-22
 
 ### Added
