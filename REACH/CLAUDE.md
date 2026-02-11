@@ -92,6 +92,38 @@ When assisting with IUCLID 6 Cloud issues:
    - See IUCLID_Inquiry_Dossier_Guide.md for complete workflow
    - HSE IT Support: ukreachitsupport@defra.gov.uk
 
+## Multi-Substance Projects
+
+This project now covers multiple substances with different compliance statuses:
+
+### Per-Substance DUIN Rule
+**CRITICAL**: DUIN (Downstream User Import Notification) is per-substance, NOT per-company.
+- A DUIN for one substance does NOT provide coverage for other substances
+- Each substance must have been imported pre-Brexit to qualify for transitional provisions
+- New substances require registration BEFORE importing (no grace period)
+
+### Substance-Specific Directories
+When adding new substances, create dedicated directories:
+- `/[SUBSTANCE_NAME]/` - Main compliance documents
+- Include in directory:
+  - Research summary
+  - Compliance strategy
+  - Registration guides
+  - Status clarifications
+
+### Research Agent Usage
+For new substance research:
+- Deploy gemini-researcher agent for comprehensive analysis
+- Request specific coverage: registration status, deadlines, costs, pathways
+- Verify all weblinks to official sources (HSE, GOV.UK)
+- Cross-reference with existing REACH knowledge
+
+### Document Structure for New Substances
+1. **Research.md** - Comprehensive research summary
+2. **Strategy.md** - Compliance pathway with cost-benefit analysis
+3. **[Registration_Type]_Guide.md** - Step-by-step implementation guide
+4. **Status_Clarification.md** - DUIN/eligibility clarifications
+
 ## Document Organization
 
 Research and findings should be organized into:
@@ -99,3 +131,4 @@ Research and findings should be organized into:
 - `/reports/` - Summary reports and compliance assessments
 - `/templates/` - Template documents for compliance records
 - `/costs/` - Cost breakdowns and estimates
+- `/[SUBSTANCE_NAME]/` - Substance-specific compliance documentation
