@@ -8,7 +8,7 @@
 
 3. **No Grace Period**: New substances require registration BEFORE importing. There is no grace or deferment period for substances not covered by an existing DUIN.
 
-**Conclusion**: You must join the existing HVO consortium and obtain registration before you can legally import HVO into the UK.
+**Conclusion**: You must join the existing HVO consortium and obtain registration **before you can legally import HVO into the UK**.
 
 ---
 
@@ -19,9 +19,9 @@
 **Purpose**: Request contact details of existing HVO registrants from HSE
 
 **Process**:
-- Create account on <a href="https://www.comply-with-uk-reach.service.gov.uk/" target="_blank">Comply with UK REACH portal</a>
+- Create account on <a href="https://comply-chemical-regulations.service.gov.uk/" target="_blank">Comply with UK REACH portal</a>
 - Navigate to "Submit an Enquiry" → "Article 26 Enquiry"
-- Provide substance details (HVO, CAS 68334-30-5)
+- Provide substance details (HVO, CAS 928771-01-1, EC 700-571-2)
 - State your intended import volume and use
 - HSE will provide contact details of Lead Registrant(s)
 
