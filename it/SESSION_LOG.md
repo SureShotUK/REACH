@@ -4,6 +4,154 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-02-12 22:30
+
+### Summary
+Comprehensive AI PC build planning and component selection for local LLM inference (coding assistance and homework help). Created new NewPC project directory with detailed research, technical analysis, and component tracking. Made key hardware decisions including CPU, motherboard, RAM, PSU, and case, all optimized for UK market pricing and dual GPU upgrade path.
+
+### Work Completed
+- Created `/it/NewPC/` project directory structure with dedicated CLAUDE.md
+- Deployed `gemini-researcher` agent for comprehensive AI PC hardware research
+- Created **CLAUDE.md** for NewPC project (8.6KB):
+  - Project purpose and target audience definition
+  - Documentation requirements for AI-specific hardware
+  - Research standards (link verification, source requirements)
+  - Decision-making methodology (funnel approach from broad to specific)
+  - Cost-capability balance guidelines
+  - AI workload considerations (GPU VRAM, memory bandwidth, inference metrics)
+- Created **PCBuildResearch.md** (74KB, comprehensive market research):
+  - 5 complete PC build configurations ($899-5,000 USD initially, converted to GBP)
+  - GPU performance comparison (tokens per second benchmarks for 8B, 70B models)
+  - VRAM requirements by model size (7B to 200B+)
+  - AMD vs NVIDIA comparison for AI workloads
+  - CPU, RAM, and storage performance impact analysis
+  - Software stack comparison (Ollama, LM Studio, Open WebUI)
+  - Price breakdowns by tier with pros/cons for each
+  - Recommendations by use case (coding, homework help, both)
+  - All sources with verified working links
+- Created **Chosen_Build.md** (55KB, deep technical analysis):
+  - PCIe lane architecture analysis (AMD Ryzen vs Intel vs Threadripper)
+  - Critical reality check: Consumer Ryzen limited to x16/x8 (not x16/x16)
+  - Why x16/x8 has <2% performance impact for LLM inference
+  - Three motherboard + CPU combinations with detailed PCIe configurations
+  - Added AMD Ryzen 9 9950X3D option (latest Zen 5 X3D with 144MB cache)
+  - Removed all Intel options per user request
+  - Performance impact analysis for GPU, CPU, RAM, motherboard VRM, and storage
+  - Bottleneck analysis (GPU VRAM is primary limitation)
+  - Thermal management and power supply requirements
+- Created **Final_Build.md** (30KB, component selection tracker):
+  - Confirmed components with UK pricing (GBP):
+    - CPU: AMD Ryzen 9 7900X @ £320-380
+    - Motherboard: ASRock X670E Taichi @ £280-340
+    - RAM: 64GB DDR5-6000 CL36 @ £599 (Overclockers UK)
+    - PSU: Thermaltake Toughpower GF3 1650W @ £240 (Scan.co.uk)
+    - Case: Fractal Design Torrent @ £175
+  - Detailed specs and justifications for each confirmed component
+  - Options with pros/cons for remaining decisions (GPU, storage, cooler, fans)
+  - Running cost summary with budget tracking
+  - Purchase order recommendations
+  - Assembly notes and software setup plan
+  - Decision log tracking all choices made
+- Discovered user is in UK market (critical pricing adjustment):
+  - Updated all pricing from USD to GBP including 20% VAT
+  - RAM pricing reality check: £599-717 for 64GB DDR5-6000 (not $250-280)
+  - Budget adjusted from £1,500-1,800 to £2,200-2,400 due to UK market
+- Evaluated eBay UK listing for ASUS TUF RTX 3090 (user's preferred model)
+  - Provided detailed analysis of seller rating, pricing, condition, and red flags
+  - Current bid £567.70 but auction has 6 days left with 30 watchers
+  - "No returns" policy identified as major concern
+  - Recommended questions to ask seller before bidding
+
+### Files Changed
+- `it/NewPC/CLAUDE.md` - Created NewPC project-specific guidance (239 lines)
+- `it/NewPC/PCBuildResearch.md` - Created comprehensive AI PC market research (1,055 lines)
+- `it/NewPC/Chosen_Build.md` - Created deep technical component analysis (709 lines)
+- `it/NewPC/Final_Build.md` - Created component selection tracker (745 lines)
+
+### Git Commits
+None yet - new files to be committed in end-of-session commit
+
+### Key Decisions
+
+**Build Philosophy**: "Best bang for buck, add not replace"
+- Buy once, add second GPU later (not replace components)
+- Focus on dual GPU upgrade path from day one
+- Prioritize quality components that won't need upgrading
+
+**Component Selections**:
+- **CPU**: Ryzen 9 7900X over 9950X3D (proven Zen 4, excellent value, 12 cores sufficient)
+- **Motherboard**: ASRock X670E Taichi (x16/x8 PCIe, 24+2+1 VRM, 4x M.2, best value)
+- **RAM**: 64GB CL36 not CL30 (marginal performance difference, better value)
+- **PSU**: 1650W upfront not 1000W (avoids replacement when adding 2nd GPU, saves £30-60 long-term)
+- **Case**: Fractal Design Torrent (best GPU airflow, critical for dual GPU 700W heat)
+
+**Technical Insights**:
+- Consumer Ryzen cannot do x16/x16 dual GPU (24 PCIe lanes max)
+- x16/x8 configuration has <2% performance impact for LLM inference
+- GPU VRAM is primary bottleneck, not PCIe bandwidth
+- UK RAM pricing 2-3x higher than US market (£599 vs $250-280 equivalent)
+- Used RTX 3090 24GB @ £600-700 offers best value (vs £1,999 RTX 5090)
+
+**Budget Reality**:
+- Initial target: £1,500-1,800
+- Revised target: £2,200-2,400 (UK market + component quality)
+- Confirmed spending: £1,614-1,734 (CPU, MB, RAM, PSU, Case)
+- Remaining: GPU (£550-750), Storage (£140-180), Cooler (£90-150), Fans (£20-55)
+
+**UK Market Discoveries**:
+- Overclockers UK: £599 for DDR5-6000 CL36 (best RAM price)
+- Scan.co.uk: £716.99 for DDR5-6000 CL40 (worse latency, avoid)
+- CCL Computers: £699.99 for same spec (£100 more expensive)
+- CeX: Limited RTX 3090 stock but 24-month warranty option
+- eBay UK: Best GPU value but higher risk (no warranty typically)
+
+### Environment & Specifications
+**Build Target**:
+- Purpose: Local LLM inference for coding assistance and homework help
+- Single RTX 3090 24GB now (£600-700 used)
+- Dual RTX 3090 upgrade path (48GB total VRAM for 200B+ models)
+- Software: Ubuntu 24.04 LTS or Windows 11 + WSL2
+- AI Stack: Ollama + Open WebUI (NetworkChuck-style setup)
+
+**Expected Performance**:
+- Single GPU: 7B-70B models @ 42-120 tokens/second
+- Dual GPU future: 70B-405B models @ 8-75 tokens/second
+- CodeLlama 34B: 20-28 tokens/second
+- Mistral 7B: 110-120 tokens/second
+
+### Reference Documents
+- `/mnt/c/Users/SteveIrwin/terminai/it/NewPC/CLAUDE.md` - NewPC project guidance
+- `/mnt/c/Users/SteveIrwin/terminai/it/NewPC/PCBuildResearch.md` - Comprehensive market research with verified sources
+- `/mnt/c/Users/SteveIrwin/terminai/it/NewPC/Chosen_Build.md` - Deep technical analysis and PCIe architecture
+- `/mnt/c/Users/SteveIrwin/terminai/it/NewPC/Final_Build.md` - Component selection tracker with confirmed choices
+- Hardware sources: Tom's Hardware, r/LocalLLaMA, Puget Systems, Hardware Corner
+- GPU benchmarks: Hardware Busters, RunPod, Local AI Master
+- UK Retailers: Scan.co.uk, Overclockers UK, Amazon UK, CCL Computers, CeX
+- eBay UK: RTX 3090 market analysis (£550-750 typical pricing)
+
+### Research Methodology
+- Used gemini-researcher agent for comprehensive hardware research
+- Verified all external links before inclusion (WebFetch tool)
+- Cross-referenced multiple authoritative sources for benchmarks
+- Applied funnel method: broad market survey → narrow to 2-3 options per component
+- Emphasized UK market pricing throughout (GBP with 20% VAT)
+- Focused on real-world user builds and reviews (r/LocalLLaMA community)
+
+### Next Actions
+- [ ] Complete GPU purchase decision (eBay UK vs CeX with warranty)
+  - [ ] Evaluate specific eBay listings (user sharing URLs for analysis)
+  - [ ] Decide: ASUS TUF RTX 3090 (best for AI) vs other models
+  - [ ] Set maximum bid/offer price (recommended £700 max)
+- [ ] Select storage: Gen4 2TB (£140-180) vs Gen5 (£240-280)
+- [ ] Select CPU cooler: Arctic 280mm (£90-110) vs alternatives
+- [ ] Determine additional fans needed based on case choice
+- [ ] Create purchase order and timeline
+- [ ] Plan OS installation (Ubuntu 24.04 LTS vs Windows 11 + WSL2)
+- [ ] Document Ollama + Open WebUI setup process
+- [ ] Consider adding second RTX 3090 in 6-12 months (when needed for larger models)
+
+---
+
 ## Session 2026-02-12 19:30
 
 ### Summary

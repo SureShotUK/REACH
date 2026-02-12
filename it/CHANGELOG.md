@@ -4,13 +4,107 @@ All notable changes to the IT infrastructure and security documentation project.
 
 ## [Unreleased] - 2026-02-12
 
+### Added
+- `NewPC/CLAUDE.md` (239 lines): NewPC project-specific guidance for AI PC build planning
+  - Project purpose: Local LLM inference for coding assistance and homework help
+  - Target audience definition (competent but not expert users)
+  - Documentation requirements for AI-specific hardware considerations
+  - Research standards: verify all links with WebFetch, cite authoritative sources
+  - Decision-making methodology: funnel approach from broad market research to specific recommendations
+  - Cost-capability balance guidelines for AI workload optimization
+  - Common term exceptions (RAM, VRAM, DDR, HDD, NVME don't need definition)
+
+- `NewPC/PCBuildResearch.md` (1,055 lines, 74KB): Comprehensive AI PC hardware market research
+  - 5 complete PC build configurations with full component specifications
+  - GPU performance comparison table: tokens per second benchmarks for 8B and 70B models
+  - VRAM requirements by model size (7B to 200B+) with quantization considerations
+  - AMD vs NVIDIA GPU comparison for AI inference workloads
+  - CPU, RAM, and storage performance impact analysis for LLM inference
+  - Software stack comparison: Ollama vs LM Studio vs Open WebUI
+  - Price breakdowns by tier with pros/cons for each configuration
+  - Recommendations by use case (coding, homework help, both)
+  - All pricing converted to UK market (GBP with 20% VAT)
+  - All external links verified with WebFetch tool
+
+- `NewPC/Chosen_Build.md` (709 lines, 55KB): Deep technical component analysis with architectural insights
+  - **Critical PCIe Reality Check**: Consumer AMD Ryzen limited to x16/x8 dual GPU (not x16/x16)
+  - Performance comparison table showing <2% difference between x16/x16 and x16/x8 for LLM inference
+  - Why x16/x8 limitation doesn't matter: GPU VRAM bandwidth (936 GB/s) is primary bottleneck, not PCIe bandwidth
+  - Three AMD motherboard + CPU combinations with detailed PCIe lane configurations
+  - Added AMD Ryzen 9 9950X3D option (latest Zen 5 X3D with 144MB 3D V-Cache)
+  - Removed all Intel options per user request (focus on AMD platform)
+  - Component performance deep-dives:
+    - GPU: Memory bandwidth impact on inference speed
+    - CPU: Why AI inference is GPU-bound (CPU mainly feeds data)
+    - RAM: Speed vs capacity trade-offs (64GB DDR5-6000 optimal)
+    - Motherboard VRM: Sustained 24/7 AI workload requirements
+    - Storage: Gen4 vs Gen5 impact on model loading times
+  - Bottleneck analysis identifying GPU VRAM as primary limitation for inference performance
+  - Thermal management and power supply requirements for dual GPU configurations
+
+- `NewPC/Final_Build.md` (745 lines, 30KB): Component selection tracker with decision log and UK pricing
+  - **Confirmed Components** with detailed specifications and pricing:
+    - CPU: AMD Ryzen 9 7900X @ £320-380 (12 cores, 24 threads, proven Zen 4 architecture)
+    - Motherboard: ASRock X670E Taichi @ £280-340 (24+2+1 VRM, 4x M.2, x16/x8 PCIe)
+    - RAM: 64GB (2x32GB) DDR5-6000 CL36 @ £599 (Overclockers UK best price)
+    - PSU: Thermaltake Toughpower GF3 1650W @ £240 (Scan.co.uk, ATX 3.0, 9x PCIe, 10-year warranty)
+    - Case: Fractal Design Torrent @ £175 (best GPU airflow, 2x 180mm front fans, 461mm GPU clearance)
+  - **GPU Options** with detailed model comparison:
+    - ASUS TUF RTX 3090 24GB (Tier 1 recommendation for 24/7 AI workloads)
+    - eBay UK market analysis (£550-750 typical pricing)
+    - CeX warranty option (24-month coverage)
+    - Model comparison: ASUS TUF vs EVGA FTW3 vs Founders Edition
+  - **Decision Log** tracking all component choices with dates, rationale, and alternatives considered
+  - **Cost Summary** with running total and budget tracking (£1,614-1,734 confirmed + £600-900 remaining)
+  - **UK Market Pricing Research**:
+    - Overclockers UK: £599 for DDR5-6000 CL36 (best RAM price found)
+    - Scan.co.uk: £716.99 for DDR5-6000 CL40 (worse latency, avoid)
+    - CCL Computers: £699.99 for same spec (£100 more expensive)
+  - **Purchase Order Recommendations** with retailer priority list (Scan.co.uk, Amazon UK, CCL, Overclockers)
+  - **Assembly Notes** and software setup plan (Ubuntu 24.04 LTS or Windows 11 + WSL2)
+  - **Expected Performance**: Single GPU (7B-70B @ 42-120 tok/s), Dual GPU future (70B-405B @ 8-75 tok/s)
+
 ### Changed
+- Budget revised from £1,500-1,800 to £2,200-2,400 due to UK RAM pricing discovery
+  - Initial RAM estimate: £250-350 based on US market conversion
+  - UK market reality: £599-717 for 64GB DDR5-6000 (Overclockers UK @ £599 is best value)
+  - User feedback: "Memory has really shot up in price recently"
+
+- All pricing converted from USD to GBP including 20% VAT for UK market accuracy
+  - Updated all retailer sources to UK-specific (Scan.co.uk, Overclockers UK, Amazon UK, CCL Computers)
+  - Verified current UK market pricing for all components
+
 - Updated `CLAUDE.md` C# development preferences from .NET 8.0/C# 12 to .NET 10/C# 14
   - Financial Data Processing Projects section: Now references .NET 10 with C# 14 features
   - Development Preferences section: Now specifies .NET 10 (LTS release, supported until November 2028)
   - Added C# 14 features: extension members, field keyword for backing field access, enhanced lambda parameter modifiers
 
 ### Documentation
+- Deployed gemini-researcher agent for comprehensive AI PC hardware research
+  - Cross-referenced multiple authoritative sources: Tom's Hardware, r/LocalLLaMA, Puget Systems, Hardware Corner
+  - Verified GPU benchmarks from Hardware Busters, RunPod, Local AI Master
+  - Researched real-world user builds and reviews from r/LocalLLaMA community
+
+- Research methodology: Funnel approach from broad market survey to specific recommendations
+  - Phase 1: Market overview (all GPU options, all motherboard options)
+  - Phase 2: Narrow to 2-3 options per component based on performance/value
+  - Phase 3: Verify UK availability and pricing
+  - Phase 4: User decision with clear pros/cons for each option
+
+- Key technical discoveries:
+  - Consumer AMD Ryzen cannot do true x16/x16 dual GPU (24 PCIe lanes max = x16/x8)
+  - x16/x8 configuration has <2% performance impact for LLM inference (verified with benchmarks)
+  - GPU memory bandwidth (936 GB/s on RTX 3090) is primary bottleneck, not PCIe bandwidth
+  - UK RAM pricing 2-3x higher than US market (£599 vs $250-280 USD equivalent)
+  - Used RTX 3090 24GB @ £600-700 offers best tokens/$ value vs £1,999 RTX 5090
+
+- User preferences documented:
+  - Build philosophy: "Best bang for buck, add not replace"
+  - Buy quality once, upgrade by addition (second GPU) not component replacement
+  - Dual GPU upgrade path essential from day one
+  - UK market pricing only (GBP with VAT)
+  - Warranty preferred but eBay acceptable for best value
+
 - Verified and documented current .NET version (10.0.3, released February 2026)
 - Verified and documented C# 14 features and release information
 

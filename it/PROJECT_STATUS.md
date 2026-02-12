@@ -7,7 +7,24 @@ Active IT infrastructure and security documentation project with focus on Zero T
 
 ## Active Work Areas
 
-### Zero Trust Network Access (ZTNA) - Current Focus
+### AI PC Build for Local LLM Inference - Current Focus
+- **Status**: Component selection in progress, 5 of 8 components confirmed, GPU evaluation underway
+- **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`
+- **Coverage**: Complete market research, PCIe architecture analysis, UK pricing verification, component selection with decision log
+- **Purpose**: Build desktop for local LLM inference (coding assistance + homework help) similar to NetworkChuck OpenWebUI setup
+- **Philosophy**: "Best bang for buck, add not replace" - quality components with dual GPU upgrade path
+- **Budget**: £2,200-2,400 total (revised from initial £1,500-1,800 due to UK RAM pricing reality)
+- **Confirmed Components** (£1,614-1,734):
+  - CPU: AMD Ryzen 9 7900X @ £320-380
+  - Motherboard: ASRock X670E Taichi @ £280-340
+  - RAM: 64GB DDR5-6000 CL36 @ £599 (Overclockers UK)
+  - PSU: Thermaltake Toughpower GF3 1650W @ £240 (Scan.co.uk)
+  - Case: Fractal Design Torrent @ £175
+- **Remaining Decisions**: GPU (RTX 3090 24GB @ £550-750), Storage (£140-180), Cooler (£90-150), Fans (£20-55)
+- **Current Task**: Evaluating specific eBay UK listings for ASUS TUF RTX 3090 (best for 24/7 AI workloads)
+- **Next**: Complete GPU purchase, select storage/cooler/fans, create purchase order, plan OS installation and Ollama setup
+
+### Zero Trust Network Access (ZTNA)
 - **Status**: Research complete, deployment guides created, ready for pilot deployment
 - **Files**: `ZTNA_Provider_Research_2026.md`, `Tailscale_Hybrid_Deployment_Guide.md`, `IPSec_SonicWall_Deployment_Guide.md`
 - **Coverage**: Complete market research (6 providers), two deployment approaches, PostgreSQL ODBC, RDP, Azure AD SSO
@@ -46,7 +63,19 @@ Active IT infrastructure and security documentation project with focus on Zero T
 
 ## Recently Completed
 
-### Session 2026-02-12
+### Session 2026-02-12 (22:30) - AI PC Build Planning
+- ✅ Created NewPC project directory with comprehensive CLAUDE.md guidance
+- ✅ Deployed gemini-researcher agent for AI PC hardware market research
+- ✅ Created PCBuildResearch.md with 5 complete build configurations and GPU benchmarks
+- ✅ Created Chosen_Build.md with deep PCIe architecture analysis (x16/x8 vs x16/x16 reality check)
+- ✅ Created Final_Build.md component selection tracker with decision log
+- ✅ Confirmed 5 core components: CPU, motherboard, RAM, PSU, case (all UK pricing)
+- ✅ Updated all pricing from USD to GBP with 20% VAT for UK market
+- ✅ Discovered UK RAM pricing reality (£599 vs initial £250-280 estimate)
+- ✅ Evaluated eBay UK listings for RTX 3090 24GB graphics cards
+- ✅ Budget revised from £1,500-1,800 to £2,200-2,400 based on UK market research
+
+### Session 2026-02-12 (19:30) - .NET Version Update
 - ✅ Updated CLAUDE.md to reflect .NET 10 and C# 14 preferences
 - ✅ Verified current .NET 10 version (10.0.3, LTS until November 2028)
 - ✅ Verified current C# 14 features (extension members, field keyword, enhanced lambdas)
@@ -113,7 +142,10 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
+1. **Complete AI PC GPU selection** - Evaluate eBay UK listings, decide on ASUS TUF RTX 3090 purchase
+2. **Finalize AI PC component selections** - Storage (Gen4 vs Gen5), CPU cooler, additional fans
+3. **Create AI PC purchase order** - Organize retailer links and purchase timeline
+4. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
 2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
 3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh
 4. **RDP connectivity testing** - Verify automated scheduled tasks work over ZTNA
@@ -134,6 +166,12 @@ None currently. All active documentation areas progressing as planned.
 10. Container security documentation
 
 ## Key Files & Structure
+
+### AI PC Build (NewPC)
+- `NewPC/CLAUDE.md` - NewPC project-specific guidance (239 lines)
+- `NewPC/PCBuildResearch.md` - Comprehensive AI PC market research (1,055 lines, 74KB)
+- `NewPC/Chosen_Build.md` - Deep technical component analysis with PCIe architecture (709 lines, 55KB)
+- `NewPC/Final_Build.md` - Component selection tracker with decision log (745 lines, 30KB)
 
 ### Zero Trust Network Access (ZTNA)
 - `ZTNA_Provider_Research_2026.md` - Complete market research and provider comparison (58 pages, 1,057 lines)
