@@ -4,6 +4,61 @@ This file tracks all Claude Code sessions for the REACH compliance project.
 
 ---
 
+## Session 2026-02-12 10:18
+
+### Summary
+Created concise one-page HVO consortium registration action plan tailored to user's specific circumstances (10-100 tonnes/year, Small SME). Outlined three-step process for joining existing HVO consortium and corrected critical substance identifiers and portal access URL.
+
+### Work Completed
+- Created `/research/HVO_Consortium_Registration_Actions.md` - One-page action plan (90 lines)
+- Clarified DUIN per-substance rule (Urea DUIN doesn't cover HVO)
+- Adjusted costs for 10-100 tonnes/year import volume:
+  - Consortium fees: £2,000-£10,000 (vs. £5,000-£50,000+ for 1000+ tonnes)
+  - HSE registration fee: £399 (Small SME rate)
+  - Total estimated cost: £10,000-£27,000
+- Outlined three-step process: Article 26 enquiry → consortium negotiation → joint submission
+- Updated deadline information: 27 October 2030 (if DUIN submitted) OR before first import (if no DUIN)
+- Corrected CAS number from 68334-30-5 (diesel fuel) to 928771-01-1 (HVO)
+- Added EC number 700-571-2 for complete substance identification
+- Fixed Comply with UK REACH portal URL to correct working link
+
+### Files Changed
+- `research/HVO_Consortium_Registration_Actions.md` - **NEW** one-page action plan with:
+  - Introduction explaining why registration is required (DUIN per-substance, no grace period)
+  - Three-step process (DIY feasible → may need consultant → likely need consultant)
+  - Resource requirements table with tonnage-specific costs
+  - Timeline: 3-6 months registration process
+  - Correct HVO identifiers (CAS 928771-01-1, EC 700-571-2)
+  - Working portal URL: https://comply-chemical-regulations.service.gov.uk/
+
+### Git Commits
+- `ee09d97` - Add HVO consortium registration one-page action plan
+- `04ea8bb` - Fix HVO substance identifiers and portal URL
+
+### Key Decisions
+- **Import volume correction**: 10-100 tonnes/year (NOT 1000+)
+  - Changes deadline from 2026 to 2030
+  - Reduces consortium fees significantly (£2k-£10k vs. £5k-£50k+)
+- **Small SME status confirmed**: <50 employees, <£2m balance sheet
+  - HSE registration fee: £399 (vs. £2,222 standard)
+- **Portal URL verified**: Tested and confirmed working link to Comply with UK REACH service
+- **CAS number correction**: 928771-01-1 is correct for HVO (not petroleum diesel 68334-30-5)
+
+### Reference Documents
+- Full HVO research at `/research/HVO_UK_REACH_Research.md`
+- Verified portal access: <a href="https://comply-chemical-regulations.service.gov.uk/" target="_blank">Comply with UK REACH</a>
+- HSE guidance: <a href="https://www.hse.gov.uk/reach/using-comply-with-uk-reach.htm" target="_blank">Using Comply with UK REACH</a>
+- GOV.UK guidance: <a href="https://www.gov.uk/guidance/how-to-comply-with-reach-chemical-regulations" target="_blank">How to comply with REACH</a>
+
+### Next Actions
+- [ ] Clarify if DUIN was submitted for HVO (affects urgency - 2030 deadline vs. immediate)
+- [ ] Submit Article 26 enquiry to identify HVO lead registrant
+- [ ] Contact lead registrant to discuss consortium membership and Letter of Access costs
+- [ ] Decide between DIY Article 26 enquiry vs. engaging consultant for full process
+- [ ] Engage REACH consultant if pursuing consortium membership (Steps 2-3)
+
+---
+
 ## Session 2026-02-12 09:59
 
 ### Summary

@@ -1,6 +1,6 @@
 # REACH Project - Current Status
 
-**Last Updated**: 2026-02-11
+**Last Updated**: 2026-02-12
 
 ## Current State
 
@@ -8,7 +8,7 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 
 **Urea Status**: Extended deadline (27 October 2029), awaiting ATRm framework publication (expected by October 2027). Monitoring phase - no action required until ATRm published.
 
-**HVO Status (NEW - 11 Feb 2026)**: Active compliance planning for new substance import. Company has DUIN for Urea but NOT for HVO (DUIN is per-substance). Small SME, 1-100 tonne band, deadline 27 October 2030. Comprehensive research completed. Recommended pathway: GB supplier (downstream user) for immediate import without registration.
+**HVO Status (NEW - 11 Feb 2026, updated 12 Feb)**: Active compliance planning for new substance import. Company has DUIN for Urea but NOT for HVO (DUIN is per-substance). Small SME, 10-100 tonne band, deadline 27 October 2030 (if DUIN submitted for HVO). One-page action plan created for consortium registration pathway. Next step: Article 26 enquiry to identify lead registrant.
 
 ## Project Parameters
 
@@ -30,7 +30,7 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 - **EC Number**: 700-571-2
 - **CAS Number**: 928771-01-1
 - **UK REACH Registration**: UK-01-9638319484-0-0004 (active, held by others)
-- **Volume**: 1-100 tonnes/year
+- **Volume**: 10-100 tonnes/year
 - **Deadline**: 27 October 2030 (proposed extension to 2031 not yet law)
 - **DUIN Status**: ❌ NOT covered (Urea DUIN does not transfer to HVO)
 - **Current Phase**: Active planning - must register BEFORE importing from non-GB sources
@@ -50,11 +50,12 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 ### HVO Project (Active Planning Phase - NEW)
 - **Compliance Research**: ✅ COMPLETE - Comprehensive research and strategy documents created
 - **DUIN Clarification**: ✅ COMPLETE - Confirmed Urea DUIN does not cover HVO
-- **Supplier Outreach**: ⏭️ NEXT - Contact GB-based HVO suppliers (Greenergy, Crown Oil, Certas Energy, Nationwide Fuels)
+- **One-Page Action Plan**: ✅ COMPLETE - Created concise consortium registration guide (12 Feb 2026)
+- **Article 26 Enquiry**: ⏭️ NEXT - Submit enquiry to identify HVO lead registrant
 - **Pathway Decision**: ⏭️ PENDING - Choose between:
   - GB supplier (downstream user) - £0 cost, immediate import
-  - Join consortium - £3,049-£9,399, 4-6 months delay
-- **Documentation**: Complete compliance guidance suite in `/HVO/` directory
+  - Join consortium - £2,000-£10,000 LoA + £399 HSE fee, 3-6 months
+- **Documentation**: Complete compliance guidance suite in `/HVO/` and `/research/` directories
 
 ## Previous Work (Now on Hold Pending ATRm)
 
@@ -63,6 +64,15 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 - **Templates**: Three compliance templates created for downstream user operations
 
 ## Recently Completed
+
+### HVO Project (12 Feb 2026)
+- ✅ **One-Page Action Plan** - Created `/research/HVO_Consortium_Registration_Actions.md`
+  - Concise 90-line consortium registration guide
+  - Three-step process: Article 26 enquiry → consortium negotiation → joint submission
+  - Costs adjusted for 10-100 tonnes/year (£2k-£10k consortium fees + £399 SME fee)
+  - Corrected HVO identifiers (CAS 928771-01-1, EC 700-571-2)
+  - Fixed Comply with UK REACH portal URL (verified working)
+  - Timeline: 3-6 months process, 2030 deadline (if DUIN submitted)
 
 ### HVO Project (11 Feb 2026)
 - ✅ **HVO Project Established** - Complete new substance compliance project created
@@ -98,16 +108,19 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 ## Next Priorities
 
 ### HVO Project - IMMEDIATE (Feb-Mar 2026)
-1. **Contact GB-based HVO suppliers** - Greenergy, Crown Oil, Certas Energy, Nationwide Fuels
-   - Request UK REACH registration confirmation (should be UK-01-9638319484-0-XXXX)
+1. **Clarify DUIN status for HVO** - Determine if DUIN was submitted for HVO specifically (affects urgency)
+2. **Submit Article 26 enquiry** - Use Comply with UK REACH portal to identify lead registrant
+   - Substance: HVO (CAS 928771-01-1, EC 700-571-2)
+   - Portal: https://comply-chemical-regulations.service.gov.uk/
+   - Timeline: HSE responds within 15 working days
+3. **Parallel track: Contact GB suppliers** - Greenergy, Crown Oil, Certas Energy, Nationwide Fuels
+   - Request UK REACH registration confirmation
    - Request commercial proposals with pricing
-   - Verify uses covered by supplier registration
-2. **Evaluate supplier proposals** - Compare pricing vs. consortium costs
-3. **Decide compliance pathway**:
+   - Compare vs. consortium costs (£2k-£10k + £399)
+4. **Decide compliance pathway**:
    - Option A: GB supplier (downstream user) - £0 registration, 6-8 weeks
-   - Option B: Join consortium - £3,049-£9,399, 4-6 months
-4. **Execute chosen pathway** - Supply agreement OR consortium registration
-5. **Begin HVO imports** - After compliance pathway established
+   - Option B: Join consortium - £2,399-£10,399 total, 3-6 months
+5. **Execute chosen pathway** - Supply agreement OR consortium registration
 
 ### Urea Project - Monitoring Phase (2025-2027)
 6. **Monitor ATRm publication** - Watch for government legislation (expected 2026)
@@ -132,6 +145,7 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 - `/REACH/HVO/HVO_Consortium_Registration_Guide.md` - Step-by-step SME registration guide
 - `/REACH/HVO/HVO_Status_Clarification.md` - DUIN eligibility clarification
 - `/REACH/research/HVO_UK_REACH_Research.md` - Full 13,000-word gemini research report
+- `/REACH/research/HVO_Consortium_Registration_Actions.md` - One-page consortium registration action plan (12 Feb 2026)
 
 ### Urea Project - Core Documentation
 - `/REACH/CLAUDE.md` - Project context and instructions

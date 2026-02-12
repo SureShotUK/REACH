@@ -4,7 +4,45 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [Unreleased] - 2026-02-12
+## [Unreleased] - 2026-02-12 (Session 2)
+
+### Added
+- **research/HVO_Consortium_Registration_Actions.md**: One-page action plan for HVO consortium registration
+  - Concise 90-line guide outlining three-step process
+  - Step 1: Article 26 enquiry (DIY feasible, free)
+  - Step 2: Consortium negotiation (may need consultant)
+  - Step 3: Joint submission (likely need consultant, £5k-£15k)
+  - Resource requirements table with tonnage-specific costs
+  - Timeline guidance: 3-6 months process, 2030 deadline (if DUIN submitted)
+
+### Changed
+- **research/HVO_Consortium_Registration_Actions.md**: Updated for 10-100 tonnes/year import volume
+  - Consortium fees: £2,000-£10,000 (adjusted from £5,000-£50,000+ for 1000+ tonnes)
+  - Total estimated cost: £10,000-£27,000 (vs. £15,000-£40,000+ for high tonnage)
+  - HSE registration fee: £399 (Small SME rate confirmed)
+- **PROJECT_STATUS.md**: Updated HVO project status and next priorities
+  - Import volume corrected to 10-100 tonnes/year
+  - Added one-page action plan to completed items
+  - Updated next actions to prioritize Article 26 enquiry
+  - Adjusted consortium cost estimates for lower tonnage band
+
+### Fixed
+- **research/HVO_Consortium_Registration_Actions.md**: Corrected substance identifiers
+  - CAS number: 68334-30-5 (diesel fuel) → 928771-01-1 (HVO) ✓
+  - Added EC number: 700-571-2 for complete identification
+- **research/HVO_Consortium_Registration_Actions.md**: Fixed Comply with UK REACH portal URL
+  - OLD (broken): https://www.comply-with-uk-reach.service.gov.uk/
+  - NEW (verified): https://comply-chemical-regulations.service.gov.uk/ ✓
+  - Tested and confirmed working with Government Gateway authentication
+
+### Documentation
+- Verified portal URL with WebFetch tool (redirects to login page as expected)
+- Confirmed portal requires Government Gateway account and Defra account
+- Added IT support contact: ukreachitsupport@defra.gov.uk
+
+---
+
+## [Unreleased] - 2026-02-12 (Session 1)
 
 ### Documentation
 - **CLAUDE.md**: Added "One-Page Summaries and Brief Overviews" section (shared guidance)
