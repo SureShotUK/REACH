@@ -47,6 +47,7 @@ Always address when relevant:
 - Include visual separators (---) for major sections
 - Use emoji sparingly and only when explicitly requested
 - Provide file path references when discussing specific configurations
+- If creating a hyperlink always create it using HTML with the link opening in a new tab
 
 ## Current Repository Structure
 
@@ -84,7 +85,7 @@ When working with financial data parsing (like StoneX daily statements):
 - Implement deduplication strategies based on composite keys (e.g., TradeId + StartDate + EndDate)
 - Parse currency values carefully, handling $, commas, and negative values in parentheses
 - Create demo applications to test parsing logic before database integration
-- User prefers .NET 8.0 with C# 12 features (collection expressions, primary constructors)
+- User prefers .NET 10 with C# 14 features (extension members, field keyword, enhanced lambda modifiers, collection expressions, primary constructors)
 
 ### Parser Development Patterns
 When building data parsers for complex documents:
@@ -118,7 +119,7 @@ Based on previous sessions, the user:
 - Environment: Windows 11 with WSL2 access
 
 ### Development Preferences
-- **C# Development**: .NET 8.0, C# 12 features (collection expressions, primary constructors)
+- **C# Development**: .NET 10 (LTS release, supported until November 2028), C# 14 features (extension members, field keyword for backing field access, enhanced lambda parameter modifiers, collection expressions, primary constructors)
 - **Iterative debugging**: Values working through issues step-by-step with clear explanations
 - **Code quality**: Prefers robust error handling and graceful fallbacks
 - **Testing approach**: Create demo applications to verify functionality before production integration

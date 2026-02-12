@@ -2,6 +2,18 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-02-12
+
+### Changed
+- Updated `CLAUDE.md` C# development preferences from .NET 8.0/C# 12 to .NET 10/C# 14
+  - Financial Data Processing Projects section: Now references .NET 10 with C# 14 features
+  - Development Preferences section: Now specifies .NET 10 (LTS release, supported until November 2028)
+  - Added C# 14 features: extension members, field keyword for backing field access, enhanced lambda parameter modifiers
+
+### Documentation
+- Verified and documented current .NET version (10.0.3, released February 2026)
+- Verified and documented C# 14 features and release information
+
 ## [Unreleased] - 2026-02-06
 
 ### Added

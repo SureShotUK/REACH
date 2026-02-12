@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-02-06
+**Last Updated**: 2026-02-12
 
 ## Current State
 Active IT infrastructure and security documentation project with focus on Zero Trust Network Access (ZTNA) evaluation and deployment planning. Complete ZTNA market research and two comprehensive deployment guides (Tailscale and IPSec) created for 35-user, 3-office hybrid workforce. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
@@ -17,10 +17,11 @@ Active IT infrastructure and security documentation project with focus on Zero T
 - **Next**: Get SonicWall quote, pilot Tailscale free tier at Office3, performance testing, user feedback
 
 ### Financial Data Processing
-- **Status**: Parser extended with Cash Settlement support, ready for testing
+- **Status**: Parser extended with Cash Settlement support, ready for testing; CLAUDE.md updated to .NET 10/C# 14
 - **Files**: `parsing/DailyStatementParser.cs`, `parsing/Program.cs`, `parsing/GetStoneXOTCDailyValuesConsole.csproj`
 - **Coverage**: StoneX daily statement PDF parsing, cash settlement extraction, trade data extraction, account information processing
-- **Recent additions**: Cash Settlement section parsing with field mappings (Cash Amount → MarketValue, Settlement Price → MarketPrice)
+- **Development environment**: .NET 10 (LTS release, supported until November 2028), C# 14 with extension members and field keyword
+- **Recent additions**: Cash Settlement section parsing with field mappings (Cash Amount → MarketValue, Settlement Price → MarketPrice); CLAUDE.md updated to reflect .NET 10/C# 14 preference
 - **Next**: Test cash settlement parsing, database integration, production error handling, unit tests
 
 ### VPN Security (Recently Completed)
@@ -44,6 +45,11 @@ Active IT infrastructure and security documentation project with focus on Zero T
 - **Coverage**: VM security, hypervisor comparison, homelab setup
 
 ## Recently Completed
+
+### Session 2026-02-12
+- ✅ Updated CLAUDE.md to reflect .NET 10 and C# 14 preferences
+- ✅ Verified current .NET 10 version (10.0.3, LTS until November 2028)
+- ✅ Verified current C# 14 features (extension members, field keyword, enhanced lambdas)
 
 ### Session 2026-02-06
 - ✅ Comprehensive ZTNA market research with 6 provider evaluations
