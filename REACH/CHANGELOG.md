@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased] - 2026-02-12
+
+### Documentation
+- **CLAUDE.md**: Added "One-Page Summaries and Brief Overviews" section (shared guidance)
+  - Specifies 80-line maximum for one-page/brief overview requests
+  - Requires always including user-marked "important" or "critical" information
+  - Prioritizes actionable information, key decisions, and critical deadlines
+
+---
+
 ## [Unreleased] - 2026-02-11
 
 ### Added

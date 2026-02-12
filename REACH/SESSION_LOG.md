@@ -4,6 +4,37 @@ This file tracks all Claude Code sessions for the REACH compliance project.
 
 ---
 
+## Session 2026-02-12 09:59
+
+### Summary
+Brief configuration session to enhance shared CLAUDE.md documentation guidelines. Added new section specifying how to handle "one page" and "brief overview" requests with 80-line limit and requirement to always include user-marked "important" or "critical" information.
+
+### Work Completed
+- Added "One-Page Summaries and Brief Overviews" section to `/terminai/CLAUDE.md`
+- Specified 80-line maximum limit for one-page/brief overview requests
+- Established requirement to always include information user marks as "important" or "critical"
+- Provided guidance on prioritizing actionable information and using concise bullet points
+
+### Files Changed
+- `../../CLAUDE.md` - Added new subsection under "Communication Style" (9 lines added at line 64-72)
+
+### Git Commits
+- Not yet committed (pending end-session commit)
+
+### Key Decisions
+- One-page summaries will be limited to 80 lines maximum
+- User-designated "important" or "critical" information must always be included in summaries
+- Guidance prioritizes actionable information, key decisions, and critical deadlines over background context
+
+### Reference Documents
+- N/A (configuration change only)
+
+### Next Actions
+- [ ] Commit CLAUDE.md changes with session documentation
+- [ ] No further REACH project work in this session
+
+---
+
 ## Session 2026-02-11 15:56
 
 ### Summary
