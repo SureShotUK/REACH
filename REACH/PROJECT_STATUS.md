@@ -8,7 +8,9 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 
 **Urea Status**: Extended deadline (27 October 2029), awaiting ATRm framework publication (expected by October 2027). Monitoring phase - no action required until ATRm published.
 
-**HVO Status (NEW - 11 Feb 2026, updated 12 Feb)**: Active compliance planning for new substance import. Company has DUIN for Urea but NOT for HVO (DUIN is per-substance). Small SME, 10-100 tonne band, deadline 27 October 2030 (if DUIN submitted for HVO). One-page action plan created for consortium registration pathway. Next step: Article 26 enquiry to identify lead registrant.
+**HVO Status (NEW - 11 Feb 2026, updated 12 Feb)**: Active compliance planning for new substance import. Company has DUIN for Urea but NOT for HVO (DUIN is per-substance). Small SME, 10-100 tonne band, deadline 27 October 2030 (if DUIN submitted for HVO). Reference documentation complete with verified MSDS/COSHH sheets and ECHA database links. Next step: Article 26 enquiry to identify lead registrant.
+
+**IUCLID Project (NEW - 12 Feb 2026)**: Established separate IUCLID 6 Cloud technical guidance project to support chemical registration dossier preparation. Includes HVO reference data for Article 26 enquiries and consortium registration work.
 
 ## Project Parameters
 
@@ -65,7 +67,28 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 
 ## Recently Completed
 
-### HVO Project (12 Feb 2026)
+### IUCLID Project (12 Feb 2026)
+- ✅ **IUCLID Directory Established** - Created `/terminai/IUCLID/` for IUCLID 6 Cloud technical guidance
+- ✅ **IUCLID CLAUDE.md** - Project-specific instructions for IUCLID work
+  - Technical procedures guidance (screenshot references, step numbering, validation)
+  - Troubleshooting documentation structure
+  - Known issues: Create Dossier button, validation failures, export errors
+  - Two-system architecture (IUCLID Cloud + Comply portal)
+- ✅ **HVO Reference Data (IUCLID)** - Comprehensive research document (1,023 lines)
+  - Complete HVO technical data for dossier preparation
+  - ECHA Chem Database links (dossier view and active registrations)
+  - Supports Article 26 enquiries and consortium registration
+- ✅ **HVO Reference Data (REACH)** - Concise reference document (256 lines)
+  - All verified registration numbers (UK REACH, EU REACH, CAS, EC)
+  - 7 verified UK supplier MSDS links (Phillips 66, Greenergy, Neste, etc.)
+  - COSHH guidance and hazard classification
+  - All links tested and verified working
+- ✅ **Gemini-researcher deployment** - Found and verified HVO safety documentation
+  - EU REACH registrations: 01-2120043692-58, 01-2119450077-42
+  - UK REACH confirmed via supplier SDS and grandfathered list
+  - 7 current MSDS documents (2022-2024, Phillips 66 most current)
+
+### HVO Project (12 Feb 2026 - earlier session)
 - ✅ **One-Page Action Plan** - Created `/research/HVO_Consortium_Registration_Actions.md`
   - Concise 90-line consortium registration guide
   - Three-step process: Article 26 enquiry → consortium negotiation → joint submission
@@ -139,11 +162,19 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 
 ## Key Files & Structure
 
+### IUCLID Project (NEW - 12 Feb 2026)
+- `/terminai/IUCLID/CLAUDE.md` - IUCLID 6 Cloud project instructions and technical guidance
+- `/terminai/IUCLID/HVO_Reference_Data.md` - Comprehensive HVO research with ECHA database links (1,023 lines)
+  - Complete technical data for dossier preparation
+  - ECHA Chem Database links (dossier view and active registrations)
+  - Supports Article 26 enquiries and consortium registration
+
 ### HVO Project (NEW)
 - `/REACH/HVO/HVO_Research.md` - Comprehensive HVO research summary
 - `/REACH/HVO/HVO_Strategy.md` - Detailed compliance strategy with cost-benefit analysis
 - `/REACH/HVO/HVO_Consortium_Registration_Guide.md` - Step-by-step SME registration guide
 - `/REACH/HVO/HVO_Status_Clarification.md` - DUIN eligibility clarification
+- `/REACH/HVO/HVO_Reference_Data.md` - Concise reference with verified MSDS/COSHH links (256 lines) ✨ NEW
 - `/REACH/research/HVO_UK_REACH_Research.md` - Full 13,000-word gemini research report
 - `/REACH/research/HVO_Consortium_Registration_Actions.md` - One-page consortium registration action plan (12 Feb 2026)
 

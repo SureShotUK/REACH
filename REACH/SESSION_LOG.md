@@ -4,6 +4,72 @@ This file tracks all Claude Code sessions for the REACH compliance project.
 
 ---
 
+## Session 2026-02-12 10:52
+
+### Summary
+Established new IUCLID project directory with technical guidance documentation. Created comprehensive HVO reference data document with verified MSDS/COSHH sheets and ECHA database links using gemini-researcher agent. Deployed reference documentation to both REACH and IUCLID directories to support chemical registration dossier work.
+
+### Work Completed
+- Created `/terminai/IUCLID/` directory for IUCLID 6 Cloud technical guidance
+- Created `/terminai/IUCLID/CLAUDE.md` with project-specific instructions for IUCLID work
+  - Technical procedures guidance (screenshots, step numbering, validation points)
+  - Troubleshooting documentation structure
+  - Known IUCLID issues and solutions (Create Dossier button, validation failures)
+  - Two-system architecture documentation (IUCLID Cloud + Comply portal)
+- Deployed gemini-researcher agent to find HVO reference data:
+  - Verified EU REACH registrations: 01-2120043692-58, 01-2119450077-42
+  - Found 7 UK supplier Safety Data Sheets (2022-2024)
+  - Located COSHH guidance and assessment requirements
+  - Confirmed UK REACH registration via multiple sources
+- Created `/REACH/HVO/HVO_Reference_Data.md` (256 lines) with:
+  - All verified registration numbers (UK REACH, EU REACH, CAS, EC)
+  - 7 verified MSDS links (Phillips 66, Greenergy, Neste, Watson Fuels, Barton Petroleum, Q8, Tate Oil)
+  - COSHH guidance, hazard classification, physical properties
+  - All links tested and verified working (2026-02-12)
+- Created `/terminai/IUCLID/HVO_Reference_Data.md` (1,023 lines) with:
+  - Complete comprehensive HVO research document
+  - Added ECHA Chem Database links (dossier view and active registrations)
+  - Full compliance pathways, cost analysis, action plans
+
+### Files Changed
+- `../../IUCLID/CLAUDE.md` - **NEW** IUCLID project instructions and technical guidance
+- `HVO/HVO_Reference_Data.md` - **NEW** concise reference document with registration numbers and verified SDS links
+- `../../IUCLID/HVO_Reference_Data.md` - **NEW** comprehensive HVO research with ECHA database links
+
+### Git Commits
+- `d9998be` - Add comprehensive HVO reference data document
+- `faa9743` - Add HVO reference document to IUCLID directory
+
+### Key Decisions
+- **IUCLID directory structure**: Created separate project directory for IUCLID 6 Cloud technical work
+  - Supports Article 26 enquiries, joint submissions, consortium registration
+  - Cross-references REACH project for business compliance context
+- **Dual reference documents**:
+  - REACH/HVO/HVO_Reference_Data.md: Concise (256 lines) for quick reference
+  - IUCLID/HVO_Reference_Data.md: Comprehensive (1,023 lines) for technical dossier work
+- **ECHA database links verified**: Direct links to dossier view and active registrations
+- **Gemini API capacity issues**: Background tasks hit rate limits but primary research succeeded
+
+### Reference Documents
+- **Gemini-researcher agent output**: Comprehensive HVO research report (agent ID: a98964a)
+- **7 Verified UK Supplier SDS**:
+  - Phillips 66 (Feb 2024) - most current
+  - Greenergy, Neste, Watson Fuels, Barton Petroleum, Q8, Tate Oil
+- **ECHA Database Links**:
+  - <a href="https://chem.echa.europa.eu/100.214.906/dossier-view/5480f234-1f46-4a14-95c9-7a9bc5f220d4/IUC5-1bccf06c-5f51-4c8c-ac19-dfaa56b18e55_d4ada418-523b-4ac8-84d6-3866783169f3" target="_blank">ECHA Chem Data - Dossier View</a>
+  - <a href="https://chem.echa.europa.eu/100.214.906/dossier-list/reach/dossiers/active" target="_blank">EU REACH Registrations - Active Dossiers</a>
+- **HSE COSHH Guidance**: <a href="https://www.hse.gov.uk/coshh/" target="_blank">HSE COSHH Overview</a>
+- **Background verification**: UK REACH registration confirmed via UK grandfathered substances list
+
+### Next Actions
+- [ ] Begin IUCLID 6 Cloud procedures documentation (login, legal entity setup)
+- [ ] Create Article 26 enquiry procedure guide for IUCLID directory
+- [ ] Document IUCLID validation and export procedures
+- [ ] Create troubleshooting guide for common IUCLID issues
+- [ ] Consider creating IUCLID quick reference cards for key workflows
+
+---
+
 ## Session 2026-02-12 10:18
 
 ### Summary

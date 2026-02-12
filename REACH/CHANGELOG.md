@@ -4,6 +4,56 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased] - 2026-02-12 (Session 3)
+
+### Added
+- **IUCLID Project Directory**: Created `/terminai/IUCLID/` for IUCLID 6 Cloud technical guidance
+- **IUCLID/CLAUDE.md**: Project-specific instructions for IUCLID 6 Cloud work
+  - Technical procedures guidance (screenshots, step numbering, validation points)
+  - Troubleshooting documentation structure and common issues
+  - Known IUCLID issues: Create Dossier button, validation failures, export errors
+  - Two-system architecture documentation (IUCLID Cloud + Comply portal)
+  - HSE IT Support contact information
+  - Cross-references to REACH project documentation
+- **IUCLID/HVO_Reference_Data.md**: Comprehensive HVO research document (1,023 lines)
+  - Complete HVO technical data for dossier preparation
+  - All verified registration numbers (UK REACH, EU REACH, CAS, EC)
+  - ECHA Chem Database links (dossier view and active registrations list)
+  - Classification, labeling, compliance pathways, cost analysis
+  - Supports Article 26 enquiries, joint submissions, consortium registration
+- **HVO/HVO_Reference_Data.md**: Concise HVO reference document (256 lines)
+  - All verified registration numbers (UK REACH, EU REACH, CAS, EC)
+  - 7 verified UK supplier MSDS links (Phillips 66, Greenergy, Neste, Watson Fuels, Barton Petroleum, Q8, Tate Oil)
+  - COSHH guidance, hazard classification, physical properties
+  - Regulatory authority links (HSE, ECHA)
+  - All links tested and verified working (2026-02-12)
+
+### Documentation
+- **Gemini-researcher deployment**: Comprehensive HVO safety documentation research
+  - Found and verified EU REACH registrations: 01-2120043692-58, 01-2119450077-42
+  - Located 7 current UK supplier Safety Data Sheets (2022-2024)
+  - Phillips 66 (Feb 2024) identified as most current SDS
+  - COSHH guidance and assessment requirements compiled
+  - Background verification confirmed UK REACH registration via:
+    - Multiple supplier Safety Data Sheets
+    - UK REACH grandfathered substances list
+- **ECHA Database Links Added**:
+  - Direct link to ECHA Chem dossier view with detailed technical data
+  - Direct link to active EU REACH registrations list
+  - Both links tested and verified accessible
+
+### Research Findings
+- **UK REACH Registration Verified**: UK-01-9638319484-0-0004 confirmed via:
+  - Greenergy Safety Data Sheet reference
+  - UK REACH grandfathered registrations list (service.gov.uk)
+  - Multiple UK supplier SDS documents
+  - Note: No public searchable UK REACH database exists (verification via supplier SDS is standard)
+- **EU REACH Registrations Verified**: 01-2120043692-58, 01-2119450077-42
+- **Safety Data Sheets**: 7 UK suppliers with current documentation
+- **COSHH Clarification**: No HSE-specific COSHH Essentials sheet for HVO exists; site-specific assessments required
+
+---
+
 ## [Unreleased] - 2026-02-12 (Session 2)
 
 ### Added
