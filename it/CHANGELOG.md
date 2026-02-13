@@ -2,6 +2,50 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-02-13
+
+### Added
+- `troubleshooting/CLAUDE.md` (380 lines, 12.4KB): Comprehensive IT helpdesk and troubleshooting guidance
+  - Systematic 7-step troubleshooting methodology: Initial Intake → Diagnosis → Research → Hypothesis → Testing → Resolution → Prevention
+  - Target environment specifications (Windows 11 latest, Azure AD domain-joined, Microsoft 365 desktop apps)
+  - Essential Windows troubleshooting commands (System Info, Network Diagnostics, Service/Process, M365/Office, Azure AD)
+  - PowerShell diagnostic commands for all common scenarios
+  - Issue documentation standards with detailed markdown template
+  - Priority levels (P1 Critical, P2 High, P3 Medium, P4 Low) with business impact criteria
+  - Escalation criteria for complex or infrastructure-level issues
+  - Communication standards for diagnostic questions and solution explanations
+  - Best practices for systematic troubleshooting and knowledge base building
+  - Common issue categories: M365/Office, Windows Update, Network, Azure AD, Performance
+
+- `troubleshooting/README.md` (95 lines, 2.9KB): IT troubleshooting quick start guide
+  - Quick start workflow for issue diagnosis
+  - Standard environment definition reference
+  - Issue category organization structure (office-apps, outlook, onedrive, teams, windows-update, network, vpn, azure-ad, authentication)
+  - Documentation template with structured sections
+  - Issue index for tracking resolved problems
+
+- `.claude/agents/gemini-it-helpdesk-researcher.md` (240 lines, 8.3KB): Specialized Gemini research agent for IT helpdesk
+  - Research methodology prioritizing Microsoft official sources (Learn, Support, KB articles, TechCommunity)
+  - Prevalence assessment framework (Widespread, Common, Uncommon, Rare, Isolated)
+  - Root cause analysis with primary causes, contributing factors, and triggering events
+  - Verified solution ranking by source authority, success rate, and risk level
+  - Structured output format with issue identification, prevalence, root cause, solutions, and resources
+  - Search query strategies optimized for Windows 11, Office 365, and Azure AD issues
+  - Verification standards to ensure reliable, actionable solutions
+  - Red flags to avoid (sketchy tools, unexplained registry hacks, outdated solutions)
+  - Escalation indicators (no verified solution, security implications, data loss risk)
+  - Special considerations for M365 desktop apps (Click-to-Run vs MSI, update channels) and Azure AD devices
+
+### Documentation
+- Updated SESSION_LOG.md with Session 2026-02-13 (15:00) entry
+- Updated PROJECT_STATUS.md with IT Troubleshooting & Helpdesk active work area
+- Updated PROJECT_STATUS.md "Last Updated" to 2026-02-13
+- Updated PROJECT_STATUS.md "Recently Completed" section with troubleshooting system
+- Updated PROJECT_STATUS.md "Key Files & Structure" section with troubleshooting files
+- Updated PROJECT_STATUS.md "Specialized Agents" section with gemini-it-helpdesk-researcher
+
+---
+
 ## [Unreleased] - 2026-02-12
 
 ### Added

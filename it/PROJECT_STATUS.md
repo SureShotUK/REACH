@@ -1,11 +1,25 @@
 # IT Project Status
 
-**Last Updated**: 2026-02-12
+**Last Updated**: 2026-02-13
 
 ## Current State
-Active IT infrastructure and security documentation project with focus on Zero Trust Network Access (ZTNA) evaluation and deployment planning. Complete ZTNA market research and two comprehensive deployment guides (Tailscale and IPSec) created for 35-user, 3-office hybrid workforce. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
+Active IT infrastructure and security documentation project with newly established IT troubleshooting and helpdesk system. Comprehensive diagnostic framework created for Windows 11, Azure AD, and Microsoft 365 environments with specialized Gemini research agent for internet-wide issue resolution research. AI PC build planning continues with component selection. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
 
 ## Active Work Areas
+
+### IT Troubleshooting & Helpdesk - New System
+- **Status**: System established, ready for first issue diagnosis
+- **Files**: `troubleshooting/CLAUDE.md`, `troubleshooting/README.md`, `.claude/agents/gemini-it-helpdesk-researcher.md`
+- **Coverage**: Systematic 7-step diagnostic framework, Windows 11/Azure AD/M365 diagnostic commands, issue documentation standards
+- **Methodology**: Information gathering → Research (via Gemini agent) → Hypothesis → Testing → Resolution → Documentation
+- **Target Environment**: Windows 11 (latest updates), Azure AD domain-joined, Microsoft 365 desktop apps (Excel, Outlook, Word, etc.)
+- **Key Features**:
+  - Gemini-powered research agent for matching issue prevalence and verified solutions
+  - Priority levels (P1-P4) with escalation criteria
+  - PowerShell diagnostic commands for all common issue types
+  - Documentation templates for building knowledge base
+  - Communication standards for clear, helpful user support
+- **Next**: Diagnose first real-world issue and refine system based on practical use
 
 ### AI PC Build for Local LLM Inference - Current Focus
 - **Status**: Component selection in progress, 5 of 8 components confirmed, GPU evaluation underway
@@ -62,6 +76,16 @@ Active IT infrastructure and security documentation project with focus on Zero T
 - **Coverage**: VM security, hypervisor comparison, homelab setup
 
 ## Recently Completed
+
+### Session 2026-02-13 (15:00) - IT Troubleshooting & Helpdesk System
+- ✅ Created troubleshooting/ directory for IT helpdesk knowledge base
+- ✅ Created comprehensive CLAUDE.md with 7-step diagnostic framework (12.4KB)
+- ✅ Created README.md with quick start guide and documentation templates
+- ✅ Created gemini-it-helpdesk-researcher agent for internet-wide issue research
+- ✅ Defined systematic troubleshooting methodology (Intake → Diagnosis → Research → Resolution)
+- ✅ Documented PowerShell diagnostic commands for Windows 11, Office, Azure AD, and network
+- ✅ Established issue documentation standards and priority levels
+- ✅ Created research agent output format with prevalence assessment and verified solutions
 
 ### Session 2026-02-12 (22:30) - AI PC Build Planning
 - ✅ Created NewPC project directory with comprehensive CLAUDE.md guidance
@@ -167,6 +191,11 @@ None currently. All active documentation areas progressing as planned.
 
 ## Key Files & Structure
 
+### IT Troubleshooting & Helpdesk
+- `troubleshooting/CLAUDE.md` - Comprehensive IT helpdesk guidance (12.4KB, 380 lines)
+- `troubleshooting/README.md` - Quick start guide and issue index (2.9KB, 95 lines)
+- `.claude/agents/gemini-it-helpdesk-researcher.md` - Research agent configuration (8.3KB, 240 lines)
+
 ### AI PC Build (NewPC)
 - `NewPC/CLAUDE.md` - NewPC project-specific guidance (239 lines)
 - `NewPC/PCBuildResearch.md` - Comprehensive AI PC market research (1,055 lines, 74KB)
@@ -213,6 +242,7 @@ None currently. All active documentation areas progressing as planned.
 - `CHANGELOG.md` - Version-style change tracking
 
 ### Specialized Agents
+- `.claude/agents/gemini-it-helpdesk-researcher.md` - IT helpdesk research agent for Windows 11/Azure AD/M365 troubleshooting
 - `.claude/agents/gemini-it-security-researcher.md` - IT security research agent
 
 ## Documentation Standards
