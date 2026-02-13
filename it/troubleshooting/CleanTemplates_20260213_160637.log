@@ -1,0 +1,38 @@
+2026-02-13 16:06:37 [INFO] === Outlook Template Cleaning Script Started ===
+2026-02-13 16:06:37 [INFO] Log file: C:\Users\SteveIrwin\terminai\it\troubleshooting\CleanTemplates_20260213_160637.log
+2026-02-13 16:06:37 [INFO] Searching for Outlook template files...
+2026-02-13 16:06:37 [INFO] Searching in: C:\Users\SteveIrwin\AppData\Roaming\Microsoft\Templates
+2026-02-13 16:06:37 [INFO]   Found 2 template(s)
+2026-02-13 16:06:37 [INFO] Found 2 template(s) to process
+2026-02-13 16:06:37 [INFO] 
+--- Processing Template ---
+2026-02-13 16:06:37 [INFO]   Backup created: C:\Users\SteveIrwin\AppData\Roaming\Microsoft\Templates\Backups_20260213_160637\Garant Email.oft
+2026-02-13 16:06:37 [INFO] Processing: Garant Email.oft
+2026-02-13 16:06:40 [INFO]   Original body length: 504 characters
+2026-02-13 16:06:40 [ERROR]   ERROR cleaning template: Cannot convert argument "newChar", with value: "", for "Replace" to type "System.Char": "Cannot convert value "" to type "System.Char". Error: "String must be exactly one character long.""
+2026-02-13 16:06:40 [WARNING]   Restoring from backup: C:\Users\SteveIrwin\AppData\Roaming\Microsoft\Templates\Backups_20260213_160637\Garant Email.oft
+2026-02-13 16:06:40 [INFO] 
+--- Processing Template ---
+2026-02-13 16:06:40 [INFO]   Backup created: C:\Users\SteveIrwin\AppData\Roaming\Microsoft\Templates\Backups_20260213_160637\Oct 24 MI for Group Business.oft
+2026-02-13 16:06:40 [INFO] Processing: Oct 24 MI for Group Business.oft
+2026-02-13 16:06:40 [INFO]   Original body length: 981 characters
+2026-02-13 16:06:40 [ERROR]   ERROR cleaning template: Cannot convert argument "newChar", with value: "", for "Replace" to type "System.Char": "Cannot convert value "" to type "System.Char". Error: "String must be exactly one character long.""
+2026-02-13 16:06:40 [WARNING]   Restoring from backup: C:\Users\SteveIrwin\AppData\Roaming\Microsoft\Templates\Backups_20260213_160637\Oct 24 MI for Group Business.oft
+2026-02-13 16:06:40 [INFO] 
+--- Applying Registry Fixes ---
+2026-02-13 16:06:40 [INFO] Applying registry fixes for UTF-8 encoding...
+2026-02-13 16:06:40 [SUCCESS]   Set AutoDetectCharset = 0 (Disabled)
+2026-02-13 16:06:40 [SUCCESS]   Set SendCharset = 65001 (UTF-8)
+2026-02-13 16:06:40 [SUCCESS]   Set DisableCharsetDetection = 1 (Disabled)
+2026-02-13 16:06:40 [SUCCESS] Registry fixes applied successfully
+2026-02-13 16:06:40 [INFO] Verification:
+2026-02-13 16:06:40 [INFO]   AutoDetectCharset: 0
+2026-02-13 16:06:40 [INFO]   SendCharset: 65001
+2026-02-13 16:06:40 [SUCCESS] 
+=== Processing Complete ===
+2026-02-13 16:06:40 [INFO] Templates found: 2
+2026-02-13 16:06:40 [SUCCESS] Templates cleaned: 0
+2026-02-13 16:06:40 [INFO] Templates skipped (already clean): 0
+2026-02-13 16:06:40 [ERROR] Errors encountered: 2
+2026-02-13 16:06:40 [INFO] 
+Log file saved to: C:\Users\SteveIrwin\terminai\it\troubleshooting\CleanTemplates_20260213_160637.log

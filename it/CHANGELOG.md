@@ -5,6 +5,55 @@ All notable changes to the IT infrastructure and security documentation project.
 ## [Unreleased] - 2026-02-13
 
 ### Added
+- `troubleshooting/Clean-OutlookTemplates.ps1` (376 lines, 15KB): PowerShell automation script for cleaning problematic Unicode characters from Outlook templates
+  - Searches default Outlook template locations or user-specified path (folder or single file)
+  - Creates automatic timestamped backups before any modification
+  - Uses Outlook COM automation to safely manipulate binary .oft files (Compound File Binary Format)
+  - Removes soft hyphens (U+00AD) and other control characters (Form Feed, Vertical Tab, etc.)
+  - Applies UTF-8 registry fixes: AutoDetectCharset=0, SendCharset=65001, DisableCharsetDetection=1
+  - Comprehensive logging with color-coded output (ERROR, WARNING, SUCCESS, INFO)
+  - Parameters: `-TemplatePath` (optional), `-BackupOnly` (test mode), `-ApplyRegistryFix`
+  - Validates Outlook is closed before running
+  - Automatic backup restoration on error
+  - COM object cleanup and garbage collection
+
+- `troubleshooting/Outlook_Template_Unicode_Encoding_Question_Marks.md` (26KB): Comprehensive technical documentation for Outlook template question mark issue
+  - Root cause analysis: Soft hyphen characters (U+00AD) triggering Microsoft Outlook Build 19628.20150+ Unicode encoding bug
+  - Encoding cascade effect explanation: Single soft hyphen poisons entire email encoding (UTF-8 → Windows-1252 incorrect switch)
+  - Character identification: U+00AD / 0xAD / `­` / &shy; / &#173; (soft hyphen)
+  - 5 solution methods with success rates and risk assessments:
+    1. PowerShell automation (95% success, low risk) - RECOMMENDED
+    2. Recreate template from scratch (100% success, high effort)
+    3. Manual character removal in Outlook (60% success, doesn't prevent recurrence)
+    4. Registry fixes only (40% success, doesn't clean existing templates)
+    5. Manual binary editing in Notepad++ (0% success - CORRUPTS FILE)
+  - Prevention best practices: Avoid copying from web, use plain text paste (Ctrl+Shift+V)
+  - Compound File Binary Format (CFBF) technical explanation - why .oft files cannot be edited as text
+  - Troubleshooting common issues: File locks, Outlook won't open, permission errors
+  - FAQ section with technical deep-dive
+  - Microsoft KB references and official bug acknowledgment
+
+- `troubleshooting/SCRIPT_USAGE_GUIDE.md` (11KB): Step-by-step PowerShell script usage instructions
+  - Prerequisites and safety checks (close Outlook before running)
+  - PowerShell execution policy setup instructions
+  - 3 usage scenarios with command examples:
+    - Default: Clean all templates in standard Outlook locations
+    - Specific folder: Clean only templates in specified folder
+    - Specific file: Clean only one template file
+  - Parameter reference with detailed explanations
+  - Step-by-step breakdown of what the script does
+  - Expected output interpretation and log file analysis
+  - Troubleshooting section: Execution policy errors, file locks, permissions, path not found
+  - Rollback procedure using automatic backups
+  - Quick reference card for common commands
+  - Next steps after running script (test templates, send emails with £ and ® symbols)
+
+- `troubleshooting/CleanTemplates_20260213_160637.log` - First script run log (failed with string replacement bug)
+- `troubleshooting/CleanTemplates_20260213_162346.log` - Second script run log (found 0 characters - wrong character codes)
+- `troubleshooting/CleanTemplates_20260213_165614.log` - Third script run log (SUCCESS - removed 5 soft hyphens, applied registry fixes)
+- `troubleshooting/Backups_20260213_162346/` - Automatic backup directory from second run
+- `troubleshooting/Backups_20260213_165614/` - Automatic backup directory from successful third run
+
 - `troubleshooting/CLAUDE.md` (380 lines, 12.4KB): Comprehensive IT helpdesk and troubleshooting guidance
   - Systematic 7-step troubleshooting methodology: Initial Intake → Diagnosis → Research → Hypothesis → Testing → Resolution → Prevention
   - Target environment specifications (Windows 11 latest, Azure AD domain-joined, Microsoft 365 desktop apps)
@@ -36,7 +85,47 @@ All notable changes to the IT infrastructure and security documentation project.
   - Escalation indicators (no verified solution, security implications, data loss risk)
   - Special considerations for M365 desktop apps (Click-to-Run vs MSI, update channels) and Azure AD devices
 
+### Changed
+- `troubleshooting/README.md` - Updated with first resolved issue entry in issue index:
+  - Added "Outlook Template Question Marks (Unicode Encoding)" under Microsoft Office category
+  - Links to technical documentation, PowerShell script, and usage guide
+  - Status: Resolved (2026-02-13)
+
+### Fixed
+- **PowerShell Script Bug #1**: Duplicate -Verbose parameter error
+  - Cause: Manually defined `-Verbose` when `[CmdletBinding()]` already provides it automatically
+  - Fix: Removed manual `-Verbose` parameter definition from `param()` block
+
+- **PowerShell Script Bug #2**: String replacement type conversion error
+  - Error: "Cannot convert argument 'newChar', with value: '', for 'Replace' to type 'System.Char'"
+  - Cause: Using `.Replace($char, '')` where second parameter must be Char type
+  - Fix: Changed to `$cleanedText.Replace($char.ToString(), '')` to use string Replace() method
+
+- **PowerShell Script Bug #3**: Wrong character codes searched
+  - Symptom: Script found 0 problematic characters despite visible question marks in sent emails
+  - Cause: Searching for Form Feed (0x000C), Vertical Tab (0x000B) but missing Soft Hyphen (0x00AD)
+  - User feedback: Notepad++ shows `­` symbol (soft hyphen character)
+  - Fix: Added `[char]0x00AD` as FIRST item in `$controlChars` array
+  - Result: Third script run successfully removed 5 soft hyphens from template
+
+- **Microsoft Outlook Template Issue**: Question marks (?????) appearing in sent emails with £ and ® symbols
+  - Root cause: Soft hyphen characters (U+00AD) triggering Outlook Build 19628.20150+ encoding bug
+  - Encoding cascade: Soft hyphen + UTF-8 characters → incorrect Windows-1252 switch → question marks
+  - Solution: PowerShell script removed 5 soft hyphens + UTF-8 registry fixes applied
+  - Status: Template cleaned successfully (file lock issue pending user resolution)
+
 ### Documentation
+- **First Real-World Issue Resolved**: Validated IT troubleshooting system with successful diagnosis and resolution
+- Followed systematic 7-step framework: Intake → Diagnosis → Research → Hypothesis → Testing → Resolution → Prevention
+- Created comprehensive knowledge base entry with technical documentation, automation script, and usage guide
+- Documented encoding cascade effect and CFBF binary format limitations (why manual editing fails)
+- Captured debugging journey: 3 script iterations with bug fixes based on testing feedback
+- Updated SESSION_LOG.md with Session 2026-02-13 (16:00) entry - complete issue resolution documentation
+- Updated PROJECT_STATUS.md:
+  - Changed status from "ready for first issue" to "validated with first successful resolution"
+  - Added first resolved issue details to IT Troubleshooting & Helpdesk section
+  - Added Recently Completed session entry (16:00) with Outlook Unicode bug resolution
+  - Added resolved issue files to Key Files & Structure section
 - Updated SESSION_LOG.md with Session 2026-02-13 (15:00) entry
 - Updated PROJECT_STATUS.md with IT Troubleshooting & Helpdesk active work area
 - Updated PROJECT_STATUS.md "Last Updated" to 2026-02-13

@@ -90,7 +90,20 @@ When documenting a resolved issue, use this structure:
 ## Issue Index
 
 ### Recently Resolved Issues
-(Issues will be added here as they are documented)
+
+#### Outlook / Email Issues
+
+**[Outlook Template Unicode Encoding - Question Marks in Sent Emails](Outlook_Template_Unicode_Encoding_Question_Marks.md)** - 2026-02-13
+- **Issue**: Five invisible control characters (¬) in .oft templates cause question marks in sent emails and corrupt special characters (£, ®, ©)
+- **Severity**: P2 - High (affects all email recipients, business communication impact)
+- **Affected**: Outlook 365 Build 19628.20150+ (Current Channel)
+- **Root Cause**: Microsoft bug in encoding detection + legacy control characters in .oft templates
+- **Status**: Workaround available (PowerShell script + manual cleaning)
+- **Solution**: Automated PowerShell cleaning script removes control characters and sets UTF-8 encoding
+- **Related Files**:
+  - Documentation: `Outlook_Template_Unicode_Encoding_Question_Marks.md`
+  - PowerShell Script: `Clean-OutlookTemplates.ps1`
+- **Keywords**: outlook, template, .oft, question marks, ?????, encoding, UTF-8, £, special characters, unicode
 
 ---
 

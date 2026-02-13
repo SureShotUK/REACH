@@ -1,0 +1,47 @@
+2026-02-13 16:23:46 [INFO] === Outlook Template Cleaning Script Started ===
+2026-02-13 16:23:46 [INFO] Log file: C:\Users\SteveIrwin\terminai\it\troubleshooting\CleanTemplates_20260213_162346.log
+2026-02-13 16:23:46 [INFO] Searching in specified path: C:\Users\SteveIrwin\terminai\it\troubleshooting
+2026-02-13 16:23:46 [INFO]   Found 3 template(s)
+2026-02-13 16:23:46 [INFO] Found 3 template(s) to process
+2026-02-13 16:23:46 [INFO] 
+--- Processing Template ---
+2026-02-13 16:23:46 [INFO]   Backup created: C:\Users\SteveIrwin\terminai\it\troubleshooting\Backups_20260213_162346\EmailWithBOM.oft
+2026-02-13 16:23:46 [INFO] Processing: EmailWithBOM.oft
+2026-02-13 16:23:48 [INFO]   Original body length: 1054 characters
+2026-02-13 16:23:48 [INFO]   Removed 0 problematic character(s)
+2026-02-13 16:23:48 [INFO]   Cleaned body length: 1054 characters
+2026-02-13 16:23:48 [INFO]   No problematic characters found - template is clean
+2026-02-13 16:23:48 [INFO] 
+--- Processing Template ---
+2026-02-13 16:23:48 [INFO]   Backup created: C:\Users\SteveIrwin\terminai\it\troubleshooting\Backups_20260213_162346\MessageTemplate.oft
+2026-02-13 16:23:48 [INFO] Processing: MessageTemplate.oft
+2026-02-13 16:23:48 [INFO]   Original body length: 641 characters
+2026-02-13 16:23:48 [INFO]   Removed 0 problematic character(s)
+2026-02-13 16:23:48 [INFO]   Cleaned body length: 641 characters
+2026-02-13 16:23:48 [INFO]   No problematic characters found - template is clean
+2026-02-13 16:23:48 [INFO] 
+--- Processing Template ---
+2026-02-13 16:23:48 [INFO]   Backup created: C:\Users\SteveIrwin\terminai\it\troubleshooting\Backups_20260213_162346\MessageTemplateNoBOM.oft
+2026-02-13 16:23:48 [INFO] Processing: MessageTemplateNoBOM.oft
+2026-02-13 16:23:48 [INFO]   Original body length: 637 characters
+2026-02-13 16:23:48 [INFO]   Removed 0 problematic character(s)
+2026-02-13 16:23:48 [INFO]   Cleaned body length: 637 characters
+2026-02-13 16:23:48 [INFO]   No problematic characters found - template is clean
+2026-02-13 16:23:48 [INFO] 
+--- Applying Registry Fixes ---
+2026-02-13 16:23:48 [INFO] Applying registry fixes for UTF-8 encoding...
+2026-02-13 16:23:48 [SUCCESS]   Set AutoDetectCharset = 0 (Disabled)
+2026-02-13 16:23:48 [SUCCESS]   Set SendCharset = 65001 (UTF-8)
+2026-02-13 16:23:48 [SUCCESS]   Set DisableCharsetDetection = 1 (Disabled)
+2026-02-13 16:23:48 [SUCCESS] Registry fixes applied successfully
+2026-02-13 16:23:48 [INFO] Verification:
+2026-02-13 16:23:48 [INFO]   AutoDetectCharset: 0
+2026-02-13 16:23:48 [INFO]   SendCharset: 65001
+2026-02-13 16:23:48 [SUCCESS] 
+=== Processing Complete ===
+2026-02-13 16:23:48 [INFO] Templates found: 3
+2026-02-13 16:23:48 [SUCCESS] Templates cleaned: 0
+2026-02-13 16:23:48 [INFO] Templates skipped (already clean): 3
+2026-02-13 16:23:48 [INFO] Errors encountered: 0
+2026-02-13 16:23:48 [INFO] 
+Log file saved to: C:\Users\SteveIrwin\terminai\it\troubleshooting\CleanTemplates_20260213_162346.log
