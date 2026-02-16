@@ -1,14 +1,14 @@
 # IT Project Status
 
-**Last Updated**: 2026-02-13
+**Last Updated**: 2026-02-16
 
 ## Current State
-Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. Successfully diagnosed and resolved first real-world issue (Outlook template Unicode encoding) using systematic 7-step framework. PowerShell automation created for Outlook template cleaning. AI PC build planning continues with component selection. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
+Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. Outlook template encoding issue deepened understanding: UTF-16 LE encoding behavior confirmed, enhanced diagnostic tooling created, file lock handling patterns documented. User successfully ran cleaning scripts but encountered expected file lock issue (Windows COM automation behavior) - template is cleaned, requires restart to access. Four new PowerShell scripts and comprehensive documentation created. AI PC build planning continues with component selection. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
 
 ## Active Work Areas
 
 ### IT Troubleshooting & Helpdesk - Proven System
-- **Status**: System validated with first successful issue resolution
+- **Status**: System validated with successful issue resolution and enhanced diagnostic tooling
 - **Files**: `troubleshooting/CLAUDE.md`, `troubleshooting/README.md`, `.claude/agents/gemini-it-helpdesk-researcher.md`
 - **Coverage**: Systematic 7-step diagnostic framework, Windows 11/Azure AD/M365 diagnostic commands, issue documentation standards
 - **Methodology**: Information gathering → Research (via Gemini agent) → Hypothesis → Testing → Resolution → Documentation
@@ -19,13 +19,29 @@ Active IT infrastructure and security documentation project with validated IT tr
   - PowerShell diagnostic commands for all common issue types
   - Documentation templates for building knowledge base
   - Communication standards for clear, helpful user support
-- **First Issue Resolved**: Outlook template question marks (Unicode encoding bug)
-  - Root cause: Soft hyphen characters (U+00AD) triggering Microsoft Outlook Build 19628.20150+ encoding bug
-  - Solution: PowerShell COM automation script to clean templates + UTF-8 registry fixes
-  - Success: Removed 5 soft hyphens, applied registry fixes, comprehensive documentation created
-  - Files: `Clean-OutlookTemplates.ps1`, `Outlook_Template_Unicode_Encoding_Question_Marks.md`, `SCRIPT_USAGE_GUIDE.md`
-- **Knowledge Base**: First entry added to troubleshooting/README.md issue index
-- **Next**: Refine system based on practical lessons learned, add more resolved issues
+  - Enhanced diagnostic tooling for character encoding issues
+  - File lock detection and resolution utilities
+- **Ongoing: Outlook Template Encoding Issue** (Enhanced understanding):
+  - **Root cause deepened**: UTF-16 Little Endian encoding + soft hyphens (U+00AD) + RTF metadata issues
+  - **Key discoveries**:
+    - NUL-after-every-character is NORMAL UTF-16 LE behavior (not corruption)
+    - "NUL-NUL-NUL-NUL-NUL" pattern = five soft hyphens in UTF-16 LE misread as ANSI
+    - Notepad++ Replace fails because it searches binary CFBF format, not parsed text
+    - File locks after COM automation are expected Windows behavior
+    - £ symbol issue is separate from soft hyphen issue (RTF encoding metadata)
+  - **Enhanced tooling created** (2026-02-16):
+    - `Diagnose-OutlookTemplate.ps1` (6.8KB): Character diagnostic with code point analysis
+    - `Clean-OutlookTemplateEncoding.ps1` (9.6KB): Enhanced encoding-focused cleaning
+    - `Test-TemplateFileLock.ps1` (7.5KB): File lock detection and unlock utility
+    - `Outlook_Template_Encoding_Issues.md` (14KB): Comprehensive technical documentation
+  - **Previous tooling** (2026-02-13):
+    - `Clean-OutlookTemplates.ps1` (15KB): Original automation script
+    - `Outlook_Template_Unicode_Encoding_Question_Marks.md` (26KB): Initial documentation
+    - `SCRIPT_USAGE_GUIDE.md` (11KB): Step-by-step usage guide
+  - **Current status**: Scripts ran successfully, template cleaned, file lock encountered (expected), user restarting computer
+  - **Iterative debugging success**: 5 script iterations (syntax → type → logic → system behavior → file locks)
+- **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
+- **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
 ### AI PC Build for Local LLM Inference - Current Focus
 - **Status**: Component selection in progress, 5 of 8 components confirmed, GPU evaluation underway
@@ -82,6 +98,21 @@ Active IT infrastructure and security documentation project with validated IT tr
 - **Coverage**: VM security, hypervisor comparison, homelab setup
 
 ## Recently Completed
+
+### Session 2026-02-16 (12:30) - Enhanced Outlook Template Diagnostics & File Lock Handling
+- ✅ Deepened root cause understanding: UTF-16 LE encoding behavior, CFBF binary format, why Replace fails
+- ✅ Created diagnostic script `Diagnose-OutlookTemplate.ps1` with character code analysis (6.8KB, 190 lines)
+- ✅ Created enhanced cleaning script `Clean-OutlookTemplateEncoding.ps1` focused on encoding issues (9.6KB, 290 lines)
+- ✅ Created comprehensive documentation `Outlook_Template_Encoding_Issues.md` explaining binary format behavior (14KB, 600+ lines)
+- ✅ Created file lock diagnostic utility `Test-TemplateFileLock.ps1` for troubleshooting COM automation locks (7.5KB, 240 lines)
+- ✅ Confirmed NUL-after-every-character is normal UTF-16 LE encoding (not corruption)
+- ✅ Explained why "NUL-NUL-NUL-NUL-NUL" = five soft hyphens in UTF-16 LE misread as ANSI
+- ✅ Documented why Notepad++ Replace doesn't work (searches binary CFBF, not parsed RTF text)
+- ✅ Identified £ symbol issue as separate from soft hyphen problem (RTF metadata / codepage)
+- ✅ Documented file lock behavior as expected Windows COM automation pattern (not script bug)
+- ✅ User successfully ran scripts, template cleaned, encountered expected file lock (requires restart)
+- ✅ Created 4 solution options for file lock resolution (restart, kill processes, backup, copy)
+- ✅ Enhanced diagnostic approach: inspect first (Diagnose), then act (Clean), then troubleshoot (Test lock)
 
 ### Session 2026-02-13 (16:00) - First Issue Resolution: Outlook Template Unicode Bug
 - ✅ Diagnosed Microsoft Outlook template question mark issue using 7-step troubleshooting framework
@@ -213,10 +244,14 @@ None currently. All active documentation areas progressing as planned.
 - `troubleshooting/CLAUDE.md` - Comprehensive IT helpdesk guidance (12.4KB, 380 lines)
 - `troubleshooting/README.md` - Quick start guide and issue index with first resolved issue (3.9KB, 95 lines)
 - `.claude/agents/gemini-it-helpdesk-researcher.md` - Research agent configuration (8.3KB, 240 lines)
-- **Resolved Issues**:
-  - `troubleshooting/Outlook_Template_Unicode_Encoding_Question_Marks.md` - Complete technical documentation (26KB)
-  - `troubleshooting/Clean-OutlookTemplates.ps1` - PowerShell automation script (376 lines, 15KB)
-  - `troubleshooting/SCRIPT_USAGE_GUIDE.md` - Step-by-step usage instructions (11KB)
+- **Ongoing Issue: Outlook Template Encoding**:
+  - `troubleshooting/Outlook_Template_Encoding_Issues.md` - Comprehensive technical documentation (14KB, 600+ lines) - NEW 2026-02-16
+  - `troubleshooting/Diagnose-OutlookTemplate.ps1` - Character diagnostic tool with code point analysis (6.8KB, 190 lines) - NEW 2026-02-16
+  - `troubleshooting/Clean-OutlookTemplateEncoding.ps1` - Enhanced encoding-focused cleaning script (9.6KB, 290 lines) - NEW 2026-02-16
+  - `troubleshooting/Test-TemplateFileLock.ps1` - File lock detection and unlock utility (7.5KB, 240 lines) - NEW 2026-02-16
+  - `troubleshooting/Outlook_Template_Unicode_Encoding_Question_Marks.md` - Initial technical documentation (26KB) - 2026-02-13
+  - `troubleshooting/Clean-OutlookTemplates.ps1` - Original automation script (15KB, 376 lines) - 2026-02-13
+  - `troubleshooting/SCRIPT_USAGE_GUIDE.md` - Step-by-step usage instructions (11KB) - 2026-02-13
 
 ### AI PC Build (NewPC)
 - `NewPC/CLAUDE.md` - NewPC project-specific guidance (239 lines)

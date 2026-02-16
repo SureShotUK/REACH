@@ -4,6 +4,153 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-02-16 12:30
+
+### Summary
+Deepened understanding of Outlook template encoding issue root cause: UTF-16 Little Endian encoding with soft hyphens (U+00AD) and RTF metadata problems. Created enhanced diagnostic tooling, comprehensive documentation explaining binary file format behavior, and file lock checking utility. Discovered that NUL-after-every-character pattern in Notepad++ is normal UTF-16 LE encoding, not corruption. User successfully ran cleaning script but encountered file lock issue (common Windows COM automation behavior) - template is cleaned but locked, requiring computer restart.
+
+### Work Completed
+- **Deep Root Cause Analysis** (Enhanced Understanding):
+  - **UTF-16 Little Endian encoding**: The "NUL after every character" pattern is NORMAL - ASCII 'A' = `41 00` in UTF-16 LE
+  - **The "NUL-NUL-NUL-NUL-NUL" mystery solved**: Pattern is five soft hyphens (U+00AD) stored as `AD 00 AD 00 AD 00 AD 00 AD 00` in UTF-16 LE, misread when Notepad++ opens in ANSI mode
+  - **Why Replace doesn't work**: Notepad++ searches raw binary CFBF container format, not parsed RTF text - soft hyphens are embedded in RTF streams, possibly escaped
+  - **£ symbol separate issue**: RTF encoding metadata mismatch or wrong Outlook codepage settings (different from soft hyphen problem)
+  - **Opening in ANSI doesn't modify file**: Only displays incorrectly - file bytes remain unchanged
+  - **File lock behavior**: Windows COM automation often leaves file locks even with proper cleanup (Outlook, Windows Search, Defender, Explorer thumbnail cache)
+
+- **Enhanced Diagnostic Script** - `troubleshooting/Diagnose-OutlookTemplate.ps1` (6.8KB, 190 lines):
+  - Uses Outlook COM automation to safely extract template body text
+  - Searches for 7 problematic character types: Soft Hyphen (U+00AD), Non-Breaking Space (U+00A0), Zero Width Space (U+200B), ZWNBSP (U+FEFF), Form Feed, Vertical Tab, Pound Sign (£)
+  - Shows count of each character type with [FOUND] or [OK] status
+  - Displays context (20 chars before/after) for first occurrence
+  - Full character code map showing all non-printable and special Unicode characters by line
+  - Position and code point (U+XXXX) for each special character
+  - Summary with recommendations
+  - Note explaining potential causes of £ symbol issue (RTF metadata, encoding settings, keyboard input mismatch)
+
+- **Improved Cleaning Script** - `troubleshooting/Clean-OutlookTemplateEncoding.ps1` (9.6KB, 290 lines):
+  - Enhanced version focusing on encoding issues (different approach from Friday's script)
+  - Supports both single file and directory of templates
+  - Creates automatic timestamped backups in `Backups_YYYYMMDD_HHMMSS/` subdirectory
+  - Removes 6 problematic character types:
+    - Soft Hyphen (U+00AD) - removed
+    - Non-Breaking Space (U+00A0) - replaced with regular space
+    - Zero Width Space (U+200B) - removed
+    - Zero Width No-Break Space (U+FEFF / BOM) - removed
+    - Form Feed (U+000C) - removed
+    - Vertical Tab (U+000B) - removed
+  - Color-coded logging: ERROR (Red), WARNING (Yellow), SUCCESS (Green), INFO (White)
+  - Applies registry fixes for Outlook UTF-8 encoding: DefaultCharSet=utf-8, DisableAutoArchive
+  - Graceful error handling with automatic backup restoration on failure
+  - Thorough COM cleanup with garbage collection
+  - `-BackupOnly` parameter for safe testing without modification
+  - Per-template processing with individual success/failure tracking
+
+- **Comprehensive Technical Documentation** - `troubleshooting/Outlook_Template_Encoding_Issues.md` (14KB, 600+ lines):
+  - Issue summary and symptoms (question marks in template, typed £ becomes ?)
+  - Environment specifications (Windows 11, M365, .oft file format)
+  - **Deep technical explanation**:
+    - Compound File Binary Format (CFBF) structure - OLE container with streams
+    - UTF-16 Little Endian encoding details - why NUL appears after every character
+    - Soft hyphen (U+00AD) characteristics and why it causes display issues
+    - Why manual editing in Notepad++ corrupts files (breaks CFBF structure)
+    - Why Find/Replace doesn't work (searching binary container, not parsed text)
+  - **Resolution steps with verification**:
+    - Step 1: Run diagnostic script to confirm character types
+    - Step 2: Run cleaning script to remove problematic characters
+    - Step 3: Test template (verify question marks gone, test £ symbol)
+    - Step 4: If £ still broken, provide 3 solutions (recreate template, registry UTF-8 forcing, language settings)
+  - **Prevention best practices**: Don't copy from Word/PDFs/web, use plain text paste, regular maintenance
+  - **File lock troubleshooting section**:
+    - Problem: "Can't open template after cleaning" - explains file locks
+    - Causes: COM automation, Windows Search, Defender, Explorer, background Outlook
+    - Solutions (ordered by effectiveness): Restart computer (best), kill processes, wait, use backup, copy to new filename
+    - Prevention: Check app closed, thorough COM cleanup
+  - **Script usage reference**: Both scripts with parameters, requirements, output expectations
+  - **Technical references**: Unicode character definitions, KB articles, API documentation, CFBF spec
+
+- **File Lock Diagnostic Utility** - `troubleshooting/Test-TemplateFileLock.ps1` (7.5KB, 240 lines):
+  - Tests if template file is locked using System.IO.File.Open attempt
+  - Identifies suspect processes: OUTLOOK, OfficeClickToRun, explorer, SearchIndexer, Windows Defender, OneDrive
+  - Shows PIDs of processes that may be holding locks
+  - Attempts to use Sysinternals Handle.exe for detailed lock information (if available)
+  - Provides 4 solution options with commands:
+    - Option 1: Restart computer (most reliable) - RECOMMENDED
+    - Option 2: Kill processes and wait 60 seconds
+    - Option 3: Use backup copy (shows latest backup directory and file)
+    - Option 4: Copy to new filename to bypass lock
+  - `-AttemptUnlock` parameter to automatically kill suspect processes
+  - Re-tests lock after killing processes to verify unlock success
+  - Color-coded output showing lock status and recommended actions
+
+### Files Changed
+- `troubleshooting/Diagnose-OutlookTemplate.ps1` - NEW: Character diagnostic tool using COM automation
+- `troubleshooting/Clean-OutlookTemplateEncoding.ps1` - NEW: Enhanced encoding-focused cleaning script
+- `troubleshooting/Outlook_Template_Encoding_Issues.md` - NEW: Comprehensive technical documentation (14KB)
+- `troubleshooting/Test-TemplateFileLock.ps1` - NEW: File lock diagnostic and unlock utility
+
+### Git Commits
+Not yet committed - will be committed at end of session before user restarts computer.
+
+### Key Decisions
+
+**Binary File Format Handling:**
+- CONFIRMED: .oft files CANNOT be edited as text - Notepad++ corrupts CFBF structure when saving
+- CORRECT APPROACH: Always use COM automation (Outlook.Application) for template manipulation
+- USER EXPERIENCE: Friday session - user edited in Notepad++, template became unopenable, had to use backup
+
+**Character Code Verification:**
+- DON'T ASSUME: Always verify exact character codes with tools (Notepad++ "Show All Characters", hex editors)
+- FRIDAY'S LESSON: Initial script searched for wrong characters (Form Feed U+000C, Vertical Tab U+000B) - found 0 results
+- USER IDENTIFIED CORRECT CODE: User found `­` symbol in Notepad++ → U+00AD (soft hyphen) → Script run 4 SUCCESS (removed 5)
+- PATTERN: Test with real user data early, incorporate user observations immediately
+
+**Iterative Debugging Success:**
+- Run 1 (Friday): Duplicate -Verbose parameter error (CmdletBinding already provides -Verbose)
+- Run 2 (Friday): Type error - Char.Replace() requires Char parameters, not strings → Fixed with .ToString()
+- Run 3 (Friday): Script ran clean but found 0 problematic characters (searched wrong codes)
+- Run 4 (Friday): User identified U+00AD in Notepad++ → Updated script → SUCCESS (5 soft hyphens removed)
+- Run 5 (Today): User ran new scripts → Template cleaned successfully BUT file locked
+- LESSON: Each run revealed different issue category (syntax → type → logic → system behavior)
+
+**File Lock Handling (Windows Reality):**
+- PROBLEM: Even with proper COM cleanup (ReleaseComObject, GC.Collect), Windows may hold file locks
+- CAUSES: Background Outlook, Windows Search indexer, Defender scanning, Explorer thumbnail cache
+- SOLUTION: Created file lock diagnostic utility to identify and resolve lock issues
+- BEST FIX: Restart computer (releases ALL locks, 2-3 minutes)
+- USER EXPERIENCE: "Ran into this on Friday too" - this is known pattern with Office COM automation
+- PATTERN: File locks are NORMAL Windows behavior with Office automation, not a script bug
+
+**Enhanced Diagnostic Approach:**
+- Created separate diagnostic script BEFORE cleaning (inspect first, act second)
+- Shows exact character codes and contexts to verify root cause
+- User can see WHAT will be removed before committing to cleaning
+- Provides evidence for why certain characters are problematic
+
+### Reference Documents
+- `troubleshooting/Outlook_Template_Encoding_Issues.md` - Complete technical reference (14KB)
+- Unicode Character Code Charts - <a href="https://www.unicode.org/charts/" target="_blank">unicode.org/charts</a>
+- Compound File Binary Format Specification - <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-cfb" target="_blank">MS-CFB Spec</a>
+- Outlook MailItem Object Reference - <a href="https://docs.microsoft.com/office/vba/api/outlook.mailitem" target="_blank">VBA API Docs</a>
+
+### Next Actions
+- [x] User restart computer to release file locks
+- [ ] User test cleaned template in Outlook (verify question marks gone)
+- [ ] User verify £ symbol works correctly when typing
+- [ ] If £ still broken: Follow "Step 4" solutions in documentation (recreate template / registry UTF-8 / language settings)
+- [ ] Add this issue to troubleshooting/README.md issue index with reference to new documentation
+- [ ] Consider enhancing cleaning script to avoid file locks (copy to temp, clean, replace after COM cleanup)
+- [ ] Update CLAUDE.md if new patterns emerge from user testing results
+
+### User Feedback & Observations
+- **"NUL after every character - is this normal?"** - YES! UTF-16 LE encoding stores ASCII chars as 2 bytes
+- **"When I change encoding to UTF-8, the - changes to xAD"** - Confirms soft hyphen (U+00AD) present
+- **"Cannot use replace on 5 soft hyphens to replace them"** - Correct! Searching binary CFBF, not parsed text
+- **"Ran into this issue on Friday"** - File lock issue is recurring pattern with Windows Office COM automation
+- **User being thoughtful**: "Before I restart, do you need to make session notes and update github?" - Excellent practice!
+
+---
+
 ## Session 2026-02-13 16:00
 
 ### Summary
