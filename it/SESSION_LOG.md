@@ -4,6 +4,77 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-02-19 14:00
+
+### Summary
+AI PC build project COMPLETE. Purchased all remaining 7 components in a single session: CPU + thermal paste (£322.50), PSU (£218.00), Case (£169.99), Storage 2x Samsung 9100 Pro 2TB PCIe 5 (£502.00), Arctic Liquid Freezer III Pro 360 AIO (£72.00), and rear 140mm exhaust fan (£21.12). Total build spend: £2,874.98. Session also covered key technical decisions: Gen5 vs Gen4 NVMe, SSD brand recommendations, RAID 1 vs NAS backup, Fractal Torrent fan layout, AIO vs air cooling, and dual GPU compatibility for future second RTX 3090.
+
+### Work Completed
+
+- **All remaining components purchased** — build 100% complete:
+  - **CPU**: AMD Ryzen 9 7900X + thermal paste @ £322.50
+  - **PSU**: Thermaltake Toughpower GF3 1650W @ £218.00 (£22 under estimate)
+  - **Case**: Fractal Design Torrent @ £169.99 (£5 under estimate)
+  - **Storage**: 2x Samsung 9100 Pro 2TB PCIe 5.0 @ £502.00 total (Samsung direct)
+  - **CPU Cooler**: Arctic Liquid Freezer III Pro 360 @ £72.00
+  - **Rear Fan**: 140mm exhaust @ £21.12
+
+- **Technical Decisions Made**:
+  - **Gen5 vs Gen4 NVMe**: No meaningful benefit for AI inference (storage idle during inference, model load time difference <1 second). Samsung 9100 Pro chosen at same price as 990 Pro — free upgrade
+  - **SSD brand guidance**: Tier 1 = Samsung, WD/SanDisk, SK Hynix, Crucial (own NAND). Avoid ADATA/XPG (component swap history), Sabrent, budget brands
+  - **RAID 1 vs separate drives**: Separate drives + NAS backup recommended — AI model files are re-downloadable, RAID 1 halves usable storage to 2TB
+  - **Fractal Torrent fan layout**: Case has NO top radiator mount (PSU occupies top). Fan positions: Front (2x180mm or 3x120mm), Bottom (2x180mm or 3x140mm), Rear (1x120/140mm)
+  - **Case ships with 5 RGB fans**: 2x 180mm front + 3x 140mm bottom. No rear fan included
+  - **AIO vs air cooling**: Arctic LF III 360 beats Noctua NH-D15 by 5-10°C under sustained 24/7 loads — the relevant metric for AI inference
+  - **360mm mounting**: Front-only (no top mount available). 180mm case fans removed, replaced by 3x 120mm AIO fans as intake. Bottom 3x 140mm stay in place. Spare 180mm fans stored as backup
+  - **Arctic LF III Pro vs standard III**: Pro version has 7-blade P12 Pro fans (vs 5-blade), 38mm thick radiator, 4-10°C better performance. £72 is exceptional value — cheaper than most standard 360mm AIOs
+  - **Dual GPU compatibility**: Different RTX 3090 makes are fine for AI workloads. Frameworks distribute weights across GPUs by chip/VRAM, not manufacturer. Founders Edition 12-pin uses 2x8-pin adapter (included)
+
+- **Final Fan Configuration documented**:
+  - Front: 3x 120mm intake (AIO P12 Pro fans)
+  - Bottom: 3x 140mm intake (Fractal RGB fans, unchanged)
+  - Rear: 1x 140mm exhaust (new fan)
+  - Spare: 2x 180mm RGB (removed from front)
+
+- **Documentation Updates** — `NewPC/Final_Build.md` (v1.2 → v1.6):
+  - All 10 components marked as purchased with actual prices
+  - Storage section replaced with Samsung 9100 Pro 2TB x2 spec table
+  - PSU section replaced with Thermaltake 1650W spec table (was still showing "options to consider")
+  - Case section replaced with Fractal Torrent spec table (was still showing "options to consider")
+  - CPU Cooler section replaced with Arctic LF III Pro 360 spec table
+  - Rear Fan section added with final fan configuration table
+  - Cost summary updated: total £2,874.98
+  - Build status updated to COMPLETE
+  - Decision log updated with all purchase entries and rationale
+
+### Files Changed
+- `it/NewPC/Final_Build.md` - Complete build tracker updated to v1.6, all components purchased, build marked complete
+
+### Git Commits
+- Previous session: `39332ce` - End of session documentation - AI PC build major components purchased
+
+### Key Decisions
+- **Samsung 9100 Pro Gen5 at Gen4 price**: Spotted price parity on Samsung direct site — took the free upgrade
+- **No RAID 1**: NAS backup strategy instead — preserves 4TB usable vs 2TB with RAID 1
+- **360mm AIO over NH-D15**: 5-10°C advantage under sustained loads matters for 24/7 AI workloads
+- **Arctic LF III Pro over standard**: Better product at lower price — clear choice
+- **Mixed GPU brands OK**: For AI inference, same chip (GA102) and same VRAM (24GB) is what matters, not manufacturer
+- **Fractal Torrent fan insight**: Bottom ships with 3x 140mm (not empty as initially assumed) — spare 180mm fans have no internal home
+
+### Reference Documents
+- `it/NewPC/Final_Build.md` - Complete build specification and purchase log
+
+### Next Actions
+- [ ] Wait for all components to be delivered
+- [ ] Assemble the build (assembly order documented in Final_Build.md)
+- [ ] Install OS (Ubuntu 24.04 LTS recommended for AI, or Windows 11 + WSL2)
+- [ ] Install NVIDIA drivers and CUDA toolkit
+- [ ] Install Ollama and Open WebUI
+- [ ] Download initial models (codellama:34b, mistral:7b)
+- [ ] Source second RTX 3090 (any make/model) when budget allows for dual GPU upgrade
+
+---
+
 ## Session 2026-02-19 08:00
 
 ### Summary

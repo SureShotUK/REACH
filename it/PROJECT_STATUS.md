@@ -3,7 +3,7 @@
 **Last Updated**: 2026-02-19
 
 ## Current State
-Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. **AI PC build project major milestone**: Three critical components purchased (GPU £699.39, RAM £599.99, Motherboard £269.99 = £1,569.37 total). Successfully resolved motherboard availability issue by evaluating X870E alternatives. Remaining components (CPU, PSU, Case, Storage, Cooler, Fans) total £985-1,240. Build 65% complete by component count, ready for assembly in 2-4 weeks. Outlook template encoding issue resolved with enhanced diagnostic tooling. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
+Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. **AI PC build project COMPLETE**: All 10 components purchased, total spend £2,874.98. Awaiting delivery and assembly. Outlook template encoding issue resolved with enhanced diagnostic tooling. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
 
 ## Active Work Areas
 
@@ -43,35 +43,23 @@ Active IT infrastructure and security documentation project with validated IT tr
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
-### AI PC Build for Local LLM Inference - Major Components Secured! 🎉
-- **Status**: 3 of 6 major components **PURCHASED** (GPU, RAM, Motherboard = £1,569.37), 3 confirmed (CPU, PSU, Case), 3 to decide (Storage, Cooler, Fans)
+### AI PC Build for Local LLM Inference - BUILD COMPLETE ✅
+- **Status**: All 10 components purchased. Total spend: **£2,874.98**. Awaiting delivery and assembly.
 - **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`
-- **Coverage**: Complete market research, PCIe architecture analysis, UK pricing verification, component selection with comprehensive decision log
-- **Purpose**: Build desktop for local LLM inference (coding assistance + homework help) similar to NetworkChuck OpenWebUI setup
-- **Purchased Components** (2026-02-19):
-  - **GPU**: Asus TUF Gaming OC RTX 3090 24GB @ £699.39 - 24GB VRAM for 7B-70B models
-  - **RAM**: G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 @ £599.99 - 10ns latency, AMD EXPO certified
-  - **Motherboard**: MSI MAG X870E TOMAHAWK WIFI @ £269.99 - Latest X870E chipset, Wi-Fi 7, USB4, 5Gb LAN, x8/x8 dual GPU ready
-- **Key Decisions**:
-  - Motherboard: Selected MSI X870E (premium) over ASUS X870 (mid-tier) - better chipset for £5 less
-  - Resolved ASRock X670E Taichi availability issue (out of stock/£500+) - saved £230+
-  - RAM: Upgraded CL36 to CL30 for £0.99 more - 16% better latency
-  - Confirmed dual GPU requirement - x8/x8 PCIe 5.0 configuration perfect
-- **Technical Education Provided**: VRM explanation (voltage regulation, phases, amperage), chipset tier hierarchy (X870E vs X870 vs X670E), PCIe bandwidth requirements for AI workloads
-- **Remaining Components** (£985-1,240): CPU (£320-380), PSU (£240), Case (£175), Storage (£140-180), Cooler (£90-150), Fans (£20-55)
-- **Timeline**: Assembly ready in 2-4 weeks once all components arrive
-- **Next**: Purchase CPU/PSU/Case, decide on storage (Samsung 990 Pro vs WD Black SN850X), cooler (280mm AIO), fans
-- **Philosophy**: "Best bang for buck, add not replace" - quality components with dual GPU upgrade path
-- **Budget**: £2,200-2,400 total (revised from initial £1,500-1,800 due to UK RAM pricing reality)
-- **Confirmed Components** (£1,614-1,734):
-  - CPU: AMD Ryzen 9 7900X @ £320-380
-  - Motherboard: ASRock X670E Taichi @ £280-340
-  - RAM: 64GB DDR5-6000 CL36 @ £599 (Overclockers UK)
-  - PSU: Thermaltake Toughpower GF3 1650W @ £240 (Scan.co.uk)
-  - Case: Fractal Design Torrent @ £175
-- **Remaining Decisions**: GPU (RTX 3090 24GB @ £550-750), Storage (£140-180), Cooler (£90-150), Fans (£20-55)
-- **Current Task**: Evaluating specific eBay UK listings for ASUS TUF RTX 3090 (best for 24/7 AI workloads)
-- **Next**: Complete GPU purchase, select storage/cooler/fans, create purchase order, plan OS installation and Ollama setup
+- **Purpose**: Desktop for local LLM inference (coding assistance + homework help), dual GPU upgrade path
+- **Complete Component List**:
+  - CPU: AMD Ryzen 9 7900X + thermal paste @ £322.50
+  - Motherboard: MSI MAG X870E TOMAHAWK WIFI @ £269.99
+  - GPU: Asus TUF Gaming OC RTX 3090 24GB @ £699.39
+  - RAM: G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 @ £599.99
+  - PSU: Thermaltake Toughpower GF3 1650W @ £218.00
+  - Case: Fractal Design Torrent @ £169.99
+  - Storage: Samsung 9100 Pro 2TB PCIe 5 x2 @ £502.00
+  - CPU Cooler: Arctic Liquid Freezer III Pro 360 @ £72.00
+  - Rear Fan: 140mm exhaust @ £21.12
+- **Fan Configuration**: Front 3x120mm AIO intake + Bottom 3x140mm intake + Rear 1x140mm exhaust. 2x180mm spare.
+- **Dual GPU Upgrade**: Any RTX 3090 (any make) compatible. Founders Edition requires 12-pin adapter (included in box).
+- **Next**: Assembly → OS install (Ubuntu 24.04 or Windows 11 + WSL2) → Ollama + Open WebUI → download models
 
 ### Zero Trust Network Access (ZTNA)
 - **Status**: Research complete, deployment guides created, ready for pilot deployment
@@ -111,6 +99,15 @@ Active IT infrastructure and security documentation project with validated IT tr
 - **Coverage**: VM security, hypervisor comparison, homelab setup
 
 ## Recently Completed
+
+### Session 2026-02-19 (14:00) - AI PC Build COMPLETE
+- ✅ Purchased all remaining 7 components — build 100% complete (£2,874.98 total)
+- ✅ CPU + thermal paste @ £322.50, PSU @ £218.00 (£22 under estimate), Case @ £169.99 (£5 under estimate)
+- ✅ Storage: 2x Samsung 9100 Pro 2TB PCIe 5.0 @ £502.00 (Gen5 at Gen4 price — spotted parity on Samsung direct)
+- ✅ CPU Cooler: Arctic Liquid Freezer III Pro 360 @ £72.00 (Pro outperforms standard III, cheaper than most 360mm AIOs)
+- ✅ Rear Fan: 140mm exhaust @ £21.12 (fills only empty mount in case)
+- ✅ Key technical decisions: NAS backup over RAID 1, Gen5 storage free upgrade, 360mm AIO front-mounted (no top mount on Torrent), different RTX 3090 makes OK for dual GPU
+- ✅ Final_Build.md updated to v1.6 — complete build record with all purchases and rationale
 
 ### Session 2026-02-16 (12:30) - Enhanced Outlook Template Diagnostics & File Lock Handling
 - ✅ Deepened root cause understanding: UTF-16 LE encoding behavior, CFBF binary format, why Replace fails
@@ -228,10 +225,9 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **Complete AI PC GPU selection** - Evaluate eBay UK listings, decide on ASUS TUF RTX 3090 purchase
-2. **Finalize AI PC component selections** - Storage (Gen4 vs Gen5), CPU cooler, additional fans
-3. **Create AI PC purchase order** - Organize retailer links and purchase timeline
-4. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
+1. **AI PC assembly** - All components arriving, assemble and install OS (Ubuntu 24.04 recommended for AI)
+2. **AI PC software setup** - NVIDIA drivers, CUDA, Ollama, Open WebUI, initial model downloads (codellama:34b, mistral:7b)
+3. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
 2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
 3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh
 4. **RDP connectivity testing** - Verify automated scheduled tasks work over ZTNA

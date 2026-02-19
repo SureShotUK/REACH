@@ -2,7 +2,41 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
-## [Unreleased] - 2026-02-19
+## [Unreleased] - 2026-02-19 (Session 2)
+
+### AI PC Build Project - BUILD COMPLETE
+
+#### Purchased
+- **AMD Ryzen 9 7900X + thermal paste** @ £322.50
+- **Thermaltake Toughpower GF3 1650W PSU** @ £218.00 (£22 under estimate)
+- **Fractal Design Torrent case** @ £169.99 (£5 under estimate)
+- **Samsung 9100 Pro 2TB PCIe 5.0 x2** @ £502.00 total (Samsung direct — Gen5 at Gen4 price)
+- **Arctic Liquid Freezer III Pro 360** @ £72.00 (Pro version: 7-blade P12 fans, 38mm radiator, 4-10°C better than standard III)
+- **140mm rear exhaust fan** @ £21.12
+
+#### Total Build Spend: £2,874.98
+
+#### Key Decisions Documented
+- **Storage**: Gen5 NVMe chosen at same price as Gen4 — no AI inference benefit but no cost penalty
+- **RAID**: NAS backup strategy over RAID 1 — AI model files are re-downloadable, preserves 4TB usable
+- **Cooling**: 360mm AIO beats NH-D15 by 5-10°C under sustained loads (relevant for 24/7 AI inference)
+- **Mounting**: Fractal Torrent has no top radiator mount — AIO front-mounted, replaces 180mm fans
+- **Fan layout**: Front 3x120mm (AIO) + Bottom 3x140mm (included) + Rear 1x140mm (new). 2x180mm spare.
+- **Dual GPU**: Different RTX 3090 makes are compatible for AI workloads. Founders Edition uses 12-pin adapter.
+
+#### Changed
+- `NewPC/Final_Build.md` - Updated v1.2 → v1.6:
+  - All 10 components marked purchased with actual prices
+  - PSU, Case, CPU Cooler, Rear Fan sections replaced with selected spec tables
+  - Storage section updated to Samsung 9100 Pro Gen5 x2
+  - Cost summary updated to £2,874.98 final total
+  - Build status set to COMPLETE
+  - Full fan configuration table documented
+  - Decision log updated with all purchases and rationale
+
+---
+
+## [Unreleased] - 2026-02-19 (Session 1)
 
 ### AI PC Build Project - Major Components Purchased
 
