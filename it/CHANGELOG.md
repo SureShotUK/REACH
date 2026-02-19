@@ -2,6 +2,94 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-02-19
+
+### AI PC Build Project - Major Components Purchased
+
+#### Purchased
+- **Asus TUF Gaming OC RTX 3090 24GB** @ £699.39
+  - 24GB GDDR6X VRAM (936 GB/s bandwidth)
+  - Triple axial-tech fans with 2.9-slot cooling solution
+  - Factory overclocked: 1,860 MHz boost clock
+  - MaxContact technology: 2x larger copper contact vs reference
+  - Dual BIOS: Performance and Quiet modes
+
+- **G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30** @ £599.99
+  - Capacity: 64GB (2x32GB) for dual-channel operation
+  - Speed: DDR5-6000 MT/s (optimal for Ryzen 7000 series)
+  - Timings: CL30-36-36-96 (10ns true latency)
+  - AMD EXPO certified for one-click BIOS setup
+  - Upgraded from planned CL36 to CL30 for £0.99 more (16% better latency)
+
+- **MSI MAG X870E TOMAHAWK WIFI** @ £269.99
+  - Chipset: AMD X870E (latest premium tier, 2024)
+  - VRM: 16+2+1 phase @ 80A (1,280W capacity for 24/7 AI workloads)
+  - Dual GPU: x8/x8 PCIe 5.0 configuration (balanced for future second RTX 3090)
+  - Connectivity: Wi-Fi 7, USB4 (40Gbps), 5Gb Ethernet
+  - Memory: DDR5-8400+ support, up to 192GB
+  - Storage: 4x M.2 Gen5 slots
+  - Resolved availability issue: ASRock X670E Taichi out of stock/£500+
+
+#### Changed
+- `NewPC/Final_Build.md` - **Comprehensive updates** (Version 1.1 → 1.2):
+  - Build status updated: 3 components purchased, 6 of 9 finalized (66% complete)
+  - Decision summary expanded to include all 6 major components
+  - Motherboard section completely rewritten for MSI X870E (replaced ASRock X670E Taichi)
+  - Added VRM explanation section (what VRM is, phases, amperage, importance for 24/7 workloads)
+  - Added chipset tier comparison (X870E vs X870 vs X670E hierarchy)
+  - GPU section enhanced with Asus TUF Gaming OC specifications and features
+  - RAM section enhanced with G.SKILL Trident Z5 Neo RGB technical details
+  - Cost summary updated: £1,569.37 purchased, £985-1,240 remaining
+  - Decision log expanded with motherboard evaluation details (3 alternatives compared)
+  - Added X870E vs X670E advantages comparison
+  - Updated purchase tracking with delivery status
+
+#### Documentation
+- **Technical Explanations Added** to Final_Build.md:
+  - **VRM (Voltage Regulator Module)**:
+    - What it is and how it works (converts 12V to CPU voltage 0.9-1.4V)
+    - Phase count explanation (16+2+1 = 19 power delivery components)
+    - Amperage rating (80A per phase = 1,280W theoretical capacity)
+    - Why it matters for 24/7 AI workloads (prevents throttling, ensures stability)
+    - Analogy: Phases like cylinders in engine (more = smoother, cooler operation)
+
+  - **AMD Chipset Hierarchy**:
+    - "E" suffix meaning: "Extreme" = premium tier with more PCIe 5.0 lanes
+    - Tier comparison: X870E (premium, 2024) > X670E (premium, 2022) > X870 (mid-tier, 2024)
+    - Why newer doesn't always mean better (X870 < X670E for dual GPU support)
+    - Feature differences: PCIe 5.0 lane allocation, dual GPU support capabilities
+
+  - **PCIe Configurations for Dual GPU**:
+    - x16/x8 vs x8/x8 bandwidth comparison
+    - Performance impact for AI inference: <2% difference (GPU-bound workload)
+    - x8/x8 balanced configuration benefits for equal dual GPU performance
+    - PCIe 4.0 x8 = 15.75 GB/s bandwidth (sufficient for model loading)
+
+#### Key Decisions Documented
+- **Motherboard Selection Process**:
+  - Evaluated 3 alternatives: MSI X670E @ £229.99, ASUS X870 @ £274.99, MSI X870E @ £269.99
+  - Selected MSI X870E: Best chipset (premium X870E) at best price (£5 less than mid-tier ASUS X870)
+  - Savings: £230+ vs ASRock X670E Taichi at inflated £500+ pricing
+  - Justification: £40 premium over X670E option justified by Wi-Fi 7, USB4, 5Gb Ethernet, latest chipset
+
+- **RAM Upgrade Decision**:
+  - Chose G.SKILL Trident Z5 Neo RGB CL30 over CL36 for £0.99 more
+  - 16% better latency (10ns vs 12ns true latency)
+  - Best value decision - premium performance at budget pricing
+
+- **Dual GPU Requirement**: User confirmed intention to add second RTX 3090 later
+  - Motherboard x8/x8 PCIe 5.0 configuration verified as perfect for dual GPU
+  - No performance penalty vs x16/x8 for AI workloads
+
+#### Next Actions
+- Purchase remaining components: CPU (Ryzen 9 7900X, £320-380), PSU (Thermaltake 1650W, £240), Case (Fractal Torrent, £175)
+- Finalize storage decision: Samsung 990 Pro or WD Black SN850X (2TB NVMe Gen4, £140-180)
+- Finalize cooler: 280mm AIO (Arctic Liquid Freezer II recommended, £90-150)
+- Finalize fans: 2-3x 140mm PWM (£20-55)
+- Assembly timeline: Ready in 2-4 weeks once all components arrive
+
+---
+
 ## [Unreleased] - 2026-02-16
 
 ### Added

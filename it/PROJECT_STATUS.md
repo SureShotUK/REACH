@@ -1,9 +1,9 @@
 # IT Project Status
 
-**Last Updated**: 2026-02-16
+**Last Updated**: 2026-02-19
 
 ## Current State
-Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. Outlook template encoding issue deepened understanding: UTF-16 LE encoding behavior confirmed, enhanced diagnostic tooling created, file lock handling patterns documented. User successfully ran cleaning scripts but encountered expected file lock issue (Windows COM automation behavior) - template is cleaned, requires restart to access. Four new PowerShell scripts and comprehensive documentation created. AI PC build planning continues with component selection. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
+Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. **AI PC build project major milestone**: Three critical components purchased (GPU £699.39, RAM £599.99, Motherboard £269.99 = £1,569.37 total). Successfully resolved motherboard availability issue by evaluating X870E alternatives. Remaining components (CPU, PSU, Case, Storage, Cooler, Fans) total £985-1,240. Build 65% complete by component count, ready for assembly in 2-4 weeks. Outlook template encoding issue resolved with enhanced diagnostic tooling. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
 
 ## Active Work Areas
 
@@ -43,11 +43,24 @@ Active IT infrastructure and security documentation project with validated IT tr
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
-### AI PC Build for Local LLM Inference - Current Focus
-- **Status**: Component selection in progress, 5 of 8 components confirmed, GPU evaluation underway
+### AI PC Build for Local LLM Inference - Major Components Secured! 🎉
+- **Status**: 3 of 6 major components **PURCHASED** (GPU, RAM, Motherboard = £1,569.37), 3 confirmed (CPU, PSU, Case), 3 to decide (Storage, Cooler, Fans)
 - **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`
-- **Coverage**: Complete market research, PCIe architecture analysis, UK pricing verification, component selection with decision log
+- **Coverage**: Complete market research, PCIe architecture analysis, UK pricing verification, component selection with comprehensive decision log
 - **Purpose**: Build desktop for local LLM inference (coding assistance + homework help) similar to NetworkChuck OpenWebUI setup
+- **Purchased Components** (2026-02-19):
+  - **GPU**: Asus TUF Gaming OC RTX 3090 24GB @ £699.39 - 24GB VRAM for 7B-70B models
+  - **RAM**: G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 @ £599.99 - 10ns latency, AMD EXPO certified
+  - **Motherboard**: MSI MAG X870E TOMAHAWK WIFI @ £269.99 - Latest X870E chipset, Wi-Fi 7, USB4, 5Gb LAN, x8/x8 dual GPU ready
+- **Key Decisions**:
+  - Motherboard: Selected MSI X870E (premium) over ASUS X870 (mid-tier) - better chipset for £5 less
+  - Resolved ASRock X670E Taichi availability issue (out of stock/£500+) - saved £230+
+  - RAM: Upgraded CL36 to CL30 for £0.99 more - 16% better latency
+  - Confirmed dual GPU requirement - x8/x8 PCIe 5.0 configuration perfect
+- **Technical Education Provided**: VRM explanation (voltage regulation, phases, amperage), chipset tier hierarchy (X870E vs X870 vs X670E), PCIe bandwidth requirements for AI workloads
+- **Remaining Components** (£985-1,240): CPU (£320-380), PSU (£240), Case (£175), Storage (£140-180), Cooler (£90-150), Fans (£20-55)
+- **Timeline**: Assembly ready in 2-4 weeks once all components arrive
+- **Next**: Purchase CPU/PSU/Case, decide on storage (Samsung 990 Pro vs WD Black SN850X), cooler (280mm AIO), fans
 - **Philosophy**: "Best bang for buck, add not replace" - quality components with dual GPU upgrade path
 - **Budget**: £2,200-2,400 total (revised from initial £1,500-1,800 due to UK RAM pricing reality)
 - **Confirmed Components** (£1,614-1,734):

@@ -7,15 +7,15 @@
 **Market**: United Kingdom (all prices in GBP including VAT)
 **Build Philosophy**: Best bang for buck, future-proof (add components, not replace)
 
-**Last Updated**: February 12, 2026
+**Last Updated**: February 19, 2026 (GPU + RAM + Motherboard PURCHASED!)
 
 ---
 
 ## Build Status
 
-**Phase**: Component Selection
-**Confirmed Components**: 2 of 9
-**Remaining Decisions**: 7 components
+**Phase**: Component Purchasing (Major Components Finalized!)
+**Confirmed/Purchased**: 6 of 9 components
+**Remaining Decisions**: 3 components (Storage, Cooler, Fans)
 
 ---
 
@@ -23,8 +23,11 @@
 
 ### Decision Summary:
 - **CPU**: AMD Ryzen 9 7900X ✅
-- **Motherboard**: ASRock X670E Taichi ✅
-- **RAM**: 64GB DDR5-6000 CL36 (specific brand TBD) ✅
+- **Motherboard**: MSI MAG X870E TOMAHAWK WIFI ✅ **PURCHASED**
+- **GPU**: Asus TUF Gaming OC RTX 3090 24GB ✅ **PURCHASED**
+- **RAM**: G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 ✅ **PURCHASED**
+- **PSU**: Thermaltake Toughpower GF3 1650W ✅
+- **Case**: Fractal Design Torrent ✅
 
 ---
 
@@ -66,200 +69,170 @@
 
 ### 2. Motherboard
 
-**Selected**: ASRock X670E Taichi
+**Selected**: MSI MAG X870E TOMAHAWK WIFI
 
 | Specification | Details |
 |---------------|---------|
-| **Chipset** | AMD X670E (Premium) |
+| **Chipset** | AMD X870E (Latest Premium, 2024) |
 | **Socket** | AM5 (LGA 1718) |
 | **Form Factor** | ATX (305mm x 244mm) |
-| **VRM** | 24+2+1 phase (105A power stages) |
+| **VRM** | 16+2+1 phase (80A SPS power stages) |
 | **PCIe Slot 1** | PCIe 5.0 x16 (CPU, can run x16 or x8) |
-| **PCIe Slot 3** | PCIe 5.0 x8 (CPU, shares with Slot 1) |
-| **Dual GPU Config** | x16/x8 or x8/x8 (BIOS selectable) |
-| **M.2 Slots** | 4x M.2 (1x PCIe 5.0 + 3x PCIe 4.0) |
-| **Memory** | 4x DIMM, DDR5-6400+ (OC), up to 128GB |
-| **Networking** | 2.5Gb Ethernet + Wi-Fi 6E |
-| **USB** | 2x USB 4.0, 8x USB 3.2 Gen2, 6x USB 2.0 |
-| **Audio** | Realtek ALC4082 (7.1 channel) |
+| **PCIe Slot 2** | PCIe 5.0 x8 (CPU, shares with Slot 1) |
+| **Dual GPU Config** | x8/x8 (automatic bifurcation) |
+| **M.2 Slots** | 4x M.2 Gen5 (multiple PCIe 5.0 slots) |
+| **Memory** | 4x DIMM, DDR5-8400+ (OC), up to 192GB |
+| **Networking** | **5Gb Ethernet** + **Wi-Fi 7** |
+| **USB** | **2x USB4 (40Gbps)**, USB 3.2 Gen2 |
+| **Audio** | Realtek ALC4080 (7.1 channel) |
+| **BIOS** | MSI Click BIOS 5 (excellent UI) |
 
-**Price**: £280-340
+**Price**: £269.99 (Amazon UK)
 
 **Why This Motherboard**:
-- ✅ **PCIe Configuration**: x16/x8 mode for dual GPU (primary GPU at full speed)
-- ✅ **Excellent VRM**: 24+2+1 phase with 105A stages (handles 24/7 AI workloads, no throttling)
-- ✅ **No Lane Sharing**: M.2_1 slot independent of GPU slots (can use 2TB NVMe + dual GPU)
-- ✅ **4x M.2 Slots**: Plenty of fast storage expansion
-- ✅ **PCIe 5.0 Support**: Future-proof for next-gen GPUs
-- ✅ **Premium Build Quality**: Heatpipe-connected VRM heatsinks, reinforced PCIe slots
-- ✅ **BIOS Quality**: ASRock UEFI stable, easy bifurcation control
-- ✅ **Price-to-Feature**: Best value in X670E tier
+- ✅ **Latest X870E Chipset**: Newest premium tier (2024), future-proof
+- ✅ **Excellent VRM**: 16+2+1 phase @ 80A (perfect for 24/7 AI workloads, no throttling)
+- ✅ **x8/x8 Dual GPU**: Balanced PCIe 5.0 configuration (equal performance both GPUs)
+- ✅ **Multiple Gen5 M.2 Slots**: Latest NVMe storage support
+- ✅ **Wi-Fi 7**: Latest wireless standard (lower latency, faster speeds)
+- ✅ **USB4 Support**: 40 Gbps for fast external storage/docks
+- ✅ **5Gb Ethernet**: 2x faster than standard 2.5Gb (network storage, remote models)
+- ✅ **DDR5-8400+ Support**: Future-proof memory overclocking (your DDR5-6000 perfect)
+- ✅ **MSI Click BIOS 5**: Industry-leading BIOS interface (easy RAM EXPO setup)
+- ✅ **Outstanding Value**: Premium X870E features at competitive pricing
 
-**Dual GPU Support**:
-- Slot 1 (top): RTX 3090 #1 @ x16 or x8
-- Slot 3 (bottom): RTX 3090 #2 @ x8
-- Physical spacing: 3 slots between (adequate cooling)
+**Dual GPU Support (When You Add Second RTX 3090)**:
+- **Slot 1** (top): RTX 3090 #1 @ PCIe 5.0 x8 (15.75 GB/s)
+- **Slot 2** (middle): RTX 3090 #2 @ PCIe 5.0 x8 (15.75 GB/s)
+- **Equal bandwidth**: Balanced performance, no primary/secondary
+- **Physical spacing**: 2-3 slots between (adequate cooling)
+- **BIOS**: Automatic bifurcation when second GPU detected
 
-**Purchase Sources (UK)**:
-- Scan.co.uk: £300-330
-- Amazon UK: £310-340
-- Overclockers UK: £320-350
-- CCL Computers: £280-320
+**VRM Explanation** (Voltage Regulator Module):
+- **What it is**: Converts 12V from PSU to precise voltage CPU needs (0.9-1.4V)
+- **16+2+1 phases**: Distributes power across 19 components (cooler, more stable)
+- **80A per phase**: 1,280W theoretical capacity (7x more than Ryzen 9 7900X needs)
+- **Perfect for 24/7**: VRM stays cool under sustained AI workloads, no throttling
+- **Analogy**: More phases = more cylinders in engine (smoother, cooler operation)
 
-**Status**: ✅ **CONFIRMED**
+**X870E vs X670E Advantages**:
+- ✅ Latest chipset features and optimizations
+- ✅ Wi-Fi 7 vs Wi-Fi 6E (lower latency for remote access)
+- ✅ USB4 ports (fast external model storage at 40 Gbps)
+- ✅ 5Gb Ethernet vs 2.5Gb (faster network transfers)
+- ✅ Enhanced DDR5 support (8400+ vs 6400+)
+- ✅ Better power management and efficiency
+
+**Purchase Source**:
+- Amazon UK: £269.99
+
+**Status**: ✅ **PURCHASED** (February 19, 2026)
 
 ---
 
-## 🔍 COMPONENTS TO DECIDE
-
 ### 3. Graphics Card (GPU) - Primary
 
-**Recommended**: NVIDIA RTX 3090 24GB (Used/Refurbished)
+**Selected**: Asus TUF Gaming OC RTX 3090 24GB
 
-**Key Requirements**:
-- 24GB GDDR6X VRAM (enables 7B-70B models)
-- 936 GB/s memory bandwidth
-- PCIe 4.0 x16 interface
-- 3x 8-pin power connectors
-- Triple-fan cooling (280mm+ length)
+| Specification | Details |
+|---------------|---------|
+| **Model** | Asus TUF Gaming OC RTX 3090 24GB |
+| **Architecture** | NVIDIA Ampere (GA102) |
+| **CUDA Cores** | 10,496 |
+| **Tensor Cores** | 328 (3rd gen) |
+| **VRAM** | 24GB GDDR6X |
+| **Memory Bus** | 384-bit |
+| **Memory Bandwidth** | 936 GB/s |
+| **Base Clock** | 1,395 MHz |
+| **Boost Clock** | 1,860 MHz (OC mode) |
+| **TDP** | 350W (3x 8-pin connectors) |
+| **PCIe Interface** | PCIe 4.0 x16 |
+| **Cooling** | Triple Axial-tech fans, 2.9 slot |
+| **Length** | 299.9mm |
 
-**Options to Consider (UK Market)**:
+**Price**: £699.39 (purchased)
 
-#### Option A: Used from eBay UK (£550-750)
-**Pros**:
-- Best value (£550-650 typical)
-- Good selection available
-- PayPal/eBay buyer protection
-- UK-based sellers (faster shipping, easier returns)
+**Why This GPU**:
+- ✅ **24GB VRAM**: Enables 7B-70B models with Q4 quantization
+- ✅ **ASUS TUF Series**: Premium cooling solution with triple axial fans
+- ✅ **Excellent cooling**: 2.9-slot design with robust heatsink
+- ✅ **Military-grade components**: TUF series uses high-quality capacitors and MOSFETs
+- ✅ **OC Mode**: Factory overclocked for better performance
+- ✅ **Price**: £699.39 is excellent value (mid-range of budget)
+- ✅ **Dual GPU Ready**: Can add second TUF 3090 later for matching aesthetics
 
-**Cons**:
-- No warranty typically
-- Potential ex-mining cards
-- Thermal paste may need replacement
+**ASUS TUF Gaming Features**:
+- **Axial-tech Fan Design**: Longer fan blades with barrier ring for improved airflow
+- **MaxContact Technology**: 2x larger copper contact area vs reference cooler
+- **Dual BIOS**: Performance mode (default) and Quiet mode switch
+- **Reinforced Frame**: Full-length backplate prevents PCB flex
+- **Auto-Extreme Technology**: Automated manufacturing for better reliability
 
-**What to Check**:
-- Seller rating (98%+ positive, 50+ sales)
-- UK-based seller (avoid import fees)
-- No mining use (ask directly)
-- Clean fan bearings (no grinding noise)
-- Benchmarks/stress test results provided
-- Return policy (at least 14 days, 30 days preferred)
+**Condition**: Used/Refurbished (confirm condition when received)
 
-#### Option B: CeX (Used with Warranty) (£700-850)
-**Pros**:
-- 24-month warranty (excellent for used)
-- Tested and graded (A/B/C condition)
-- Physical stores UK-wide (easy returns)
-- Can check stock online
+**Purchase Details**:
+- **Source**: (To be documented)
+- **Purchase Date**: February 2026
+- **Warranty Status**: (To be documented)
 
-**Cons**:
-- More expensive than eBay
-- Grade B/C may have cosmetic wear
-- Limited stock (varies by location)
+**Status**: ✅ **PURCHASED**
 
-**UK Note**: CeX is UK's largest used electronics retailer with 24-month warranty on GPUs
-
-#### Option C: Facebook Marketplace / Gumtree (£500-700)
-**Pros**:
-- Potentially best prices
-- Can inspect before buying (local pickup)
-- No fees (unlike eBay)
-
-**Cons**:
-- No buyer protection
-- Higher risk of scams
-- Cash transactions typically
-- Need to test in person
-
-**Cons to watch**:
-- Meet in public place or test at seller's location
-- Bring laptop to test GPU if possible
-- Check serial number against manufacturer database
-
-**Decision Needed**:
-- [ ] Which purchase option? (eBay UK / CeX / Facebook/Gumtree)
-- [ ] Specific model preference? (ASUS TUF / EVGA FTW3 / MSI Gaming X Trio)
-- [ ] Price limit? (£550-650 / £650-750 / £750-850)
-- [ ] Warranty important? (No warranty OK / Want CeX 24-month warranty)
-
-**Estimated Price**: £550-750 (used), £700-850 (CeX with warranty)
+## 🔍 COMPONENTS TO DECIDE
 
 ---
 
 ### 4. System Memory (RAM)
 
-**Selected**: 64GB DDR5-6000 CL36 (2x 32GB) - No RGB
+**Selected**: G.SKILL Trident Z5 Neo RGB DDR5-6000 CL30 (2x 32GB)
 
-**Key Requirements**:
-- DDR5 (AM5 platform requirement)
-- 64GB capacity (sufficient for 70B models with offloading)
-- 6000 MHz speed (optimal for Ryzen 7000)
-- CL36 latency (good balance of price and performance)
-- Dual-channel (2x 32GB sticks, not 4x 16GB)
+| Specification | Details |
+|---------------|---------|
+| **Model** | G.SKILL Trident Z5 Neo RGB |
+| **Part Number** | F5-6000J3038F32GX2-TZ5NR (RGB variant) |
+| **Capacity** | 64GB (2x 32GB) |
+| **Speed** | DDR5-6000 |
+| **Timings** | CL30-36-36-96 |
+| **True Latency** | 10ns |
+| **Voltage** | 1.35V |
+| **AMD EXPO** | ✅ Yes (one-click profile) |
+| **Memory Bandwidth** | 96.0 GB/s (dual-channel) |
+| **RGB** | Yes (controllable, can be disabled) |
+| **Form Factor** | U-DIMM (288-pin) |
+| **Heat Spreader** | Aluminum with Neo design |
 
-**Confirmed Choice**: CL36 option (not premium CL30)
+**Price**: £599.99 (purchased)
 
-**Options to Consider**:
+**Why This RAM**:
+- ✅ **CL30 @ 6000 MHz**: 10ns true latency (16% faster than CL36)
+- ✅ **AMD EXPO Certified**: One-click BIOS setup, guaranteed compatibility with Ryzen 7000
+- ✅ **DDR5-6000**: Optimal frequency for AMD Ryzen 7000 series (sweet spot for stability)
+- ✅ **1.35V**: Standard voltage, less heat, easier on memory controller
+- ✅ **Premium Performance**: Better latency than CL36 for same price
+- ✅ **G.SKILL Quality**: Lifetime warranty, excellent reliability
+- ✅ **RGB Included**: No premium paid for RGB (can disable if desired)
+- ✅ **Upgrade Path**: Can add another 2x32GB kit for 128GB total
 
-#### Option A: G.Skill Ripjaws S5 DDR5-6000 CL36 (2x 32GB)
-**Specs**: 6000MHz, CL36-36-36-96, 1.35V
-**Model**: F5-6000J3636F32GX2-RS5K
-**Pros**:
-- AMD EXPO certified (one-click overclock in BIOS)
-- Good availability
-- Low-profile design (no RGB, fits under AIO)
-- G.Skill reliability
+**Performance vs Alternatives**:
+- **vs CL36 @ £599**: +16% faster latency (10ns vs 12ns) for £0.99 more
+- **vs Trident Z5 Royal CL32 @ £650**: Same 10ns latency, saves £50, better AMD support
 
-#### Option B: Corsair Vengeance DDR5-6000 CL36 (2x 32GB)
-**Specs**: 6000MHz, CL36-36-36-76, 1.35V
-**Model**: CMK64GX5M2B6000C36
-**Pros**:
-- Tighter tertiary timings (76 vs 96) - slightly faster
-- AMD EXPO certified
-- Corsair reliability/warranty
-- Low-profile, simple aesthetic
+**AMD EXPO Profile Benefits**:
+- One-click activation in ASRock BIOS
+- Pre-configured timings optimized for Ryzen
+- Automatic voltage and frequency settings
+- No manual tuning required
 
-#### Option C: Kingston Fury Beast DDR5-6000 CL36 (2x 32GB)
-**Specs**: 6000MHz, CL36-38-38-80, 1.35V
-**Model**: KF560C36BBEK2-64
-**Pros**:
-- AMD EXPO certified
-- Kingston reliability
-- Often good pricing
-- Low-profile
+**RGB Control** (Optional):
+- Can be disabled in BIOS
+- G.SKILL Trident Z Lighting Control software (Windows)
+- Motherboard RGB sync compatible
 
-**UK Market Reality** (Confirmed):
-- **Overclockers UK**: £599 for 64GB DDR5-6000 CL36 → **BEST PRICE FOUND**
-- **Scan.co.uk**: £716.99 for 64GB DDR5-6000 CL40 (worse latency!) → AVOID
-- **Amazon UK**: Checking for competitive pricing (likely £600-750)
-- **CCL Computers**: Worth checking
-- **eBuyer**: Worth checking
+**Purchase Details**:
+- **Source**: (To be documented)
+- **Purchase Date**: February 19, 2026
+- **Warranty**: Lifetime (G.SKILL standard)
 
-**Market Analysis**:
-- UK RAM prices are 2-3x higher than US market
-- £599 CL36 vs £717 CL40 → Overclockers actually competitive
-- CL36 better than CL40 for same/less money at Overclockers
-
-**RECOMMENDATION**:
-Overclockers UK @ £599 for DDR5-6000 CL36 (64GB, 2x32GB) is currently best value, unless:
-- Amazon UK has sale (check daily)
-- CCL/eBuyer has competitive pricing
-- Consider 32GB (£300-400) to save £200-300
-
-**Decision Needed**:
-- [ ] Accept £599 for 64GB CL36? (Current best option)
-- [ ] Wait for sales/deals? (May save £50-100)
-- [ ] Drop to 32GB initially? (Save £200-300, upgrade later)
-- [ ] Buy used from eBay UK/CeX? (Risky, save £100-200)
-
-**Current Best Price**: £599 @ Overclockers UK (DDR5-6000 CL36, 64GB)
-
-**Upgrade Path**: Can add another 2x 32GB kit later for 128GB total (useful for dual GPU + 180B+ models)
-
-**Why CL36 (not CL30)**:
-- CL30 premium (+$70-100) provides only ~3-5% performance gain
-- For LLM inference, CL36 is sufficient (GPU-bound workload)
-- Better value for money
+**Status**: ✅ **PURCHASED**
 
 ---
 
@@ -542,10 +515,11 @@ Overclockers UK @ £599 for DDR5-6000 CL36 (64GB, 2x32GB) is currently best valu
 |-----------|-------|-------------|--------|
 | CPU | AMD Ryzen 9 7900X | £320-380 | ✅ Confirmed |
 | Motherboard | ASRock X670E Taichi | £280-340 | ✅ Confirmed |
-| RAM | 64GB (2x32GB) DDR5-6000 CL36 | £599 | ✅ Confirmed (Overclockers UK) |
+| GPU | Asus TUF Gaming OC RTX 3090 24GB | £699.39 | ✅ **PURCHASED** |
+| RAM | G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 | £599.99 | ✅ **PURCHASED** |
 | PSU | Thermaltake Toughpower GF3 1650W | £240 | ✅ Confirmed (Scan.co.uk) |
 | Case | Fractal Design Torrent | £175 | ✅ Confirmed |
-| **Confirmed Subtotal** | | **£1,614-1,734** | |
+| **Confirmed Subtotal** | | **£2,314.38-2,434.38** | |
 
 **RAM Decision (Finalized)**:
 - **Overclockers UK: £599** (DDR5-6000 CL36, 64GB) ← **BEST PRICE**
@@ -556,48 +530,74 @@ Overclockers UK @ £599 for DDR5-6000 CL36 (64GB, 2x32GB) is currently best valu
 ### Components to Decide (UK Pricing)
 | Component | Estimated Price Range (GBP) |
 |-----------|----------------------------|
-| GPU (RTX 3090 24GB used) | £550-750 |
 | Storage (2TB NVMe Gen4) | £140-180 |
-| PSU (1000W Gold) | £130-190 |
 | CPU Cooler (280mm AIO) | £90-150 |
-| Case | £100-190 |
 | Additional Fans | £20-55 |
-| **Estimated Subtotal** | | **£1,030-1,515** |
+| **Estimated Subtotal** | **£250-385** |
 
 ### **TOTAL ESTIMATED BUILD COST (UK MARKET)**
-**£2,229-2,515** (single GPU configuration)
+**£2,554.38-2,809.38** (single GPU configuration)
 
 ### Budget Target: £2,200-2,400 (Revised for UK Market)
-**Status**: 🟢 **ON TARGET** (with mid-range component selections)
+**Status**: 🟡 **SLIGHTLY OVER BUDGET** (+£154-409 over target)
 
-**Budget Philosophy**: Best bang for buck, buy once (add later, don't replace)
-- 64GB RAM confirmed @ £599 (best UK price)
-- Plan for second GPU addition (not replacement)
-- Focus on quality components that won't need upgrading
+**Budget Reality Check**:
+- UK component prices higher than initial US-based estimates
+- **Premium motherboard chosen**: MSI X870E @ £269.99 (latest chipset, Wi-Fi 7, USB4, 5Gb LAN)
+- PSU (1650W) chosen for immediate dual-GPU readiness (eliminates future upgrade cost)
+- High-quality components prioritized for 24/7 AI workloads
+- **Major purchases complete**: GPU (£699.39) + RAM (£599.99) = £1,299.38 ✅
+- **All major components finalized**: Only storage, cooler, fans remaining
 
-**Achievable Build Cost**: £2,229-2,350 with smart mid-range choices
+**✅ PURCHASED Components** (Delivered/In Transit):
+- ✅ GPU: Asus TUF RTX 3090 @ £699.39
+- ✅ RAM: G.SKILL 64GB DDR5-6000 CL30 @ £599.99
+- ✅ Motherboard: MSI X870E TOMAHAWK WIFI @ £269.99
+- **Total Purchased**: £1,569.37 🎉
+
+**Confirmed (Ready to Purchase)**:
+- ✅ CPU: Ryzen 9 7900X @ £320-380
+- ✅ PSU: Thermaltake 1650W @ £240
+- ✅ Case: Fractal Torrent @ £175
+- **Subtotal**: £735-795
+
+**Options to Reduce Cost** (if needed):
+1. **Storage**: Use existing drive temporarily (save £140-180)
+2. **Cooler**: Start with budget air cooler instead of 280mm AIO (save £50-90)
+3. **Fans**: Skip additional fans initially (save £20-55)
+4. **Achievable Savings**: £210-325
+
+**Revised Achievable Cost**: £2,350-2,550 (within £150 of target)
 
 ---
 
 ## 🎯 NEXT STEPS
 
 ### Immediate Decisions Needed:
-1. **GPU Purchase Strategy**
-   - [ ] Set price limit ($700-750 / $750-850 / $850-900)
-   - [ ] Choose source (eBay / Micro Center / EVGA)
-   - [ ] Start monitoring listings
 
-2. **RAM Selection**
-   - [ ] Budget option (CL36, $250-280) OR Premium option (CL30, $320-360)
-   - [ ] RGB preference?
+**✅ Major Components Complete!**
+- CPU: AMD Ryzen 9 7900X (£320-380) - confirmed
+- Motherboard: MSI MAG X870E TOMAHAWK WIFI (£269.99) - **finalized**
+- GPU: Asus TUF RTX 3090 24GB (£699.39) - **purchased**
+- RAM: G.SKILL 64GB DDR5-6000 CL30 (£599.99) - **purchased**
+- PSU: Thermaltake 1650W (£240) - confirmed
+- Case: Fractal Torrent (£175) - confirmed
 
-3. **Storage Configuration**
-   - [ ] Single 2TB OR Dual drive setup?
-   - [ ] Gen4 ($160-200) OR Gen5 ($280-320)?
+**Remaining Components (£250-385)**:
 
-4. **Case Priority**
-   - [ ] Maximum airflow (Fractal Torrent)
-   - [ ] Aesthetics (Lian Li O11)
+1. **Storage - Primary Drive**
+   - [ ] Single 2TB NVMe Gen4 (£140-180)
+   - [ ] Options: Samsung 990 Pro / WD Black SN850X
+   - [ ] Secondary drive needed? (Optional: +2TB for model library)
+
+2. **CPU Cooler**
+   - [ ] 280mm AIO (£90-150) - Recommended: Arctic Liquid Freezer II 280mm
+   - [ ] Alternative: Budget air cooler (save £50-90)
+
+3. **Additional Case Fans**
+   - [ ] 2-3x 140mm PWM fans (£20-55)
+   - [ ] Options: Arctic P14 5-pack / Noctua NF-A14 / be quiet! Pure Wings
+   - [ ] Can skip initially if needed (Fractal Torrent includes good stock fans)
    - [ ] Budget (Phanteks P500A)
 
 ### Purchase Order Recommendation:
@@ -704,10 +704,25 @@ Overclockers UK @ £599 for DDR5-6000 CL36 (64GB, 2x32GB) is currently best valu
 ## 📝 NOTES & DECISIONS LOG
 
 ### Decision Log:
-- **2026-02-12**: Confirmed CPU - AMD Ryzen 9 7900X ($400-450)
-- **2026-02-12**: Confirmed Motherboard - ASRock X670E Taichi ($320-370)
-- **2026-02-12**: Confirmed RAM Type - 64GB DDR5-6000 CL36, no RGB (specific brand and current price TBD)
-- **2026-02-12**: Note - RAM prices higher than initial estimates, need current market pricing
+- **2026-02-12**: Confirmed CPU - AMD Ryzen 9 7900X (£320-380)
+- **2026-02-12**: Confirmed PSU - Thermaltake Toughpower GF3 1650W @ £240 (Scan.co.uk)
+- **2026-02-12**: Confirmed Case - Fractal Design Torrent @ £175
+- **2026-02-12**: Initial motherboard choice: ASRock X670E Taichi - later found at £500+ with stock issues
+- **2026-02-19**: ✅ **PURCHASED GPU** - Asus TUF Gaming OC RTX 3090 24GB @ £699.39
+- **2026-02-19**: ✅ **PURCHASED RAM** - G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 @ £599.99
+  - Upgraded from planned CL36 to CL30 for only £0.99 more
+  - 10ns latency vs 12ns = 16% faster memory access
+  - AMD EXPO certified for one-click BIOS setup
+  - RGB included at no premium (can be disabled)
+- **2026-02-19**: ✅ **PURCHASED MOTHERBOARD** - MSI MAG X870E TOMAHAWK WIFI @ £269.99
+  - **Chipset upgrade**: X870E (2024) instead of X670E (2022) - latest premium tier
+  - **Comparison evaluated**: MSI X670E @ £229.99 vs ASUS X870 @ £274.99 vs MSI X870E @ £269.99
+  - **Chosen MSI X870E**: Best chipset (premium) at best price (£5 less than ASUS mid-tier)
+  - **Key features**: Wi-Fi 7, USB4 (40Gbps), 5Gb Ethernet, DDR5-8400+ support
+  - **VRM**: 16+2+1 @ 80A (excellent for 24/7 AI workloads, no throttling)
+  - **Dual GPU**: x8/x8 PCIe 5.0 balanced configuration (perfect for future second RTX 3090)
+  - **Value**: £40 more than X670E budget option, but latest features justify premium
+  - **Savings**: £230+ vs ASRock Taichi at inflated £500+ pricing
 - *(Future decisions will be logged here)*
 
 ### Research References:
@@ -716,6 +731,6 @@ Overclockers UK @ £599 for DDR5-6000 CL36 (64GB, 2x32GB) is currently best valu
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: February 12, 2026
-**Next Update**: After GPU, RAM, and Storage decisions
+**Document Version**: 1.2
+**Last Updated**: February 19, 2026
+**Next Update**: After storage, cooler, and fan decisions (final 3 components)
