@@ -4,6 +4,78 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-02-19 16:00
+
+### Summary
+Created two comprehensive assembly and software setup guides for the completed AI PC build. `Assembly_Guide.md` covers the full physical build process from component preparation through BIOS configuration, with specific guidance for this exact hardware. `Software_Setup.md` covers Ubuntu 24.04 LTS installation, NVIDIA driver setup, CUDA, Docker, Ollama, and Open WebUI configuration for local LLM inference.
+
+### Work Completed
+
+- **Created `NewPC/Assembly_Guide.md`** (step-by-step hardware assembly guide):
+  - Pre-assembly checklist and anti-static safety
+  - Ordered installation sequence: CPU → RAM → M.2 drives (on board before case) → case prep → motherboard → PSU → AIO cooler → rear fan → GPU
+  - AM5 LGA socket handling (pins on board, not CPU) with alignment triangle guide
+  - RAM slot placement: A2 and B2 for dual-channel on MSI X870E TOMAHAWK WIFI
+  - M.2 heatsink removal, 2280 drive installation, heatsink replacement
+  - Arctic Liquid Freezer III Pro 360 full installation: fan-radiator-front-intake configuration, AM5 bracket, pump head mounting
+  - Fractal Torrent specific: remove 2x 180mm front fans, replace with 360mm AIO
+  - RTX 3090 GPU installation in PCIe Slot 1 with 3 separate PCIe cable guidance
+  - Complete cable connections reference table (power, fan headers, front panel)
+  - Pre-boot verification checklist (16 items)
+  - First power-on expected behaviour and failure diagnosis
+  - BIOS configuration: AMD EXPO Profile 1, Above 4G Decoding, Resizable BAR
+  - Troubleshooting table for common first-boot issues
+
+- **Created `NewPC/Software_Setup.md`** (Ubuntu 24.04 LTS AI software stack):
+  - Ubuntu 24.04 LTS installation with two-drive partitioning (Drive 1: OS, Drive 2: `/mnt/models`)
+  - `/etc/fstab` auto-mount configuration for second drive
+  - NVIDIA driver installation and verification via `nvidia-smi`
+  - CUDA toolkit installation with version verification
+  - Docker installation + NVIDIA Container Toolkit (GPU access from containers)
+  - Ollama installation, model path redirect to `/mnt/models/ollama`, network access config
+  - Open WebUI Docker container with GPU passthrough and persistent storage
+  - Model recommendations table: VRAM requirements and expected tok/s on RTX 3090 24GB
+  - Storage usage reference table (7B–70B models at Q4/Q8/FP16)
+  - Performance tuning: GPU power limit service, CPU governor, swap configuration
+  - Ollama parallel model configuration
+  - UFW firewall rules for LAN-only access to ports 3000 and 11434
+  - Auto-start verification on reboot
+  - Benchmarking and testing procedures with expected performance figures
+  - Troubleshooting section: GPU not detected, WebUI connectivity, model memory errors, thermal issues
+  - Quick reference command table for Ollama, Docker, NVIDIA, system commands
+
+### Files Changed
+- `it/NewPC/Assembly_Guide.md` - **NEW** — complete hardware assembly guide, ~300 lines
+- `it/NewPC/Software_Setup.md` - **NEW** — Ubuntu 24.04 + AI software stack setup guide, ~400 lines
+
+### Git Commits
+- `6f4242b` - End of session documentation - AI PC build complete, all components purchased (previous session)
+
+### Key Decisions
+- **Assembly order**: CPU and RAM installed on motherboard before case to maximise access
+- **AIO orientation**: Radiator front-mounted (intake), fans on outside face pulling fresh air through radiator
+- **Three separate PCIe cables**: Recommended for RTX 3090 to avoid daisy-chain power delivery issues under 350W load
+- **Two-drive layout**: Drive 1 = `/` + `/home` (OS), Drive 2 = `/mnt/models` (Ollama model library)
+- **Model store**: Ollama OLLAMA_MODELS env var redirected to second drive via systemd service edit
+- **GPU power limit**: 300W service created (85% of 350W TDP) — reduces noise/heat at ~3-5% performance cost
+- **BIOS settings documented**: EXPO for DDR5-6000 CL30 RAM, Above 4G Decoding, Resizable BAR
+
+### Reference Documents
+- `NewPC/Final_Build.md` - Source of all component specifications used in guides
+- `NewPC/Assembly_Guide.md` - Newly created
+- `NewPC/Software_Setup.md` - Newly created
+
+### Next Actions
+- [ ] Assemble the PC following Assembly_Guide.md once all components delivered
+- [ ] Install Ubuntu 24.04 following Software_Setup.md
+- [ ] Verify NVIDIA driver and CUDA are working (`nvidia-smi`)
+- [ ] Install Ollama and download first model (`llama3.2:7b` for initial test)
+- [ ] Install Open WebUI and confirm browser access
+- [ ] Run performance benchmark (7B, 32B models) and document actual tok/s on this hardware
+- [ ] Update Assembly_Guide.md and Software_Setup.md with any corrections from real installation
+
+---
+
 ## Session 2026-02-19 14:00
 
 ### Summary

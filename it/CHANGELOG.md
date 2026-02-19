@@ -2,6 +2,34 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-02-19 (Session 3)
+
+### Added
+- `NewPC/Assembly_Guide.md` — Complete hardware assembly guide for AI PC build:
+  - Pre-assembly safety and workspace setup
+  - Step-by-step installation: CPU (AM5 LGA) → RAM (A2/B2 dual-channel) → M.2 NVMe drives → case prep → motherboard → PSU → Arctic Liquid Freezer III Pro 360 (front intake) → RTX 3090 GPU
+  - Fractal Design Torrent specific: 180mm fan removal, 360mm AIO radiator front-mount configuration
+  - Complete cable connections reference (24-pin, EPS 8-pin, 3x PCIe 8-pin GPU, fan headers, front panel)
+  - Pre-boot 16-item verification checklist
+  - First power-on procedure and expected behaviour
+  - BIOS configuration: AMD EXPO Profile 1 (DDR5-6000 CL30), Above 4G Decoding, Resizable BAR
+  - Troubleshooting table for common first-boot failure modes
+- `NewPC/Software_Setup.md` — Ubuntu 24.04 LTS AI software stack setup guide:
+  - Ubuntu 24.04 installation with two-drive partitioning (Drive 1: OS `/`, Drive 2: `/mnt/models`)
+  - `/etc/fstab` persistent second-drive mount configuration
+  - NVIDIA driver installation and CUDA toolkit verification
+  - Docker + NVIDIA Container Toolkit for GPU-enabled containers
+  - Ollama with model storage redirected to second drive via systemd environment variable
+  - Open WebUI Docker container with GPU passthrough
+  - Model recommendations table (7B–70B with VRAM requirements and expected tok/s on RTX 3090)
+  - GPU power limit systemd service (300W, reduces noise ~3-5% performance cost)
+  - CPU frequency governor, swap configuration for large model offloading
+  - UFW firewall rules for LAN-only access (ports 3000, 11434)
+  - Auto-start verification, performance benchmarking, quick reference command table
+  - Troubleshooting for GPU detection, WebUI connectivity, memory errors, thermal issues
+
+---
+
 ## [Unreleased] - 2026-02-19 (Session 2)
 
 ### AI PC Build Project - BUILD COMPLETE

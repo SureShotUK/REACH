@@ -1,9 +1,9 @@
 # IT Project Status
 
-**Last Updated**: 2026-02-19
+**Last Updated**: 2026-02-19 (Session 3)
 
 ## Current State
-Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. **AI PC build project COMPLETE**: All 10 components purchased, total spend £2,874.98. Awaiting delivery and assembly. Outlook template encoding issue resolved with enhanced diagnostic tooling. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
+Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. **AI PC build project READY FOR ASSEMBLY**: All 10 components purchased (£2,874.98), hardware assembly guide and Ubuntu 24.04 software setup guide created — ready to build when components arrive. Outlook template encoding issue resolved with enhanced diagnostic tooling. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
 
 ## Active Work Areas
 
@@ -43,9 +43,9 @@ Active IT infrastructure and security documentation project with validated IT tr
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
-### AI PC Build for Local LLM Inference - BUILD COMPLETE ✅
-- **Status**: All 10 components purchased. Total spend: **£2,874.98**. Awaiting delivery and assembly.
-- **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`
+### AI PC Build for Local LLM Inference - READY FOR ASSEMBLY ✅
+- **Status**: All 10 components purchased (£2,874.98). Assembly and software guides created. Ready to build.
+- **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`, `NewPC/Assembly_Guide.md`, `NewPC/Software_Setup.md`
 - **Purpose**: Desktop for local LLM inference (coding assistance + homework help), dual GPU upgrade path
 - **Complete Component List**:
   - CPU: AMD Ryzen 9 7900X + thermal paste @ £322.50
@@ -59,7 +59,9 @@ Active IT infrastructure and security documentation project with validated IT tr
   - Rear Fan: 140mm exhaust @ £21.12
 - **Fan Configuration**: Front 3x120mm AIO intake + Bottom 3x140mm intake + Rear 1x140mm exhaust. 2x180mm spare.
 - **Dual GPU Upgrade**: Any RTX 3090 (any make) compatible. Founders Edition requires 12-pin adapter (included in box).
-- **Next**: Assembly → OS install (Ubuntu 24.04 or Windows 11 + WSL2) → Ollama + Open WebUI → download models
+- **Assembly Guide**: `NewPC/Assembly_Guide.md` — full step-by-step with cable reference, BIOS config, troubleshooting
+- **Software Guide**: `NewPC/Software_Setup.md` — Ubuntu 24.04, NVIDIA drivers, CUDA, Docker, Ollama, Open WebUI
+- **Next**: Assemble hardware → Install Ubuntu 24.04 → Configure Ollama + Open WebUI → Benchmark
 
 ### Zero Trust Network Access (ZTNA)
 - **Status**: Research complete, deployment guides created, ready for pilot deployment
@@ -99,6 +101,13 @@ Active IT infrastructure and security documentation project with validated IT tr
 - **Coverage**: VM security, hypervisor comparison, homelab setup
 
 ## Recently Completed
+
+### Session 2026-02-19 (16:00) - Assembly and Software Setup Guides Created
+- ✅ Created `NewPC/Assembly_Guide.md` — complete step-by-step hardware assembly guide for all 10 components
+- ✅ Created `NewPC/Software_Setup.md` — full Ubuntu 24.04 AI software stack setup guide
+- ✅ Assembly guide covers: CPU/RAM/M.2 installation order, Arctic 360mm AIO front-intake config, RTX 3090 GPU, cable management, first boot, BIOS (EXPO/Above4G/ResizableBAR)
+- ✅ Software guide covers: Ubuntu install with 2-drive partitioning, NVIDIA drivers, CUDA, Docker+NVIDIA toolkit, Ollama (model store on drive 2), Open WebUI, performance tuning, firewall
+- ✅ Both guides tailored to exact components purchased (MSI X870E, Fractal Torrent, Arctic LF III Pro, RTX 3090)
 
 ### Session 2026-02-19 (14:00) - AI PC Build COMPLETE
 - ✅ Purchased all remaining 7 components — build 100% complete (£2,874.98 total)
@@ -225,8 +234,8 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **AI PC assembly** - All components arriving, assemble and install OS (Ubuntu 24.04 recommended for AI)
-2. **AI PC software setup** - NVIDIA drivers, CUDA, Ollama, Open WebUI, initial model downloads (codellama:34b, mistral:7b)
+1. **AI PC assembly** - Follow `NewPC/Assembly_Guide.md` once all components delivered
+2. **AI PC software setup** - Follow `NewPC/Software_Setup.md` — Ubuntu 24.04, NVIDIA drivers, CUDA, Ollama, Open WebUI
 3. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
 2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
 3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh
@@ -267,6 +276,8 @@ None currently. All active documentation areas progressing as planned.
 - `NewPC/PCBuildResearch.md` - Comprehensive AI PC market research (1,055 lines, 74KB)
 - `NewPC/Chosen_Build.md` - Deep technical component analysis with PCIe architecture (709 lines, 55KB)
 - `NewPC/Final_Build.md` - Component selection tracker with decision log (745 lines, 30KB)
+- `NewPC/Assembly_Guide.md` - Step-by-step hardware assembly guide with cable reference and BIOS config — NEW 2026-02-19
+- `NewPC/Software_Setup.md` - Ubuntu 24.04 LTS full AI software stack setup guide — NEW 2026-02-19
 
 ### Zero Trust Network Access (ZTNA)
 - `ZTNA_Provider_Research_2026.md` - Complete market research and provider comparison (58 pages, 1,057 lines)
