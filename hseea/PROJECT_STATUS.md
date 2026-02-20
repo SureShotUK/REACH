@@ -1,17 +1,18 @@
 # Project Status
 
-**Last Updated**: 2026-02-05
+**Last Updated**: 2026-02-20
 
 ## Current State
 
-This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, and a noise assessment report with full CNAWR 2005 compliance analysis.
+This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, and now first aid needs assessments for both sites.
 
-**Recent Update**: Employee fire evacuation plan created (`FireEvacPlan.md`) — complements the fire marshal plan (`FireMarshalEvacPlan.md`) created in the previous session. Together the two documents complete the fire evacuation procedure deliverable from Year 1 Q1 of the three-year HSE plan. User has added the Toft Green evacuation route diagram to the employee plan. Both plans need to be committed and distributed; first evacuation drill should be scheduled.
+**Recent Update**: Two first aid needs assessments created using the L74 framework — `OfficeFirstAiders.md` for 1 Toft Green, York (recommends 2 EFAW first-aiders) and `FirstAidersIndEst.md` for the industrial estate site (recommends 1 FAW + 1 EFAW). Both documents include full paragraph-level citations against L74 and verified legislation.gov.uk links. The industrial estate assessment additionally covers the emergency services notification obligation and lone working procedures. Both files pending commit; training arrangements need to be made.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
 ## Active Work Areas
 
+- **First Aid Assessments**: Pending implementation — `OfficeFirstAiders.md` and `FirstAidersIndEst.md` created; need commit, training arrangements, and emergency services notification for industrial estate site
 - **Noise Assessment**: Active — `assessments/NoiseAssessment.md` finalised at LEP,d 83.1 dB(A) (1.9 dB margin to upper AV). Reg 6 two-tier structure clarified and assessment updated. Dosimetry section removed. Uncommitted edits pending. Key next steps: commit changes; investigate engineering controls for Area 1; enrol machine operator in health surveillance; consider reinstating dosimetry recommendation given remaining margin is still relatively narrow
 - **Three-Year HSE Strategic Planning**: Updated - Comprehensive 2026-2028 strategic plan revised with actual budget data
   - New file: `3_Year_HSE_Plan.md` replacing original strategic plan
@@ -34,6 +35,11 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Recently Completed
 
+- **First Aid Needs Assessments** (2026-02-20):
+  - Created `OfficeFirstAiders.md` — 1 Toft Green, York city centre office; recommends 2 EFAW first-aiders; L74 Table 1 checklist methodology with para-level citations; all legislation URLs verified
+  - Created `FirstAidersIndEst.md` — industrial estate mixed warehouse/office site; recommends 1 FAW (warehouse) + 1 EFAW (office); higher-hazard classification due to FLT and articulated truck operations; 13-mile hospital distance drives FAW recommendation; includes emergency services notification section and lone working procedures
+  - Full citation verification performed on both documents; two L74 para citations corrected in `OfficeFirstAiders.md`
+  - Pending: commit files; arrange FAW training (warehouse) and EFAW training (2 people office, 1 person industrial estate office); notify ambulance service of industrial estate site; establish lone working check-in procedure
 - **Employee Fire Evacuation Plan** (2026-02-05):
   - Created `FireEvacPlan.md` — employee-facing evacuation procedure grounded in HSWA 1974 s.7 and the Fire Safety Order 2005
   - 11 sections: alarm response, leaving the building, smoke/fire, helping others, assembly point, all-clear, common mistakes, training
@@ -113,7 +119,14 @@ None.
 
 ## Next Priorities
 
-1. **Implement Year 1 Q1 of Updated Three-Year HSE Plan** (Jan-Mar 2026):
+1. **Implement First Aid Assessments**:
+   - Arrange EFAW training for 2 office staff (1 Toft Green)
+   - Arrange FAW training for warehouse first-aider (industrial estate)
+   - Arrange EFAW training for office first-aider (industrial estate)
+   - Notify ambulance service in writing of industrial estate location and FLT/HGV hazards
+   - Establish lone working check-in procedure for industrial estate warehouse
+   - Complete accident history sections once records reviewed
+2. **Implement Year 1 Q1 of Updated Three-Year HSE Plan** (Jan-Mar 2026):
    - Engage environmental consultant for waste water assessment
    - Implement training system using Training_Matrix_Template.md
    - ~~Develop fire evacuation plans~~ — completed: `FireMarshalEvacPlan.md` (marshal duties) and `FireEvacPlan.md` (all employees); commit both, distribute to staff, and schedule first drill
@@ -137,6 +150,8 @@ None.
 ## Key Files & Structure
 
 ### Project Structure (hseea)
+- `OfficeFirstAiders.md` - First aid needs assessment, 1 Toft Green York city centre office (L74 framework)
+- `FirstAidersIndEst.md` - First aid needs assessment, industrial estate mixed site (L74 framework)
 - `FireEvacPlan.md` - Employee fire evacuation procedure (HSWA 1974 s.7 + Fire Safety Order 2005)
 - `FireMarshalEvacPlan.md` - Fire marshal evacuation procedure (Fire Safety Order 2005 compliant)
 - `/water/` - Water discharge and treatment planning documentation (EA permit applications)

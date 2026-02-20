@@ -6,6 +6,62 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-20
+
+### Summary
+Created two first aid needs assessments using the L74 (Health and Safety (First-Aid) Regulations 1981) guidance framework: one for the city centre head office (1 Toft Green, York) and one for the industrial estate site with warehouse and FLT operations. Both documents apply the L74 Table 1 checklist methodology with full paragraph-level citations, verified against the source PDF. Citation errors found during the verification pass were corrected before finalising.
+
+### Work Completed
+- Read and analysed the full L74 PDF (40 pages) to extract the needs assessment framework, Appendix 3 flow chart, and relevant guidance paragraphs
+- Created `OfficeFirstAiders.md` — first aid needs assessment for 1 Toft Green, York (25 staff, two-storey, hybrid working, city centre):
+  - Recommendation: 2 EFAW-trained first-aiders (Appendix 3: low-hazard 25–50 = min 1 EFAW)
+  - Justification: absence cover (annual leave is not "exceptional" under Reg 3(3)); two-storey building; hybrid working reduces on-site count but total employed = 25 triggers L74 para 52
+  - Known health conditions flag additional training in major illness recognition (Appendix 4, Table 3)
+  - All legislation linked to legislation.gov.uk with target="_blank"; URLs verified via WebFetch
+- Created `FirstAidersIndEst.md` — first aid needs assessment for industrial estate site (3 warehouse + up to 6 office, FLT operations, 13 miles from hospital):
+  - Recommendation: 1 FAW (warehouse) + 1 EFAW (office) first-aider
+  - Hazard classification: higher-hazard due to FLT and articulated truck operations
+  - FAW justified by: FLT injury profile (fractures, crush injuries, spinal) matches FAW syllabus (Appendix 5); 13-mile hospital distance makes on-site capability more critical; EFAW does not cover these injury types (Appendix 6)
+  - Additional training: haemostatic dressings/tourniquets for life-threatening bleeding (Appendix 4, Table 3 — remote locations)
+  - Separate buildings (office and warehouse) require independent provision (L74 para 23)
+  - Section 7: obligation to notify ambulance service in writing of location and hazards (L74 para 24)
+  - Section 8: lone working procedures — check-in system, mobile phone, warehouse lone working to be reconsidered
+- Performed full citation verification pass on both documents against the L74 PDF; corrected two inaccurate paragraph citations in `OfficeFirstAiders.md`:
+  - EFAW description was between paras 5 and 6 (unnumbered paragraph) → corrected from `[L74, para 5]` to `[L74, Guidance 3]`
+  - "Offices or shops" quote was between paras 14 and 15 (unnumbered paragraph) → corrected from `[L74, para 14]` to `[L74, p.14]`
+
+### Files Changed
+- `OfficeFirstAiders.md` — NEW: First aid needs assessment for 1 Toft Green, York city centre office (171 lines)
+- `FirstAidersIndEst.md` — NEW: First aid needs assessment for industrial estate mixed site (240 lines)
+- `guidance/First_Aid_Guidance_L74.pdf` — READ (not modified): source document for all citations
+
+### Git Commits
+- None this session (files not yet committed)
+
+### Key Decisions
+- **Office → EFAW not FAW**: Low-hazard office, sub-50 employees, city centre emergency services access — EFAW is proportionate per Appendix 3; FAW would be disproportionate
+- **Industrial estate → FAW for warehouse**: The determining factor is the injury profile of FLT/vehicle incidents (fractures, crush injuries, spinal involvement), which maps directly to the FAW extended syllabus (Appendix 5) but falls outside the EFAW syllabus (Appendix 6). The 13-mile hospital distance reinforces this
+- **Two first-aiders recommended at each site**: Primary driver at the office is absence cover; at the industrial estate it is additionally the separate buildings and hospital distance
+- **Para-level citations used throughout**: All L74 citations reference specific numbered paragraphs or appendix sections to allow verification against the source document. Two corrections confirmed that unnumbered L74 paragraphs should not be cited by the number of the nearest numbered paragraph — use section/page reference instead
+- **Citation format precedent**: For unnumbered paragraphs between two numbered paras in L74, use `[L74, Guidance 3]` (section label) or `[L74, p.X]` (page reference) rather than attributing to the nearest numbered paragraph
+
+### Reference Documents
+- `guidance/First_Aid_Guidance_L74.pdf` — L74 Third Edition (2024 amendments), HSE Books. ISBN 978 0 7176 6560 0. Full 40-page read
+- <a href="https://www.legislation.gov.uk/uksi/1981/917/regulation/3/made" target="_blank">Health and Safety (First-Aid) Regulations 1981, Regulation 3</a> — verified
+- <a href="https://www.legislation.gov.uk/uksi/1981/917/regulation/4/made" target="_blank">Health and Safety (First-Aid) Regulations 1981, Regulation 4</a> — verified
+
+### Next Actions
+- [ ] Fill in site address placeholder in `FirstAidersIndEst.md`
+- [ ] Complete accident and ill-health history sections (3.8/3.9) in both documents once records reviewed
+- [ ] Commit both new assessment files
+- [ ] Implement: identify and arrange EFAW training for 2 office staff (1 Toft Green)
+- [ ] Implement: identify and arrange FAW training for warehouse first-aider (industrial estate)
+- [ ] Implement: arrange EFAW training for office first-aider (industrial estate)
+- [ ] Implement: notify ambulance service in writing of industrial estate site location and hazards
+- [ ] Implement: establish lone working check-in procedure for industrial estate site
+
+---
+
 ## Session 2026-02-05 (2)
 
 ### Summary

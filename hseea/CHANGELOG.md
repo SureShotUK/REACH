@@ -4,6 +4,31 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-02-20
+
+### Added
+- `OfficeFirstAiders.md` — First aid needs assessment for 1 Toft Green, York city centre office (171 lines):
+  - L74 Table 1 checklist methodology applied across 8 assessment factors (hazards, employees, workforce, work patterns, distribution, remoteness, non-employees, accident history)
+  - Recommendation: 2 EFAW-trained first-aiders; justification: absence cover (para 27/81), two-storey building (para 23), hybrid working (para 4)
+  - Known health conditions flag additional illness recognition training (Appendix 4, Table 3)
+  - Minimum vs recommended provision clearly distinguished; Appendix 3 flow chart applied (low-hazard, 25–50 = min 1 EFAW)
+  - All L74 references cited at paragraph level; verified against source PDF; two citation errors corrected (see Changed below)
+  - Legislation links: Regulation 3 and Regulation 4 of the Health and Safety (First-Aid) Regulations 1981, both verified via WebFetch
+- `FirstAidersIndEst.md` — First aid needs assessment for industrial estate mixed warehouse/office site (240 lines):
+  - Higher-hazard classification due to FLT and articulated truck operations
+  - Recommendation: 1 FAW (warehouse) + 1 EFAW (office); FAW justified by FLT injury profile (Appendix 5 vs Appendix 6 comparison) and 13-mile hospital distance (para 24)
+  - Additional training: haemostatic dressings/tourniquets for life-threatening bleeding (Appendix 4, Table 3)
+  - Section 7: ambulance service written notification obligation (para 24)
+  - Section 8: lone working procedures — mobile phone, check-in system, warehouse lone working review
+  - Separate buildings (para 23) and absence cover (para 27/81) justify 2 trained personnel
+
+### Changed
+- `OfficeFirstAiders.md` (citation corrections after source verification):
+  - EFAW description citation corrected: `[L74, para 5]` → `[L74, Guidance 3]` (the EFAW description is in an unnumbered paragraph between paras 5 and 6; para 5 itself covers training/qualification/competence requirements)
+  - "Offices or shops" quote citation corrected: `[L74, para 14]` → `[L74, p.14]` (the quote is in an unnumbered paragraph between paras 14 and 15; para 14 itself reads "Using your health and safety risk assessments you will have identified the hazards...")
+
+---
+
 ## [Unreleased] - 2026-02-05 (2)
 
 ### Added
