@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-02-25
+
+### Added - Maintenance Project Created
+- **`Maintenance/` project directory** - New maintenance administration system for UK manufacturing/engineering business
+- **`Maintenance/CLAUDE.md`** - Full project documentation covering:
+  - Two sites: CITY (city centre office) and MFG (manufacturing/warehouse + portakabin offices)
+  - Four job categories: STAT, PPM, REACT, EMERG
+  - UK regulatory framework: LOLER 1998, PSSR 2000, PUWER 1998, Gas Safety Regs 1998, Electricity at Work Regs 1989, Fire Safety Order 2005, F-Gas Regulation, L8 ACoP/HSG274, HSG258 (LEV), SEMA Code of Practice
+  - System architecture: four workbook schemas (Asset Register, Compliance Schedule, Job Log, Contractor Register)
+  - Data entry standards, ID formats, working instructions for Claude
+- **`Maintenance/Compliance_Schedule.xlsx`** - Compliance register workbook:
+  - 31 pre-populated records across CITY and MFG sites
+  - Covers: gas boiler, EICR (office×5yr, industrial×3yr), fire alarm (weekly+6-monthly), emergency lighting (monthly+annual), extinguishers, F-Gas AC, Legionella (TMC, showerheads, RA, flushing), LOLER (FLT body+accessories), PSSR (examination+written scheme), SEMA racking (expert+user), PAT
+  - Auto-calculating Next Due Date (Last Completed + Interval) and Days Until Due
+  - Status formula: OVERDUE / Due Within 30 Days / Due Within 90 Days / Current / Not Scheduled
+  - Conditional formatting: colour-coded Status column; HIGH RISK rows (portakabin showers) highlighted yellow
+  - 5 items flagged ACTION REQUIRED (F-Gas CO2e, PSSR written scheme, PAT risk assessments)
+  - Data validation dropdowns (Site, Category); auto-filter; freeze panes; Instructions sheet
+- **`Maintenance/Job_Log.xlsx`** - Job tracking workbook:
+  - 21 columns covering full job lifecycle: raise → assign → progress → invoice → close
+  - 6 data validation dropdowns: Site, Category, Priority, Status, Certificate Received, Compliance Updated
+  - Conditional formatting: status colour-coded; EMERG rows highlighted pale red; overdue target dates turn red
+  - Date formatting (DD/MM/YYYY) and £ currency formatting on cost columns
+  - Auto-filter; freeze panes; 2,000-row capacity; Instructions sheet
+- **`Maintenance/build_workbooks.py`** - Python/openpyxl script to regenerate both workbooks (requires openpyxl 3.1+)
+
+### Changed
+- **`CLAUDE.md`** (root) - Added projects table listing all project directories; removed duplicate bullet-list
+
+---
+
 ## [Unreleased] - 2026-01-21
 
 ### Added - Canada Project Created

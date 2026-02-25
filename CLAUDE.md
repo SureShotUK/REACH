@@ -4,11 +4,19 @@ This file provides shared guidance to Claude Code (claude.ai/code) when working 
 
 ## Repository Structure
 
-This terminai directory contains multiple project folders, each with their own specific focus:
-- `hseea/` - Health, Safety, and Environmental Compliance knowledge
-- `it/` - IT infrastructure, virtualization, and security documentation
+This terminai directory contains multiple project folders, each with their own specific focus. Each project has its own CLAUDE.md file with project-specific instructions that supplement these shared guidelines.
 
-Each project has its own CLAUDE.md file with project-specific instructions that supplement these shared guidelines.
+## Projects
+
+| Directory | Description |
+|-----------|-------------|
+| `hseea/` | Health, Safety, and Environmental Compliance knowledge |
+| `it/` | IT infrastructure, virtualisation, and security documentation |
+| `Maintenance/` | Maintenance administration system - statutory compliance, PPM, reactive and emergency repairs, cost tracking across two sites |
+| `Canada/` | Canadian financial regulation research |
+| `REACH/` | REACH chemical regulation documentation |
+| `insurance/` | Insurance documentation |
+
 
 ## Core Principles (All Projects)
 

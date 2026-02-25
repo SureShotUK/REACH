@@ -1,14 +1,27 @@
 # Project Status
 
-**Last Updated**: 2026-01-21 06:50
+**Last Updated**: 2026-02-25
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
-The terminai repository contains six specialized project folders for domain-specific knowledge management: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), and Canada (Canadian financial compliance for UK firms). Canada project created with comprehensive guidance on international dealer exemptions, multi-jurisdictional securities regulation, and specialized research agent for CSA/provincial regulator research.
+The terminai repository contains seven specialized project folders: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the new Maintenance project (maintenance administration system for a UK manufacturing/engineering business). The Maintenance project has been initialised with CLAUDE.md and two production-ready Excel workbooks covering regulatory compliance tracking and job management across two sites.
 
 ## Active Work Areas
-- **Canada Project - Canadian Financial Compliance**: 🆕 PROJECT CREATED (2026-01-21)
+- **Maintenance Project - Maintenance Admin System**: 🆕 PROJECT CREATED (2026-02-25)
+  - `/Maintenance/` - Excel-based maintenance tracking for UK manufacturing/engineering business
+  - **Sites**: CITY (city centre office) + MFG (manufacturing/warehouse + portakabin offices)
+  - **Compliance_Schedule.xlsx**: 31 pre-populated statutory/PPM records with formulas and conditional formatting
+  - **Job_Log.xlsx**: 21-column job tracking with 6 dropdowns, status colour-coding, EMERG highlighting
+  - **Regulatory coverage**: Gas Safety, EICR, Fire Safety Order, F-Gas, L8/Legionella, LOLER, PSSR, SEMA racking, PAT
+  - **Outstanding actions** before system is live:
+    - Enter Last Completed dates in Compliance Schedule col K
+    - Confirm F-Gas CO2e charges for AC units at both sites (COMP-0008, COMP-0019)
+    - Confirm PSSR Written Scheme of Examination exists (COMP-0027, COMP-0028)
+    - Complete PAT risk assessments for both sites (COMP-0012, COMP-0031)
+    - Confirm/commission Legionella RA for MFG portakabin showers (HIGH RISK)
+  - **Next workbooks**: Asset Register + Contractor Register to be built next session
+- **Canada Project - Canadian Financial Compliance**: PROJECT CREATED (2026-01-21)
   - `/Canada/` - Canadian securities compliance for UK firms using international dealer exemption
   - **Purpose**: Navigate Canadian multi-jurisdictional securities regulation for UK-based international dealers
   - **Focus**: Section 8.18 of NI 31-103 (international dealer exemption), permitted client restrictions
@@ -108,6 +121,13 @@ The terminai repository contains six specialized project folders for domain-spec
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Maintenance Project Created** (2026-02-25) - Maintenance admin system for UK manufacturing/engineering:
+  - Created `/Maintenance/` project directory and comprehensive `CLAUDE.md`
+  - Regulatory framework documented: LOLER, PSSR, EICR, Gas Safety, F-Gas, Fire Safety Order, L8/Legionella, SEMA racking, PAT
+  - Built `Compliance_Schedule.xlsx`: 31 records covering CITY and MFG sites, auto-calculating Next Due Date and status
+  - Built `Job_Log.xlsx`: 21-column job tracking with dropdowns, colour-coded status, EMERG/overdue highlighting
+  - Built `build_workbooks.py` Python script for workbook regeneration
+  - Updated root `CLAUDE.md` with projects table
 - **Canada Project Created** (2026-01-21) - Canadian financial compliance for UK firms:
   - Created project structure with `/Canada/` folder and `.claude/` configuration
   - Developed comprehensive CLAUDE.md (10,000+ words) covering:
@@ -170,6 +190,15 @@ The terminai repository contains six specialized project folders for domain-spec
 
 ## Next Priorities
 
+### Maintenance Project (New - Immediate)
+1. Open `Compliance_Schedule.xlsx` and enter Last Completed dates for existing obligations
+2. Confirm F-Gas CO2e charges for AC units at both sites → determines inspection frequency
+3. Confirm PSSR Written Scheme of Examination is in place for compressed air system at MFG
+4. Confirm/commission Legionella risk assessment for MFG portakabin shower facilities (HIGH RISK)
+5. Complete PAT risk assessments at both sites to set formal testing frequency
+6. Build `Asset_Register.xlsx` with known assets at both sites
+7. Build `Contractor_Register.xlsx` with approved contractors
+
 ### NewCar2026 Project
 1. Verify Tesla Model 3 Long Range RWD availability for April 2026 via Tesla UK configurator
 2. Contact MG UK dealers to confirm April 2026 delivery timeline
@@ -220,7 +249,12 @@ The terminai repository contains six specialized project folders for domain-spec
 22. Document UK-Canada regulatory coordination procedures
 
 ## Key Files & Structure
-- `/terminai/CLAUDE.md` - Shared guidance for all projects
+- `/terminai/CLAUDE.md` - Shared guidance for all projects (updated 2026-02-25: projects table added)
+- `/terminai/Maintenance/` - Maintenance admin system 🆕
+  - `Maintenance/CLAUDE.md` - Project setup, regulatory framework, workbook schemas, data standards
+  - `Maintenance/Compliance_Schedule.xlsx` - 31 statutory/PPM records; auto-calculates Next Due Date and Status
+  - `Maintenance/Job_Log.xlsx` - Job tracking (STAT/PPM/REACT/EMERG); 6 dropdowns; colour-coded status
+  - `Maintenance/build_workbooks.py` - Python script to regenerate workbooks (requires openpyxl)
 - `/terminai/hseea/` - Health, Safety, and Environmental compliance knowledge
   - `/hseea/CLAUDE.md` - HSEEA-specific project guidance
   - `/hseea/.claude/agents/` - Custom agents for HSEEA domain

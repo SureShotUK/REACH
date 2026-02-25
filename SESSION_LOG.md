@@ -4,6 +4,66 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-02-25
+
+### Summary
+Created the Maintenance project from scratch: directory structure, project CLAUDE.md, and two production-ready Excel workbooks (Compliance Schedule and Job Log) for a UK manufacturing/engineering business operating two sites. The compliance schedule is pre-populated with 31 statutory and PPM records covering all known regulatory obligations. Both workbooks include formulas, data validation dropdowns, and conditional formatting ready for immediate use.
+
+### Work Completed
+- **Created `Maintenance/` project directory and `CLAUDE.md`** (project foundation):
+  - Two sites defined: `CITY` (city centre office) and `MFG` (manufacturing/warehouse + offices)
+  - Four job categories: `STAT` (Statutory), `PPM` (Planned Preventive), `REACT` (Reactive), `EMERG` (Emergency)
+  - Full UK regulatory framework documented: LOLER, PSSR, LEV, EICR, F-Gas, Gas Safety, Fire Safety Order, L8/HSG274, SEMA racking, PAT
+  - System architecture defined: Asset Register, Compliance Schedule, Job Log, Contractor Register workbooks
+  - Data entry standards: ID formats (COMP-XXXX, JOB-XXXX, SITE-CAT-NNN), date format, cost entry rules
+- **Updated root `CLAUDE.md`**:
+  - Added projects table listing all project directories with descriptions
+  - Removed duplicate bullet-list of projects
+- **Built `Maintenance/build_workbooks.py`** - Python/openpyxl script to regenerate both workbooks
+- **Built `Maintenance/Compliance_Schedule.xlsx`** - 31 pre-populated compliance records:
+  - CITY site: gas boiler, EICR, fire alarm×2, emergency lighting×2, extinguishers, F-Gas AC×2, Legionella TMC, Legionella RA, PAT
+  - MFG site: EICR, fire alarm×2, emergency lighting×2, extinguishers, F-Gas AC×2, Legionella TMC, showerhead disinfection, Legionella RA, outlet flushing, LOLER FLT body, LOLER forks/accessories, PSSR examination, PSSR written scheme, SEMA racking expert, racking user inspection, PAT
+  - Formulas: Next Due Date (from Last Completed + Interval), Days Until Due, Status
+  - Status conditional formatting: OVERDUE (red), Due ≤30 days (dark orange), Due ≤90 days (amber), Current (green), Not Scheduled (grey)
+  - HIGH RISK rows (portakabin showers) highlighted yellow
+  - 5 items flagged `ACTION REQUIRED`: F-Gas CO2e confirmation ×2, PAT risk assessment ×2, PSSR written scheme ×2
+  - Data validation dropdowns: Site, Category; auto-filter; freeze panes; Instructions sheet
+- **Built `Maintenance/Job_Log.xlsx`** - 21-column job tracking workbook:
+  - 6 data validation dropdowns: Site, Category, Priority, Status, Certificate Received, Compliance Updated
+  - Status conditional formatting: Open (pale blue), In Progress (amber), Pending Invoice (orange), Closed (green), Cancelled (grey)
+  - EMERG rows highlighted pale red across full row
+  - Overdue target dates (still open) highlighted red
+  - Date and £ currency formatting on relevant columns
+  - Auto-filter; freeze panes; Instructions sheet
+
+### Files Changed
+- `Maintenance/CLAUDE.md` - Created: full project setup documentation for maintenance admin system
+- `Maintenance/build_workbooks.py` - Created: Python/openpyxl script to build Excel workbooks
+- `Maintenance/Compliance_Schedule.xlsx` - Created: compliance register with 31 records, formulas, CF
+- `Maintenance/Job_Log.xlsx` - Created: job log with 21 columns, 6 dropdowns, conditional formatting
+- `CLAUDE.md` - Updated: added projects table; removed duplicate project bullet list
+
+### Key Decisions
+- **Excel/Microsoft 365 system** (not web app): lower deployment overhead, accessible to admin staff without IT involvement
+- **Two-workbook approach to start**: Compliance Schedule and Job Log built first; Asset Register and Contractor Register to follow
+- **Formulas over macros**: Next Due Date auto-calculates from Last Completed + Interval; no VBA required
+- **Interval = 0 means risk-assessed**: cells with no fixed interval left blank in J column so status shows "Not Scheduled" until user enters Next Due Date manually
+- **Portakabin showers = higher Legionella risk**: flagged HIGH RISK across 3 rows (TMC, showerhead disinfection, RA); note that portakabin water systems have low thermal mass
+- **F-Gas CO2e charge confirmation required** before inspection frequency can be set for either site's AC units
+- **PSSR written scheme confirmation required** before compressed air system can be scheduled
+
+### Next Actions
+- [ ] Open `Compliance_Schedule.xlsx` and enter Last Completed dates (col K) for each obligation already met
+- [ ] Confirm F-Gas refrigerant type and CO2e charge for AC units at both sites - required to set inspection frequency (COMP-0008, COMP-0019)
+- [ ] Confirm PSSR Written Scheme of Examination exists for compressed air system at MFG (COMP-0027, COMP-0028)
+- [ ] Complete PAT risk assessments for both sites to set formal frequency (COMP-0012, COMP-0031)
+- [ ] Confirm whether Legionella risk assessment is in place for MFG portakabin showers - if not, this is the first job to raise
+- [ ] Build Asset Register workbook (`Asset_Register.xlsx`) with known assets populated
+- [ ] Build Contractor Register workbook (`Contractor_Register.xlsx`)
+- [ ] Raise first jobs in Job Log for any obligations that are already overdue or due soon
+
+---
+
 ## Session 2026-01-21 06:45
 
 ### Summary
