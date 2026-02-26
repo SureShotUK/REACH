@@ -1,17 +1,18 @@
 # Project Status
 
-**Last Updated**: 2026-02-20
+**Last Updated**: 2026-02-26
 
 ## Current State
 
-This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, and now first aid needs assessments for both sites.
+This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, first aid needs assessments for both sites, and now fire door compliance analysis.
 
-**Recent Update**: Two first aid needs assessments created using the L74 framework — `OfficeFirstAiders.md` for 1 Toft Green, York (recommends 2 EFAW first-aiders) and `FirstAidersIndEst.md` for the industrial estate site (recommends 1 FAW + 1 EFAW). Both documents include full paragraph-level citations against L74 and verified legislation.gov.uk links. The industrial estate assessment additionally covers the emergency services notification obligation and lone working procedures. Both files pending commit; training arrangements need to be made.
+**Recent Update**: Fire door compliance research and documentation completed. A fire risk assessor's findings regarding BS 476-22 and cold smoke seals were reviewed. The assessor's stated rationale was found to be technically inaccurate (BS 476-22 does not require cold smoke seals), though the underlying concern about escape route doors lacking FD30S rating is likely correct for a 2-storey office under ADB Table B1. Created `Fire/ND_FireDoors.md` documenting the correct compliance position, applicable legislation, and recommended actions.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
 ## Active Work Areas
 
+- **Fire Door Compliance**: Active — `Fire/ND_FireDoors.md` created. Need to: confirm which doors are on protected escape routes; challenge fire risk assessment wording; engage fire door specialist to assess FD30S upgrade options; establish inspection regime
 - **First Aid Assessments**: Pending implementation — `OfficeFirstAiders.md` and `FirstAidersIndEst.md` created; need commit, training arrangements, and emergency services notification for industrial estate site
 - **Noise Assessment**: Active — `assessments/NoiseAssessment.md` finalised at LEP,d 83.1 dB(A) (1.9 dB margin to upper AV). Reg 6 two-tier structure clarified and assessment updated. Dosimetry section removed. Uncommitted edits pending. Key next steps: commit changes; investigate engineering controls for Area 1; enrol machine operator in health surveillance; consider reinstating dosimetry recommendation given remaining margin is still relatively narrow
 - **Three-Year HSE Strategic Planning**: Updated - Comprehensive 2026-2028 strategic plan revised with actual budget data
@@ -34,6 +35,14 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 - **Assessment Templates**: Not started - Risk, COSHH, DSE templates needed (next priority after strategic plan implementation begins)
 
 ## Recently Completed
+
+- **Fire Door Compliance Analysis** (2026-02-26):
+  - Created `Fire/ND_FireDoors.md` — comprehensive fire door compliance reference for 2-storey office building
+  - Identified technical inaccuracy in fire risk assessor's report: BS 476-22 does not require cold smoke seals
+  - Clarified that FD30S designation (fire + smoke) is required under ADB Table B1 for stairway/corridor escape route doors
+  - Confirmed BS 476-22 validity until September 2029; BS EN 1634-1 mandatory for new installations from that date
+  - Documented legal status of BS 8214:2016 (code of practice, not statute)
+  - Pending: confirm door locations; challenge assessor wording; engage specialist for FD30S upgrade assessment
 
 - **First Aid Needs Assessments** (2026-02-20):
   - Created `OfficeFirstAiders.md` — 1 Toft Green, York city centre office; recommends 2 EFAW first-aiders; L74 Table 1 checklist methodology with para-level citations; all legislation URLs verified
@@ -119,7 +128,12 @@ None.
 
 ## Next Priorities
 
-1. **Implement First Aid Assessments**:
+1. **Resolve Fire Door Compliance**:
+   - Confirm which doors are on protected escape routes (stairway enclosures, protected corridors)
+   - Challenge fire risk assessment wording (stated basis is technically incorrect)
+   - Engage fire door specialist to assess FD30S upgrade options for escape route doors
+   - Implement fire door inspection regime with written records (RRO Article 17)
+2. **Implement First Aid Assessments**:
    - Arrange EFAW training for 2 office staff (1 Toft Green)
    - Arrange FAW training for warehouse first-aider (industrial estate)
    - Arrange EFAW training for office first-aider (industrial estate)
@@ -150,6 +164,8 @@ None.
 ## Key Files & Structure
 
 ### Project Structure (hseea)
+- `/Fire/` - Fire safety documentation
+  - `ND_FireDoors.md` - Fire door compliance analysis (BS 476-22, FD30S, cold smoke seals, ADB Table B1)
 - `OfficeFirstAiders.md` - First aid needs assessment, 1 Toft Green York city centre office (L74 framework)
 - `FirstAidersIndEst.md` - First aid needs assessment, industrial estate mixed site (L74 framework)
 - `FireEvacPlan.md` - Employee fire evacuation procedure (HSWA 1974 s.7 + Fire Safety Order 2005)

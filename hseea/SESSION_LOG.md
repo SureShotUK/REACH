@@ -6,6 +6,44 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-26
+
+### Summary
+Research and documentation session focused on fire door compliance. Investigated a fire risk assessor's findings regarding BS 476-22 compliance and cold smoke seals. Identified a technical inaccuracy in the assessor's stated rationale and documented the correct compliance position for a 2-storey office building under Approved Document B and the Regulatory Reform (Fire Safety) Order 2005.
+
+### Work Completed
+- Researched BS 476-22, BS 476-31.1, BS 8214:2016, Approved Document B (2019 + 2024 amendments), and the RRO 2005 in the context of fire door compliance
+- Identified that the fire risk assessor's stated reason ("doors don't comply with BS 476-22 due to lack of cold smoke seal") is technically incorrect — BS 476-22 is a fire resistance test only and does not require cold smoke seals
+- Identified that the assessor's underlying concern (escape route doors needing FD30S) is likely substantively correct for a 2-storey office building under ADB Table B1
+- Clarified that BS 8214:2016 is a code of practice, not statute — it does not itself impose legal obligations
+- Documented current validity of BS 476-22 (valid until September 2029 removal from ADB) and future transition to BS EN 1634-1
+- Created `Fire/ND_FireDoors.md` — comprehensive fire door compliance reference document
+
+### Files Changed
+- `Fire/ND_FireDoors.md` - Created: fire door compliance analysis covering BS 476-22, FD30 vs FD30S, cold smoke seals, BS 8214, ADB Table B1 requirements, and recommended actions
+
+### Git Commits
+- No new commits this session (file created, pending commit with end-of-session docs)
+
+### Key Decisions
+- The fire risk assessor's wording should be challenged — the correct framing is that escape route doors may not achieve FD30S (not that they fail BS 476-22)
+- Retrofitting combined intumescent/smoke seal strips is only valid if the specific door assembly has been tested with that seal type — this caveat is documented
+- BS 476-22 remains valid for existing installed doors; no requirement to upgrade simply due to the 2029 phase-out
+
+### Reference Documents
+- `Fire/ND_FireDoors.md` — fire door compliance analysis (created this session)
+- Approved Document B 2019 (+ March 2024 amendments) — ADB Table B1 specifies FD30 vs FD30S by location
+- Regulatory Reform (Fire Safety) Order 2005 (SI 2005/1541) — Articles 8–22 and Article 17
+- BS 476-22:1987, BS 476-31.1, BS 8214:2016, BS EN 1634-1, BS EN 1634-3 (referenced, not held locally)
+
+### Next Actions
+- [ ] Confirm which specific doors in the building are on protected escape routes (stairway enclosures, corridor subdivisions)
+- [ ] Engage a fire door specialist to assess whether existing door assemblies can be certified FD30S with combined intumescent/smoke seal strips
+- [ ] Challenge the wording of the fire risk assessment report to correct the stated basis for non-compliance
+- [ ] Implement a fire door inspection regime with written records under RRO Article 17
+
+---
+
 ## Session 2026-02-20
 
 ### Summary

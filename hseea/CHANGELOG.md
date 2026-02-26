@@ -4,6 +4,21 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-02-26
+
+### Added
+- `Fire/ND_FireDoors.md` — Fire door compliance analysis for 2-storey office building:
+  - Evaluates fire risk assessor's findings against BS 476-22, BS 476-31.1, BS 8214:2016, Approved Document B (ADB), and the Regulatory Reform (Fire Safety) Order 2005
+  - Explains technical distinction between intumescent strips (FD30) and cold smoke seals (FD30S designation)
+  - Confirms that BS 476-22 is a fire resistance test only and does not require cold smoke seals
+  - Identifies ADB Table B1 requirement for FD30S at stairway enclosures and corridor subdivisions
+  - Clarifies BS 8214:2016 legal status (code of practice, not statute)
+  - Confirms BS 476-22 validity until September 2029; BS EN 1634-1 mandatory for new doors from that date
+  - Includes recommended actions with caveat on seal retrofitting and tested assembly requirements
+  - Full legislation and standards reference table with verified HTML links
+
+---
+
 ## [Unreleased] - 2026-02-20
 
 ### Added
