@@ -6,6 +6,61 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-27 (2)
+
+### Summary
+Created a staff-facing practical guide on dealing with violence and aggression (`HTDW_Violence.md`), structured in three role-specific chapters (office, warehouse, drivers), and produced a companion Word document incident report form (`Incident_Report_Form.docx`). Established that the document reference abbreviation for Violence and Aggression is **VAA** (not VAG) throughout this project.
+
+### Work Completed
+- Researched best practice structure for staff-facing violence guides using the gemini-hseea-researcher agent (HSE violence hub, INDG73 rev4, INDG69 R8, ACAS guidance, de-escalation techniques, lone worker procedures)
+- Gathered user preferences via clarifying questions: placeholders for company name; role titles only (no named contacts); include incident report template; standard professional tone
+- Created `Violence/HTDW_Violence.md` — staff guide "How to Deal with Violence and Aggression" (342 lines):
+  - Introduction and five unconditional staff rights stated plainly
+  - Chapter 1 (Office Staff): 3 sub-sections — abusive telephone calls (numbered steps), abusive emails, aggressive visitors on premises
+  - Chapter 2 (Warehouse Operatives): dealing with aggressive third-party drivers and contractors at loading bay
+  - Chapter 3 (Delivery Drivers): pre-delivery check-in procedure, if something feels wrong on arrival, if threatened during delivery, right to refuse a delivery
+  - Unified incident reporting section covering all staff groups (24-hour requirement, all incident types listed)
+  - Management commitments after an incident (support, counselling, police decision, RA review)
+  - Appendix A: Incident Report Form in markdown
+- Created `Violence/Incident_Report_Form.docx` — standalone Word document incident report form (HTDW-VAA-001-F1, 39 KB):
+  - 8 sections: reporter details, incident details (with tick-box type list), description (free-text blocks), other person involved, witnesses, outcome (Yes/No tick rows), additional information, declaration/signatures
+  - "For Management Use Only" block: RIDDOR-reportable flag, RA review flag, follow-up notes, close-out sign-off
+  - Built programmatically using python-docx with consistent formatting and shading
+- Established document reference convention: **VAA** (not VAG) for all Violence and Aggression documents — VAG may cause offence
+- Updated `HTDW_Violence.md` references from HTDW-VAG-001 to HTDW-VAA-001 accordingly
+
+### Files Changed
+- `hseea/Violence/HTDW_Violence.md` — created: staff-facing violence and aggression guide (3 chapters)
+- `hseea/Violence/Incident_Report_Form.docx` — created: Word incident report form (HTDW-VAA-001-F1)
+
+### Git Commits
+- `1161497` — End of session documentation - Violence and aggression risk assessment created *(previous session)*
+
+### Key Decisions
+- **VAA not VAG**: Document reference abbreviation for Violence and Aggression is VAA throughout this project; VAG may cause offence
+- **Role titles only** for contacts in the staff guide — no named individuals, keeping the document generic until the company completes the placeholders
+- **Chapter 3 (Drivers) is the most detailed** chapter, consistent with the risk assessment's designation of driver lone working as the highest-risk scenario
+- De-escalation guidance kept to practical non-specialist level (no conflict management training assumed)
+- Incident report form built as a separate standalone Word document for ease of printing and distribution
+
+### Reference Documents
+- `Violence/Violence_Aggression_Risk_Assessment.md` — source risk assessment (VA-RA-001)
+- `Violence/Violence_Policy_Excerpt.md` — company policy source
+- `Violence/HTDW_Violence.md` — staff guide (HTDW-VAA-001)
+- `Violence/Incident_Report_Form.docx` — incident report form (HTDW-VAA-001-F1)
+- HSE violence hub: hse.gov.uk/violence (updated October 2025)
+- INDG73(rev4): Protecting Lone Workers (HSE, March 2020)
+- INDG69(R8): Violence at Work — A Guide for Employers (HSE, 2006/2010)
+
+### Next Actions
+- [ ] Fill in [FILL IN] placeholders in `HTDW_Violence.md` (company name, approver)
+- [ ] Fill in [FILL IN] placeholders in `Violence_Aggression_Risk_Assessment.md` (company name, assessor, target dates)
+- [ ] Implement priority actions from RA: A4 (driver check-in), A5 (driver right to refuse), A2 (abusive call procedure), A6c (lone worker on-site check-in), A9 (incident log)
+- [ ] Brief all staff using `HTDW_Violence.md` as the core document
+- [ ] Distribute `Incident_Report_Form.docx` to all staff and confirm location of completed forms
+
+---
+
 ## Session 2026-02-27
 
 ### Summary

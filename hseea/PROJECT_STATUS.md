@@ -6,13 +6,13 @@
 
 This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, first aid needs assessments for both sites, fire door compliance analysis, and now a violence and aggression risk assessment.
 
-**Recent Update**: Violence and aggression risk assessment created for a 10-person B2B company. Five scenarios assessed (business visitors, abusive phone/email, drivers as lone workers at customer sites, lone working on premises, warehouse/contractor interactions). 15 actions identified. Driver lone working is the highest-risk scenario (Medium, 6); all other scenarios rated Low. Documents created: `Violence/CLAUDE.md`, `Violence/Violence_Aggression_Risk_Assessment.md`, and `Violence/Violence_Risk_Assessment.csv`.
+**Recent Update**: Violence and aggression staff guide and incident report form created. `Violence/HTDW_Violence.md` provides role-specific guidance for all three staff groups (office, warehouse, drivers). `Violence/Incident_Report_Form.docx` provides a standalone Word incident report form (HTDW-VAA-001-F1). Document reference abbreviation confirmed as **VAA** (not VAG) throughout this project.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
 ## Active Work Areas
 
-- **Violence Risk Assessment**: Active — `Violence/Violence_Aggression_Risk_Assessment.md` created (first draft). Need to: fill in [FILL IN] placeholders (company name, assessor, target dates); implement 15 actions, prioritising A4 (driver check-in), A5 (driver right to refuse), A2 (abusive call procedure), A6c (lone worker on-site), A9 (incident log); brief all staff
+- **Violence and Aggression**: Active — core documents complete. Staff guide (`HTDW_Violence.md`) and incident report form (`Incident_Report_Form.docx`) created. Need to: fill in placeholders; implement 15 RA actions (A4, A5, A2, A6c, A9 priority); brief all staff using the guide; distribute incident report form
 - **Fire Door Compliance**: Active — `Fire/ND_FireDoors.md` created. Need to: confirm which doors are on protected escape routes; challenge fire risk assessment wording; engage fire door specialist to assess FD30S upgrade options; establish inspection regime
 - **First Aid Assessments**: Pending implementation — `OfficeFirstAiders.md` and `FirstAidersIndEst.md` created; need commit, training arrangements, and emergency services notification for industrial estate site
 - **Noise Assessment**: Active — `assessments/NoiseAssessment.md` finalised at LEP,d 83.1 dB(A) (1.9 dB margin to upper AV). Reg 6 two-tier structure clarified and assessment updated. Dosimetry section removed. Uncommitted edits pending. Key next steps: commit changes; investigate engineering controls for Area 1; enrol machine operator in health surveillance; consider reinstating dosimetry recommendation given remaining margin is still relatively narrow
@@ -37,12 +37,17 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Recently Completed
 
+- **Violence and Aggression Staff Guide and Incident Form** (2026-02-27):
+  - Created `Violence/HTDW_Violence.md` — staff guide (HTDW-VAA-001): 3 chapters (office/warehouse/drivers), 5 rights, numbered step sequences, incident reporting, management support commitments, Appendix A incident report form
+  - Created `Violence/Incident_Report_Form.docx` — standalone Word incident report form (HTDW-VAA-001-F1): 8 sections including management-use block, RIDDOR flag, Yes/No tick rows
+  - Confirmed document reference abbreviation: **VAA** (not VAG) to avoid potential offence
+  - Pending: fill in placeholders; brief all staff; distribute form; implement priority RA actions
+
 - **Violence and Aggression Risk Assessment** (2026-02-27):
   - Created `Violence/CLAUDE.md` — project context documenting business profile, employee groups, key scenarios, outstanding actions, and regulatory references
   - Created `Violence/Violence_Aggression_Risk_Assessment.md` — full narrative risk assessment (5 scenarios, 15 actions, RIDDOR thresholds, post-incident support, training, review)
   - Created `Violence/Violence_Risk_Assessment.csv` — 15-row CSV for Excel/tracking use (one row per action, all risk data)
   - Highest-risk scenario: drivers as lone workers at customer sites (Medium, score 6); all others Low
-  - Pending: fill in placeholders; set target dates; implement priority actions; brief staff
 
 - **Fire Door Compliance Analysis** (2026-02-26):
   - Created `Fire/ND_FireDoors.md` — comprehensive fire door compliance reference for 2-storey office building
@@ -136,11 +141,11 @@ None.
 
 ## Next Priorities
 
-1. **Complete Violence Risk Assessment**:
-   - Fill in all [FILL IN] placeholders (company name, site addresses, assessor name, approver name)
-   - Set target dates for all 15 actions
+1. **Complete and Issue Violence and Aggression Documents**:
+   - Fill in [FILL IN] placeholders in `HTDW_Violence.md` and `Violence_Aggression_Risk_Assessment.md`
+   - Set target dates for all 15 RA actions
    - Implement priority actions: A4 (driver check-in), A5 (driver right to refuse delivery), A2 (abusive call procedure), A6c (lone worker on-site check-in), A9 (incident log)
-   - Brief all staff on findings and role-specific controls
+   - Brief all staff using `HTDW_Violence.md`; distribute `Incident_Report_Form.docx`
 2. **Resolve Fire Door Compliance**:
    - Confirm which doors are on protected escape routes (stairway enclosures, protected corridors)
    - Challenge fire risk assessment wording (stated basis is technically incorrect)
@@ -177,11 +182,14 @@ None.
 ## Key Files & Structure
 
 ### Project Structure (hseea)
-- `/Violence/` - Violence and aggression risk assessment
+- `/Violence/` - Violence and aggression compliance documents
   - `CLAUDE.md` — Project context and business profile
-  - `Violence_Aggression_Risk_Assessment.md` — Full narrative risk assessment (5 scenarios, 15 actions)
+  - `Violence_Aggression_Risk_Assessment.md` — Full narrative risk assessment (VA-RA-001; 5 scenarios, 15 actions)
   - `Violence_Risk_Assessment.csv` — CSV extract for Excel/tracking (15 rows, one per action)
   - `Violence_Policy_Excerpt.md` — Company policy source document
+  - `HTDW_Violence.md` — Staff guide: How to Deal with Violence and Aggression (HTDW-VAA-001; 3 chapters)
+  - `Incident_Report_Form.docx` — Standalone Word incident report form (HTDW-VAA-001-F1)
+  - **Note**: Document reference abbreviation is **VAA** (Violence and Aggression), not VAG
 - `/Fire/` - Fire safety documentation
   - `ND_FireDoors.md` - Fire door compliance analysis (BS 476-22, FD30S, cold smoke seals, ADB Table B1)
 - `OfficeFirstAiders.md` - First aid needs assessment, 1 Toft Green York city centre office (L74 framework)

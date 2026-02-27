@@ -4,6 +4,33 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-02-27 (2)
+
+### Added
+- `Violence/HTDW_Violence.md` — Staff guide "How to Deal with Violence and Aggression" (HTDW-VAA-001, 342 lines):
+  - Introduction with 5 unconditional staff rights stated plainly (right to refuse, withdraw, call police, report, receive support)
+  - Chapter 1 (Office Staff): abusive telephone calls (one-warning/end-call procedure), abusive emails (escalate to manager, do not reply), aggressive visitors on premises (de-escalation steps, when to call 999)
+  - Chapter 2 (Warehouse Operatives): dealing with aggressive third-party drivers and contractors; get supervisor, do not argue, step back, do not block vehicle
+  - Chapter 3 (Delivery Drivers): pre-delivery check-in procedure; if something feels wrong on arrival; if threatened during delivery (numbered steps); explicit right to refuse delivery without repercussion
+  - Unified reporting section: 24-hour requirement, all incident types listed, all staff groups covered
+  - Management support commitments: first aid, time off, counselling, police decision support, RA review
+  - Appendix A: Incident Report Form embedded in guide
+- `Violence/Incident_Report_Form.docx` — Standalone Word document incident report form (HTDW-VAA-001-F1, 39 KB):
+  - 8 sections: reporter details, incident details (with tick-box type list including near miss), narrative description, other person, witnesses, outcome (Yes/No tick rows for injury/police/medical), additional information, declaration with dual signature block
+  - "For Management Use Only" block: RIDDOR-reportable flag, RIDDOR reference, RA review flag, follow-up notes, close-out sign-off
+  - Cross-references VA-RA-001 (risk assessment)
+  - Built programmatically using python-docx
+
+### Changed
+- `Violence/HTDW_Violence.md`: document references updated from HTDW-VAG-001 to HTDW-VAA-001 (VAA is the project-wide abbreviation for Violence and Aggression; VAG may cause offence)
+
+### Documentation
+- Confirmed document reference convention: all Violence and Aggression documents use **VAA** abbreviation (not VAG)
+- Staff guide operationalises all 15 actions from VA-RA-001, particularly: A1 (office visitor procedure), A2 (abusive call procedure), A4 (driver check-in), A5 (driver right to refuse), A10 (driver threatened procedure), A6c (lone worker on-site check-in), A9 (incident log)
+- De-escalation guidance pitched at non-specialist level: acknowledge/don't argue, offer concrete next step, get colleague/supervisor, disengage if nothing works
+
+---
+
 ## [Unreleased] - 2026-02-27
 
 ### Added
