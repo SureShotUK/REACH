@@ -1,17 +1,18 @@
 # Project Status
 
-**Last Updated**: 2026-02-26
+**Last Updated**: 2026-02-27
 
 ## Current State
 
-This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, first aid needs assessments for both sites, and now fire door compliance analysis.
+This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, first aid needs assessments for both sites, fire door compliance analysis, and now a violence and aggression risk assessment.
 
-**Recent Update**: Fire door compliance research and documentation completed. A fire risk assessor's findings regarding BS 476-22 and cold smoke seals were reviewed. The assessor's stated rationale was found to be technically inaccurate (BS 476-22 does not require cold smoke seals), though the underlying concern about escape route doors lacking FD30S rating is likely correct for a 2-storey office under ADB Table B1. Created `Fire/ND_FireDoors.md` documenting the correct compliance position, applicable legislation, and recommended actions.
+**Recent Update**: Violence and aggression risk assessment created for a 10-person B2B company. Five scenarios assessed (business visitors, abusive phone/email, drivers as lone workers at customer sites, lone working on premises, warehouse/contractor interactions). 15 actions identified. Driver lone working is the highest-risk scenario (Medium, 6); all other scenarios rated Low. Documents created: `Violence/CLAUDE.md`, `Violence/Violence_Aggression_Risk_Assessment.md`, and `Violence/Violence_Risk_Assessment.csv`.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
 ## Active Work Areas
 
+- **Violence Risk Assessment**: Active — `Violence/Violence_Aggression_Risk_Assessment.md` created (first draft). Need to: fill in [FILL IN] placeholders (company name, assessor, target dates); implement 15 actions, prioritising A4 (driver check-in), A5 (driver right to refuse), A2 (abusive call procedure), A6c (lone worker on-site), A9 (incident log); brief all staff
 - **Fire Door Compliance**: Active — `Fire/ND_FireDoors.md` created. Need to: confirm which doors are on protected escape routes; challenge fire risk assessment wording; engage fire door specialist to assess FD30S upgrade options; establish inspection regime
 - **First Aid Assessments**: Pending implementation — `OfficeFirstAiders.md` and `FirstAidersIndEst.md` created; need commit, training arrangements, and emergency services notification for industrial estate site
 - **Noise Assessment**: Active — `assessments/NoiseAssessment.md` finalised at LEP,d 83.1 dB(A) (1.9 dB margin to upper AV). Reg 6 two-tier structure clarified and assessment updated. Dosimetry section removed. Uncommitted edits pending. Key next steps: commit changes; investigate engineering controls for Area 1; enrol machine operator in health surveillance; consider reinstating dosimetry recommendation given remaining margin is still relatively narrow
@@ -35,6 +36,13 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 - **Assessment Templates**: Not started - Risk, COSHH, DSE templates needed (next priority after strategic plan implementation begins)
 
 ## Recently Completed
+
+- **Violence and Aggression Risk Assessment** (2026-02-27):
+  - Created `Violence/CLAUDE.md` — project context documenting business profile, employee groups, key scenarios, outstanding actions, and regulatory references
+  - Created `Violence/Violence_Aggression_Risk_Assessment.md` — full narrative risk assessment (5 scenarios, 15 actions, RIDDOR thresholds, post-incident support, training, review)
+  - Created `Violence/Violence_Risk_Assessment.csv` — 15-row CSV for Excel/tracking use (one row per action, all risk data)
+  - Highest-risk scenario: drivers as lone workers at customer sites (Medium, score 6); all others Low
+  - Pending: fill in placeholders; set target dates; implement priority actions; brief staff
 
 - **Fire Door Compliance Analysis** (2026-02-26):
   - Created `Fire/ND_FireDoors.md` — comprehensive fire door compliance reference for 2-storey office building
@@ -128,7 +136,12 @@ None.
 
 ## Next Priorities
 
-1. **Resolve Fire Door Compliance**:
+1. **Complete Violence Risk Assessment**:
+   - Fill in all [FILL IN] placeholders (company name, site addresses, assessor name, approver name)
+   - Set target dates for all 15 actions
+   - Implement priority actions: A4 (driver check-in), A5 (driver right to refuse delivery), A2 (abusive call procedure), A6c (lone worker on-site check-in), A9 (incident log)
+   - Brief all staff on findings and role-specific controls
+2. **Resolve Fire Door Compliance**:
    - Confirm which doors are on protected escape routes (stairway enclosures, protected corridors)
    - Challenge fire risk assessment wording (stated basis is technically incorrect)
    - Engage fire door specialist to assess FD30S upgrade options for escape route doors
@@ -164,6 +177,11 @@ None.
 ## Key Files & Structure
 
 ### Project Structure (hseea)
+- `/Violence/` - Violence and aggression risk assessment
+  - `CLAUDE.md` — Project context and business profile
+  - `Violence_Aggression_Risk_Assessment.md` — Full narrative risk assessment (5 scenarios, 15 actions)
+  - `Violence_Risk_Assessment.csv` — CSV extract for Excel/tracking (15 rows, one per action)
+  - `Violence_Policy_Excerpt.md` — Company policy source document
 - `/Fire/` - Fire safety documentation
   - `ND_FireDoors.md` - Fire door compliance analysis (BS 476-22, FD30S, cold smoke seals, ADB Table B1)
 - `OfficeFirstAiders.md` - First aid needs assessment, 1 Toft Green York city centre office (L74 framework)

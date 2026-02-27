@@ -4,6 +4,29 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-02-27
+
+### Added
+- `Violence/CLAUDE.md` — Project context file for Violence and Aggression work:
+  - Documents business profile (10 staff: 4 office, 3 drivers, 3 warehouse; B2B only; no public-facing operations)
+  - Lists existing controls (CCTV, visitor sign-in), employee groups, lone working arrangements
+  - Summarises 5 assessed scenarios and 15 outstanding actions
+  - References key HSE guidance (online hub, INDG73 rev4) and legislation URLs
+- `Violence/Violence_Aggression_Risk_Assessment.md` — Full draft violence and aggression risk assessment:
+  - Legal framework: HSWA 1974 s.2, MHSWR 1999 Reg 3, RIDDOR 2013 (all legislation hyperlinked and verified)
+  - 5×5 likelihood/severity risk matrix with Low/Medium/High/Very High banding
+  - 5 scenarios: business visitors (Low 3→2), abusive phone/email (Low 4→2), drivers as lone workers (Medium 6→3), lone working on premises (Low 3→2), warehouse/contractor interactions (Low 4→2)
+  - 15 action items with responsibility and target date columns
+  - RIDDOR reporting thresholds table
+  - Post-incident support commitments aligned to company policy
+  - Training requirements for all staff and additional requirements for drivers/lone workers
+  - Annual review schedule with incident/change triggers
+- `Violence/Violence_Risk_Assessment.csv` — Structured CSV of all risk assessment data:
+  - 15 rows (one per action), columns: Scenario_Ref, Scenario, Who_Is_At_Risk, Hazard_Description, Existing_Controls, Likelihood, Severity, Risk_Rating, Risk_Level, Action_Ref, Action_Description, Responsibility, Target_Date, Residual_Risk_Rating, Residual_Risk_Level
+  - Suitable for import into Excel, SharePoint lists, or compliance tracking tools
+
+---
+
 ## [Unreleased] - 2026-02-26
 
 ### Added

@@ -6,6 +6,50 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-02-27
+
+### Summary
+Created a complete first-draft violence and aggression risk assessment for a small B2B company (10 staff: 4 office, 3 drivers, 3 warehouse operatives). Gathered business context through structured clarifying questions, researched current HSE guidance, and produced three documents: a project CLAUDE.md, a full narrative risk assessment, and a CSV extract of all risk data suitable for import into Excel or a tracking tool.
+
+### Work Completed
+- Gathered business context via clarifying questions: 10 staff (B2B only, no public-facing operations), lone-worker drivers to industrial/commercial sites, no cash handling, CCTV and visitor sign-in in place, no prior incidents, standard hours with occasional lone on-site working
+- Researched current HSE violence guidance (online hub updated October 2025, INDG73 rev4, INDG69 R8) using gemini-hseea-researcher agent
+- Verified legislation URLs: MHSWR 1999 Reg 3, HSWA 1974 s.2, RIDDOR 2013
+- Created `Violence/CLAUDE.md` — project context documenting business profile, employee groups, key scenarios, outstanding actions, and regulatory references
+- Created `Violence/Violence_Aggression_Risk_Assessment.md` — full narrative risk assessment covering 5 scenarios with risk ratings, existing controls, 15 action items, incident reporting (including RIDDOR thresholds), post-incident support, training, and review schedule
+- Created `Violence/Violence_Risk_Assessment.csv` — 15-row CSV (one row per action) extracting all scenario data for use in Excel or tracking systems
+
+### Files Changed
+- `Violence/CLAUDE.md` — Created: project context and guidance file for Violence directory
+- `Violence/Violence_Aggression_Risk_Assessment.md` — Created: full draft violence and aggression risk assessment (5 scenarios, 15 actions, RIDDOR thresholds, post-incident support, training and review sections)
+- `Violence/Violence_Risk_Assessment.csv` — Created: structured CSV of all hazards, risks, controls, likelihood/severity/risk ratings, and actions with responsibility and target date columns
+
+### Git Commits
+- No commits this session (files created, pending commit with end-of-session docs)
+
+### Key Decisions
+- Delivery drivers rated as the highest-risk scenario (Medium, 6) due to lone working at premises not under company control — all other scenarios rated Low
+- B2B-only operations and absence of cash significantly reduce inherent risk across all scenarios; this is documented explicitly in the assessment
+- Risk assessment structured one-row-per-action in the CSV (scenario fields repeated) to allow filtering and sorting by action owner in Excel
+- Existing controls scored into the "current risk rating" column rather than showing a separate initial/pre-control score, in line with HSE's practical assessment approach for low-risk workplaces
+- All [FILL IN] placeholders left in the narrative document for company name, site addresses, assessor name, and action target dates
+
+### Reference Documents
+- `Violence/Violence_Policy_Excerpt.md` — existing company policy excerpt (source document)
+- `Violence/Violence_Aggression_Risk_Assessment.md` — created this session
+- `Violence/Violence_Risk_Assessment.csv` — created this session
+- HSE Violence and Aggression hub: https://www.hse.gov.uk/violence/ (updated October 2025)
+- INDG73(rev4) Protecting Lone Workers: https://www.hse.gov.uk/pubns/indg73.htm
+
+### Next Actions
+- [ ] Fill in [FILL IN] placeholders: company name, site addresses, assessor/approver names
+- [ ] Set target dates for all 15 actions in the assessment and CSV
+- [ ] Implement priority actions: A4 (driver check-in), A5 (driver right to refuse), A2 (abusive call procedure), A6c (lone worker on-site procedure), A9 (incident log)
+- [ ] Brief staff on findings (all employees) and role-specific controls (drivers, warehouse)
+- [ ] Consider whether a separate lone worker risk assessment is required (some on-site lone working controls overlap)
+
+---
+
 ## Session 2026-02-26
 
 ### Summary
