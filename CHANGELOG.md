@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-03-02
+
+### Added
+- **`Epic_Fury.md`** — Portland Fuel internal briefing paper on Operation Epic Fury (joint US-Israeli military strikes on Iran, 28 February 2026):
+  - Military operation overview: targets, forces (B-2s, F-22s, F-35s, carrier groups), objectives (nuclear facilities, missile sites, IRGC command, Iranian navy)
+  - Outcome: Khamenei killed, 1,000+ targets struck in 24 hours, 3 US service members KIA
+  - Iran's "Operation True Promise 4" retaliation: ballistic missiles at Israel, strikes on US Gulf bases, Hormuz shipping warning
+  - International reactions: UN emergency session, UK/France/Germany/Russia/China/Gulf states positions
+  - Current situation (2 March): Hormuz de facto shutdown, Brent +7.6% to $78.41, Maersk/MSC/Hapag-Lloyd suspended transit
+  - Energy background with full citations:
+    - Iran crude production: ~3,129,000 bpd (January 2026, CEIC Data)
+    - Middle East total: ~30.1 million bpd (EIA/Statista 2024)
+    - Top 15 global producers by total liquids (GlobalFirepower 2026 / EIA 2023)
+    - Middle East refining capacity: ~10 million bpd; top 5: Saudi Arabia, Iran, UAE, Iraq, Kuwait
+    - Strait of Hormuz: 20 million bpd (~20% of global consumption, >25% seaborne trade) — EIA 2024
+    - Global consumption: 103.6 million bpd (2025 actual, EIA STEO February 2026)
+  - All links verified and formatted as HTML anchors with `target="_blank"`
+
 ## [Unreleased] - 2026-02-25
 
 ### Added - Maintenance Project Created

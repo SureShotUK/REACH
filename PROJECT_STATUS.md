@@ -1,13 +1,20 @@
 # Project Status
 
-**Last Updated**: 2026-02-25
+**Last Updated**: 2026-03-02
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
-The terminai repository contains seven specialized project folders: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the new Maintenance project (maintenance administration system for a UK manufacturing/engineering business). The Maintenance project has been initialised with CLAUDE.md and two production-ready Excel workbooks covering regulatory compliance tracking and job management across two sites.
+The terminai repository contains seven specialized project folders: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the Maintenance project (maintenance admin system for a UK manufacturing/engineering business). A new Portland Fuel internal briefing paper (`Epic_Fury.md`) has been produced covering Operation Epic Fury (joint US-Israeli strikes on Iran, 28 Feb 2026) and its global energy market implications, with full citations from EIA, IEA, CSIS, and live news sources.
 
 ## Active Work Areas
+- **Operation Epic Fury Briefing — Portland Fuel**: COMPLETED (2026-03-02)
+  - `Epic_Fury.md` — internal briefing paper on US-Israeli military strikes on Iran (28 Feb 2026)
+  - Covers: operation overview, targets, Iran's response, international reactions, current situation
+  - Energy background: Iran production (~3.1 mb/d crude), Middle East total (~30.1 mb/d), top 15 global producers, Middle East refining capacity (~10 mb/d), Strait of Hormuz transit (20 mb/d), global consumption (103.6 mb/d)
+  - All statistics verified via gemini-researcher agent; all links cited to original sources
+  - **Monitor**: Hormuz situation evolving; Iran Feb 2026 production data due mid-March
+
 - **Maintenance Project - Maintenance Admin System**: 🆕 PROJECT CREATED (2026-02-25)
   - `/Maintenance/` - Excel-based maintenance tracking for UK manufacturing/engineering business
   - **Sites**: CITY (city centre office) + MFG (manufacturing/warehouse + portakabin offices)
@@ -121,6 +128,11 @@ The terminai repository contains seven specialized project folders: HSEEA (healt
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Operation Epic Fury Briefing Created** (2026-03-02) — Portland Fuel internal briefing paper:
+  - Researched and produced `Epic_Fury.md` covering joint US-Israeli strikes on Iran (launched 28 Feb 2026)
+  - Six energy statistics compiled with full EIA/IEA citations (Iran production, ME total, top 15 global, ME refining, Hormuz transit, global consumption)
+  - gemini-researcher agent used for multi-source verification (18 searches, 12 source fetches)
+  - Hormuz currently in de facto commercial shutdown; Brent +7.6% to $78.41 as of 2 March 2026
 - **Maintenance Project Created** (2026-02-25) - Maintenance admin system for UK manufacturing/engineering:
   - Created `/Maintenance/` project directory and comprehensive `CLAUDE.md`
   - Regulatory framework documented: LOLER, PSSR, EICR, Gas Safety, F-Gas, Fire Safety Order, L8/Legionella, SEMA racking, PAT
