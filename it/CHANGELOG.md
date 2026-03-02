@@ -2,6 +2,33 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-02 (Evening) — AI Stack Complete
+
+### Added
+- `NewPC/Software_Setup.md` Section 14: Tailscale remote access — what it is, verifying it's running, installing on other devices, accessing Open WebUI remotely at `http://100.79.83.113:3000`, security notes, reconnection commands
+
+### Changed
+- `NewPC/Software_Setup.md` — Updated throughout to reflect actual installation (v1.1 → v1.2):
+  - OS corrected to Ubuntu 24.04 LTS **Server** (not Desktop) throughout
+  - Section 1: Download link changed to `ubuntu.com/download/server` (Server ISO ~2GB, not Desktop ~5GB)
+  - Section 3: Installation steps rewritten for text-based Server installer (language → network → storage → user → SSH → snaps)
+  - Drive 2 mount point corrected: mounted at `/mnt` (not `/mnt/models`); `models` subdirectory created post-mount
+  - CUDA version updated to 12.0 throughout
+  - Section 7: NVIDIA Container Toolkit install commands fixed — use `stable/deb/` URL path (not deprecated `$distribution` variable); use discrete steps to avoid sed line-ending corruption when copy-pasting over SSH from Windows
+  - Section 10: Open WebUI docker run command corrected — use server LAN IP (`192.168.1.192`) instead of `host.docker.internal` (unreliable on Ubuntu Server); note added explaining why
+  - Section 13 (Firewall): Rewritten with correct UFW commands — default deny, SSH, Tailscale interface, Docker bridge to port 11434; note added on Docker/UFW bypass behaviour
+  - Sections 14–18 renumbered to 15–19 to accommodate new Tailscale section
+  - Section 17 (Troubleshooting): Open WebUI connection fix updated to correct approach (use server IP, not `host.docker.internal`)
+  - Section 18 (Quick Reference): Tailscale and firewall commands added
+  - Section 19 (Resources): Tailscale installation guide link added; Ubuntu link updated to Server tutorial
+
+### Fixed
+- NVIDIA Container Toolkit: deprecated `$distribution` URL (e.g. `ubuntu24.04`) returns HTML, breaking `apt update` — corrected to use `stable/deb/nvidia-container-toolkit.list` path
+- sed unterminated command error when pasting multi-line piped commands over SSH from Windows — fixed by using discrete steps (curl download → `sed -i` in-place → `cp` to destination)
+- Open WebUI unable to connect to Ollama: `host.docker.internal` resolves to Docker bridge but connections fail on Ubuntu Server — fixed by using server's actual LAN IP in `OLLAMA_BASE_URL`
+
+---
+
 ## [Unreleased] - 2026-03-02
 
 ### Fixed

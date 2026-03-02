@@ -1,7 +1,7 @@
-# Software Setup Guide — Ubuntu 24.04 LTS for AI
+# Software Setup Guide — Ubuntu 24.04 LTS Server for AI
 
 **Build**: AMD Ryzen 9 7900X + MSI MAG X870E TOMAHAWK WIFI + Asus TUF RTX 3090 24GB
-**OS**: Ubuntu 24.04 LTS (Noble Numbat)
+**OS**: Ubuntu 24.04 LTS Server (Noble Numbat)
 **Date**: February 2026
 
 ---
@@ -10,7 +10,7 @@
 
 This guide covers the complete software setup for the AI PC build, from OS installation through a fully functioning local AI stack. The end result is a system running:
 
-- **Ubuntu 24.04 LTS** — OS with full NVIDIA driver support
+- **Ubuntu 24.04 LTS Server** — headless OS accessed via SSH, with full NVIDIA driver support
 - **NVIDIA CUDA** — GPU computing framework required by AI tools
 - **Docker** — Containerisation platform for running AI services
 - **Ollama** — Local LLM inference engine (runs models on the RTX 3090)
@@ -42,13 +42,13 @@ This guide covers the complete software setup for the AI PC build, from OS insta
 - The AI PC with all components assembled and BIOS configured (see Assembly Guide)
 - Internet connection (ethernet recommended during installation)
 
-### Download Ubuntu 24.04 LTS
+### Download Ubuntu 24.04 LTS Server
 
-Download the official Ubuntu 24.04.x LTS Desktop ISO from:
+Download the official Ubuntu 24.04.x LTS Server ISO from:
 
-<a href="https://ubuntu.com/download/desktop" target="_blank">ubuntu.com/download/desktop</a>
+<a href="https://ubuntu.com/download/server" target="_blank">ubuntu.com/download/server</a>
 
-The file will be approximately 5GB. Verify the SHA256 checksum if desired (the download page lists the expected hash).
+The file will be approximately 2GB. Verify the SHA256 checksum if desired (the download page lists the expected hash).
 
 ### Create Bootable USB
 
@@ -85,18 +85,24 @@ Before booting the USB on the AI PC:
 
 ---
 
-## 3. Ubuntu 24.04 Installation
+## 3. Ubuntu 24.04 Server Installation
 
-### Language and Keyboard
+Ubuntu Server uses a text-based installer — there is no graphical interface. Navigate with arrow keys, Tab, and Enter.
 
-1. Select **Install Ubuntu**
-2. Choose your language and keyboard layout
-3. Select **Ubuntu Desktop** (full installation)
-4. Choose **Install third-party software for graphics** — this will offer to install proprietary NVIDIA drivers during installation. **Tick this box**
+### Boot and Language
+
+1. Boot from the USB. The grub menu appears — select **Try or Install Ubuntu Server**
+2. Select your language
+3. The installer will check for an updated version of itself — you can skip this
 
 ### Network
 
-Connect via ethernet if possible. You can connect to Wi-Fi at this screen using the MSI board's Wi-Fi 7 adapter.
+The installer detects network interfaces. With ethernet connected, it will auto-configure via DHCP. Confirm the network is active before proceeding.
+
+### Proxy and Mirror
+
+- Proxy: leave blank unless your network requires one
+- Archive mirror: accept the default (`archive.ubuntu.com`)
 
 ### Storage Partitioning (Two-Drive Setup)
 
@@ -105,7 +111,7 @@ This build has two Samsung 9100 Pro 2TB drives. Configure them as:
 - **Drive 1 (M.2_1)**: Ubuntu OS, applications, Docker data
 - **Drive 2 (M.2_2)**: AI model storage library
 
-Select **Manual** partitioning:
+Select **Custom storage layout**, then set up manually:
 
 **Drive 1 — OS drive (2TB, ~1,863 GiB usable):**
 
@@ -119,17 +125,27 @@ Select **Manual** partitioning:
 
 | Partition | Size | Type | Mount Point | Purpose |
 |-----------|------|------|-------------|---------|
-| Models | All (2TB) | ext4 | `/mnt/models` | AI model files |
+| Models | All (2TB) | ext4 | `/mnt` | AI model files |
 
 Set the **bootloader location** to Drive 1 (the OS drive).
 
 ### User Account
 
-Create your user account with a strong password. **Enable automatic login** is your choice — for a home AI server, it's convenient. For security on a shared network, leave it disabled.
+Create your user account with a strong password. The username will also be used for SSH login.
+
+### SSH Setup
+
+When asked about **OpenSSH server**, **tick Install OpenSSH server**. This is essential — without it you cannot SSH into the machine after installation.
+
+You can import SSH keys from GitHub/Launchpad here if you have them set up; otherwise skip.
+
+### Featured Server Snaps
+
+Skip this screen — nothing here is needed for this build.
 
 ### Installation
 
-Click **Install** and wait approximately 10–15 minutes. The system will prompt you to remove the USB and reboot.
+The installation proceeds automatically. When complete, you will be prompted to remove the USB and press Enter to reboot.
 
 ---
 
@@ -160,17 +176,14 @@ sudo reboot
 
 ### Mount the Second Drive Permanently
 
-The second drive (model storage) needs to be configured to auto-mount at startup:
+The second drive is mounted at `/mnt`. After mounting, a `models` subdirectory is created within it for Ollama model storage.
 
 ```bash
 # Find the drive's UUID
 sudo blkid
 
-# Note the UUID for the second Samsung 9100 Pro (the /mnt/models partition)
+# Note the UUID for the second Samsung 9100 Pro (the /mnt partition)
 # It will appear as something like: /dev/nvme1n1p1: UUID="xxxx-xxxx" TYPE="ext4"
-
-# Create the mount point
-sudo mkdir -p /mnt/models
 
 # Edit fstab to auto-mount on boot
 sudo nano /etc/fstab
@@ -179,7 +192,7 @@ sudo nano /etc/fstab
 Add this line to `/etc/fstab` (replace `YOUR-UUID` with the actual UUID from `blkid`):
 
 ```
-UUID=YOUR-UUID  /mnt/models  ext4  defaults,nofail  0  2
+UUID=YOUR-UUID  /mnt  ext4  defaults,nofail  0  2
 ```
 
 Save the file (`Ctrl+O`, `Enter`, `Ctrl+X`), then test the mount:
@@ -187,13 +200,14 @@ Save the file (`Ctrl+O`, `Enter`, `Ctrl+X`), then test the mount:
 ```bash
 sudo mount -a
 # Verify it mounted
-df -h /mnt/models
+df -h /mnt
 ```
 
-Set ownership so your user can write to it:
+Set ownership and create the models subdirectory:
 
 ```bash
-sudo chown $USER:$USER /mnt/models
+sudo chown $USER:$USER /mnt
+mkdir -p /mnt/models
 ```
 
 ---
@@ -273,10 +287,10 @@ nvcc --version
 ```
 nvcc: NVIDIA (R) Cuda compiler driver
 ...
-Cuda compilation tools, release 12.x, V12.x.xx
+Cuda compilation tools, release 12.0, V12.0.xx
 ```
 
-**Note on CUDA versions**: The system may have CUDA 12.x from the driver install plus an older CUDA from the toolkit package. This is fine for Ollama and Open WebUI — they bundle their own CUDA libraries. You only need the driver-provided CUDA runtime.
+**Note on CUDA versions**: The system may have CUDA 12.0 from the driver install plus an older CUDA from the toolkit package. This is fine for Ollama and Open WebUI — they bundle their own CUDA libraries. You only need the driver-provided CUDA runtime.
 
 ---
 
@@ -308,14 +322,19 @@ docker run hello-world
 This allows Docker containers to access the RTX 3090 GPU:
 
 ```bash
-# Add NVIDIA package repository
-distribution=$(. /etc/os-release; echo $ID$VERSION_ID)
+# Add NVIDIA GPG key
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | \
   sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
 
-curl -s -L "https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list" | \
-  sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
-  sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+# Download the repo list to a temp file
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+  -o /tmp/nvidia-ct.list
+
+# Add the signed-by attribute (in-place edit on the temp file)
+sed -i 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' /tmp/nvidia-ct.list
+
+# Copy into apt sources
+sudo cp /tmp/nvidia-ct.list /etc/apt/sources.list.d/nvidia-container-toolkit.list
 
 sudo apt update
 sudo apt install -y nvidia-container-toolkit
@@ -324,6 +343,10 @@ sudo apt install -y nvidia-container-toolkit
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 ```
+
+> **Note**: Older guides use `$distribution` (e.g., `ubuntu24.04`) in the URL. That path is deprecated and will return an HTML error page instead of the repo list, breaking `apt update`. Always use the `stable/deb/` path shown above.
+>
+> **Note on copy-pasting**: If you copy commands from this document via a Windows terminal, avoid pasting multi-line piped commands in one go — the `\` line continuations can be corrupted by Windows line endings. Run each line separately, or use the discrete step approach above.
 
 Verify GPU is accessible from Docker:
 
@@ -487,10 +510,11 @@ docker run -d \
   --gpus all \
   -p 3000:8080 \
   -v open-webui:/app/backend/data \
-  -e OLLAMA_BASE_URL=http://host.docker.internal:11434 \
-  --add-host=host.docker.internal:host-gateway \
+  -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
   ghcr.io/open-webui/open-webui:main
 ```
+
+> **Note**: Use your server's actual IP address rather than `host.docker.internal`. On Ubuntu Server, `host.docker.internal` does not resolve reliably from within Docker containers, causing connection failures. Find your server's IP with `ip addr show | grep "inet " | grep -v 127`.
 
 **What each option does:**
 
@@ -501,8 +525,7 @@ docker run -d \
 | `--gpus all` | Gives container access to RTX 3090 |
 | `-p 3000:8080` | Maps port 3000 on your machine to port 8080 inside the container |
 | `-v open-webui:/app/backend/data` | Persistent storage for chat history, settings |
-| `-e OLLAMA_BASE_URL=...` | Tells Open WebUI where to find Ollama |
-| `--add-host=...` | Allows container to reach the host machine (where Ollama runs) |
+| `-e OLLAMA_BASE_URL=...` | Tells Open WebUI where to find Ollama — use the server's actual IP address |
 
 ### Access Open WebUI
 
@@ -546,7 +569,7 @@ After setup, your storage is organised as:
 | Drive | Mount | Contents | Available Space |
 |-------|-------|----------|----------------|
 | Samsung 9100 Pro #1 (M.2_1) | `/` and `/home` | Ubuntu OS, applications, Docker data | ~1.8TB |
-| Samsung 9100 Pro #2 (M.2_2) | `/mnt/models` | Ollama model library | 2TB |
+| Samsung 9100 Pro #2 (M.2_2) | `/mnt` (models at `/mnt/models`) | Ollama model library | 2TB |
 
 ### How Much Space Do Models Use?
 
@@ -657,30 +680,107 @@ Environment="OLLAMA_MODELS=/mnt/models/ollama"
 
 ## 13. Firewall Configuration
 
-Ubuntu 24.04 includes UFW (Uncomplicated Firewall). Configure it to allow access to Open WebUI:
+Ubuntu 24.04 includes UFW (Uncomplicated Firewall). There is one important caveat with Docker: **Docker bypasses UFW** by writing its own iptables rules directly. This means UFW cannot block Docker's published ports (such as port 3000 for Open WebUI) from LAN access. For a home server this is acceptable — UFW still protects all host-level services such as SSH and Ollama.
 
 ```bash
-# Enable firewall
-sudo ufw enable
+# Set defaults — block all incoming, allow all outgoing
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
 
-# Allow SSH (important — do this before enabling if you use SSH)
+# Allow SSH — do this BEFORE enabling or you will lock yourself out
 sudo ufw allow ssh
 
-# Allow Open WebUI from your LAN only (replace 192.168.1.0/24 with your network)
-sudo ufw allow from 192.168.1.0/24 to any port 3000
+# Allow all traffic on the Tailscale interface (remote access)
+sudo ufw allow in on tailscale0
 
-# Allow Ollama API from LAN (if you want direct API access)
-sudo ufw allow from 192.168.1.0/24 to any port 11434
+# Allow Docker bridge network to reach Ollama (required for Open WebUI container)
+sudo ufw allow from 172.17.0.0/16 to any port 11434
 
-# Check status
-sudo ufw status
+# Enable the firewall
+sudo ufw enable
+
+# Verify
+sudo ufw status verbose
 ```
 
-Find your network range: `ip route | grep "proto kernel"`
+Find your network range if needed: `ip route | grep "proto kernel"`
 
 ---
 
-## 14. Auto-Start on Boot — Summary
+## 14. Tailscale — Secure Remote Access
+
+Tailscale creates an encrypted private network (a VPN mesh) between your devices. Once connected, you can access Open WebUI from anywhere in the world without opening any ports on your router.
+
+**How it works**: Each device on your Tailscale account gets a private IP in the `100.x.x.x` range. Devices communicate directly with each other over an encrypted tunnel, regardless of where they are.
+
+### Tailscale on the AI Server
+
+Tailscale is already installed and running on this server. Verify it:
+
+```bash
+# Check Tailscale is running
+sudo systemctl status tailscaled
+
+# Check your Tailscale IP address
+tailscale ip -4
+
+# Check connection status
+tailscale status
+```
+
+Your server's Tailscale IP is `100.79.83.113`. This address is stable — it does not change when you reboot or reconnect.
+
+Tailscale starts automatically on boot. Verify this is enabled:
+
+```bash
+sudo systemctl is-enabled tailscaled
+```
+
+Should return `enabled`.
+
+### Install Tailscale on Your Other Devices
+
+Install the Tailscale client on every device you want to use to access Open WebUI remotely:
+
+| Platform | Download |
+|----------|---------|
+| Windows | <a href="https://tailscale.com/download/windows" target="_blank">tailscale.com/download/windows</a> |
+| macOS | <a href="https://tailscale.com/download/mac" target="_blank">tailscale.com/download/mac</a> |
+| Android | Available on Google Play Store |
+| iOS | Available on Apple App Store |
+
+Log in with the same Tailscale account on each device.
+
+### Accessing Open WebUI Remotely
+
+Once your device is connected to Tailscale, open a browser and go to:
+
+```
+http://100.79.83.113:3000
+```
+
+This works from anywhere — home network, mobile data, coffee shop Wi-Fi — without any router port forwarding.
+
+### Security Notes
+
+- Only devices logged into **your** Tailscale account can access this address
+- Traffic is encrypted end-to-end using WireGuard
+- Open WebUI itself requires login (the admin account you created), providing a second layer of authentication
+- The Ollama API (port 11434) is accessible on the Tailscale network — this is acceptable for personal use but be aware if you share your Tailscale account with others
+
+### If Tailscale Disconnects
+
+```bash
+# Reconnect
+sudo tailscale up
+
+# Check status
+tailscale status
+```
+
+---
+
+## 15. Auto-Start on Boot — Summary
 
 After setup, verify these services start automatically:
 
@@ -702,7 +802,7 @@ docker ps  # Should show open-webui container running
 
 ---
 
-## 15. Testing and Verification
+## 16. Testing and Verification
 
 Run this sequence to confirm the full stack is working:
 
@@ -743,7 +843,7 @@ time echo "Explain the difference between supervised and unsupervised learning i
 
 ---
 
-## 16. Troubleshooting
+## 17. Troubleshooting
 
 ### Ollama Not Using GPU
 
@@ -763,21 +863,35 @@ If CUDA is not available, reinstall NVIDIA driver and reboot.
 ### Open WebUI Can't Connect to Ollama
 
 ```bash
-# Verify Ollama is listening
+# Verify Ollama is listening and returning models
 curl http://localhost:11434/api/tags
 
-# Check Docker networking
+# Check Open WebUI container logs for connection errors
 docker logs open-webui
-
-# If Ollama is on 0.0.0.0, update the Docker env variable
-# Re-run docker with -e OLLAMA_BASE_URL=http://host.docker.internal:11434
 ```
+
+If you see `Cannot connect to host host.docker.internal` in the logs, recreate the container using the server's actual IP address instead:
+
+```bash
+docker stop open-webui && docker rm open-webui
+
+docker run -d \
+  --name open-webui \
+  --restart always \
+  --gpus all \
+  -p 3000:8080 \
+  -v open-webui:/app/backend/data \
+  -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
+  ghcr.io/open-webui/open-webui:main
+```
+
+> `host.docker.internal` does not resolve reliably on Ubuntu Server. Using the server's LAN IP directly is more reliable.
 
 ### Model Download Fails
 
 ```bash
 # Check disk space on model drive
-df -h /mnt/models
+df -h /mnt
 
 # Check Ollama is using the correct path
 sudo journalctl -u ollama | grep OLLAMA_MODELS
@@ -819,7 +933,7 @@ sudo pwmconfig
 
 ---
 
-## 17. Quick Reference — Common Commands
+## 18. Quick Reference — Common Commands
 
 ```bash
 # Ollama
@@ -843,6 +957,17 @@ nvidia-smi -l 1                      # Continuous GPU stats (every 1 second)
 nvtop                                # Interactive GPU monitor
 nvidia-smi -pl 300                   # Set power limit to 300W
 
+# Tailscale
+tailscale status                     # Show connected devices
+tailscale ip -4                      # Show this machine's Tailscale IP
+sudo tailscale up                    # Connect/reconnect to Tailscale
+sudo systemctl status tailscaled     # Check Tailscale service
+
+# Firewall
+sudo ufw status verbose              # Show firewall rules
+sudo ufw allow <port>                # Open a port
+sudo ufw deny <port>                 # Block a port
+
 # System
 free -h                              # RAM usage
 df -h                                # Disk usage
@@ -853,17 +978,18 @@ sudo systemctl status <service>      # Check service status
 
 ---
 
-## 18. Resources
+## 19. Resources
 
-- <a href="https://ubuntu.com/tutorials/install-ubuntu-desktop" target="_blank">Ubuntu Desktop Installation Tutorial</a>
+- <a href="https://ubuntu.com/tutorials/install-ubuntu-server" target="_blank">Ubuntu Server Installation Tutorial</a>
 - <a href="https://ollama.com/library" target="_blank">Ollama Model Library</a>
 - <a href="https://github.com/open-webui/open-webui" target="_blank">Open WebUI GitHub Repository</a>
 - <a href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/" target="_blank">NVIDIA CUDA Installation Guide for Linux</a>
 - <a href="https://docs.docker.com/engine/install/ubuntu/" target="_blank">Docker Engine Installation for Ubuntu</a>
 - <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html" target="_blank">NVIDIA Container Toolkit Installation Guide</a>
+- <a href="https://tailscale.com/kb/1017/install" target="_blank">Tailscale Installation Guide</a>
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: February 19, 2026
-**Next Update**: After system is built and setup is validated
+**Document Version**: 1.2
+**Last Updated**: March 2, 2026
+**Changes**: Updated to Ubuntu Server 24.04 (not Desktop); corrected drive 2 mount point to `/mnt` with `/mnt/models` subdirectory; updated CUDA version to 12.0; added Tailscale section; updated firewall configuration; corrected Open WebUI docker command to use server IP; corrected NVIDIA Container Toolkit installation commands

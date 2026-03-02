@@ -4,6 +4,50 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-02 (Evening) — AI Stack Complete
+
+### Summary
+Full AI software stack successfully installed and validated on the AI PC. Completed NVIDIA driver setup, CUDA 12.0, Docker, NVIDIA Container Toolkit, Ollama, and Open WebUI. Resolved three real-world issues encountered during installation: deprecated NVIDIA repo URL, sed line-ending corruption over SSH, and Open WebUI being unable to reach Ollama via `host.docker.internal`. All services are running, GPU-accelerated, and accessible both locally and remotely via Tailscale. Software_Setup.md updated throughout to reflect actual installation experience.
+
+### Work Completed
+- **NVIDIA drivers**: Already installed from previous session — `nvidia-smi` confirmed RTX 3090 detected
+- **CUDA 12.0 toolkit**: Installed via `sudo apt install -y nvidia-cuda-toolkit`, verified with `nvcc --version`
+- **Docker**: Installed via official install script, user added to docker group
+- **NVIDIA Container Toolkit**: Resolved two installation issues:
+  1. Deprecated `$distribution` URL returning HTML instead of apt list — fixed by using `stable/deb/` path
+  2. `sed` unterminated command error from Windows line-ending corruption over SSH — fixed by breaking into discrete steps (download → `sed -i` in-place → copy)
+- **nvidia-ctk configured**: `sudo nvidia-ctk runtime configure --runtime=docker` created `/etc/docker/daemon.json` successfully; Docker restarted
+- **GPU verified in Docker**: `docker run --rm --gpus all nvidia/cuda:12.0.0-base-ubuntu22.04 nvidia-smi` confirmed RTX 3090 accessible from containers
+- **Ollama installed**: `curl -fsSL https://ollama.com/install.sh | sh` — auto-detected NVIDIA GPU
+- **Ollama model storage redirected**: Configured `OLLAMA_MODELS=/mnt/models/ollama` via `systemctl edit ollama`; created `/mnt/models` subdirectory; models moved from `/usr/share/ollama/.ollama/models/` to `/mnt/models/ollama/`
+- **Two models pulled**: `llama3.2:latest` (2.0GB) and `llama3.1:8b` (4.9GB)
+- **Open WebUI installed**: Docker container running on port 3000; admin account created
+- **Open WebUI/Ollama connection fixed**: `host.docker.internal` fails on Ubuntu Server — recreated container using server's LAN IP (`192.168.1.192`) in `OLLAMA_BASE_URL`; models now visible in UI
+- **UFW firewall configured**: Default deny, SSH allowed, Tailscale interface fully trusted, Docker bridge (172.17.0.0/16) allowed to reach port 11434; UFW was already inactive before setup
+- **Tailscale confirmed active**: `tailscale0` interface with IP `100.79.83.113` already running from previous session — Open WebUI accessible at `http://100.79.83.113:3000` from any Tailscale-connected device
+- **Software_Setup.md updated throughout**: Corrected OS (Server not Desktop), mount points, CUDA version, NVIDIA repo commands, Open WebUI docker command, added Tailscale section (new Section 14), updated firewall section, renumbered to 19 sections total
+
+### Files Changed
+- `it/NewPC/Software_Setup.md` — Major update: Ubuntu Server throughout, corrected mount point (`/mnt` not `/mnt/models`), CUDA 12.0, fixed NVIDIA Container Toolkit commands, fixed Open WebUI docker run command, added Section 14 Tailscale, updated Section 13 Firewall, updated troubleshooting, updated quick reference and resources, renumbered to 19 sections, version bumped to 1.2
+
+### Key Decisions
+- **Server IP instead of `host.docker.internal`**: On Ubuntu Server, `host.docker.internal` resolves to Docker bridge (`172.17.0.1`) but connections fail even with Ollama on `0.0.0.0`. Using the server's actual LAN IP (`192.168.1.192`) is reliable and simpler. UFW inactive, no firewall was blocking — the issue was `host.docker.internal` resolution itself
+- **NVIDIA Container Toolkit install approach**: Discrete steps (download file → sed in-place → copy to apt sources) instead of piped one-liner avoids Windows line-ending corruption when copy-pasting over SSH
+- **Ollama model path**: `/mnt/models/ollama` — drive 2 mounted at `/mnt`, models subdirectory created within it; Ollama systemd override used for `OLLAMA_MODELS` env var
+- **Tailscale for remote access**: Already installed from previous session; no port forwarding required; access at `http://100.79.83.113:3000`
+
+### Reference Documents
+- `it/NewPC/Software_Setup.md` — Primary document, updated to v1.2 reflecting actual installation experience
+
+### Next Actions
+- [ ] Download additional models (user doing this now)
+- [ ] Benchmark performance (`time ollama run llama3.1:8b "..."`)
+- [ ] Consider GPU power limit reduction to 300W for reduced noise/heat (`nvidia-smi -pl 300`)
+- [ ] Fix ethernet link flapping (enp7s0 autoneg issue with RTL8126 5Gb NIC and 1Gb router)
+- [ ] Install Tailscale on other devices (Windows PC, phone) to enable remote access
+
+---
+
 ## Session 2026-03-02
 
 ### Summary

@@ -3,7 +3,7 @@
 **Last Updated**: 2026-03-02
 
 ## Current State
-**AI PC is built and Ubuntu 24.04 Server is running.** First boot troubleshooting complete: internet working via WiFi (DNS fixed), ethernet driver installed (RTL8126 DKMS), static IPs configured (ethernet 192.168.1.192, WiFi 192.168.1.191 fallback), Secure Boot disabled. **Next immediate steps**: NVIDIA driver installation, Tailscale remote access setup, then Ollama + Open WebUI. IT troubleshooting system validated. ZTNA evaluation ready for pilot deployment.
+**AI PC fully operational with complete AI stack running.** Ubuntu 24.04 Server, NVIDIA drivers, CUDA 12.0, Docker, NVIDIA Container Toolkit, Ollama, and Open WebUI all installed and validated. Models stored on dedicated 2TB NVMe (`/mnt/models/ollama`). Open WebUI accessible on LAN at `http://192.168.1.192:3000` and remotely via Tailscale at `http://100.79.83.113:3000`. UFW firewall active. User downloading additional models.
 
 ## Active Work Areas
 
@@ -43,8 +43,8 @@
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
-### AI PC Build for Local LLM Inference - UBUNTU RUNNING ✅
-- **Status**: Built and running Ubuntu 24.04 Server. First boot issues resolved. NVIDIA drivers and AI stack not yet installed.
+### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅
+- **Status**: Complete. Full AI stack running. User downloading additional models.
 - **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`, `NewPC/Assembly_Guide.md`, `NewPC/Software_Setup.md`
 - **Purpose**: Desktop for local LLM inference (coding assistance + homework help), dual GPU upgrade path
 - **Complete Component List**:
@@ -57,15 +57,25 @@
   - Storage: Samsung 9100 Pro 2TB PCIe 5 x2 @ £502.00
   - CPU Cooler: Arctic Liquid Freezer III Pro 360 @ £72.00
   - Rear Fan: 140mm exhaust @ £21.12
-- **Network Config** (resolved 2026-03-02):
+- **Network Config**:
   - Ethernet: `enp7s0` static 192.168.1.192/24, route metric 100 (primary)
   - WiFi: `wlp8s0` static 192.168.1.191/24, route metric 600 (fallback)
   - DNS: 8.8.8.8, 1.1.1.1 on both interfaces
-  - Ethernet driver: `realtek-r8126-dkms` 10.016.00 via PPA (kernel 6.8 doesn't include RTL8126 in r8169)
+  - Ethernet driver: `realtek-r8126-dkms` 10.016.00 via PPA
   - Secure Boot: disabled (required for unsigned DKMS modules)
-  - cloud-init network config: disabled (prevents netplan changes being overwritten)
-- **Known Issues**: Ethernet link flapping (enp7s0 up/down) — likely autoneg issue between RTL8126 5Gb NIC and 1Gb router. Fix: `ethtool -s enp7s0 speed 1000 duplex full autoneg off` + disable EEE
-- **Next**: Install NVIDIA drivers → CUDA → Tailscale → Ollama + Open WebUI → Benchmark
+  - Tailscale: active, IP `100.79.83.113`
+- **AI Stack**:
+  - NVIDIA driver: installed, RTX 3090 24GB confirmed
+  - CUDA: 12.0
+  - Docker: running with NVIDIA container runtime
+  - Ollama: running as systemd service, models at `/mnt/models/ollama`
+  - Open WebUI: Docker container on port 3000, connected to Ollama via `192.168.1.192:11434`
+  - Models installed: `llama3.2:latest` (2.0GB), `llama3.1:8b` (4.9GB) + more being downloaded
+- **Access**:
+  - LAN: `http://192.168.1.192:3000`
+  - Remote (Tailscale): `http://100.79.83.113:3000`
+- **Known Issues**: Ethernet link flapping (enp7s0 up/down) — autoneg issue between RTL8126 5Gb NIC and 1Gb router. Fix: `ethtool -s enp7s0 speed 1000 duplex full autoneg off` + disable EEE
+- **Next**: Benchmark performance, GPU power limit tuning, fix ethernet flapping
 
 ### Zero Trust Network Access (ZTNA)
 - **Status**: Research complete, deployment guides created, ready for pilot deployment
@@ -238,12 +248,11 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **NVIDIA driver installation** - `sudo ubuntu-drivers autoinstall` → reboot → `nvidia-smi`
-2. **CUDA toolkit** - `sudo apt install nvidia-cuda-toolkit` → `nvcc --version`
-3. **Tailscale remote access** - Create account, install on server + Windows machine
-4. **Fix ethernet link flapping** - Force 1Gb autoneg off, disable EEE, make permanent in netplan
-5. **AI software stack** - Follow `NewPC/Software_Setup.md` — Ollama, Open WebUI, first model benchmark
-3. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
+1. **Fix ethernet link flapping** - Force 1Gb autoneg off, disable EEE, make permanent in netplan
+2. **Benchmark AI performance** - `time ollama run llama3.1:8b "..."` to verify tok/s vs expected 90-120
+3. **GPU power limit tuning** - `sudo nvidia-smi -pl 300` to reduce noise/heat; make permanent via systemd
+4. **Install Tailscale on other devices** - Windows PC and phone for remote access to Open WebUI
+5. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
 2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
 3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh
 4. **RDP connectivity testing** - Verify automated scheduled tasks work over ZTNA
