@@ -2,6 +2,23 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-02
+
+### Fixed
+- Ubuntu 24.04 Server: no internet despite WiFi connected — root cause: static IP netplan config had no `nameservers` block; fixed by adding `addresses: [8.8.8.8, 1.1.1.1]` to wlp8s0 in `/etc/netplan/50-cloud-init.yaml`
+- Ethernet NIC (RTL8126) showing UNCLAIMED — installed `realtek-r8126-dkms` via `ppa:awesometic/ppa` (kernel 6.8 r8169 driver doesn't support RTL8126; added in kernel 6.9)
+- DKMS module blocked by Secure Boot ("Key was rejected by service") — disabled Secure Boot in MSI BIOS
+
+### Changed
+- `/etc/netplan/50-cloud-init.yaml` — full network config: ethernet static 192.168.1.192/24 (metric 100, primary), WiFi static 192.168.1.191/24 (metric 600, fallback), DNS on both interfaces
+- `/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg` — created to prevent cloud-init overwriting netplan changes on reboot
+
+### Documentation
+- `SESSION_LOG.md` — session entry added covering first-boot troubleshooting
+- `PROJECT_STATUS.md` — updated to reflect PC built and running; next priorities updated to NVIDIA/Tailscale/Ollama
+
+---
+
 ## [Unreleased] - 2026-02-19 (Session 3)
 
 ### Added

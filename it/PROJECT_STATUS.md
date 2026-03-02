@@ -1,9 +1,9 @@
 # IT Project Status
 
-**Last Updated**: 2026-02-19 (Session 3)
+**Last Updated**: 2026-03-02
 
 ## Current State
-Active IT infrastructure and security documentation project with validated IT troubleshooting and helpdesk system. **AI PC build project READY FOR ASSEMBLY**: All 10 components purchased (£2,874.98), hardware assembly guide and Ubuntu 24.04 software setup guide created — ready to build when components arrive. Outlook template encoding issue resolved with enhanced diagnostic tooling. ZTNA evaluation ready for pilot deployment. Financial data processing (StoneX parser) includes cash settlement support and is ready for production integration.
+**AI PC is built and Ubuntu 24.04 Server is running.** First boot troubleshooting complete: internet working via WiFi (DNS fixed), ethernet driver installed (RTL8126 DKMS), static IPs configured (ethernet 192.168.1.192, WiFi 192.168.1.191 fallback), Secure Boot disabled. **Next immediate steps**: NVIDIA driver installation, Tailscale remote access setup, then Ollama + Open WebUI. IT troubleshooting system validated. ZTNA evaluation ready for pilot deployment.
 
 ## Active Work Areas
 
@@ -43,8 +43,8 @@ Active IT infrastructure and security documentation project with validated IT tr
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
-### AI PC Build for Local LLM Inference - READY FOR ASSEMBLY ✅
-- **Status**: All 10 components purchased (£2,874.98). Assembly and software guides created. Ready to build.
+### AI PC Build for Local LLM Inference - UBUNTU RUNNING ✅
+- **Status**: Built and running Ubuntu 24.04 Server. First boot issues resolved. NVIDIA drivers and AI stack not yet installed.
 - **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`, `NewPC/Assembly_Guide.md`, `NewPC/Software_Setup.md`
 - **Purpose**: Desktop for local LLM inference (coding assistance + homework help), dual GPU upgrade path
 - **Complete Component List**:
@@ -52,16 +52,20 @@ Active IT infrastructure and security documentation project with validated IT tr
   - Motherboard: MSI MAG X870E TOMAHAWK WIFI @ £269.99
   - GPU: Asus TUF Gaming OC RTX 3090 24GB @ £699.39
   - RAM: G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 @ £599.99
-  - PSU: Thermaltake Toughpower GF3 1650W @ £218.00
+  - PSU: Super Flower Leadex Titanium 1600W @ £270.98 (replacement — Thermaltake DOA)
   - Case: Fractal Design Torrent @ £169.99
   - Storage: Samsung 9100 Pro 2TB PCIe 5 x2 @ £502.00
   - CPU Cooler: Arctic Liquid Freezer III Pro 360 @ £72.00
   - Rear Fan: 140mm exhaust @ £21.12
-- **Fan Configuration**: Front 3x120mm AIO intake + Bottom 3x140mm intake + Rear 1x140mm exhaust. 2x180mm spare.
-- **Dual GPU Upgrade**: Any RTX 3090 (any make) compatible. Founders Edition requires 12-pin adapter (included in box).
-- **Assembly Guide**: `NewPC/Assembly_Guide.md` — full step-by-step with cable reference, BIOS config, troubleshooting
-- **Software Guide**: `NewPC/Software_Setup.md` — Ubuntu 24.04, NVIDIA drivers, CUDA, Docker, Ollama, Open WebUI
-- **Next**: Assemble hardware → Install Ubuntu 24.04 → Configure Ollama + Open WebUI → Benchmark
+- **Network Config** (resolved 2026-03-02):
+  - Ethernet: `enp7s0` static 192.168.1.192/24, route metric 100 (primary)
+  - WiFi: `wlp8s0` static 192.168.1.191/24, route metric 600 (fallback)
+  - DNS: 8.8.8.8, 1.1.1.1 on both interfaces
+  - Ethernet driver: `realtek-r8126-dkms` 10.016.00 via PPA (kernel 6.8 doesn't include RTL8126 in r8169)
+  - Secure Boot: disabled (required for unsigned DKMS modules)
+  - cloud-init network config: disabled (prevents netplan changes being overwritten)
+- **Known Issues**: Ethernet link flapping (enp7s0 up/down) — likely autoneg issue between RTL8126 5Gb NIC and 1Gb router. Fix: `ethtool -s enp7s0 speed 1000 duplex full autoneg off` + disable EEE
+- **Next**: Install NVIDIA drivers → CUDA → Tailscale → Ollama + Open WebUI → Benchmark
 
 ### Zero Trust Network Access (ZTNA)
 - **Status**: Research complete, deployment guides created, ready for pilot deployment
@@ -234,8 +238,11 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **AI PC assembly** - Follow `NewPC/Assembly_Guide.md` once all components delivered
-2. **AI PC software setup** - Follow `NewPC/Software_Setup.md` — Ubuntu 24.04, NVIDIA drivers, CUDA, Ollama, Open WebUI
+1. **NVIDIA driver installation** - `sudo ubuntu-drivers autoinstall` → reboot → `nvidia-smi`
+2. **CUDA toolkit** - `sudo apt install nvidia-cuda-toolkit` → `nvcc --version`
+3. **Tailscale remote access** - Create account, install on server + Windows machine
+4. **Fix ethernet link flapping** - Force 1Gb autoneg off, disable EEE, make permanent in netplan
+5. **AI software stack** - Follow `NewPC/Software_Setup.md` — Ollama, Open WebUI, first model benchmark
 3. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
 2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
 3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh

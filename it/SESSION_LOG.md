@@ -4,6 +4,47 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-02
+
+### Summary
+First boot troubleshooting session for the newly assembled AI PC running Ubuntu 24.04 Server. Resolved three distinct issues: missing DNS configuration preventing internet access despite WiFi being connected, missing RTL8126 ethernet driver (requires out-of-tree DKMS package on kernel 6.8), and Secure Boot blocking unsigned kernel modules. By end of session ethernet was up with static IP 192.168.1.192, WiFi retained as fallback, and the groundwork laid for NVIDIA driver installation and Tailscale remote access setup.
+
+### Work Completed
+- **Diagnosed DNS failure on WiFi**: `resolvectl status` showed `Current Scopes: none` on wlp8s0 — no nameservers configured despite static IP and gateway being correct. Fixed by adding `nameservers: addresses: [8.8.8.8, 1.1.1.1]` to `/etc/netplan/50-cloud-init.yaml`
+- **Blocked cloud-init from overwriting netplan**: Created `/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg` to prevent config reset on reboot
+- **Diagnosed RTL8126 5Gb NIC as UNCLAIMED**: `lspci` confirmed Realtek 8126 device. `modprobe r8169` failed — confirmed r8169 kernel driver doesn't support RTL8126 until kernel 6.9; Ubuntu 24.04 ships with 6.8
+- **Installed realtek-r8126-dkms**: Added PPA `ppa:awesometic/ppa`, installed `realtek-r8126-dkms` package (version 10.016.00)
+- **Disabled Secure Boot**: DKMS module blocked with "Key was rejected by service" — disabled Secure Boot in MSI BIOS (Settings → Security → Secure Boot). Ethernet interface `enp7s0` appeared on next boot
+- **Configured ethernet as static IP with WiFi fallback**: Added `enp7s0` to netplan with static 192.168.1.192/24, route metric 100; WiFi route set to metric 600 as fallback. Resolved multiple YAML indentation errors using `sed` (heredoc unreliable over SSH)
+- **Diagnosed link flapping on enp7s0**: `dmesg` showed repeated link up/down. `ethtool` confirmed physical link present at 1000Mb/s but carrier state not propagated. Router/switch only supports 1Gb (doesn't advertise 2.5G/5G) — autoneg with 5Gb NIC causes flapping
+- **Guided NVIDIA driver installation plan**: Identified `ubuntu-drivers autoinstall` as correct approach; session ended before completion
+- **Introduced Tailscale for remote access**: Explained no-port-forward approach; user has no existing account — guided to tailscale.com signup + install steps
+
+### Files Changed
+- `it/NewPC/Final_Build.md` - PSU note: Thermaltake was DOA, replaced with Super Flower Leadex Titanium 1600W @ £270.98
+
+### Key Decisions
+- **Secure Boot disabled**: Required for unsigned DKMS kernel modules (r8126 driver, and future NVIDIA drivers). Correct decision for a personal AI server — ongoing friction with third-party modules outweighs benefit
+- **Ethernet static at 192.168.1.192, WiFi static at 192.168.1.191 as fallback**: Clean separation, both interfaces configured with route metrics to avoid conflicts
+- **Tailscale chosen for remote access**: No port forwarding, WireGuard-based, free personal tier sufficient for single-user homelab
+- **cloud-init disabled for network config**: Essential for persisting manual netplan changes on Ubuntu 24.04 Server cloud images
+- **Heredoc unreliable over SSH**: For writing files over SSH, use `sed` pattern matching or `python3 -c "..."` single-line commands instead
+
+### Lessons Learned (SSH file editing over SSH)
+- Multi-line heredoc (`<< 'EOF'`) frequently hangs or corrupts when pasted into SSH terminal
+- `printf '...\n...'` with `\n` also unreliable if string contains quotes
+- Most reliable approaches: `sed -i 's/pattern/replacement/'` for targeted edits; `python3 -c "content.replace(...)"` for file rewrites
+
+### Next Actions
+- [ ] Complete NVIDIA driver installation: `sudo ubuntu-drivers autoinstall` → reboot → `nvidia-smi`
+- [ ] Install CUDA toolkit and verify: `sudo apt install nvidia-cuda-toolkit` → `nvcc --version`
+- [ ] Set up Tailscale: create account at tailscale.com, `curl -fsSL https://tailscale.com/install.sh | sh`, `sudo tailscale up`
+- [ ] Fix ethernet link flapping: test `sudo ethtool -s enp7s0 speed 1000 duplex full autoneg off` and `sudo ethtool --set-eee enp7s0 eee off` — make permanent in netplan if it stabilises
+- [ ] Install Ollama and Open WebUI (follow `NewPC/Software_Setup.md`)
+- [ ] Verify cloud-init disable persists on reboot
+
+---
+
 ## Session 2026-02-19 16:00
 
 ### Summary
