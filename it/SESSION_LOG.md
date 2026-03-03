@@ -4,6 +4,71 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-03 — Local AI Assistant Guide & Second RTX 3090
+
+### Summary
+Created `Local_CC.md` — a comprehensive implementation guide for replicating Claude Code capabilities locally using Ollama + Open WebUI + Aider + SearxNG. Updated `Final_Build.md` to record the purchase of a matching second Asus TUF RTX 3090 (£690.10), bringing total VRAM to 48GB. Updated `Local_CC.md` to reflect the dual GPU configuration, including simultaneous multi-model operation and a new "Model Selection and Switching" section covering mid-task model switching in both Open WebUI and Aider.
+
+### Work Completed
+- **Created `Local_CC.md`** — full phased implementation guide for local AI assistant:
+  - Phase 0: Server audit, `OLLAMA_HOST=0.0.0.0`, `OLLAMA_MAX_LOADED_MODELS=2`, model pulls
+  - Phase 1: Open WebUI configuration — web search, memory, code execution, PDF/RAG
+  - Phase 2: Aider terminal client — install, `~/.aider.conf.yml` config, usage patterns
+  - Phase 3: Workspace git repo at `/opt/local-cc-workspace/` with session tracking and GitHub sync
+  - Phase 4: SearxNG Docker deployment (localhost-only binding, JSON output config, Docker network)
+  - Security hardening: user isolation, Open WebUI auth, Tailscale ACL, Ollama exposure mitigation
+  - Models reference: VRAM table, dual GPU operating modes table, glossary
+  - **New section**: Model Selection and Switching — decision guide, Open WebUI mid-conversation switching, Aider `/model` command, per-project `.aider.conf.yml` defaults, `ollama list`/`rm`
+  - Verification checklists per phase + end-to-end test
+  - Troubleshooting: 6 failure scenarios with diagnosis and fixes
+  - Upgrade path: larger models (72B+), MCP, Open Interpreter, persistent RAG
+  - All 9 external links verified before inclusion; HTML `target="_blank"` format throughout
+- **Updated `Final_Build.md`** (v1.7 → v1.8):
+  - Title updated to "Dual RTX 3090 Configuration — Fully Installed"
+  - Build status updated to 11/11 components, fully operational
+  - Section 3 renamed to "3a. Graphics Card (GPU) — Primary"
+  - Added "3b. Graphics Card (GPU) — Secondary" — full spec table, PCIe slot config, VRAM total, capabilities unlocked
+  - Removed stale "COMPONENTS TO DECIDE" heading
+  - Cost table updated — second GPU row added; total £2,927.96 → £3,618.06
+  - Budget section updated with clear per-item breakdown
+  - Decision log entry added: March 3, 2026 — £690.10, rationale, PSU headroom note
+- **Updated `Local_CC.md`** for dual GPU:
+  - Opening paragraph, architecture diagram, design decisions — all updated for 48GB VRAM
+  - Prerequisites table — GPU row updated to 2x RTX 3090
+  - Phase 0 systemd override — `OLLAMA_MAX_LOADED_MODELS=2` added with explanation
+  - `qwen2.5:72b` pull command added to model list (optional)
+  - VRAM notes updated throughout
+  - Models Reference — 72B row added; dual GPU operating modes table added
+  - Upgrade path — "Additional VRAM" (now complete) replaced with "Larger Models (70B+)" future note
+
+### Files Changed
+- `it/NewPC/Local_CC.md` — **Created**: comprehensive local AI assistant implementation guide
+- `it/NewPC/Final_Build.md` — Updated v1.7 → v1.8: second RTX 3090, dual GPU configuration, total £3,618.06
+
+### Key Decisions
+- **`OLLAMA_MAX_LOADED_MODELS=2`** — the key dual-GPU unlock: keeps both 32B models hot-loaded in VRAM simultaneously (40GB combined < 48GB), making switching instant vs 30–60s reload
+- **qwen2.5:72b** added as optional pull — uses both GPUs (~45GB), mutually exclusive with dual 32B hot-load
+- **Model switching section** placed as standalone top-level section (not buried in phases) — it's a usage pattern, not a setup step
+- **SearxNG on localhost only** — bound to `127.0.0.1:8080`; accessible by Open WebUI via Docker network but not from Tailscale clients
+- **Session tracking** mirrors existing `/terminai/.claude/commands/session-*.md` pattern — same git-commit-based workflow
+
+### Reference Documents
+- `it/NewPC/Local_CC.md` — new master guide
+- `it/NewPC/Final_Build.md` — updated build record
+
+### Next Actions
+- [ ] Complete `qwen2.5-coder:32b` pull on server (was in progress via tmux as of previous session)
+- [ ] Install Aider on Windows PC and configure `~/.aider.conf.yml`
+- [ ] Deploy SearxNG container on AI server (Phase 4)
+- [ ] Configure Open WebUI web search, memory, and code execution (Phase 1)
+- [ ] Create `/opt/local-cc-workspace/` git repo and push to GitHub (Phase 3)
+- [ ] Wait for second RTX 3090 delivery; install and verify with `nvidia-smi` (both GPUs showing 24GB)
+- [ ] Set `OLLAMA_MAX_LOADED_MODELS=2` in Ollama systemd override after second GPU installed
+- [ ] Pull `qwen2.5:72b` (~45GB) once dual GPU is confirmed operational
+- [ ] Fix ethernet link flapping (enp7s0 autoneg issue — outstanding from previous session)
+
+---
+
 ## Session 2026-03-03 — Ollama Troubleshooting & tmux Documentation
 
 ### Summary

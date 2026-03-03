@@ -3,7 +3,7 @@
 **Last Updated**: 2026-03-03
 
 ## Current State
-**AI PC fully operational with complete AI stack running.** Ubuntu 24.04 Server, NVIDIA drivers (580.126.09), CUDA 13.0, Docker, NVIDIA Container Toolkit, Ollama, and Open WebUI all installed and validated. Models stored on dedicated 2TB NVMe (`/mnt/models/ollama`, 1.7TB free). Open WebUI accessible on LAN at `http://192.168.1.192:3000` and remotely via Tailscale at `http://100.79.83.113:3000`. UFW firewall active. Qwen2.5-coder:32b pull in progress via tmux.
+**AI PC fully operational — dual GPU configuration ordered.** Ubuntu 24.04 Server, NVIDIA drivers (580.126.09), CUDA 13.0, Docker, NVIDIA Container Toolkit, Ollama, and Open WebUI running. Second RTX 3090 ordered (arriving shortly). Once installed, 48GB total VRAM enables simultaneous dual-model operation. `Local_CC.md` implementation guide created — covering Open WebUI features, Aider terminal client, SearxNG, workspace git repo, model switching, and security hardening.
 
 ## Active Work Areas
 
@@ -43,20 +43,22 @@
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
-### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅
-- **Status**: Complete. Full AI stack running. User downloading additional models.
-- **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`, `NewPC/Assembly_Guide.md`, `NewPC/Software_Setup.md`
-- **Purpose**: Desktop for local LLM inference (coding assistance + homework help), dual GPU upgrade path
+### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU)
+- **Status**: Complete. Full AI stack running. Second RTX 3090 ordered. Local_CC.md guide created.
+- **Files**: `NewPC/CLAUDE.md`, `NewPC/PCBuildResearch.md`, `NewPC/Chosen_Build.md`, `NewPC/Final_Build.md`, `NewPC/Assembly_Guide.md`, `NewPC/Software_Setup.md`, `NewPC/Local_CC.md`
+- **Purpose**: Desktop for local LLM inference (coding assistance + homework help), dual GPU configuration
 - **Complete Component List**:
   - CPU: AMD Ryzen 9 7900X + thermal paste @ £322.50
   - Motherboard: MSI MAG X870E TOMAHAWK WIFI @ £269.99
-  - GPU: Asus TUF Gaming OC RTX 3090 24GB @ £699.39
+  - GPU (Primary): Asus TUF Gaming OC RTX 3090 24GB @ £699.39
+  - GPU (Secondary): Asus TUF Gaming OC RTX 3090 24GB @ £690.10 (ordered 2026-03-03, awaiting delivery)
   - RAM: G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 @ £599.99
   - PSU: Super Flower Leadex Titanium 1600W @ £270.98 (replacement — Thermaltake DOA)
   - Case: Fractal Design Torrent @ £169.99
   - Storage: Samsung 9100 Pro 2TB PCIe 5 x2 @ £502.00
   - CPU Cooler: Arctic Liquid Freezer III Pro 360 @ £72.00
   - Rear Fan: 140mm exhaust @ £21.12
+  - **Total spend**: £3,618.06
 - **Network Config**:
   - Ethernet: `enp7s0` static 192.168.1.192/24, route metric 100 (primary)
   - WiFi: `wlp8s0` static 192.168.1.191/24, route metric 600 (fallback)
@@ -65,17 +67,19 @@
   - Secure Boot: disabled (required for unsigned DKMS modules)
   - Tailscale: active, IP `100.79.83.113`
 - **AI Stack**:
-  - NVIDIA driver: installed, RTX 3090 24GB confirmed
+  - NVIDIA driver: 580.126.09, RTX 3090 24GB confirmed operational
   - CUDA: 12.0
   - Docker: running with NVIDIA container runtime
   - Ollama: running as systemd service, models at `/mnt/models/ollama`
   - Open WebUI: Docker container on port 3000, connected to Ollama via `192.168.1.192:11434`
-  - Models installed: `llama3.2:latest` (2.0GB), `llama3.1:8b` (4.9GB); `qwen2.5-coder:32b` pull in progress via tmux
+  - Models installed: `llama3.2:latest` (2.0GB), `llama3.1:8b` (4.9GB); `qwen2.5-coder:32b` pull in progress
+  - **Pending post-second-GPU**: `OLLAMA_MAX_LOADED_MODELS=2` in systemd override, `qwen2.5:32b` and `qwen2.5:72b` pulls
+- **Local AI Guide**: `NewPC/Local_CC.md` — complete implementation guide for Open WebUI features, Aider, SearxNG, workspace git repo, model switching
 - **Access**:
   - LAN: `http://192.168.1.192:3000`
   - Remote (Tailscale): `http://100.79.83.113:3000`
 - **Known Issues**: Ethernet link flapping (enp7s0 up/down) — autoneg issue between RTL8126 5Gb NIC and 1Gb router. Fix: `ethtool -s enp7s0 speed 1000 duplex full autoneg off` + disable EEE
-- **Next**: Benchmark performance, GPU power limit tuning, fix ethernet flapping
+- **Next**: Install second RTX 3090, set `OLLAMA_MAX_LOADED_MODELS=2`, work through `Local_CC.md` phases
 
 ### Zero Trust Network Access (ZTNA)
 - **Status**: Research complete, deployment guides created, ready for pilot deployment
@@ -248,11 +252,13 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **Fix ethernet link flapping** - Force 1Gb autoneg off, disable EEE, make permanent in netplan
-2. **Benchmark AI performance** - `time ollama run llama3.1:8b "..."` to verify tok/s vs expected 90-120
-3. **GPU power limit tuning** - `sudo nvidia-smi -pl 300` to reduce noise/heat; make permanent via systemd
-4. **Install Tailscale on other devices** - Windows PC and phone for remote access to Open WebUI
-5. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
+1. **Install second RTX 3090** — on delivery; verify both GPUs in `nvidia-smi`; set `OLLAMA_MAX_LOADED_MODELS=2`
+2. **Work through Local_CC.md phases** — Open WebUI configuration (Phase 1), Aider on clients (Phase 2), SearxNG (Phase 4), workspace repo (Phase 3)
+3. **Complete qwen2.5-coder:32b pull** — was in progress via tmux; verify with `ollama list`
+4. **Fix ethernet link flapping** - Force 1Gb autoneg off, disable EEE, make permanent in netplan
+5. **GPU power limit tuning** - `sudo nvidia-smi -pl 300` to reduce noise/heat; make permanent via systemd
+6. **Install Tailscale on other devices** - Windows PC and phone for remote access to Open WebUI
+7. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
 2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
 3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh
 4. **RDP connectivity testing** - Verify automated scheduled tasks work over ZTNA
@@ -293,7 +299,8 @@ None currently. All active documentation areas progressing as planned.
 - `NewPC/Chosen_Build.md` - Deep technical component analysis with PCIe architecture (709 lines, 55KB)
 - `NewPC/Final_Build.md` - Component selection tracker with decision log (745 lines, 30KB)
 - `NewPC/Assembly_Guide.md` - Step-by-step hardware assembly guide with cable reference and BIOS config — NEW 2026-02-19
-- `NewPC/Software_Setup.md` - Ubuntu 24.04 LTS full AI software stack setup guide — NEW 2026-02-19
+- `NewPC/Software_Setup.md` - Ubuntu 24.04 LTS full AI software stack setup guide (v1.3) — NEW 2026-02-19
+- `NewPC/Local_CC.md` - Local AI assistant implementation guide: Open WebUI, Aider, SearxNG, model switching — NEW 2026-03-03
 
 ### Zero Trust Network Access (ZTNA)
 - `ZTNA_Provider_Research_2026.md` - Complete market research and provider comparison (58 pages, 1,057 lines)

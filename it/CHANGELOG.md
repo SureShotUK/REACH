@@ -2,6 +2,30 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-03 — Local AI Assistant Guide & Second RTX 3090
+
+### Added
+- `NewPC/Local_CC.md` — **New master guide** for local AI assistant deployment: phases 0–4 (audit, Open WebUI config, Aider, workspace repo, SearxNG), security hardening, models reference, verification checklists, troubleshooting, upgrade path
+- `NewPC/Local_CC.md` — New "Model Selection and Switching" section: decision guide table (task → model), Open WebUI mid-conversation model switching, Aider `/model` command and `--model` flag, per-project `.aider.conf.yml`, `ollama list`/`rm` commands
+- `NewPC/Local_CC.md` — Dual GPU operating modes table (hot-swap 2x32B / large model 72B / fast+quality hybrid)
+- `NewPC/Final_Build.md` — Section 3b: Second RTX 3090 (Asus TUF Gaming OC 24GB, £690.10) — full spec table, PCIe slot config (x8/x8), dual GPU capabilities
+
+### Changed
+- `NewPC/Final_Build.md` — Title updated to "Dual RTX 3090 Configuration — Fully Installed"; version 1.7 → 1.8
+- `NewPC/Final_Build.md` — Build status updated to 11/11 components fully operational
+- `NewPC/Final_Build.md` — Section 3 renamed to "3a. Graphics Card (GPU) — Primary"
+- `NewPC/Final_Build.md` — Cost table updated: second GPU row added; total £2,927.96 → £3,618.06
+- `NewPC/Final_Build.md` — Target performance updated: "two 32B models simultaneously, or single 70B in VRAM"
+- `NewPC/Final_Build.md` — Removed stale "COMPONENTS TO DECIDE" heading
+- `NewPC/Local_CC.md` — Opening paragraph, architecture diagram, design decisions updated for 48GB dual GPU
+- `NewPC/Local_CC.md` — Prerequisites table: GPU row updated to 2x RTX 3090 24GB
+- `NewPC/Local_CC.md` — Phase 0 systemd override: `OLLAMA_MAX_LOADED_MODELS=2` added
+- `NewPC/Local_CC.md` — Models Reference: qwen2.5:72b added; swap time note updated for instant hot-swap
+- `NewPC/Local_CC.md` — Troubleshooting: VRAM check updated for 48GB dual GPU diagnosis
+- `NewPC/Local_CC.md` — Upgrade Path: "Additional VRAM" (now complete) → "Larger Models (70B+)" future note
+
+---
+
 ## [Unreleased] - 2026-03-03 — Ollama Troubleshooting & tmux Documentation
 
 ### Added
