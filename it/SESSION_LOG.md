@@ -4,6 +4,40 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-03 (Night) — SearxNG Fixed, Aider Installed and Operational
+
+### Summary
+Completed the SearxNG web search configuration that was partially working at the end of the previous session. Both Docker containers were reconnected to `ai-network`, confirming web search now returns results via Open WebUI. Installed Aider on the WSL2 client, worked through two configuration errors (pip externally-managed-environment, invalid config key), and created a practical Aider usage guide.
+
+### Work Completed
+- **SearxNG web search — fully operational**: Reconnected `open-webui` and `searxng` containers to `ai-network`; confirmed JSON results via `docker exec open-webui curl http://searxng:8080/search?q=test&format=json`; web search returns live results in Open WebUI chat via the Integrations button
+- **Aider installed on WSL2 client**: Resolved `externally-managed-environment` pip error by using `pipx install aider-chat`
+- **Aider configuration corrected**: `ollama-api-base` is not a valid config key in current Aider version; correct approach is `OLLAMA_API_BASE` environment variable in `~/.bashrc`; `Local_CC.md` updated to reflect this
+- **Aider operational**: Connected to remote Ollama server at `100.79.83.113:11434` via Tailscale
+- **Created `Aider.md`**: Practical usage guide covering what Aider is, prerequisites, starting Aider, giving instructions, all in-session commands (`/add`, `/drop`, `/model`, `/undo`, `/diff`, `/git`), common workflows (create, edit, multi-file, PDF context, mid-task model switch), model reference table, per-project config, troubleshooting
+
+### Files Changed
+- `it/NewPC/Local_CC.md` — Section 2.2: removed invalid `ollama-api-base` key; replaced with `OLLAMA_API_BASE` environment variable approach and corrected config table
+- `it/NewPC/Aider.md` — **NEW**: comprehensive Aider usage guide (practical reference for day-to-day use)
+
+### Key Decisions
+- **`OLLAMA_API_BASE` env var over config key** — current Aider version does not support `ollama-api-base` in `.aider.conf.yml`; environment variable is the correct and supported approach
+- **`pipx` over `pip` for Aider on Ubuntu/WSL2** — modern Debian/Ubuntu systems enforce PEP 668 (externally-managed-environment); `pipx` is the correct tool for installing standalone Python applications system-wide without breaking the OS Python environment
+- **SearxNG networking via container name** — confirmed that `http://searxng:8080/search?q=<query>` (container name, shared `ai-network`) is the correct URL; `172.17.0.1:8080` hangs because SearxNG binds to `127.0.0.1` only
+
+### Reference Documents
+- `it/NewPC/Local_CC.md` — master local AI guide (updated)
+- `it/NewPC/Aider.md` — Aider usage guide (new)
+
+### Next Actions
+- [ ] Phase 4: Create workspace git repo on server (`/opt/local-cc-workspace/`) for session tracking and persistent AI memory
+- [ ] Phase 5: Security hardening — dedicated `ai-executor` user, Open WebUI authentication, Tailscale ACLs
+- [ ] Install second RTX 3090 on delivery; set `OLLAMA_MAX_LOADED_MODELS=2` in Ollama systemd override
+- [ ] Fix ethernet link flapping on AI server (force 1Gb, disable EEE, make permanent in netplan)
+- [ ] Install Tailscale on other family devices for remote Open WebUI access
+
+---
+
 ## Session 2026-03-03 (Evening) — AmelAI Homework Assistant & Model Research Update
 
 ### Summary

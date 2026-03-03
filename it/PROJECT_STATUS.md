@@ -3,7 +3,7 @@
 **Last Updated**: 2026-03-03
 
 ## Current State
-**AI PC fully operational — dual GPU ordered; models updated to 2026 best.** Ubuntu 24.04 Server running with full AI stack. Second RTX 3090 ordered (arriving shortly — 48GB total VRAM). `Local_CC.md` implementation guide complete and updated with current best models (Qwen3.5 + Devstral replace Qwen2.5 throughout). AmelAI homework assistant modelfile created for Amelia (age 11).
+**Local AI stack fully operational — Open WebUI + SearxNG + Aider all working.** Ubuntu 24.04 Server running with full AI stack: Ollama, Open WebUI (port 3000), SearxNG web search (via ai-network container networking), AmelAI homework assistant configured. Aider installed and operational on WSL2 client (connected to Ollama via Tailscale). Second RTX 3090 ordered (arriving shortly — 48GB total VRAM). Phase 4 (workspace git repo) and Phase 5 (security hardening) remain.
 
 ## Active Work Areas
 
@@ -74,8 +74,11 @@
   - Open WebUI: Docker container on port 3000, connected to Ollama via `192.168.1.192:11434`
   - Models installed: `llama3.2:latest` (2.0GB), `llama3.1:8b` (4.9GB); `qwen2.5-coder:32b` pull in progress
   - **Current recommended models** (March 2026, verified): `qwen3.5:27b` (general), `devstral` (coding), `qwen3.5:9b` (fallback), `qwen3.5:35b` (large) — Qwen2.5 superseded
-- **Pending post-second-GPU**: `OLLAMA_MAX_LOADED_MODELS=2` in systemd override; pull `qwen3.5:27b`, `devstral`, `qwen3.5:9b`
+- **Pending post-second-GPU**: `OLLAMA_MAX_LOADED_MODELS=2` in systemd override
 - **Local AI Guide**: `NewPC/Local_CC.md` — complete implementation guide for Open WebUI features, Aider, SearxNG, workspace git repo, model switching
+- **Aider guide**: `NewPC/Aider.md` — practical day-to-day usage reference (new 2026-03-03)
+- **Completed phases**: Phase 0 (audit + model pull), Phase 1 (Open WebUI + SearxNG), Phase 2 (Aider on WSL2 client), AmelAI modelfile
+- **Remaining phases**: Phase 4 (workspace git repo `/opt/local-cc-workspace/`), Phase 5 (security hardening)
 - **Access**:
   - LAN: `http://192.168.1.192:3000`
   - Remote (Tailscale): `http://100.79.83.113:3000`
@@ -254,10 +257,9 @@ None currently. All active documentation areas progressing as planned.
 
 ### High Priority
 1. **Install second RTX 3090** — on delivery; verify both GPUs in `nvidia-smi`; set `OLLAMA_MAX_LOADED_MODELS=2`
-2. **Pull updated models** — `qwen3.5:27b`, `devstral`, `qwen3.5:9b` (Qwen2.5 superseded; see MEMORY.md)
-3. **Create AmelAI in Open WebUI** — paste modelfile system prompt, base model `qwen3.5:27b`, create Amelia's user account
-4. **Work through Local_CC.md phases** — Open WebUI configuration (Phase 1), Aider on clients (Phase 2), SearxNG (Phase 4), workspace repo (Phase 3)
-4. **Fix ethernet link flapping** - Force 1Gb autoneg off, disable EEE, make permanent in netplan
+2. **Phase 4: Workspace git repo** — create `/opt/local-cc-workspace/` on server with sessions/, memory/, projects/ directories; init git; create private GitHub repo
+3. **Phase 5: Security hardening** — dedicated `ai-executor` user, Open WebUI authentication, Tailscale ACLs
+4. **Fix ethernet link flapping** — force 1Gb autoneg off, disable EEE, make permanent in netplan
 5. **GPU power limit tuning** - `sudo nvidia-smi -pl 300` to reduce noise/heat; make permanent via systemd
 6. **Install Tailscale on other devices** - Windows PC and phone for remote access to Open WebUI
 7. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)

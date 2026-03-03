@@ -2,6 +2,21 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-03 (Night) — SearxNG Fixed, Aider Operational
+
+### Added
+- `NewPC/Aider.md` — New practical Aider usage guide: what Aider is, prerequisites, starting Aider, in-session commands (`/add`, `/drop`, `/model`, `/undo`, `/diff`), common workflows, model reference table, per-project config override, troubleshooting
+
+### Changed
+- `NewPC/Local_CC.md` — Section 2.2 Aider configuration: removed invalid `ollama-api-base` key; replaced with `OLLAMA_API_BASE` environment variable approach with explicit `~/.bashrc` export and `source` instruction; updated configuration table to reflect env var vs `.aider.conf.yml` split
+
+### Fixed
+- **SearxNG web search**: Reconnected `open-webui` and `searxng` to `ai-network` after container recreation; web search now fully operational via container name URL (`http://searxng:8080/search?q=<query>`)
+- **Aider pip installation**: `sudo pip install aider-chat` fails on Ubuntu/WSL2 (PEP 668 externally-managed-environment); correct fix is `sudo apt install pipx && pipx install aider-chat`
+- **Aider config**: `ollama-api-base` is not a recognised config key in current Aider version; must use `OLLAMA_API_BASE` environment variable
+
+---
+
 ## [Unreleased] - 2026-03-03 (Evening) — AmelAI Modelfile & Model Research Update
 
 ### Added

@@ -113,8 +113,22 @@ Tools system. If the version is older, update Open WebUI before proceeding:
 docker pull ghcr.io/open-webui/open-webui:main
 docker stop open-webui
 docker rm open-webui
-# Re-run your original docker run command (check your deployment notes for exact flags)
+
+docker run -d \
+  --name open-webui \
+  --restart unless-stopped \
+  --network ai-network \
+  --add-host=host.docker.internal:host-gateway \
+  -p 3000:8080 \
+  -v open-webui:/app/backend/data \
+  -e OLLAMA_BASE_URL=http://host.docker.internal:11434 \
+  ghcr.io/open-webui/open-webui:main
 ```
+
+> **Network note**: `--network ai-network` keeps Open WebUI on the shared Docker network with
+> SearxNG so it can reach the search engine via `http://searxng:8080`. `--add-host` is still
+> required for Ollama since that runs on the host (not in a container). Recreating the container
+> without these flags loses both connections and requires manual reconnection.
 
 ### Step 2 — Verify Ollama is externally accessible
 
@@ -307,19 +321,31 @@ rather than a cloud API. See the full configuration reference at
 ```yaml
 # ~/.aider.conf.yml
 model: ollama/devstral
-ollama-api-base: http://100.79.83.113:11434
 auto-commits: true
 git: true
 ```
 
+Aider does not accept `ollama-api-base` as a config file key. The Ollama server URL must be
+set via environment variable instead. Add this to `~/.bashrc` (Linux/WSL2) or `~/.zshrc` (macOS):
+
+```bash
+export OLLAMA_API_BASE=http://100.79.83.113:11434
+```
+
+Then reload your shell:
+
+```bash
+source ~/.bashrc
+```
+
 **What each setting does:**
 
-| Setting | Value | Effect |
-|---|---|---|
-| `model` | `ollama/devstral` | Use local Ollama; purpose-built agentic coding model |
-| `ollama-api-base` | `http://100.79.83.113:11434` | Connect to AI server over Tailscale |
-| `auto-commits` | `true` | Commit every AI-made change to git automatically |
-| `git` | `true` | Enable git integration (required for auto-commits) |
+| Setting | Where | Value | Effect |
+|---|---|---|---|
+| `model` | `.aider.conf.yml` | `ollama/devstral` | Use local Ollama; purpose-built agentic coding model |
+| `OLLAMA_API_BASE` | Environment variable | `http://100.79.83.113:11434` | Connect to AI server over Tailscale |
+| `auto-commits` | `.aider.conf.yml` | `true` | Commit every AI-made change to git automatically |
+| `git` | `.aider.conf.yml` | `true` | Enable git integration (required for auto-commits) |
 
 ### 2.3 — Run Aider
 
@@ -557,26 +583,43 @@ You should see JSON search results.
 
 ### 4.3 — Connect SearxNG to Open WebUI
 
-The SearxNG container and Open WebUI container are both on the Docker bridge network. There are
-two ways to reference the URL:
-
-- `http://localhost:8080` — works if Open WebUI calls the host's localhost
-- `http://searxng:8080` — works if both containers are on the same Docker network (preferred)
-
-Put both containers on the same network if they are not already:
+SearxNG binds to `127.0.0.1:8080` on the host (localhost only). Open WebUI runs inside a Docker
+container and cannot reach host localhost directly. Both containers must share a Docker network so
+Open WebUI can reach SearxNG by container name, bypassing the host entirely.
 
 ```bash
-# Create a shared network (if it doesn't exist)
-docker network create ai-network
+# Create the shared network (skip if already exists)
+docker network create ai-network 2>/dev/null || true
 
 # Connect both containers
 docker network connect ai-network open-webui
 docker network connect ai-network searxng
 ```
 
+Verify both are connected:
+
+```bash
+docker network inspect ai-network --format '{{range .Containers}}{{.Name}} {{end}}'
+```
+
+**Important**: if you ever recreate the Open WebUI container, use the run command in Phase 0
+(Step 1) which includes `--network ai-network`. Recreating without this flag loses the network
+connection and SearxNG will stop working.
+
+Test the connection from inside the Open WebUI container before configuring the URL:
+
+```bash
+docker exec open-webui curl -s "http://searxng:8080/search?q=test&format=json" | head -c 200
+```
+
+This must return JSON. If it hangs, the containers are not on the same network.
+
 Then in Open WebUI (*Admin > Settings > Web Search*), set:
 - **Search Engine**: `searxng`
-- **SearxNG URL**: `http://searxng:8080`
+- **SearxNG Query URL**: `http://searxng:8080/search?q=<query>`
+
+The `<query>` placeholder must be present exactly as written — Open WebUI substitutes it at
+runtime. Do not use `localhost` or `172.17.0.1` — use the container name `searxng`.
 
 **Testing**: In a chat window, enable web search (globe icon), then ask "What is the latest
 news today?" — the response should include current news with source links.
