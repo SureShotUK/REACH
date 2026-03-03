@@ -4,6 +4,68 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-03 (Evening) — AmelAI Homework Assistant & Model Research Update
+
+### Summary
+Created a complete Open WebUI modelfile system prompt for "AmelAI" — a homework assistant for Amelia (age 11), built around Socratic guidance rather than providing direct answers. Conducted a web search to verify whether Qwen2.5 is still the best Ollama model family, discovering it has been substantially superseded by Qwen3.5 (general) and Devstral (coding). Updated `Local_CC.md` throughout and saved findings to persistent memory for future sessions.
+
+### Work Completed
+- **Created AmelAI modelfile** — complete Open WebUI system prompt for 11-year-old homework assistant:
+  - 10 numbered directives covering Socratic guidance, growth mindset, constructive feedback, age-appropriate language
+  - Hard constraints section: never write essays/stories, never solve maths directly, never complete homework, no inappropriate content, no test answers, no gossip about peers
+  - Tone and communication style section
+  - UK curriculum coverage (Year 6–7, KS2–3): English, Maths, Science, History, Geography, MFL, Computing, PSHE
+  - Handling difficult moments section (safeguarding escalation guidance)
+  - Open WebUI deployment notes: where to paste, model name, user account isolation, temperature setting (~0.5–0.7)
+- **Model research (web search, March 2026)** — verified Qwen2.5 is no longer the best option:
+  - **Qwen3.5-27B** replaces `qwen2.5:32b` — better benchmarks, 256K context (vs 32K), native vision, less VRAM
+  - **Devstral** replaces `qwen2.5-coder:32b` — purpose-built agentic coding, top open-weight SWE-bench score (46.8%), 14GB (lighter)
+  - **Qwen3.5:9b** replaces `qwen2.5:7b` — 256K context, vision, thinking mode
+  - **Qwen3.5:35b** replaces `qwen2.5:72b` — better quality at ~27GB (vs ~45GB)
+  - Hot-swap pair: `qwen3.5:27b` (~22GB) + `devstral` (~14GB) = ~36GB — 12GB headroom vs old pair's 40GB/8GB
+- **Updated MEMORY.md** — new Ollama model recommendations section with full table, hot-swap pair, "no longer recommended" list
+- **Updated `Local_CC.md`** — all Qwen2.5 references replaced throughout:
+  - Opening note, architecture diagram, design decisions, prerequisites
+  - Phase 0 model pull commands (all four updated)
+  - Phase 0 VRAM note updated
+  - Phase 1.5 default model: `qwen3.5:27b`
+  - Aider `~/.aider.conf.yml` default: `devstral`
+  - Aider `--model` override examples updated
+  - Models Reference: full table replaced, dual GPU modes updated, "why Qwen3.5 replaces Qwen2.5" note added
+  - Model switching decision table updated (8 task types)
+  - All Aider `/model` command examples updated
+  - Per-project `.aider.conf.yml` examples updated
+  - Open WebUI plan/code workflow example updated
+  - "Other models" table updated (qwen3:30b MoE, gemma3:27b, nomic-embed-text)
+  - Sources section updated (qwen3.5, devstral, qwen3 Ollama library links)
+  - All URLs verified before inclusion
+
+### Files Changed
+- `it/NewPC/Local_CC.md` — Comprehensive model update: all Qwen2.5 references replaced with Qwen3.5/Devstral throughout
+- `/home/steve/.claude/projects/…/memory/MEMORY.md` — New Ollama model recommendations section added
+
+### Key Decisions
+- **Qwen3.5:27b as default general model** — outperforms Qwen2.5:72b at half the VRAM; 256K context is a major practical upgrade
+- **Devstral as coding model** — lighter than qwen2.5-coder:32b (14GB vs ~20GB); purpose-built for agentic file editing (exactly what Aider does); Apache 2.0
+- **Hot-swap pair confirmed viable** — qwen3.5:27b + devstral = 36GB combined, leaving 12GB headroom on 48GB
+- **AmelAI temperature 0.5–0.7** — lower than default to keep responses consistent and focused for an 11-year-old
+
+### Reference Documents
+- `it/NewPC/Local_CC.md` — updated local AI guide
+- `/home/steve/.claude/projects/…/memory/MEMORY.md` — persistent model recommendations
+
+### Next Actions
+- [ ] Install second RTX 3090 (on delivery) and verify with `nvidia-smi`
+- [ ] Set `OLLAMA_MAX_LOADED_MODELS=2` in Ollama systemd override
+- [ ] Pull updated models: `ollama pull qwen3.5:27b`, `ollama pull devstral`, `ollama pull qwen3.5:9b`
+- [ ] Remove or deprioritise old Qwen2.5 models after new ones are pulled
+- [ ] Create AmelAI model in Open WebUI — paste modelfile, set base to `qwen3.5:27b`, create Amelia's user account
+- [ ] Work through `Local_CC.md` Phase 1 (Open WebUI: web search, memory, code exec)
+- [ ] Deploy SearxNG and connect to Open WebUI (Phase 4)
+- [ ] Create `/opt/local-cc-workspace/` git repo and push to GitHub (Phase 3)
+
+---
+
 ## Session 2026-03-03 — Local AI Assistant Guide & Second RTX 3090
 
 ### Summary

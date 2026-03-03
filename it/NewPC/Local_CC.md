@@ -21,6 +21,10 @@ hardware, accessible from any device on the Tailscale network.
 | Persistent memory | Open WebUI Memory feature | AI remembers facts across conversations |
 | Session tracking | Git workspace repo | Session notes committed to private GitHub repo |
 
+> **Model note (March 2026):** The models in this guide have been updated from the original Qwen2.5
+> recommendations. Qwen3.5 and Devstral now substantially outperform Qwen2.5 across all use cases.
+> See the Models Reference section for current recommendations.
+
 ---
 
 ## Architecture
@@ -40,11 +44,11 @@ hardware, accessible from any device on the Tailscale network.
         │       └── RAG/Document store ── PDF + file Q&A
         │
         ├── Ollama  (systemd service, port 11434)
-        │       ├── qwen2.5:32b       ── general / web research  (~20GB, GPU #1)
-        │       ├── qwen2.5-coder:32b ── code editing / files    (~20GB, GPU #2)
-        │       ├── qwen2.5:7b        ── fast fallback            (~5GB)
-        │       └── qwen2.5:72b       ── high-quality, both GPUs  (~45GB)
-        │       [Two 32B models can be hot-loaded simultaneously — 40GB < 48GB total]
+        │       ├── qwen3.5:27b  ── general / reasoning / vision  (~22GB, GPU #1)
+        │       ├── devstral     ── agentic coding                 (~14GB, GPU #2)
+        │       ├── qwen3.5:9b   ── fast fallback / vision        (~7GB)
+        │       └── qwen3.5:35b  ── large high-quality, both GPUs (~27GB)
+        │       [qwen3.5:27b + devstral = ~36GB combined — both hot-loaded in 48GB VRAM]
         │
         └── Workspace git repo  (/opt/local-cc-workspace/)
                 ├── sessions/   ── session notes
@@ -61,11 +65,11 @@ hardware, accessible from any device on the Tailscale network.
   internally. No API keys required.
 - **Ollama exposes port 11434 on all interfaces** (set via `OLLAMA_HOST=0.0.0.0`) so Aider on
   client machines can connect over Tailscale.
-- **Two models simultaneously** — with 48GB VRAM (2x 24GB), both qwen2.5:32b (~20GB) and
-  qwen2.5-coder:32b (~20GB) can be loaded at once. Set `OLLAMA_MAX_LOADED_MODELS=2` and switching
-  between them is instant — no unload/reload delay.
-- **Or one large model** — a 70B model (~45GB Q4) runs entirely in VRAM across both GPUs, with
-  higher quality than any 32B model.
+- **Two models simultaneously** — with 48GB VRAM (2x 24GB), qwen3.5:27b (~22GB) and
+  devstral (~14GB) can be loaded at once (~36GB combined). Set `OLLAMA_MAX_LOADED_MODELS=2` and
+  switching between them is instant — no unload/reload delay.
+- **Or one large model** — qwen3.5:35b (~27GB) runs entirely in VRAM with headroom to spare,
+  offering higher quality than any 27B model for demanding tasks.
 - **Security boundary is Tailscale** — Open WebUI and Ollama are not firewalled at the application
   level; the Tailscale ACL is the perimeter.
 
@@ -162,17 +166,17 @@ Pull the fast fallback first so you have something usable immediately, then star
 The 32B models are ~20GB each — on a typical home connection this takes 20–40 minutes per model.
 
 ```bash
-# Pull fast fallback first (5GB) — available in minutes
-ollama pull qwen2.5:7b
+# Pull fast fallback first (6.6GB) — available in minutes; has vision and 256K context
+ollama pull qwen3.5:9b
 
-# Pull general-purpose 32B (20GB)
-ollama pull qwen2.5:32b
+# Pull general-purpose 27B (17GB) — replaces qwen2.5:32b; better quality, similar VRAM
+ollama pull qwen3.5:27b
 
-# Pull coding 32B (20GB)
-ollama pull qwen2.5-coder:32b
+# Pull coding model (14GB) — replaces qwen2.5-coder:32b; purpose-built agentic coding
+ollama pull devstral
 
-# Optional: pull 72B model for highest quality (~45GB — requires both GPUs, cannot run alongside another 32B)
-ollama pull qwen2.5:72b
+# Optional: pull large high-quality 35B (24GB) — fits in VRAM with headroom on dual 3090
+ollama pull qwen3.5:35b
 ```
 
 Verify all models are available:
@@ -181,10 +185,10 @@ Verify all models are available:
 ollama list
 ```
 
-**VRAM note**: Two RTX 3090s provide 48GB VRAM total. The 32B models use approximately 20GB each.
-With `OLLAMA_MAX_LOADED_MODELS=2` set, both qwen2.5:32b and qwen2.5-coder:32b can be hot-loaded
-simultaneously (40GB combined), making switching between them instant. Alternatively, pull
-`qwen2.5:72b` (~45GB Q4) to run a single high-quality 70B-class model across both GPUs.
+**VRAM note**: Two RTX 3090s provide 48GB VRAM total. With `OLLAMA_MAX_LOADED_MODELS=2` set,
+qwen3.5:27b (~22GB) and devstral (~14GB) can be hot-loaded simultaneously (~36GB combined),
+leaving 12GB headroom. Switching between them is instant — no unload/reload delay. Alternatively,
+pull `qwen3.5:35b` (~27GB) as a single higher-quality model with room to spare.
 
 ---
 
@@ -260,8 +264,8 @@ should answer from the document content, not from its training data.
 
 *Admin > Settings > Models (or in the chat header dropdown)*
 
-Set the default model to `qwen2.5:32b` for general use. Users can switch to
-`qwen2.5-coder:32b` in the model dropdown within any chat window when doing coding work.
+Set the default model to `qwen3.5:27b` for general use. Users can switch to
+`devstral` in the model dropdown within any chat window when doing coding work.
 
 ---
 
@@ -302,7 +306,7 @@ rather than a cloud API. See the full configuration reference at
 
 ```yaml
 # ~/.aider.conf.yml
-model: ollama/qwen2.5-coder:32b
+model: ollama/devstral
 ollama-api-base: http://100.79.83.113:11434
 auto-commits: true
 git: true
@@ -312,7 +316,7 @@ git: true
 
 | Setting | Value | Effect |
 |---|---|---|
-| `model` | `ollama/qwen2.5-coder:32b` | Use local Ollama; coding-optimised 32B model |
+| `model` | `ollama/devstral` | Use local Ollama; purpose-built agentic coding model |
 | `ollama-api-base` | `http://100.79.83.113:11434` | Connect to AI server over Tailscale |
 | `auto-commits` | `true` | Commit every AI-made change to git automatically |
 | `git` | `true` | Enable git integration (required for auto-commits) |
@@ -353,13 +357,13 @@ aider --read requirements.txt src/main.py
 **To switch to the general model for non-coding tasks:**
 
 ```bash
-aider --model ollama/qwen2.5:32b
+aider --model ollama/qwen3.5:27b
 ```
 
 Or override temporarily in the session:
 
 ```
-/model ollama/qwen2.5:32b
+/model ollama/qwen3.5:27b
 ```
 
 ### 2.4 — Aider in non-git directories
@@ -643,22 +647,29 @@ query any model. Mitigations:
 
 ## Models Reference
 
-All models are pulled via `ollama pull <name>`.
+All models are pulled via `ollama pull <name>`. Recommendations verified March 2026 — Qwen2.5
+has been superseded by Qwen3.5 and Devstral across all use cases.
 
 | Model | Command | VRAM | Context | Best For |
 |---|---|---|---|---|
-| qwen2.5:32b | `ollama pull qwen2.5:32b` | ~20GB | 32K tokens | General chat, web research, documents |
-| qwen2.5-coder:32b | `ollama pull qwen2.5-coder:32b` | ~20GB | 32K tokens | Code writing, editing, debugging |
-| qwen2.5:7b | `ollama pull qwen2.5:7b` | ~5GB | 32K tokens | Fast responses, simple tasks, fallback |
-| qwen2.5:72b | `ollama pull qwen2.5:72b` | ~45GB | 32K tokens | Highest quality — uses both GPUs; cannot run alongside another 32B |
+| qwen3.5:27b | `ollama pull qwen3.5:27b` | ~22GB | 256K tokens | General chat, research, documents, vision |
+| devstral | `ollama pull devstral` | ~14GB | 128K tokens | Agentic coding, file editing, debugging |
+| qwen3.5:9b | `ollama pull qwen3.5:9b` | ~7GB | 256K tokens | Fast fallback, simple tasks, vision |
+| qwen3.5:35b | `ollama pull qwen3.5:35b` | ~27GB | 256K tokens | High quality — single model, both GPUs |
 
 **Dual GPU operating modes:**
 
 | Mode | Models Loaded | VRAM Used | Behaviour |
 |------|--------------|-----------|-----------|
-| Hot-swap (default) | qwen2.5:32b + qwen2.5-coder:32b | ~40GB | Both in VRAM; switching is instant |
-| Large model | qwen2.5:72b only | ~45GB | Single high-quality model across both GPUs |
-| Fast + quality | qwen2.5:32b + qwen2.5:7b | ~25GB | Leave ~23GB free for other GPU tasks |
+| Hot-swap (default) | qwen3.5:27b + devstral | ~36GB | Both in VRAM; switching is instant; 12GB headroom |
+| Large model | qwen3.5:35b only | ~27GB | Single high-quality model with headroom |
+| Fast + quality | qwen3.5:27b + qwen3.5:9b | ~29GB | Leave ~19GB free; useful when running other GPU workloads |
+
+**Why Qwen3.5 replaces Qwen2.5:**
+- Qwen3.5-27B outperforms Qwen2.5-72B on most benchmarks using less than half the VRAM
+- Qwen3.5-27B SWE-bench Verified: 72.4% (vs Qwen2.5-Coder-32B which scores significantly lower)
+- All Qwen3.5 models have 256K context (Qwen2.5 had 32K) and native vision support
+- Devstral is purpose-built for agentic coding, outperforming Qwen2.5-Coder-32B on SWE-bench
 
 **Glossary:**
 
@@ -679,14 +690,14 @@ both 32B models first — approximately 30–60 seconds.
 
 **Adding models later**: The Ollama model library is at
 <a href="https://ollama.com/library" target="_blank">ollama.com/library</a>. Any model listed
-there can be pulled with `ollama pull <name>`. Recommended additions:
+there can be pulled with `ollama pull <name>`. Other models worth considering:
 
-| Model | Use Case | VRAM |
-|---|---|---|
-| `deepseek-coder-v2:16b` | Alternative coding model | ~10GB |
-| `mistral:7b` | Fast general model, strong at instruction following | ~5GB |
-| `llama3.2:3b` | Very fast responses for simple tasks | ~2GB |
-| `nomic-embed-text` | Text embeddings for RAG/document search | <1GB |
+| Model | Use Case | VRAM | Notes |
+|---|---|---|---|
+| `qwen3:30b` | Very fast general inference | ~20GB | MoE — only 3B active params; extremely fast |
+| `gemma3:27b` | Alternative to qwen3.5:27b | ~18GB | Google; strong vision + 140 languages |
+| `qwen3.5:35b` | Step up from 27B quality | ~27GB | Good if not using hot-swap pair |
+| `nomic-embed-text` | Text embeddings for RAG | <1GB | Required for persistent document search |
 
 ---
 
@@ -699,18 +710,18 @@ mid-task — the local equivalent of Claude Code's `--model` flag and `/model` c
 
 | Task | Recommended Model | Reason |
 |------|-------------------|--------|
-| General chat, Q&A, writing | `qwen2.5:32b` | Strong general reasoning |
-| Web research and synthesis | `qwen2.5:32b` | Good at summarising and cross-referencing |
-| Writing code, debugging | `qwen2.5-coder:32b` | Fine-tuned on code; better at syntax and patterns |
-| Large codebase analysis | `qwen2.5-coder:32b` | Understands code structure, variable relationships |
-| Quick lookups, simple questions | `qwen2.5:7b` | Faster response; good enough for low-complexity tasks |
-| Complex multi-step reasoning | `qwen2.5:72b` | Higher parameter count = better logical chains |
-| Long documents (80+ pages) | `qwen2.5:72b` or `qwen2.5:32b` | Larger models handle long context better |
-| Start with planning, then code | Switch mid-task | Use 32b to plan, switch to coder:32b to implement |
+| General chat, Q&A, writing | `qwen3.5:27b` | Best general reasoning at this VRAM level |
+| Web research and synthesis | `qwen3.5:27b` | Strong at summarising and cross-referencing |
+| Writing code, debugging | `devstral` | Purpose-built agentic coding; top SWE-bench open model |
+| Large codebase analysis | `devstral` or `qwen3.5:27b` | Both strong at code; devstral lighter |
+| Quick lookups, simple questions | `qwen3.5:9b` | Fast; 256K context; vision capable |
+| Complex multi-step reasoning | `qwen3.5:35b` | Larger model, better logical chains |
+| Long documents (80+ pages) | `qwen3.5:27b` or `qwen3.5:35b` | 256K context handles very long documents |
+| Images or screenshots | `qwen3.5:27b` or `qwen3.5:9b` | Native vision support in both |
+| Start with planning, then code | Switch mid-task | Use qwen3.5:27b to plan, switch to devstral to implement |
 
-**Rule of thumb**: start with `qwen2.5-coder:32b` for anything involving code; use `qwen2.5:32b`
-for everything else. Switch to `qwen2.5:7b` when you need quick answers and quality is not
-critical.
+**Rule of thumb**: start with `devstral` for coding tasks; use `qwen3.5:27b` for everything else.
+Switch to `qwen3.5:9b` when you need quick answers and quality is not critical.
 
 ---
 
@@ -732,13 +743,13 @@ left off. This is directly equivalent to Claude Code's `/model` command.
 
 **Example workflow** (plan then code):
 ```
-1. Start conversation with qwen2.5:32b
+1. Start conversation with qwen3.5:27b
 2. "I need to refactor this authentication module. Here's the current code: [paste code].
    What approach would you recommend and what are the trade-offs?"
 3. [Review and agree on the plan]
-4. Switch model to qwen2.5-coder:32b (click dropdown)
+4. Switch model to devstral (click dropdown)
 5. "Now implement the refactoring we just planned."
-6. [qwen2.5-coder:32b uses the full conversation history including the plan]
+6. [devstral uses the full conversation history including the plan]
 ```
 
 **Switching is instant** (with `OLLAMA_MAX_LOADED_MODELS=2` configured) because both 32B models
@@ -760,14 +771,14 @@ Aider lets you change models both at startup and interactively during a session.
 **Starting Aider with a specific model:**
 
 ```bash
-# Default (from .aider.conf.yml) — qwen2.5-coder:32b
+# Default (from .aider.conf.yml) — devstral
 aider
 
-# Override for this session — general model
-aider --model ollama/qwen2.5:32b
+# Override for this session — general reasoning model
+aider --model ollama/qwen3.5:27b
 
-# Override for this session — 72B model
-aider --model ollama/qwen2.5:72b
+# Override for this session — large high-quality model
+aider --model ollama/qwen3.5:35b
 ```
 
 **Switching model mid-session:**
@@ -775,15 +786,15 @@ aider --model ollama/qwen2.5:72b
 Type `/model` followed by the model name at the Aider prompt:
 
 ```
-> /model ollama/qwen2.5:32b
+> /model ollama/qwen3.5:27b
 ```
 
 ```
-> /model ollama/qwen2.5-coder:32b
+> /model ollama/devstral
 ```
 
 ```
-> /model ollama/qwen2.5:72b
+> /model ollama/qwen3.5:35b
 ```
 
 The current model is shown in the Aider prompt. After switching, Aider continues with the
@@ -800,10 +811,10 @@ With no argument, `/model` prints the currently active model name.
 **Example workflow** (write tests then implementation):
 ```bash
 aider src/auth.py tests/test_auth.py
-> /model ollama/qwen2.5:32b
+> /model ollama/qwen3.5:27b
 > Analyse this authentication module and identify what unit tests are missing.
   [Review the analysis]
-> /model ollama/qwen2.5-coder:32b
+> /model ollama/devstral
 > Write the missing unit tests in tests/test_auth.py.
 ```
 
@@ -816,10 +827,10 @@ the project directory. It overrides `~/.aider.conf.yml` for that project only:
 
 ```yaml
 # /path/to/my-python-project/.aider.conf.yml
-model: ollama/qwen2.5-coder:32b   # code-heavy project
+model: ollama/devstral            # code-heavy project
 
 # /path/to/my-writing-project/.aider.conf.yml
-model: ollama/qwen2.5:32b         # writing/research project
+model: ollama/qwen3.5:27b         # writing/research project
 ```
 
 ---
@@ -1041,6 +1052,7 @@ All links verified March 2026.
 - <a href="https://aider.chat/docs/config/aider_conf.html" target="_blank">Aider — Configuration File Reference</a>
 - <a href="https://docs.searxng.org/" target="_blank">SearxNG — Official Documentation</a>
 - <a href="https://tailscale.com/" target="_blank">Tailscale — Secure Connectivity</a>
-- <a href="https://ollama.com/library/qwen2.5" target="_blank">Ollama Library — qwen2.5</a>
-- <a href="https://ollama.com/library/qwen2.5-coder" target="_blank">Ollama Library — qwen2.5-coder</a>
+- <a href="https://ollama.com/library/qwen3.5" target="_blank">Ollama Library — qwen3.5</a>
+- <a href="https://ollama.com/library/devstral" target="_blank">Ollama Library — devstral</a>
+- <a href="https://ollama.com/library/qwen3" target="_blank">Ollama Library — qwen3</a>
 - <a href="https://ollama.com/library" target="_blank">Ollama Model Library</a>

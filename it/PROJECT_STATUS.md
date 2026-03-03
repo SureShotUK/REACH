@@ -3,7 +3,7 @@
 **Last Updated**: 2026-03-03
 
 ## Current State
-**AI PC fully operational — dual GPU configuration ordered.** Ubuntu 24.04 Server, NVIDIA drivers (580.126.09), CUDA 13.0, Docker, NVIDIA Container Toolkit, Ollama, and Open WebUI running. Second RTX 3090 ordered (arriving shortly). Once installed, 48GB total VRAM enables simultaneous dual-model operation. `Local_CC.md` implementation guide created — covering Open WebUI features, Aider terminal client, SearxNG, workspace git repo, model switching, and security hardening.
+**AI PC fully operational — dual GPU ordered; models updated to 2026 best.** Ubuntu 24.04 Server running with full AI stack. Second RTX 3090 ordered (arriving shortly — 48GB total VRAM). `Local_CC.md` implementation guide complete and updated with current best models (Qwen3.5 + Devstral replace Qwen2.5 throughout). AmelAI homework assistant modelfile created for Amelia (age 11).
 
 ## Active Work Areas
 
@@ -73,7 +73,8 @@
   - Ollama: running as systemd service, models at `/mnt/models/ollama`
   - Open WebUI: Docker container on port 3000, connected to Ollama via `192.168.1.192:11434`
   - Models installed: `llama3.2:latest` (2.0GB), `llama3.1:8b` (4.9GB); `qwen2.5-coder:32b` pull in progress
-  - **Pending post-second-GPU**: `OLLAMA_MAX_LOADED_MODELS=2` in systemd override, `qwen2.5:32b` and `qwen2.5:72b` pulls
+  - **Current recommended models** (March 2026, verified): `qwen3.5:27b` (general), `devstral` (coding), `qwen3.5:9b` (fallback), `qwen3.5:35b` (large) — Qwen2.5 superseded
+- **Pending post-second-GPU**: `OLLAMA_MAX_LOADED_MODELS=2` in systemd override; pull `qwen3.5:27b`, `devstral`, `qwen3.5:9b`
 - **Local AI Guide**: `NewPC/Local_CC.md` — complete implementation guide for Open WebUI features, Aider, SearxNG, workspace git repo, model switching
 - **Access**:
   - LAN: `http://192.168.1.192:3000`
@@ -253,8 +254,9 @@ None currently. All active documentation areas progressing as planned.
 
 ### High Priority
 1. **Install second RTX 3090** — on delivery; verify both GPUs in `nvidia-smi`; set `OLLAMA_MAX_LOADED_MODELS=2`
-2. **Work through Local_CC.md phases** — Open WebUI configuration (Phase 1), Aider on clients (Phase 2), SearxNG (Phase 4), workspace repo (Phase 3)
-3. **Complete qwen2.5-coder:32b pull** — was in progress via tmux; verify with `ollama list`
+2. **Pull updated models** — `qwen3.5:27b`, `devstral`, `qwen3.5:9b` (Qwen2.5 superseded; see MEMORY.md)
+3. **Create AmelAI in Open WebUI** — paste modelfile system prompt, base model `qwen3.5:27b`, create Amelia's user account
+4. **Work through Local_CC.md phases** — Open WebUI configuration (Phase 1), Aider on clients (Phase 2), SearxNG (Phase 4), workspace repo (Phase 3)
 4. **Fix ethernet link flapping** - Force 1Gb autoneg off, disable EEE, make permanent in netplan
 5. **GPU power limit tuning** - `sudo nvidia-smi -pl 300` to reduce noise/heat; make permanent via systemd
 6. **Install Tailscale on other devices** - Windows PC and phone for remote access to Open WebUI

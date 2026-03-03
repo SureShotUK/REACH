@@ -2,6 +2,23 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-03 (Evening) — AmelAI Modelfile & Model Research Update
+
+### Added
+- AmelAI Open WebUI system prompt: homework assistant for Amelia (age 11); 10 Socratic directives, hard constraints (no essay writing, no direct answers, no test help), tone guidance, UK KS2–3 curriculum coverage, safeguarding escalation, Open WebUI deployment notes
+
+### Changed
+- `it/NewPC/Local_CC.md` — All Qwen2.5 model references replaced with March 2026 verified recommendations:
+  - `qwen2.5:32b` → `qwen3.5:27b` (256K context, vision, better benchmarks)
+  - `qwen2.5-coder:32b` → `devstral` (agentic coding specialist, 14GB, Apache 2.0)
+  - `qwen2.5:7b` → `qwen3.5:9b` (256K context, vision, thinking mode)
+  - `qwen2.5:72b` → `qwen3.5:35b` (~27GB vs ~45GB, better quality)
+  - Hot-swap pair updated: qwen3.5:27b + devstral = ~36GB (12GB headroom on 48GB VRAM)
+  - Architecture diagram, design decisions, Phase 0 pull commands, Aider config, model reference tables, switching examples, per-project configs, sources — all updated
+- `MEMORY.md` — New Ollama model recommendations section with full table, hot-swap pair, "no longer recommended" list (persists across future sessions)
+
+---
+
 ## [Unreleased] - 2026-03-03 — Local AI Assistant Guide & Second RTX 3090
 
 ### Added
