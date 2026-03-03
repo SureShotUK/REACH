@@ -157,7 +157,7 @@ After installation completes and the system reboots into Ubuntu, run all system 
 
 ```bash
 sudo apt update && sudo apt full-upgrade -y
-sudo apt install -y build-essential git curl wget htop nvtop net-tools
+sudo apt install -y build-essential git curl wget htop nvtop net-tools tmux
 ```
 
 **What these install:**
@@ -167,6 +167,7 @@ sudo apt install -y build-essential git curl wget htop nvtop net-tools
 - `htop` — system resource monitor
 - `nvtop` — GPU utilisation monitor (like htop but for NVIDIA GPUs)
 - `net-tools` — network utilities (`ifconfig`, etc.)
+- `tmux` — terminal multiplexer; keeps sessions alive when SSH disconnects (see Section 8)
 
 Reboot after updates:
 
@@ -433,6 +434,81 @@ sudo systemctl restart ollama
 ```
 
 **Security note**: Only do this on a trusted home network. This makes Ollama accessible to any device on your LAN.
+
+### Downloading Large Models Safely with tmux
+
+Large model downloads (10–20GB+) take considerable time. If you are connected via SSH and your terminal session closes — because you close your laptop, lose your connection, or the session times out — any running `ollama pull` command will be killed and the download will be lost.
+
+**tmux** (terminal multiplexer) solves this by running a persistent session on the server that continues regardless of whether your SSH connection is active.
+
+#### Starting a tmux session
+
+```bash
+tmux new-session -s ollama-pull
+```
+
+Your terminal prompt changes slightly to indicate you are now inside tmux. Any commands you run here will keep running even if you disconnect.
+
+#### Detaching from tmux (keeping it running)
+
+To disconnect from the tmux session while leaving it running on the server:
+
+Press `Ctrl+B`, then release both keys, then press `D`
+
+The terminal returns to your normal SSH prompt with a message like `[detached (from session ollama-pull)]`. The session and everything running inside it continues on the server.
+
+#### Reattaching to a tmux session
+
+When you SSH back in, reattach to your session:
+
+```bash
+tmux attach -t ollama-pull
+```
+
+You will see the session exactly as you left it, including any command output that was printed while you were away.
+
+#### Listing active sessions
+
+If you have multiple sessions or can't remember the name:
+
+```bash
+tmux ls
+```
+
+#### Closing a session when finished
+
+Once the download is complete and you no longer need the session, exit it normally:
+
+```bash
+exit
+```
+
+Or kill it from outside tmux:
+
+```bash
+tmux kill-session -t ollama-pull
+```
+
+#### Typical workflow for pulling a large model
+
+```bash
+# 1. Start a named tmux session
+tmux new-session -s ollama-pull
+
+# 2. Inside tmux — pull the model
+ollama pull qwen2.5-coder:32b
+
+# 3. Optional — detach and close your laptop (download keeps running)
+#    Press Ctrl+B, then D
+
+# 4. Later — SSH back in and reattach to check progress
+tmux attach -t ollama-pull
+
+# 5. Once complete — exit and tidy up
+exit
+```
+
+---
 
 ### Test Ollama — Download and Run First Model
 
@@ -957,6 +1033,13 @@ nvidia-smi -l 1                      # Continuous GPU stats (every 1 second)
 nvtop                                # Interactive GPU monitor
 nvidia-smi -pl 300                   # Set power limit to 300W
 
+# tmux
+tmux new-session -s <name>           # Start a new named session
+tmux attach -t <name>                # Reattach to a session
+tmux ls                              # List all active sessions
+tmux kill-session -t <name>         # Kill a session
+# Ctrl+B, then D                    # Detach from current session (keeps it running)
+
 # Tailscale
 tailscale status                     # Show connected devices
 tailscale ip -4                      # Show this machine's Tailscale IP
@@ -990,6 +1073,6 @@ sudo systemctl status <service>      # Check service status
 
 ---
 
-**Document Version**: 1.2
-**Last Updated**: March 2, 2026
-**Changes**: Updated to Ubuntu Server 24.04 (not Desktop); corrected drive 2 mount point to `/mnt` with `/mnt/models` subdirectory; updated CUDA version to 12.0; added Tailscale section; updated firewall configuration; corrected Open WebUI docker command to use server IP; corrected NVIDIA Container Toolkit installation commands
+**Document Version**: 1.3
+**Last Updated**: March 3, 2026
+**Changes**: Added tmux section (Section 8) covering safe large model downloads, detach/attach workflow, and session management; added tmux to initial apt install command (Section 4); added tmux commands to Quick Reference (Section 18)

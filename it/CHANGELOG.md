@@ -2,6 +2,18 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-03 — Ollama Troubleshooting & tmux Documentation
+
+### Added
+- `NewPC/Software_Setup.md` Section 8: New "Downloading Large Models Safely with tmux" subsection — why tmux is needed, starting/detaching/reattaching/listing/closing sessions, typical pull workflow
+- `NewPC/Software_Setup.md` Section 4: `tmux` added to initial `apt install` command with description
+- `NewPC/Software_Setup.md` Section 18: tmux commands added to Quick Reference
+
+### Changed
+- `NewPC/Software_Setup.md` — version 1.2 → 1.3
+
+---
+
 ## [Unreleased] - 2026-03-02 (Evening) — AI Stack Complete
 
 ### Added

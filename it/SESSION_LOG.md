@@ -4,6 +4,39 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-03 — Ollama Troubleshooting & tmux Documentation
+
+### Summary
+Troubleshooting session focused on Qwen2.5-coder:32b not appearing in Ollama after a failed pull. Root causes identified: the pull was killed when the SSH session dropped (laptop closed), and the wrong list command was being used (`ollama list models` instead of `ollama list`). NVIDIA driver 590 was inadvertently removed by `apt install tmux` (apt dependency resolution), but driver 580 remained installed and the RTX 3090 was confirmed fully operational. GPU usage confirmed via token throughput (151 tok/s on llama3.1:8b). Software_Setup.md updated to v1.3 with a comprehensive tmux section.
+
+### Work Completed
+- **Diagnosed missing model**: `ollama pull qwen2.5-coder:32b` was killed when SSH session dropped (laptop closed mid-download); partial download left no usable model
+- **Identified wrong command**: `ollama list models` is invalid — correct command is `ollama list`
+- **NVIDIA driver incident**: `apt install tmux` triggered apt removing `nvidia-driver-590` as no longer needed; `nvidia-driver-580` remained; RTX 3090 fully operational
+- **GPU confirmed working**: `nvidia-smi` showed RTX 3090 24GB, driver 580.126.09, CUDA 13.0; token speeds (151 tok/s on 8B model) confirmed GPU inference, not CPU
+- **Verified disk space**: 445GB free on OS drive; 1.7TB free on `/mnt` model storage drive — ample for qwen2.5-coder:32b (~20GB)
+- **Added tmux section to Software_Setup.md**: Covers why tmux is needed for long downloads, starting sessions, detach (`Ctrl+B D`), reattach, listing sessions, closing sessions, and a typical pull workflow
+- **tmux added to initial apt install** in Section 4 with description
+- **tmux commands added to Quick Reference** (Section 18)
+- **Software_Setup.md bumped to v1.3**
+
+### Files Changed
+- `it/NewPC/Software_Setup.md` — Added tmux subsection in Section 8 (Ollama), tmux to Section 4 apt install, tmux to Section 18 Quick Reference; version 1.2 → 1.3
+
+### Key Decisions
+- **tmux over nohup**: tmux chosen for documentation as it allows monitoring progress after reattaching; nohup is fire-and-forget
+- **Driver 580 acceptable**: No action needed on driver version — 580 fully supports RTX 3090 and CUDA for Ollama inference
+- **Confirm model name before pull**: User confirmed coding variant (`qwen2.5-coder:32b`) not general chat (`qwen2.5:32b`)
+
+### Next Actions
+- [ ] Complete `qwen2.5-coder:32b` pull using tmux (download in progress or to be started)
+- [ ] Benchmark performance after model download
+- [ ] GPU power limit reduction to 300W (`sudo nvidia-smi -pl 300`) for reduced noise/heat
+- [ ] Fix ethernet link flapping (enp7s0 autoneg issue with RTL8126 5Gb NIC and 1Gb router)
+- [ ] Install Tailscale on other devices (Windows PC, phone)
+
+---
+
 ## Session 2026-03-02 (Evening) — AI Stack Complete
 
 ### Summary

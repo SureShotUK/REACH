@@ -1,9 +1,9 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-02
+**Last Updated**: 2026-03-03
 
 ## Current State
-**AI PC fully operational with complete AI stack running.** Ubuntu 24.04 Server, NVIDIA drivers, CUDA 12.0, Docker, NVIDIA Container Toolkit, Ollama, and Open WebUI all installed and validated. Models stored on dedicated 2TB NVMe (`/mnt/models/ollama`). Open WebUI accessible on LAN at `http://192.168.1.192:3000` and remotely via Tailscale at `http://100.79.83.113:3000`. UFW firewall active. User downloading additional models.
+**AI PC fully operational with complete AI stack running.** Ubuntu 24.04 Server, NVIDIA drivers (580.126.09), CUDA 13.0, Docker, NVIDIA Container Toolkit, Ollama, and Open WebUI all installed and validated. Models stored on dedicated 2TB NVMe (`/mnt/models/ollama`, 1.7TB free). Open WebUI accessible on LAN at `http://192.168.1.192:3000` and remotely via Tailscale at `http://100.79.83.113:3000`. UFW firewall active. Qwen2.5-coder:32b pull in progress via tmux.
 
 ## Active Work Areas
 
@@ -70,7 +70,7 @@
   - Docker: running with NVIDIA container runtime
   - Ollama: running as systemd service, models at `/mnt/models/ollama`
   - Open WebUI: Docker container on port 3000, connected to Ollama via `192.168.1.192:11434`
-  - Models installed: `llama3.2:latest` (2.0GB), `llama3.1:8b` (4.9GB) + more being downloaded
+  - Models installed: `llama3.2:latest` (2.0GB), `llama3.1:8b` (4.9GB); `qwen2.5-coder:32b` pull in progress via tmux
 - **Access**:
   - LAN: `http://192.168.1.192:3000`
   - Remote (Tailscale): `http://100.79.83.113:3000`
