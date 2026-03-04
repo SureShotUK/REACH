@@ -1,9 +1,9 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-03
+**Last Updated**: 2026-03-04
 
 ## Current State
-**Local AI stack fully operational — Open WebUI + SearxNG + Aider all working.** Ubuntu 24.04 Server running with full AI stack: Ollama, Open WebUI (port 3000), SearxNG web search (via ai-network container networking), AmelAI homework assistant configured. Aider installed and operational on WSL2 client (connected to Ollama via Tailscale). Second RTX 3090 ordered (arriving shortly — 48GB total VRAM). Phase 4 (workspace git repo) and Phase 5 (security hardening) remain.
+**Local AI stack fully operational — Open WebUI + SearxNG + Aider + MCP web search all working.** Claude Code now runs against local Ollama backend (via `ANTHROPIC_BASE_URL`). SearxNG MCP server deployed on NewPC (port 3001, systemd service), giving Claude Code in terminal a working `web_search` tool. Web search requires explicit invocation ("Call the web_search tool...") with Ollama models — automatic tool selection prefers broken built-in WebSearch. Second RTX 3090 ordered (arriving shortly — 48GB total VRAM). Phase 3 (workspace git repo) and Phase 5 (security hardening) remain.
 
 ## Active Work Areas
 
@@ -75,10 +75,11 @@
   - Models installed: `llama3.2:latest` (2.0GB), `llama3.1:8b` (4.9GB); `qwen2.5-coder:32b` pull in progress
   - **Current recommended models** (March 2026, verified): `qwen3.5:27b` (general), `devstral` (coding), `qwen3.5:9b` (fallback), `qwen3.5:35b` (large) — Qwen2.5 superseded
 - **Pending post-second-GPU**: `OLLAMA_MAX_LOADED_MODELS=2` in systemd override
-- **Local AI Guide**: `NewPC/Local_CC.md` — complete implementation guide for Open WebUI features, Aider, SearxNG, workspace git repo, model switching
+- **Local AI Guide**: `NewPC/Local_CC.md` — complete implementation guide for Open WebUI features, Aider, SearxNG, MCP server, model switching
 - **Aider guide**: `NewPC/Aider.md` — practical day-to-day usage reference (new 2026-03-03)
-- **Completed phases**: Phase 0 (audit + model pull), Phase 1 (Open WebUI + SearxNG), Phase 2 (Aider on WSL2 client), AmelAI modelfile
-- **Remaining phases**: Phase 4 (workspace git repo `/opt/local-cc-workspace/`), Phase 5 (security hardening)
+- **Completed phases**: Phase 0 (audit + model pull), Phase 1 (Open WebUI + SearxNG), Phase 2 (Aider on WSL2 client), Phase 4.1 (SearxNG MCP server for Claude Code), AmelAI modelfile
+- **Remaining phases**: Phase 3 (workspace git repo `/opt/local-cc-workspace/`), Phase 5 (security hardening)
+- **MCP server**: `mcp-searxng` systemd service at `/opt/mcp-searxng/`; SSE endpoint `http://100.79.83.113:3001/sse`; registered in `C:\Users\SteveIrwin\.claude.json`
 - **Access**:
   - LAN: `http://192.168.1.192:3000`
   - Remote (Tailscale): `http://100.79.83.113:3000`
@@ -256,12 +257,13 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **Install second RTX 3090** — on delivery; verify both GPUs in `nvidia-smi`; set `OLLAMA_MAX_LOADED_MODELS=2`
-2. **Phase 4: Workspace git repo** — create `/opt/local-cc-workspace/` on server with sessions/, memory/, projects/ directories; init git; create private GitHub repo
-3. **Phase 5: Security hardening** — dedicated `ai-executor` user, Open WebUI authentication, Tailscale ACLs
-4. **Fix ethernet link flapping** — force 1Gb autoneg off, disable EEE, make permanent in netplan
-5. **GPU power limit tuning** - `sudo nvidia-smi -pl 300` to reduce noise/heat; make permanent via systemd
-6. **Install Tailscale on other devices** - Windows PC and phone for remote access to Open WebUI
+1. **Add CLAUDE.md to Claude Code working dir** — `C:\Users\SteveIrwin\Claude\CLAUDE.md` instructing model to always use `web_search` MCP tool (fixes automatic tool selection)
+2. **Install second RTX 3090** — on delivery; verify both GPUs in `nvidia-smi`; set `OLLAMA_MAX_LOADED_MODELS=2`
+3. **Phase 3: Workspace git repo** — create `/opt/local-cc-workspace/` on server with sessions/, memory/, projects/ directories; init git; create private GitHub repo
+4. **Phase 5: Security hardening** — dedicated `ai-executor` user, Open WebUI authentication, Tailscale ACLs
+5. **Fix ethernet link flapping** — force 1Gb autoneg off, disable EEE, make permanent in netplan
+6. **GPU power limit tuning** - `sudo nvidia-smi -pl 300` to reduce noise/heat; make permanent via systemd
+7. **Install Tailscale on other devices** - Windows PC and phone for remote access to Open WebUI
 7. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
 2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
 3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh

@@ -626,6 +626,226 @@ news today?" — the response should include current news with source links.
 
 ---
 
+## Phase 4.1: SearxNG MCP Server for Claude Code (Terminal)
+
+**Time estimate: 30 minutes**
+
+This phase extends SearxNG integration beyond Open WebUI to Claude Code running in the terminal.
+When Claude Code is pointed at a local Ollama backend (via `ANTHROPIC_BASE_URL`), the built-in
+WebSearch tool silently returns zero results — it requires Anthropic's infrastructure. An MCP
+(Model Context Protocol) server bridges the gap by exposing SearxNG as a proper `web_search`
+tool that Claude Code can call.
+
+### Architecture
+
+```
+[Windows Terminal — Claude Code]
+        │
+        │  MCP SSE connection (Tailscale, port 3001)
+        │
+        ▼
+[AI Server: 100.79.83.113]
+        ├── mcp-searxng  (systemd service, port 3001)
+        │       └── calls SearxNG at http://100.79.83.113:8080/search
+        │
+        └── searxng  (Docker, port 8080 on Tailscale interface)
+```
+
+### Prerequisites
+
+SearxNG must be bound to the Tailscale interface (not just localhost). If SearxNG was originally
+deployed with `-p 127.0.0.1:8080:8080`, recreate it:
+
+```bash
+docker stop searxng && docker rm searxng
+
+docker run -d \
+  --name searxng \
+  --restart unless-stopped \
+  -p 100.79.83.113:8080:8080 \
+  -v /opt/searxng:/etc/searxng:rw \
+  --network ai-network \
+  searxng/searxng:latest
+```
+
+Also open port 8080 on the Tailscale interface:
+
+```bash
+sudo ufw allow in on tailscale0 to any port 8080
+```
+
+### 4.1.1 — Deploy the MCP Server
+
+SSH into the server, then:
+
+```bash
+# Create directory and virtualenv
+sudo mkdir -p /opt/mcp-searxng
+sudo chown $USER:$USER /opt/mcp-searxng
+sudo apt install -y python3.12-venv   # if not already installed
+python3 -m venv /opt/mcp-searxng/venv
+/opt/mcp-searxng/venv/bin/pip install fastmcp httpx
+```
+
+Create the server script:
+
+```bash
+cat > /opt/mcp-searxng/server.py << 'SCRIPT'
+from fastmcp import FastMCP
+import httpx
+
+mcp = FastMCP("SearxNG Search")
+
+SEARXNG_URL = "http://100.79.83.113:8080/search"
+
+@mcp.tool()
+async def web_search(query: str) -> str:
+    """Search the web using the self-hosted SearxNG search engine. Returns titles, URLs, and snippets."""
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(
+                SEARXNG_URL,
+                params={"q": query, "format": "json"},
+                timeout=15.0
+            )
+            response.raise_for_status()
+            data = response.json()
+            results = data.get("results", [])[:8]
+
+            if not results:
+                return f"No results found for: {query}"
+
+            lines = [f"Search results for '{query}':\n"]
+            for i, r in enumerate(results, 1):
+                title = r.get("title", "No title")
+                url = r.get("url", "")
+                content = r.get("content", "")[:300]
+                lines.append(f"{i}. {title}\n   {url}\n   {content}\n")
+
+            return "\n".join(lines)
+        except Exception as e:
+            return f"Search error: {str(e)}"
+
+mcp.run(transport="sse", host="0.0.0.0", port=3001)
+SCRIPT
+```
+
+Create the systemd service:
+
+```bash
+sudo tee /etc/systemd/system/mcp-searxng.service << 'EOF'
+[Unit]
+Description=SearxNG MCP Server
+After=network.target docker.service
+
+[Service]
+Type=simple
+User=steve
+WorkingDirectory=/opt/mcp-searxng
+ExecStart=/opt/mcp-searxng/venv/bin/python /opt/mcp-searxng/server.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable mcp-searxng
+sudo systemctl start mcp-searxng
+```
+
+Open port 3001 on the Tailscale interface:
+
+```bash
+sudo ufw allow in on tailscale0 to any port 3001
+```
+
+Verify the server is running:
+
+```bash
+sudo systemctl status mcp-searxng
+curl -s http://100.79.83.113:3001/sse
+# Should return SSE stream with event: endpoint — press Ctrl+C to stop
+```
+
+### 4.1.2 — Register with Claude Code (Windows)
+
+Run this once in the **Windows PowerShell** terminal where Claude Code is launched:
+
+```powershell
+claude mcp add --transport sse searxng http://100.79.83.113:3001/sse
+```
+
+This saves to `C:\Users\SteveIrwin\.claude.json` for the `C:\Users\SteveIrwin\Claude` project scope.
+
+Restart Claude Code and verify the server is connected:
+
+```
+/mcp
+```
+
+Expected output:
+```
+searxng · ✔ connected
+```
+
+### 4.1.3 — Using Web Search in Claude Code
+
+**Limitation**: When using an Ollama backend, local models may default to Claude Code's
+built-in `Web Search` tool (which silently fails without Anthropic's infrastructure) rather
+than the MCP `web_search` tool. To guarantee the MCP tool is used, invoke it explicitly:
+
+```
+Call the web_search tool with query "your search terms here"
+```
+
+To make this automatic, add the following to the CLAUDE.md file in your Claude Code working
+directory (e.g. `C:\Users\SteveIrwin\Claude\CLAUDE.md`):
+
+```markdown
+## Tool Use
+When searching the web, always use the `web_search` MCP tool. Do not use the built-in Web Search tool.
+```
+
+### 4.1.4 — Verification
+
+```bash
+# MCP server health
+sudo systemctl status mcp-searxng
+curl "http://100.79.83.113:3001/sse"
+
+# Test search directly
+curl "http://100.79.83.113:8080/search?q=test&format=json" | python3 -m json.tool | head -10
+```
+
+In Claude Code:
+```
+Call the web_search tool with query "test"
+```
+
+Should return results from SearxNG with titles, URLs, and snippets.
+
+### Troubleshooting
+
+**MCP server fails to start — address already in use**
+```bash
+sudo fuser -k 3001/tcp
+sudo systemctl start mcp-searxng
+```
+
+**MCP shows connected but web_search not called**
+The Ollama model is defaulting to the built-in WebSearch tool. Use explicit invocation (see 4.1.3)
+or add the CLAUDE.md instruction.
+
+**MCP shows disconnected after reboot**
+```bash
+sudo systemctl status mcp-searxng
+sudo journalctl -u mcp-searxng -n 20
+```
+
+---
+
 ## Security Hardening
 
 **Time estimate: 30–60 minutes**

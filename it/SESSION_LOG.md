@@ -4,6 +4,41 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-04 — SearxNG MCP Server for Claude Code (Local Ollama Backend)
+
+### Summary
+Configured Claude Code to run against the local Ollama backend via `ANTHROPIC_BASE_URL`, then built and deployed a SearxNG MCP server to restore web search capability. The built-in WebSearch tool silently fails with non-Anthropic backends; the MCP server bridges this gap by exposing SearxNG as a proper `web_search` tool over SSE. Search is confirmed working via explicit tool invocation.
+
+### Work Completed
+- **Local Ollama backend for Claude Code**: Set `ANTHROPIC_AUTH_TOKEN=ollama` and `ANTHROPIC_BASE_URL=http://100.79.83.113:11434` in PowerShell to route Claude Code through the NewPC's Ollama instance; confirmed file read/write and model interaction working
+- **Confirmed WebSearch limitation**: Built-in WebSearch silently returns 0 results when using non-Anthropic backend — requires Anthropic infrastructure
+- **Exposed SearxNG on Tailscale interface**: Recreated SearxNG container with `-p 100.79.83.113:8080:8080` (was `127.0.0.1:8080`); opened UFW port 8080 on `tailscale0`; confirmed JSON results via curl from Windows terminal
+- **Deployed SearxNG MCP server** (`/opt/mcp-searxng/`): Python FastMCP server exposing `web_search` tool over SSE on port 3001; installed in Python venv; running as systemd service `mcp-searxng`; opened UFW port 3001 on `tailscale0`
+- **Registered MCP server with Claude Code**: `claude mcp add --transport sse searxng http://100.79.83.113:3001/sse` in Windows PowerShell; confirmed `✔ connected` via `/mcp`
+- **Confirmed web search working**: Explicit invocation `Call the web_search tool with query "..."` returns real current results from SearxNG; model defaults to built-in WebSearch when asked naturally (known limitation)
+- **Documented Phase 4.1** in `Local_CC.md`: Full deployment guide including venv setup, server script, systemd service, firewall, Claude Code registration, explicit invocation workaround, and troubleshooting
+
+### Files Changed
+- `it/NewPC/Local_CC.md` — Added Phase 4.1: SearxNG MCP Server for Claude Code (~130 lines): architecture, prerequisites, deployment steps, registration, usage notes, verification, troubleshooting
+
+### Key Decisions
+- **SearxNG bound to Tailscale IP (not 0.0.0.0)**: `-p 100.79.83.113:8080:8080` exposes only on Tailscale interface; UFW further restricts access; open-webui still reaches it via `ai-network` container name
+- **FastMCP over raw MCP SDK**: FastMCP significantly reduces boilerplate; `mcp.run(transport="sse", ...)` is a one-liner vs ~100 lines of manual Starlette/uvicorn wiring
+- **Python venv over system pip**: Ubuntu 24.04 enforces PEP 668; venv at `/opt/mcp-searxng/venv/` avoids system package conflicts; required `python3.12-venv` apt package first
+- **Explicit invocation workaround**: Ollama models default to Claude Code's built-in WebSearch tool; the MCP tool works when explicitly named; fix is a CLAUDE.md instruction in the Claude Code working directory
+
+### Reference Documents
+- `it/NewPC/Local_CC.md` — Phase 4.1 added (MCP server deployment guide)
+
+### Next Actions
+- [ ] Add CLAUDE.md to `C:\Users\SteveIrwin\Claude\` instructing model to always use `web_search` MCP tool instead of built-in WebSearch
+- [ ] Phase 3: Create workspace git repo on server (`/opt/local-cc-workspace/`) for session tracking and persistent AI memory
+- [ ] Phase 5: Security hardening — dedicated `ai-executor` user, Open WebUI authentication, Tailscale ACLs
+- [ ] Install second RTX 3090 on delivery; set `OLLAMA_MAX_LOADED_MODELS=2` in Ollama systemd override
+- [ ] Fix ethernet link flapping on AI server (force 1Gb, disable EEE, make permanent in netplan)
+
+---
+
 ## Session 2026-03-03 (Night) — SearxNG Fixed, Aider Installed and Operational
 
 ### Summary

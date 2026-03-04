@@ -2,6 +2,19 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-04 — SearxNG MCP Server for Claude Code
+
+### Added
+- `NewPC/Local_CC.md` Phase 4.1 — SearxNG MCP Server for Claude Code: architecture diagram, prerequisites (SearxNG Tailscale rebind), venv + FastMCP + httpx deployment, systemd service (`mcp-searxng`), firewall rules (port 3001 on tailscale0), Claude Code registration command, explicit invocation workaround, verification steps, troubleshooting section
+
+### Changed
+- SearxNG Docker container rebound from `127.0.0.1:8080` to `100.79.83.113:8080` (Tailscale interface) to allow access from Windows Claude Code terminal over Tailscale
+
+### Documentation
+- Phase 4.1 comprehensive deployment guide added to `NewPC/Local_CC.md`
+
+---
+
 ## [Unreleased] - 2026-03-03 (Night) — SearxNG Fixed, Aider Operational
 
 ### Added
