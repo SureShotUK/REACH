@@ -2,6 +2,20 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-04 (Evening) — Workspace Repo, Model Switching, MCP Tools Expanded
+
+### Added
+- `NewPC/LoadClientClaude.md` — **New**: complete guide for setting up any Windows client machine: env vars (PowerShell profile + launch script), MCP registration, CLAUDE.md content, session workflow, model reference table, all MCP tools, troubleshooting, PAT renewal instructions, server reference table
+- `local-cc-workspace` GitHub repo — workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`; `/opt/local-cc-workspace/` on NewPC with `sessions/`, `memory/`, `projects/`, `scripts/` directories
+- MCP server `list_models()` tool — queries Ollama API, returns all installed models with GB sizes and `/model` switch instructions
+- MCP server workspace tools: `read_memory()`, `update_memory()`, `save_session()`, `workspace_commit()` — full session lifecycle management without per-client git setup
+
+### Changed
+- `C:\Users\SteveIrwin\Claude\CLAUDE.md` — Session Memory and Tracking section added; Tool Use instruction strengthened (built-in WebSearch described as "non-functional, always returns 0 results")
+- MCP `server.py` — renamed server to "AI Assistant Tools"; added `list_models`, `read_memory`, `update_memory`, `save_session`, `workspace_commit`
+
+---
+
 ## [Unreleased] - 2026-03-04 — SearxNG MCP Server for Claude Code
 
 ### Added

@@ -4,6 +4,52 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-04 (Evening) — Workspace Git Repo, Model Switching, MCP Tools Expanded
+
+### Summary
+Extended the MCP server with workspace management and model listing tools, enabling automatic session tracking and persistent memory across all client machines without any per-client git setup. Set up the workspace git repo on the NewPC, connected it to GitHub, and created a complete client setup guide. CLAUDE.md updated with session management instructions. Model mid-session switching confirmed working via `/model` command.
+
+### Work Completed
+- **Model mid-session switching**: Confirmed `/model <name>` works in Claude Code with Ollama backend — no restart needed; `list_models` MCP tool provides model inventory from within a session
+- **MCP server expanded** — added three new tools to `server.py`:
+  - `list_models()` — queries Ollama API, returns all installed models with sizes
+  - `read_memory()` / `update_memory()` — read and write `MEMORY.md` in the workspace
+  - `save_session()` — writes a dated session note markdown file
+  - `workspace_commit()` — runs `git add . && git commit && git push` on the workspace
+- **Workspace git repo created** on NewPC at `/opt/local-cc-workspace/` with `sessions/`, `projects/`, `memory/`, `scripts/` directories; initial `MEMORY.md` created; git configured with `irwin455@hotmail.com` / `Steve Irwin`
+- **GitHub remote connected**: `https://github.com/SureShotUK/local-cc-workspace` — pushed with PAT; `credential.helper store` configured for future pushes
+- **CLAUDE.md updated** (`C:\Users\SteveIrwin\Claude\CLAUDE.md`) — added Session Memory and Tracking section instructing all models to call `read_memory()` at session start and `save_session()` / `update_memory()` / `workspace_commit()` at end
+- **`LoadClientClaude.md` created** — complete guide for setting up any new Windows client: env vars (PowerShell profile or launch script), MCP registration, CLAUDE.md content to copy, session workflow, model reference, all MCP tools listed, troubleshooting including PAT update instructions
+- **Web search auto-invocation improved** — CLAUDE.md tool use instruction strengthened: built-in tool described as "non-functional, always returns 0 results" — more effective at overriding coding model fine-tuning bias
+- **Clarified session tracking split**: `terminai` repo is for Anthropic Claude Code sessions only; local Ollama clients use the workspace on the NewPC
+
+### Files Changed
+- `it/NewPC/Local_CC.md` — MCP server `server.py` updated with `list_models`, workspace tools; Phase 4.1 troubleshooting updated
+- `it/NewPC/LoadClientClaude.md` — **NEW**: complete client setup guide for new Windows machines
+- `C:\Users\SteveIrwin\Claude\CLAUDE.md` — Session Memory section added; Tool Use instruction strengthened
+
+### Key Decisions
+- **MCP server as universal workspace interface** — all clients access the workspace via MCP tools rather than direct filesystem access or SSH; no per-client git setup needed; GitHub credentials stay on the server
+- **Shared workspace over per-user** — single `/opt/local-cc-workspace/` for all clients; keeps memory coherent across machines
+- **Branch named `master`** — workspace repo uses `master` (Ubuntu git default); not renamed to `main`
+- **CLAUDE.md at `~/.claude/`** — global location applies to all Claude Code sessions on the machine; more robust than project-level placement
+- **"Non-functional" framing for broken WebSearch** — stronger than "prefer MCP tool"; coding models respect factual statements over preferences
+
+### Reference Documents
+- `it/NewPC/Local_CC.md` — local AI guide (updated)
+- `it/NewPC/LoadClientClaude.md` — new client setup guide
+- `https://github.com/SureShotUK/local-cc-workspace` — workspace GitHub repo
+
+### Next Actions
+- [ ] Configure Open WebUI system prompt for workspace integration (Phase 3.3 in `Local_CC.md`)
+- [ ] Install second RTX 3090 on delivery; set `OLLAMA_MAX_LOADED_MODELS=2` in Ollama systemd override
+- [ ] Phase 5: Security hardening — dedicated `ai-executor` user, Open WebUI auth, Tailscale ACLs
+- [ ] Fix ethernet link flapping — force 1Gb, disable EEE, make permanent in netplan
+- [ ] Test session end workflow on a local Ollama client session
+- [ ] Set up second client machine using `LoadClientClaude.md`
+
+---
+
 ## Session 2026-03-04 — SearxNG MCP Server for Claude Code (Local Ollama Backend)
 
 ### Summary
