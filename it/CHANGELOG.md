@@ -2,6 +2,29 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-05 (Afternoon) — Client Setup, Security Hardening, Ethernet Fix, HTTPS
+
+### Added
+- `it/NewPC/ToDo.md` — outstanding task list created; tracks all remaining NewPC setup items
+- `it/NewPC/Software_Setup.md` §15 — Ethernet NIC link speed configuration: documents RTL8126 5Gb NIC fix for 1Gb router, permanent `fix-ethernet.service` systemd unit, and router upgrade path to restore 5Gb speeds
+
+### Changed
+- `it/NewPC/LoadClientClaude.md` — `claude logout` corrected to `claude auth logout`; all Open WebUI URLs updated to `https://amelai.tail926601.ts.net`
+- `it/NewPC/Local_CC.md` — Open WebUI URLs updated to `https://amelai.tail926601.ts.net`
+- `it/PROJECT_STATUS.md` — HTTPS access URL updated; security hardening marked complete; ethernet fix documented; next priorities updated
+- `/opt/mcp-searxng/server.py` (on NewPC) — `git push origin main` corrected to `git push origin master`
+
+### Fixed
+- Ethernet link flapping: RTL8126 5Gb NIC restricted to advertising 1Gb only (`ethtool advertise 0x020`); permanent via `fix-ethernet.service`
+- `workspace_commit()` MCP tool: wrong branch name (`main` → `master`) prevented pushes to GitHub
+- `claude auth logout` documentation: incorrect command `claude logout` corrected in `LoadClientClaude.md`
+
+### Security
+- Open WebUI sign-up disabled — prevents new account creation by anyone on the Tailscale network
+- HTTPS enabled for Open WebUI — Tailscale Serve with Let's Encrypt certificate via `https://amelai.tail926601.ts.net`
+
+---
+
 ## [Unreleased] - 2026-03-05 — Apple Security Link Fix
 
 ### Fixed

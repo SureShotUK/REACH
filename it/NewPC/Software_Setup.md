@@ -832,7 +832,7 @@ Log in with the same Tailscale account on each device.
 Once your device is connected to Tailscale, open a browser and go to:
 
 ```
-http://100.79.83.113:3000
+https://amelai.tail926601.ts.net
 ```
 
 This works from anywhere — home network, mobile data, coffee shop Wi-Fi — without any router port forwarding.
@@ -856,7 +856,56 @@ tailscale status
 
 ---
 
-## 15. Auto-Start on Boot — Summary
+## 15. Ethernet NIC — Link Speed Configuration
+
+The MSI MAG X870E TOMAHAWK WIFI has a Realtek RTL8126 **5Gb** NIC (`enp7s0`). By default
+it advertises all supported speeds (10/100/1000/2500/5000 Mb/s) during autonegotiation.
+
+### Current Home Network Constraint
+
+The home network uses a **Linksys WHW03 V2** router which has **1Gb** ethernet ports. The
+RTL8126 advertising 2.5Gb and 5Gb modes to a 1Gb router caused link flapping (repeated
+up/down events). The fix restricts the NIC to only advertise 1Gb.
+
+A systemd service (`fix-ethernet.service`) applies this at every boot:
+
+```bash
+# View the service
+sudo systemctl status fix-ethernet.service
+
+# Service file location
+sudo cat /etc/systemd/system/fix-ethernet.service
+```
+
+### Re-enabling Higher Speeds After Router Upgrade
+
+When you upgrade to a router or switch that supports 2.5Gb or 5Gb ethernet, remove or
+disable the service and restore full advertisement:
+
+```bash
+# Disable the workaround service
+sudo systemctl disable fix-ethernet.service
+sudo systemctl stop fix-ethernet.service
+
+# Restore full advertisement (all supported speeds)
+sudo ethtool -s enp7s0 advertise 0x1FF autoneg on
+
+# Verify
+ethtool enp7s0 | grep "Advertised link"
+```
+
+The NIC will then autonegotiate at the highest speed both sides support (up to 5Gb).
+
+If you want to permanently remove the service entirely:
+
+```bash
+sudo rm /etc/systemd/system/fix-ethernet.service
+sudo systemctl daemon-reload
+```
+
+---
+
+## 16. Auto-Start on Boot — Summary
 
 After setup, verify these services start automatically:
 

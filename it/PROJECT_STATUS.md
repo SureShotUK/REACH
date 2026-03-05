@@ -84,8 +84,8 @@
 - **Client setup guide**: `NewPC/LoadClientClaude.md` — complete instructions for any new Windows client
 - **Access**:
   - LAN: `http://192.168.1.192:3000`
-  - Remote (Tailscale): `http://100.79.83.113:3000`
-- **Known Issues**: Ethernet link flapping (enp7s0 up/down) — autoneg issue between RTL8126 5Gb NIC and 1Gb router. Fix: `ethtool -s enp7s0 speed 1000 duplex full autoneg off` + disable EEE
+  - Remote (Tailscale): `https://amelai.tail926601.ts.net` (HTTPS via Tailscale Serve)
+- **Ethernet**: RTL8126 5Gb NIC restricted to 1Gb advertisement (`ethtool advertise 0x020`) via `fix-ethernet.service` systemd unit — resolves link flapping with Linksys WHW03 V2 (1Gb) router. Re-enable full speeds when router is upgraded (see `Software_Setup.md` §15)
 - **Next**: Install second RTX 3090, set `OLLAMA_MAX_LOADED_MODELS=2`, work through `Local_CC.md` phases
 
 ### Zero Trust Network Access (ZTNA)
@@ -259,20 +259,15 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **Configure Open WebUI system prompt** — Phase 3.3: paste workspace system prompt into Admin → Settings → System Prompt
-2. **Install second RTX 3090** — on delivery; verify both GPUs in `nvidia-smi`; set `OLLAMA_MAX_LOADED_MODELS=2`
-3. **Phase 5: Security hardening** — dedicated `ai-executor` user, Open WebUI authentication, Tailscale ACLs
-4. **Fix ethernet link flapping** — force 1Gb autoneg off, disable EEE, make permanent in netplan
-5. **GPU power limit tuning** — `sudo nvidia-smi -pl 300`; make permanent via systemd service
-6. **Install Tailscale on other devices** — Windows PC and phone for remote Open WebUI access
-7. **Test session end workflow** — run a local Ollama Claude Code session and verify `save_session`/`workspace_commit` work end-to-end
-7. **ZTNA pilot deployment** - Start Tailscale free tier testing at Office3 (3 users)
-2. **Get SonicWall Cloud Secure Edge quote** - Pricing for 35 users with TZ270 Gen 7+ firewalls
-3. **PostgreSQL ODBC performance testing** - Validate query performance over ZTNA mesh
-4. **RDP connectivity testing** - Verify automated scheduled tasks work over ZTNA
-5. **User feedback collection** - Gather hybrid worker experience feedback (office vs remote)
-6. **Test cash settlement parsing** - Verify parsing works with real cash settlement data
-7. **Database integration for StoneX parser** - Implement database update logic for both trades and cash settlements
+1. **Install second RTX 3090** — awaiting delivery; verify both GPUs in `nvidia-smi`; set `OLLAMA_MAX_LOADED_MODELS=2` in Ollama systemd override
+2. **GPU power limit tuning** — `sudo nvidia-smi -pl 300` on both GPUs; make permanent via systemd service; do both together after second GPU installed
+
+### Medium Priority
+3. **ZTNA pilot deployment** — Start Tailscale free tier testing at Office3 (3 users)
+4. **Get SonicWall Cloud Secure Edge quote** — Pricing for 35 users with TZ270 Gen 7+ firewalls
+5. **PostgreSQL ODBC performance testing** — Validate query performance over ZTNA mesh
+6. **Test cash settlement parsing** — Verify parsing works with real cash settlement data
+7. **Database integration for StoneX parser** — Implement database update logic for both trades and cash settlements
 
 ### Medium Priority
 5. Continue expanding public WiFi security best practices

@@ -210,7 +210,7 @@ pull `qwen3.5:35b` (~27GB) as a single higher-quality model with room to spare.
 
 **Time estimate: 1–2 hours**
 
-Open a browser and navigate to `http://100.79.83.113:3000`. Log in as admin.
+Open a browser and navigate to `https://amelai.tail926601.ts.net`. Log in as admin.
 
 ### 1.1 — Web Search
 
@@ -436,7 +436,7 @@ The AI reads this at the start of each session.
 ## User Context
 - AI server: 100.79.83.113
 - Workspace: /opt/local-cc-workspace/
-- Primary interface: Open WebUI at http://100.79.83.113:3000
+- Primary interface: Open WebUI at https://amelai.tail926601.ts.net
 - Terminal interface: Aider (configured on client machines)
 
 ## Active Projects
@@ -1131,7 +1131,7 @@ Work through this after each phase to confirm everything is functioning before m
 - [ ] `curl http://100.79.83.113:11434/api/tags` returns a list of models
 - [ ] `ollama list` shows qwen2.5:32b, qwen2.5-coder:32b, qwen2.5:7b (and optionally qwen2.5:72b)
 - [ ] `nvidia-smi` shows both GPUs detected with 24GB VRAM each
-- [ ] Open WebUI is accessible at `http://100.79.83.113:3000`
+- [ ] Open WebUI is accessible at `https://amelai.tail926601.ts.net`
 
 ### After Phase 1 (Open WebUI Configuration)
 

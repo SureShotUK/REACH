@@ -4,6 +4,44 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-05 (Afternoon) — Client Setup, Security Hardening, Ethernet Fix, HTTPS
+
+### Summary
+Highly productive session clearing the entire outstanding ToDo list (except GPU items awaiting delivery). Fixed ethernet link flapping with a permanent systemd service, completed security hardening for Open WebUI, tested and fixed the session end workflow (wrong git branch in `workspace_commit`), set up a second Windows 10 client machine, and enabled HTTPS access to Open WebUI via Tailscale Serve. Also diagnosed and fixed the `claude auth logout` command documentation error.
+
+### Work Completed
+- **`claude auth logout` fix**: Corrected command from `claude logout` to `claude auth logout` in `LoadClientClaude.md`; root cause was env vars not set in PowerShell profile (ThreatLocker blocked profile on work machine; resolved)
+- **Ethernet link flapping fixed**: RTL8126 5Gb NIC advertising 2.5/5Gb to Linksys WHW03 V2 (1Gb) router caused link instability; resolved by restricting advertised modes to 1Gb only (`ethtool advertise 0x020`); made permanent via `fix-ethernet.service` systemd unit; documented router upgrade path in `Software_Setup.md` §15
+- **Security hardening completed**:
+  - Open WebUI sign-up disabled (Admin → Settings → General)
+  - Tailscale ACL confirmed not required (single-user personal tailnet; daughter on separate account; work will use separate org)
+  - `ai-executor` user approach attempted but Open WebUI requires root in Docker container; Docker isolation confirmed as the security boundary
+- **Session end workflow tested and fixed**: `workspace_commit()` was pushing to `origin main` but workspace branch is `master`; fixed in `/opt/mcp-searxng/server.py`; all four MCP tools (`save_session`, `read_memory`, `update_memory`, `workspace_commit`) confirmed working
+- **Second client machine set up** (Windows 10 home desktop): Tailscale installed and connected; Claude Code v2.1.69 installed; PowerShell profile created with env vars; MCP server registered; CLAUDE.md created; verified working
+- **HTTPS enabled for Open WebUI**: Tailscale Serve configured (`sudo tailscale serve --bg http://localhost:3000`); HTTPS Certificates enabled in Tailscale admin; access now via `https://amelai.tail926601.ts.net` with valid certificate and no browser warnings; all documentation URLs updated
+- **WireGuard encryption explained**: Confirmed Ollama API (port 11434) does not need HTTPS — Tailscale WireGuard tunnel already encrypts all traffic at network layer
+
+### Files Changed
+- `it/NewPC/ToDo.md` — **NEW**: created with all outstanding items; 7 items ticked off this session
+- `it/NewPC/LoadClientClaude.md` — `claude logout` corrected to `claude auth logout`; HTTPS URLs updated throughout; prerequisite verification URL updated
+- `it/NewPC/Software_Setup.md` — new §15 Ethernet NIC configuration: documents fix, permanent systemd service, and router upgrade path to re-enable 5Gb speeds
+- `it/NewPC/Local_CC.md` — Open WebUI URLs updated to `https://amelai.tail926601.ts.net`
+- `it/PROJECT_STATUS.md` — ethernet issue resolved; security hardening marked complete; HTTPS access URL updated; next priorities updated
+- `/opt/mcp-searxng/server.py` (on NewPC) — `git push origin main` corrected to `git push origin master`
+
+### Key Decisions
+- **ai-executor user not viable**: Open WebUI Docker image requires root; attempting non-root caused container crash (`ValueError: Required environment variable not found`); Docker isolation is the security boundary for code execution
+- **Tailscale ACL not needed**: Personal single-user tailnet; daughter has separate Tailscale account; work will have separate Tailscale org — no overlap with personal tailnet
+- **Ollama API stays HTTP**: WireGuard already encrypts all Tailscale traffic at network layer; HTTPS on port 11434 would be double encryption with no security benefit
+- **Tailscale Serve over nginx**: Cleaner solution for home server; no extra software; automatic cert management via Let's Encrypt; zero browser warnings; `--bg` flag for persistent background serving
+- **Ethernet fix**: `ethtool autoneg off` rejected by RTL8126 driver; solution is to keep autoneg on but restrict advertised speeds to 1Gb only (`advertise 0x020`)
+
+### Next Actions
+- [ ] Install second RTX 3090 (awaiting delivery)
+- [ ] GPU power limit tuning — both GPUs together after installation
+
+---
+
 ## Session 2026-03-05 — Apple Security Link Verification and Fix
 
 ### Summary

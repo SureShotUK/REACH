@@ -18,7 +18,7 @@ Before starting, ensure:
 
 - **Tailscale is installed and connected** on this machine — the AI server is at `100.79.83.113`
 - **Claude Code is installed** — download from <a href="https://claude.ai/code" target="_blank">claude.ai/code</a>
-- You can reach the AI server: open a browser and go to `http://100.79.83.113:3000` — Open WebUI should load
+- You can reach the AI server: open a browser and go to `https://amelai.tail926601.ts.net` — Open WebUI should load
 
 ---
 
@@ -257,7 +257,7 @@ These tools are provided by the MCP server and available in every session:
 
 **Claude Code connects but model doesn't respond**
 - Check the AI server is reachable: `ping 100.79.83.113`
-- Verify Ollama is running on the server: open `http://100.79.83.113:3000` in a browser
+- Verify Ollama is running on the server: open `https://amelai.tail926601.ts.net` in a browser
 
 **MCP server shows disconnected**
 - SSH into the server and check: `sudo systemctl status mcp-searxng`
@@ -271,7 +271,7 @@ These tools are provided by the MCP server and available in every session:
 **Auth conflict warning at startup**
 Run once to clear the stored Anthropic login:
 ```powershell
-claude logout
+claude auth logout
 ```
 Then relaunch — the environment variable handles authentication.
 
@@ -322,7 +322,7 @@ Both `ANTHROPIC_AUTH_TOKEN` and `ANTHROPIC_BASE_URL` should appear.
 
 | Service | Address | Notes |
 |---|---|---|
-| Open WebUI (browser) | `http://100.79.83.113:3000` | Browser-based chat interface |
+| Open WebUI (browser) | `https://amelai.tail926601.ts.net` | Browser-based chat interface (HTTPS) |
 | Ollama API | `http://100.79.83.113:11434` | Model inference endpoint |
 | MCP server | `http://100.79.83.113:3001/sse` | Tools: search, memory, models |
 | SearxNG | `http://100.79.83.113:8080` | Self-hosted search (internal) |
