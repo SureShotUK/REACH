@@ -2,6 +2,13 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-05 — Apple Security Link Fix
+
+### Fixed
+- `it/Apple_Security.md` — all 14 broken Vertex AI grounding redirect links replaced with verified Apple official support URLs; links now point to Apple Platform Security Guide, iOS 26.3 security content, and specific iPhone user guide pages
+
+---
+
 ## [Unreleased] - 2026-03-04 (Evening) — Workspace Repo, Model Switching, MCP Tools Expanded
 
 ### Added

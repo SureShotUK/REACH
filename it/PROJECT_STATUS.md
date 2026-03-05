@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-04
+**Last Updated**: 2026-03-05
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
@@ -110,10 +110,10 @@
 - **Files**: `VPN_Benefits.md`, `VPN_Comparisons.md`
 - **Coverage**: Commercial VPN security analysis, provider comparison, public WiFi protection
 
-### Public WiFi Security
+### Public WiFi Security & Mobile Device Security
 - **Status**: Ongoing documentation
-- **Files**: `WIFI_Best_Practices_for_Laptops_and_Mobiles.md`, `Mobile_Laptop_WIFI_Summary.md`
-- **Recent additions**: Mobile/laptop checklists, security practices
+- **Files**: `WIFI_Best_Practices_for_Laptops_and_Mobiles.md`, `Mobile_Laptop_WIFI_Summary.md`, `Apple_Security.md`, `Android_Security.md`
+- **Recent additions**: Mobile/laptop checklists, security practices; Apple and Android security hardening guides (links verified 2026-03-05)
 
 ### Network Infrastructure
 - **Status**: Initial documentation
