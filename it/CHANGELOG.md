@@ -2,6 +2,13 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-07 — Claude Desktop Config Diagnosis
+
+### Fixed
+- `claude_desktop_config.json` — confirmed valid; transient boot-time JSON parse error resolved by restarting Claude Desktop (race condition during previous shutdown, not file corruption)
+
+---
+
 ## [Unreleased] - 2026-03-05 (Afternoon) — Client Setup, Security Hardening, Ethernet Fix, HTTPS
 
 ### Added

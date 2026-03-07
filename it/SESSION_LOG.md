@@ -4,6 +4,29 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-07 — Claude Desktop Config JSON Error Diagnosis
+
+### Summary
+Short support session diagnosing a "Could not load app settings" error on boot from Claude Desktop. Error pointed to a JSON syntax problem in `claude_desktop_config.json` at position 103. Investigation found the file was valid and clean — the error was transient, likely caused by Claude Desktop starting before the config file finished being written to disk during the previous shutdown.
+
+### Work Completed
+- Read `claude_desktop_config.json` and confirmed valid JSON structure
+- Inspected raw hex content — no hidden characters, BOM, or trailing garbage
+- Determined error was a transient boot-time race condition, not file corruption
+- User restarted Claude Desktop successfully; rebooting to confirm no recurrence
+
+### Files Changed
+- None (read-only investigation; config file was already valid)
+
+### Key Decisions
+- No fix required — file was clean, error was transient
+- If error recurs after reboot, next step would be to check if Claude Desktop is writing the config during shutdown and investigate whether a backup/restore mechanism is needed
+
+### Next Actions
+- [ ] Confirm error does not recur after reboot
+
+---
+
 ## Session 2026-03-05 (Afternoon) — Client Setup, Security Hardening, Ethernet Fix, HTTPS
 
 ### Summary
