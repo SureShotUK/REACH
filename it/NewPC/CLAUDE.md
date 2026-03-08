@@ -210,6 +210,10 @@ When beginning research on a component or topic:
    - Document why options were eliminated
    - Show the decision-making path clearly
 
+## File Content Delivery
+
+When you need to provide file content for the user to copy to their Linux machine, always write it to `Temp.txt` in the current working directory rather than displaying it in a code block. This avoids copy-paste formatting issues (leading spaces added by markdown rendering).
+
 ## User Preferences
 
 Based on parent CLAUDE.md files, maintain:

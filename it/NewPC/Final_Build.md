@@ -7,15 +7,15 @@
 **Market**: United Kingdom (all prices in GBP including VAT)
 **Build Philosophy**: Best bang for buck, future-proof (add components, not replace)
 
-**Last Updated**: March 3, 2026 (DUAL GPU COMPLETE - second RTX 3090 purchased and installed)
+**Last Updated**: March 7, 2026 (ASUS ProArt X870E-CREATOR WIFI purchased £479.99 — arriving today; MSI X870E Tomahawk being sold on eBay)
 
 ---
 
 ## Build Status
 
-**Phase**: ✅ COMPLETE - All components purchased and installed; dual GPU configuration active
+**Phase**: 🔄 IN PROGRESS — ASUS ProArt X870E arriving today; MSI to be listed on eBay
 **Purchased**: 11 of 11 components
-**Remaining**: Nothing — fully operational
+**Remaining**: Install ASUS ProArt X870E; list MSI X870E Tomahawk on eBay
 
 ---
 
@@ -23,7 +23,7 @@
 
 ### Decision Summary:
 - **CPU**: AMD Ryzen 9 7900X ✅ **PURCHASED** (inc. thermal paste)
-- **Motherboard**: MSI MAG X870E TOMAHAWK WIFI ✅ **PURCHASED**
+- **Motherboard**: ASUS ProArt X870E-CREATOR WIFI ✅ **PURCHASED** (MSI X870E Tomahawk replaced — not dual GPU capable)
 - **GPU (Primary)**: Asus TUF Gaming OC RTX 3090 24GB ✅ **PURCHASED & INSTALLED**
 - **GPU (Secondary)**: Asus TUF Gaming OC RTX 3090 24GB ✅ **PURCHASED & INSTALLED**
 - **RAM**: G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 ✅ **PURCHASED**
@@ -73,64 +73,49 @@
 
 ### 2. Motherboard
 
-**Selected**: MSI MAG X870E TOMAHAWK WIFI
+> **Note**: Original motherboard (MSI MAG X870E Tomahawk WiFi, £269.99) was found to be incompatible with dual GPU configuration. The second PCIe slot on the Tomahawk is a chipset-connected x4 slot at the bottom of the board — it does not support GPU-class cards and has insufficient physical clearance in the Fractal Torrent case. MSI's own documentation confirms the board is not recommended for dual GPU setups. The MSI board is being sold on eBay. See Decision Log for full details.
+
+**Selected**: ASUS ProArt X870E-CREATOR WIFI
 
 | Specification | Details |
 |---------------|---------|
-| **Chipset** | AMD X870E (Latest Premium, 2024) |
+| **Chipset** | AMD X870E (Premium, 2024) |
 | **Socket** | AM5 (LGA 1718) |
-| **Form Factor** | ATX (305mm x 244mm) |
-| **VRM** | 16+2+1 phase (80A SPS power stages) |
-| **PCIe Slot 1** | PCIe 5.0 x16 (CPU, can run x16 or x8) |
-| **PCIe Slot 2** | PCIe 5.0 x8 (CPU, shares with Slot 1) |
-| **Dual GPU Config** | x8/x8 (automatic bifurcation) |
-| **M.2 Slots** | 4x M.2 Gen5 (multiple PCIe 5.0 slots) |
-| **Memory** | 4x DIMM, DDR5-8400+ (OC), up to 192GB |
-| **Networking** | **5Gb Ethernet** + **Wi-Fi 7** |
-| **USB** | **2x USB4 (40Gbps)**, USB 3.2 Gen2 |
-| **Audio** | Realtek ALC4080 (7.1 channel) |
-| **BIOS** | MSI Click BIOS 5 (excellent UI) |
+| **Form Factor** | ATX |
+| **VRM** | 16+2+2 phases (80A SPS power stages) |
+| **PCIe Slot 1** | PCIe 5.0 x16 (CPU) — GPU primary |
+| **PCIe Slot 2** | PCIe 5.0 x16 (CPU) — GPU secondary; x8/x8 mode when both populated |
+| **Chipset Slot** | PCIe 4.0 x4 (chipset) — expansion cards only |
+| **Dual GPU Config** | x8/x8 PCIe 5.0 (both slots CPU-direct, equal bandwidth) |
+| **M.2 Slots** | 4x (M.2_1: PCIe 5.0 x4; others PCIe 4.0 x4 via chipset) |
+| **Memory** | 4x DIMM, DDR5-8000+ (OC), up to 256GB, AMD EXPO |
+| **Networking** | **10Gb Ethernet** (Marvell AQtion) + **2.5Gb Ethernet** (Intel) + **Wi-Fi 7** |
+| **USB** | **2x USB4 (40Gbps)**, 1x USB 20Gbps, 7x USB 10Gbps |
+| **BIOS** | ASUS UEFI |
 
-**Price**: £269.99 (Amazon UK)
+**Price**: £479.99
 
 **Why This Motherboard**:
-- ✅ **Latest X870E Chipset**: Newest premium tier (2024), future-proof
-- ✅ **Excellent VRM**: 16+2+1 phase @ 80A (perfect for 24/7 AI workloads, no throttling)
-- ✅ **x8/x8 Dual GPU**: Balanced PCIe 5.0 configuration (equal performance both GPUs)
-- ✅ **Multiple Gen5 M.2 Slots**: Latest NVMe storage support
-- ✅ **Wi-Fi 7**: Latest wireless standard (lower latency, faster speeds)
-- ✅ **USB4 Support**: 40 Gbps for fast external storage/docks
-- ✅ **5Gb Ethernet**: 2x faster than standard 2.5Gb (network storage, remote models)
-- ✅ **DDR5-8400+ Support**: Future-proof memory overclocking (your DDR5-6000 perfect)
-- ✅ **MSI Click BIOS 5**: Industry-leading BIOS interface (easy RAM EXPO setup)
-- ✅ **Outstanding Value**: Premium X870E features at competitive pricing
+- ✅ **True dual GPU support**: Both PCIe 5.0 x16 slots are CPU-direct — genuine x8/x8 for dual RTX 3090
+- ✅ **SafeSlot**: Both GPU slots reinforced (rated for heavy cards)
+- ✅ **10Gb Ethernet**: Upgrade over MSI's 5Gb — faster NAS transfers and remote access
+- ✅ **16+2+2 VRM**: Slightly better than MSI's 16+2+1, excellent for 24/7 AI workloads
+- ✅ **256GB memory support**: More headroom than MSI's 192GB limit
+- ✅ **Wi-Fi 7** and dual USB4 40Gbps retained
+- ✅ **ASUS UEFI**: Mature, well-documented BIOS with full EXPO support
 
-**Dual GPU Support (When You Add Second RTX 3090)**:
-- **Slot 1** (top): RTX 3090 #1 @ PCIe 5.0 x8 (15.75 GB/s)
-- **Slot 2** (middle): RTX 3090 #2 @ PCIe 5.0 x8 (15.75 GB/s)
-- **Equal bandwidth**: Balanced performance, no primary/secondary
-- **Physical spacing**: 2-3 slots between (adequate cooling)
-- **BIOS**: Automatic bifurcation when second GPU detected
+**Dual GPU Configuration (Verified)**:
+- **Slot 1** (top): RTX 3090 #1 @ PCIe 5.0 x8 (15.75 GB/s) — CPU-direct
+- **Slot 2** (second): RTX 3090 #2 @ PCIe 5.0 x8 (15.75 GB/s) — CPU-direct
+- **Equal bandwidth**: Balanced performance, no primary/secondary disadvantage
+- **Verified**: ASUS official spec confirms x16 or x8/x8 or x8/x4/x4 modes supported
 
-**VRM Explanation** (Voltage Regulator Module):
-- **What it is**: Converts 12V from PSU to precise voltage CPU needs (0.9-1.4V)
-- **16+2+1 phases**: Distributes power across 19 components (cooler, more stable)
-- **80A per phase**: 1,280W theoretical capacity (7x more than Ryzen 9 7900X needs)
-- **Perfect for 24/7**: VRM stays cool under sustained AI workloads, no throttling
-- **Analogy**: More phases = more cylinders in engine (smoother, cooler operation)
+**Cost Impact vs MSI**:
+- MSI X870E Tomahawk: £269.99 (eBay resale TBD — pending listing)
+- ASUS ProArt X870E: £479.99
+- **Gross cost increase**: £210.00 (partially offset by eBay recovery)
 
-**X870E vs X670E Advantages**:
-- ✅ Latest chipset features and optimizations
-- ✅ Wi-Fi 7 vs Wi-Fi 6E (lower latency for remote access)
-- ✅ USB4 ports (fast external model storage at 40 Gbps)
-- ✅ 5Gb Ethernet vs 2.5Gb (faster network transfers)
-- ✅ Enhanced DDR5 support (8400+ vs 6400+)
-- ✅ Better power management and efficiency
-
-**Purchase Source**:
-- Amazon UK: £269.99
-
-**Status**: ✅ **PURCHASED** (February 19, 2026)
+**Status**: ✅ **PURCHASED** (March 7, 2026) — arriving today; MSI being listed on eBay
 
 ---
 
@@ -429,7 +414,7 @@
 | Component | Model | Price (GBP) | Status |
 |-----------|-------|-------------|--------|
 | CPU | AMD Ryzen 9 7900X (inc. thermal paste) | £322.50 | ✅ **PURCHASED** |
-| Motherboard | MSI MAG X870E TOMAHAWK WIFI | £269.99 | ✅ **PURCHASED** |
+| Motherboard | ASUS ProArt X870E-CREATOR WIFI | £479.99 | ✅ **PURCHASED** — MSI listed on eBay (recovery TBD) |
 | GPU (Primary) | Asus TUF Gaming OC RTX 3090 24GB | £699.39 | ✅ **PURCHASED** |
 | GPU (Secondary) | Asus TUF Gaming OC RTX 3090 24GB | £690.10 | ✅ **PURCHASED** |
 | RAM | G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 | £599.99 | ✅ **PURCHASED** |
@@ -438,7 +423,7 @@
 | Storage | Samsung 9100 Pro 2TB PCIe 5 (x2) | £502.00 | ✅ **PURCHASED** |
 | CPU Cooler | Arctic Liquid Freezer III Pro 360 | £72.00 | ✅ **ORDERED** |
 | Rear Fan | 140mm exhaust fan | £21.12 | ✅ **PURCHASED** |
-| **Total** | | **£3,618.06** | |
+| **Total** | | **£3,828.06** (subject to eBay recovery on MSI X870E Tomahawk) | |
 
 **RAM Decision (Finalized)**:
 - **Overclockers UK: £599** (DDR5-6000 CL36, 64GB) ← **BEST PRICE**
@@ -671,6 +656,19 @@ No remaining decisions — build is complete.
   - Additional cost vs original: +£52.98
 - **BUILD COMPLETE**: Total spend £2,927.96 (single GPU)
 - **2026-03-03**: ✅ **PURCHASED SECOND GPU** - Asus TUF Gaming OC RTX 3090 24GB @ £690.10
+- **2026-03-07**: ❌ **MSI X870E TOMAHAWK NOT DUAL GPU CAPABLE** — discovered on attempted installation
+  - **Issue**: MSI MAG X870E Tomahawk WiFi has only ONE PCIe 5.0 x16 slot (GPU-grade)
+  - The second physical slot is a chipset-connected PCIe 4.0 x4 slot at the bottom of the board
+  - Intended for expansion cards (USB, network) only — not GPUs
+  - Additionally: insufficient physical clearance in Fractal Torrent case for a GPU in that slot position
+  - MSI's own documentation states the board is not recommended for dual GPU setups
+  - **Research failure**: Dual GPU capability was assumed from general X870E specs; MSI Tomahawk's specific slot layout was not verified against the official spec sheet
+  - **Action**: MSI board listed for sale on eBay
+- **2026-03-07**: 🔄 **MOTHERBOARD REPLACEMENT** — ASUS ProArt X870E-CREATOR WIFI selected
+  - Verified: 2x PCIe 5.0 x16 slots both CPU-direct (genuine x8/x8 dual GPU support)
+  - Verified: ASUS official spec confirms x16 or x8/x8 modes for Ryzen 9000/7000 series
+  - Additional upgrades over MSI: 10Gb Ethernet (vs 5Gb), 256GB max RAM (vs 192GB), 16+2+2 VRM (vs 16+2+1)
+  - Price: £479.99 — gross cost increase £210 before eBay recovery on MSI
   - Identical model to primary GPU (matching aesthetic, matched cooling)
   - Doubles VRAM to 48GB total — enables simultaneous dual-model inference
   - 70B models (~45GB Q4) now run entirely in VRAM across both GPUs
@@ -684,6 +682,6 @@ No remaining decisions — build is complete.
 
 ---
 
-**Document Version**: 1.8
-**Last Updated**: March 3, 2026
-**Next Update**: After second GPU delivery and installation confirmation
+**Document Version**: 1.9
+**Last Updated**: March 7, 2026
+**Next Update**: After ASUS ProArt X870E purchased and dual GPU installation confirmed
