@@ -4,6 +4,47 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-09 — Ollama & Open WebUI Updates, Web Search Fix, ComfyUI Installed
+
+### Summary
+Productive session updating Ollama (to 0.17.7) and Open WebUI, diagnosing and fixing the SearXNG web search failure (Docker network isolation issue), and completing the first phase of ComfyUI image generation setup. ComfyUI is now running in Docker with FLUX.1 Dev fp8 loaded and a working text-to-image workflow producing high-quality photorealistic images.
+
+### Work Completed
+- **Ollama updated** to v0.17.7 via install script; override.conf preserved; both GPUs still detected; no issues
+- **Open WebUI updated** to latest `:main` image; container recreated; settings preserved via Docker volume
+- **Web search fixed**: SearXNG container was disconnected from `ai-network` (Networks: {}); connected it back; Open WebUI also needed connecting to `ai-network`; UFW rule added to allow `172.18.0.0/16` to reach Ollama on port 11434
+- **Root cause of web search failure documented**: UFW was only permitting `172.17.0.0/16` (default bridge) to reach port 11434 — `ai-network` uses `172.18.0.0/16` and was being blocked
+- **Software_Updates.md created**: Documents update procedures for Ollama, Open WebUI, SearXNG, and ComfyUI including mandatory post-update network steps
+- **ComfyUI installed**: `yanwk/comfyui-boot:cu128-slim` Docker container; ComfyUI Manager included automatically; persistent volumes for models, storage, workflows, input/output
+- **FLUX.1 Dev fp8 downloaded**: 17.2GB to `/mnt/models/comfyui/checkpoints/`; Hugging Face token used; permissions fixed on `/mnt/models/comfyui`
+- **Image generation confirmed working**: Custom FLUX text-to-image workflow JSON created and loaded; first test image (photorealistic portrait) generated successfully
+- **ComfyUI research completed**: `ComfyUI_Setup_Research.md` created covering Docker setup, model recommendations, Wan2.2 video generation, LoRA sources, Open WebUI integration, and storage planning
+- **FLUX model landscape researched**: FLUX.2 Dev now available (32B, better quality) but FLUX.1 Dev recommended for now due to larger LoRA ecosystem; FLUX.1 Dev license updated to v1.1.2 (non-commercial, personal use unambiguously covered)
+
+### Files Changed
+- `it/NewPC/Software_Updates.md` — **NEW**: complete update guide for all server applications with mandatory post-update steps
+- `it/NewPC/ComfyUI_Setup_Research.md` — **NEW**: comprehensive research on ComfyUI, FLUX models, Wan2.2 video generation, LoRA sources
+- `it/NewPC/Temp.txt` — Updated with FLUX text-to-image workflow JSON (for user to load into ComfyUI)
+
+### Key Decisions
+- **FLUX.1 Dev fp8 over FLUX.2 Dev**: FLUX.2 is higher quality but requires 35GB+ multi-file download and has a small LoRA ecosystem; FLUX.1 Dev has the largest LoRA library including confirmed Pixar-style LoRAs on Hugging Face (CivitAI blocked in UK)
+- **ComfyUI via Docker**: Consistent with existing infrastructure; `yanwk/comfyui-boot:cu128-slim` is the community standard (no official image exists); integrates with `ai-network` so Open WebUI can reach it at `http://comfyui:8188`
+- **Post-update network steps are critical**: Documented prominently in Software_Updates.md — missing these causes web search failure and no models in Open WebUI
+- **Wan2.2 over Wan2.1**: Research confirmed Wan2.2-TI2V-5B is the better choice (720P vs 480P, fits single RTX 3090, text+image to video in one model)
+
+### Reference Documents
+- `it/NewPC/Software_Updates.md` — update procedures for all applications
+- `it/NewPC/ComfyUI_Setup_Research.md` — full ComfyUI/video generation research
+
+### Next Actions
+- [ ] Install NVLink bridge (P3669) — verify with `nvidia-smi nvlink --status -i 0`
+- [ ] Download Pixar/animation LoRA: `prithivMLmods/Canopus-Pixar-3D-Flux-LoRA` from Hugging Face to `/mnt/models/comfyui/loras/`
+- [ ] Configure Open WebUI ComfyUI integration (Admin → Settings → Images → ComfyUI → `http://comfyui:8188`)
+- [ ] Set up video generation: install `ComfyUI-WanVideoWrapper` via ComfyUI Manager, download Wan2.2-TI2V-5B (34.3GB)
+- [ ] Consider FLUX.2 Dev once LoRA ecosystem matures
+
+---
+
 ## Session 2026-03-07 — Claude Desktop Config JSON Error Diagnosis
 
 ### Summary

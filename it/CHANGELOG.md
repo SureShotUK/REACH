@@ -2,6 +2,30 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-09 — Ollama/Open WebUI Updates, Web Search Fix, ComfyUI Install
+
+### Added
+- `it/NewPC/Software_Updates.md` — update procedures for all server applications (Ollama, Open WebUI, SearXNG, ComfyUI) with mandatory post-update network reconnection steps
+- `it/NewPC/ComfyUI_Setup_Research.md` — comprehensive research: Docker setup, FLUX models, Wan2.2 video generation, LoRA sources, Open WebUI integration, storage planning
+- ComfyUI Docker container (`yanwk/comfyui-boot:cu128-slim`) running on port 8188 with persistent model/workflow volumes
+- FLUX.1 Dev fp8 model (17.2GB) downloaded to `/mnt/models/comfyui/checkpoints/`
+- FLUX text-to-image workflow created and saved in ComfyUI; photorealistic image generation confirmed working
+- UFW rule added: `172.18.0.0/16` permitted to reach port 11434 (required for Open WebUI on ai-network to reach Ollama)
+
+### Changed
+- `it/NewPC/Temp.txt` — updated with FLUX text-to-image workflow JSON
+
+### Fixed
+- SearXNG web search broken: container had `Networks: {}` (disconnected from all networks); reconnected to `ai-network`
+- Open WebUI could not reach Ollama after being connected to `ai-network`: UFW was only allowing `172.17.0.0/16`; added rule for `172.18.0.0/16`
+- `/mnt/models/comfyui` permissions: directory owned by root; changed to `steve:steve`
+
+### Updated
+- Ollama updated to v0.17.7; override.conf preserved; both GPUs confirmed operational
+- Open WebUI updated to latest `:main` image
+
+---
+
 ## [Unreleased] - 2026-03-07 — Claude Desktop Config Diagnosis
 
 ### Fixed

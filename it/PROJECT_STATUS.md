@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-05
+**Last Updated**: 2026-03-09
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
@@ -42,6 +42,12 @@
   - **Iterative debugging success**: 5 script iterations (syntax → type → logic → system behavior → file locks)
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
+
+### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU + Image Generation)
+- **Status**: Complete. Full AI stack running including image generation via ComfyUI. NVLink bridge pending install.
+- **Image Generation**: ComfyUI running on port 8188; FLUX.1 Dev fp8 (17.2GB) loaded; text-to-image workflow saved; photorealistic output confirmed
+- **Web Search**: Fixed (SearXNG reconnected to ai-network; UFW rule added for 172.18.0.0/16 → port 11434)
+- **Update Procedures**: Documented in `NewPC/Software_Updates.md` including critical post-update network steps
 
 ### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU)
 - **Status**: Complete. Full AI stack running. Second RTX 3090 ordered. Local_CC.md guide created.
@@ -259,8 +265,10 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **Install second RTX 3090** — awaiting delivery; verify both GPUs in `nvidia-smi`; set `OLLAMA_MAX_LOADED_MODELS=2` in Ollama systemd override
-2. **GPU power limit tuning** — `sudo nvidia-smi -pl 300` on both GPUs; make permanent via systemd service; do both together after second GPU installed
+1. **Install NVLink bridge (P3669)** — verify with `nvidia-smi nvlink --status -i 0`
+2. **Download Pixar LoRA** — `prithivMLmods/Canopus-Pixar-3D-Flux-LoRA` from Hugging Face to `/mnt/models/comfyui/loras/`
+3. **Configure Open WebUI → ComfyUI integration** — Admin → Settings → Images → ComfyUI → `http://comfyui:8188`
+4. **Set up video generation** — install `ComfyUI-WanVideoWrapper` via ComfyUI Manager; download Wan2.2-TI2V-5B (34.3GB)
 
 ### Medium Priority
 3. **ZTNA pilot deployment** — Start Tailscale free tier testing at Office3 (3 users)
