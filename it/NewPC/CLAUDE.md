@@ -210,6 +210,42 @@ When beginning research on a component or topic:
    - Document why options were eliminated
    - Show the decision-making path clearly
 
+## ComfyUI Model Structure (Verified March 2026)
+
+### FLUX.1 Dev fp8 is self-contained
+The Comfy-Org single-file `flux1-dev-fp8.safetensors` includes the VAE and both text encoders (T5, CLIP-L) built in. For FLUX image generation:
+- **No separate VAE file needed**
+- **No separate text encoder files needed**
+- The `vae/` and `text_encoders/` directories on this system contain **video model files only** (Wan2.x)
+
+### Model directory purposes (this system)
+| Directory | Contents |
+|-----------|----------|
+| `checkpoints/` | FLUX.1 Dev fp8 (self-contained image model) |
+| `loras/` | Style adapters (e.g. Canopus Pixar LoRA) |
+| `diffusion_models/` | Wan2.2 video diffusion model |
+| `text_encoders/` | `umt5_xxl_fp8_e4m3fn_scaled.safetensors` — Wan2.2 video only |
+| `vae/` | `wan2.2_vae.safetensors` — Wan2.2 video only |
+
+### Amelia's restricted instance
+- Container: `comfyui-amelia`, port 8189
+- Restricted model directory: `/mnt/models/comfyui-amelia/`
+- Add models with: `sudo ln /mnt/models/comfyui/<dir>/<file> /mnt/models/comfyui-amelia/<dir>/<file>`
+- Remove models with: `sudo rm /mnt/models/comfyui-amelia/<dir>/<file>`
+- No container restart needed — ComfyUI detects changes on next browser refresh
+
+### Wan2.2-TI2V-5B download size
+Comfy-Org repackaged version is ~18GB total (not 34GB as originally estimated):
+- `wan2.2_ti2v_5B_fp16.safetensors` — 10GB → `diffusion_models/`
+- `umt5_xxl_fp8_e4m3fn_scaled.safetensors` — 6.74GB → `text_encoders/`
+- `wan2.2_vae.safetensors` — small → `vae/`
+Source: `Comfy-Org/Wan_2.2_ComfyUI_Repackaged` on Hugging Face
+
+### FLUX LoRA node behaviour
+The Load LoRA node in FLUX workflows has a **single model input/output** (no CLIP passthrough). Insert it between the checkpoint loader and KSampler. Recommended starting strength: 0.8.
+
+---
+
 ## File Content Delivery
 
 When you need to provide file content for the user to copy to their Linux machine, always write it to `Temp.txt` in the current working directory rather than displaying it in a code block. This avoids copy-paste formatting issues (leading spaces added by markdown rendering).
