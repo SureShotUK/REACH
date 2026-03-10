@@ -4,6 +4,50 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-10 — Pixar LoRA, Amelia's ComfyUI Instance, Video Generation Setup, Admin Guide
+
+### Summary
+Extended ComfyUI capabilities with a Pixar-style LoRA (successful first-run result), set up a separate ComfyUI instance for Amelia on port 8189 with restricted model access via hard links, researched and documented the Wan2.2 video generation setup, and created a comprehensive ComfyUI administration guide covering model installation, per-user model control, and node reference.
+
+### Work Completed
+- **Pixar LoRA installed**: `Canopus-Pixar-3D-FluxDev-LoRA.safetensors` (613MB) from Hugging Face (`prithivMLmods/Canopus-Pixar-3D-Flux-LoRA`); trigger words `Pixar` / `Pixar 3D`; strength 0.8 recommended; first test image confirmed successful
+- **Load LoRA node explained**: FLUX LoRA node has single model input/output (no CLIP); inserted between checkpoint and KSampler
+- **Amelia's ComfyUI instance created**: `comfyui-amelia` container on port 8189; separate volumes for output, workflows, storage
+- **Model restriction via hard links**: `/mnt/models/comfyui-amelia/` directory created; only approved models linked (FLUX fp8 checkpoint + Pixar LoRA); video models excluded
+- **Parental monitoring options documented**: Docker logs (`docker logs comfyui-amelia`), output folder (`/opt/comfyui-amelia/output/`), ComfyUI history in-browser, cron job for nightly log persistence
+- **Wan2.2 video generation researched and documented**: Comfy-Org repackaged version confirmed available; 3 files needed (~18GB total vs previously estimated 34GB)
+  - `wan2.2_ti2v_5B_fp16.safetensors` (10GB) → `diffusion_models/`
+  - `umt5_xxl_fp8_e4m3fn_scaled.safetensors` (6.74GB) → `text_encoders/`
+  - `wan2.2_vae.safetensors` → `vae/`
+- **ComfyUI-WanVideoWrapper**: Install via ComfyUI Manager; supports Wan2.2 confirmed; ~12-20 min per 5-second 720p clip on RTX 3090
+- **ComfyUI.md created**: Administration guide covering model installation, enabling models for Amelia, and nodes reference (Load Checkpoint, Load LoRA, CLIP Text Encode, Empty Latent Image, KSampler, FluxGuidance, VAE Decode, Save Image) with settings tables
+
+### Files Changed
+- `it/NewPC/ComfyUI.md` — **NEW**: ComfyUI administration guide (model install, Amelia model control, nodes reference)
+
+### Key Decisions
+- **Amelia container named `comfyui-amelia`** (not `comfyui-daughter` as originally suggested)
+- **Hard links for model sharing**: No disk space duplication; new models not visible to Amelia unless explicitly linked; single `ln` command to add, `rm` to revoke
+- **Wan2.2 uses `diffusion_models/` directory** (not `video_models/` as noted in research doc) — Comfy-Org repackaged format requirement
+- **FLUX fp8 single-file checkpoint is self-contained**: No separate VAE or text encoder files needed for image generation — `wan2.2_vae.safetensors` and `umt5_xxl` are video-only
+- **Wan2.2 download size revised down**: ~18GB total (not 34.3GB estimated in research doc) — Comfy-Org repackaged single-file diffusion model is 10GB vs original split files
+
+### Reference Documents
+- `it/NewPC/ComfyUI.md` — new administration guide
+- `it/NewPC/ComfyUI_Setup_Research.md` — background research (previous session)
+- Hugging Face: `prithivMLmods/Canopus-Pixar-3D-Flux-LoRA` — Pixar LoRA source
+- Hugging Face: `Comfy-Org/Wan_2.2_ComfyUI_Repackaged` — Wan2.2 repackaged models
+- Official ComfyUI Wan2.2 examples: `comfyanonymous.github.io/ComfyUI_examples/wan22/`
+
+### Next Actions
+- [ ] Download Wan2.2 model files (3 commands, ~18GB total) — see ComfyUI.md §Video Generation
+- [ ] Install ComfyUI-WanVideoWrapper via ComfyUI Manager
+- [ ] Load Wan2.2 workflow from official examples and test video generation
+- [ ] Configure Open WebUI → ComfyUI integration (Admin → Settings → Images)
+- [ ] Install NVLink bridge (P3669)
+
+---
+
 ## Session 2026-03-09 — Ollama & Open WebUI Updates, Web Search Fix, ComfyUI Installed
 
 ### Summary

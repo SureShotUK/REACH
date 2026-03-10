@@ -2,6 +2,26 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-10 — Pixar LoRA, Amelia's ComfyUI Instance, Video Generation Setup
+
+### Added
+- `it/NewPC/ComfyUI.md` — ComfyUI administration guide: model installation, per-user model access control (hard links), full nodes reference with settings tables
+- `comfyui-amelia` Docker container on port 8189 with separate volumes and restricted model access
+- `/mnt/models/comfyui-amelia/` restricted model directory (FLUX fp8 + Pixar LoRA only; video models excluded)
+- Pixar LoRA installed: `Canopus-Pixar-3D-FluxDev-LoRA.safetensors` (613MB) to `/mnt/models/comfyui/loras/`
+- Wan2.2-TI2V-5B download instructions documented (3 files, ~18GB): diffusion model, T5 text encoder, VAE
+
+### Changed
+- ComfyUI text-to-image workflow updated with Load LoRA node; Pixar 3D style generation confirmed working
+
+### Key Findings
+- FLUX fp8 single-file checkpoint is self-contained (VAE + text encoders included); `wan2.2_vae.safetensors` and `umt5_xxl` are video-only
+- Wan2.2 Comfy-Org repackaged version available (confirmed); total download ~18GB not 34GB as previously estimated
+- Wan2.2 diffusion model goes in `diffusion_models/` directory (not `video_models/`)
+- FLUX Load LoRA node has single model in/out (no CLIP passthrough needed)
+
+---
+
 ## [Unreleased] - 2026-03-09 — Ollama/Open WebUI Updates, Web Search Fix, ComfyUI Install
 
 ### Added

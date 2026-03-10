@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-09
+**Last Updated**: 2026-03-10
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
@@ -43,9 +43,11 @@
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
-### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU + Image Generation)
-- **Status**: Complete. Full AI stack running including image generation via ComfyUI. NVLink bridge pending install.
-- **Image Generation**: ComfyUI running on port 8188; FLUX.1 Dev fp8 (17.2GB) loaded; text-to-image workflow saved; photorealistic output confirmed
+### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU + Image Generation + Multi-User)
+- **Status**: Complete. Full AI stack running including image generation via ComfyUI with multi-user setup. NVLink bridge pending install.
+- **Image Generation**: ComfyUI running on port 8188; FLUX.1 Dev fp8 (17.2GB) loaded; Pixar LoRA installed; text-to-image workflow saved; photorealistic and Pixar-style output confirmed
+- **Amelia's Instance**: `comfyui-amelia` on port 8189; restricted model access via hard links (`/mnt/models/comfyui-amelia/`); separate output folder; parental monitoring via Docker logs + output folder
+- **Video Generation**: Wan2.2-TI2V-5B download ready (3 files, ~18GB); ComfyUI-WanVideoWrapper to install; pending download
 - **Web Search**: Fixed (SearXNG reconnected to ai-network; UFW rule added for 172.18.0.0/16 → port 11434)
 - **Update Procedures**: Documented in `NewPC/Software_Updates.md` including critical post-update network steps
 
@@ -266,9 +268,9 @@ None currently. All active documentation areas progressing as planned.
 
 ### High Priority
 1. **Install NVLink bridge (P3669)** — verify with `nvidia-smi nvlink --status -i 0`
-2. **Download Pixar LoRA** — `prithivMLmods/Canopus-Pixar-3D-Flux-LoRA` from Hugging Face to `/mnt/models/comfyui/loras/`
-3. **Configure Open WebUI → ComfyUI integration** — Admin → Settings → Images → ComfyUI → `http://comfyui:8188`
-4. **Set up video generation** — install `ComfyUI-WanVideoWrapper` via ComfyUI Manager; download Wan2.2-TI2V-5B (34.3GB)
+2. **Download Wan2.2 video model files** (~18GB total, 3 wget commands) — see `NewPC/ComfyUI.md` §Video Generation
+3. **Install ComfyUI-WanVideoWrapper** — via ComfyUI Manager; search `WanVideoWrapper`
+4. **Configure Open WebUI → ComfyUI integration** — Admin → Settings → Images → ComfyUI → `http://comfyui:8188`
 
 ### Medium Priority
 3. **ZTNA pilot deployment** — Start Tailscale free tier testing at Office3 (3 users)
@@ -312,6 +314,7 @@ None currently. All active documentation areas progressing as planned.
 - `NewPC/Assembly_Guide.md` - Step-by-step hardware assembly guide with cable reference and BIOS config — NEW 2026-02-19
 - `NewPC/Software_Setup.md` - Ubuntu 24.04 LTS full AI software stack setup guide (v1.3) — NEW 2026-02-19
 - `NewPC/Local_CC.md` - Local AI assistant implementation guide: Open WebUI, Aider, SearxNG, model switching — NEW 2026-03-03
+- `NewPC/ComfyUI.md` - ComfyUI admin guide: model install, per-user model control (Amelia), nodes reference — NEW 2026-03-10
 
 ### Zero Trust Network Access (ZTNA)
 - `ZTNA_Provider_Research_2026.md` - Complete market research and provider comparison (58 pages, 1,057 lines)
