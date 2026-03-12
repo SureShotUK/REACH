@@ -1,9 +1,70 @@
 # ComfyUI Administration Guide
 
 **System**: Dual RTX 3090 (48GB VRAM), Ubuntu 24.04 LTS Server
-**Instances**: Port 8188 (yours) | Port 8189 (Amelia's)
-**Models storage**: `/mnt/models/comfyui/`
-**Amelia's models**: `/mnt/models/comfyui-amelia/`
+
+| | Yours | Amelia's |
+|-|-------|---------|
+| **Container** | `comfyui` | `comfyui-amelia` |
+| **GPU** | GPU 1 (device 1) | GPU 0 (device 0) |
+| **Internal port** | 18189 | 18188 |
+| **Tailscale URL** | `https://amelai.tail926601.ts.net:8189` | `https://amelai.tail926601.ts.net:8188` |
+| **Models storage** | `/mnt/models/comfyui/` | `/mnt/models/comfyui-amelia/` |
+| **Output folder** | `/opt/comfyui/output/` | `/opt/comfyui-amelia/output/` |
+
+### Docker run commands
+
+**Yours** (GPU 1, internal port 18189):
+```bash
+docker run -d \
+  --name comfyui \
+  --network ai-network \
+  --restart unless-stopped \
+  --runtime nvidia \
+  --gpus all \
+  -p 18189:8188 \
+  -v /mnt/models/comfyui:/root/ComfyUI/models \
+  -v /opt/comfyui/storage:/root \
+  -v /opt/comfyui/input:/root/ComfyUI/input \
+  -v /opt/comfyui/output:/root/ComfyUI/output \
+  -v /opt/comfyui/workflows:/root/ComfyUI/user/default/workflows \
+  -e CUDA_VISIBLE_DEVICES=1 \
+  -e CLI_ARGS="--disable-xformers" \
+  -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+  yanwk/comfyui-boot:cu128-slim
+```
+
+> **Note**: `CUDA_VISIBLE_DEVICES=1` is used instead of `--cuda-device 1` in CLI_ARGS — it is more reliable as it makes GPU 1 the only GPU the container can see. This prevents OOM errors with large models (e.g. Qwen image edit) that nearly fill a single GPU's VRAM.
+
+**Amelia's** (GPU 0, internal port 18188):
+```bash
+docker run -d \
+  --name comfyui-amelia \
+  --network ai-network \
+  --restart unless-stopped \
+  --runtime nvidia \
+  --gpus all \
+  -p 18188:8188 \
+  -v /mnt/models/comfyui-amelia:/root/ComfyUI/models \
+  -v /opt/comfyui-amelia/storage:/root \
+  -v /opt/comfyui-amelia/input:/root/ComfyUI/input \
+  -v /opt/comfyui-amelia/output:/root/ComfyUI/output \
+  -v /opt/comfyui-amelia/workflows:/root/ComfyUI/user/default/workflows \
+  -e CUDA_VISIBLE_DEVICES=0 \
+  -e CLI_ARGS="--disable-xformers" \
+  -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+  yanwk/comfyui-boot:cu128-slim
+```
+
+### Tailscale Serve config
+
+Tailscale Serve proxies external ports to the internal Docker ports. To rebuild if reset:
+```bash
+tailscale serve --bg --https 443 http://localhost:3000   # Open WebUI
+tailscale serve --bg --https 8188 http://localhost:18188 # Amelia's ComfyUI
+tailscale serve --bg --https 8189 http://localhost:18189 # Your ComfyUI
+```
+
+Verify: `tailscale serve status`
 
 ---
 
@@ -11,7 +72,8 @@
 
 1. [Installing New Models](#1-installing-new-models)
 2. [Enabling Models for Amelia](#2-enabling-models-for-amelia)
-3. [Getting Started with Nodes](#3-getting-started-with-nodes)
+3. [Installing Custom Nodes — ReActor Face Swap](#3-installing-custom-nodes--reactor-face-swap)
+4. [Getting Started with Nodes](#4-getting-started-with-nodes)
 
 ---
 
@@ -98,7 +160,67 @@ sudo rm /mnt/models/comfyui-amelia/loras/some-lora.safetensors
 
 ---
 
-## 3. Getting Started with Nodes
+## 3. Installing Custom Nodes — ReActor Face Swap
+
+ReActor adds face swap capability to ComfyUI. It needs to be reinstalled whenever the `comfyui` container is recreated (the custom node files persist in the volume, but pip dependencies do not survive a container rebuild).
+
+### Step 1 — Install via ComfyUI Manager
+
+1. Open your ComfyUI at `https://amelai.tail926601.ts.net:8189`
+2. Click **Manager** in the top menu
+3. Click **Install Custom Nodes**
+4. Search for `ReActor`
+5. Click **Install** next to "ReActor Node for ComfyUI" by Gourieff
+6. Once installed, restart the container:
+
+```bash
+docker restart comfyui
+```
+
+7. Hard refresh your browser (`Ctrl+Shift+R`) after 30 seconds
+
+### Step 2 — Download the face swap model
+
+The `inswapper_128.onnx` model is required and must be downloaded manually. It lives in the models volume so it survives container rebuilds — only needed once:
+
+```bash
+mkdir -p /mnt/models/comfyui/reactor
+
+wget -O /mnt/models/comfyui/reactor/inswapper_128.onnx \
+  "<URL from Hugging Face>"
+```
+
+> **URL note**: The original download URL was found by searching Hugging Face for `inswapper_128.onnx`. Verify the current URL before downloading — search `huggingface.co` for `xingren23/comfyflow-models` or `inswapper_128.onnx`.
+
+If the file already exists at `/mnt/models/comfyui/reactor/inswapper_128.onnx` from a previous install, this step can be skipped.
+
+### Step 3 — Verify
+
+Right-click on the ComfyUI canvas. You should see a **ReActor** category in the menu.
+
+Face restoration models (`GFPGANv1.4`, `CodeFormer`) are downloaded automatically on first use — this is normal.
+
+### Troubleshooting
+
+If the ReActor node shows red after installation:
+
+```bash
+docker logs comfyui | grep -i "reactor\|error" | tail -30
+```
+
+If dependencies failed to install, re-run them manually:
+
+```bash
+docker exec -it comfyui bash
+cd /root/ComfyUI/custom_nodes/comfyui-reactor-node
+pip install -r requirements.txt
+exit
+docker restart comfyui
+```
+
+---
+
+## 4. Getting Started with Nodes
 
 ### What are nodes?
 

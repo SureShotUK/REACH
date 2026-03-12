@@ -2,6 +2,27 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-12 — ComfyUI Learning Guide, Face Swap, Infrastructure Fixes
+
+### Added
+- `it/NewPC/Learn_ComfyUI.md` — Comprehensive ComfyUI learning guide: mental model, data types/wire colours, model types, 5 essential nodes, custom node installation, 4 complete workflows (FLUX txt2img, SDXL txt2img, img2img, face swap with ReActor), prompting tips, tips and tricks
+- `it/NewPC/ComfyUI_FaceSwap.md` — 12-step numbered face swap workflow guide (two images in, one out); troubleshooting table
+- ReActor face swap custom node installed (`comfyui-reactor/`); `inswapper_128.onnx` at `/mnt/models/comfyui/reactor/`
+- ComfyUI.md: new Section 3 documenting ReActor installation, inswapper model download, NSFW filter fix, dependency reinstall fallback
+
+### Changed
+- `it/NewPC/ComfyUI.md` — Docker run commands updated: CUDA_VISIBLE_DEVICES env var replaces --cuda-device CLI flag; internal ports changed to 18188/18189; Tailscale Serve rebuild commands added; GPU assignments documented in header table
+- `it/NewPC/Software_Setup.md` — Tailscale section updated with full service URL table (Open WebUI, Amelia's ComfyUI, your ComfyUI) and Tailscale Serve rebuild commands
+- Port assignments swapped: 8188 (external/Tailscale) = Amelia's; 8189 = yours
+
+### Fixed
+- Docker/Tailscale Serve port conflict: Tailscale Serve holds ports 8188/8189 on Tailscale interface, preventing Docker from binding. Resolved by using internal ports 18188/18189 for Docker with Tailscale Serve proxying to them
+- OOM error on Qwen image edit model: every-other-run failure due to PyTorch memory fragmentation on GPU 0. Fixed with `CUDA_VISIBLE_DEVICES=1` isolating ComfyUI to GPU 1 (full 24GB)
+- ReActor outputting black 512×512 squares: NSFW detection filter triggering. Fixed by setting `SCORE = 1.1` in `reactor_sfw.py` (score cannot exceed 1.0)
+- Tailscale Serve syntax: correct flag is `--https 8188` not positional `https:8188`
+
+---
+
 ## [Unreleased] - 2026-03-10 — Pixar LoRA, Amelia's ComfyUI Instance, Video Generation Setup
 
 ### Added

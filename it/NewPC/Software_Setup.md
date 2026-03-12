@@ -827,6 +827,28 @@ Install the Tailscale client on every device you want to use to access Open WebU
 
 Log in with the same Tailscale account on each device.
 
+### Tailscale Serve — Service URLs
+
+Tailscale Serve acts as a reverse proxy, giving each service a clean HTTPS URL on the tailnet hostname. All services are accessible from any Tailscale-connected device:
+
+| Service | URL | Internal port |
+|---------|-----|--------------|
+| Open WebUI | `https://amelai.tail926601.ts.net` | 3000 |
+| Amelia's ComfyUI | `https://amelai.tail926601.ts.net:8188` | 18188 |
+| Your ComfyUI | `https://amelai.tail926601.ts.net:8189` | 18189 |
+
+> **Note**: Tailscale Serve listens on ports 8188/8189 on the Tailscale interface. Docker containers use internal ports 18188/18189 to avoid conflicts.
+
+To rebuild the Tailscale Serve config from scratch (e.g. after `tailscale serve reset`):
+
+```bash
+tailscale serve --bg --https 443 http://localhost:3000
+tailscale serve --bg --https 8188 http://localhost:18188
+tailscale serve --bg --https 8189 http://localhost:18189
+```
+
+Verify: `tailscale serve status`
+
 ### Accessing Open WebUI Remotely
 
 Once your device is connected to Tailscale, open a browser and go to:

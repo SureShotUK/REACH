@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-10
+**Last Updated**: 2026-03-12
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
@@ -43,10 +43,13 @@
 - **Knowledge Base**: Issue index in troubleshooting/README.md with comprehensive documentation references
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
-### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU + Image Generation + Multi-User)
-- **Status**: Complete. Full AI stack running including image generation via ComfyUI with multi-user setup. NVLink bridge pending install.
-- **Image Generation**: ComfyUI running on port 8188; FLUX.1 Dev fp8 (17.2GB) loaded; Pixar LoRA installed; text-to-image workflow saved; photorealistic and Pixar-style output confirmed
-- **Amelia's Instance**: `comfyui-amelia` on port 8189; restricted model access via hard links (`/mnt/models/comfyui-amelia/`); separate output folder; parental monitoring via Docker logs + output folder
+### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU + Image Generation + Face Swap + Multi-User)
+- **Status**: Complete. Full AI stack running including image generation, face swap, and multi-user setup. NVLink bridge pending install.
+- **Image Generation**: ComfyUI (yours) on port 8189 (internal 18189), GPU 1; FLUX.1 Dev fp8 loaded; Pixar LoRA installed; SDXL and FLUX workflows documented
+- **Face Swap**: ReActor installed in `comfyui-reactor/`; `inswapper_128.onnx` at `/mnt/models/comfyui/reactor/`; NSFW filter disabled (SCORE=1.1); working
+- **Amelia's Instance**: `comfyui-amelia` on port 8188 (internal 18188), GPU 0; restricted model access via hard links; separate output folder
+- **GPU Assignment**: GPU 0 → Amelia's ComfyUI; GPU 1 → Yours (via CUDA_VISIBLE_DEVICES=1 — prevents OOM with large models like Qwen image edit)
+- **Tailscale Serve**: Proxies `amelai.tail926601.ts.net:8188` → 18188 (Amelia), `:8189` → 18189 (yours), `:443` → 3000 (Open WebUI). Rebuild: see ComfyUI.md §Tailscale Serve config
 - **Video Generation**: Wan2.2-TI2V-5B download ready (3 files, ~18GB); ComfyUI-WanVideoWrapper to install; pending download
 - **Web Search**: Fixed (SearXNG reconnected to ai-network; UFW rule added for 172.18.0.0/16 → port 11434)
 - **Update Procedures**: Documented in `NewPC/Software_Updates.md` including critical post-update network steps
@@ -314,7 +317,9 @@ None currently. All active documentation areas progressing as planned.
 - `NewPC/Assembly_Guide.md` - Step-by-step hardware assembly guide with cable reference and BIOS config — NEW 2026-02-19
 - `NewPC/Software_Setup.md` - Ubuntu 24.04 LTS full AI software stack setup guide (v1.3) — NEW 2026-02-19
 - `NewPC/Local_CC.md` - Local AI assistant implementation guide: Open WebUI, Aider, SearxNG, model switching — NEW 2026-03-03
-- `NewPC/ComfyUI.md` - ComfyUI admin guide: model install, per-user model control (Amelia), nodes reference — NEW 2026-03-10
+- `NewPC/ComfyUI.md` - ComfyUI admin guide: model install, per-user model control, Docker commands, ReActor install, Tailscale Serve config — UPDATED 2026-03-12
+- `NewPC/Learn_ComfyUI.md` - Comprehensive ComfyUI learning guide: nodes, data types, 4 workflows, face swap, prompting — NEW 2026-03-12
+- `NewPC/ComfyUI_FaceSwap.md` - 12-step face swap workflow guide — NEW 2026-03-12
 
 ### Zero Trust Network Access (ZTNA)
 - `ZTNA_Provider_Research_2026.md` - Complete market research and provider comparison (58 pages, 1,057 lines)
