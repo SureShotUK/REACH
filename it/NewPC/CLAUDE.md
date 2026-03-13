@@ -246,6 +246,26 @@ The Load LoRA node in FLUX workflows has a **single model input/output** (no CLI
 
 ---
 
+## Bash Special Characters in Passwords
+
+**CRITICAL**: Passwords containing `!` or `$` break bash history expansion and variable substitution in double-quoted strings, causing errors like `-bash: !abc: event not found`.
+
+**Always use this pattern** when a password must appear in a shell command (docker run `-e` flags, connection strings, etc.):
+
+```bash
+# Step 1: assign with single quotes (prevents ALL special character interpretation)
+PGPASS='p@ssw0rd!with$special&chars'
+
+# Step 2: reference with ${VAR} in the command (bash expands the variable, not the value)
+docker run -e SOME_URL=postgresql://user:${PGPASS}@host:5432/db ...
+```
+
+**Why single quotes**: Single quotes tell bash to treat everything literally — no `!` history expansion, no `$` variable substitution, no `&` backgrounding. Double quotes allow these expansions, which is why the password breaks inside `"..."`.
+
+**Also applies to**: psql connection strings, curl `-u` flags, any CLI tool that takes credentials inline.
+
+---
+
 ## File Content Delivery
 
 When you need to provide file content for the user to copy to their Linux machine, always write it to `Temp.txt` in the current working directory rather than displaying it in a code block. This avoids copy-paste formatting issues (leading spaces added by markdown rendering).
