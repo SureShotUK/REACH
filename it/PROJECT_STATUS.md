@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-13 (evening)
+**Last Updated**: 2026-03-13 (night)
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
@@ -44,7 +44,7 @@
 - **Next**: Test cleaned template after restart, verify £ symbol works, update issue index with enhanced documentation
 
 ### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU + NVLink + Image Generation + Face Swap + Multi-User)
-- **Status**: Complete. Full AI stack running including image generation, face swap, multi-user setup, and RAG. NVLink bridge installed and verified. RAG operational: PostgreSQL 16 + pgvector + nomic-embed-text + Open WebUI reconfigured with document backup to `/home/steve/rag-documents/`.
+- **Status**: Complete. Full AI stack running including image generation, face swap, multi-user setup, RAG, and web file manager. NVLink verified. RAG operational (pgvector + nomic-embed-text). FileBrowser running at `https://amelai.tail926601.ts.net:8087` for web-accessible file downloads.
 - **Image Generation**: ComfyUI (yours) on port 8189 (internal 18189), GPU 1; FLUX.1 Dev fp8 loaded; Pixar LoRA installed; SDXL and FLUX workflows documented
 - **Face Swap**: ReActor installed in `comfyui-reactor/`; `inswapper_128.onnx` at `/mnt/models/comfyui/reactor/`; NSFW filter disabled (SCORE=1.1); working
 - **Amelia's Instance**: `comfyui-amelia` on port 8188 (internal 18188), GPU 0; restricted model access via hard links; separate output folder
@@ -270,7 +270,9 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **Test RAG end-to-end** — upload a document to a Knowledge Base, attach with `#` in chat, confirm Sources section appears in response
+1. **Change FileBrowser default password** — `https://amelai.tail926601.ts.net:8087` → Settings → User Management (default is admin/admin)
+2. **Recreate Open WebUI container with document backup mount** — add `-v /home/steve/rag-output:/app/backend/data/uploads` and use PGPASS pattern for password
+3. **Test RAG end-to-end** — upload a document to a Knowledge Base, attach with `#` in chat, confirm Sources section appears in response
 2. **Download Wan2.2 video model files** (~18GB total, 3 wget commands) — see `NewPC/ComfyUI.md` §Video Generation
 3. **Install ComfyUI-WanVideoWrapper** — via ComfyUI Manager; search `WanVideoWrapper`
 4. **Configure Open WebUI → ComfyUI integration** — Admin → Settings → Images → ComfyUI → `http://comfyui:8188`
@@ -321,6 +323,7 @@ None currently. All active documentation areas progressing as planned.
 - `NewPC/Learn_ComfyUI.md` - Comprehensive ComfyUI learning guide: nodes, data types, 4 workflows, face swap, prompting — NEW 2026-03-12
 - `NewPC/ComfyUI_FaceSwap.md` - 12-step face swap workflow guide — NEW 2026-03-12
 - `NewPC/RAG_Setup.md` - RAG setup guide: PostgreSQL 16 + pgvector + nomic-embed-text + Open WebUI — NEW 2026-03-13
+- `NewPC/Software_Setup.md` - Section 19 added: FileBrowser install, Tailscale Serve table updated with FileBrowser entry
 
 ### Zero Trust Network Access (ZTNA)
 - `ZTNA_Provider_Research_2026.md` - Complete market research and provider comparison (58 pages, 1,057 lines)

@@ -836,13 +836,15 @@ Tailscale Serve acts as a reverse proxy, giving each service a clean HTTPS URL o
 | Open WebUI | `https://amelai.tail926601.ts.net` | 3000 |
 | Amelia's ComfyUI | `https://amelai.tail926601.ts.net:8188` | 18188 |
 | Your ComfyUI | `https://amelai.tail926601.ts.net:8189` | 18189 |
+| FileBrowser | `https://amelai.tail926601.ts.net:8087` | 18087 |
 
-> **Note**: Tailscale Serve listens on ports 8188/8189 on the Tailscale interface. Docker containers use internal ports 18188/18189 to avoid conflicts.
+> **Note**: Tailscale Serve occupies its ports on the Tailscale interface. Docker containers use offset internal ports to avoid conflicts (e.g. Tailscale 8087 → Docker internal 18087).
 
 To rebuild the Tailscale Serve config from scratch (e.g. after `tailscale serve reset`):
 
 ```bash
 tailscale serve --bg --https 443 http://localhost:3000
+tailscale serve --bg --https 8087 http://localhost:18087
 tailscale serve --bg --https 8188 http://localhost:18188
 tailscale serve --bg --https 8189 http://localhost:18189
 ```
@@ -1132,7 +1134,54 @@ sudo systemctl status <service>      # Check service status
 
 ---
 
-## 19. Resources
+## 19. FileBrowser — Web File Manager
+
+FileBrowser provides a web-based interface for browsing, downloading, and uploading files on the server. It is accessible remotely via Tailscale.
+
+### Install FileBrowser
+
+```bash
+# Pre-create the database file (must be a file, not a directory)
+mkdir -p /home/steve/filebrowser
+touch /home/steve/filebrowser/filebrowser.db
+
+docker run -d \
+  --name filebrowser \
+  --restart always \
+  --network ai-network \
+  -p 18087:80 \
+  -v /home/steve/rag-output:/srv \
+  -v /home/steve/filebrowser/filebrowser.db:/database/filebrowser.db \
+  filebrowser/filebrowser:latest
+
+# Expose via Tailscale Serve
+tailscale serve --bg --https 8087 http://localhost:18087
+```
+
+### Access
+
+```
+https://amelai.tail926601.ts.net:8087
+```
+
+Default credentials on first run: `admin` / `admin` — **change immediately** via Settings → User Management.
+
+### Notes
+
+- Files served from `/home/steve/rag-output/` on the host (mapped to `/srv` inside the container)
+- To expose additional directories, add further `-v /path/on/host:/srv/subfolder` mounts
+- Security: Tailscale (outer layer — tailnet devices only) + FileBrowser login (inner layer)
+- Port pattern: Tailscale Serve listens on 8087; Docker container uses internal port 18087 to avoid conflict
+
+### Firewall rule (required)
+
+```bash
+sudo ufw allow in on tailscale0 to any port 8087
+```
+
+---
+
+## 20. Resources
 
 - <a href="https://ubuntu.com/tutorials/install-ubuntu-server" target="_blank">Ubuntu Server Installation Tutorial</a>
 - <a href="https://ollama.com/library" target="_blank">Ollama Model Library</a>

@@ -4,6 +4,42 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-13 (evening) — FileBrowser, Open WebUI Code Execution, RAG Usage
+
+### Summary
+Clarified how Open WebUI RAG knowledge bases are invoked (manual `#` prefix per chat, not automatic), worked through Open WebUI code execution behaviour (Pyodide/WebAssembly sandbox — files are ephemeral, not server-side), and set up FileBrowser as a web-accessible file manager via Tailscale for downloading server-generated files.
+
+### Work Completed
+- **RAG invocation clarified**: `#` prefix in chat attaches a Knowledge Base for that session; retrieval happens automatically on every message once attached; Sources section appears when chunks are found; no global auto-attach setting exists
+- **Open WebUI code execution explained**: Uses Pyodide (WebAssembly Python in browser), not server-side Python. Files written to `/mnt/uploads/` inside Pyodide exist only in an ephemeral virtual filesystem — they disappear when the session ends and do not reach the server. Working directory is `/home/pyodide`
+- **FileBrowser installed**: Docker container (`filebrowser/filebrowser:latest`) running on internal port 18087, serving `/home/steve/rag-output/`
+- **FileBrowser accessible via Tailscale**: `https://amelai.tail926601.ts.net:8087` — Tailscale (outer auth) + FileBrowser login (inner auth)
+- **Fixes during FileBrowser setup**:
+  - UFW rule added: `sudo ufw allow in on tailscale0 to any port 8087`
+  - Database mount error: Docker created `filebrowser.db` as a directory — fixed by `touch /home/steve/filebrowser/filebrowser.db` before running container
+  - Port conflict with Tailscale Serve: changed Docker internal port to 18087 (same pattern as ComfyUI), updated Tailscale Serve to proxy 8087 → 18087
+- **Software_Setup.md updated**: FileBrowser added to Tailscale Serve URL table, rebuild commands, and new Section 19 with full install instructions
+
+### Files Changed
+- `it/NewPC/Software_Setup.md` — FileBrowser added to Tailscale Serve table and rebuild commands; new Section 19 (FileBrowser setup, access, notes, UFW rule)
+
+### Git Commits
+- `5f780b8` — Last commit this session (CLAUDE.md bash password pattern)
+
+### Key Decisions
+- **Open WebUI code execution = Pyodide (browser-side)**: Files written inside code execution are NOT on the server. For server-side file creation, use a custom Tool/Function or run scripts directly on the server via SSH
+- **Internal port 18087**: Follows established pattern (Tailscale Serve holds external port, Docker uses offset internal port) to avoid bind conflicts
+- **`touch` before mount**: Docker bind-mounts a path that doesn't exist as a file will create it as a directory. Pre-creating files with `touch` before running containers prevents this class of error
+- **FileBrowser serving `/home/steve/rag-output`**: Deliberately scoped to just that directory for now; can expand with additional `-v` mounts later
+
+### Next Actions
+- [ ] Change FileBrowser default password (admin/admin) — Settings → User Management
+- [ ] Test RAG end-to-end: upload document to Knowledge Base, attach with `#` in chat, confirm Sources section appears
+- [ ] Recreate Open WebUI container with document backup bind mount (`-v /home/steve/rag-output:/app/backend/data/uploads`) and pgvector password using PGPASS pattern
+- [ ] Download Wan2.2 video model files (~18GB) — see `NewPC/ComfyUI.md` §Video Generation
+
+---
+
 ## Session 2026-03-13 (continued) — RAG Setup Implementation
 
 ### Summary

@@ -2,6 +2,19 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-13 (night) — FileBrowser Web File Manager
+
+### Added
+- FileBrowser Docker container (`filebrowser/filebrowser:latest`), internal port 18087, serving `/home/steve/rag-output/`
+- Tailscale Serve entry: `https://amelai.tail926601.ts.net:8087` → `http://localhost:18087`
+- UFW rule: `allow in on tailscale0 to any port 8087`
+- `it/NewPC/Software_Setup.md` Section 19: FileBrowser install guide with Docker command, access URL, security notes, UFW rule, common pitfalls
+
+### Changed
+- `it/NewPC/Software_Setup.md` — Tailscale Serve URL table updated with FileBrowser entry; rebuild commands updated to include port 8087 → 18087
+
+---
+
 ## [Unreleased] - 2026-03-13 (evening) — RAG Implementation Fixes and Document Backup
 
 ### Changed
