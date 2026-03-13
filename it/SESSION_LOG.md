@@ -4,6 +4,54 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-14 — HuggingFace Model Downloads & Qwen-Image-Edit Setup
+
+### Summary
+Created a comprehensive HuggingFace guide covering how to find, download, and install models in ComfyUI. Used the Qwen-Image-Edit model as a detailed case study, covering raw vs fp8 repackaged versions, the Comfy-Org official packages, and wget-based download commands with auth headers. Resolved the Ubuntu pip "externally managed environment" error by switching to wget as the primary download method.
+
+### Work Completed
+- **Created `it/NewPC/HuggingFace.md`** — new comprehensive guide covering:
+  - How to read HuggingFace model pages (Model card vs Files tab)
+  - Two model types: single-file (all-in-one) vs multi-component (diffusers format)
+  - Four download methods: wget (primary), browser, huggingface-cli via pipx, git-lfs
+  - Ubuntu "externally managed environment" pip error explained — use wget or pipx instead
+  - Where files go in ComfyUI (full directory mapping table)
+  - Qwen-Image-Edit full case study (see below)
+  - HuggingFace search tips and quantisation format reference table
+- **Qwen-Image-Edit case study** — research covering:
+  - Raw repo folder breakdown: transformer/ and text_encoder/ and vae/ = weights; processor/ scheduler/ tokenizer/ = config only (ignore in ComfyUI)
+  - What "Lightning" variants are: step-distilled LoRAs (not standalone models), ~10x faster but need base transformer
+  - Official Comfy-Org fp8 packages identified (same pattern as Wan2.2):
+    - `qwen_image_edit_2511_fp8mixed.safetensors` from `Comfy-Org/Qwen-Image-Edit_ComfyUI` → `diffusion_models/`
+    - `qwen_2.5_vl_7b_fp8_scaled.safetensors` from `Comfy-Org/Qwen-Image_ComfyUI` → `text_encoders/`
+    - `qwen_image_vae.safetensors` from `Comfy-Org/Qwen-Image_ComfyUI` → `vae/`
+  - Total fp8 footprint ~28GB (exceeds single 3090, uses both GPUs or RAM offload)
+  - wget commands with `Authorization: Bearer ${HF_TOKEN}` header — token set as variable to avoid shell history exposure
+  - Custom node `lenML/comfyui_qwen_image_edit_adv` required (fixes known offset bug in native ComfyUI node)
+  - Workflow structure, CFG settings (1.0–2.5), resolution requirement (~1024px / 1MP)
+
+### Files Changed
+- `it/NewPC/HuggingFace.md` — created (new file, ~200 lines)
+
+### Git Commits
+- None this session (in progress — large model download underway)
+
+### Key Decisions
+- **wget as primary download method**: Avoids all Python/pip dependency issues on Ubuntu 23.04+ servers. Every HuggingFace file has a direct URL at `huggingface.co/<author>/<model>/resolve/main/<path>`
+- **Comfy-Org packages over community fp8 repos**: More trustworthy, same quality, clear directory structure matching ComfyUI conventions — identical to how Wan2.2 was sourced
+- **Token as variable**: `HF_TOKEN='...'` set with single quotes (handles special characters), referenced as `${HF_TOKEN}` in commands — token never appears in file or bash history
+- **2511 over 2509**: November 2025 release is newer/better; always prefer latest Qwen release
+- **text_encoder is Qwen2.5-VL 7B LLM, not CLIP/T5**: Important distinction — it's a full vision-language model (~7GB fp8), not a small encoder
+
+### Next Actions
+- [ ] Complete transformer download (`qwen_image_edit_2511_fp8mixed.safetensors`, ~20.5 GB — in progress)
+- [ ] Download text encoder: `wget -c --header="Authorization: Bearer ${HF_TOKEN}" "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors" -O /mnt/models/comfyui/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors`
+- [ ] Download VAE: `wget -c --header="Authorization: Bearer ${HF_TOKEN}" "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors" -O /mnt/models/comfyui/vae/qwen_image_vae.safetensors`
+- [ ] Install `lenML/comfyui_qwen_image_edit_adv` via ComfyUI Manager
+- [ ] Test Qwen-Image-Edit: load workflow, scale input to 1024px, CFG 1.0–2.5, 50 steps
+
+---
+
 ## Session 2026-03-13 (evening) — FileBrowser, Open WebUI Code Execution, RAG Usage
 
 ### Summary

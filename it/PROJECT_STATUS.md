@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-13 (night)
+**Last Updated**: 2026-03-14
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
@@ -50,6 +50,7 @@
 - **Amelia's Instance**: `comfyui-amelia` on port 8188 (internal 18188), GPU 0; restricted model access via hard links; separate output folder
 - **GPU Assignment**: GPU 0 → Amelia's ComfyUI; GPU 1 → Yours (via CUDA_VISIBLE_DEVICES=1 — prevents OOM with large models like Qwen image edit)
 - **Tailscale Serve**: Proxies `amelai.tail926601.ts.net:8188` → 18188 (Amelia), `:8189` → 18189 (yours), `:443` → 3000 (Open WebUI). Rebuild: see ComfyUI.md §Tailscale Serve config
+- **Qwen-Image-Edit**: fp8 transformer download in progress (~20.5GB); text encoder + VAE still to download; `lenML/comfyui_qwen_image_edit_adv` node to install — see `NewPC/HuggingFace.md` for all commands
 - **Video Generation**: Wan2.2-TI2V-5B download ready (3 files, ~18GB); ComfyUI-WanVideoWrapper to install; pending download
 - **Web Search**: Fixed (SearXNG reconnected to ai-network; UFW rule added for 172.18.0.0/16 → port 11434)
 - **Update Procedures**: Documented in `NewPC/Software_Updates.md` including critical post-update network steps
@@ -270,12 +271,14 @@ None currently. All active documentation areas progressing as planned.
 ## Next Priorities
 
 ### High Priority
-1. **Change FileBrowser default password** — `https://amelai.tail926601.ts.net:8087` → Settings → User Management (default is admin/admin)
-2. **Recreate Open WebUI container with document backup mount** — add `-v /home/steve/rag-output:/app/backend/data/uploads` and use PGPASS pattern for password
-3. **Test RAG end-to-end** — upload a document to a Knowledge Base, attach with `#` in chat, confirm Sources section appears in response
-2. **Download Wan2.2 video model files** (~18GB total, 3 wget commands) — see `NewPC/ComfyUI.md` §Video Generation
-3. **Install ComfyUI-WanVideoWrapper** — via ComfyUI Manager; search `WanVideoWrapper`
-4. **Configure Open WebUI → ComfyUI integration** — Admin → Settings → Images → ComfyUI → `http://comfyui:8188`
+1. **Finish Qwen-Image-Edit download** — text encoder (~7GB) + VAE (~254MB) still needed; commands in `NewPC/HuggingFace.md` §Download commands
+2. **Install `lenML/comfyui_qwen_image_edit_adv`** — via ComfyUI Manager; fixes known offset bug in native node
+3. **Change FileBrowser default password** — `https://amelai.tail926601.ts.net:8087` → Settings → User Management (default is admin/admin)
+4. **Recreate Open WebUI container with document backup mount** — add `-v /home/steve/rag-output:/app/backend/data/uploads` and use PGPASS pattern for password
+5. **Test RAG end-to-end** — upload a document to a Knowledge Base, attach with `#` in chat, confirm Sources section appears in response
+6. **Download Wan2.2 video model files** (~18GB total, 3 wget commands) — see `NewPC/ComfyUI.md` §Video Generation
+7. **Install ComfyUI-WanVideoWrapper** — via ComfyUI Manager; search `WanVideoWrapper`
+8. **Configure Open WebUI → ComfyUI integration** — Admin → Settings → Images → ComfyUI → `http://comfyui:8188`
 
 ### Medium Priority
 3. **ZTNA pilot deployment** — Start Tailscale free tier testing at Office3 (3 users)
@@ -324,6 +327,7 @@ None currently. All active documentation areas progressing as planned.
 - `NewPC/ComfyUI_FaceSwap.md` - 12-step face swap workflow guide — NEW 2026-03-12
 - `NewPC/RAG_Setup.md` - RAG setup guide: PostgreSQL 16 + pgvector + nomic-embed-text + Open WebUI — NEW 2026-03-13
 - `NewPC/Software_Setup.md` - Section 19 added: FileBrowser install, Tailscale Serve table updated with FileBrowser entry
+- `NewPC/HuggingFace.md` - HuggingFace download guide: model types, wget commands, Qwen-Image-Edit case study — NEW 2026-03-14
 
 ### Zero Trust Network Access (ZTNA)
 - `ZTNA_Provider_Research_2026.md` - Complete market research and provider comparison (58 pages, 1,057 lines)

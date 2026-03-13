@@ -2,6 +2,24 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-14 — HuggingFace Guide & Qwen-Image-Edit Setup
+
+### Added
+- `it/NewPC/HuggingFace.md` — comprehensive guide to HuggingFace model downloads and ComfyUI setup:
+  - Two model types explained: single-file vs multi-component diffusers format
+  - Four download methods: wget (primary), browser, huggingface-cli via pipx, git-lfs
+  - ComfyUI directory mapping table for all model component types
+  - Qwen-Image-Edit case study: raw folder breakdown, Lightning variant explanation, Comfy-Org fp8 packages
+  - wget download commands with `Authorization: Bearer ${HF_TOKEN}` pattern
+  - Ubuntu pip "externally managed environment" error explained and resolved
+  - Quantisation format reference table (BF16, FP8, INT8, GGUF)
+
+### Documentation
+- Identified official Comfy-Org fp8 packages for Qwen-Image-Edit (2511 release, ~28GB total)
+- Documented that `processor/`, `scheduler/`, `tokenizer/` folders are config-only — not needed in ComfyUI
+
+---
+
 ## [Unreleased] - 2026-03-13 (night) — FileBrowser Web File Manager
 
 ### Added
