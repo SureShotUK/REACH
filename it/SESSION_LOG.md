@@ -4,6 +4,37 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-13 (continued) — RAG Setup Implementation
+
+### Summary
+Worked through the RAG_Setup.md guide during actual implementation, fixing two issues encountered and adding a document backup feature. RAG is now fully operational: PostgreSQL 16 + pgvector installed, Open WebUI reconfigured, embedding model confirmed active, Knowledge Base usage explained.
+
+### Work Completed
+- **Step 3e fix**: The guide's Docker-based psql connectivity test failed because the `postgres:16` image requires `POSTGRES_PASSWORD` even when used as a client. Fixed by switching to `postgresql-client-16` installed directly on the host (`sudo apt install -y postgresql-client-16`)
+- **Step 5 password fix**: Bash `!` history expansion was breaking the `PGVECTOR_DB_URL` connection string. Fixed by using `PGPASS='password'` variable assignment (single-quoted to prevent expansion) and referencing `${PGPASS}` in the docker run command
+- **Document backup feature added**: Added `-v /home/steve/rag-documents:/app/backend/data/uploads` bind mount to the docker run command — every uploaded document is automatically saved to `/home/steve/rag-documents/` on the host (1.3TB partition). Note: files stored with UUID prefix on disk; original names in the Open WebUI database
+- **RAG confirmed operational**: Open WebUI v0.8.10 started cleanly; Admin Panel → Settings → Documents shows Ollama + nomic-embed-text already populated from env vars
+- **Knowledge Base usage clarified**: `#` prefix in chat to attach a Knowledge Base; not automatic — must be selected per chat session; Sources section appears in responses when chunks are retrieved
+
+### Files Changed
+- `it/NewPC/RAG_Setup.md` — Step 3e rewritten (host psql client instead of Docker); Step 5 updated with PGPASS variable pattern, document backup volume mount, and note consolidation; Update section updated to match
+
+### Git Commits
+- `fa63a57` — Previous commit (RAG guide creation, NVLink verification) — no new commit yet this continuation
+
+### Key Decisions
+- **psql client on host vs Docker**: `postgresql-client-16` on the host is simpler and more useful long-term than using the postgres Docker image as a client tool
+- **Password with special characters**: `PGPASS='...'` variable pattern is the correct approach for passwords containing `!` or `$` in bash; single quotes prevent all expansion
+- **Document backup via bind mount**: `/app/backend/data/uploads` is Open WebUI's upload directory; bind-mounting it to the host gives automatic backup without any scripts or scheduled tasks
+- **RAG invocation is manual**: Knowledge Base must be explicitly attached per chat via `#` — there is no global auto-attach setting
+
+### Next Actions
+- [ ] Upload test documents to a Knowledge Base and verify end-to-end retrieval (Sources section appears in response)
+- [ ] Download Wan2.2 video model files (~18GB, 3 files) — see `NewPC/ComfyUI.md` §Video Generation
+- [ ] Install ComfyUI-WanVideoWrapper via ComfyUI Manager
+
+---
+
 ## Session 2026-03-13 — NVLink Verified, RAG Setup Guide Created
 
 ### Summary

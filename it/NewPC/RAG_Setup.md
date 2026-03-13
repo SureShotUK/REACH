@@ -155,17 +155,29 @@ sudo ufw allow from 172.18.0.0/16 to any port 5432
 sudo systemctl restart postgresql
 ```
 
-### 3e. Test connectivity from a Docker container
+### 3e. Test connectivity
+
+Install the PostgreSQL client tools on the host (useful for all future database management):
 
 ```bash
-# Confirm PostgreSQL is reachable from within Docker
-docker run --rm --network ai-network \
-  postgres:16 \
-  psql "postgresql://openwebui:your_password@192.168.1.192:5432/openwebui_vectors" \
-  -c "SELECT version();"
+sudo apt install -y postgresql-client-16
 ```
 
-You should see a PostgreSQL version string. If you see a connection refused error, check Steps 3a–3c again.
+Test the local connection first:
+
+```bash
+psql "postgresql://openwebui:your_password@localhost:5432/openwebui_vectors" -c "SELECT version();"
+```
+
+You should see a PostgreSQL version string. This confirms PostgreSQL and the user credentials are working.
+
+Then test via the server's LAN IP (the address Docker containers will use):
+
+```bash
+psql "postgresql://openwebui:your_password@192.168.1.192:5432/openwebui_vectors" -c "SELECT version();"
+```
+
+Both should return the same version string. If the LAN IP test fails but localhost works, recheck Steps 3a–3c (listen_addresses and pg_hba.conf).
 
 ---
 
@@ -206,6 +218,12 @@ docker run -d \
 # Stop and remove the existing container (data is safe in the Docker volume)
 docker stop open-webui && docker rm open-webui
 
+# Create host directory for uploaded document backup (one-time setup)
+mkdir -p /home/steve/rag-documents
+
+# Set password variable to avoid bash ! expansion issues
+PGPASS='your_password_here'
+
 # Recreate with RAG environment variables added
 docker run -d \
   --name open-webui \
@@ -214,15 +232,20 @@ docker run -d \
   --network ai-network \
   -p 3000:8080 \
   -v open-webui:/app/backend/data \
+  -v /home/steve/rag-documents:/app/backend/data/uploads \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
   -e VECTOR_DB=pgvector \
-  -e PGVECTOR_DB_URL=postgresql://openwebui:your_password@192.168.1.192:5432/openwebui_vectors \
+  -e PGVECTOR_DB_URL=postgresql://openwebui:${PGPASS}@192.168.1.192:5432/openwebui_vectors \
   -e RAG_EMBEDDING_ENGINE=ollama \
   -e RAG_EMBEDDING_MODEL=nomic-embed-text \
   ghcr.io/open-webui/open-webui:main
 ```
 
-Replace `your_password` with the password you chose in Step 2.
+The `-v /home/steve/rag-documents:/app/backend/data/uploads` bind mount saves every uploaded file directly to the host. The rest of the Open WebUI data (SQLite DB, secret key, etc.) remains in the named Docker volume as normal.
+
+> **Note on filenames**: Open WebUI renames uploaded files with a UUID prefix on disk (e.g. `3f2a1b8c-document.pdf`). The original filename is stored in the Open WebUI database and shown in the UI — the directory listing will show UUID-prefixed names but all files are present and recoverable.
+
+> **Note on PGVECTOR_DB_URL vs DATABASE_URL**: Open WebUI uses `PGVECTOR_DB_URL` for the vector database connection. If after starting the container you see errors about pgvector mentioning `DATABASE_URL`, try replacing `-e PGVECTOR_DB_URL=...` with `-e DATABASE_URL=...`. The variable name shifted between Open WebUI releases. Check `docker logs open-webui` to diagnose.
 
 > **Note on PGVECTOR_DB_URL vs DATABASE_URL**: Open WebUI uses `PGVECTOR_DB_URL` for the vector database connection. If after starting the container you see errors about pgvector in the logs mentioning `DATABASE_URL`, try replacing `-e PGVECTOR_DB_URL=...` with `-e DATABASE_URL=...` in the command above. The variable name shifted between Open WebUI releases. Check `docker logs open-webui` to diagnose.
 
@@ -400,6 +423,8 @@ When updating Open WebUI in the future, use the full command from Step 5 (with a
 docker stop open-webui && docker rm open-webui
 docker pull ghcr.io/open-webui/open-webui:main
 
+PGPASS='your_password_here'
+
 docker run -d \
   --name open-webui \
   --restart always \
@@ -407,9 +432,10 @@ docker run -d \
   --network ai-network \
   -p 3000:8080 \
   -v open-webui:/app/backend/data \
+  -v /home/steve/rag-documents:/app/backend/data/uploads \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
   -e VECTOR_DB=pgvector \
-  -e PGVECTOR_DB_URL=postgresql://openwebui:your_password@192.168.1.192:5432/openwebui_vectors \
+  -e PGVECTOR_DB_URL=postgresql://openwebui:${PGPASS}@192.168.1.192:5432/openwebui_vectors \
   -e RAG_EMBEDDING_ENGINE=ollama \
   -e RAG_EMBEDDING_MODEL=nomic-embed-text \
   ghcr.io/open-webui/open-webui:main

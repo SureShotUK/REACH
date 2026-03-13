@@ -2,6 +2,17 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-13 (evening) — RAG Implementation Fixes and Document Backup
+
+### Changed
+- `it/NewPC/RAG_Setup.md` — Step 3e rewritten: replaced Docker-based psql test with `postgresql-client-16` on host (simpler, more useful long-term); Step 5 updated with `PGPASS` variable pattern to handle passwords containing `!`/`$`; document backup bind mount added (`/home/steve/rag-documents:/app/backend/data/uploads`); Update section kept in sync
+
+### Fixed
+- Step 3e: `postgres:16` Docker image requires `POSTGRES_PASSWORD` even when used as a client — removed Docker-based test, replaced with host-side `postgresql-client-16`
+- Step 5: Bash history expansion of `!` in passwords broke the `PGVECTOR_DB_URL` connection string — guide now uses `PGPASS='...'` variable assignment (single-quoted) with `${PGPASS}` reference in the docker run command
+
+---
+
 ## [Unreleased] - 2026-03-13 — NVLink Verified, RAG Setup Guide
 
 ### Added
