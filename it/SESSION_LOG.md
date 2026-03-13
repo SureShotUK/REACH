@@ -4,6 +4,60 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-13 — NVLink Verified, RAG Setup Guide Created
+
+### Summary
+Verified NVLink bridge installation (P3669) — all 4 lanes active at full speed on both GPUs, confirming the dual 3090 setup now has a 112.5 GB/s bidirectional interconnect. Updated Final_Build.md to mark the build as fully complete (v2.0). Created a comprehensive RAG_Setup.md guide covering PostgreSQL 16 + pgvector + nomic-embed-text + Open WebUI reconfiguration to enable local document Q&A.
+
+### Work Completed
+- **NVLink verified**: `nvidia-smi nvlink --status` confirmed 4 links at 14.062 GB/s per GPU; `nvidia-smi topo -m` confirmed NV4 topology; total bandwidth 112.5 GB/s bidirectional
+- **Final_Build.md updated to v2.0**: Build Status changed to COMPLETE, NVLink bridge (P3669) added to component list with verification note, Decision Log entry added (2026-03-13), date and version updated
+- **ToDo.md updated**: NVLink task marked complete — all tasks in the list are now checked off
+- **RAG_Setup.md created**: Comprehensive RAG setup guide (~300 lines) covering:
+  - Architecture diagram (text) showing the full pipeline
+  - PostgreSQL 16 + pgvector installation via apt
+  - Database and user creation with vector extension
+  - PostgreSQL network configuration for Docker access (pg_hba.conf, UFW rule)
+  - Embedding model comparison table (nomic-embed-text, mxbai-embed-large, bge-m3, snowflake-arctic-embed, all-minilm)
+  - Open WebUI Docker container reconfiguration with RAG environment variables
+  - UI configuration walkthrough
+  - Adding and using documents (Knowledge Bases vs single-session upload)
+  - Verification steps and SQL checks
+  - Environment variable reference table
+  - Troubleshooting section
+  - Update procedure (full docker run command with RAG vars preserved)
+- **Embedding model note**: nomic-embed-text recommended as primary (8,192-token context window vs 512 for mxbai); mxbai-embed-large has higher raw MTEB score (70.3 vs 62.4) — both pull commands included
+- **Research**: Used gemini-researcher agent (foreground) to research pgvector alternatives, Open WebUI native RAG support, AnythingLLM vs Open WebUI comparison, embedding model benchmarks
+
+### Files Changed
+- `it/NewPC/Final_Build.md` — Updated to v2.0: build complete, NVLink added, decision log entry added
+- `it/NewPC/ToDo.md` — NVLink task marked complete; all tasks now complete
+- `it/NewPC/RAG_Setup.md` — **NEW**: Comprehensive RAG setup guide (PostgreSQL 16 + pgvector + Open WebUI)
+
+### Git Commits
+- No commits this session — files modified in working directory
+
+### Key Decisions
+- **RAG approach**: Open WebUI native RAG (not AnythingLLM or a custom LangChain pipeline) — Open WebUI supports pgvector natively via a single env var (`VECTOR_DB=pgvector`); no additional software needed
+- **Embedding model**: nomic-embed-text recommended over mxbai-embed-large for document RAG due to 8,192-token context window; better for long technical documents
+- **Separate vector database**: `openwebui_vectors` (dedicated PostgreSQL database) keeps vector data separate from the Open WebUI SQLite app database
+- **Connection string variable**: Documented both `PGVECTOR_DB_URL` and `DATABASE_URL` as fallbacks — variable name shifted between Open WebUI releases
+
+### Reference Documents
+- `it/NewPC/RAG_Setup.md` — New: complete step-by-step RAG setup guide
+
+### Next Actions
+- [ ] Install PostgreSQL 16 + pgvector on the Ubuntu server (Step 1 of RAG_Setup.md)
+- [ ] Create openwebui_vectors database and enable vector extension
+- [ ] Configure PostgreSQL network access for Docker
+- [ ] Pull nomic-embed-text: `ollama pull nomic-embed-text`
+- [ ] Recreate Open WebUI container with RAG env vars
+- [ ] Test RAG with a document upload and knowledge base query
+- [ ] Download Wan2.2 video model files (~18GB, 3 files) — see ComfyUI.md §Video Generation
+- [ ] Install ComfyUI-WanVideoWrapper via ComfyUI Manager
+
+---
+
 ## Session 2026-03-12 — ComfyUI Learning Guide, Face Swap, Docker/GPU/Tailscale Fixes
 
 ### Summary

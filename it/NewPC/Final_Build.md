@@ -7,15 +7,15 @@
 **Market**: United Kingdom (all prices in GBP including VAT)
 **Build Philosophy**: Best bang for buck, future-proof (add components, not replace)
 
-**Last Updated**: March 7, 2026 (ASUS ProArt X870E-CREATOR WIFI purchased £479.99 — arriving today; MSI X870E Tomahawk being sold on eBay)
+**Last Updated**: March 13, 2026 (NVLink bridge installed and verified — build fully complete)
 
 ---
 
 ## Build Status
 
-**Phase**: 🔄 IN PROGRESS — ASUS ProArt X870E arriving today; MSI to be listed on eBay
-**Purchased**: 11 of 11 components
-**Remaining**: Install ASUS ProArt X870E; list MSI X870E Tomahawk on eBay
+**Phase**: ✅ COMPLETE — All components installed and verified
+**Purchased**: 12 of 12 components (includes NVLink bridge)
+**Remaining**: None
 
 ---
 
@@ -26,6 +26,7 @@
 - **Motherboard**: ASUS ProArt X870E-CREATOR WIFI ✅ **PURCHASED** (MSI X870E Tomahawk replaced — not dual GPU capable)
 - **GPU (Primary)**: Asus TUF Gaming OC RTX 3090 24GB ✅ **PURCHASED & INSTALLED**
 - **GPU (Secondary)**: Asus TUF Gaming OC RTX 3090 24GB ✅ **PURCHASED & INSTALLED**
+- **NVLink Bridge**: NVIDIA NVLink P3669 ✅ **PURCHASED & INSTALLED** (verified: 4-lane NVLink, 112.5 GB/s bidirectional)
 - **RAM**: G.SKILL Trident Z5 Neo RGB 64GB DDR5-6000 CL30 ✅ **PURCHASED**
 - **PSU**: Super Flower Leadex Titanium 1600W ✅ **PURCHASED** (replacement - original Thermaltake DOA)
 - **Case**: Fractal Design Torrent ✅ **PURCHASED**
@@ -421,9 +422,10 @@
 | PSU | Super Flower Leadex Titanium 1600W (replacement - Thermaltake DOA) | £270.98 | ✅ **PURCHASED** |
 | Case | Fractal Design Torrent | £169.99 | ✅ **PURCHASED** |
 | Storage | Samsung 9100 Pro 2TB PCIe 5 (x2) | £502.00 | ✅ **PURCHASED** |
-| CPU Cooler | Arctic Liquid Freezer III Pro 360 | £72.00 | ✅ **ORDERED** |
+| CPU Cooler | Arctic Liquid Freezer III Pro 360 | £72.00 | ✅ **PURCHASED** |
 | Rear Fan | 140mm exhaust fan | £21.12 | ✅ **PURCHASED** |
-| **Total** | | **£3,828.06** (subject to eBay recovery on MSI X870E Tomahawk) | |
+| NVLink Bridge | NVIDIA NVLink P3669 | TBC | ✅ **PURCHASED & INSTALLED** |
+| **Total** | | **£3,828.06+** (subject to eBay recovery on MSI X870E Tomahawk) | |
 
 **RAM Decision (Finalized)**:
 - **Overclockers UK: £599** (DDR5-6000 CL36, 64GB) ← **BEST PRICE**
@@ -676,12 +678,18 @@ No remaining decisions — build is complete.
   - MSI X870E bifurcation handles x8/x8 PCIe 5.0 automatically
   - **New total spend**: £3,618.06
 
+- **2026-03-13**: ✅ **NVLINK INSTALLED AND VERIFIED** — NVIDIA NVLink bridge P3669 installed
+  - `nvidia-smi nvlink --status -i 0` and `-i 1`: All 4 links active at 14.062 GB/s per link on both GPUs
+  - `nvidia-smi topo -m`: NV4 confirmed between GPU0 and GPU1 (4-lane NVLink)
+  - Total bandwidth: 4 links × 14.062 GB/s × 2 directions = **112.5 GB/s bidirectional**
+  - Both GPUs now share a direct high-speed interconnect; full 48GB VRAM pool for large model inference
+
 ### Research References:
 - PCBuildResearch.md - Initial research and component options
 - Chosen_Build.md - Detailed technical analysis and component deep-dives
 
 ---
 
-**Document Version**: 1.9
-**Last Updated**: March 7, 2026
-**Next Update**: After ASUS ProArt X870E purchased and dual GPU installation confirmed
+**Document Version**: 2.0
+**Last Updated**: March 13, 2026
+**Status**: Build complete — all components installed and verified

@@ -2,6 +2,17 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-13 — NVLink Verified, RAG Setup Guide
+
+### Added
+- `it/NewPC/RAG_Setup.md` — Comprehensive RAG setup guide: architecture overview, PostgreSQL 16 + pgvector install, nomic-embed-text embedding model, Open WebUI Docker reconfiguration, Knowledge Base usage walkthrough, environment variable reference, verification steps, troubleshooting section
+
+### Changed
+- `it/NewPC/Final_Build.md` — Updated to v2.0: build status COMPLETE, NVLink bridge (P3669) added to component list with verification note (4-lane, 112.5 GB/s bidirectional), decision log entry added 2026-03-13
+- `it/NewPC/ToDo.md` — NVLink task marked complete; all outstanding tasks now complete
+
+---
+
 ## [Unreleased] - 2026-03-12 — ComfyUI Learning Guide, Face Swap, Infrastructure Fixes
 
 ### Added

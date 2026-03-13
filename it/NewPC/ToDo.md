@@ -5,7 +5,7 @@
 - [x] Fix ethernet link flapping — restricted advertised modes to 1Gb only (`ethtool advertise 0x020`); made permanent via `fix-ethernet.service` systemd unit
 - [x] GPU power limit tuning — both GPUs set to 300W; made permanent via `nvidia-power-limit.service` systemd unit (includes persistence mode)
 - [x] Set OLLAMA_MAX_LOADED_MODELS=2 in Ollama systemd override — both GPUs detected, 48GB combined VRAM, 262K context window
-- [ ] NVLink bridge (P3669 ordered, arriving Wednesday) — install and verify with `nvidia-smi nvlink --status -i 0`
+- [x] NVLink bridge (P3669) — installed and verified; all 4 links active at 14.062 GB/s per link on both GPUs; topology confirmed NV4 (4-lane NVLink) between GPU0 and GPU1; total bandwidth 112.5 GB/s bidirectional
 - [x] Phase 5: Security hardening — Open WebUI sign-up disabled; Tailscale ACL not required (single-user personal tailnet, daughter on separate account, work will use separate org); ai-executor user not viable (Open WebUI requires root in Docker — Docker isolation is the security boundary)
 - [x] Test session end workflow — confirmed working; fixed `workspace_commit` bug (branch was hardcoded to `main`, corrected to `master`)
 - [x] Install Tailscale on other devices — Windows PC and phone for remote Open WebUI access
