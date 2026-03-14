@@ -135,6 +135,57 @@ On this system, the ComfyUI model root is: `/mnt/models/comfyui/`
 
 ---
 
+## Sharing Models with Amelia's Instance
+
+Amelia has a restricted ComfyUI instance (`comfyui-amelia`) running on port 8189 with its own separate model directory at `/mnt/models/comfyui-amelia/`. Models are shared using **hard links** — this means no extra disk space is used, as both paths point to the same underlying file.
+
+### Adding a model to Amelia's instance
+
+After downloading a model to the main ComfyUI directory, create a hard link in the equivalent Amelia directory:
+
+```bash
+sudo ln /mnt/models/comfyui/<dir>/<filename> /mnt/models/comfyui-amelia/<dir>/<filename>
+```
+
+**Example** — sharing the FLUX checkpoint:
+
+```bash
+sudo ln /mnt/models/comfyui/checkpoints/flux1-dev-fp8.safetensors \
+        /mnt/models/comfyui-amelia/checkpoints/flux1-dev-fp8.safetensors
+```
+
+**Example** — sharing multiple Wan2.2 files:
+
+```bash
+sudo ln /mnt/models/comfyui/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors \
+        /mnt/models/comfyui-amelia/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors
+
+sudo ln /mnt/models/comfyui/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors \
+        /mnt/models/comfyui-amelia/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors
+```
+
+### Removing a model from Amelia's instance
+
+Remove the hard link without affecting the main model file:
+
+```bash
+sudo rm /mnt/models/comfyui-amelia/<dir>/<filename>
+```
+
+### No restart needed
+
+ComfyUI detects model directory changes automatically. After adding or removing a hard link, just **refresh the browser** on Amelia's instance (port 8189) — no container restart required.
+
+### Why hard links (not copies or symlinks)
+
+| Method | Disk usage | Works across container mounts |
+|---|---|---|
+| **Hard link** (`ln`) | Zero extra space | Yes — both paths are the same inode |
+| Copy | Duplicates the file | Yes |
+| Symlink (`ln -s`) | Zero extra space | No — symlinks may not resolve correctly inside containers |
+
+---
+
 ## Case Study: Qwen-Image-Edit
 
 A practical example of a multi-component model and how to use it in ComfyUI.

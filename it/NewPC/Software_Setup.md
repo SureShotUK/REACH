@@ -584,13 +584,16 @@ docker run -d \
   --name open-webui \
   --restart always \
   --gpus all \
-  -p 3000:8080 \
+  -p 127.0.0.1:3000:8080 \
+  -p 192.168.1.192:3000:8080 \
   -v open-webui:/app/backend/data \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
   ghcr.io/open-webui/open-webui:main
 ```
 
 > **Note**: Use your server's actual IP address rather than `host.docker.internal`. On Ubuntu Server, `host.docker.internal` does not resolve reliably from within Docker containers, causing connection failures. Find your server's IP with `ip addr show | grep "inet " | grep -v 127`.
+>
+> **Port binding**: The two `-p` flags bind the container to loopback (`127.0.0.1`) for Tailscale serve, and to the LAN IP (`192.168.1.192`) for direct local network access. See `Tailscale.md` for a full explanation of this pattern.
 
 **What each option does:**
 
@@ -605,19 +608,10 @@ docker run -d \
 
 ### Access Open WebUI
 
-Open a browser on the AI PC (or any device on your network) and go to:
-
-```
-http://localhost:3000
-```
-
-Or from another device on your network:
-
-```
-http://<AI-PC-IP-ADDRESS>:3000
-```
-
-Find your IP address with: `ip addr show | grep "inet "`
+| Method | URL |
+|---|---|
+| Local network | `http://192.168.1.192:3000` |
+| Tailscale (remote) | `https://amelai.tail926601.ts.net` |
 
 ### First-Time Setup in Open WebUI
 
@@ -827,29 +821,29 @@ Install the Tailscale client on every device you want to use to access Open WebU
 
 Log in with the same Tailscale account on each device.
 
-### Tailscale Serve — Service URLs
+### Service URLs
 
-Tailscale Serve acts as a reverse proxy, giving each service a clean HTTPS URL on the tailnet hostname. All services are accessible from any Tailscale-connected device:
+All services are accessible via both the local network and Tailscale:
 
-| Service | URL | Internal port |
-|---------|-----|--------------|
-| Open WebUI | `https://amelai.tail926601.ts.net` | 3000 |
-| Amelia's ComfyUI | `https://amelai.tail926601.ts.net:8188` | 18188 |
-| Your ComfyUI | `https://amelai.tail926601.ts.net:8189` | 18189 |
-| FileBrowser | `https://amelai.tail926601.ts.net:8087` | 18087 |
+| Service | Local network | Tailscale (remote) |
+|---------|--------------|-------------------|
+| Open WebUI | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` |
+| ComfyUI (yours) | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` |
+| ComfyUI (Amelia's) | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` |
+| FileBrowser | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` |
 
-> **Note**: Tailscale Serve occupies its ports on the Tailscale interface. Docker containers use offset internal ports to avoid conflicts (e.g. Tailscale 8087 → Docker internal 18087).
+Local network access is plain HTTP direct to the container. Tailscale access is HTTPS via Tailscale Serve — always include `https://` explicitly in the browser as it will not be assumed on non-standard ports.
 
-To rebuild the Tailscale Serve config from scratch (e.g. after `tailscale serve reset`):
+To rebuild the Tailscale Serve config from scratch (e.g. after `sudo tailscale serve reset`):
 
 ```bash
-tailscale serve --bg --https 443 http://localhost:3000
-tailscale serve --bg --https 8087 http://localhost:18087
-tailscale serve --bg --https 8188 http://localhost:18188
-tailscale serve --bg --https 8189 http://localhost:18189
+sudo tailscale serve --bg --https=443 http://localhost:3000
+sudo tailscale serve --bg --https=8087 http://localhost:18087
+sudo tailscale serve --bg --https=8188 http://localhost:18188
+sudo tailscale serve --bg --https=8189 http://localhost:18189
 ```
 
-Verify: `tailscale serve status`
+Verify: `sudo tailscale serve status`
 
 ### Accessing Open WebUI Remotely
 
@@ -1028,7 +1022,8 @@ docker run -d \
   --name open-webui \
   --restart always \
   --gpus all \
-  -p 3000:8080 \
+  -p 127.0.0.1:3000:8080 \
+  -p 192.168.1.192:3000:8080 \
   -v open-webui:/app/backend/data \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
   ghcr.io/open-webui/open-webui:main
@@ -1149,7 +1144,8 @@ docker run -d \
   --name filebrowser \
   --restart always \
   --network ai-network \
-  -p 18087:80 \
+  -p 127.0.0.1:18087:80 \
+  -p 192.168.1.192:8087:80 \
   -v /home/steve/rag-output:/srv \
   -v /home/steve/filebrowser/filebrowser.db:/database/filebrowser.db \
   filebrowser/filebrowser:latest
@@ -1160,9 +1156,10 @@ tailscale serve --bg --https 8087 http://localhost:18087
 
 ### Access
 
-```
-https://amelai.tail926601.ts.net:8087
-```
+| Method | URL |
+|---|---|
+| Local network | `http://192.168.1.192:8087` |
+| Tailscale (remote) | `https://amelai.tail926601.ts.net:8087` |
 
 Default credentials on first run: `admin` / `admin` — **change immediately** via Settings → User Management.
 
@@ -1171,7 +1168,6 @@ Default credentials on first run: `admin` / `admin` — **change immediately** v
 - Files served from `/home/steve/rag-output/` on the host (mapped to `/srv` inside the container)
 - To expose additional directories, add further `-v /path/on/host:/srv/subfolder` mounts
 - Security: Tailscale (outer layer — tailnet devices only) + FileBrowser login (inner layer)
-- Port pattern: Tailscale Serve listens on 8087; Docker container uses internal port 18087 to avoid conflict
 
 ### Firewall rule (required)
 
