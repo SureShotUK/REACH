@@ -228,7 +228,7 @@ The Comfy-Org single-file `flux1-dev-fp8.safetensors` includes the VAE and both 
 | `vae/` | `wan2.2_vae.safetensors` — Wan2.2 video only |
 
 ### Amelia's restricted instance
-- Container: `comfyui-amelia`, port 8189
+- Container: `comfyui-amelia`, port 8188 (Tailscale) / 8188 (LAN)
 - Restricted model directory: `/mnt/models/comfyui-amelia/`
 - Add models with: `sudo ln /mnt/models/comfyui/<dir>/<file> /mnt/models/comfyui-amelia/<dir>/<file>`
 - Remove models with: `sudo rm /mnt/models/comfyui-amelia/<dir>/<file>`
@@ -243,6 +243,43 @@ Source: `Comfy-Org/Wan_2.2_ComfyUI_Repackaged` on Hugging Face
 
 ### FLUX LoRA node behaviour
 The Load LoRA node in FLUX workflows has a **single model input/output** (no CLIP passthrough). Insert it between the checkpoint loader and KSampler. Recommended starting strength: 0.8.
+
+---
+
+## Docker Port Binding Strategy
+
+All Docker services on this server use **dual `-p` bindings** to allow access from both the local network and Tailscale:
+
+```bash
+-p 127.0.0.1:1XXXX:CONTAINER_PORT \   # Loopback — Tailscale serve connects here
+-p 192.168.1.192:XXXX:CONTAINER_PORT \ # LAN IP — local network connects here
+```
+
+**Rules:**
+- The loopback host port uses the `1XXXX` convention (e.g. `18087`) — Tailscale serve is configured to forward to this port
+- The LAN host port matches the Tailscale serve external port (e.g. `8087`) — so the same port number works on both LAN and Tailscale
+- `0.0.0.0` cannot be used for the LAN binding — Tailscale serve already owns the Tailscale IP on those ports, causing a conflict
+- The container port must match what the application listens on internally — it cannot be changed arbitrarily (e.g. ComfyUI uses `8188`, FileBrowser uses `80`)
+
+**Current service port assignments:**
+
+| Service | Container port | Loopback host port | LAN/Tailscale port |
+|---|---|---|---|
+| Open WebUI | 8080 | 3000 | 3000 |
+| ComfyUI (Steve) | 8188 | 18189 | 8189 |
+| ComfyUI (Amelia) | 8188 | 18188 | 8188 |
+| FileBrowser | 80 | 18087 | 8087 |
+
+**Access URLs:**
+
+| Service | Local network | Tailscale |
+|---|---|---|
+| Open WebUI | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` |
+| ComfyUI (Steve) | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` |
+| ComfyUI (Amelia) | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` |
+| FileBrowser | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` |
+
+> Local network access is plain HTTP. Tailscale access is HTTPS — always include `https://` explicitly in the browser. See `Tailscale.md` for full explanation of how the two paths work independently.
 
 ---
 
