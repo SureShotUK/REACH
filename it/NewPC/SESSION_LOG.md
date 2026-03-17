@@ -2,6 +2,43 @@
 
 ---
 
+## Session 2026-03-17
+
+### Summary
+Created a comprehensive AI model training and LoRA creation guide covering two distinct workflows: FLUX.1 Dev character LoRA training using ai-toolkit, and LLM fine-tuning for a custom knowledge chatbot using Unsloth. Updated CLAUDE.md to reference `Final_Build.md` and `Software_Setup.md` as the authoritative source for system specifications.
+
+### Work Completed
+- Created `Model_and_LoRA_Creation.md` — full guide covering both image LoRA and LLM fine-tuning workflows
+- Updated `CLAUDE.md` — added System Specifications Reference section pointing to `Final_Build.md` and `Software_Setup.md`
+- Used `gemini-it-security-researcher` agent to research and verify all tool recommendations, parameters, and community guidance as of March 2026
+
+### Files Changed
+- `it/NewPC/Model_and_LoRA_Creation.md` — **created** — comprehensive training guide (both workflows)
+- `it/NewPC/CLAUDE.md` — added system spec reference section with quick-reference hardware/software summary
+
+### Key Decisions
+- **ai-toolkit (ostris) selected over kohya_ss and SimpleTuner** for FLUX LoRA training: purpose-built for FLUX, has a verified 24GB config, widest community adoption. SimpleTuner noted as a solid alternative.
+- **Unsloth selected over LLaMA-Factory/axolotl** for LLM fine-tuning: easiest install, 70% VRAM reduction, built-in GGUF/Ollama export, NVLink multi-GPU support explicitly documented.
+- **Start with Qwen3.5:9B for chatbot fine-tuning**: fits single GPU, 256K context, fast iteration. Upgrade to 27B if quality is insufficient.
+- **Training parameters verified from official sources**: ai-toolkit 24GB config (rank 16, lr 1e-4, 2000 steps, bf16, adamw8bit); Unsloth QLoRA config (rank 16, lr 2e-4, 3 epochs, bf16).
+- **Civitai blocked in UK** (Online Safety Act) — community resources redirected to r/StableDiffusion and HuggingFace.
+- **Photo selection guidance**: 20–30 varied images recommended; multiple angles, lighting, clothing, backgrounds; exclude group photos, occlusion, burst shots, screenshots from video.
+
+### Reference Documents
+- `it/NewPC/Model_and_LoRA_Creation.md` — the new guide
+- `it/NewPC/Final_Build.md` — hardware specification (now referenced in CLAUDE.md)
+- `it/NewPC/Software_Setup.md` — software stack (now referenced in CLAUDE.md)
+
+### Next Actions
+- [ ] Curate photo dataset for character LoRA (20–30 images, varied angles/lighting/backgrounds)
+- [ ] Install ai-toolkit on the server: `git clone https://github.com/ostris/ai-toolkit.git`
+- [ ] Create training dataset (JSONL) for LLM chatbot from source documents
+- [ ] Install Unsloth: `pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"`
+- [ ] Apply dual `-p` binding to ComfyUI containers (pending from previous session)
+- [ ] Set static DHCP reservation on router for `192.168.1.192` if not already done
+
+---
+
 ## Session 2026-03-14
 
 ### Summary

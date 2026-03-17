@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-14
+**Last Updated**: 2026-03-17
 
 ---
 
@@ -20,20 +20,23 @@ Server (`amelai`) is fully operational with all AI services running and accessib
 
 ## Active Work Areas
 
+- **AI Training**: Model training and LoRA creation guide created; ready to begin first training run
 - **Networking**: Dual binding strategy confirmed and documented — all services accessible on both LAN and Tailscale
-- **Documentation**: Tailscale.md created; Software_Setup.md updated to reflect final port assignments and dual binding
 
 ## Recently Completed
 
+- Created `Model_and_LoRA_Creation.md` — comprehensive guide for FLUX character LoRA and LLM chatbot fine-tuning
+- Updated `CLAUDE.md` with system spec references and quick-reference hardware/software summary
 - Created comprehensive `Tailscale.md` guide
 - Implemented dual Docker `-p` binding for FileBrowser and Open WebUI
-- Resolved Tailscale serve misconfiguration (FileBrowser was pointing to wrong internal port)
 - Confirmed final port assignments for all services
-- Updated all docker run commands and service URL tables in `Software_Setup.md`
-- Added Amelia model sharing (hard links) to `HuggingFace.md`
 
 ## Pending / Next Actions
 
+- [ ] Curate photo dataset for character LoRA (20–30 varied images)
+- [ ] Install ai-toolkit on server for FLUX LoRA training
+- [ ] Create JSONL training dataset for LLM knowledge chatbot
+- [ ] Install Unsloth for LLM fine-tuning
 - [ ] Apply dual `-p` binding to ComfyUI and ComfyUI-Amelia containers on the server
 - [ ] Verify all service bindings with `sudo ss -tlnup` after ComfyUI changes
 - [ ] Set static DHCP reservation on router for `192.168.1.192` if not already done
@@ -42,7 +45,9 @@ Server (`amelai`) is fully operational with all AI services running and accessib
 
 | File | Purpose |
 |---|---|
+| `Final_Build.md` | Complete hardware specification — authoritative system spec reference |
 | `Software_Setup.md` | Complete server setup guide — OS through full AI stack |
+| `Model_and_LoRA_Creation.md` | Training guide — FLUX character LoRA and LLM fine-tuning workflows |
 | `Tailscale.md` | Tailscale commands, port forwarding, troubleshooting, Docker binding strategy |
 | `HuggingFace.md` | Model download guide and Amelia instance sharing |
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |

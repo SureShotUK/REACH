@@ -2,6 +2,27 @@
 
 ---
 
+## [Unreleased] - 2026-03-17
+
+### Added
+- `Model_and_LoRA_Creation.md` — comprehensive training guide covering two full workflows:
+  - **Workflow 1**: FLUX.1 Dev character LoRA using ai-toolkit (photo selection criteria, dataset prep, config, training, ComfyUI integration)
+  - **Workflow 2**: LLM fine-tuning for a custom knowledge chatbot using Unsloth (JSONL dataset format, training script, GGUF export, Ollama deployment)
+  - Common pitfalls section for both workflows
+  - Quick reference checklists for both workflows
+
+### Changed
+- `CLAUDE.md` — added "System Specifications Reference" section at the top of Project Purpose, directing Claude to read `Final_Build.md` and `Software_Setup.md` for hardware/software specs; includes inline quick-reference summary
+
+### Documentation
+- Documented ai-toolkit verified parameters for RTX 3090 24GB: rank 16, lr 1e-4, 2000 steps, bf16, adamw8bit, gradient checkpointing
+- Documented Unsloth QLoRA configuration: rank 16, lr 2e-4, 3 epochs, bf16, NVLink multi-GPU support
+- Documented photo dataset selection criteria (inclusion/exclusion rules, captioning strategy, trigger word guidance)
+- Documented JSONL conversational format for LLM training data with system prompt injection pattern
+- Documented GGUF export and Ollama Modelfile creation workflow
+
+---
+
 ## [Unreleased] - 2026-03-14
 
 ### Added

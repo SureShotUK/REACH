@@ -8,6 +8,25 @@ This file provides project-specific guidance to Claude Code when working on the 
 >
 > Read all three files for complete guidance.
 
+## System Specifications Reference
+
+**When you need to know the system's hardware or software configuration, always read these files:**
+
+- **`Final_Build.md`** — Complete hardware specification (CPU, GPU, RAM, storage, motherboard, NVLink, etc.)
+- **`Software_Setup.md`** — OS and software stack (Ubuntu 24.04, CUDA, Docker, Ollama, Open WebUI, ComfyUI, Tailscale)
+
+Do not rely on memory or assumptions about the system specs — read these files as needed to ensure accuracy.
+
+**Current system summary** (for quick reference — see source files for full details):
+- **GPU**: 2x Asus TUF RTX 3090 24GB (48GB VRAM total, NVLink 112.5 GB/s)
+- **CPU**: AMD Ryzen 9 7900X (12-core, Zen 4)
+- **RAM**: 64GB DDR5-6000
+- **Storage**: 2x Samsung 9100 Pro 2TB NVMe PCIe 5
+- **OS**: Ubuntu 24.04 LTS Server
+- **AI stack**: Ollama, Open WebUI, ComfyUI (Docker), CUDA 12.x
+
+---
+
 ## Project Purpose
 
 This project documents the research, planning, and decision-making process for building a new computer system specifically designed to run AI workloads locally. The goal is to balance system capabilities with cost-effectiveness to create an optimal AI-capable machine.
