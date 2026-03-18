@@ -63,7 +63,7 @@
 ### Documentation
 - Documented why `--num_processes 2` is critical: without it accelerate uses single GPU, causing OOM on the 20B transformer
 - Documented `--mixed_precision bf16` effect: causes DiffSynth-Studio to load fp8/quantised variant (~10GB per GPU vs ~25GB)
-- Documented ComfyUI process management before training (plain Python processes, not Docker, kill with `sudo kill <PID>`)
+- Documented ComfyUI process management before training (incorrectly documented as plain Python processes — corrected to Docker containers in 2026-03-18 evening session)
 - Documented `hf` vs `huggingface-cli` rename in huggingface_hub 1.x
 - Documented DiffSynth-Studio metadata.json requirement (not .txt caption files)
 - Documented ModelScope cache location (`~/.cache/modelscope/`)

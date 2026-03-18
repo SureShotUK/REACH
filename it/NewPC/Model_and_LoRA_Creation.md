@@ -874,7 +874,7 @@ Both GPUs should show minimal memory usage (under 300 MiB). If Ollama or ComfyUI
 
 ```bash
 sudo systemctl stop ollama
-sudo kill <ComfyUI PID>    # check nvidia-smi for any processes occupying VRAM
+docker stop comfyui comfyui-amelia    # both instances are Docker containers
 ```
 
 **Activate the venv and start a tmux session:**
@@ -1171,7 +1171,7 @@ DiffSynth-Studio and AI Toolkit both support this triplet format. Refer to the D
 2. Confirm Stage 2 includes `--fp8_models "transformer"`. Without this, the BF16 transformer alone (~41 GB) exceeds a single 24 GB GPU under DDP.
 3. Reduce `--max_pixels` from 1048576 (1024²) to 786432 (~896²) — lower peak activation memory
 4. Confirm `--use_gradient_checkpointing` is set in the Stage 2 script
-5. Ensure no other large models are loaded in Ollama or ComfyUI during training (`sudo systemctl stop ollama`; kill ComfyUI processes)
+5. Ensure no other large models are loaded in Ollama or ComfyUI during training (`sudo systemctl stop ollama`; `docker stop comfyui comfyui-amelia`)
 
 ---
 

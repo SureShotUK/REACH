@@ -96,7 +96,7 @@ Extended `Model_and_LoRA_Creation.md` with a full Workflow 3 section for Qwen-Im
 - **Two-repo model spec**: transformer from `Qwen/Qwen-Image-Edit-2511`; text encoder + VAE from `Qwen/Qwen-Image` (base repo)
 - **`--num_processes 2 --mixed_precision bf16` is essential**: without `--num_processes 2`, accelerate defaults to single-GPU and tries to load the full model onto GPU 0 (OOM). With both flags, DiffSynth-Studio loads a smaller fp8/quantised model variant (~20GB total, ~10GB per GPU)
 - **`--initialize_model_on_cpu`**: loads weights to CPU first before distributing to GPUs, preventing a VRAM spike on GPU 0 during model load
-- **ComfyUI processes must be stopped before training**: both instances run as plain Python processes (`python3 ./ComfyUI/main.py`), not Docker; kill with `sudo kill <PID>` before training
+- **ComfyUI processes must be stopped before training**: both instances run as Docker containers; use `docker stop comfyui comfyui-amelia` before training (**correction**: previously documented as plain Python processes — this was wrong, confirmed Docker in session 2026-03-18 evening)
 - **Caption strategy**: use `<name> person` not `<name> woman` as the trigger word format to avoid gender bias in the character representation
 
 ### Reference Documents
