@@ -1,48 +1,44 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-18
+**Last Updated**: 2026-03-18 (Evening)
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational with all AI services running and accessible via both local network and Tailscale. Dual Docker port binding strategy implemented for all services.
+Server (`amelai`) is fully operational. Qwen-Image-Edit LoRA training is actively running using DeepSpeed ZeRO-3 CPU offload — the only approach that works on 2×24 GB hardware for this 41 GB model.
 
 ## Service Status
 
 | Service | Container | Local | Tailscale | Status |
 |---|---|---|---|---|
-| Ollama | host process | `localhost:11434` | via Open WebUI | Running |
+| Ollama | host process | `localhost:11434` | via Open WebUI | Stopped (training in progress) |
 | Open WebUI | `open-webui` | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` | Running |
-| ComfyUI (Steve) | `comfyui` | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` | Running |
-| ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Running |
+| ComfyUI (Steve) | `comfyui` | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` | Stopped (training in progress) |
+| ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Stopped (training in progress) |
 | FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
 
 ## Active Work Areas
 
-- **Qwen-Image-Edit LoRA Training**: First training run in progress — confirmed downloading correctly (~20GB, 4×5GB files via ModelScope). Training command uses `--num_processes 2 --mixed_precision bf16` to distribute model across both GPUs
-- **Networking**: Dual binding strategy confirmed and documented — all services accessible on both LAN and Tailscale
+- **Qwen-Image-Edit LoRA Training**: Stage 2 actively running (~4–5 hours total). Using DeepSpeed ZeRO-3 CPU offload (`num_processes: 1`), `--max_pixels 262144`, `--use_gradient_checkpointing`. ~13–15 GB VRAM on GPU 0, ~46 GB RAM.
 
 ## Recently Completed
 
-- Added Workflow 3 to `Model_and_LoRA_Creation.md` — full Qwen-Image-Edit character LoRA training guide via DiffSynth-Studio
-- Created `MultiFileModels.md` — standalone reference for HuggingFace diffusers multi-file model format
-- Resolved all training setup errors (torchaudio, metadata.json format, `hf` CLI, CUDA OOM from ComfyUI, single-GPU vs multi-GPU accelerate)
-- Created `Model_and_LoRA_Creation.md` — comprehensive guide for FLUX character LoRA and LLM chatbot fine-tuning
-- Updated `CLAUDE.md` with system spec references and quick-reference hardware/software summary
-- Created comprehensive `Tailscale.md` guide
-- Implemented dual Docker `-p` binding for all services
+- Created `QwenImageEditTrainingLoRA.md` — complete standalone training guide (verified working procedure)
+- Resolved all VRAM OOM errors blocking training — migrated from FP8+DDP to ZeRO-3 CPU offload
+- Identified ComfyUI instances as Docker containers (corrects previous incorrect documentation)
+- Confirmed DeepSpeed ZeRO-3 + `--use_gradient_checkpointing` + `--max_pixels 262144` is the working combination
 
 ## Pending / Next Actions
 
-- [ ] Confirm training completes and LoRA is generated (`./models/train/my_character_lora/`)
-- [ ] Test LoRA in ComfyUI — copy to `/mnt/models/comfyui/loras/`
-- [ ] Curate photo dataset for character LoRA (20–30 varied images) if not done
-- [ ] Install ai-toolkit on server for FLUX LoRA training (Workflow 1)
+- [ ] Confirm Stage 2 training completes — expected ~5 hours from start, producing `epoch-0.safetensors` through `epoch-4.safetensors`
+- [ ] Test each epoch LoRA in ComfyUI — copy from `~/DiffSynth-Studio/models/train/my_character_lora/` to `/mnt/models/comfyui/loras/`
+- [ ] Restart Docker containers after training: `docker start comfyui comfyui-amelia`
+- [ ] Update `Model_and_LoRA_Creation.md` Workflow 3 to replace obsolete FP8+DDP approach with ZeRO-3 method
+- [ ] Update `CLAUDE.md` ComfyUI process management note — IS Docker, use `docker stop/start`
+- [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
 - [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
-- [ ] Install Unsloth for LLM fine-tuning (Workflow 2)
-- [ ] Apply dual `-p` binding to ComfyUI and ComfyUI-Amelia containers
-- [ ] Set static DHCP reservation on router for `192.168.1.192` if not already done
+- [ ] Set static DHCP reservation on router for `192.168.1.192`
 
 ## Key Files
 

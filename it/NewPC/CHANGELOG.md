@@ -2,6 +2,36 @@
 
 ---
 
+## [Unreleased] - 2026-03-18 (Evening)
+
+### Added
+- `QwenImageEditTrainingLoRA.md` — comprehensive standalone guide for Qwen-Image-Edit-2511 character LoRA training:
+  - Training image guidelines (count, resolution, angle variety, exclusion rules)
+  - metadata.json creation script with correct `{"prompt": ..., "image": ...}` format
+  - Accelerate ZeRO-3 config file (`accelerate_zero3_2gpu.yaml`) creation instructions
+  - Stage 1 and Stage 2 scripts with all verified parameters
+  - Per-run variable table (`MY_LORA_NAME`, `MY_DATASET_PATH`, `MY_TRIGGER_WORD`, `MY_LORA_RANK`)
+  - Resource monitoring commands and expected VRAM/RAM usage
+  - Output file locations and epoch selection guidance
+  - Full troubleshooting section covering all errors encountered during development
+
+### Changed
+- `Model_and_LoRA_Creation.md` — `--max_pixels` reduced from 1048576 → 786432 → 524288 → 262144 (final working value); `--lora_rank` parameter table note updated
+
+### Fixed
+- ComfyUI process management: corrected from `sudo pkill -f "ComfyUI/main.py"` to `docker stop comfyui comfyui-amelia` — instances ARE Docker containers, not plain Python processes
+- Training approach: replaced non-functional FP8+DDP method with DeepSpeed ZeRO-3 CPU offload (`--config_file accelerate_zero3_2gpu.yaml`, `num_processes: 1`)
+- `--use_gradient_checkpointing` restored for Stage 2 — required to prevent activation tensors filling VRAM; was incorrectly removed based on outdated incompatibility warning
+
+### Documentation
+- Documented that FP8+DDP fundamentally cannot work on 2×24 GB: transformer fills ~23.2 GB per GPU regardless of quantisation, leaving no room for overhead
+- Documented ZeRO-3 CPU offload mechanics: 41 GB transformer offloaded to CPU RAM, GPU holds only active layer parameters (~13–15 GB peak VRAM)
+- Documented that `num_processes: 1` uses less VRAM than `num_processes: 2` under ZeRO-3 CPU offload (no AllGather communication buffers)
+- Documented Stage 1 / Stage 2 `--max_pixels` coupling: cached latent dimensions are fixed at Stage 1 generation time; must delete cache and re-run Stage 1 when changing resolution
+- Documented DeepSpeed ZeRO-3 merge date (March 17, 2026) — explains why previous session's approach predated this fix
+
+---
+
 ## [Unreleased] - 2026-03-18
 
 ### Added

@@ -704,9 +704,12 @@ The `Qwen-Rapid-AIO-v1.safetensors` file you downloaded is an FP8-compressed che
 
 ### Hardware requirements for this workflow
 
-With DiffSynth-Studio's split training (offline latent caching):
-- **16–24GB VRAM**: Comfortable training speed, recommended configuration
-- **Both RTX 3090s**: Not required for this workflow; single GPU is sufficient for LoRA training
+The Qwen-Image-Edit-2511 transformer alone is ~41 GB in BF16. This exceeds a single 24 GB GPU. Both GPUs are required, using a **two-stage split training** approach:
+
+- **Stage 1** (latent caching): Runs the text encoder (~16.6 GB BF16) + VAE once across both GPUs to pre-compute and cache embeddings to disk. After this, the text encoder is no longer needed in VRAM.
+- **Stage 2** (LoRA training): Loads the transformer only, quantised to FP8 (~20 GB) via `--fp8_models "transformer"`. Each GPU holds a full copy (~20 GB) under standard DDP — this fits within 24 GB with headroom for LoRA weights and activations.
+
+**Both RTX 3090s are required.** A single GPU cannot hold the transformer even in FP8.
 
 ---
 
@@ -741,7 +744,7 @@ python3 - <<'EOF'
 import os, json
 
 image_dir = "/home/steve/training/qwen_character"
-trigger_word = "UNIQUENAME"   # replace with your trigger word
+trigger_word = "SaraI"
 
 images = sorted([f for f in os.listdir(image_dir)
                  if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))])
@@ -859,6 +862,8 @@ pip install -r requirements.txt
 
 DiffSynth-Studio's training is launched directly via `accelerate launch` with all parameters passed on the command line. The official example scripts use parameter names that differ from the actual `train.py` CLI — do not edit the example script directly. Instead, create your own script using the `cat` command below to avoid copy-paste line-break issues.
 
+Training uses a **two-stage split training** process. This is necessary because the full model (57.7 GB BF16) exceeds the available VRAM — the text encoder and VAE are run once in Stage 1 to cache their outputs, so Stage 2 only needs to load the transformer (in FP8, ~20 GB per GPU).
+
 **Before running: confirm both GPUs are free**
 
 ```bash
@@ -872,51 +877,90 @@ sudo systemctl stop ollama
 sudo kill <ComfyUI PID>    # check nvidia-smi for any processes occupying VRAM
 ```
 
-**Create the training script:**
-
-```bash
-cat > /home/steve/DiffSynth-Studio/examples/qwen_image/model_training/lora/my_character_lora.sh << 'EOF'
-export HF_HOME=/mnt/models/huggingface
-export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-
-accelerate launch --num_processes 2 --mixed_precision bf16 examples/qwen_image/model_training/train.py --dataset_base_path /home/steve/training/qwen_character --dataset_metadata_path /home/steve/training/qwen_character/metadata.json --data_file_keys "image" --max_pixels 1048576 --dataset_repeat 50 --model_id_with_origin_paths "Qwen/Qwen-Image-Edit-2511:transformer/diffusion_pytorch_model*.safetensors,Qwen/Qwen-Image:text_encoder/model*.safetensors,Qwen/Qwen-Image:vae/diffusion_pytorch_model.safetensors" --learning_rate 1e-4 --num_epochs 5 --remove_prefix_in_ckpt "pipe.dit." --output_path "./models/train/my_character_lora" --lora_base_model "dit" --lora_target_modules "to_q,to_k,to_v,add_q_proj,add_k_proj,add_v_proj,to_out.0,to_add_out,img_mlp.net.2,img_mod.1,txt_mlp.net.2,txt_mod.1" --lora_rank 16 --use_gradient_checkpointing --dataset_num_workers 2 --find_unused_parameters --zero_cond_t --initialize_model_on_cpu
-EOF
-```
-
-> **Important**: The entire `accelerate launch` command must remain on a single line. If it wraps across lines, the `--lora_target_modules` argument breaks with a "command not found" error. Using the `cat << 'EOF'` approach above avoids this.
-
-**Key parameters explained:**
-
-| Parameter | Value | Why |
-|---|---|---|
-| `--num_processes 2` | 2 | Forces accelerate to use both GPUs; without this it loads the full model onto GPU 0 and runs out of VRAM |
-| `--mixed_precision bf16` | bf16 | Causes DiffSynth-Studio to load the fp8/quantised model variant (~20GB across 2 GPUs vs ~50GB full precision) |
-| `--data_file_keys "image"` | image only | Character LoRA uses single images; edit LoRA would use `"image,edit_image"` |
-| `--max_pixels 1048576` | 1024×1024 | Reduced from native 1328² to lower peak VRAM during training |
-| `--dataset_repeat 50` | 50 | Repeats the dataset 50 times per epoch for small datasets |
-| `--lora_rank 16` | 16 | Reduced from 32 to lower VRAM; can increase once training is confirmed working |
-| `--dataset_num_workers 2` | 2 | Reduced from 8 to lower CPU/memory pressure during training |
-| `--initialize_model_on_cpu` | flag | Loads model weights to CPU first, then distributes to GPUs — prevents GPU 0 spike on load |
-| `--zero_cond_t` | flag | Required for Qwen-Image-Edit-2511 specifically; omit for 2509 |
-| `--model_id_with_origin_paths` | two repos | Transformer from Edit-2511; text encoder + VAE from base Qwen-Image |
-| `PYTORCH_CUDA_ALLOC_CONF` | expandable_segments:True | Allows PyTorch to reuse memory fragments, reducing OOM risk |
-
-**Activate the venv first, then start tmux:**
+**Activate the venv and start a tmux session:**
 
 ```bash
 source /home/steve/diffsynth-env/bin/activate
 tmux new-session -s qwen-training
 ```
 
-**Run the training script from inside the tmux session:**
+Run both stages from inside the tmux session, from the DiffSynth-Studio directory.
+
+---
+
+#### Stage 1: Pre-compute latents (runs once)
+
+Stage 1 loads the text encoder (~16.6 GB) and VAE (~0.25 GB), encodes every image and caption, and saves the embeddings to disk. The transformer is **not** loaded here. This only needs to run once — if your dataset does not change, you do not need to re-run Stage 1.
+
+**Create the Stage 1 script:**
+
+```bash
+cat > /home/steve/DiffSynth-Studio/examples/qwen_image/model_training/lora/stage1_cache.sh << 'EOF'
+export HF_HOME=/mnt/models/huggingface
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
+accelerate launch --num_processes 2 --mixed_precision bf16 examples/qwen_image/model_training/train.py --dataset_base_path /home/steve/training/qwen_character --dataset_metadata_path /home/steve/training/qwen_character/metadata.json --data_file_keys "image" --max_pixels 786432 --dataset_repeat 1 --model_id_with_origin_paths "Qwen/Qwen-Image:text_encoder/model*.safetensors,Qwen/Qwen-Image:vae/diffusion_pytorch_model.safetensors" --output_path "./models/train/my_character_lora_cache" --dataset_num_workers 2 --find_unused_parameters --zero_cond_t --initialize_model_on_cpu --task "sft:data_process"
+EOF
+```
+
+**Run Stage 1:**
 
 ```bash
 source /home/steve/diffsynth-env/bin/activate
 cd /home/steve/DiffSynth-Studio
-bash examples/qwen_image/model_training/lora/my_character_lora.sh
+bash examples/qwen_image/model_training/lora/stage1_cache.sh
 ```
 
-> The first run will download the model files automatically via HuggingFace if not already cached (set `HF_HOME` before running to control where they go). If you pre-downloaded in Step 2, they will be found in cache automatically.
+**What to expect:**
+- Downloads text encoder + VAE from `Qwen/Qwen-Image` on first run (~17 GB into `$HF_HOME`)
+- GPU VRAM: ~17 GB total, split across both GPUs (~8–9 GB each)
+- Runtime: typically 5–20 minutes for 20–30 images
+- Output: cached latent files written to `./models/train/my_character_lora_cache/`
+- Stage 1 produces no LoRA file — that comes in Stage 2
+
+---
+
+#### Stage 2: Train the LoRA
+
+Stage 2 loads **only the transformer** in FP8 quantisation (~20 GB per GPU — fits within 24 GB). It reads the cached latents from Stage 1 rather than re-running the text encoder or VAE.
+
+**Create the Stage 2 script:**
+
+```bash
+cat > /home/steve/DiffSynth-Studio/examples/qwen_image/model_training/lora/stage2_train.sh << 'EOF'
+export HF_HOME=/mnt/models/huggingface
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
+accelerate launch --num_processes 2 --mixed_precision bf16 examples/qwen_image/model_training/train.py --dataset_base_path "./models/train/my_character_lora_cache" --max_pixels 786432 --dataset_repeat 50 --model_id_with_origin_paths "Qwen/Qwen-Image-Edit-2511:transformer/diffusion_pytorch_model*.safetensors" --fp8_models "transformer" --learning_rate 1e-4 --num_epochs 5 --remove_prefix_in_ckpt "pipe.dit." --output_path "./models/train/my_character_lora" --lora_base_model "dit" --lora_target_modules "to_q,to_k,to_v,add_q_proj,add_k_proj,add_v_proj,to_out.0,to_add_out,img_mlp.net.2,img_mod.1,txt_mlp.net.2,txt_mod.1" --lora_rank 16 --use_gradient_checkpointing --dataset_num_workers 2 --find_unused_parameters --zero_cond_t --initialize_model_on_cpu --task "sft:train"
+EOF
+```
+
+> **Important**: The entire `accelerate launch` command must remain on a single line. If it wraps across lines, the `--lora_target_modules` argument breaks with a "command not found" error. Using the `cat << 'EOF'` approach above avoids this.
+
+**Run Stage 2:**
+
+```bash
+source /home/steve/diffsynth-env/bin/activate
+cd /home/steve/DiffSynth-Studio
+bash examples/qwen_image/model_training/lora/stage2_train.sh
+```
+
+**Key parameters explained:**
+
+| Parameter | Value | Why |
+|---|---|---|
+| `--task "sft:train"` | Stage 2 | Skips the text encoder/VAE; reads cached latents from Stage 1 output directory |
+| `--dataset_base_path` | Stage 1 cache dir | Reads pre-computed embeddings; no `--dataset_metadata_path` needed |
+| `--fp8_models "transformer"` | FP8 | Quantises the transformer to FP8 (~20 GB vs ~41 GB BF16) so it fits in 24 GB per GPU under DDP |
+| `--num_processes 2` | 2 | Both GPUs run a full copy of the FP8 transformer; gradients averaged between them |
+| `--mixed_precision bf16` | bf16 | Training activations and LoRA updates use BF16 precision |
+| `--model_id_with_origin_paths` | Edit-2511 transformer only | Stage 2 does not need the text encoder or VAE |
+| `--data_file_keys` | (omitted) | Not needed in Stage 2 — dataset is the cached latent files |
+| `--dataset_repeat 50` | 50 | Repeats the cached dataset 50× per epoch for small datasets |
+| `--lora_rank 8` | 8 | Reduced from 16 to lower VRAM on 2×24 GB; increase to 16 once training is confirmed working |
+| `--initialize_model_on_cpu` | flag | Loads transformer weights to CPU RAM first, preventing VRAM spike during model construction |
+| `--zero_cond_t` | flag | Required for Qwen-Image-Edit-2511 specifically; omit for 2509 |
+| `PYTORCH_CUDA_ALLOC_CONF` | expandable_segments:True | Allows PyTorch to reuse memory fragments, reducing OOM risk |
 
 **Monitor in a second terminal:**
 
@@ -926,17 +970,21 @@ nvtop         # watch GPU utilisation in real time
 ```
 
 **What to expect:**
-- Model download (first run only): ~20 GB total (4 files × ~5 GB), downloaded via ModelScope to `~/.cache/modelscope/`
-- Training time: loss values will appear once training begins; GPU VRAM usage should be ~10–12 GB per GPU
-- Output LoRA checkpoints are saved to `./models/train/my_character_lora/` inside the DiffSynth-Studio directory
+- Downloads transformer from `Qwen/Qwen-Image-Edit-2511` on first run (~41 GB into `$HF_HOME`)
+- GPU VRAM: ~20–23 GB per GPU (FP8 transformer + LoRA adapter + activations)
+- Output LoRA files: saved to `/home/steve/DiffSynth-Studio/models/train/my_character_lora/`
+  - `epoch-0.safetensors` through `epoch-4.safetensors` (one per epoch, flat directory)
+  - Use `epoch-4.safetensors` as your final LoRA (last epoch)
 
 ---
 
 ### Step 5: Install the LoRA in ComfyUI
 
+DiffSynth-Studio saves one file per epoch in the `--output_path` directory. With `--num_epochs 5`, you will have `epoch-0.safetensors` through `epoch-4.safetensors`. Use the last epoch as your starting point, then test earlier epochs if results are over-fitted.
+
 ```bash
-# Copy the LoRA to your ComfyUI loras directory
-cp /home/steve/training/qwen_character/output/checkpoint-2500/pytorch_lora_weights.safetensors \
+# Copy the final epoch LoRA to your ComfyUI loras directory
+cp /home/steve/DiffSynth-Studio/models/train/my_character_lora/epoch-4.safetensors \
    /mnt/models/comfyui/loras/my_qwen_character.safetensors
 
 # Optionally link to Amelia's instance
@@ -1119,10 +1167,11 @@ DiffSynth-Studio and AI Toolkit both support this triplet format. Refer to the D
 **Signs**: `CUDA error: out of memory` during training setup or first step.
 
 **Fixes in order**:
-1. Confirm `SPLIT_SCHEME="on"` is set in the training script (enables offline latent caching)
-2. Reduce `RESOLUTION` from 1328 to 1024 as a test (note: this may reduce LoRA quality)
-3. Set `--gradient_checkpointing` if not already enabled in the script
-4. Ensure no other large models are loaded in Ollama or ComfyUI during training (`ollama stop` all models; stop ComfyUI container temporarily)
+1. Confirm you are using the two-stage split training approach (Stage 1 `--task "sft:data_process"`, Stage 2 `--task "sft:train"`). A single-stage command loading text encoder + transformer simultaneously will always OOM on 2×24 GB.
+2. Confirm Stage 2 includes `--fp8_models "transformer"`. Without this, the BF16 transformer alone (~41 GB) exceeds a single 24 GB GPU under DDP.
+3. Reduce `--max_pixels` from 1048576 (1024²) to 786432 (~896²) — lower peak activation memory
+4. Confirm `--use_gradient_checkpointing` is set in the Stage 2 script
+5. Ensure no other large models are loaded in Ollama or ComfyUI during training (`sudo systemctl stop ollama`; kill ComfyUI processes)
 
 ---
 
@@ -1175,13 +1224,14 @@ DiffSynth-Studio and AI Toolkit both support this triplet format. Refer to the D
 ### Qwen-Image-Edit LoRA — minimum viable checklist
 
 - [ ] 20–30 photos at 1328×1328 or larger with varied angles, lighting, backgrounds, and clothing
-- [ ] One `.txt` file per image containing **only** the trigger word (e.g., `ohwx person`) — no descriptions
-- [ ] BF16 base model downloaded: `Qwen/Qwen-Image-Edit-2511` (~40GB) to `/mnt/models/huggingface/`
+- [ ] `metadata.json` in dataset folder with `{"prompt": "ohwx person", "image": "filename.jpg"}` entries (no `.txt` files — DiffSynth-Studio uses JSON, not caption files)
+- [ ] BF16 transformer downloaded: `Qwen/Qwen-Image-Edit-2511` (~41 GB) to `/mnt/models/huggingface/`; text encoder + VAE from `Qwen/Qwen-Image` (~17 GB)
 - [ ] DiffSynth-Studio installed in its own virtual environment (`diffsynth-env`)
-- [ ] Training script: rank 32, lr 1e-4, 2500 steps, resolution 1328, `SPLIT_SCHEME="on"`
-- [ ] Monitor VRAM; expected ~18–22GB on a single RTX 3090 with split training enabled
-- [ ] Test checkpoints at inference; look for recognisable character without visual artifacts
-- [ ] LoRA `.safetensors` copied to `/mnt/models/comfyui/loras/`
+- [ ] **Stage 1** run: `--task "sft:data_process"` with text encoder + VAE — caches latents to disk
+- [ ] **Stage 2** run: `--task "sft:train"` with `--fp8_models "transformer"` — trains LoRA on cached data
+- [ ] Monitor Stage 2 VRAM; expected ~20–23 GB per GPU (FP8 transformer + LoRA + activations)
+- [ ] LoRA output: `epoch-0.safetensors` to `epoch-4.safetensors` in `/home/steve/DiffSynth-Studio/models/train/my_character_lora/`
+- [ ] Best epoch copied to `/mnt/models/comfyui/loras/`
 - [ ] In ComfyUI: Load LoRA node connects on the **MODEL path only**, before `TextEncodeQwenImageEditPlus`
 - [ ] Always include trigger word in prompt; start LoRA strength at 0.8
 - [ ] If grid artifacts appear: reduce LoRA strength or check Phr00t page for calibrated FP8 update
