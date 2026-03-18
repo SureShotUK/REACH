@@ -2,6 +2,44 @@
 
 ---
 
+## [Unreleased] - 2026-03-18
+
+### Added
+- `MultiFileModels.md` — standalone reference document explaining:
+  - HuggingFace diffusers multi-file model format vs single-file safetensors
+  - Qwen-Image-Edit-2511 file structure (transformer shards + text encoder + VAE)
+  - Three options for using multi-file models in ComfyUI
+  - DiffSynth-Studio model loading via `model_id_with_origin_paths`
+  - `hf` CLI setup (venv creation, install, activation) from scratch
+- `Model_and_LoRA_Creation.md` — **Workflow 3**: Qwen-Image-Edit character LoRA training:
+  - Step 1: Dataset preparation with Python metadata.json generation script
+  - Step 2: DiffSynth-Studio install + ModelScope model download
+  - Step 3: Dependency verification (torchaudio fix, CUDA toolkit)
+  - Step 4: Training script with multi-GPU accelerate config
+  - Step 5: LoRA installation in ComfyUI
+
+### Changed
+- `Model_and_LoRA_Creation.md` Step 4 training command updated:
+  - Added `--num_processes 2 --mixed_precision bf16` to `accelerate launch` — required to distribute model across both GPUs
+  - Added `export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`
+  - Added `--initialize_model_on_cpu` — prevents VRAM spike on GPU 0 during model load
+  - Reduced `--max_pixels` from 1763584 to 1048576 (1024×1024)
+  - Reduced `--lora_rank` from 32 to 16
+  - Reduced `--dataset_num_workers` from 8 to 2
+  - Added pre-flight GPU check section (stop ComfyUI and Ollama before training)
+  - Expanded parameters table with explanations for all new flags
+  - Updated download size estimate from ~58GB to ~20GB (4×5GB files via ModelScope)
+
+### Documentation
+- Documented why `--num_processes 2` is critical: without it accelerate uses single GPU, causing OOM on the 20B transformer
+- Documented `--mixed_precision bf16` effect: causes DiffSynth-Studio to load fp8/quantised variant (~10GB per GPU vs ~25GB)
+- Documented ComfyUI process management before training (plain Python processes, not Docker, kill with `sudo kill <PID>`)
+- Documented `hf` vs `huggingface-cli` rename in huggingface_hub 1.x
+- Documented DiffSynth-Studio metadata.json requirement (not .txt caption files)
+- Documented ModelScope cache location (`~/.cache/modelscope/`)
+
+---
+
 ## [Unreleased] - 2026-03-17
 
 ### Added

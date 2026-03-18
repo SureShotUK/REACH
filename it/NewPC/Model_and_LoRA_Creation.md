@@ -7,10 +7,11 @@
 
 ## Overview
 
-This guide covers two distinct training workflows:
+This guide covers three distinct training workflows:
 
-1. **Image LoRA** — Training a LoRA adapter for FLUX.1 Dev to generate a consistent character from your own photos
+1. **Image LoRA (FLUX)** — Training a LoRA adapter for FLUX.1 Dev to generate a consistent character from your own photos
 2. **LLM Fine-tuning** — Training a LoRA adapter on a language model to create a custom knowledge chatbot
+3. **Image LoRA (Qwen-Image-Edit)** — Training a LoRA adapter for the Qwen-Image-Edit model; a fundamentally different architecture to FLUX that requires a different training approach
 
 Both use **LoRA** (Low-Rank Adaptation), a technique that trains a small set of adapter weights on top of a frozen base model. The result is a small file (typically 50–300 MB) that, when combined with the original model, changes its behaviour in a targeted way. This is far more efficient than training a model from scratch.
 
@@ -30,6 +31,12 @@ Both use **LoRA** (Low-Rank Adaptation), a technique that trains a small set of 
 | **Safetensors** | A safe, fast file format for storing model weights; used for LoRA files |
 | **Trigger word** | A unique word or short string in the prompt that "activates" a LoRA |
 | **Inference** | Running a trained model to generate output (images or text), as opposed to training it |
+| **MMDiT** | Multimodal Diffusion Transformer — an architecture (used in SD3, AuraFlow, and Qwen-Image-Edit) where text and image tokens are processed together in a joint transformer, rather than separately |
+| **VLM (Vision-Language Model)** | A model that understands both images and text simultaneously; Qwen2.5-VL is used as the image/instruction encoder inside Qwen-Image-Edit |
+| **Flow matching** | A training framework used by FLUX and Qwen-Image-Edit where the model learns to transform noise into images along optimal flow paths; different from DDPM used in older SD models |
+| **Triplet dataset** | A dataset format required for edit-behaviour LoRAs, consisting of three components per example: source image + target (edited) image + instruction text |
+| **FP8** | An 8-bit floating point format used to compress large models; Phr00t's Rapid-AIO checkpoint uses FP8 for inference. Applying LoRAs trained on BF16 weights to an FP8 checkpoint can cause grid artifacts if the FP8 conversion was not calibrated properly |
+| **Lightning/Distillation LoRA** | An acceleration technique that "bakes" fast-sampling behaviour into a model, reducing the required inference steps from 20+ down to 4–8. The Rapid-AIO checkpoint has these permanently merged in |
 
 ---
 
@@ -470,7 +477,7 @@ source ~/.bashrc
 
 # Pre-download the base model (optional but useful for large models)
 pip install huggingface_hub
-huggingface-cli download unsloth/Qwen3.5-9B-bnb-4bit --local-dir /mnt/models/huggingface/qwen3.5-9b-4bit
+hf download unsloth/Qwen3.5-9B-bnb-4bit --local-dir /mnt/models/huggingface/qwen3.5-9b-4bit
 ```
 
 > Unsloth provides pre-quantised 4-bit versions of popular models (the `bnb-4bit` variants). Using these saves significant download time and VRAM — you do not need to re-quantise them yourself.
@@ -665,6 +672,338 @@ Your fine-tuned model will automatically appear in the Open WebUI model dropdown
 
 ---
 
+## Workflow 3: Qwen-Image-Edit Character LoRA
+
+### What you are creating
+A `.safetensors` LoRA file that, when loaded in ComfyUI alongside your `Qwen-Rapid-AIO-v1.safetensors` checkpoint, causes the model to consistently generate a specific person's likeness. Because Qwen-Image-Edit accepts conditioning images at inference time, the trained LoRA can reinforce character identity through both text and visual pathways — meaning fewer training images are typically needed compared to FLUX.
+
+### Why this is different from FLUX
+
+Qwen-Image-Edit is **not** a FLUX model. It is an entirely different architecture:
+
+| Aspect | FLUX.1 Dev | Qwen-Image-Edit (Rapid-AIO) |
+|---|---|---|
+| Architecture | 12B single-stream flow transformer | 20B MMDiT (same family as SD3) |
+| Text/image encoder | T5-XXL + CLIP-L | Qwen2.5-VL vision-language model |
+| Input images | Text-only conditioning | Accepts up to 3 conditioning images |
+| Native resolution | 1024×1024 | **1328×1328** |
+| Inference steps | 20–28 typical | **4–8** (Lightning distillation baked in) |
+| CFG scale | 3.5 typical | **1** (guidance behaves differently) |
+| Training tool | ai-toolkit (ostris) | DiffSynth-Studio (official) or AI Toolkit (extended) |
+| LoRA format | `.safetensors` (same) | `.safetensors` (same) |
+
+**FLUX LoRAs will not work on this model.** The architectures are incompatible at the weight level.
+
+### Important note about the Rapid-AIO checkpoint
+
+The `Qwen-Rapid-AIO-v1.safetensors` file you downloaded is an FP8-compressed checkpoint with Lightning distillation LoRAs permanently merged in. This creates two considerations for LoRA training:
+
+1. **FP8 artifact risk**: LoRAs trained against a BF16 base model may show grid artifacts when applied to an FP8 checkpoint. The solution is to train against the original BF16 model weights (`Qwen/Qwen-Image-Edit-2511` on HuggingFace) rather than the Rapid-AIO checkpoint, then apply the resulting LoRA at ComfyUI inference time. The Rapid-AIO checkpoint handles inference; your LoRA adapts it.
+
+2. **Baked-in Lightning LoRAs**: The 4–8 step fast inference behaviour cannot be removed. Your character LoRA will stack on top of this, which is normal — the community trains LoRAs against the clean BF16 base and applies them to Rapid-AIO checkpoints successfully.
+
+### Hardware requirements for this workflow
+
+With DiffSynth-Studio's split training (offline latent caching):
+- **16–24GB VRAM**: Comfortable training speed, recommended configuration
+- **Both RTX 3090s**: Not required for this workflow; single GPU is sufficient for LoRA training
+
+---
+
+### Step 1: Dataset Preparation
+
+The same quality principles from Workflow 1 (FLUX LoRA) apply here. **Key differences specific to Qwen-Image-Edit:**
+
+- **Resolution**: Target 1328×1328 pixels, not 1024×1024. Images will be resized and bucketed by the training tool, but images at or near native resolution train best.
+- **Trigger word strategy**: Use a **single short trigger word** with minimal or no description around it. Detailed captions (as recommended for FLUX) reportedly hurt results with this model's Qwen2.5-VL encoder. Example caption files should contain only: `ohwx person`
+- **Image count**: 20–30 images is a well-tested minimum; 15 can work but limits versatility.
+
+The same exclusion rules from Workflow 1 apply (no group photos, no heavy occlusion, no blur).
+
+**Folder structure:**
+
+```
+~/training/qwen_character/
+├── photo001.jpg
+├── photo002.jpg
+├── photo003.png
+└── ...
+```
+
+> Unlike FLUX (which uses `.txt` caption files alongside each image), DiffSynth-Studio requires a **single `metadata.json` file** describing the whole dataset. Do not create `.txt` files — they are not used and not needed.
+
+**Create the metadata.json file:**
+
+Once your images are in the folder, run this Python script to generate it. Replace `UNIQUENAME` with your chosen trigger word:
+
+```bash
+python3 - <<'EOF'
+import os, json
+
+image_dir = "/home/steve/training/qwen_character"
+trigger_word = "UNIQUENAME"   # replace with your trigger word
+
+images = sorted([f for f in os.listdir(image_dir)
+                 if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))])
+
+metadata = [{"prompt": trigger_word, "image": img} for img in images]
+
+with open(os.path.join(image_dir, "metadata.json"), "w") as f:
+    json.dump(metadata, f, indent=2)
+
+print(f"Created metadata.json with {len(metadata)} entries")
+EOF
+```
+
+Verify it looks correct before training:
+
+```bash
+head -20 /home/steve/training/qwen_character/metadata.json
+```
+
+---
+
+### Step 2: Download the Model Files for Training
+
+Training against the FP8 Rapid-AIO checkpoint directly is not recommended due to artifact risks. Download the original BF16 weights from HuggingFace.
+
+**Important**: Training requires files from **two separate repositories**. The Edit-2511 repo only contains the transformer. The text encoder and VAE come from the base `Qwen/Qwen-Image` repo.
+
+**First, create the HuggingFace model directory** (this must exist before downloading):
+
+```bash
+sudo mkdir -p /mnt/models/huggingface
+sudo chown steve:steve /mnt/models/huggingface
+```
+
+**Then activate the hf-env venv** (the `hf` download command lives here — see `MultiFileModels.md` for setup):
+
+```bash
+source /home/steve/hf-env/bin/activate
+export HF_HOME=/mnt/models/huggingface
+```
+
+**Download the model files:**
+
+```bash
+# Transformer from Edit-2511 repo — ~41 GB
+hf download Qwen/Qwen-Image-Edit-2511 \
+    --include "transformer/*" "scheduler/*" "model_index.json" \
+    --local-dir /mnt/models/huggingface/qwen-image-edit-2511
+
+# Text encoder + VAE from the BASE model — ~17 GB
+hf download Qwen/Qwen-Image \
+    --include "text_encoder/*" "vae/*" "tokenizer/*" "processor/*" \
+    --local-dir /mnt/models/huggingface/qwen-image
+```
+
+> Total download: ~58 GB across both repos. Downloads are resumable — if interrupted, re-run the same command and it will skip already-downloaded files.
+
+> For a detailed explanation of why two repos are needed and how the multi-file format works, see `MultiFileModels.md`.
+
+---
+
+### Step 3a: Install DiffSynth-Studio (Recommended)
+
+**DiffSynth-Studio** is the official training framework released by Alibaba alongside the Qwen-Image-Edit model. It has a dedicated, maintained training script for this exact model.
+
+```bash
+# Create a dedicated virtual environment
+cd /home/steve
+python3 -m venv diffsynth-env
+source diffsynth-env/bin/activate
+
+# Install PyTorch with CUDA 12.4
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+
+# Clone DiffSynth-Studio
+git clone https://github.com/modelscope/DiffSynth-Studio.git
+cd DiffSynth-Studio
+
+# Install dependencies
+pip install -e .
+pip install peft bitsandbytes
+
+# Install torchaudio — required by DiffSynth-Studio but not in requirements.txt
+pip install torchaudio --index-url https://download.pytorch.org/whl/cu124
+```
+
+**Verify:**
+
+```bash
+python -c "import diffsynth; print('DiffSynth-Studio installed')"
+```
+
+---
+
+### Step 3b: Alternative — AI Toolkit (if you prefer a familiar tool)
+
+**AI Toolkit** (the same tool used in Workflow 1 for FLUX) has been extended to support Qwen-Image-Edit. If you are already comfortable with ai-toolkit, this is the lower-friction option.
+
+```bash
+# Update your existing ai-toolkit installation
+cd /home/steve/ai-toolkit
+git pull
+git submodule update --init --recursive
+
+# The existing venv should work; if not:
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+> Check the ai-toolkit repository for a `train_lora_qwen_image_edit.yaml` example config. The approach is structurally similar to Workflow 1, using the same YAML configuration file format, but with different model path, resolution, and LoRA settings.
+
+---
+
+### Step 4: Configure and Run Training (DiffSynth-Studio)
+
+DiffSynth-Studio's training is launched directly via `accelerate launch` with all parameters passed on the command line. The official example scripts use parameter names that differ from the actual `train.py` CLI — do not edit the example script directly. Instead, create your own script using the `cat` command below to avoid copy-paste line-break issues.
+
+**Before running: confirm both GPUs are free**
+
+```bash
+nvidia-smi
+```
+
+Both GPUs should show minimal memory usage (under 300 MiB). If Ollama or ComfyUI is running, stop them first:
+
+```bash
+sudo systemctl stop ollama
+sudo kill <ComfyUI PID>    # check nvidia-smi for any processes occupying VRAM
+```
+
+**Create the training script:**
+
+```bash
+cat > /home/steve/DiffSynth-Studio/examples/qwen_image/model_training/lora/my_character_lora.sh << 'EOF'
+export HF_HOME=/mnt/models/huggingface
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
+accelerate launch --num_processes 2 --mixed_precision bf16 examples/qwen_image/model_training/train.py --dataset_base_path /home/steve/training/qwen_character --dataset_metadata_path /home/steve/training/qwen_character/metadata.json --data_file_keys "image" --max_pixels 1048576 --dataset_repeat 50 --model_id_with_origin_paths "Qwen/Qwen-Image-Edit-2511:transformer/diffusion_pytorch_model*.safetensors,Qwen/Qwen-Image:text_encoder/model*.safetensors,Qwen/Qwen-Image:vae/diffusion_pytorch_model.safetensors" --learning_rate 1e-4 --num_epochs 5 --remove_prefix_in_ckpt "pipe.dit." --output_path "./models/train/my_character_lora" --lora_base_model "dit" --lora_target_modules "to_q,to_k,to_v,add_q_proj,add_k_proj,add_v_proj,to_out.0,to_add_out,img_mlp.net.2,img_mod.1,txt_mlp.net.2,txt_mod.1" --lora_rank 16 --use_gradient_checkpointing --dataset_num_workers 2 --find_unused_parameters --zero_cond_t --initialize_model_on_cpu
+EOF
+```
+
+> **Important**: The entire `accelerate launch` command must remain on a single line. If it wraps across lines, the `--lora_target_modules` argument breaks with a "command not found" error. Using the `cat << 'EOF'` approach above avoids this.
+
+**Key parameters explained:**
+
+| Parameter | Value | Why |
+|---|---|---|
+| `--num_processes 2` | 2 | Forces accelerate to use both GPUs; without this it loads the full model onto GPU 0 and runs out of VRAM |
+| `--mixed_precision bf16` | bf16 | Causes DiffSynth-Studio to load the fp8/quantised model variant (~20GB across 2 GPUs vs ~50GB full precision) |
+| `--data_file_keys "image"` | image only | Character LoRA uses single images; edit LoRA would use `"image,edit_image"` |
+| `--max_pixels 1048576` | 1024×1024 | Reduced from native 1328² to lower peak VRAM during training |
+| `--dataset_repeat 50` | 50 | Repeats the dataset 50 times per epoch for small datasets |
+| `--lora_rank 16` | 16 | Reduced from 32 to lower VRAM; can increase once training is confirmed working |
+| `--dataset_num_workers 2` | 2 | Reduced from 8 to lower CPU/memory pressure during training |
+| `--initialize_model_on_cpu` | flag | Loads model weights to CPU first, then distributes to GPUs — prevents GPU 0 spike on load |
+| `--zero_cond_t` | flag | Required for Qwen-Image-Edit-2511 specifically; omit for 2509 |
+| `--model_id_with_origin_paths` | two repos | Transformer from Edit-2511; text encoder + VAE from base Qwen-Image |
+| `PYTORCH_CUDA_ALLOC_CONF` | expandable_segments:True | Allows PyTorch to reuse memory fragments, reducing OOM risk |
+
+**Activate the venv first, then start tmux:**
+
+```bash
+source /home/steve/diffsynth-env/bin/activate
+tmux new-session -s qwen-training
+```
+
+**Run the training script from inside the tmux session:**
+
+```bash
+source /home/steve/diffsynth-env/bin/activate
+cd /home/steve/DiffSynth-Studio
+bash examples/qwen_image/model_training/lora/my_character_lora.sh
+```
+
+> The first run will download the model files automatically via HuggingFace if not already cached (set `HF_HOME` before running to control where they go). If you pre-downloaded in Step 2, they will be found in cache automatically.
+
+**Monitor in a second terminal:**
+
+```bash
+nvidia-smi    # check VRAM usage
+nvtop         # watch GPU utilisation in real time
+```
+
+**What to expect:**
+- Model download (first run only): ~20 GB total (4 files × ~5 GB), downloaded via ModelScope to `~/.cache/modelscope/`
+- Training time: loss values will appear once training begins; GPU VRAM usage should be ~10–12 GB per GPU
+- Output LoRA checkpoints are saved to `./models/train/my_character_lora/` inside the DiffSynth-Studio directory
+
+---
+
+### Step 5: Install the LoRA in ComfyUI
+
+```bash
+# Copy the LoRA to your ComfyUI loras directory
+cp /home/steve/training/qwen_character/output/checkpoint-2500/pytorch_lora_weights.safetensors \
+   /mnt/models/comfyui/loras/my_qwen_character.safetensors
+
+# Optionally link to Amelia's instance
+sudo ln /mnt/models/comfyui/loras/my_qwen_character.safetensors \
+        /mnt/models/comfyui-amelia/loras/my_qwen_character.safetensors
+```
+
+Refresh your ComfyUI browser tab.
+
+**Workflow node chain:**
+
+The Qwen-Image-Edit workflow uses `TextEncodeQwenImageEditPlus` nodes (not the standard CLIP text encoder). Load LoRA nodes are inserted between the checkpoint loader and the conditioning node:
+
+```
+Load Checkpoint (Qwen-Rapid-AIO-v1.safetensors)
+         |
+    Load LoRA  ←── Select your .safetensors file
+         |          Strength: start at 0.8
+         |
+TextEncodeQwenImageEditPlus (positive)
+TextEncodeQwenImageEditPlus (negative — leave blank)
+         |
+    KSampler (sa_solver, beta scheduler, 4–8 steps, CFG=1)
+```
+
+**Prompt strategy:**
+
+Always include your trigger word. Keep prompts clear and direct — the Qwen2.5-VL encoder is more instruction-aware than CLIP:
+
+```
+ohwx person standing outdoors in a garden, smiling, wearing a casual jacket
+```
+
+**LoRA strength:** Same starting point as FLUX — begin at 0.8 and adjust in 0.1 increments.
+
+---
+
+### Advanced: Edit Behaviour LoRA (Triplet Format)
+
+This is an optional, more advanced workflow for teaching the model a **specific editing behaviour** rather than a character identity. Examples include: consistent relighting across images, specific object replacement styles, or virtual try-on with your own clothing items.
+
+**Dataset format — triplets:**
+
+Each training example requires three components:
+
+```
+~/training/qwen_edit_behaviour/
+├── edit_001_source.jpg      ← the original image (before editing)
+├── edit_001_target.jpg      ← the edited image (desired result)
+├── edit_001.txt             ← the instruction text
+├── edit_002_source.jpg
+├── edit_002_target.jpg
+├── edit_002.txt
+└── ...
+```
+
+Example instruction text (`edit_001.txt`):
+```
+Change the lighting to golden hour sunset lighting, warm orange tones
+```
+
+**How many triplets:** 20–60 well-chosen triplets is a practical baseline. The source/target pairs must clearly demonstrate the editing behaviour you want to teach — consistency across the pairs is more important than quantity.
+
+DiffSynth-Studio and AI Toolkit both support this triplet format. Refer to the DiffSynth-Studio examples directory for the triplet-specific training script variant.
+
+---
+
 ## Common Pitfalls and How to Avoid Them
 
 ### Image LoRA Pitfalls
@@ -745,6 +1084,48 @@ Your fine-tuned model will automatically appear in the Open WebUI model dropdown
 
 ---
 
+### Qwen-Image-Edit LoRA Pitfalls
+
+#### Grid artifacts at inference
+**Signs**: The generated image has a faint or pronounced grid pattern overlaid on it, especially visible in flat colour areas.
+
+**Cause**: LoRA trained on BF16 base weights applied to the FP8-compressed Rapid-AIO checkpoint. FP8 quantisation that was not properly calibrated causes this interaction.
+
+**Fix**: This is a known issue with uncalibrated FP8 checkpoints. Options in order of preference:
+1. Test with a lower LoRA strength (0.5–0.7) — the artifact often scales with LoRA strength
+2. Look for an updated Rapid-AIO release from Phr00t that uses calibrated FP8
+3. Serve the BF16 base model directly in ComfyUI for inference (uses more VRAM: ~40GB)
+
+#### LoRA has weak effect / character not recognised
+**Signs**: The trigger word makes little difference to output. The person is not recognisable even at strength 1.0.
+
+**Fix**:
+- Verify caption files contain only the trigger word — detailed captions weaken this model's identity learning (unlike FLUX where detailed captions help)
+- Increase total training steps by 500 and re-evaluate
+- Increase LoRA rank from 32 to 64
+- Ensure training resolution was 1328×1328, not the FLUX default of 1024×1024
+
+#### FLUX LoRAs not working
+**Cause**: FLUX and Qwen-Image-Edit are architecturally incompatible. A LoRA trained for FLUX cannot be applied to Qwen-Image-Edit and vice versa. Attempting to load one will either produce an error or have zero effect.
+
+**Fix**: LoRAs must be trained and used on the same model family. Always train Qwen-Image LoRAs against the Qwen-Image-Edit base.
+
+#### `TextEncodeQwenImageEditPlus` node errors after adding LoRA
+**Signs**: ComfyUI workflow errors when the LoRA is inserted before the conditioning node.
+
+**Fix**: Ensure the Load LoRA node is connected to the MODEL output only (no CLIP passthrough). In the Qwen-Image-Edit workflow, the CLIP connection goes from the checkpoint loader directly to the `TextEncodeQwenImageEditPlus` node — the LoRA node sits between the checkpoint and the KSampler on the MODEL path only.
+
+#### VRAM OOM during DiffSynth-Studio training
+**Signs**: `CUDA error: out of memory` during training setup or first step.
+
+**Fixes in order**:
+1. Confirm `SPLIT_SCHEME="on"` is set in the training script (enables offline latent caching)
+2. Reduce `RESOLUTION` from 1328 to 1024 as a test (note: this may reduce LoRA quality)
+3. Set `--gradient_checkpointing` if not already enabled in the script
+4. Ensure no other large models are loaded in Ollama or ComfyUI during training (`ollama stop` all models; stop ComfyUI container temporarily)
+
+---
+
 ## Resources
 
 ### Image LoRA Training
@@ -761,6 +1142,15 @@ Your fine-tuned model will automatically appear in the Open WebUI model dropdown
 - <a href="https://huggingface.co/docs/trl/main/en/sft_trainer" target="_blank">HuggingFace TRL SFTTrainer documentation</a>
 - <a href="https://www.philschmid.de/fine-tune-llms-in-2025" target="_blank">philschmid.de: Fine-tuning LLMs guide (2025)</a>
 - <a href="https://github.com/ggml-org/llama.cpp" target="_blank">llama.cpp — GGUF conversion (if not using Unsloth export)</a>
+
+### Qwen-Image-Edit LoRA Training
+- <a href="https://github.com/modelscope/DiffSynth-Studio" target="_blank">DiffSynth-Studio (official Alibaba training framework)</a>
+- <a href="https://github.com/modelscope/DiffSynth-Studio/blob/main/examples/qwen_image/model_training/lora/Qwen-Image-Edit-2511.sh" target="_blank">Official training script for Qwen-Image-Edit-2511</a>
+- <a href="https://github.com/QwenLM/Qwen-Image" target="_blank">Qwen-Image GitHub (QwenLM/Qwen-Image)</a>
+- <a href="https://huggingface.co/Phr00t/Qwen-Image-Edit-Rapid-AIO" target="_blank">Phr00t/Qwen-Image-Edit-Rapid-AIO (your downloaded checkpoint)</a>
+- <a href="https://github.com/FurkanGozukara/Stable-Diffusion/wiki/Qwen-Image-Models-Training-0-to-Hero-Level-Tutorial-LoRA-and-Fine-Tuning-Base-and-Edit-Model" target="_blank">FurkanGozukara: Qwen-Image LoRA training 0-to-hero tutorial</a>
+- <a href="https://stable-diffusion-art.com/qwen-image-edit-multiple-angle-lora/" target="_blank">Stable Diffusion Art: Multi-angle character LoRA guide for Qwen-Image</a>
+- <a href="https://huggingface.co/blog/kelseye/qwen-image-i2l" target="_blank">HuggingFace Blog: Qwen-Image-i2L (image-to-LoRA)</a>
 
 ### Community
 - <a href="https://www.reddit.com/r/StableDiffusion/" target="_blank">r/StableDiffusion — FLUX LoRA training discussion</a> (note: Civitai is blocked in the UK)
@@ -782,6 +1172,20 @@ Your fine-tuned model will automatically appear in the Open WebUI model dropdown
 - [ ] LoRA `.safetensors` copied to `/mnt/models/comfyui/loras/`
 - [ ] Trigger word included in every inference prompt; start strength at 0.8
 
+### Qwen-Image-Edit LoRA — minimum viable checklist
+
+- [ ] 20–30 photos at 1328×1328 or larger with varied angles, lighting, backgrounds, and clothing
+- [ ] One `.txt` file per image containing **only** the trigger word (e.g., `ohwx person`) — no descriptions
+- [ ] BF16 base model downloaded: `Qwen/Qwen-Image-Edit-2511` (~40GB) to `/mnt/models/huggingface/`
+- [ ] DiffSynth-Studio installed in its own virtual environment (`diffsynth-env`)
+- [ ] Training script: rank 32, lr 1e-4, 2500 steps, resolution 1328, `SPLIT_SCHEME="on"`
+- [ ] Monitor VRAM; expected ~18–22GB on a single RTX 3090 with split training enabled
+- [ ] Test checkpoints at inference; look for recognisable character without visual artifacts
+- [ ] LoRA `.safetensors` copied to `/mnt/models/comfyui/loras/`
+- [ ] In ComfyUI: Load LoRA node connects on the **MODEL path only**, before `TextEncodeQwenImageEditPlus`
+- [ ] Always include trigger word in prompt; start LoRA strength at 0.8
+- [ ] If grid artifacts appear: reduce LoRA strength or check Phr00t page for calibrated FP8 update
+
 ### LLM Fine-tuning — minimum viable checklist
 
 - [ ] 200–500 Q&A examples in conversational JSONL format
@@ -797,6 +1201,6 @@ Your fine-tuned model will automatically appear in the Open WebUI model dropdown
 
 ---
 
-**Document Version**: 1.0
+**Document Version**: 1.1
 **Last Updated**: March 2026
 **Research**: gemini-it-security-researcher agent (March 2026)

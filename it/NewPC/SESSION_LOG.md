@@ -2,6 +2,47 @@
 
 ---
 
+## Session 2026-03-18
+
+### Summary
+Extended `Model_and_LoRA_Creation.md` with a full Workflow 3 section for Qwen-Image-Edit character LoRA training using DiffSynth-Studio, and created `MultiFileModels.md` explaining the HuggingFace diffusers multi-file model format. The session involved live end-to-end training attempts, diagnosing and resolving multiple errors including missing modules, wrong metadata format, CUDA OOM from ComfyUI processes, and ultimately identifying that `accelerate launch` was not distributing the model across both GPUs. Adding `--num_processes 2 --mixed_precision bf16` resolved the OOM issue by loading a smaller model variant (~20GB across 2 GPUs rather than ~50GB on GPU 0 alone). Training was confirmed downloading correctly by end of session.
+
+### Work Completed
+- Added **Workflow 3** to `Model_and_LoRA_Creation.md` — Qwen-Image-Edit character LoRA training via DiffSynth-Studio
+- Created `MultiFileModels.md` — standalone document explaining HuggingFace diffusers multi-file model format, Qwen-Image-Edit-2511 structure, three ComfyUI usage options, and DiffSynth-Studio model loading
+- Resolved multiple training errors end-to-end (see Key Decisions for full list)
+- Updated Step 4 training script with working multi-GPU parameters
+- Updated documentation with correct download size (~20GB, 4×5GB files)
+
+### Files Changed
+- `it/NewPC/Model_and_LoRA_Creation.md` — added full Workflow 3 (Qwen-Image-Edit LoRA); updated Step 4 training command with `--num_processes 2 --mixed_precision bf16`, `--initialize_model_on_cpu`, `PYTORCH_CUDA_ALLOC_CONF`, reduced `--max_pixels`/`--lora_rank`/`--dataset_num_workers`; added pre-flight GPU check; updated parameters table and download size estimate
+- `it/NewPC/MultiFileModels.md` — **created** — standalone guide for HuggingFace diffusers format and Qwen-Image-Edit-2511 multi-file structure
+
+### Key Decisions
+- **Qwen-Image-Edit is MMDiT not FLUX**: completely different architecture (no kohya/ai-toolkit); requires DiffSynth-Studio (official Alibaba training framework)
+- **DiffSynth-Studio uses ModelScope cache** (`~/.cache/modelscope/`), not HuggingFace cache — models are downloaded automatically on first training run
+- **metadata.json not .txt captions**: DiffSynth-Studio requires a JSON metadata file; `.txt` caption files alongside images are not used
+- **`hf` not `huggingface-cli`**: huggingface_hub 1.x renamed the CLI to `hf`; requires venv activation; cannot use sudo
+- **Two-repo model spec**: transformer from `Qwen/Qwen-Image-Edit-2511`; text encoder + VAE from `Qwen/Qwen-Image` (base repo)
+- **`--num_processes 2 --mixed_precision bf16` is essential**: without `--num_processes 2`, accelerate defaults to single-GPU and tries to load the full model onto GPU 0 (OOM). With both flags, DiffSynth-Studio loads a smaller fp8/quantised model variant (~20GB total, ~10GB per GPU)
+- **`--initialize_model_on_cpu`**: loads weights to CPU first before distributing to GPUs, preventing a VRAM spike on GPU 0 during model load
+- **ComfyUI processes must be stopped before training**: both instances run as plain Python processes (`python3 ./ComfyUI/main.py`), not Docker; kill with `sudo kill <PID>` before training
+- **Caption strategy**: use `<name> person` not `<name> woman` as the trigger word format to avoid gender bias in the character representation
+
+### Reference Documents
+- `it/NewPC/Model_and_LoRA_Creation.md` — updated training guide (now 3 workflows)
+- `it/NewPC/MultiFileModels.md` — new standalone multi-file model reference
+
+### Next Actions
+- [ ] Confirm training completes successfully (was downloading correctly at end of session)
+- [ ] Monitor training loss values and GPU VRAM usage during run (`nvtop`, `nvidia-smi`)
+- [ ] Once LoRA is generated, copy to `/mnt/models/comfyui/loras/` and test in ComfyUI
+- [ ] Update `Model_and_LoRA_Creation.md` Step 5 with correct LoRA output path once confirmed
+- [ ] Curate photo dataset for character LoRA (20–30 images) if not already done
+- [ ] Install ai-toolkit on server for FLUX LoRA training (Workflow 1)
+
+---
+
 ## Session 2026-03-17
 
 ### Summary

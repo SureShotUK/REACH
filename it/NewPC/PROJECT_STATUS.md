@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-17
+**Last Updated**: 2026-03-18
 
 ---
 
@@ -20,25 +20,28 @@ Server (`amelai`) is fully operational with all AI services running and accessib
 
 ## Active Work Areas
 
-- **AI Training**: Model training and LoRA creation guide created; ready to begin first training run
+- **Qwen-Image-Edit LoRA Training**: First training run in progress — confirmed downloading correctly (~20GB, 4×5GB files via ModelScope). Training command uses `--num_processes 2 --mixed_precision bf16` to distribute model across both GPUs
 - **Networking**: Dual binding strategy confirmed and documented — all services accessible on both LAN and Tailscale
 
 ## Recently Completed
 
+- Added Workflow 3 to `Model_and_LoRA_Creation.md` — full Qwen-Image-Edit character LoRA training guide via DiffSynth-Studio
+- Created `MultiFileModels.md` — standalone reference for HuggingFace diffusers multi-file model format
+- Resolved all training setup errors (torchaudio, metadata.json format, `hf` CLI, CUDA OOM from ComfyUI, single-GPU vs multi-GPU accelerate)
 - Created `Model_and_LoRA_Creation.md` — comprehensive guide for FLUX character LoRA and LLM chatbot fine-tuning
 - Updated `CLAUDE.md` with system spec references and quick-reference hardware/software summary
 - Created comprehensive `Tailscale.md` guide
-- Implemented dual Docker `-p` binding for FileBrowser and Open WebUI
-- Confirmed final port assignments for all services
+- Implemented dual Docker `-p` binding for all services
 
 ## Pending / Next Actions
 
-- [ ] Curate photo dataset for character LoRA (20–30 varied images)
-- [ ] Install ai-toolkit on server for FLUX LoRA training
-- [ ] Create JSONL training dataset for LLM knowledge chatbot
-- [ ] Install Unsloth for LLM fine-tuning
-- [ ] Apply dual `-p` binding to ComfyUI and ComfyUI-Amelia containers on the server
-- [ ] Verify all service bindings with `sudo ss -tlnup` after ComfyUI changes
+- [ ] Confirm training completes and LoRA is generated (`./models/train/my_character_lora/`)
+- [ ] Test LoRA in ComfyUI — copy to `/mnt/models/comfyui/loras/`
+- [ ] Curate photo dataset for character LoRA (20–30 varied images) if not done
+- [ ] Install ai-toolkit on server for FLUX LoRA training (Workflow 1)
+- [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
+- [ ] Install Unsloth for LLM fine-tuning (Workflow 2)
+- [ ] Apply dual `-p` binding to ComfyUI and ComfyUI-Amelia containers
 - [ ] Set static DHCP reservation on router for `192.168.1.192` if not already done
 
 ## Key Files
@@ -47,7 +50,8 @@ Server (`amelai`) is fully operational with all AI services running and accessib
 |---|---|
 | `Final_Build.md` | Complete hardware specification — authoritative system spec reference |
 | `Software_Setup.md` | Complete server setup guide — OS through full AI stack |
-| `Model_and_LoRA_Creation.md` | Training guide — FLUX character LoRA and LLM fine-tuning workflows |
+| `Model_and_LoRA_Creation.md` | Training guide — FLUX character LoRA, LLM fine-tuning, and Qwen-Image-Edit LoRA |
+| `MultiFileModels.md` | HuggingFace diffusers multi-file model format explained |
 | `Tailscale.md` | Tailscale commands, port forwarding, troubleshooting, Docker binding strategy |
 | `HuggingFace.md` | Model download guide and Amelia instance sharing |
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
