@@ -2,6 +2,26 @@
 
 ---
 
+## [Unreleased] - 2026-03-19 (Evening)
+
+### Added
+- `LoRAMemoryFixes.md` — complete guide to the memory issues blocking Qwen-Image-Edit LoRA training:
+  - Root cause analysis (ZeRO-3 checkpoint save memory doubling: ~41 GB → ~87 GB)
+  - All required fixes: correct venv, 32 GB swap, `pin_memory: false`, `TORCH_CUDA_ARCH_LIST="8.6"`, `--dataset_num_workers 0`
+  - Confirmed working Stage 2 script
+  - Speed optimisation roadmap (restore `pin_memory: true`, restore `--dataset_num_workers 2`)
+  - Diagnostics reference with OOM interpretation table
+
+### Changed
+- Server `ds_z3_cpuoffload.json` — `pin_memory` set to `false` for both `offload_optimizer` and `offload_param`
+- Server `stage2_train.sh` — added `TORCH_CUDA_ARCH_LIST="8.6"`, changed `--dataset_num_workers 2` to `0`
+- Server swap increased from 8 GB to 32 GB (`/swap.img`)
+
+### Fixed
+- Qwen-Image-Edit LoRA training OOM on checkpoint save — training now completes and writes `epoch-N.safetensors`
+
+---
+
 ## [Unreleased] - 2026-03-19
 
 ### Added

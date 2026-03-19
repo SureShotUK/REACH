@@ -2,6 +2,50 @@
 
 ---
 
+## Session 2026-03-19 (Evening)
+
+### Summary
+Diagnosed and resolved persistent SIGKILL failures blocking Qwen-Image-Edit LoRA training. Root cause identified as checkpoint save causing a temporary memory spike from ~46 GB to ~87 GB (ZeRO-3 gathers all 16-bit weights into a second buffer at epoch end), exceeding the 62 GB system RAM. Fixed by increasing swap to 32 GB and disabling pinned memory. Training pipeline confirmed working end-to-end with `epoch-0.safetensors` produced. Full 5-epoch training now running.
+
+### Work Completed
+- Identified wrong virtual environment (`hf-env`) as initial cause — must use `diffsynth-env`
+- Confirmed Stage 1 cache intact and Stage 2 script correct — not a script issue
+- Captured detailed OOM data via `dmesg` — confirmed SIGKILL was kernel OOM killer at ~60 GB RSS
+- Diagnosed `stage3_gather_16bit_weights_on_model_save: true` as root cause — temporary memory doubling during epoch-end checkpoint save
+- Proved training steps complete successfully (2/2 shown in progress bar) — only save was failing
+- Confirmed `stage3_gather_16bit_weights_on_model_save: false` breaks DiffSynth-Studio saving (accelerator.get_state_dict ValueError) — cannot disable
+- Increased swap from 8 GB to 32 GB (`/swap.img`) to absorb save spike
+- Set `pin_memory: false` in `ds_z3_cpuoffload.json` to allow OS to use swap during save
+- Added `export TORCH_CUDA_ARCH_LIST="8.6"` to training scripts
+- Set `--dataset_num_workers 0` to reduce RAM pressure
+- Confirmed pipeline working: `test_stage2.sh` (1 image, 1 epoch) produced `epoch-0.safetensors`
+- Restored full parameters (`--dataset_repeat 50 --num_epochs 5`) and started training in tmux session `lora-training`
+- Created `LoRAMemoryFixes.md` — complete diagnosis, all required fixes, and speed optimisation guide
+- Created `TMUX.md` and `Docker.md` reference guides earlier in session
+
+### Files Changed
+- `it/NewPC/LoRAMemoryFixes.md` — **created** — root cause analysis, all required config changes, confirmed working script, speed optimisations, diagnostics reference
+- Server file: `ds_z3_cpuoffload.json` — `pin_memory` changed to `false` for both offload sections
+- Server file: `stage2_train.sh` — added `TORCH_CUDA_ARCH_LIST="8.6"`, `--dataset_num_workers 0`
+- Server file: `test_stage2.sh` — same changes; swap increased to 32 GB (`/swap.img`)
+
+### Key Decisions
+- **Root cause is checkpoint save OOM, not training OOM** — ZeRO-3 `stage3_gather_16bit_weights_on_model_save: true` doubles memory (~41 GB → ~82 GB) at epoch end. Cannot disable — DiffSynth-Studio requires it.
+- **Swap increase is the correct fix** — 32 GB swap gives 94 GB virtual memory total, absorbing the ~87 GB peak during save
+- **`pin_memory: false` is required alongside swap** — pinned memory cannot be swapped to disk; both changes together are needed
+- **Speed optimisations deferred** — `pin_memory: true` and `--dataset_num_workers 2` can be restored once full training succeeds; documented with test procedure in `LoRAMemoryFixes.md`
+- **`TORCH_CUDA_ARCH_LIST="8.6"`** — without this, DeepSpeed compiles CUDA extensions for all GPU architectures, adding ~10–14 GB temporary RAM during startup
+
+### Next Actions
+- [ ] Confirm full training completes — check `ls ~/DiffSynth-Studio/models/train/my_character_lora/` for `epoch-0.safetensors` through `epoch-4.safetensors`
+- [ ] Restart Docker + Ollama after training: `docker start comfyui comfyui-amelia && sudo systemctl start ollama`
+- [ ] Test each epoch LoRA in ComfyUI — copy to `/mnt/models/comfyui/loras/`
+- [ ] Try speed optimisations from `LoRAMemoryFixes.md` — restore `pin_memory: true` then `--dataset_num_workers 2` incrementally, testing after each change
+- [ ] Update `QwenImageEditTrainingLoRA.md` with memory fix requirements
+- [ ] Update `Model_and_LoRA_Creation.md` Workflow 3 to replace obsolete FP8+DDP approach
+
+---
+
 ## Session 2026-03-19
 
 ### Summary

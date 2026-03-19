@@ -1,12 +1,22 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-19
+**Last Updated**: 2026-03-19 (Evening)
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. Qwen-Image-Edit LoRA Stage 2 training restarted after tmux session loss — running in `lora-training` tmux session. Documentation expanded with tmux and Docker reference guides.
+Server (`amelai`) is fully operational. Full 5-epoch Qwen-Image-Edit LoRA training is running in tmux session `lora-training` after diagnosing and fixing persistent OOM failures. Training pipeline confirmed working — `epoch-0.safetensors` produced in test run. Expected to complete overnight (~6–8 hours with current settings).
+
+## Service Status
+
+| Service | Container | Local | Tailscale | Status |
+|---|---|---|---|---|
+| Ollama | host process | `localhost:11434` | via Open WebUI | Stopped (training in progress) |
+| Open WebUI | `open-webui` | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` | Running |
+| ComfyUI (Steve) | `comfyui` | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` | Stopped (training in progress) |
+| ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Stopped (training in progress) |
+| FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
 
 ## Service Status
 
@@ -20,21 +30,24 @@ Server (`amelai`) is fully operational. Qwen-Image-Edit LoRA Stage 2 training re
 
 ## Active Work Areas
 
-- **Qwen-Image-Edit LoRA Training**: Stage 2 restarted in tmux session `lora-training`. Script: `stage2_train.sh`. Output: `~/DiffSynth-Studio/models/train/my_character_lora/epoch-N.safetensors`. ~4–5 hours runtime.
+- **Qwen-Image-Edit LoRA Training**: Full 5-epoch run active in tmux session `lora-training`. Output: `~/DiffSynth-Studio/models/train/my_character_lora/epoch-N.safetensors`. ~6–8 hours with current settings (`pin_memory: false`, `--dataset_num_workers 0`).
 
 ## Recently Completed
 
-- Created `TMUX.md` — tmux reference guide (sessions, detach/attach, panes, scroll, quick reference)
-- Created `Docker.md` — Docker admin guide with all service `docker run` commands, port map, SSH file access
-- Diagnosed and restarted interrupted Stage 2 LoRA training (tmux session had been lost)
-- Confirmed Stage 1 cache intact — did not need to re-run Stage 1
+- Diagnosed and fixed persistent LoRA training OOM — root cause was checkpoint save memory spike (41 GB → 87 GB). Fixed with 32 GB swap + `pin_memory: false`
+- Confirmed training pipeline working end-to-end (`epoch-0.safetensors` produced in test)
+- Created `LoRAMemoryFixes.md` — complete diagnosis, fixes, and speed optimisation guide
+- Created `TMUX.md` — tmux reference guide
+- Created `Docker.md` — Docker admin guide with all service `docker run` commands
 
 ## Pending / Next Actions
 
-- [ ] Confirm Stage 2 training completes — check `ls ~/DiffSynth-Studio/models/train/my_character_lora/`
-- [ ] Restart Docker containers after training: `docker start comfyui comfyui-amelia && sudo systemctl start ollama`
-- [ ] Test each epoch LoRA in ComfyUI — copy from `~/DiffSynth-Studio/models/train/my_character_lora/` to `/mnt/models/comfyui/loras/`
-- [ ] Update `Model_and_LoRA_Creation.md` Workflow 3 to replace obsolete FP8+DDP approach with ZeRO-3 method
+- [ ] Confirm full training completes — check `ls ~/DiffSynth-Studio/models/train/my_character_lora/`
+- [ ] Restart Docker + Ollama: `docker start comfyui comfyui-amelia && sudo systemctl start ollama`
+- [ ] Test each epoch LoRA in ComfyUI — copy to `/mnt/models/comfyui/loras/`
+- [ ] Try speed optimisations from `LoRAMemoryFixes.md` — restore `pin_memory: true` then `--dataset_num_workers 2`
+- [ ] Update `QwenImageEditTrainingLoRA.md` with memory fix requirements
+- [ ] Update `Model_and_LoRA_Creation.md` Workflow 3 — replace obsolete FP8+DDP with ZeRO-3 method
 - [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
 - [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
 - [ ] Set static DHCP reservation on router for `192.168.1.192`
