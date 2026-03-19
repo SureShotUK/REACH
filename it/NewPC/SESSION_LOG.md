@@ -2,6 +2,35 @@
 
 ---
 
+## Session 2026-03-19
+
+### Summary
+Confirmed Stage 2 LoRA training had not completed (tmux session lost, output directory absent). Diagnosed the situation, confirmed Stage 1 cache intact, and restarted Stage 2 training. Created two new reference documents: `TMUX.md` (general tmux guide) and `Docker.md` (Docker administration guide including all service `docker run` commands).
+
+### Work Completed
+- Diagnosed interrupted Stage 2 training: `my_character_lora/` directory absent, tmux session gone
+- Confirmed Stage 1 cache (`my_character_lora_cache/0` and `/1`, 22 `.pth` files each) intact and valid
+- Verified `stage2_train.sh` script still present with correct parameters
+- Restarted Stage 2 training in a new tmux session (`lora-training`)
+- Created `TMUX.md` — tmux reference guide covering sessions, windows, panes, detach/attach, scroll mode
+- Created `Docker.md` — Docker administration guide with all service `docker run` commands, common commands, port map, and SSH file access explanation
+
+### Files Changed
+- `it/NewPC/TMUX.md` — **created** — tmux guide: concepts, prefix key, sessions, windows, panes, scrolling, practical workflows, quick reference card
+- `it/NewPC/Docker.md` — **created** — Docker guide: core concepts, common commands, full `docker run` commands for Open WebUI / ComfyUI (Steve) / ComfyUI (Amelia) / FileBrowser / SearXNG, port map, Tailscale Serve config, SSH file access explanation
+
+### Key Decisions
+- Stage 2 script (`stage2_train.sh`) was intact from previous session — no recreation needed; Stage 1 cache was also intact so Stage 1 did not need to be re-run
+- Docker.md placed in `it/NewPC/` (not `it/`) because all `docker run` commands are specific to this server's IP addresses, volume paths, and port assignments
+
+### Next Actions
+- [ ] Confirm Stage 2 training completes — check `ls ~/DiffSynth-Studio/models/train/my_character_lora/` for `epoch-0.safetensors` through `epoch-4.safetensors`
+- [ ] Restart Docker containers after training: `docker start comfyui comfyui-amelia && sudo systemctl start ollama`
+- [ ] Test each epoch LoRA in ComfyUI — copy from `~/DiffSynth-Studio/models/train/my_character_lora/` to `/mnt/models/comfyui/loras/`
+- [ ] Update `Model_and_LoRA_Creation.md` Workflow 3 to replace obsolete FP8+DDP approach with ZeRO-3 method
+
+---
+
 ## Session 2026-03-18 (Evening)
 
 ### Summary

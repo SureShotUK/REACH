@@ -1,12 +1,12 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-18 (Evening)
+**Last Updated**: 2026-03-19
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. Qwen-Image-Edit LoRA training is actively running using DeepSpeed ZeRO-3 CPU offload — the only approach that works on 2×24 GB hardware for this 41 GB model.
+Server (`amelai`) is fully operational. Qwen-Image-Edit LoRA Stage 2 training restarted after tmux session loss — running in `lora-training` tmux session. Documentation expanded with tmux and Docker reference guides.
 
 ## Service Status
 
@@ -20,22 +20,21 @@ Server (`amelai`) is fully operational. Qwen-Image-Edit LoRA training is activel
 
 ## Active Work Areas
 
-- **Qwen-Image-Edit LoRA Training**: Stage 2 actively running (~4–5 hours total). Using DeepSpeed ZeRO-3 CPU offload (`num_processes: 1`), `--max_pixels 262144`, `--use_gradient_checkpointing`. ~13–15 GB VRAM on GPU 0, ~46 GB RAM.
+- **Qwen-Image-Edit LoRA Training**: Stage 2 restarted in tmux session `lora-training`. Script: `stage2_train.sh`. Output: `~/DiffSynth-Studio/models/train/my_character_lora/epoch-N.safetensors`. ~4–5 hours runtime.
 
 ## Recently Completed
 
-- Created `QwenImageEditTrainingLoRA.md` — complete standalone training guide (verified working procedure)
-- Resolved all VRAM OOM errors blocking training — migrated from FP8+DDP to ZeRO-3 CPU offload
-- Identified ComfyUI instances as Docker containers (corrects previous incorrect documentation)
-- Confirmed DeepSpeed ZeRO-3 + `--use_gradient_checkpointing` + `--max_pixels 262144` is the working combination
+- Created `TMUX.md` — tmux reference guide (sessions, detach/attach, panes, scroll, quick reference)
+- Created `Docker.md` — Docker admin guide with all service `docker run` commands, port map, SSH file access
+- Diagnosed and restarted interrupted Stage 2 LoRA training (tmux session had been lost)
+- Confirmed Stage 1 cache intact — did not need to re-run Stage 1
 
 ## Pending / Next Actions
 
-- [ ] Confirm Stage 2 training completes — expected ~5 hours from start, producing `epoch-0.safetensors` through `epoch-4.safetensors`
+- [ ] Confirm Stage 2 training completes — check `ls ~/DiffSynth-Studio/models/train/my_character_lora/`
+- [ ] Restart Docker containers after training: `docker start comfyui comfyui-amelia && sudo systemctl start ollama`
 - [ ] Test each epoch LoRA in ComfyUI — copy from `~/DiffSynth-Studio/models/train/my_character_lora/` to `/mnt/models/comfyui/loras/`
-- [ ] Restart Docker containers after training: `docker start comfyui comfyui-amelia`
 - [ ] Update `Model_and_LoRA_Creation.md` Workflow 3 to replace obsolete FP8+DDP approach with ZeRO-3 method
-- [ ] Update `CLAUDE.md` ComfyUI process management note — IS Docker, use `docker stop/start`
 - [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
 - [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
 - [ ] Set static DHCP reservation on router for `192.168.1.192`

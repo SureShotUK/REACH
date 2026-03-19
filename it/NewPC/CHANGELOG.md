@@ -2,6 +2,17 @@
 
 ---
 
+## [Unreleased] - 2026-03-19
+
+### Added
+- `TMUX.md` — tmux reference guide: what tmux is, sessions/windows/panes concepts, prefix key, all common commands with explanations, practical workflows (long jobs, split monitoring), detach/attach pattern, quick reference card
+- `Docker.md` — Docker administration guide: core concepts (image/container/volume/network), all common commands with when-to-use guidance, full `docker run` commands for all five services (Open WebUI, ComfyUI Steve, ComfyUI Amelia, FileBrowser, SearXNG), port map, Tailscale Serve rebuild commands, SSH file access explanation for bind-mounted volumes
+
+### Fixed
+- Stage 2 LoRA training restarted after tmux session loss — `stage2_train.sh` intact, Stage 1 cache intact, training resumed in new `lora-training` tmux session
+
+---
+
 ## [Unreleased] - 2026-03-18 (Evening)
 
 ### Added
