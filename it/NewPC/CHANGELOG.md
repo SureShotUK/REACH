@@ -2,6 +2,13 @@
 
 ---
 
+## [Unreleased] - 2026-03-19 (Late Evening)
+
+### Changed
+- `QwenImageEditTrainingLoRA.md` — added **RAM Limitation Workarounds** section after Overview explaining the 64 GB system-specific memory fixes (swap, pin_memory, TORCH_CUDA_ARCH_LIST, dataset_num_workers); updated training time estimate to reflect 6–8 hours with workarounds
+
+---
+
 ## [Unreleased] - 2026-03-19 (Evening)
 
 ### Added

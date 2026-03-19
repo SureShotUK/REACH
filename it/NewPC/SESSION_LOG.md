@@ -2,6 +2,27 @@
 
 ---
 
+## Session 2026-03-19 (Late Evening)
+
+### Summary
+Added a dedicated RAM limitation workarounds section to `QwenImageEditTrainingLoRA.md`, making all three required memory fixes visible at the top of the guide before any training steps are attempted. The section clearly states these workarounds are hardware-specific to 64 GB systems and would not be needed with 128 GB or more.
+
+### Work Completed
+- Added **RAM Limitation Workarounds** section to `QwenImageEditTrainingLoRA.md` covering all three required changes: 32 GB swap, `pin_memory: false`, and `TORCH_CUDA_ARCH_LIST="8.6"` / `--dataset_num_workers 0`
+- Updated training time estimate in Overview to reflect 6–8 hours with workarounds vs 4–5 hours default
+
+### Files Changed
+- `it/NewPC/QwenImageEditTrainingLoRA.md` — added RAM Limitation Workarounds section after Overview; updated training time estimate
+
+### Next Actions
+- [ ] Confirm full training completes — check `ls ~/DiffSynth-Studio/models/train/my_character_lora/`
+- [ ] Restart Docker + Ollama: `docker start comfyui comfyui-amelia && sudo systemctl start ollama`
+- [ ] Test each epoch LoRA in ComfyUI — copy to `/mnt/models/comfyui/loras/`
+- [ ] Try speed optimisations from `LoRAMemoryFixes.md` once training succeeds
+- [ ] Update `Model_and_LoRA_Creation.md` Workflow 3 — replace obsolete FP8+DDP with ZeRO-3 method
+
+---
+
 ## Session 2026-03-19 (Evening)
 
 ### Summary

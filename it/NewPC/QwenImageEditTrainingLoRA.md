@@ -14,7 +14,78 @@ Unlike FLUX LoRAs (which use ai-toolkit and run on a single GPU), Qwen-Image-Edi
 - **DeepSpeed ZeRO-3 with CPU offload** — the 41 GB BF16 transformer cannot fit in VRAM any other way on 2×24 GB hardware
 - **Two-stage split training** — Stage 1 caches text/image embeddings to disk; Stage 2 trains only the transformer
 
-Training time: approximately **4–5 hours** for 5 epochs on 44 images at 512×512.
+Training time: approximately **4–5 hours** for 5 epochs on 44 images at 512×512 with default settings. With the 64 GB RAM workarounds below, expect **6–8 hours**.
+
+---
+
+## RAM Limitation Workarounds (64 GB System)
+
+> **This section applies only because this server has 64 GB RAM. If the system had 128 GB or more, none of these modifications would be necessary** — the default DiffSynth-Studio configuration would work without changes.
+
+### Why these workarounds are needed
+
+DeepSpeed ZeRO-3 CPU offload stores the full 41 GB BF16 transformer in system RAM during training. At the end of each epoch, the checkpoint save process temporarily creates a second copy of the model weights in RAM (to gather them for writing to disk). This spikes peak RAM usage from ~46 GB to approximately **87 GB** — exceeding the 64 GB physical limit and triggering the Linux OOM killer, which kills the training process with SIGKILL.
+
+The training steps themselves run fine. The failure always happens at the first checkpoint save.
+
+### Required modifications for 64 GB systems
+
+Three changes are needed. They are applied once and persist until the server configuration changes.
+
+#### 1. Increase swap to 32 GB (one-time server change)
+
+The 32 GB swap gives the system 94 GB of total virtual memory, providing enough headroom to absorb the ~87 GB save spike. This is a permanent server configuration change.
+
+```bash
+sudo swapoff /swap.img
+sudo fallocate -l 32G /swap.img
+sudo mkswap /swap.img
+sudo swapon /swap.img
+free -h   # Verify: Swap line shows ~31G total
+```
+
+#### 2. Disable pinned memory in DeepSpeed config
+
+Pinned memory (page-locked RAM) cannot be swapped to disk. With `pin_memory: true`, the OS cannot use the swap space to handle the save spike even if swap is available. Setting it to `false` allows the temporary save buffer to overflow to swap.
+
+File: `examples/qwen_image/model_training/special/low_vram_training/ds_z3_cpuoffload.json`
+
+Change both `pin_memory` values to `false`:
+
+```json
+"offload_optimizer": {
+    "device": "cpu",
+    "pin_memory": false
+},
+"offload_param": {
+    "device": "cpu",
+    "pin_memory": false
+}
+```
+
+> **Note**: `stage3_gather_16bit_weights_on_model_save` must remain `true`. Setting it to `false` breaks DiffSynth-Studio's saving entirely.
+
+#### 3. Add to Stage 2 training scripts
+
+In every Stage 2 script, make two changes:
+
+Add this export alongside the other exports at the top:
+```bash
+export TORCH_CUDA_ARCH_LIST="8.6"
+```
+
+Change `--dataset_num_workers 2` to:
+```bash
+--dataset_num_workers 0
+```
+
+**Why `TORCH_CUDA_ARCH_LIST="8.6"`**: Without this, DeepSpeed compiles CUDA extensions for every GPU architecture it detects, which consumes an additional ~10–14 GB of RAM temporarily on top of the already-loaded 41 GB model. `8.6` is the Ampere architecture of the RTX 3090 — specifying it limits compilation to only what this system needs.
+
+**Why `--dataset_num_workers 0`**: Each worker process holds references into the model memory, increasing the resident set size. Disabling workers reduces peak RAM usage during training steps.
+
+### Impact on training time
+
+These modifications slow training from approximately 4–5 hours to **6–8 hours** per full run. The main cause is `pin_memory: false`, which slows parameter transfers between CPU and GPU. Once training is confirmed working, see `LoRAMemoryFixes.md` for a step-by-step guide to restoring speed.
 
 ---
 
