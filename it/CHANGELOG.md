@@ -2,6 +2,27 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-19 — Synology Tailscale Remote Access
+
+### Added
+- `it/Synology/Synology_Tailscale_TS.md` — full troubleshooting document covering:
+  - Root cause analysis: TUN permissions (`crw-------`) forcing userspace mode + ACL policy missing NAS rules
+  - Step-by-step diagnostic path (firewall → TUN → iptables → tcpdump → daemon logs)
+  - SSL certificate setup via `tailscale cert` and DSM import process
+  - SMB network drive mapping via Tailscale IP (`\\100.86.207.97\`)
+  - Persistence fix: DSM Task Scheduler boot-up task for TUN permissions
+  - Resolution log with all findings and actions
+
+### Fixed
+- Tailscale inbound connectivity on Synology DS920+ (DSM 7.3.2) — `tailscale0` interface now created at boot
+- Tailscale ACL updated to allow NAS access on ports 80, 443, 445, 5000, 5001, 7001, 7002
+
+### Documentation
+- Documented Synology Tailscale package behaviour: DSM 7 `ensure_tun_created()` deliberately returns without action — TUN must be configured manually
+- Key diagnostic: `sudo cat /volume4/@appdata/Tailscale/tailscaled.stdout.log` reveals packet drops with reasons
+
+---
+
 ## [Unreleased] - 2026-03-14 — HuggingFace Guide & Qwen-Image-Edit Setup
 
 ### Added

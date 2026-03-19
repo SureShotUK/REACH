@@ -1,11 +1,18 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-14
+**Last Updated**: 2026-03-19
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
 
 ## Active Work Areas
+
+### Synology DS920+ — Tailscale Remote Access ✅ (Newly Resolved)
+- **Status**: Fully operational. All remote access working via Tailscale.
+- **Files**: `Synology/Synology_Tailscale_TS.md`
+- **Access**: Photos (`/photos`), Files (`/files`), DSM web UI, network drive (`I:`) all working via `irwinnas.tail926601.ts.net` or `100.86.207.97`
+- **SSL**: Valid certificate installed — no browser warnings on `https://irwinnas.tail926601.ts.net`
+- **Pending**: Test remote access after full NAS reboot to verify TUN boot task works; annual cert renewal via `tailscale cert`
 
 ### IT Troubleshooting & Helpdesk - Proven System
 - **Status**: System validated with successful issue resolution and enhanced diagnostic tooling

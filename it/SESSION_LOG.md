@@ -4,6 +4,41 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-19 — Synology DS920+ Tailscale Setup & Remote Access
+
+### Summary
+Diagnosed and resolved complete Tailscale remote access failure on a Synology DS920+ (DSM 7.3.2). The root causes were `/dev/net/tun` having root-only permissions (forcing userspace networking mode which blocks inbound connections) and a Tailscale ACL policy that had been customised for Docker container access on `amelai` with no rules permitting any traffic to the NAS. Also set up SSL certificates and SMB network drive mapping via Tailscale.
+
+### Work Completed
+- **Diagnosed Tailscale userspace mode** — `tailscale0` interface missing; `/dev/net/tun` had `crw-------` permissions, Tailscale package on DSM 7 deliberately skips TUN setup and falls back to userspace networking (cannot accept inbound)
+- **Fixed TUN permissions** — `chmod 0666 /dev/net/tun`, restarted Tailscale via `synopkg`, `tailscale0` interface created with correct Tailscale IP
+- **Identified ACL as root cause** — `tailscaled.stdout.log` showed `Drop: ... no rules matched` for all inbound packets from all devices; ACL had no rules for NAS (100.86.207.97)
+- **Fixed ACL** — added NAS rule in Tailscale admin console for ports 80, 443, 5000, 5001, 7001, 7002
+- **Added SMB to ACL** — added port 445 to enable network drive mapping
+- **Made TUN fix persistent** — DSM Task Scheduler boot-up task: `chmod 0666 /dev/net/tun` (root, boot-up event)
+- **SSL certificate** — generated via `tailscale cert irwinnas.tail926601.ts.net`, imported into DSM, assigned to services; `https://irwinnas.tail926601.ts.net` works with valid padlock
+- **Network drive mapped** — `\\100.86.207.97\<share>` mapped to `I:` on Lenovo; works inside and outside network via Tailscale
+
+### Files Changed
+- `it/Synology/Synology_Tailscale_TS.md` — created; full troubleshooting log, root cause analysis, resolution steps, SSL cert guide, SMB access guide, persistence fix
+
+### Key Decisions
+- Used Tailscale's built-in HTTPS certificate feature (via `tailscale cert`) rather than manual Let's Encrypt — simpler and zero renewal overhead
+- ACL kept specific (per-port) rather than allow-all, consistent with existing policy approach for Docker containers
+- TUN fix applied via Task Scheduler (not modifying Synology package scripts) — safer, survives package upgrades
+
+### Diagnostic Path
+1. Ping fails outside network → firewall investigated (not the cause — INPUT_FIREWALL has ACCEPT all)
+2. `tailscale0` missing → TUN permissions fixed → interface appeared
+3. `tcpdump -i tailscale0` showed zero inbound packets despite WireGuard traffic on `bond0`
+4. `tailscaled.stdout.log` revealed `no rules matched` — ACL was root cause all along
+
+### Next Actions
+- [ ] Test Tailscale remote access after a full NAS reboot (to verify Task Scheduler TUN fix works)
+- [ ] Consider certificate renewal process (Tailscale certs expire; re-run `tailscale cert` and re-import annually)
+
+---
+
 ## Session 2026-03-14 — HuggingFace Model Downloads & Qwen-Image-Edit Setup
 
 ### Summary
