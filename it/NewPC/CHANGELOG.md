@@ -2,6 +2,18 @@
 
 ---
 
+## [Unreleased] - 2026-03-22
+
+### Added
+- `New_PC_Builds.md` — personal Windows 11 PC build guide covering:
+  - Existing components (MSI MAG X870E Tomahawk WIFI, Samsung 9100 Pro 2TB, Viper Venom DDR5 32GB)
+  - Chosen build: Ryzen 7 9800X3D + RTX 5070 Ti 16GB + Corsair 4000D Airflow + be quiet! Power Zone 2 1000W + Arctic Liquid Freezer III 360 (~£1,395 total)
+  - Full component research with alternatives and rejected options documented
+  - Video editing via AI PC remote encoding section (DaVinci Resolve render queue, Adobe Media Encoder, Tailscale)
+  - Compatibility summary and pricing notes
+
+---
+
 ## [Unreleased] - 2026-03-19 (Late Evening)
 
 ### Changed

@@ -2,6 +2,43 @@
 
 ---
 
+## Session 2026-03-22
+
+### Summary
+Created `New_PC_Builds.md` — a comprehensive personal Windows 11 PC build guide to replace the user's Windows 10 machine. Used the gemini-researcher agent to research current UK market components, then iteratively refined all component choices through conversation. Final build centres on the Ryzen 7 9800X3D and RTX 5070 Ti for 1440p Minecraft Bedrock RTX, with video editing workloads offloadable to the existing AI PC via Tailscale.
+
+### Work Completed
+- Created `New_PC_Builds.md` with full component research, three build options, chosen configuration, and video editing via AI PC section
+- Researched and confirmed existing components (MSI MAG X870E Tomahawk WIFI, Samsung 9100 Pro 2TB, Viper Venom DDR5 32GB)
+- Confirmed NVIDIA-only requirement for Minecraft Bedrock RTX (DXR hardware implementation)
+- Evaluated RTX 5070 Ti vs 5070 — chose 5070 Ti for 256-bit memory bus advantage at 1440p RT
+- Evaluated Ryzen 9 9950X3D vs 9800X3D — chose 9800X3D (9950X3D gaming performance equal, extra cores not needed as AI PC handles heavy encoding)
+- Added remote video encoding section: DaVinci Resolve render queue + Adobe Media Encoder via Tailscale to dual RTX 3090 server
+- Upgraded PSU to be quiet! Power Zone 2 1000W (80+ Platinum, £149.99, verified on be quiet! website)
+- Upgraded CPU cooler from Arctic Liquid Freezer III 240 to 360 for quieter sustained operation
+
+### Files Changed
+- `it/NewPC/New_PC_Builds.md` — created; full personal Windows 11 PC build guide
+
+### Key Decisions
+- **Ryzen 7 9800X3D chosen over 9950X3D**: Gaming performance is equal; 9950X3D's 16 cores benefit video editing but heavy encoding offloaded to AI PC instead — £320 premium not justified
+- **RTX 5070 Ti chosen**: 256-bit memory bus (~896 GB/s) vs 5070's 192-bit (~672 GB/s) — tangible difference for 1440p Bedrock RTX path tracing
+- **1000W PSU**: ~520W headroom above expected peak load; future-proofs against GPU upgrades without PSU replacement
+- **360mm AIO over 240mm**: Runs fans slower for same heat dissipation — quieter sustained operation; consistent with be quiet! PSU noise philosophy
+- **Remote encoding strategy**: RTX 5070 Ti NVENC handles most exports locally; dual RTX 3090s on AI PC available for heavy/concurrent jobs via DaVinci Resolve render queue over Tailscale
+
+### Reference Documents
+- `it/NewPC/New_PC_Builds.md` — primary output document
+- be quiet! Power Zone 2 1000W verified at `https://www.bequiet.com/en/powersupply/5899` (£149.99, March 2026)
+
+### Next Actions
+- [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
+- [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case (radiator clearance)
+- [ ] Confirm Ryzen 7 9800X3D UK street price and retailer availability
+- [ ] Consider monitor research (1440p, high refresh rate to complement the build)
+
+---
+
 ## Session 2026-03-19 (Late Evening)
 
 ### Summary

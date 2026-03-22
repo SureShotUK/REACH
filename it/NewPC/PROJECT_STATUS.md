@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-19 (Evening)
+**Last Updated**: 2026-03-22
 
 ---
 
@@ -34,6 +34,7 @@ Server (`amelai`) is fully operational. Full 5-epoch Qwen-Image-Edit LoRA traini
 
 ## Recently Completed
 
+- Created `New_PC_Builds.md` — personal Windows 11 PC build guide (Ryzen 7 9800X3D, RTX 5070 Ti, be quiet! Power Zone 2 1000W, Arctic Liquid Freezer III 360, Corsair 4000D Airflow)
 - Diagnosed and fixed persistent LoRA training OOM — root cause was checkpoint save memory spike (41 GB → 87 GB). Fixed with 32 GB swap + `pin_memory: false`
 - Confirmed training pipeline working end-to-end (`epoch-0.safetensors` produced in test)
 - Created `LoRAMemoryFixes.md` — complete diagnosis, fixes, and speed optimisation guide
@@ -58,6 +59,7 @@ Server (`amelai`) is fully operational. Full 5-epoch Qwen-Image-Edit LoRA traini
 |---|---|
 | `Final_Build.md` | Complete hardware specification — authoritative system spec reference |
 | `Software_Setup.md` | Complete server setup guide — OS through full AI stack |
+| `New_PC_Builds.md` | Personal Windows 11 PC build guide — component research and chosen configuration |
 | `Model_and_LoRA_Creation.md` | Training guide — FLUX character LoRA, LLM fine-tuning, and Qwen-Image-Edit LoRA |
 | `MultiFileModels.md` | HuggingFace diffusers multi-file model format explained |
 | `Tailscale.md` | Tailscale commands, port forwarding, troubleshooting, Docker binding strategy |
