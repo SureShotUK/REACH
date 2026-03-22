@@ -335,6 +335,28 @@ Based on parent CLAUDE.md files, maintain:
 - Authoritative source citation
 - Verification of all external references
 
+## Personal Windows 11 PC Build
+
+A second build document (`New_PC_Builds.md`) covers a personal Windows 11 desktop to replace the user's Windows 10 machine — entirely separate from the AI server (amelai).
+
+**Use case**: Minecraft Bedrock RTX at 1440p, web browsing, Tailscale-connected to the AI PC for remote encoding.
+
+**Existing components (already owned):**
+- Motherboard: MSI MAG X870E Tomahawk WIFI (AM5, PCIe 5.0, DDR5)
+- Storage: Samsung 9100 Pro NVMe 2TB
+- RAM: Viper Venom DDR5 2x16GB 6000MT/s (32GB, EXPO profile)
+
+**Chosen build (new parts, ~£1,395):**
+- CPU: Ryzen 7 9800X3D — chosen over 9950X3D (gaming performance equal; extra cores not needed as heavy encoding offloaded to AI PC)
+- GPU: RTX 5070 Ti 16GB — NVIDIA required for Minecraft Bedrock RTX; 256-bit memory bus suits 1440p RT workload
+- Case: Corsair 4000D Airflow
+- PSU: be quiet! Power Zone 2 1000W (80+ Platinum, £149.99 verified March 2026)
+- Cooler: Arctic Liquid Freezer III 360 (360mm AIO chosen over 240mm for quieter sustained operation)
+
+**Key document**: `New_PC_Builds.md` — full component research, rejected options with reasoning, and video editing via AI PC remote encoding section.
+
+---
+
 ## Success Criteria
 
 This project will be successful when we have:
