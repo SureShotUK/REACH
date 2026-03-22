@@ -2,6 +2,18 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-03-22 — Synology NAS SMB & Win10 Tailscale Fix
+
+### Fixed
+- DSM firewall blocking LAN SMB access (`\\192.168.1.216\`) — firewall rule order issue from Tailscale session; fixed with explicit allow rule for `192.168.1.0/24` at top of rule list
+- ProtonVPN + Tailscale WireGuard conflict on Win10 — ProtonVPN intercepting 100.x.x.x traffic causing "General failure"; fixed with ProtonVPN split tunneling exclusion `100.64.0.0/10`
+- NAS hostname resolution broken on Win10 — ProtonVPN DNS override (`10.2.0.1`) doesn't know local hostnames; fixed with hosts file entry `192.168.1.216 irwinnas`
+
+### Documentation
+- `it/Synology/Synology_Tailscale_TS - Copy.md` — added "Troubleshooting — Windows SMB Access Issues" section with three new troubleshooting entries: DSM firewall LAN issue, ProtonVPN/Tailscale WireGuard conflict, and ProtonVPN DNS override
+
+---
+
 ## [Unreleased] - 2026-03-19 — Synology Tailscale Remote Access
 
 ### Added

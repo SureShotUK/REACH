@@ -4,6 +4,40 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-03-22 — Synology NAS SMB Access & Win10 Tailscale Fix
+
+### Summary
+Resolved three SMB access issues that arose after Tailscale was installed on the NAS in the previous session. Fixed DSM firewall blocking LAN access, diagnosed and resolved a ProtonVPN + Tailscale WireGuard conflict on a Windows 10 PC, and fixed NAS hostname resolution being broken by ProtonVPN's DNS override.
+
+### Work Completed
+- **Fixed local IP SMB access (`\\192.168.1.216\`)** — DSM firewall rule changes from the Tailscale session altered rule evaluation order, blocking LAN port 445. Fixed by adding explicit Allow rule for `192.168.1.0/24` at the top of the DSM firewall rule list.
+- **Diagnosed Win10 Tailscale failure** — `tailscale ping` worked via DERP relay but regular `ping` gave "General failure"; `Get-NetAdapter` revealed **ProtonVPN** running as a WireGuard tunnel (`Up`) alongside Tailscale, intercepting 100.x.x.x traffic.
+- **Fixed ProtonVPN + Tailscale conflict** — configured ProtonVPN split tunneling to exclude `100.64.0.0/10`; both VPNs now coexist. Win10 can now reach NAS via Tailscale IP.
+- **Fixed NAS hostname resolution on Win10** — `nslookup irwinnas` showed DNS server `10.2.0.1` (ProtonVPN's internal DNS), which doesn't know local hostnames. Fixed by adding `192.168.1.216 irwinnas` to `C:\Windows\System32\drivers\etc\hosts`.
+- **Updated documentation** — added full troubleshooting guide for all three issues to `Synology_Tailscale_TS - Copy.md`.
+
+### Files Changed
+- `it/Synology/Synology_Tailscale_TS - Copy.md` — added "Troubleshooting — Windows SMB Access Issues" section covering all three issues with diagnosis steps and fixes
+
+### Key Decisions
+- Hosts file chosen over ProtonVPN Custom DNS for hostname fix — simpler, zero downside, works regardless of VPN state
+- ProtonVPN split tunneling (exclude `100.64.0.0/10`) preferred over disconnecting ProtonVPN — allows both VPNs to coexist
+- DSM firewall fix via explicit allow rule rather than disabling firewall — maintains security posture
+
+### Diagnostic Path
+1. `ping 192.168.1.216` worked → network fine, SMB-specific issue → DSM firewall
+2. `ping 100.86.207.97` → "General failure" → not a timeout, adapter-level failure
+3. `tailscale ping 100.86.207.97` → worked via DERP → daemon OK, WinTun adapter broken
+4. `Get-NetAdapter` → ProtonVPN WireGuard tunnel `Up` → conflict identified
+5. Disconnect ProtonVPN → ping worked immediately → confirmed root cause
+6. `nslookup irwinnas` → `10.2.0.1` (ProtonVPN DNS) → hosts file fix applied
+
+### Next Actions
+- [ ] Test NAS access after full NAS reboot (verify DSM Task Scheduler TUN fix still works)
+- [ ] Consider ProtonVPN custom DNS (`192.168.1.1`) as alternative to hosts file if more devices need hostname access
+
+---
+
 ## Session 2026-03-19 — Synology DS920+ Tailscale Setup & Remote Access
 
 ### Summary

@@ -7,11 +7,12 @@
 
 ## Active Work Areas
 
-### Synology DS920+ — Tailscale Remote Access ✅ (Newly Resolved)
-- **Status**: Fully operational. All remote access working via Tailscale.
-- **Files**: `Synology/Synology_Tailscale_TS.md`
-- **Access**: Photos (`/photos`), Files (`/files`), DSM web UI, network drive (`I:`) all working via `irwinnas.tail926601.ts.net` or `100.86.207.97`
+### Synology DS920+ — Tailscale Remote Access ✅ (Fully Resolved)
+- **Status**: Fully operational. All access methods working on all devices.
+- **Files**: `Synology/Synology_Tailscale_TS.md`, `Synology/Synology_Tailscale_TS - Copy.md` (sanitised template)
+- **Access**: Photos (`/photos`), Files (`/files`), DSM web UI, network drive (`I:`) all working via local IP, Tailscale IP, tailnet hostname, and `irwinnas.tail926601.ts.net`
 - **SSL**: Valid certificate installed — no browser warnings on `https://irwinnas.tail926601.ts.net`
+- **Win10 note**: ProtonVPN requires split tunneling exclusion `100.64.0.0/10` to coexist with Tailscale; hostname `irwinnas` resolved via hosts file entry
 - **Pending**: Test remote access after full NAS reboot to verify TUN boot task works; annual cert renewal via `tailscale cert`
 
 ### IT Troubleshooting & Helpdesk - Proven System
