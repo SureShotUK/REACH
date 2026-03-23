@@ -2,6 +2,20 @@
 
 ---
 
+## [Unreleased] - 2026-03-23
+
+### Added
+- `SearXNG_Fix.md` — MCP web search troubleshooting log covering two root causes (missing Tailscale ACL port, stored auth credential), architecture overview, and quick reference commands
+
+### Fixed
+- Tailscale ACL updated to include port 3001 — MCP server now accessible from all tailnet devices
+- Stored Anthropic auth credential cleared (`claude auth logout`) — Ollama routing now works correctly
+- Open WebUI Ollama URL corrected from `https://` to `http://100.79.83.113:11434`
+- `hf-env` conda environment no longer auto-activates on SSH login to amelai
+- MCP re-registered as user-scoped — available in all Claude Code projects, not just NewPC
+
+---
+
 ## [Unreleased] - 2026-03-22
 
 ### Added

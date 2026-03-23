@@ -1,54 +1,42 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-22
+**Last Updated**: 2026-03-23
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. Full 5-epoch Qwen-Image-Edit LoRA training is running in tmux session `lora-training` after diagnosing and fixing persistent OOM failures. Training pipeline confirmed working — `epoch-0.safetensors` produced in test run. Expected to complete overnight (~6–8 hours with current settings).
+Server (`amelai`) is fully operational. MCP web search is now working from Windows 11 Claude Code and Open WebUI. All services running normally — ComfyUI containers restarted during session (were holding 40GB VRAM idle) and are back up.
 
 ## Service Status
 
 | Service | Container | Local | Tailscale | Status |
 |---|---|---|---|---|
-| Ollama | host process | `localhost:11434` | via Open WebUI | Stopped (training in progress) |
+| Ollama | host process | `http://192.168.1.192:11434` | via Open WebUI | Running |
 | Open WebUI | `open-webui` | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` | Running |
-| ComfyUI (Steve) | `comfyui` | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` | Stopped (training in progress) |
-| ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Stopped (training in progress) |
+| ComfyUI (Steve) | `comfyui` | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` | Running |
+| ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Running |
 | FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
-
-## Service Status
-
-| Service | Container | Local | Tailscale | Status |
-|---|---|---|---|---|
-| Ollama | host process | `localhost:11434` | via Open WebUI | Stopped (training in progress) |
-| Open WebUI | `open-webui` | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` | Running |
-| ComfyUI (Steve) | `comfyui` | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` | Stopped (training in progress) |
-| ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Stopped (training in progress) |
-| FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
+| MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
 
 ## Active Work Areas
 
-- **Qwen-Image-Edit LoRA Training**: Full 5-epoch run active in tmux session `lora-training`. Output: `~/DiffSynth-Studio/models/train/my_character_lora/epoch-N.safetensors`. ~6–8 hours with current settings (`pin_memory: false`, `--dataset_num_workers 0`).
+- No active long-running tasks.
 
 ## Recently Completed
 
+- Fixed MCP web search for Windows 11 Claude Code — two root causes: port 3001 missing from Tailscale ACL, and stored Anthropic credential overriding Ollama URL
+- Fixed Open WebUI Ollama connection (`https://` → `http://`)
+- Fixed `hf-env` auto-activation on SSH login (removed from `~/.bashrc`)
+- Re-registered MCP as user-scoped (works in all projects)
+- Created `SearXNG_Fix.md` — troubleshooting log and architecture reference
 - Created `New_PC_Builds.md` — personal Windows 11 PC build guide (Ryzen 7 9800X3D, RTX 5070 Ti, be quiet! Power Zone 2 1000W, Arctic Liquid Freezer III 360, Corsair 4000D Airflow)
-- Diagnosed and fixed persistent LoRA training OOM — root cause was checkpoint save memory spike (41 GB → 87 GB). Fixed with 32 GB swap + `pin_memory: false`
-- Confirmed training pipeline working end-to-end (`epoch-0.safetensors` produced in test)
-- Created `LoRAMemoryFixes.md` — complete diagnosis, fixes, and speed optimisation guide
-- Created `TMUX.md` — tmux reference guide
-- Created `Docker.md` — Docker admin guide with all service `docker run` commands
 
 ## Pending / Next Actions
 
-- [ ] Confirm full training completes — check `ls ~/DiffSynth-Studio/models/train/my_character_lora/`
-- [ ] Restart Docker + Ollama: `docker start comfyui comfyui-amelia && sudo systemctl start ollama`
-- [ ] Test each epoch LoRA in ComfyUI — copy to `/mnt/models/comfyui/loras/`
-- [ ] Try speed optimisations from `LoRAMemoryFixes.md` — restore `pin_memory: true` then `--dataset_num_workers 2`
-- [ ] Update `QwenImageEditTrainingLoRA.md` with memory fix requirements
-- [ ] Update `Model_and_LoRA_Creation.md` Workflow 3 — replace obsolete FP8+DDP with ZeRO-3 method
+- [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
+- [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case
+- [ ] Confirm Ryzen 7 9800X3D UK street price and retailer availability
 - [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
 - [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
 - [ ] Set static DHCP reservation on router for `192.168.1.192`
@@ -60,10 +48,10 @@ Server (`amelai`) is fully operational. Full 5-epoch Qwen-Image-Edit LoRA traini
 | `Final_Build.md` | Complete hardware specification — authoritative system spec reference |
 | `Software_Setup.md` | Complete server setup guide — OS through full AI stack |
 | `New_PC_Builds.md` | Personal Windows 11 PC build guide — component research and chosen configuration |
+| `LoadClientClaude.md` | Windows client setup — Ollama env vars, MCP registration, CLAUDE.md config |
+| `SearXNG_Fix.md` | MCP web search troubleshooting log — root causes and fix reference |
 | `Model_and_LoRA_Creation.md` | Training guide — FLUX character LoRA, LLM fine-tuning, and Qwen-Image-Edit LoRA |
-| `MultiFileModels.md` | HuggingFace diffusers multi-file model format explained |
 | `Tailscale.md` | Tailscale commands, port forwarding, troubleshooting, Docker binding strategy |
-| `HuggingFace.md` | Model download guide and Amelia instance sharing |
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
 | `CLAUDE.md` | Project-specific guidance for this directory |
 

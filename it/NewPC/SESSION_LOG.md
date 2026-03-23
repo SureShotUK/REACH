@@ -2,6 +2,39 @@
 
 ---
 
+## Session 2026-03-23
+
+### Summary
+Diagnosed and resolved SearXNG MCP web search not working in Claude Code on Windows 11. Two root causes found: port 3001 missing from the Tailscale ACL, and a stored Anthropic auth credential overriding the Ollama environment variables. Also investigated `hf-env` auto-activation on SSH login and resolved Open WebUI's Ollama connection error.
+
+### Work Completed
+- Identified MCP server (`mcp-searxng.service`) was running correctly on amelai — server-side was healthy throughout
+- Added port 3001 to Tailscale ACL at admin.tailscale.com (`src: ["*"]` rule)
+- Cleared stored Anthropic auth credential with `claude auth logout` — this was overriding `ANTHROPIC_BASE_URL` and routing requests to the real Anthropic API
+- Re-registered MCP as user-scoped (`--scope user`) so it works in all projects, not just NewPC
+- Fixed `hf-env` auto-activation by commenting out `conda activate hf-env` in `~/.bashrc` on amelai
+- Fixed Open WebUI Ollama connection error — URL changed from `https://` to `http://100.79.83.113:11434` in Admin Panel → Settings → Connections
+- Confirmed web search working in both Claude Code and Open WebUI
+- Created `SearXNG_Fix.md` — full troubleshooting log and architecture reference
+
+### Files Changed
+- `it/NewPC/SearXNG_Fix.md` — created; full troubleshooting log documenting both root causes, misleading `Test-NetConnection` behaviour, and verification steps
+
+### Key Decisions
+- **Port 3001 added to `src: ["*"]` ACL rule** (not restricted to 3 IPs) — allows daughter's PC and any future tailnet device to use MCP web search
+- **`Test-NetConnection` is unreliable** for Tailscale connectivity testing in this environment — TCP showed as failed on all ports (22, 443, 3001, 11434) even when connections were working. Use SSH or application-level tests instead.
+
+### Reference Documents
+- `it/NewPC/SearXNG_Fix.md` — MCP/SearXNG troubleshooting log
+- `it/NewPC/LoadClientClaude.md` — Windows client setup guide (referenced throughout)
+
+### Next Actions
+- [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
+- [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case
+- [ ] Confirm Ryzen 7 9800X3D UK street price and retailer availability
+
+---
+
 ## Session 2026-03-22
 
 ### Summary
