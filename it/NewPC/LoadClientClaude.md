@@ -268,12 +268,35 @@ These tools are provided by the MCP server and available in every session:
 - If connected but not auto-invoking, use explicit call: `Call the web_search tool with query "..."`
 - For reliable auto-invocation use `qwen3.5:27b` rather than coding-focused models
 
-**Auth conflict warning at startup**
-Run once to clear the stored Anthropic login:
+**Auth conflict warning at startup / model not loading into VRAM / "API Usage Billing" shown**
+
+These symptoms all indicate a stored Anthropic login credential is overriding `ANTHROPIC_BASE_URL`,
+routing requests to the real Anthropic API instead of Ollama. Run once to clear it:
 ```powershell
 claude auth logout
 ```
-Then relaunch — the environment variable handles authentication.
+Then relaunch — the environment variable handles authentication. When routing to Ollama correctly,
+the header will show the model name without "API Usage Billing".
+
+**`Test-NetConnection` gives false negatives for Tailscale ports**
+
+`Test-NetConnection` reports TCP failures on all Tailscale ports even when connectivity is working.
+Do not use it to test Tailscale reachability — it is unreliable in this environment.
+
+Use these instead:
+```powershell
+# Test basic Tailscale connectivity
+tailscale ping 100.79.83.113
+
+# Test a specific service is actually responding
+ssh steve@100.79.83.113
+```
+
+Or test the MCP server directly from the AI server:
+```bash
+curl -v --max-time 3 http://100.79.83.113:3001/sse
+# Expect: HTTP/1.1 200 OK with SSE stream
+```
 
 **Updating the GitHub Personal Access Token (when it expires)**
 
