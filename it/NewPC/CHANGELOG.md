@@ -2,6 +2,25 @@
 
 ---
 
+## [Unreleased] - 2026-03-24
+
+### Added
+- `Linux_Troubleshooting.md` — server reliability reference guide covering:
+  - Post-crash log analysis using journalctl (boot-scoped, OOM, kernel errors, NVIDIA XID codes)
+  - Issue 2: Intel igc NIC PCIe ASPM fix — `pcie_aspm=off` kernel boot parameter
+  - Issue 3: Ollama OOM kills — ComfyUI VRAM contention diagnosis and fix (bookmarklet + cron)
+  - VRAM budget reference table for amelai models
+
+### Fixed
+- Intel igc NIC (`ethernet10g`) dropping off PCIe bus — `pcie_aspm=off` added to `GRUB_CMDLINE_LINUX_DEFAULT`; PCIe ASPM disabled system-wide on kernel 6.17
+- Ollama OOM kill loop — ComfyUI VRAM free bookmarklet created; nightly 2am cron restarts added for both ComfyUI containers
+
+### Documentation
+- Documented that `igc` module has no `aspm_disable` parameter on kernel 6.17 — GRUB parameter is the only reliable fix
+- Documented ComfyUI `/free` endpoint behaviour (empty response body — do not use `.json()`, use `.ok` status check)
+
+---
+
 ## [Unreleased] - 2026-03-23
 
 ### Added

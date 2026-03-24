@@ -1,12 +1,12 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-23
+**Last Updated**: 2026-03-24
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. MCP web search is now working from Windows 11 Claude Code and Open WebUI. All services running normally — ComfyUI containers restarted during session (were holding 40GB VRAM idle) and are back up.
+Server (`amelai`) is fully operational after two reliability fixes applied today: NIC PCIe ASPM disabled (prevents igc link loss), and ComfyUI VRAM management improved (bookmarklet + nightly cron restart). All services running normally.
 
 ## Service Status
 
@@ -21,19 +21,20 @@ Server (`amelai`) is fully operational. MCP web search is now working from Windo
 
 ## Active Work Areas
 
-- No active long-running tasks.
+- Monitoring NIC stability after `pcie_aspm=off` fix
 
 ## Recently Completed
 
-- Fixed MCP web search for Windows 11 Claude Code — two root causes: port 3001 missing from Tailscale ACL, and stored Anthropic credential overriding Ollama URL
-- Fixed Open WebUI Ollama connection (`https://` → `http://`)
-- Fixed `hf-env` auto-activation on SSH login (removed from `~/.bashrc`)
-- Re-registered MCP as user-scoped (works in all projects)
-- Created `SearXNG_Fix.md` — troubleshooting log and architecture reference
-- Created `New_PC_Builds.md` — personal Windows 11 PC build guide (Ryzen 7 9800X3D, RTX 5070 Ti, be quiet! Power Zone 2 1000W, Arctic Liquid Freezer III 360, Corsair 4000D Airflow)
+- Fixed NIC dropping off PCIe bus (`igc PCIe link lost`) — `pcie_aspm=off` added to GRUB kernel parameters
+- Fixed Ollama OOM kills — ComfyUI VRAM hoarding identified as root cause (28.4GB held overnight); browser bookmarklet and nightly cron restart added
+- Created `Linux_Troubleshooting.md` — reference guide for server crash diagnosis and fixes
+- Fixed MCP web search, Open WebUI Ollama connection, hf-env auto-activation
+- Created `New_PC_Builds.md` — personal Windows 11 PC build guide
 
 ## Pending / Next Actions
 
+- [ ] Monitor NIC stability over coming days — confirm `pcie_aspm=off` holds
+- [ ] Address `systemd-networkd-wait-online` timeouts (WiFi adapter wlp11s0 — known ASUS X870E Linux issue)
 - [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
 - [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case
 - [ ] Confirm Ryzen 7 9800X3D UK street price and retailer availability

@@ -2,6 +2,44 @@
 
 ---
 
+## Session 2026-03-24
+
+### Summary
+Diagnosed and resolved two reliability issues on amelai: (1) the Intel igc NIC dropping off the PCIe bus due to ASPM, causing SSH/Tailscale unreachability for ~5 hours; (2) Ollama being OOM-killed repeatedly due to ComfyUI holding 28.4GB VRAM overnight, leaving insufficient VRAM for qwen3.5:35b to load. Both issues are now fixed and documented in a new Linux troubleshooting reference guide.
+
+### Work Completed
+- Diagnosed NIC failure from journald logs: `igc PCIe link lost, device now detached` at 10:21:38
+- Confirmed system was running throughout — the NIC died, not the OS
+- Attempted `igc aspm_disable=1` module parameter — confirmed not supported on kernel 6.17
+- Applied correct fix: `pcie_aspm=off` kernel boot parameter via GRUB
+- Verified fix: `PCIe ASPM is disabled` confirmed in kernel log, NIC stable post-reboot
+- Identified Ollama OOM kills from Mar 23 (4 kills in 7 min, ~40GB anon-rss each)
+- Root cause: ComfyUI holding 28.4GB VRAM (Qwen-Rapid-AIO-NSFW-v23) left only 19.6GB free — insufficient for qwen3.5:35b (~26-28GB)
+- Created browser bookmarklet to call ComfyUI `/free` API endpoint to unload VRAM on demand
+- Added cron jobs to restart both ComfyUI containers at 2am nightly as safety net
+- Created `Linux_Troubleshooting.md` — comprehensive reference covering log analysis, NIC PCIe ASPM fix, and Ollama/ComfyUI VRAM contention
+
+### Files Changed
+- `it/NewPC/Linux_Troubleshooting.md` — created; three issues documented: SSH crash triage guide, igc PCIe ASPM fix, Ollama OOM/ComfyUI VRAM contention fix
+
+### Key Decisions
+- **`pcie_aspm=off` system-wide** (not device-specific) — `igc` module has no `aspm_disable` parameter on kernel 6.17; GRUB parameter is the only reliable approach. Power impact negligible on an AI server under load.
+- **ComfyUI VRAM budget awareness** — Qwen-Rapid-AIO-NSFW-v23 at 28.4GB effectively blocks all large Ollama models. Must free VRAM between sessions.
+- **Bookmarklet approach** for ComfyUI VRAM free — uses relative `/free` URL so works on both ComfyUI instances from the active browser tab. `.json()` must not be used (endpoint returns empty body); use `.ok` status check instead.
+- **Cron restart at 2am** as safety net — ensures VRAM is always free by morning even if bookmarklet is forgotten.
+
+### Reference Documents
+- `it/NewPC/Linux_Troubleshooting.md` — new troubleshooting reference guide
+
+### Next Actions
+- [ ] Monitor NIC stability over coming days — confirm `pcie_aspm=off` holds
+- [ ] Address `systemd-networkd-wait-online` timeout warnings (WiFi adapter wlp11s0 — known ASUS X870E Linux issue)
+- [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
+- [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case
+- [ ] Confirm Ryzen 7 9800X3D UK street price and retailer availability
+
+---
+
 ## Session 2026-03-23
 
 ### Summary
