@@ -2,6 +2,17 @@
 
 ---
 
+## [Unreleased] - 2026-03-24 (2)
+
+### Added
+- `FileWriter.py` — Open WebUI Tool class; gives models genuine filesystem write capability to `/mnt/uploads` (host: `/home/steve/rag-output`); includes path traversal protection
+
+### Documentation
+- Confirmed `/mnt/uploads` bind mount already present in Open WebUI container from prior setup — maps to `/home/steve/rag-output`
+- Documented symlink behaviour: `it/.claude/commands/end-session.md` is a symlink; actual file is at `terminai/.claude/commands/end-session.md`
+
+---
+
 ## [Unreleased] - 2026-03-24
 
 ### Added

@@ -2,6 +2,31 @@
 
 ---
 
+## Session 2026-03-24 (2)
+
+### Summary
+Investigated symlink behaviour for `.claude/commands/` files on Windows and clarified that they cannot be opened by Windows apps. Diagnosed and resolved an Ollama file-writing hallucination — confirmed `/mnt/uploads` was already mounted in the Open WebUI container (mapped to `/home/steve/rag-output`). Created a Python FileWriter tool for Open WebUI that gives models genuine filesystem write capability, accessible immediately via FileBrowser.
+
+### Work Completed
+- Explained that `it/.claude/commands/end-session.md` is a symlink — real file is at `terminai/.claude/commands/end-session.md`
+- Diagnosed model hallucination: Ollama/Open WebUI has no built-in filesystem write capability — model was fabricating write confirmations
+- Confirmed `/mnt/uploads` already mounted in Open WebUI container via `docker inspect` (maps to `/home/steve/rag-output`)
+- Created `FileWriter.py` — Open WebUI Tool function for genuine file writes with path traversal protection
+- Confirmed FileBrowser already has access to `rag-output`, so written files are immediately browsable
+
+### Files Changed
+- `it/NewPC/FileWriter.py` — created; Open WebUI Tool class for writing files to `/mnt/uploads`
+
+### Key Decisions
+- **No container recreation needed** — `/mnt/uploads` bind mount already existed from prior setup
+- **`/home/steve/rag-output`** is the host-side path for files written by the model
+- **Path traversal protection** via `os.path.basename()` — strips any directory components from the filename parameter
+
+### Next Actions
+- [ ] Test FileWriter tool end-to-end — ask model to write a file and verify it appears in FileBrowser
+
+---
+
 ## Session 2026-03-24
 
 ### Summary

@@ -6,7 +6,7 @@
 
 ## Current State
 
-Server (`amelai`) is fully operational after two reliability fixes applied today: NIC PCIe ASPM disabled (prevents igc link loss), and ComfyUI VRAM management improved (bookmarklet + nightly cron restart). All services running normally.
+Server (`amelai`) is fully operational. Open WebUI models now have genuine filesystem write capability via the FileWriter tool — files are written to `/home/steve/rag-output/` and immediately accessible in FileBrowser.
 
 ## Service Status
 
@@ -25,6 +25,7 @@ Server (`amelai`) is fully operational after two reliability fixes applied today
 
 ## Recently Completed
 
+- Created Open WebUI FileWriter tool — models can now genuinely write files to `/home/steve/rag-output/`; accessible via FileBrowser
 - Fixed NIC dropping off PCIe bus (`igc PCIe link lost`) — `pcie_aspm=off` added to GRUB kernel parameters
 - Fixed Ollama OOM kills — ComfyUI VRAM hoarding identified as root cause (28.4GB held overnight); browser bookmarklet and nightly cron restart added
 - Created `Linux_Troubleshooting.md` — reference guide for server crash diagnosis and fixes
@@ -33,6 +34,7 @@ Server (`amelai`) is fully operational after two reliability fixes applied today
 
 ## Pending / Next Actions
 
+- [ ] Test FileWriter tool end-to-end — ask model to write a file, verify it appears in FileBrowser
 - [ ] Monitor NIC stability over coming days — confirm `pcie_aspm=off` holds
 - [ ] Address `systemd-networkd-wait-online` timeouts (WiFi adapter wlp11s0 — known ASUS X870E Linux issue)
 - [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
@@ -54,6 +56,7 @@ Server (`amelai`) is fully operational after two reliability fixes applied today
 | `Model_and_LoRA_Creation.md` | Training guide — FLUX character LoRA, LLM fine-tuning, and Qwen-Image-Edit LoRA |
 | `Tailscale.md` | Tailscale commands, port forwarding, troubleshooting, Docker binding strategy |
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
+| `FileWriter.py` | Open WebUI Tool — paste into Workspace → Tools to give models file write capability |
 | `CLAUDE.md` | Project-specific guidance for this directory |
 
 ## Hardware
