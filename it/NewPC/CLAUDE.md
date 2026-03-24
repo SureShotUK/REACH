@@ -18,6 +18,7 @@ This file provides project-specific guidance to Claude Code when working on the 
 Do not rely on memory or assumptions about the system specs — read these files as needed to ensure accuracy.
 
 **Current system summary** (for quick reference — see source files for full details):
+- **Motherboard**: ASUS ProArt X870E-CREATOR WIFI (AM5, X870E chipset)
 - **GPU**: 2x Asus TUF RTX 3090 24GB (48GB VRAM total, NVLink 112.5 GB/s)
 - **CPU**: AMD Ryzen 9 7900X (12-core, Zen 4)
 - **RAM**: 64GB DDR5-6000
@@ -262,6 +263,30 @@ Source: `Comfy-Org/Wan_2.2_ComfyUI_Repackaged` on Hugging Face
 
 ### FLUX LoRA node behaviour
 The Load LoRA node in FLUX workflows has a **single model input/output** (no CLIP passthrough). Insert it between the checkpoint loader and KSampler. Recommended starting strength: 0.8.
+
+### VRAM Usage and Ollama Contention (CRITICAL)
+
+**ComfyUI holds models in VRAM indefinitely** — it does not unload on idle or when the browser tab is closed. Any model loaded during a session remains in VRAM until the container is restarted or the `/free` API is called.
+
+With 48GB total VRAM, large ComfyUI models leave insufficient headroom for large Ollama models:
+
+| Model | VRAM |
+|---|---|
+| Qwen-Rapid-AIO-NSFW-v23 (ComfyUI image) | 28.4GB |
+| Wan2.2 video (ComfyUI video) | ~20-25GB |
+| FLUX.1 dev fp8 (ComfyUI image) | ~10GB |
+| qwen3.5:35b (Ollama) | ~26-28GB |
+| qwen3.5:27b (Ollama) | ~20-22GB |
+| devstral (Ollama) | ~14GB |
+
+**Real incident (2026-03-23)**: Qwen-Rapid-AIO-NSFW-v23 left loaded overnight (28.4GB) → only 19.6GB VRAM free → qwen3.5:35b couldn't load → fell back to 40GB system RAM → OOM killed 4 times.
+
+**To free ComfyUI VRAM after a session**, use the browser bookmarklet (saved in Edge Favourites as "Free ComfyUI VRAM") while on the ComfyUI tab:
+```
+javascript:fetch('/free',{method:'POST',headers:{'Content-Type':'application/json'},body:'{"unload_models":true,"free_memory":true}'}).then(r=>{if(r.ok){alert('VRAM freed!')}else{alert('Failed: HTTP '+r.status)}}).catch(e=>alert('Error: '+e))
+```
+
+A nightly cron at 2am also restarts both ComfyUI containers as a safety net.
 
 ---
 
