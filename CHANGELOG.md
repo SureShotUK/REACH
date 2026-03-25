@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-03-25
+
+### Added
+- **`Iran_War_Timeline.md`** — comprehensive chronological timeline of the 2026 Iran war:
+  - ~80 individual events from June 2025 (Twelve-Day War precursor) through 25 March 2026 (Day 26)
+  - 12 parts: precursor, interwar, lead-up, Days 1–26 of Operation Epic Fury, cumulative casualty summary
+  - Key events covered: Operation Epic Fury begins (28 Feb), Khamenei assassinated, Minab school strike, Strait of Hormuz shipping suspension, Mojtaba Khamenei elected Supreme Leader (8 March), Larijani killed, South Pars gas field struck, Natanz second strike, Diego Garcia missile attempt, Trump 48-hour ultimatum, 15-point peace plan, Iran's 5-condition rejection
+  - All sources cited with verified HTML anchor links (`target="_blank"`)
+  - Cumulative casualty/damage table and Key Sources index
+- **`Iran_War_2026_Timeline.md`** — duplicate of timeline retained per user request
+
+### Fixed (Iran_War_Timeline.md fact-check corrections)
+- 2 March Hormuz claim rewritten: source described shipping company suspensions, not IRGC closure declaration
+- 4 March "Brent crude $120" entry removed: source was 9 March article; figures didn't match; no formal Strait closure on this date
+- 7 March Israeli civilian deaths: corrected 12→11 per cited Al Jazeera source
+- 7 March "unconditional surrender" source: replaced CNBC 20 March with Al Jazeera 7 March
+- 8 March oil price: Brent topped $119 on 8 March (Sunday), not 1 March; ~50% rise since 28 Feb; pulled back to ~$110 by 9 March
+- 9 March Khamenei first statement: moved to 12 March (statement read on Press TV on 12 March per Al Jazeera source)
+- 10 March Gulf oil production source: replaced CNBC 2 March Hormuz article (wrong topic) with Wikipedia
+- 12 March Moroccan contractor: removed from 12 March; re-added under 24 March per Al Jazeera tracker
+- 18 March Ras Laffan: reworded from "Iran retaliates on" to "Iran threatens to strike" (source describes a threat only)
+- 21 March Dimona injuries: corrected 78→64 per Al Jazeera source
+- 21 March FDD 5 March source removed: was about first Natanz strike, not the 21 March second strike
+- 24 March Lebanon displaced: corrected 1 million→1.2 million per Al Jazeera source
+- 25 March Hormuz "partial reopening" entry removed: cited source reports 2,000+ vessels still stranded
+- Two `npm.org` URL typos corrected to `npr.org`
+- 82nd Airborne source corrected from Al Jazeera 25 March to Al Jazeera 23 March liveblog
+- Washington Post link description corrected (was mislabelled "Trump declares war won")
+
+---
+
 ## [Unreleased] - 2026-03-02
 
 ### Added

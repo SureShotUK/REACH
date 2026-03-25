@@ -1,13 +1,19 @@
 # Project Status
 
-**Last Updated**: 2026-03-02
+**Last Updated**: 2026-03-25
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
-The terminai repository contains seven specialized project folders: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the Maintenance project (maintenance admin system for a UK manufacturing/engineering business). A new Portland Fuel internal briefing paper (`Epic_Fury.md`) has been produced covering Operation Epic Fury (joint US-Israeli strikes on Iran, 28 Feb 2026) and its global energy market implications, with full citations from EIA, IEA, CSIS, and live news sources.
+The terminai repository contains seven specialized project folders, plus a new standalone Iran War Timeline document. A comprehensive 2026 Iran war chronological timeline (`Iran_War_Timeline.md`) has been created covering June 2025 through 25 March 2026, with ~80 sourced events, fact-checked against live source URLs.: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the Maintenance project (maintenance admin system for a UK manufacturing/engineering business). A new Portland Fuel internal briefing paper (`Epic_Fury.md`) has been produced covering Operation Epic Fury (joint US-Israeli strikes on Iran, 28 Feb 2026) and its global energy market implications, with full citations from EIA, IEA, CSIS, and live news sources.
 
 ## Active Work Areas
+- **Iran War Timeline**: CREATED & FACT-CHECKED (2026-03-25)
+  - `Iran_War_Timeline.md` — ~80 sourced events, June 2025–25 March 2026; HTML links with target="_blank"
+  - `Iran_War_2026_Timeline.md` — duplicate retained per user request
+  - **Monitor**: Conflict ongoing; timeline needs periodic updating as events develop
+  - **Outstanding**: Ras Laffan strike (18 March) needs verification; $126/barrel peak needs accessible source
+
 - **Operation Epic Fury Briefing — Portland Fuel**: COMPLETED (2026-03-02)
   - `Epic_Fury.md` — internal briefing paper on US-Israeli military strikes on Iran (28 Feb 2026)
   - Covers: operation overview, targets, Iran's response, international reactions, current situation
@@ -128,6 +134,11 @@ The terminai repository contains seven specialized project folders: HSEEA (healt
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Iran War Timeline Created & Fact-Checked** (2026-03-25):
+  - `Iran_War_Timeline.md` built using gemini-researcher agent (multi-source research + source-by-source fact-check)
+  - 22+ corrections applied: wrong-date sources, unsupported claims, factual inaccuracies, URL typos
+  - Key fixes: Hormuz closure claim (2 March), Khamenei first statement date (9→12 March), Dimona injuries (78→64), Brent $119 date (1 March→8 March), Lebanon displaced (1M→1.2M)
+
 - **Operation Epic Fury Briefing Created** (2026-03-02) — Portland Fuel internal briefing paper:
   - Researched and produced `Epic_Fury.md` covering joint US-Israeli strikes on Iran (launched 28 Feb 2026)
   - Six energy statistics compiled with full EIA/IEA citations (Iran production, ME total, top 15 global, ME refining, Hormuz transit, global consumption)

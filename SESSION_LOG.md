@@ -4,6 +4,69 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-03-25
+
+### Summary
+Built a comprehensive chronological timeline of the 2026 Iran war (`Iran_War_Timeline.md`) covering June 2025 (Twelve-Day War precursor) through 25 March 2026 (Day 26). The gemini-researcher agent was used to research ~80 individual events across multiple news sources. A thorough source-by-source fact-check was then conducted, identifying and correcting 22+ errors including wrong dates on sources, unsupported claims, factual inaccuracies, and URL typos.
+
+### Work Completed
+- **Created `Iran_War_Timeline.md`** — comprehensive 2026 Iran war timeline (918+ lines):
+  - 12 parts: June 2025 Twelve-Day War precursor through 25 March 2026 (Day 26)
+  - ~80 individual events with dates, times where available, descriptions, and sourced HTML links
+  - Sources: Al Jazeera, NPR, Wikipedia, CNN, CNBC, NBC News, ABC News, Bloomberg, Axios, Washington Post, Time, Stars and Stripes, UN Press, Alma Research, Hengaw NGO, Amnesty International, USNI News, OPB, Critical Threats
+  - All hyperlinks in HTML `<a href="..." target="_blank">` format per project standards
+  - Cumulative casualty/damage summary table (Part 12) and Key Sources index
+- **Created `Iran_War_2026_Timeline.md`** — duplicate kept per user request (identical content)
+- **Fact-checked all sources from 28 February onwards** using gemini-researcher agent (70 tool uses, 91k tokens):
+  - Fetched every source URL; verified article date vs. attributed event date; verified claim against article content
+  - Identified 22 specific corrections across: wrong-date sources, unsupported claims, factual inaccuracies, URL typos
+
+### Key Corrections Made
+- `2 March` — Hormuz entry rewritten: CNBC source described shipping companies *voluntarily suspending*, not IRGC declaring official closure
+- `4 March` — Entire "Brent crude $120/Hormuz closure" entry removed: source was Al Jazeera 9 March article; figures ($119, ~50% rise) didn't match the claim ($120, 85% rise)
+- `7 March` — Israeli civilian deaths corrected: 11 not 12 (per cited Al Jazeera source)
+- `7 March` — "Unconditional surrender" source corrected: was CNBC 20 March (wrong article); replaced with Al Jazeera 7 March
+- `8 March` — Oil: clarified Brent topped $119 on Sunday 8 March (not 1 March); ~50% rise since 28 Feb; dropped to ~$110 by 9 March
+- `8 March` — Khamenei election clarified: vote 8 March, official announcement 9 March
+- `9 March` — "Khamenei first statement" moved to **12 March** (Al Jazeera source is dated 12 March; statement read on Press TV that day)
+- `8–9 March` — Baghdad embassy entry date range adjusted (cited source is 8 March Alma report)
+- `10 March` — Gulf oil production source corrected from CNBC 2 March (Hormuz shipping article) to Wikipedia
+- `12 March` — Moroccan contractor entry removed from 12 March; added under **24 March** (UAE confirmation per Al Jazeera tracker)
+- `18 March` — Ras Laffan reworded: "Iran retaliates on" → "Iran threatens to strike" (Al Jazeera source describes a threat, not a confirmed strike)
+- `21 March` — Dimona injuries corrected: 64 (not 78) per Al Jazeera source
+- `21 March` — FDD 5 March source removed (analysis of first Natanz strike, not the second 21 March strike)
+- `24 March` — Lebanon displaced corrected: 1.2 million (not 1 million) per Al Jazeera source
+- `25 March` — "Strait partially reopened" entry removed (cited Al Jazeera source explicitly states 2,000+ vessels still stranded — claim unsupported)
+- Two `npm.org` URL typos corrected to `npr.org`
+- 82nd Airborne source corrected from Al Jazeera 25 March to Al Jazeera 23 March liveblog
+- Amnesty source annotated as published 24 March (responding to 22 March threat)
+
+### Files Changed
+- `Iran_War_Timeline.md` — Created: comprehensive 2026 Iran war timeline, fact-checked and corrected
+- `Iran_War_2026_Timeline.md` — Created: duplicate (kept per user request)
+
+### Git Commits
+- No commits this session (files untracked; user to commit separately if desired)
+
+### Key Decisions
+- gemini-researcher agent used for both initial research (comprehensive multi-source search) and fact-checking (fetching each source URL individually)
+- Where source URLs returned 403/blocked (Bloomberg, Axios, Washington Post, Time), cross-reference with other accessible sources was used
+- Claims unsupported by their cited source were either removed or reworded to match what the source actually says rather than replaced with speculation
+- Duplicate file (`Iran_War_2026_Timeline.md`) retained alongside `Iran_War_Timeline.md` per user instruction
+
+### Reference Documents
+- `Iran_War_Timeline.md` — primary timeline document
+- `Iran_War_2026_Timeline.md` — duplicate
+- `TimelineIranWarWikipedia.txt` — pre-existing Wikipedia export referenced by Gemini verification task
+
+### Next Actions
+- [ ] Continue updating timeline as conflict develops past 25 March 2026
+- [ ] Verify Ras Laffan claim — Al Jazeera 18 March reports Iran *threatened* to strike it; confirm whether a strike actually occurred and source it
+- [ ] Verify $126/barrel peak figure — from Axios 8 March (blocked); find a verifiable source or remove from summary table
+- [ ] Consider adding a "Sources blocked/unverified" appendix to document which URLs returned 403
+
+---
+
 ## Session 2026-03-02
 
 ### Summary
