@@ -1,6 +1,6 @@
 # 2026 Iran War — Comprehensive Chronological Timeline
-**Compiled:** 25 March 2026 | **Coverage:** June 2025 precursor through 25 March 2026
-**Sources:** Reuters, BBC, NPR, Al Jazeera, CNN, CNBC, NBC News, AP, Guardian, Wikipedia, Alma Research, Critical Threats, Time, Axios, PBS, Stars and Stripes, UN Press Office, HRANA/Hengaw NGOs
+**Compiled:** 27 March 2026 | **Coverage:** June 2025 precursor through 26 March 2026
+**Sources:** Reuters, BBC, NPR, Al Jazeera, CNN, CNBC, NBC News, AP, Guardian, Wikipedia, Alma Research, Critical Threats, Time, Axios, PBS, Stars and Stripes, UN Press Office, HRANA/Hengaw NGOs, Trump Truth Social posts (primary source)
 
 > **Operations:** US codename — **Operation Epic Fury** | Israeli codename — **Operation Roaring Lion** | Iranian response — **Operation True Promise 4**
 
@@ -236,10 +236,19 @@ US and Israeli forces sank the IRGC frigate IRIS Dena during the opening hours o
 
 ---
 
-### 28 February 2026 — Trump announces operation on Truth Social; UN Security Council emergency session called
-Trump posted an announcement on Truth Social. The UN Security Council called an emergency session. White House Press Secretary confirmed presidential calls with Qatar, Saudi Arabia, UAE, and NATO Secretary-General. State Department urged Americans to "DEPART NOW" from 14 Middle Eastern countries.
+### 28 February 2026, 7:30 AM ET — Trump posts video address on Truth Social announcing Operation Epic Fury
+
+Trump posted a video address on Truth Social informing the public of the first bombings. The UN Security Council called an emergency session. White House Press Secretary confirmed presidential calls with Qatar, Saudi Arabia, UAE, and NATO Secretary-General. State Department urged Americans to "DEPART NOW" from 14 Middle Eastern countries.
 
 - **Source:** <a href="https://www.npr.org/2026/02/28/nx-s1-5730158/israel-iran-strikes-trump-us" target="_blank">NPR — First day strikes</a>
+
+---
+
+### 28 February 2026, 9:37 PM ET — **Trump (Truth Social)**
+
+> "Khamenei, one of the most evil people in History, is dead. This is not only Justice for the people of Iran, but for all Great Americans, and those people from many Countries throughout the World, that have been killed or mutilated by Khamenei and his gang of bloodthirsty THUGS. He was unable to avoid our Intelligence and Highly Sophisticated Tracking Systems and, working closely with Israel, there was not a thing he, or the other leaders that have been killed along with him, could do. This is the single greatest chance for the Iranian people to take back their Country. We are hearing that many of their IRGC, Military, and other Security and Police Forces, no longer want to fight, and are looking for Immunity from us. As I said last night, 'Now they can have Immunity, later they only get Death!' Hopefully, the IRGC and Police will peacefully merge with the Iranian Patriots, and work together as a unit to bring back the Country to the Greatness it deserves. That process should soon be starting in that, not only the death of Khamenei but the Country has been, in only one day, very much destroyed and, even, obliterated. The heavy and pinpoint bombing, however, will continue, uninterrupted throughout the week or, as long as necessary to achieve our objective of PEACE THROUGHOUT THE MIDDLE EAST AND, INDEED, THE WORLD! Thank you for your attention to this matter. PRESIDENT DONALD J. TRUMP"
+
+*Truth Social · 26.8k ReTruths · 100k Likes*
 
 ---
 
@@ -303,6 +312,22 @@ The UN Security Council held its emergency session. The United States vetoed a r
 
 ---
 
+### 1 March 2026, 5:25 AM ET — **Trump (Truth Social)**
+
+> "Iran just stated that they are going to hit very hard today, harder than they have ever hit before. THEY BETTER NOT DO THAT, HOWEVER, BECAUSE IF THEY DO, WE WILL HIT THEM WITH A FORCE THAT HAS NEVER BEEN SEEN BEFORE! Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 9.89k ReTruths · 41.1k Likes*
+
+---
+
+### 1 March 2026, 5:21 PM ET — **Trump (Truth Social)**
+
+> "I have just been informed that we have destroyed and sunk 9 Iranian Naval Ships, some of them relatively large and important. We are going after the rest — They will soon be floating at the bottom of the sea, also! In a different attack, we largely destroyed their Naval Headquarters. Other than that, their Navy is doing very well! PRESIDENT DONALD J. TRUMP"
+
+*Truth Social · 8.25k ReTruths · 33.1k Likes*
+
+---
+
 ## PART 6 — DAYS 3–5 (2–4 MARCH 2026)
 
 ---
@@ -335,6 +360,22 @@ Hezbollah launched missiles and drones into Israel, triggering an escalation in 
 
 ---
 
+### 2 March 2026, 9:43 PM ET — **Trump (Truth Social)**
+
+> "If I didn't terminate Obama's horrendous Iran Nuclear Deal (JCPOA), Iran would have had a Nuclear Weapon three years ago. That was the most dangerous transaction we have ever entered into, and had it been allowed to stand, the World would be an entirely different place right now. You can blame Barack Hussein Obama, and Sleepy Joe Biden. THANK YOU PRESIDENT TRUMP!"
+
+*Truth Social · 5.27k ReTruths · 18.4k Likes*
+
+---
+
+### 2 March 2026, 11:20 PM ET — **Trump (Truth Social)**
+
+> "The Radical Left Democrats, a Party that has completely lost its way, are complaining bitterly about the very necessary and important attack, by the United States and Israel, on Iran. What most people understand is that they are only complaining BECAUSE I DID IT and, if I didn't do it, they would be screaming — Why didn't 'TRUMP' attack Iran, he should do it, IMMEDIATELY? There's nothing surprising about this! It's the same people that the other night at The State of the Union Address wouldn't stand for ANYBODY, including a mother who lost her beautiful daughter to an illegal alien, a Great and Brave Helicopter Pilot, who got the Congressional Medal of Honor, or a 100-year-old Veteran Warrior whose Bravery is Legend! The fact is, whatever I do, they will be on the opposite side. These people are SICK, CRAZY, and DEMENTED, but America, despite them all, is now BIGGER, BETTER, AND STRONGER THAN EVER BEFORE. MAKE AMERICA GREAT AGAIN! President DONALD J. TRUMP"
+
+*Truth Social · 12.6k ReTruths · 53.8k Likes*
+
+---
+
 ### 3 March 2026 — IRIB state broadcaster HQ hit; Red Crescent reports 600+ civilians killed
 In the early hours of 3 March, the complex of Islamic Republic of Iran Broadcasting (IRIB), Iran's state broadcaster HQ in Tehran, was struck in a separate Israeli air operation. No casualties reported. The Iranian Red Crescent reported that over 600 civilians had been killed across Iran since 28 February.
 
@@ -353,6 +394,30 @@ The UN nuclear watchdog (IAEA) confirmed that the Natanz nuclear enrichment site
 Under IRGC pressure, the Assembly of Experts began deliberations to elect a new supreme leader following Khamenei's assassination. The IRGC attempted to bypass the formal process, pressuring members with "repeated contacts and psychological pressure" to vote for Mojtaba Khamenei.
 
 - **Source:** <a href="https://en.wikipedia.org/wiki/2026_Iranian_supreme_leader_election" target="_blank">Wikipedia — 2026 Iranian supreme leader election</a>
+
+---
+
+### 3 March 2026, 4:56 AM ET — **Trump (Truth Social)**
+
+> "The United States Munitions Stockpiles have, at the medium and upper medium grade, never been higher or better — As was stated to me today, we have a virtually unlimited supply of these weapons. Wars can be fought 'forever,' and very successfully, using just these supplies (which are better than other countries finest arms!). At the highest end, we have a good supply, but are not where we want to be. Much additional high grade weaponry is stored for us in outlying countries. Sleepy Joe Biden spent all of his time, and our Country's money, GIVING everything to P.T. Barnum (Zelenskyy!) of Ukraine — Hundreds of Billions of Dollars worth — And, while he gave so much of the super high end away (FREE!), he didn't bother to replace it. Fortunately, I rebuilt the military in my first term, and continue to do so. The United States is stocked, and ready to WIN, BIG!!! Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 7.3k ReTruths · 30.6k Likes*
+
+---
+
+### 3 March 2026, 7:37 PM ET — **Trump (Truth Social)**
+
+> "Effective IMMEDIATELY, I have ordered the United States Development Finance Corporation (DFC) to provide, at a very reasonable price, political risk insurance and guarantees for the Financial Security of ALL Maritime Trade, especially Energy, traveling through the Gulf. This will be available to all Shipping Lines. If necessary, the United States Navy will begin escorting tankers through the Strait of Hormuz, as soon as possible. No matter what, the United States will ensure the FREE FLOW of ENERGY to the WORLD. The United States' ECONOMIC and MILITARY MIGHT is the GREATEST ON EARTH — More actions to come. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 10.1k ReTruths · 42.3k Likes*
+
+---
+
+### 3 March 2026, 10:57 PM ET — **Trump (Truth Social)**
+
+> "Since the launch of Operation Epic Fury, more than 9,000 Americans have safely returned home from the Middle East. If you are a U.S. Citizen in the Middle East, and you want to come home, please register with the State Department at Step.State.Gov. The Department will identify where you are, and provide travel options to you. We are already chartering flights, free of charge, and booking commercial options, which we expect will become increasingly available as time goes on."
+
+*Truth Social · 6.98k ReTruths · 24.9k Likes*
 
 ---
 
@@ -425,10 +490,27 @@ The Iranian Red Crescent Society reported that over 6,668 civilian units had bee
 
 ---
 
-### 7 March 2026 — Trump demands "unconditional surrender" from Iran
-President Trump posted on social media demanding Iran's "UNCONDITIONAL SURRENDER", stating no deal was possible on any other terms.
+### 6 March 2026, 1:50 PM ET — **Trump (Truth Social):** "UNCONDITIONAL SURRENDER"
 
-- **Source:** <a href="https://www.aljazeera.com/news/2026/3/7/iran-war-what-is-happening-on-day-eight-of-us-israel-attacks" target="_blank">Al Jazeera — Day 8 events</a>
+> "There will be no deal with Iran except UNCONDITIONAL SURRENDER! After that, and the selection of a GREAT & ACCEPTABLE Leader(s), we, and many of our wonderful and very brave allies and partners, will work tirelessly to bring Iran back from the brink of destruction, making it economically bigger, better, and stronger than ever before. IRAN WILL HAVE A GREAT FUTURE. 'MAKE IRAN GREAT AGAIN (MIGA!).' Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 6.67k ReTruths · 22.3k Likes*
+
+---
+
+### 6 March 2026, 3:08 PM ET — **Trump (Truth Social)**
+
+> "We are moving thousands of people out of various Countries throughout the Middle East. It is being done quietly, but seamlessly. The State Department, under Secretary Marco Rubio, is doing a great job! President DONALD J. TRUMP"
+
+*Truth Social · 6.43k ReTruths · 32.5k Likes*
+
+---
+
+### 6 March 2026, 8:46 PM ET — **Trump (Truth Social)**
+
+> "We just concluded a very good meeting with the largest U.S. Defense Manufacturing Companies where we discussed Production and Production Schedules. They have agreed to quadruple Production of the 'Exquisite Class' Weaponry in that we want to reach, as rapidly as possible, the highest levels of quantity. Expansion began three months prior to the meeting, and Plants and Production of many of these Weapons are already under way. We have a virtually unlimited supply of Medium and Upper Medium Grade Munitions, which we are using, as an example, in Iran, and recently used in Venezuela. Regardless, however, we have also increased Orders at these levels. The Companies represented were the CEOs of BAE Systems, Boeing, Honeywell Aerospace, L3Harris Missile Solutions, Lockheed Martin, Northrop Grumman, and Raytheon. The meeting concluded with another meeting scheduled in two months. States all over the Country are bidding for these new Plants. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 8.13k ReTruths · 37k Likes*
 
 ---
 
@@ -446,6 +528,30 @@ Overall death toll: at least 1,332 killed in Iran in US-Israeli attacks since 28
 
 ---
 
+### 7 March 2026, 1:35 AM ET — **Trump (Truth Social)**
+
+> "I will be going to Dover Air Force Base tomorrow, with the First Lady and Members of my Cabinet, to pay our Highest Respect to our Great Warriors, who are returning home for the last time. GOD BLESS THEM ALL! President DONALD J. TRUMP"
+
+*Truth Social · 6.73k ReTruths · 31k Likes*
+
+---
+
+### 7 March 2026, 11:11 AM ET — **Trump (Truth Social)**
+
+> "Iran, which is being beat to HELL, has apologized and surrendered to its Middle East neighbors, and promised that it will not shoot at them anymore. This promise was only made because of the relentless U.S. and Israeli attack. They were looking to take over and rule the Middle East. It is the first time that Iran has ever lost, in thousands of years, to surrounding Middle Eastern Countries. They have said, 'Thank you President Trump.' I have said, 'You're welcome!' Iran is no longer the 'Bully of the Middle East,' they are, instead, 'THE LOSER OF THE MIDDLE EAST,' and will be for many decades until they surrender or, more likely, completely collapse! Today Iran will be hit very hard! Under serious consideration for complete destruction and certain death, because of Iran's bad behavior, are areas and groups of people that were not considered for targeting up until this moment in time. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 14.8k ReTruths · 61.9k Likes*
+
+---
+
+### 7 March 2026, 9:05 PM ET — **Trump (Truth Social)**
+
+> "The United Kingdom, our once Great Ally, maybe the Greatest of them all, is finally giving serious thought to sending two aircraft carriers to the Middle East. That's OK, Prime Minister Starmer, we don't need them any longer — But we will remember. We don't need people that join Wars after we've already won! President DONALD J. TRUMP"
+
+*Truth Social · 12.9k ReTruths · 51.8k Likes*
+
+---
+
 ### 8 March 2026 — Mojtaba Khamenei elected new Iranian Supreme Leader (announced 9 March)
 Mojtaba Khamenei, 56-year-old son of the assassinated Ali Khamenei, was elected by the Assembly of Experts as the third Supreme Leader of Iran on 8 March; the result was officially announced on 9 March. The IRGC and Iran's top leaders pledged allegiance. Trump called him "lightweight" and threatened he "would not last long" without US approval.
 
@@ -459,6 +565,14 @@ Oil prices breached $100 per barrel for the first time in four years on 8 March 
 
 - **Source:** <a href="https://www.axios.com/2026/03/08/iran-war-oil-market-barrel-cost" target="_blank">Axios — Oil tops $100</a>
 - **Source:** <a href="https://www.aljazeera.com/economy/2026/3/9/oil-soars-past-100-a-barrel-amid-iran-war" target="_blank">Al Jazeera — Oil soars past $100</a> *(published 9 March; "Sunday" = 8 March)*
+
+---
+
+### 8 March 2026, 10:54 PM ET — **Trump (Truth Social)**
+
+> "Short term oil prices, which will drop rapidly when the destruction of the Iran nuclear threat is over, is a very small price to pay for U.S.A., and World, Safety and Peace. ONLY FOOLS WOULD THINK DIFFERENTLY! President DJT"
+
+*Truth Social · 9.7k ReTruths · 40.4k Likes*
 
 ---
 
@@ -496,6 +610,30 @@ By 10 March, the combined oil production of Kuwait, Iraq, Saudi Arabia, and the 
 
 ---
 
+### 10 March 2026, 12:30 AM ET — **Trump (Truth Social)**
+
+> "If Iran does anything that stops the flow of Oil within the Strait of Hormuz, they will be hit by the United States of America TWENTY TIMES HARDER than they have been hit thus far. Additionally, we will take out easily destroyable targets that will make it virtually impossible for Iran to ever be built back, as a Nation, again — Death, Fire, and Fury will reign upon them — But I hope, and pray, that it does not happen! This is a gift from the United States of America to China, and all of those Nations that heavily use the Hormuz Strait. Hopefully, it is a gesture that will be greatly appreciated. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 9.29k ReTruths · 37.4k Likes*
+
+---
+
+### 10 March 2026, 8:07 PM ET — **Trump (Truth Social)**
+
+> "If Iran has put out any mines in the Hormuz Strait, and we have no reports of them doing so, we want them removed, IMMEDIATELY! If for any reason mines were placed, and they are not removed forthwith, the Military consequences to Iran will be at a level never seen before. If, on the other hand, they remove what may have been placed, it will be a giant step in the right direction! Additionally, we are using the same Technology and Missile capabilities deployed against Drug Traffickers to permanently eliminate any boat or ship attempting to mine the Hormuz Strait. They will be dealt with quickly and violently. BEWARE! President DONALD J. TRUMP"
+
+*Truth Social · 9.44k ReTruths · 41.3k Likes*
+
+---
+
+### 10 March 2026, 8:20 PM ET — **Trump (Truth Social)**
+
+> "I am pleased to report that within the last few hours, we have hit, and completely destroyed, 10 inactive mine laying boats and/or ships, with more to follow! President DONALD J. TRUMP"
+
+*Truth Social · 6.35k ReTruths · 28.1k Likes*
+
+---
+
 ### 11–12 March 2026 — Iranian drones hit Bahrain International Airport; US soldier bases in Iraq struck
 Iranian drones hit Bahrain International Airport on Muharraq Island, setting fuel tanks on fire. Coalition military camps near Erbil and Baghdad in Iraq were also struck, wounding a number of US soldiers. A French chief warrant officer was also injured.
 
@@ -525,6 +663,22 @@ Mojtaba Khamenei, the newly elected Supreme Leader, issued his first public stat
 
 ---
 
+### 12 March 2026, 1:14 PM ET — **Trump (Truth Social)**
+
+> "The United States is the largest Oil Producer in the World, by far, so when oil prices go up, we make a lot of money. BUT, of far greater interest and importance to me, as President, is stopping an evil Empire, Iran, from having Nuclear Weapons, and destroying the Middle East and, indeed, the World. I won't ever let that happen! Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 9.78k ReTruths · 45.2k Likes*
+
+---
+
+### 12 March 2026, 3:00 PM ET — **Trump (Truth Social)**
+
+> "The Iran National Soccer Team is welcome to The World Cup, but I really don't believe it is appropriate that they be there, for their own life and safety. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 6.43k ReTruths · 32.1k Likes*
+
+---
+
 ### 13 March 2026 — Turkey: Turkish ship allowed through Strait of Hormuz; Indian and Saudi tankers pass
 Turkish Transport Minister Abdulkadir Uraloğlu confirmed Iran approved the passage of a Turkish ship through the Strait. Two Indian-flagged gas carriers and a Saudi oil tanker with 1 million barrels for India were also allowed to pass — indicating Iran was selectively permitting non-US/non-Israeli aligned vessels to transit.
 
@@ -539,10 +693,66 @@ The Israeli military estimated that between 3,000 and 4,000 Iranian soldiers and
 
 ---
 
+### 13 March 2026, 4:33 AM ET — **Trump (Truth Social)**
+
+> "We are totally destroying the terrorist regime of Iran, militarily, economically, and otherwise, yet, if you read the Failing New York Times, you would incorrectly think that we are not winning. Iran's Navy is gone, their Air Force is no longer, missiles, drones and everything else are being decimated, and their leaders have been wiped from the face of the earth. We have unparalleled firepower, unlimited ammunition, and plenty of time — Watch what happens to these deranged scumbags today. They've been killing innocent people all over the world for 47 years, and now I, as the 47th President of the United States of America, am killing them. What a great honor it is to do so! Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 8.35k ReTruths · 31.3k Likes*
+
+---
+
+### 13 March 2026, 10:54 PM ET — **Trump (Truth Social):** Kharg Island obliterated
+
+> "Moments ago, at my direction, the United States Central Command executed one of the most powerful bombing raids in the History of the Middle East, and totally obliterated every MILITARY target in Iran's crown jewel, Kharg Island. Our Weapons are the most powerful and sophisticated that the World has ever known but, for reasons of decency, I have chosen NOT to wipe out the Oil Infrastructure on the Island. However, should Iran, or anyone else, do anything to interfere with the Free and Safe Passage of Ships through the Strait of Hormuz, I will immediately reconsider this decision. During my First Term, and currently, I rebuilt our Military into the Most Lethal, Powerful, and Effective Force, by far, anywhere in the World. Iran has NO ability to defend anything that we want to attack — There is nothing they can do about it! Iran will NEVER have a nuclear weapon, nor will it have the ability to threaten the United States of America, the Middle East or, for that matter, the World! Iran's Military, and all others involved with this Terrorist Regime, would be wise to lay down their arms, and save what's left of their country, which isn't much! Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 10.2k ReTruths · 40.2k Likes*
+
+---
+
+### 13 March 2026, 11:43 PM ET — **Trump (Truth Social)**
+
+> "Iran had plans of taking over the entire Middle East, and completely obliterating Israel. JUST LIKE IRAN ITSELF, THOSE PLANS ARE NOW DEAD! President DONALD J. TRUMP"
+
+*Truth Social · 8.15k ReTruths · 35.8k Likes*
+
+---
+
 ### 14 March 2026 — Cost of war: $16.5 billion in first 12 days; 15,000+ targets struck
 NPR reported that the first 12 days of the war cost approximately $16.5 billion, with the first 100 hours of Operation Epic Fury alone costing around $3.7 billion. US and Israeli forces had struck more than 15,000 targets in Iran; 90+ Iranian vessels damaged or destroyed. 3.2 million Iranians displaced. Oil peaked at $119.50/barrel (Brent). 25 Iranian hospitals damaged, 9 out of service.
 
 - **Source:** <a href="https://www.npr.org/2026/03/14/nx-s1-5746623/iran-war-cost-deaths" target="_blank">NPR — Two weeks: casualties and costs</a>
+
+---
+
+### 14 March 2026, 3:53 AM ET — **Trump (Truth Social)**
+
+> "The Fake News Media hates to report how well the United States Military has done against Iran, which is totally defeated and wants a deal — But not a deal that I would accept! Thank you for your attention to this matter. President DJT"
+
+*Truth Social · 7.71k ReTruths · 33.3k Likes*
+
+---
+
+### 14 March 2026, 1:35 PM ET — **Trump (Truth Social)**
+
+> "Yet again, an intentionally misleading headline by the Fake News Media about the five tanker planes that were supposedly struck down at an Airport in Saudi Arabia, and of no further use. In actuality, the Base was hit a few days ago, but the planes were not 'struck' or 'destroyed.' Four of the five had virtually no damage, and are already back in service. One had slightly more damage, but will be in the air shortly. None were destroyed, or close to that, as the Fake News said in headlines. The New York Times and The Wall Street Journal (in particular), and other Lowlife 'Papers' and Media actually want us to lose the War. Their terrible reporting is the exact opposite of the actual facts! They are truly sick and demented people that have no idea the damage they cause the United States of America. Fortunately, as proven by our Great and Conclusive Election Win in 2024, the People of our Country understand what is happening far better than the Fake News Media! President DONALD J. TRUMP"
+
+*Truth Social · 12.4k ReTruths · 47.8k Likes*
+
+---
+
+### 14 March 2026, 2:04 PM ET — **Trump (Truth Social):** Call for allied warships at Strait of Hormuz
+
+> "Many Countries, especially those who are affected by Iran's attempted closure of the Hormuz Strait, will be sending War Ships, in conjunction with the United States of America, to keep the Strait open and safe. We have already destroyed 100% of Iran's Military capability, but it's easy for them to send a drone or two, drop a mine, or deliver a close range missile somewhere along, or in, this Waterway, no matter how badly defeated they are. Hopefully China, France, Japan, South Korea, the UK, and others, that are affected by this artificial constraint, will send Ships to the area so that the Hormuz Strait will no longer be a threat by a Nation that has been totally decapitated. In the meantime, the United States will be bombing the hell out of the shoreline, and continually shooting Iranian Boats and Ships out of the water. One way or the other, we will soon get the Hormuz Strait OPEN, SAFE, and FREE! President DONALD J. TRUMP"
+
+*Truth Social · 8.26k ReTruths · 34.1k Likes*
+
+---
+
+### 14 March 2026, 6:58 PM ET — **Trump (Truth Social)**
+
+> "The United States of America has beaten and completely decimated Iran, both Militarily, Economically, and in every other way, but the Countries of the World that receive Oil through the Hormuz Strait must take care of that passage, and we will help — A LOT! The U.S. will also coordinate with those Countries so that everything goes quickly, smoothly, and well. This should have always been a team effort, and now it will be — It will bring the World together toward Harmony, Security, and Everlasting Peace! President DONALD J. TRUMP"
+
+*Truth Social · 9.48k ReTruths · 39.3k Likes*
 
 ---
 
@@ -561,6 +771,14 @@ US and Israeli missiles struck multiple sites across Isfahan province. Iranian F
 Israeli strikes in Lebanon brought the confirmed death toll to 850, with 831,000 displaced.
 
 - **Source:** <a href="https://www.aljazeera.com/news/liveblog/2026/3/15/iran-war-live-trump-urges-world-to-keep-hormuz-strait-open" target="_blank">Al Jazeera — March 15 live blog</a>
+
+---
+
+### 15 March 2026, 11:48 PM ET — **Trump (Truth Social)**
+
+> "Iran has long been known as a Master of Media Manipulation and Public Relations. They are Militarily ineffective and weak, but are really good at 'feeding' the very appreciative Fake News Media false information. Now, A.I. has become another Disinformation weapon that Iran uses, quite well, considering they are being annihilated by the day. They showed phony 'Kamikaze Boats,' shooting at various Ships at Sea, which looks wonderful, powerful, and vicious, but these Boats don't exist — It's all false information to show how 'tough' their already defeated Military is! The five U.S. Refueling Planes that were supposedly struck down and badly damaged, according to The Wall Street Journal's false reporting, and others, are all in service, with the exception of one, which will soon be flying the skies. Buildings and Ships that are shown to be on fire are not — It's FAKE NEWS, generated by A.I. For instance, Iran, working in close coordination with the Fake News Media, shows our great USS Abraham Lincoln Aircraft Carrier, one of the largest and most prestigious Ships in the World, burning uncontrollably in the Ocean. Not only was it not burning, it was not even shot at — Iran knows better than to do that! The story was knowingly FAKE and, in a certain way, you can say that those Media Outlets that generated it should be brought up on Charges for TREASON for the dissemination of false information! The fact is, Iran is being decimated, and the only battles they 'win' are those that they create through AI, and are distributed by Corrupt Media Outlets. The Radical Leftwing Press knows this full well, but continues to go forward with false stories and LIES. That's why their Approval Rating is so low, and I can win a Presidential Election, IN A LANDSLIDE, getting only 5% positive Press — They have no credibility! I am so thrilled to see Brendan Carr, the Chairman of the Federal Communications Commission (FCC), looking at the licenses of some of these Corrupt and Highly Unpatriotic 'News' Organizations. They get Billions of Dollars of FREE American Airwaves, and use it to perpetuate LIES, both in News and almost all of their Shows, including the Late Night Morons, who get gigantic Salaries for horrible Ratings, and never get, as I used to say in The Apprentice, 'FIRED.' Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 8.46k ReTruths · 28.1k Likes*
 
 ---
 
@@ -597,6 +815,14 @@ In the early morning, Israeli airstrikes killed Ali Larijani, Secretary of the S
 US forces bombed "hardened Iranian missile sites" near the Strait of Hormuz using deep penetrator munitions, targeting capability to attack shipping.
 
 - **Source:** <a href="https://www.nbcnews.com/world/iran/live-blog/live-updates-iran-war-israel-killed-basij-iraq-embassy-trump-hormuz-rcna263845" target="_blank">NBC News — March 17 live blog</a>
+
+---
+
+### 17 March 2026, 3:18 PM ET — **Trump (Truth Social)**
+
+> "The United States has been informed by most of our NATO 'Allies' that they don't want to get involved with our Military Operation against the Terrorist Regime of Iran, in the Middle East, this, despite the fact that almost every Country strongly agreed with what we are doing, and that Iran cannot, in any way, shape, or form, be allowed to have a Nuclear Weapon. I am not surprised by their action, however, because I always considered NATO, where we spend Hundreds of Billions of Dollars per year protecting these same Countries, to be a one way street — 'We will protect them, but they will do nothing for us, in particular, in a time of need. Fortunately, we have decimated Iran's Military — Their Navy is gone, their Air Force is gone, their Anti-Aircraft and Radar is gone and perhaps, most importantly, their Leaders, at virtually every level, are gone, never to threaten us, our Middle Eastern Allies, or the World, again! Because of the fact that we have had such Military Success, we no longer 'need,' or desire, the NATO Countries' assistance — WE NEVER DID! Likewise, Japan, Australia, or South Korea. In fact, speaking as President of the United States of America, by far the Most Powerful Country Anywhere in the World, WE DO NOT NEED THE HELP OF ANYONE! Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 13k ReTruths · 49.7k Likes*
 
 ---
 
@@ -669,6 +895,30 @@ Trump announced he was delaying his planned China trip by five or six weeks to f
 
 ---
 
+### 18 March 2026, 12:01 PM ET — **Trump (Truth Social)**
+
+> "Remember, for all of those absolute 'fools' out there, Iran is considered, by everyone, to be the NUMBER ONE STATE SPONSOR OF TERROR. We are rapidly putting them out of business!"
+
+*Truth Social · 5.98k ReTruths · 25.2k Likes*
+
+---
+
+### 18 March 2026, 12:35 PM ET — **Trump (Truth Social)**
+
+> "I wonder what would happen if we 'finished off' what's left of the Iranian Terror State, and let the Countries that use it, we don't, be responsible for the so called 'Strait?' That would get some of our non-responsive 'Allies' in gear, and fast!!! President DJT"
+
+*Truth Social · 5.56k ReTruths · 23.2k Likes*
+
+---
+
+### 19 March 2026, 2:05 AM ET — **Trump (Truth Social):** South Pars gas field; Israel/Qatar clarification
+
+> "Israel, out of anger for what has taken place in the Middle East, has violently lashed out at a major facility known as South Pars Gas Field in Iran. A relatively small section of the whole has been hit. The United States knew nothing about this particular attack, and the country of Qatar was in no way, shape, or form, involved with it, nor did it have any idea that it was going to happen. Unfortunately, Iran did not know this, or any of the pertinent facts pertaining to the South Pars attack, and unjustifiably and unfairly attacked a portion of Qatar's LNG Gas facility. NO MORE ATTACKS WILL BE MADE BY ISRAEL pertaining to this extremely important and valuable South Pars Field unless Iran unwisely decides to attack a very innocent, in this case, Qatar — In which instance the United States of America, with or without the help or consent of Israel, will massively blow up the entirety of the South Pars Gas Field at an amount of strength and power that Iran has never seen or witnessed before. I do not want to authorize this level of violence and destruction because of the long term implications that it will have on the future of Iran, but if Qatar's LNG is again attacked, I will not hesitate to do so. Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 6.67k ReTruths · 24.3k Likes*
+
+---
+
 ### 19 March 2026 — Trump: "I'm not putting troops anywhere"
 Trump denied plans to deploy ground troops to Iran, stating: "I'm not putting troops anywhere."
 
@@ -676,11 +926,27 @@ Trump denied plans to deploy ground troops to Iran, stating: "I'm not putting tr
 
 ---
 
-### 20 March 2026 — War enters its fourth week; Trump hints at "winding down"; Eid al-Fitr and Nowruz
-As the conflict entered its fourth week, Trump stated the administration was considering "winding down" military efforts in the region, while rejecting any formal ceasefire. Iran's death toll in Iran stood at over 1,400. Iranian air defences were activated over Tehran during Nowruz (Persian New Year) and Eid al-Fitr celebrations.
+### 20 March 2026, 1:43 PM ET — **Trump (Truth Social):** NATO "Paper Tiger"
+
+> "Without the U.S.A., NATO IS A PAPER TIGER! They didn't want to join the fight to stop a Nuclear Powered Iran. Now that fight is Militarily WON, with very little danger for them, they complain about the high oil prices they are forced to pay, but don't want to help open the Strait of Hormuz, a simple military maneuver that is the single reason for the high oil prices. So easy for them to do, with so little risk. COWARDS, and we will REMEMBER! President DONALD J. TRUMP"
+
+*Truth Social · 12.1k ReTruths · 47.8k Likes*
+
+---
+
+### 20 March 2026 — War enters its fourth week; Trump considers "winding down"; Eid al-Fitr and Nowruz
+As the conflict entered its fourth week, Iran's death toll stood at over 1,400. Iranian air defences were activated over Tehran during Nowruz (Persian New Year) and Eid al-Fitr celebrations.
 
 - **Source:** <a href="https://www.cnbc.com/2026/03/20/trump-iran-war-ceasefire.html" target="_blank">CNBC — Trump considers winding down</a>
 - **Source:** <a href="https://www.aljazeera.com/news/2026/3/21/iran-war-what-is-happening-on-day-22-of-us-israel-attacks" target="_blank">Al Jazeera — Day 22 events</a>
+
+---
+
+### 20 March 2026, 9:13 PM ET — **Trump (Truth Social):** Five objectives for winding down
+
+> "We are getting very close to meeting our objectives as we consider winding down our great Military efforts in the Middle East with respect to the Terrorist Regime of Iran: (1) Completely degrading Iranian Missile Capability, Launchers, and everything else pertaining to them. (2) Destroying Iran's Defense Industrial Base. (3) Eliminating their Navy and Air Force, including Anti Aircraft Weaponry. (4) Never allowing Iran to get even close to Nuclear Capability, and always being in a position where the U.S.A. can quickly and powerfully react to such a situation, should it take place. (5) Protecting, at the highest level, our Middle Eastern Allies, including Israel, Saudi Arabia, Qatar, the United Arab Emirates, Bahrain, Kuwait, and others. The Hormuz Strait will have to be guarded and policed, as necessary, by other Nations who use it — The United States does not! If asked, we will help these Countries in their Hormuz efforts, but it shouldn't be necessary once Iran's threat is eradicated. Importantly, it will be an easy Military Operation for them. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 13k ReTruths · 55.9k Likes*
 
 ---
 
@@ -736,16 +1002,34 @@ Brent crude reached $112.19/barrel. Over 3,000 vessels remained stranded in Midd
 
 ---
 
+### 21 March 2026, 10:37 PM ET — **Trump (Truth Social)**
+
+> "The United States has blown Iran off of the map, and yet their lightweight analyst, David Sanger, says that I haven't met my own goals. Yes I have, and weeks ahead of schedule! Their leadership is gone, their navy and air force are dead, they have absolutely no defense, and they want to make a deal. I don't! We are weeks ahead of schedule. Just like their incompetent Election coverage of me, The Failing New York Times always gets it wrong! President DJT"
+
+*Truth Social · 7.82k ReTruths · 33.7k Likes*
+
+---
+
+### 21 March 2026, 11:44 PM ET — **Trump (Truth Social):** 48-hour power plant ultimatum
+
+> "If Iran doesn't FULLY OPEN, WITHOUT THREAT, the Strait of Hormuz, within 48 HOURS from this exact point in time, the United States of America will hit and obliterate their various POWER PLANTS, STARTING WITH THE BIGGEST ONE FIRST! Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 10.3k ReTruths · 40.1k Likes*
+
+*(Note: This post was made at 11:44 PM on 21 March. News reports covering the ultimatum were dated 22 March.)*
+
+---
+
 ## PART 11 — DAYS 23–26 (22–25 MARCH 2026)
 
 ---
 
-### 22 March 2026 — Trump threatens to "obliterate" Iran's power plants within 48 hours if Hormuz not reopened
-President Trump gave Iran a 48-hour ultimatum to reopen the Strait of Hormuz, warning via social media: "America will hit and obliterate their various POWER PLANTS, STARTING WITH THE BIGGEST ONE FIRST!" Iran threatened to close the Strait "completely" indefinitely if the power plants were struck.
+### 22 March 2026 — Iran responds to power plant ultimatum; threatens to close Hormuz "completely"
+Iran threatened to close the Strait of Hormuz "completely" indefinitely if power plants were struck, in response to Trump's Truth Social post at 11:44 PM on 21 March. *(See Trump's 21 March 11:44 PM Truth Social post above.)*
 
 - **Source:** <a href="https://www.npr.org/2026/03/22/nx-s1-5756308/trump-threatens-obliterate-irans-power-plants-iran-strikes-2-israeli-cities" target="_blank">NPR — Trump threatens power plants</a>
 - **Source:** <a href="https://time.com/article/2026/03/22/trump-iran-strait-of-hormuz-power-plant/" target="_blank">Time — Iran threatens to close Hormuz completely</a>
-- **Source:** <a href="https://www.amnesty.org/en/latest/news/2026/03/trump-warning-attack-iran-power-plants-is-threat-to-commit-war-crimes/" target="_blank">Amnesty International — Trump warning on power plants</a> *(published 24 March 2026; in response to the 22 March threat)*
+- **Source:** <a href="https://www.amnesty.org/en/latest/news/2026/03/trump-warning-attack-iran-power-plants-is-threat-to-commit-war-crimes/" target="_blank">Amnesty International — Trump warning on power plants</a> *(published 24 March 2026)*
 
 ---
 
@@ -756,8 +1040,13 @@ A malfunction in Israel's "David's Sling" air defence system allowed two Iranian
 
 ---
 
-### 23 March 2026 — Trump announces 5-day postponement of power plant strikes; claims "productive" Iran talks
-Trump stated on social media that discussions with Iranian officials had taken place aimed at de-escalating hostilities and announced a 5-day postponement of any planned strikes against Iranian power facilities. Iran denied any talks had taken place, calling Trump's claims "fake news." Iran vowed to "completely close" the Strait of Hormuz if power plants were attacked.
+### 23 March 2026, 11:23 AM ET — **Trump (Truth Social):** 5-day postponement of power plant strikes
+
+> "I AM PLEASED TO REPORT THAT THE UNITED STATES OF AMERICA, AND THE COUNTRY OF IRAN, HAVE HAD, OVER THE LAST TWO DAYS, VERY GOOD AND PRODUCTIVE CONVERSATIONS REGARDING A COMPLETE AND TOTAL RESOLUTION OF OUR HOSTILITIES IN THE MIDDLE EAST. BASED ON THE TENOR AND TONE OF THESE IN DEPTH, DETAILED, AND CONSTRUCTIVE CONVERSATIONS, WHICH WILL CONTINUE THROUGHOUT THE WEEK, I HAVE INSTRUCTED THE DEPARTMENT OF WAR TO POSTPONE ANY AND ALL MILITARY STRIKES AGAINST IRANIAN POWER PLANTS AND ENERGY INFRASTRUCTURE FOR A FIVE DAY PERIOD, SUBJECT TO THE SUCCESS OF THE ONGOING MEETINGS AND DISCUSSIONS. THANK YOU FOR YOUR ATTENTION TO THIS MATTER! PRESIDENT DONALD J. TRUMP"
+
+*Truth Social · 10.9k ReTruths · 46.1k Likes*
+
+Iran denied any talks had taken place, calling Trump's claims "fake news." Iran vowed to "completely close" the Strait of Hormuz if power plants were attacked.
 
 - **Source:** <a href="https://www.opb.org/article/2026/03/23/trump-iran-latest/" target="_blank">OPB — Trump delays striking power plants</a>
 - **Source:** <a href="https://www.npr.org/2026/03/23/nx-s1-5757172/iran-defiant-trump-hormuz" target="_blank">NPR — Iran denies talks</a>
@@ -850,6 +1139,42 @@ Iran formally rejected Trump's 15-point ceasefire plan through state Press TV, c
 The UN Human Rights Council held an urgent meeting on the Iran war, with over 82,000 civilian structures reported damaged or destroyed in Iran. Total Iranian civilian death toll stood at approximately 1,500.
 
 - **Source:** <a href="https://www.aljazeera.com/news/2026/3/24/us-israel-war-on-iran-whats-happening-on-day-25-of-attacks" target="_blank">Al Jazeera — Day 25 events</a>
+
+---
+
+### 25 March 2026, 3:45 AM ET — **Trump (Truth Social):** shares article on Iran's ballistic missile range
+
+> "Iran's flex of long-range ballistic missiles vindicates Trump, may change European calculus: justthenews.com/government/sec. Iran's attempted intermediate-range ballistic missile strike at nearly 2,500 miles shows the regime's capability to threaten Europe, a national security expert says."
+
+*Truth Social · 4.89k ReTruths · 17.3k Likes*
+
+---
+
+## PART 11B — DAY 27 (26 MARCH 2026)
+
+---
+
+### 26 March 2026, 10:16 AM ET — **Trump (Truth Social)**
+
+> "NATO NATIONS HAVE DONE ABSOLUTELY NOTHING TO HELP WITH THE LUNATIC NATION, NOW MILITARILY DECIMATED, OF IRAN. THE U.S.A. NEEDS NOTHING FROM NATO, BUT 'NEVER FORGET' THIS VERY IMPORTANT POINT IN TIME! President DONALD J. TRUMP"
+
+*Truth Social · 5.96k ReTruths · 22.4k Likes*
+
+---
+
+### 26 March 2026, 10:39 AM ET — **Trump (Truth Social)**
+
+> "The Iranian negotiators are very different and 'strange.' They are 'begging' us to make a deal, which they should be doing since they have been militarily obliterated, with zero chance of a comeback, and yet they publicly state that they are only 'looking at our proposal.' WRONG!!! They better get serious soon, before it is too late, because once that happens, there is NO TURNING BACK, and it won't be pretty! President DJT"
+
+*Truth Social · 8.07k ReTruths · 34.9k Likes*
+
+---
+
+### 26 March 2026, 8:11 PM ET — **Trump (Truth Social):** 10-day pause on energy plant destruction
+
+> "As per Iranian Government request, please let this statement serve to represent that I am pausing the period of Energy Plant destruction by 10 Days to Monday, April 6, 2026, at 8 P.M., Eastern Time. Talks are ongoing and, despite erroneous statements to the contrary by the Fake News Media, and others, they are going very well. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 9.77k ReTruths · 45.2k Likes*
 
 ---
 

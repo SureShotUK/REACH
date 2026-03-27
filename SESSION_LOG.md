@@ -4,6 +4,54 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-03-27
+
+### Summary
+Continued the 2026 Iran War diary project. Trump's Truth Social posts were researched (via gemini-researcher agent and a user-supplied CSV file `TrumpsTruthSocialPosts.csv`), compiled into a standalone `Trumps_Posts.md` document, and then all 40 unique posts were inserted verbatim into the main `Iran_War_Timeline.md` in their correct chronological positions alongside existing events. The timeline was extended to cover 26 March 2026 and the "Trump Truth Social posts" source was added to the header.
+
+### Work Completed
+- **Created `Trumps_Posts.md`** — standalone document of Trump's Truth Social posts on the Iran war (1 March–26 March 2026), compiled from gemini-researcher searches and confirmed against news sources
+- **Integrated 40 Truth Social posts into `Iran_War_Timeline.md`**:
+  - Read user-supplied `TrumpsTruthSocialPosts.csv` (44 rows; 2 duplicates removed = 40 unique posts)
+  - Posts span 28 February 2026 through 26 March 2026
+  - Each post formatted with full verbatim text (blockquote), date/time (ET), ReTruths and Likes counts
+  - Inserted at correct chronological positions throughout the timeline, interleaved with existing events
+  - Consistent heading format: `### [Date], [Time] ET — **Trump (Truth Social)**`
+- **Corrected two date discrepancies** between the existing timeline and the actual post timestamps:
+  - "UNCONDITIONAL SURRENDER" post: moved from 7 March to correct date **6 March, 1:50 PM ET**
+  - Power plant ultimatum: clarified as posted **11:44 PM on 21 March** (news reported it as 22 March)
+- **Extended timeline coverage** to 26 March 2026 with three new March 26 posts (NATO "done absolutely nothing", negotiators "strange", 10-day energy plant pause)
+- **Updated `Iran_War_Timeline.md` header**: Compiled date → 27 March 2026; coverage → through 26 March; sources updated to include "Trump Truth Social posts (primary source)"
+- **Updated `Trumps_Posts.md`** with corrections from gemini research: 15 March post confirmed as Truth Social; Kharg Island date corrected to 13 March
+
+### Files Changed
+- `Iran_War_Timeline.md` — 40 Trump Truth Social posts inserted throughout; two date corrections; header updated; extended to 26 March (~1,180 lines total, up from ~918)
+- `Trumps_Posts.md` — new file created (Iran war Trump posts reference document)
+- `TrumpsTruthSocialPosts.csv` — user-supplied source file (read-only in this session)
+
+### Git Commits
+- *(pending — changes staged this session, not yet committed)*
+
+### Key Decisions
+- Verbatim post text used throughout (from CSV) rather than summaries — provides primary source accuracy
+- Two duplicate CSV rows (rows 24/25 and 26/27, identical Kharg Island and "plans dead" posts) included only once
+- Date discrepancies in CSV rows 34/35 ("Mar 18, 12:01 PM" vs "19/03/2026 00:01"): used the first-column date (18 March, noon ET) as authoritative
+- Existing timeline entries that already referenced Trump statements (UNCONDITIONAL SURRENDER, power plant ultimatum, 5-day postponement, winding down) were updated to include full post text rather than creating duplicate entries
+- The 22 March timeline entry was revised to describe Iran's response (not Trump's post, which was actually on 21 March at 11:44 PM)
+
+### Reference Documents
+- `TrumpsTruthSocialPosts.csv` — primary source data (user-supplied)
+- `Iran_War_Timeline.md` — main timeline (now includes all posts)
+- `Trumps_Posts.md` — standalone posts reference
+
+### Next Actions
+- [ ] Verify `Iran_War_2026_Timeline.md` (duplicate) — may need the same Trump posts inserted to keep in sync
+- [ ] Continue updating `Iran_War_Timeline.md` as the conflict develops post-26 March
+- [ ] The 10-day power plant pause expires 6 April 2026 at 8 PM ET — worth monitoring for next update
+- [ ] Check if Trump posts resume after 26 March and add to both timeline and `Trumps_Posts.md`
+
+---
+
 ## Session 2026-03-25
 
 ### Summary

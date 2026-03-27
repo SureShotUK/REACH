@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-03-27
+
+### Added
+- **`Trumps_Posts.md`** — standalone reference document of Trump's Truth Social posts on the Iran war (1 March–26 March 2026), with full verbatim post text, date/time, ReTruths and Likes counts, and news source citations for context
+- **`TrumpsTruthSocialPosts.csv`** — user-supplied primary source data for Trump's posts (44 rows)
+
+### Changed
+- **`Iran_War_Timeline.md`** — 40 Trump Truth Social posts inserted in chronological order throughout the timeline:
+  - Posts span 28 February–26 March 2026
+  - Each post formatted with verbatim text (blockquote), date/time (ET), ReTruths/Likes metadata
+  - Two date corrections applied: "UNCONDITIONAL SURRENDER" moved from 7 March to correct **6 March 1:50 PM ET**; power plant ultimatum clarified as **21 March 11:44 PM ET** (news reported as 22 March)
+  - Timeline coverage extended to 26 March 2026 (three new March 26 posts)
+  - Header updated: compiled date → 27 March 2026; "Trump Truth Social posts (primary source)" added to sources
+
+---
+
 ## [Unreleased] - 2026-03-25
 
 ### Added
