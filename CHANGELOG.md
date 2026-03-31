@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-03-31
+
+### Changed
+- **`Iran_War_Timeline.md`** — Extended coverage to 31 March 2026 (days 28–31 of conflict):
+  - Added 7 new event entries for March 27–31:
+    - **March 27**: IRGC threatens Hormuz closure if power plants struck; Pakistani mediators relay deadline details to Tehran
+    - **March 28**: Oil production recovery discussions continue; prices stabilize
+    - **March 29, afternoon**: Trump Truth Social post confirming Iran agreed to allow 20 oil tankers through Hormuz starting March 30 "out of a sign of respect"
+    - **March 29**: Trump warns UK/EU allies to prepare self-sufficient oil access; urges them to "build up delayed courage"
+    - **March 30 (morning)**: First convoy of 20 agreed oil tankers begins transit through Strait (local time ~05:00)
+    - **March 30 (afternoon)**: Trump expands threat targets to include desalination plants alongside power plants and oil wells
+    - **March 30**: Defense Secretary Hegseth and Gen. Caine brief press; operations status reviewed; April 6 deadline reaffirmed
+    - **March 31 (midday)**: Full briefing from Defense leadership on targeted facility preparations and surveillance activities
+    - **March 31 (afternoon)**: Trump Truth Social confirms talks continuing with Iranian representatives
+    - **March 31**: Brent crude trading at $111-119.24/barrel; Houthis reinforcing positions in Yemen
+  - Updated price range for March 31 trading (corrected from erroneous "$115-122") to consistent **$111-119.24/barrel** with peak at $119.24
+  - Added HTML-sourced links for all new entries from NYT, CNN, AP, CBS News, Newsweek, DW
+  - Updated KEY SOURCES table with March 31-specific coverage URLs
+
+### Fixed
+- **Oil pricing correction**: User identified and requested fix of inconsistent price range ($122 peak vs. $119.24 stated peak) — changed trading range to match the stated peak price at $111-119.24/barrel
+
+---
+
 ## [Unreleased] - 2026-03-27
 
 ### Added

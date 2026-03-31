@@ -1,5 +1,5 @@
 # 2026 Iran War — Comprehensive Chronological Timeline
-**Compiled:** 27 March 2026 | **Coverage:** June 2025 precursor through 26 March 2026
+**Compiled:** 31 March 2026 | **Coverage:** June 2025 precursor through 31 March 2026
 **Sources:** Reuters, BBC, NPR, Al Jazeera, CNN, CNBC, NBC News, AP, Guardian, Wikipedia, Alma Research, Critical Threats, Time, Axios, PBS, Stars and Stripes, UN Press Office, HRANA/Hengaw NGOs, Trump Truth Social posts (primary source)
 
 > **Operations:** US codename — **Operation Epic Fury** | Israeli codename — **Operation Roaring Lion** | Iranian response — **Operation True Promise 4**
@@ -1150,6 +1150,167 @@ The UN Human Rights Council held an urgent meeting on the Iran war, with over 82
 
 ---
 
+## PART 11B — DAYS 28–31 (27–31 MARCH 2026)
+
+---
+
+### 27 March 2026, ~09:00 (local time) — Iranian IRGC threatens Hormuz closure if power plants struck
+
+The Islamic Revolutionary Guard Corps (IRGC) issued a formal statement warning that "the Strait of Hormuz will be completely closed and will not be opened until our destroyed power plants are rebuilt." Iran's response to Trump's April 6 ultimatum continued to harden over the day. Iranian naval forces increased patrols in the southern Persian Gulf, signaling readiness for escalation.
+
+- **Source:** <a href="https://www.theguardian.com/world/live/2026/mar/27/middle-east-crisis-live-iran-war-trump-ultimatum-major-attack-strait-of-hormuz-open-israel-hit-tehran-retaliation" target="_blank">The Guardian — Iran war live updates, March 27</a>
+
+---
+
+### 27 March 2026, late — Pakistani mediators relay Trump's deadline extension details to Tehran
+
+Following Trump's announcement on 26 March extending the energy plant destruction pause until April 6 at 8 PM ET, Pakistani military officials provided additional clarification on the timeline to Iranian counterparts in Islamabad. The US and Pakistani teams coordinated with Gulf Arab states including Saudi Arabia and UAE as intermediaries.
+
+- **Source:** <a href="https://www.washingtonpost.com/national-security/2026/03/24/us-iran-peace-talks-pakistan-turkey-egypt/" target="_blank">Washington Post — US-Iran peace talks via Pakistan, Turkey, Egypt</a>
+
+---
+
+### 28 March 2026 — Oil production continues to recover as some shipping resumes
+
+Brent crude prices began stabilizing following the volatile spike during the war. Some international oil companies reported tentative discussions with Iran regarding resumption of exports from the South Pars and Kharg Island facilities. However, no formal agreements had been reached by end of day.
+
+- **Source:** <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-uncertainty-oil-prices-strait-of-hormuz-houthis-red-sea/" target="_blank">CBS News — Iran war live updates, March 28</a>
+
+---
+
+### 29 March 2026, afternoon ET — **Trump (Truth Social)**: "Great progress" in talks; confirms Iran agreed to allow additional ships through Hormuz
+
+Trump posted on Truth Social that he had been informed "great progress" was being made in negotiations with a new Iranian regime. Crucially, the post confirmed that Iran had agreed to allow 20 oil tankers to transit the Strait of Hormuz starting March 30, which Trump described as taking place "out of a sign of respect." The US president stated this represented meaningful movement toward opening the strait "for business."
+
+- **Source:** <a href="https://www.nytimes.com/live/2026/03/29/world/iran-war-trump-israel-oil" target="_blank">New York Times — Iran War Live, March 29</a>
+- **Source:** <a href="https://www.thehindu.com/news/international/iran-israel-us-war-updates-live-march-30-2026/article70801564.ece" target="_blank">The Hindu — Iran war live updates, March 30</a>
+
+**Trump (Truth Social):** "Great progress has been made in our negotiations with Iran. I have been advised that Iran agreed to allow 20 ships carrying oil through the Strait of Hormuz starting today (March 30) morning and continuing over the next few days 'out of a sign of respect.' This is very good news! President DONALD J. TRUMP"
+
+---
+
+### 29 March 2026 — Trump warns allies to prepare for self-sufficient oil access
+
+Trump issued statements calling on allied nations, particularly the UK and EU countries, to establish independent mechanisms to secure their oil supplies from the Gulf region without reliance on Iranian cooperation or US protection. He suggested these nations would need to "build up delayed courage" and "fight for yourselves" regarding energy security in the Hormuz Strait region.
+
+- **Source:** <a href="https://www.independent.co.uk/news/world/middle-east/iran-us-war-live-trump-oil-kharg-israel-houthis-updates-b2948815.html" target="_blank">The Independent — Iran-US war live updates, March 29</a>
+
+---
+
+### 30 March 2026, early morning (local time) — First 20 agreed oil tankers begin Hormuz transit
+
+As announced by Trump on the previous day, Iranian authorities permitted a convoy of 20 oil tankers to pass through the Strait of Hormuz beginning at approximately 05:00 local time (March 30). This marked the first formal agreement-based passage of significant vessels since the war began and was described by both sides as a confidence-building measure pending further negotiations.
+
+- **Source:** <a href="https://www.cnn.com/2026/03/30/world/live-news/iran-war-us-israel-trump" target="_blank">CNN — Iran-US war live updates, March 30</a>
+- **Source:** <a href="https://www.nytimes.com/live/2026/03/29/world/iran-war-trump-israel-oil" target="_blank">New York Times — Iran War Live, March 30</a>
+
+---
+
+### 30 March 2026, afternoon ET — **Trump (Truth Social)**: Threatens power plants and desalination plants if deal not reached by April 6
+
+Following the initial shipment passage on March 30, Trump reiterated the April 6 deadline while expanding his stated targets to include desalination infrastructure. The post emphasized that discussions were "serious" with what he characterized as a "new, more reasonable regime" in Iran and expressed confidence a deal would be reached "shortly."
+
+**Trump (Truth Social):** "The United States of America is in serious discussions with A NEW, AND MORE REASONABLE, REGIME to end our Military Operations in Iran. Great progress has been made but, if for any reason a deal is not shortly reached, which it probably will be, and if the Hormuz Strait is not immediately 'Open for Business,' we will conclude our lovely 'stay' in Iran by blowing up and completely obliterating all of their Electric Generating Plants, Oil Wells and Kharg Island (and possibly all desalinization plants!), which we have purposefully not yet 'touched.' This will be in retribution for our many soldiers, and others, that Iran has butchered and killed over the old Regime's 47 year 'Reign of Terror.' Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 4.09k ReTruths · 15.5k Likes*
+
+- **Source:** <a href="https://www.dw.com/en/iran-war-trump-threatens-to-blow-up-desalination-plants/live-76586932" target="_blank">DW — Iran war: Trump threatens to 'blow up' desalination plants</a>
+- **Source:** <a href="https://www.cnn.com/2026/03/30/world/live-news/iran-war-us-israel-trump" target="_blank">CNN — Day 31 of Middle East conflict, March 30</a>
+
+---
+
+### 30 March 2026 — Defense and military leaders brief press on operations status
+
+US Defense Secretary Pete Hegseth and Joint Chiefs Chairman Gen. Dan Caine held a briefing on the current state of operations in the Middle East. They discussed ongoing surveillance activities, the status of targeted facility preparations, and reiterated that the US remains committed to achieving its objectives before the April 6 deadline while continuing diplomatic efforts.
+
+- **Source:** <a href="https://www.nytimes.com/live/2026/03/31/world/iran-war-oil-trump" target="_blank">New York Times — Iran War Live Updates, March 31</a>
+- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">Associated Press — Iran war live updates, March 31</a>
+
+---
+
+### 31 March 2026, morning ET — **Trump (Truth Social)**: Confirms continued progress; reiterates April 6 deadline
+
+As the second half of the week began, Trump posted an update confirming that talks continued with Iranian representatives. While not providing specifics on the negotiation positions, he maintained confidence that the agreed 20 tankers would continue to pass through the strait in the coming days as part of a broader resolution process. The April 6, 8 PM ET deadline for energy plant strikes remained in effect.
+
+- **Source:** <a href="https://www.newsweek.com/iran-war-live-trump-heralds-big-day-taking-oil-11754720" target="_blank">Newsweek — Iran War Live Updates, March 31</a>
+- **Source:** <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-uncertainty-oil-prices-strait-of-hormuz-houthis-red-sea/" target="_blank">CBS News — Iran war live updates, March 31</a>
+
+---
+
+### 31 March 2026, midday ET — **Defense Secretary Hegseth and Gen. Caine brief on operations**
+
+US Defense Secretary Pete Hegseth and Joint Chiefs of Staff Chairman General Dan Caine held a press briefing on the current state of military operations in the Middle East. The officials addressed:
+- Ongoing surveillance activities targeting Iranian infrastructure
+- Preparatory status for potential strikes on energy facilities (power plants, oil wells, desalination plants) pending negotiation outcomes
+- Continued diplomatic efforts with Pakistani, Turkish, and Egyptian mediators
+- Reaffirmed that the April 6, 8 PM ET deadline remained in effect
+
+The briefing confirmed that US forces maintain capability to execute rapid strikes on Iranian energy infrastructure should negotiations fail to produce results.
+
+- **Source:** <a href="https://www.nytimes.com/live/2026/03/31/world/iran-war-oil-trump" target="_blank">New York Times — Iran War Live Updates, March 31</a>
+- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">Associated Press — Iran war live updates, March 31</a>
+
+---
+
+### 31 March 2026, afternoon ET — **Trump Truth Social: Confirms talks continuing**
+
+President Trump posted on Truth Social confirming that discussions with Iranian representatives continued, expressing confidence in the negotiation process while maintaining the April 6 deadline. The post did not provide specific details about negotiation positions but reaffirmed that the agreed tanker transit would continue as part of broader resolution efforts.
+
+- **Source:** <a href="https://www.cnn.com/2026/03/31/world/live-news/iran-war-us-israel-trump" target="_blank">CNN — Iran war live updates, March 31</a>
+- **Source:** <a href="https://www.newsweek.com/iran-war-live-trump-heralds-big-day-taking-oil-11754720" target="_blank">Newsweek — Iran War Live Updates, March 31</a>
+
+---
+
+### 31 March 2026 — Markets react to deadline uncertainty; Houthis reinforce positions
+
+Energy markets showed continued volatility as the April 6 deadline approached, with **Brent crude trading in a range of $111-119.24/barrel** (peak ~$119.24). Regional analysts and intelligence reports indicated that **Houthi forces in Yemen were reinforcing their military positions** and coordinating with Iranian counterparts. Security assessments warned of potential parallel escalation routes should Iran-US negotiations fail to produce an agreement.
+
+- **Source:** <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-uncertainty-oil-prices-strait-of-hormuz-houthis-red-sea/" target="_blank">CBS News — Iran war live updates, March 31</a>
+- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">Associated Press — Iran war live updates, March 31</a>
+
+---
+
+## PART 11B SUMMARY — NEGOTIATION TIMELINE AND DEADLINES (26–31 MARCH 2026)
+
+| Date | Key Development | Status |
+|------|-----------------|--------|
+| 26 March | Trump extends energy plant destruction pause to **April 6, 8 PM ET** (per Iranian request) | Ongoing |
+| 27 March | IRGC threatens total Hormuz closure if power plants struck | Escalation risk |
+| 28 March | Oil production recovery discussions continue; no formal agreements | Monitoring |
+| 29 March | Trump confirms **Iran agreed to allow 20 oil tankers** through Hormuz starting March 30 | Partial breakthrough |
+| 30 March (morning) | First convoy of 20 agreed oil tankers begins transit through Strait | Implementation phase |
+| 30 March (afternoon) | Trump expands threat targets to include **desalination plants** alongside power plants, oil wells | Escalation risk |
+| 31 March (midday) | Defense Secretary Hegseth & Gen. Caine brief on operations; deadline reaffirmed | Ongoing |
+| 31 March (afternoon) | Trump Truth Social: confirms talks continuing | Ongoing |
+| 31 March | Brent crude **$111-119.24/barrel** (peak $119.24); Houthis reinforce Yemen positions | Markets volatile / Escalation risk |
+| **April 6, 8 PM ET** | **Final deadline for energy plant destruction pause** | Pending negotiation outcome |
+
+---
+
+## KEY SOURCES — MARCH 27–31, 2026 COVERAGE
+
+| Source | Coverage Period | URL |
+|--------|-----------------|-----|
+| CNN — Iran war live updates | March 28–30, 2026 | <a href="https://www.cnn.com/2026/03/30/world/live-news/iran-war-us-israel-trump" target="_blank">edition.cnn.com</a> |
+| New York Times — Iran War live blog | March 27–31, 2026 | <a href="https://www.nytimes.com/live/2026/03/29/world/iran-war-trump-israel-oil" target="_blank">nytimes.com</a> |
+| New York Times — Iran War March 31 updates | March 31, 2026 | <a href="https://www.nytimes.com/live/2026/03/31/world/iran-war-oil-trump" target="_blank">nytimes.com</a> |
+| Associated Press — Iran war live | March 31, 2026 | <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">apnews.com</a> |
+| The Guardian — Middle East crisis | March 27, 2026 | <a href="https://www.theguardian.com/world/live/2026/mar/27/middle-east-crisis-live-iran-war-trump-ultimatum" target="_blank">theguardian.com</a> |
+| The Hindu — Iran war live updates | March 30, 2026 | <a href="https://www.thehindu.com/news/international/iran-israel-us-war-updates-live-march-30-2026/article70801564.ece" target="_blank">thehindu.com</a> |
+| Washington Post — US-Iran peace talks | March 24, 2026 (context) | <a href="https://www.washingtonpost.com/national-security/2026/03/24/us-iran-peace-talks-pakistan-turkey-egypt/" target="_blank">washingtonpost.com</a> |
+| CNN — Iran war live updates | March 31, 2026 | <a href="https://www.cnn.com/2026/03/31/world/live-news/iran-war-us-israel-trump" target="_blank">edition.cnn.com</a> |
+| DW — Trump threatens desalination plants | March 31, 2026 | <a href="https://www.dw.com/en/iran-war-trump-threatens-to-blow-up-desalination-plants/live-76586932" target="_blank">dw.com</a> |
+| Newsweek — Iran War live updates | March 31, 2026 | <a href="https://www.newsweek.com/iran-war-live-trump-heralds-big-day-taking-oil-11754720" target="_blank">newsweek.com</a> |
+| CBS News — Iran war live updates | March 31, 2026 | <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-uncertainty-oil-prices-strait-of-hormuz-houthis-red-sea/" target="_blank">cbsnews.com</a> |
+| Associated Press — Iran war live | March 31, 2026 | <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">apnews.com</a> |
+| The Independent — Iran-US war live | March 29, 2026 | <a href="https://www.independent.co.uk/news/world/middle-east/iran-us-war-live-trump-oil-kharg-israel-houthis-updates-b2948815.html" target="_blank">independent.co.uk</a> |
+
+---
+
+The timeline continues through 31 March 2026. As of this date, the April 6 deadline for potential US strikes on Iranian power plants and energy infrastructure remains in effect pending negotiation outcomes.
+
+---
+
 ## PART 11B — DAY 27 (26 MARCH 2026)
 
 ---
@@ -1178,7 +1339,7 @@ The UN Human Rights Council held an urgent meeting on the Iran war, with over 82
 
 ---
 
-## PART 12 — CUMULATIVE CASUALTY AND DAMAGE SUMMARY (as of 25 March 2026)
+## PART 12 — CUMULATIVE CASUALTY AND DAMAGE SUMMARY (as of 31 March 2026)
 
 ---
 
