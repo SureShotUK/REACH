@@ -1,6 +1,6 @@
 # Project Status
 
-**Last Updated**: 2026-03-31
+**Last Updated**: 2026-04-01
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
@@ -8,13 +8,10 @@
 The terminai repository contains seven specialized project folders, plus a new standalone Iran War Timeline document. A comprehensive 2026 Iran war chronological timeline (`Iran_War_Timeline.md`) has been created covering June 2025 through 25 March 2026, with ~80 sourced events, fact-checked against live source URLs.: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the Maintenance project (maintenance admin system for a UK manufacturing/engineering business). A new Portland Fuel internal briefing paper (`Epic_Fury.md`) has been produced covering Operation Epic Fury (joint US-Israeli strikes on Iran, 28 Feb 2026) and its global energy market implications, with full citations from EIA, IEA, CSIS, and live news sources.
 
 ## Active Work Areas
-- **Iran War Timeline**: UPDATED WITH TRUMP TRUTH SOCIAL POSTS (2026-03-27)
-  - `Iran_War_Timeline.md` — ~80 sourced events + 40 Trump Truth Social posts; June 2025–26 March 2026; ~1,180 lines
-  - `Iran_War_2026_Timeline.md` — duplicate; **not yet updated with Trump posts** (needs sync)
-  - `Trumps_Posts.md` — standalone Trump posts reference document (1 March–26 March 2026)
-  - **Monitor**: Conflict ongoing; 10-day power plant pause expires 6 April 2026 at 8 PM ET
-  - **Outstanding**: Ras Laffan strike (18 March) needs verification; $126/barrel peak needs accessible source
-  - **Outstanding**: `Iran_War_2026_Timeline.md` duplicate needs Trump posts inserted to stay in sync
+- **Iran War Timeline**: UPDATED TO 1 APRIL 2026 (2026-04-01)
+  - `Iran_War_Timeline.md` — ~80 sourced events + 40 Trump Truth Social posts; June 2025–1 April 2026; ~1,550 lines
+  - Key April 1 developments: US wind-down in 2–3 weeks (deal not required), Iranian President's March 31 "necessary will" to end war, national address scheduled April 2
+  - **Monitor**: Trump national address 2 April evening ET; negotiations vs. unilateral wind-down
 
 - **Operation Epic Fury Briefing — Portland Fuel**: COMPLETED (2026-03-02)
   - `Epic_Fury.md` — internal briefing paper on US-Israeli military strikes on Iran (28 Feb 2026)

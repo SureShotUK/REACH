@@ -60,6 +60,53 @@ Extended the Iran War Timeline and Trump Posts documentation through 31 March 20
 
 ---
 
+## Session 2026-04-01
+
+### Summary
+Updated Iran War Timeline to cover April 1, 2026. Researched and documented key developments: Trump's announcement that US military campaign will end in 2–3 weeks regardless of deal, his message to European allies to "get your own oil" from the Strait of Hormuz, and confirmation of a scheduled national address for April 2, 2026. Also added the previously missing entry for Iranian President Pezeshkian's March 31 statement confirming Iran has "necessary will" to end war provided security guarantees are secured.
+
+### Work Completed
+- **Extended `Iran_War_Timeline.md` coverage** through 1 April 2026:
+  - **April 1, afternoon ET**: Trump announces US campaign wind-down in 2–3 weeks; no deal required for withdrawal
+  - **April 1**: Trump tells European allies facing high fuel prices to "get your own oil"; US will no longer secure Strait after Iranian threat eliminated
+  - **April 2, evening ET**: Scheduled national address by President Trump announced
+  - Markets: Brent crude trades $108–116/barrel (adjusting to wind-down timeline)
+  - European allies express concern over Trump's Hormuz security message
+
+- **Added critical missing entry for March 31**:
+  - **March 31, morning/early afternoon ET**: Iranian President Masoud Pezeshkian states Iran has "necessary will" to end war with US and Israel, contingent on receiving security guarantees
+  - Conditions include: permanent cessation of hostilities, rebuilding assistance commitments, US withdrawal guarantees
+  - Aligns with behind-the-scenes negotiations reported by multiple sources
+
+- **Updated header**: Compiled date → 1 April 2026; coverage → through 1 April
+- **Updated PART 11B summary table** with new entries for April 1 developments and Iranian President's statement
+- **Added April 1 sources section** with HTML anchor links from Al Jazeera, BBC, CNN, NBC News, Sky News, DW
+
+### Files Changed
+- `Iran_War_Timeline.md` — Added 2 major event entries (April 1 wind-down announcement, March 31 Iranian President statement); extended to 1 April 2026; ~1,550 lines total
+- **Correction**: Also noted that CSV file (`TrumpsTruthSocialPosts.csv`) was read but no new posts after March 31 were present
+
+### Git Commits
+- *(pending — changes staged this session, not yet committed)*
+
+### Key Decisions
+- Iranian President's statement documented as major development on March 31, providing context for Trump's April 1 announcements about "very good conversations"
+- Wind-down timeline (2–3 weeks) positioned as more significant than any specific deal outcome
+- European ally reaction to "get your own oil" message documented alongside US announcement
+
+### Reference Documents
+- `Iran_War_Timeline.md` — main timeline document, now through 1 April 2026
+- `Trumps_Posts.md` — standalone Truth Social posts reference (current through March 31)
+- External sources: Al Jazeera, BBC, CNN, NBC News, Sky News, DW (April 1 coverage)
+
+### Next Actions
+- [ ] Monitor Trump's national address scheduled for evening of April 2, 2026
+- [ ] Track whether talks result in deal or US proceeds with wind-down regardless of outcome
+- [ ] Continue updating timeline with post-April 2 developments
+- [ ] Update `Trumps_Posts.md` if new Truth Social posts emerge
+
+---
+
 ## Session [2026-03-31]
 
 ### Summary

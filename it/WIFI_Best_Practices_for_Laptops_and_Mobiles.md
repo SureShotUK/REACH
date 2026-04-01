@@ -6,7 +6,7 @@
 
 ---
 
-## Device-Specific Indicators
+**Device-Specific Indicators**
 
 Throughout this guide, you'll see these indicators:
 
@@ -16,7 +16,7 @@ Throughout this guide, you'll see these indicators:
 
 ---
 
-## Table of Contents
+**Table of Contents**
 
 1. [Introduction - Why Public WiFi Security Matters](#introduction)
 2. [Essential Security Measures (Priority Order)](#essential-security-measures)
@@ -34,7 +34,7 @@ Throughout this guide, you'll see these indicators:
 
 ## Introduction - Why Public WiFi Security Matters {#introduction}
 
-### 🔄 Both Devices
+> 🔄 All Devices
 
 Public WiFi networks at coffee shops, airports, hotels, and other public spaces are convenient but fundamentally insecure. When you connect to public WiFi on ANY device—laptop, phone, or tablet—you're sharing a network with dozens or hundreds of strangers, and potentially with attackers who can:
 
@@ -54,6 +54,212 @@ Public WiFi networks at coffee shops, airports, hotels, and other public spaces 
 ---
 
 ## Essential Security Measures (Priority Order) {#essential-security-measures}
+
+### Using Your Phone as a Secure Hotspot {#phone-hotspot}
+
+**💻 Laptop + 📱 Mobile**
+
+One of the safest alternatives to public WiFi is using your phone's cellular data connection to create a personal hotspot for your laptop. This creates a private network that only you can access.
+
+**Benefits vs. Public WiFi**
+
+**Why it's more secure:**
+>- ✅ Cellular networks use stronger encryption than public WiFi
+>- ✅ No shared network with strangers
+>- ✅ Attackers can't position themselves between you and the internet
+>- ✅ No risk of "evil twin" fake networks
+>- ✅ Your phone carrier already encrypts the connection
+
+**When to use it:**
+>- Working with sensitive data (banking, confidential work)
+>- No trusted WiFi available
+>- In high-risk locations (airports, conference centers)
+>- When you notice suspicious network behavior
+
+**When NOT to use it:**
+>- Large file downloads/uploads (uses your data plan)
+>- Video streaming (data-intensive)
+>- When you have limited cellular data remaining
+>- In areas with poor cellular coverage
+
+### 🚨 CRITICAL SECURITY WARNING FOR PHONE HOTSPOT USE 🚨
+
+**Before connecting your phone to any WiFi network while using it as a hotspot, you MUST do ONE of the following:**
+
+**Option 1 (RECOMMENDED): Disable WiFi on Your Phone**
+>- When using your phone as a hotspot, **turn OFF WiFi on the phone**
+>- This ensures your laptop is using only your cellular data connection
+>- Prevents your phone from passing traffic through an insecure public WiFi network
+
+**Option 2: Complete ALL WiFi Security Checks First**
+>- If you must connect your phone to WiFi while it's being used as a hotspot:
+>	1. Verify the network name with staff (avoid evil twin networks)
+>   2. Ensure VPN is running **on your phone**
+>   3. Connect phone to WiFi
+>   4. Verify VPN remains active
+>   5. Only then allow your laptop to use the phone's hotspot
+
+**⚠️ Why This Matters:**
+- If your phone is connected to insecure public WiFi while acting as a hotspot, your laptop's traffic may be routed through that insecure network
+- This defeats the entire purpose of using your phone as a secure alternative
+- You'd have all the vulnerabilities of public WiFi without realizing it
+
+**💡 Best Practice:**
+- Keep WiFi disabled on your phone when using it as a hotspot
+- Only use cellular data for the hotspot connection
+- This provides the maximum security benefit
+
+### Setup Instructions: iPhone Personal Hotspot
+
+##### 📱 Mobile Setup (iPhone)
+
+**Step 1: Enable Personal Hotspot**
+
+1. Go to **Settings > Personal Hotspot** (or Settings > Cellular > Personal Hotspot)
+2. Toggle "Allow Others to Join" to ON
+3. Note the WiFi password shown on this screen
+4. (Optional) Tap "WiFi Password" to change it to something memorable but strong
+
+**Step 2: Configure Security Settings**
+
+1. Ensure "Maximize Compatibility" is OFF (uses stronger WPA3 encryption when possible)
+2. Go to **Settings > WiFi**
+3. **Toggle WiFi OFF** (this ensures cellular-only connection)
+4. Return to Personal Hotspot screen
+
+**Step 3: Connect Your Laptop**
+
+##### 💻 Laptop Connection (Windows)
+
+1. On your laptop, click the WiFi icon in the system tray
+2. Look for a network named "iPhone" or "[Your Name]'s iPhone"
+3. Click on it and select "Connect"
+4. Enter the Personal Hotspot password from your iPhone
+5. When asked "Do you want to allow your PC to be discoverable?" select "No" (sets to Public profile)
+
+**Step 4: Verify Connection**
+
+1. On your iPhone, you'll see a blue bar at the top saying "Personal Hotspot: 1 Connection"
+2. On your laptop, verify you're connected to your iPhone's hotspot
+3. Open a browser and verify internet connectivity
+
+**💡 Tips for iPhone Hotspot:**
+- Keep your iPhone plugged into power—hotspot drains battery quickly
+- Monitor your cellular data usage via Settings > Cellular
+- To disconnect, either turn off Personal Hotspot or disconnect from laptop
+- iPhone will automatically turn off hotspot after a period of inactivity
+
+### Setup Instructions: Android Mobile Hotspot and Tethering
+
+##### 📱 Mobile Setup (Android)
+
+**Note:** Steps may vary slightly depending on Android version and manufacturer (Samsung, Google Pixel, etc.)
+
+**Step 1: Enable Mobile Hotspot**
+
+1. Go to **Settings > Network & Internet > Hotspot & tethering**
+   - On Samsung: **Settings > Connections > Mobile Hotspot and Tethering**
+2. Tap "Wi-Fi hotspot" or "Mobile Hotspot"
+3. Toggle the hotspot ON
+4. Note the network name and password shown
+
+**Step 2: Configure Security Settings**
+
+1. Before turning on the hotspot, tap "Set up Wi-Fi hotspot" or the gear icon
+2. Configure the following:
+   - **Network name:** Change to something identifiable but not personally identifying
+   - **Security:** Ensure it's set to "WPA3-Personal" or "WPA2-Personal" (NOT "Open" or "None")
+   - **Password:** Set a strong password (at least 12 characters)
+   - **AP Band:** "5 GHz" if available (faster and less congested than 2.4 GHz)
+3. Tap "Save"
+4. Go to **Settings > Network & Internet > WiFi**
+5. **Toggle WiFi OFF** (this ensures cellular-only connection)
+6. Return to Mobile Hotspot settings
+7. Toggle the hotspot ON
+
+**Step 3: Connect Your Laptop**
+
+##### 💻 Laptop Connection (Windows)
+
+1. On your laptop, click the WiFi icon in the system tray
+2. Look for the network name you set on your Android phone
+3. Click on it and select "Connect"
+4. Enter the hotspot password from your Android phone
+5. When asked "Do you want to allow your PC to be discoverable?" select "No" (sets to Public profile)
+
+**Step 4: Verify Connection**
+
+1. On your Android phone, you should see a notification showing "1 device connected" or similar
+2. On your laptop, verify you're connected to your phone's hotspot
+3. Open a browser and verify internet connectivity
+
+**💡 Tips for Android Hotspot:**
+- Keep your phone plugged into power—hotspot drains battery quickly
+- Monitor your cellular data usage via Settings > Network & Internet > Data usage
+- Some carriers may charge extra for hotspot usage—check your plan
+- Set up "Turn off hotspot automatically" to save battery when not in use
+- Consider setting a data limit if your plan is limited (Settings > Network & Internet > Data usage > Data warning & limit)
+
+### Data Usage Management
+
+##### 🔄 Both Devices
+
+**How much data does typical work use?**
+
+| Activity | Data Usage (Approximate) |
+|----------|-------------------------|
+| Email (text only) | 1-5 MB per 100 emails |
+| Web browsing | 1-3 MB per page |
+| Video call (Zoom/Teams) | 500 MB - 1.5 GB per hour |
+| Document editing (cloud) | 1-10 MB per hour |
+| Downloading files | Varies by file size |
+| Streaming video | 1-3 GB per hour (avoid on hotspot!) |
+
+**To minimize data usage when using hotspot:**
+- Avoid streaming video or music
+- Disable automatic cloud photo uploads
+- Disable automatic app updates
+- Work on documents locally, sync when on WiFi
+- Use reading mode or reader view in browsers
+- Disable auto-playing videos in social media
+
+**Check your data plan:**
+- Know your monthly data limit
+- Monitor usage regularly
+- Set up data alerts on your phone
+- Consider upgrading your plan if you frequently need hotspot
+
+### Troubleshooting Phone Hotspot Issues
+
+**Laptop can't see the hotspot network:**
+- Ensure hotspot is turned ON on your phone
+- Try turning hotspot off and on again
+- On iPhone, try toggling Maximize Compatibility ON
+- Restart both devices
+- Ensure your laptop's WiFi is turned on
+
+**Connected but no internet:**
+- Verify your phone has cellular data connection (check bars/signal)
+- Ensure cellular data is enabled on your phone
+- Check if you've exceeded your data limit
+- Try disconnecting and reconnecting
+- Restart both devices
+
+**Very slow connection:**
+- Check cellular signal strength (weak signal = slow data)
+- Move to a location with better cellular coverage
+- Switch between 2.4 GHz and 5 GHz bands (Android)
+- Close unnecessary apps on your phone
+- Limit the number of connected devices
+
+**High data usage:**
+- Check for background updates on your laptop
+- Disable cloud sync temporarily
+- Check for Windows updates downloading
+- Close applications you're not actively using
+- Use data-saving modes in browsers
+
+---
 
 ### 🔴 CRITICAL (Must Do Before Connecting)
 
@@ -99,6 +305,7 @@ See [Step-by-Step VPN Setup](#vpn-setup) for installation instructions.
 - Check for posted signs with the correct network name
 - Be suspicious of networks with generic names or slight misspellings
 - If you see multiple networks with similar names, ask which one is legitimate
+- If the site uses a QR code to connect to the WIFI, examine the code carefully, is it a sticker, has it been tampered with, if so, do not scan it.
 
 #### 3. Set Network to "Public" Profile
 
@@ -289,212 +496,6 @@ Windows Defender Firewall should be enabled for all network profiles.
 Mobile devices don't typically have user-configurable firewalls, but they have built-in protections:
 - **iOS:** Uses sandboxing to prevent apps from accessing other apps' data
 - **Android:** Uses per-app permissions and sandboxing
-
----
-
-## Using Your Phone as a Secure Hotspot {#phone-hotspot}
-
-### 💻 Laptop + 📱 Mobile
-
-One of the safest alternatives to public WiFi is using your phone's cellular data connection to create a personal hotspot for your laptop. This creates a private network that only you can access.
-
-### Benefits vs. Public WiFi
-
-**Why it's more secure:**
-- ✅ Cellular networks use stronger encryption than public WiFi
-- ✅ No shared network with strangers
-- ✅ Attackers can't position themselves between you and the internet
-- ✅ No risk of "evil twin" fake networks
-- ✅ Your phone carrier already encrypts the connection
-
-**When to use it:**
-- Working with sensitive data (banking, confidential work)
-- No trusted WiFi available
-- In high-risk locations (airports, conference centers)
-- When you notice suspicious network behavior
-
-**When NOT to use it:**
-- Large file downloads/uploads (uses your data plan)
-- Video streaming (data-intensive)
-- When you have limited cellular data remaining
-- In areas with poor cellular coverage
-
-### 🚨 CRITICAL SECURITY WARNING FOR PHONE HOTSPOT USE 🚨
-
-**Before connecting your phone to any WiFi network while using it as a hotspot, you MUST do ONE of the following:**
-
-**Option 1 (RECOMMENDED): Disable WiFi on Your Phone**
-- When using your phone as a hotspot, **turn OFF WiFi on the phone**
-- This ensures your laptop is using only your cellular data connection
-- Prevents your phone from passing traffic through an insecure public WiFi network
-
-**Option 2: Complete ALL WiFi Security Checks First**
-- If you must connect your phone to WiFi while it's being used as a hotspot:
-  1. Verify the network name with staff (avoid evil twin networks)
-  2. Ensure VPN is running **on your phone**
-  3. Connect phone to WiFi
-  4. Verify VPN remains active
-  5. Only then allow your laptop to use the phone's hotspot
-
-**⚠️ Why This Matters:**
-- If your phone is connected to insecure public WiFi while acting as a hotspot, your laptop's traffic may be routed through that insecure network
-- This defeats the entire purpose of using your phone as a secure alternative
-- You'd have all the vulnerabilities of public WiFi without realizing it
-
-**💡 Best Practice:**
-- Keep WiFi disabled on your phone when using it as a hotspot
-- Only use cellular data for the hotspot connection
-- This provides the maximum security benefit
-
-### Setup Instructions: iPhone Personal Hotspot
-
-##### 📱 Mobile Setup (iPhone)
-
-**Step 1: Enable Personal Hotspot**
-
-1. Go to **Settings > Personal Hotspot** (or Settings > Cellular > Personal Hotspot)
-2. Toggle "Allow Others to Join" to ON
-3. Note the WiFi password shown on this screen
-4. (Optional) Tap "WiFi Password" to change it to something memorable but strong
-
-**Step 2: Configure Security Settings**
-
-1. Ensure "Maximize Compatibility" is OFF (uses stronger WPA3 encryption when possible)
-2. Go to **Settings > WiFi**
-3. **Toggle WiFi OFF** (this ensures cellular-only connection)
-4. Return to Personal Hotspot screen
-
-**Step 3: Connect Your Laptop**
-
-##### 💻 Laptop Connection (Windows)
-
-1. On your laptop, click the WiFi icon in the system tray
-2. Look for a network named "iPhone" or "[Your Name]'s iPhone"
-3. Click on it and select "Connect"
-4. Enter the Personal Hotspot password from your iPhone
-5. When asked "Do you want to allow your PC to be discoverable?" select "No" (sets to Public profile)
-
-**Step 4: Verify Connection**
-
-1. On your iPhone, you'll see a blue bar at the top saying "Personal Hotspot: 1 Connection"
-2. On your laptop, verify you're connected to your iPhone's hotspot
-3. Open a browser and verify internet connectivity
-
-**💡 Tips for iPhone Hotspot:**
-- Keep your iPhone plugged into power—hotspot drains battery quickly
-- Monitor your cellular data usage via Settings > Cellular
-- To disconnect, either turn off Personal Hotspot or disconnect from laptop
-- iPhone will automatically turn off hotspot after a period of inactivity
-
-### Setup Instructions: Android Mobile Hotspot and Tethering
-
-##### 📱 Mobile Setup (Android)
-
-**Note:** Steps may vary slightly depending on Android version and manufacturer (Samsung, Google Pixel, etc.)
-
-**Step 1: Enable Mobile Hotspot**
-
-1. Go to **Settings > Network & Internet > Hotspot & tethering**
-   - On Samsung: **Settings > Connections > Mobile Hotspot and Tethering**
-2. Tap "Wi-Fi hotspot" or "Mobile Hotspot"
-3. Toggle the hotspot ON
-4. Note the network name and password shown
-
-**Step 2: Configure Security Settings**
-
-1. Before turning on the hotspot, tap "Set up Wi-Fi hotspot" or the gear icon
-2. Configure the following:
-   - **Network name:** Change to something identifiable but not personally identifying
-   - **Security:** Ensure it's set to "WPA3-Personal" or "WPA2-Personal" (NOT "Open" or "None")
-   - **Password:** Set a strong password (at least 12 characters)
-   - **AP Band:** "5 GHz" if available (faster and less congested than 2.4 GHz)
-3. Tap "Save"
-4. Go to **Settings > Network & Internet > WiFi**
-5. **Toggle WiFi OFF** (this ensures cellular-only connection)
-6. Return to Mobile Hotspot settings
-7. Toggle the hotspot ON
-
-**Step 3: Connect Your Laptop**
-
-##### 💻 Laptop Connection (Windows)
-
-1. On your laptop, click the WiFi icon in the system tray
-2. Look for the network name you set on your Android phone
-3. Click on it and select "Connect"
-4. Enter the hotspot password from your Android phone
-5. When asked "Do you want to allow your PC to be discoverable?" select "No" (sets to Public profile)
-
-**Step 4: Verify Connection**
-
-1. On your Android phone, you should see a notification showing "1 device connected" or similar
-2. On your laptop, verify you're connected to your phone's hotspot
-3. Open a browser and verify internet connectivity
-
-**💡 Tips for Android Hotspot:**
-- Keep your phone plugged into power—hotspot drains battery quickly
-- Monitor your cellular data usage via Settings > Network & Internet > Data usage
-- Some carriers may charge extra for hotspot usage—check your plan
-- Set up "Turn off hotspot automatically" to save battery when not in use
-- Consider setting a data limit if your plan is limited (Settings > Network & Internet > Data usage > Data warning & limit)
-
-### Data Usage Management
-
-##### 🔄 Both Devices
-
-**How much data does typical work use?**
-
-| Activity | Data Usage (Approximate) |
-|----------|-------------------------|
-| Email (text only) | 1-5 MB per 100 emails |
-| Web browsing | 1-3 MB per page |
-| Video call (Zoom/Teams) | 500 MB - 1.5 GB per hour |
-| Document editing (cloud) | 1-10 MB per hour |
-| Downloading files | Varies by file size |
-| Streaming video | 1-3 GB per hour (avoid on hotspot!) |
-
-**To minimize data usage when using hotspot:**
-- Avoid streaming video or music
-- Disable automatic cloud photo uploads
-- Disable automatic app updates
-- Work on documents locally, sync when on WiFi
-- Use reading mode or reader view in browsers
-- Disable auto-playing videos in social media
-
-**Check your data plan:**
-- Know your monthly data limit
-- Monitor usage regularly
-- Set up data alerts on your phone
-- Consider upgrading your plan if you frequently need hotspot
-
-### Troubleshooting Phone Hotspot Issues
-
-**Laptop can't see the hotspot network:**
-- Ensure hotspot is turned ON on your phone
-- Try turning hotspot off and on again
-- On iPhone, try toggling Maximize Compatibility ON
-- Restart both devices
-- Ensure your laptop's WiFi is turned on
-
-**Connected but no internet:**
-- Verify your phone has cellular data connection (check bars/signal)
-- Ensure cellular data is enabled on your phone
-- Check if you've exceeded your data limit
-- Try disconnecting and reconnecting
-- Restart both devices
-
-**Very slow connection:**
-- Check cellular signal strength (weak signal = slow data)
-- Move to a location with better cellular coverage
-- Switch between 2.4 GHz and 5 GHz bands (Android)
-- Close unnecessary apps on your phone
-- Limit the number of connected devices
-
-**High data usage:**
-- Check for background updates on your laptop
-- Disable cloud sync temporarily
-- Check for Windows updates downloading
-- Close applications you're not actively using
-- Use data-saving modes in browsers
 
 ---
 

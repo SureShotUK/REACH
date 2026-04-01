@@ -1,7 +1,7 @@
 # Draytek Vigor 2865 VPN Connection Guide
 
 **Purpose:** Secure VPN connection from Windows 11 PC to Draytek Vigor 2865 router at remote location
-**Last Updated:** October 2025
+**Last Updated:** November 2025 (v1.1)
 **Security Level:** High (using L2TP over IPsec with AES encryption)
 
 ---
@@ -160,29 +160,82 @@ If your remote location has a dynamic (changing) IP address, you need DDNS:
 
 ### Step 1.4: Configure L2TP/IPsec VPN Server
 
-#### 1.4a: Enable L2TP Server
+**Note:** You can configure L2TP VPN using either the **VPN Server Wizard** (recommended for simplicity) or **Manual Configuration** (for advanced control). Instructions for both methods are provided below.
+
+#### 1.4a: Enable L2TP VPN Service (Prerequisite for Both Methods)
 
 1. Go to **VPN and Remote Access > Remote Access Control**
-2. Find the **L2TP / PPTP / PPPoE** section
-3. Check the box for **Enable L2TP Server**
-4. Configure the following settings:
+2. In the **Remote Access Control Setup** section, check the box for **Enable L2TP VPN Service**
+3. Navigate to the **Bind to WAN** tab (VPN and Remote Access > Remote Access Control > Bind to WAN)
+4. Ensure **L2TP VPN Service** is checked for the WAN interface(s) that should accept VPN connections (typically WAN1)
+5. Click **OK** to save
 
-**L2TP Server Settings:**
+#### 1.4b: Method 1 - VPN Server Wizard (Recommended)
+
+The VPN Server Wizard provides a simple guided process:
+
+1. Navigate to **Wizards > VPN Server Wizard** from the main menu
+2. Select **Remote Dial-in User (Teleworker)** and click **Next**
+3. Check **L2TP with IPsec Policy** and select enforcement level:
+   - **Nice to Have**: IPsec preferred but not required (connection falls back to L2TP if IPsec fails)
+   - **Must**: IPsec is required (connection fails without IPsec) - **Recommended for security**
+4. Click **Next**
+5. Fill in the **VPN Authentication Settings**:
+
+| Field | Description | Notes |
+|-------|-------------|-------|
+| **Username** | Username for remote user | Maximum 11 characters |
+| **Password** | Password for remote user | Maximum 11 characters |
+| **Pre-Shared Key** | IPsec PSK for this user | Up to 64 characters - see guidelines below |
+| **Confirm Pre-Shared Key** | Re-enter PSK | Must match |
+
+6. Click **Next**, review the summary, and click **Finish**
+
+**Skip to Step 1.5 (Firewall Rules) if using the wizard.**
+
+#### 1.4c: Method 2 - Manual Configuration (Advanced)
+
+For granular control over VPN settings:
+
+**Configure L2TP Settings:**
+
+1. Still in **VPN and Remote Access > Remote Access Control**
+2. Configure authentication and client IP pool settings (see Step 1.4d below for IP pool configuration)
+
+**Create User Profile:**
+
+3. Go to **VPN and Remote Access > Remote Dial-in User**
+4. Click on an unused index number to create a new profile
+5. Configure the following:
 
 | Setting | Value | Notes |
 |---------|-------|-------|
-| **Enable L2TP Server** | ✅ Checked | Enables the VPN server |
-| **CHAP Authentication** | ✅ Enabled | Required for Windows |
-| **MS-CHAPv2 Authentication** | ✅ Enabled | Required for Windows |
-| **PAP Authentication** | ❌ Disabled | Less secure |
-| **IPsec Encryption** | ✅ Enabled | **CRITICAL - Must enable** |
-| **IPsec Pre-Shared Key** | [Create strong key] | See below for guidelines |
+| **Enable this account** | ✅ Checked | Activates the account |
+| **Multiple Concurrent Connections Allowed** | Optional | Check if same credentials need to connect from multiple devices |
+| **Allowed Dial-in Type** | **L2TP with IPsec Policy** | Select from dropdown |
+| **IPsec Policy Level** | **Must** (recommended) | Options: None, Nice to Have, or Must |
 
-**Creating a Strong Pre-Shared Key (PSK):**
+6. In the **User Account and Authentication** section:
+   - **Username**: Enter username (unique identifier)
+   - **Password**: Enter password (limited to 19 characters for L2TP)
+
+7. In the **IKE Authentication Method** section:
+   - Check **Pre-Shared Key**
+   - Enter an **IKE Pre-Shared Key** (1-63 characters)
+
+8. Configure the **Subnet** section (specifies how VPN client receives IP address)
+9. Click **OK** to save
+
+**IPsec Policy Levels Explained:**
+- **None**: L2TP connection without IPsec encryption (NOT RECOMMENDED for security)
+- **Nice to Have**: Router attempts IPsec but falls back to plain L2TP if negotiation fails
+- **Must**: IPsec is mandatory - connection fails without successful IPsec establishment (RECOMMENDED)
+
+#### 1.4d: Creating a Strong Pre-Shared Key (PSK)
 
 The PSK is a shared password that secures your VPN. Create a strong one:
 
-- **Minimum 20 characters** (longer is better)
+- **Minimum 20 characters** (longer is better, up to 64 characters supported)
 - Mix of uppercase, lowercase, numbers, and symbols
 - Random characters (don't use dictionary words)
 - **Example generator:** Use Windows PowerShell on your office PC:
@@ -191,15 +244,13 @@ The PSK is a shared password that secures your VPN. Create a strong one:
 -join ((48..57) + (65..90) + (97..122) + (33..47) | Get-Random -Count 32 | ForEach-Object {[char]$_})
 ```
 
-This generates a 32-character random PSK. **Copy and save it securely** - you'll need it later.
+This generates a 32-character random PSK. **Copy and save it securely** - you'll need it for both router configuration and Windows client setup.
 
 **Example PSK:** `K9mP2$xL5nQ#7wR@8jT4vY&3zB6cN1fH`
 
-5. Paste your PSK into the **IPsec Pre-Shared Key** field
-6. Set **Encryption Algorithm** to **AES-256** (if available) or **AES-128** (minimum)
-7. Set **Authentication Algorithm** to **SHA-256** or **SHA-1** (SHA-256 preferred)
+**Note:** If you used the VPN Server Wizard, the PSK is configured per-user. For manual configuration, you can set a per-user PSK in the Remote Dial-in User profile, or configure a global PSK in **VPN and Remote Access > IPsec General Setup** (applies to all users without specific Peer IDs).
 
-#### 1.4b: Configure Client IP Pool
+#### 1.4e: Configure Client IP Pool
 
 The Draytek will assign IP addresses to VPN clients from this pool.
 
@@ -220,34 +271,32 @@ The Draytek will assign IP addresses to VPN clients from this pool.
 
 4. Click **Apply** to save settings
 
-#### 1.4c: Create VPN User Account
+**Note:** If you used the **VPN Server Wizard** (Method 1), user accounts are created during the wizard process. The sections below apply only if you're using **Manual Configuration** (Method 2) or need to create additional users.
 
-1. Go to **VPN and Remote Access > Remote Dial-In User**
-2. Click **Add** to create a new user
-3. Configure the user account:
+#### 1.4f: Creating Strong Passwords
 
-| Field | Example Value | Recommendations |
-|-------|---------------|-----------------|
-| **User Name** | `office-admin` | Your username for connecting |
-| **Password** | [Create strong password] | Min. 16 chars, mixed case, numbers, symbols |
-| **Active** | ✅ Enabled | Must be checked |
-| **Privilege** | **Admin** or **User** | Admin for full network access |
-| **Allow Client IP** | Leave blank | Restricts by source IP (optional) |
-| **VPN Type** | **L2TP** | Select L2TP only |
+When creating VPN user passwords (either via wizard or manual configuration), remember:
 
-**Creating a Strong Password:**
+**Password Constraints:**
+- **Maximum length**: 19 characters for L2TP connections (as per Vigor router specification)
+- **Wizard mode**: Maximum 11 characters
+- Use mixed case, numbers, and symbols within this limit
 
-Use a password manager or generate one:
+**Password Generator (11-character for wizard, adjust count for manual):**
 
 ```powershell
-# PowerShell command to generate 16-char password
--join ((48..57) + (65..90) + (97..122) + (33..47) | Get-Random -Count 16 | ForEach-Object {[char]$_})
+# PowerShell command to generate 11-char password (for wizard)
+-join ((48..57) + (65..90) + (97..122) + (33..47) | Get-Random -Count 11 | ForEach-Object {[char]$_})
 ```
 
-**Example:** `P9mL$2xK5nQ#7wR@`
+**Example (11 chars):** `P9m$2xK5nQ#`
 
-4. Click **OK** to save the user
-5. **Record these credentials securely** - you'll need them for Windows 11 setup
+**For manual configuration (up to 19 chars):**
+```powershell
+-join ((48..57) + (65..90) + (97..122) + (33..47) | Get-Random -Count 19 | ForEach-Object {[char]$_})
+```
+
+**Record these credentials securely** - you'll need them for Windows 11 setup.
 
 **💡 Pro Tip:** Create separate accounts for each user/device. This allows you to:
 - Track who's connecting (via VPN logs)
@@ -1293,9 +1342,9 @@ ipconfig /renew "Remote Office VPN"
 ## Document Information
 
 **Document Title:** Draytek Vigor 2865 VPN Connection Guide
-**Version:** 1.0
+**Version:** 1.1
 **Created:** October 2025
-**Last Updated:** October 2025
+**Last Updated:** November 2025
 **Author:** IT Documentation Team
 **Review Cycle:** Quarterly
 
@@ -1304,6 +1353,7 @@ ipconfig /renew "Remote Office VPN"
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
 | 1.0 | October 2025 | Initial document creation | IT Team |
+| 1.1 | November 2025 | Corrected VPN configuration based on Vigor2865 User's Guide: Added VPN Server Wizard method, corrected password length limits (11 chars wizard, 19 chars manual), updated checkbox name to "Enable L2TP VPN Service", added IPsec policy level explanations (None/Nice to Have/Must), corrected PSK character limits, updated user profile configuration steps | IT Team |
 
 ---
 

@@ -86,7 +86,7 @@ The following table presents the recorded noise levels at each of the nine surve
 |------|-----------|-----------|-----------|-----------|
 | 1 | 84.7 | 87.4 | 84.5 | 91.8 |
 | 2 | 80.2 | 88.1 | 86.9 | 90.9 |
-| 3 | 82.1 | 91.9 | 89.5 | 98.7 |
+| 3 | 82.1 | 91.9 | 89.5 | 93.7 |
 | 4 | 79.0 | 82.0 | 81.6 | 85.0 |
 | 5 | 78.4 | 80.8 | 78.3 | 84.5 |
 | 6 | 70.4 | 77.3 | 75.4 | 80.0 |
@@ -182,7 +182,7 @@ This is below the lower action value of 80 dB(A). Even accounting for the ±1.5 
 
 ### 5.3 Peak Sound Pressure Levels
 
-The highest measured dB(C) value across all areas is **98.7 dB(C) in Area 3**. This is well below the lower peak sound pressure action value of **135 dB(C)** and the peak limit value of **140 dB(C)**.
+The highest measured dB(C) value across all areas is **93.7 dB(C) in Area 3**. This is well below the lower peak sound pressure action value of **135 dB(C)** and the peak limit value of **140 dB(C)**.
 
 **No action is required with respect to peak sound pressure levels.**
 

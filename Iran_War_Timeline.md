@@ -1,5 +1,5 @@
 # 2026 Iran War — Comprehensive Chronological Timeline
-**Compiled:** 31 March 2026 | **Coverage:** June 2025 precursor through 31 March 2026
+**Compiled:** 1 April 2026 | **Coverage:** June 2025 precursor through 1 April 2026
 **Sources:** Reuters, BBC, NPR, Al Jazeera, CNN, CNBC, NBC News, AP, Guardian, Wikipedia, Alma Research, Critical Threats, Time, Axios, PBS, Stars and Stripes, UN Press Office, HRANA/Hengaw NGOs, Trump Truth Social posts (primary source)
 
 > **Operations:** US codename — **Operation Epic Fury** | Israeli codename — **Operation Roaring Lion** | Iranian response — **Operation True Promise 4**
@@ -1252,6 +1252,17 @@ The briefing confirmed that US forces maintain capability to execute rapid strik
 
 ---
 
+### 31 March 2026, afternoon ET — **Iranian President Pezeshkian: Iran Has "Necessary Will" to End War**
+
+Iranian President **Masoud Pezeshkian** stated on Monday, March 31, that Iran has the **"necessary will"** to end the war with the United States and Israel. However, the President emphasized that any decision to halt hostilities is contingent upon receiving **security guarantees** from the US. The conditions include assurances that US military operations would cease permanently and that promised rebuilding assistance would be delivered as part of a comprehensive resolution agreement.
+
+Pezeshkian's statement represents a significant shift toward negotiation readiness from the Iranian government, aligning with reports that Iranian negotiators had been engaging in behind-the-scenes talks facilitated by Pakistan and Turkey. The conditions Iran seeks mirror Trump's core demands: complete cessation of uranium enrichment, dismantling of ballistic missile capabilities, and guaranteed open transit through the Strait of Hormuz.
+
+- **Source:** <a href="https://www.euronews.com/2026/03/31/iran-has-necessary-will-to-end-war-but-seeking-guarantees-president-masoud-pezeshkian-says" target="_blank">Euronews — Iran has 'necessary will' to end war but seeking guarantees</a>
+- **Source:** <a href="https://www.bbc.com/news/live/c36r5p1l7w3t" target="_blank">BBC — Iran president Masoud Pezeshkian statement, March 31</a>
+
+---
+
 ### 31 March 2026, afternoon ET — **Trump Truth Social: Confirms talks continuing**
 
 President Trump posted on Truth Social confirming that discussions with Iranian representatives continued, expressing confidence in the negotiation process while maintaining the April 6 deadline. The post did not provide specific details about negotiation positions but reaffirmed that the agreed tanker transit would continue as part of broader resolution efforts.
@@ -1270,10 +1281,35 @@ Energy markets showed continued volatility as the April 6 deadline approached, w
 
 ---
 
+### 1 April 2026, afternoon ET — **Trump: US to Leave Iran in 2–3 Weeks, No Deal Required**
+
+President Trump told reporters on Tuesday, April 1, 2026, that the United States military campaign in Iran could end within **two to three weeks**, regardless of whether a formal deal is reached with Tehran. In a press conversation, Trump stated the US will "leave whether we have a deal or not" once its objectives are met.
+
+The President also told European allies facing high fuel prices that they should **"get your own oil"** from the Strait of Hormuz, saying the US would no longer be responsible for securing the waterway after the Iranian threat is eliminated. He indicated other nations—particularly those relying on the strait for energy imports—must take responsibility for its security.
+
+Trump confirmed he will deliver a **national address to the American people on Wednesday night (April 1, 2026 9pm EDT or 2am on 2 April BST)** regarding the war's progress and path forward.
+
+The White House indicated that while Iran has shown interest in reaching an agreement following their military losses, no formal ceasefire framework has been accepted as of this date. The April 6 deadline for potential strikes on power plants and energy infrastructure remains technically in effect but may be reconsidered given the wind-down timeline.
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/1/trump-tells-allies-get-your-own-oil-says-iran-war-could-end-in-2-3-weeks" target="_blank">Al Jazeera — Trump tells allies to get your own oil</a>
+- **Source:** <a href="https://www.bbc.com/news/live/c8jke9v9xv9t" target="_blank">BBC — Trump says US will leave Iran 'whether we have a deal or not'</a>
+- **Source:** <a href="https://www.cnn.com/2026/04/01/world/live-news/iran-war-us-trump-oil" target="_blank">CNN — Iran war live updates, April 1</a>
+
+---
+
+### 1 April 2026 — Markets react to wind-down timeline; European allies respond
+
+European Union officials expressed concern over Trump's suggestion that member states should secure their own energy supplies through the Hormuz Strait. Energy markets showed modest gains as the possibility of a quicker US exit emerged, with Brent crude trading in a range of **$108–116/barrel** (down from peak ~$126).
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/1/trump-tells-allies-get-your-own-oil-says-iran-war-could-end-in-2-3-weeks" target="_blank">Al Jazeera — Markets and European response</a>
+
+---
+
+
 ## PART 11B SUMMARY — NEGOTIATION TIMELINE AND DEADLINES (26–31 MARCH 2026)
 
 | Date | Key Development | Status |
-|------|-----------------|--------|
+|------|----------|--------|
 | 26 March | Trump extends energy plant destruction pause to **April 6, 8 PM ET** (per Iranian request) | Ongoing |
 | 27 March | IRGC threatens total Hormuz closure if power plants struck | Escalation risk |
 | 28 March | Oil production recovery discussions continue; no formal agreements | Monitoring |
@@ -1281,9 +1317,14 @@ Energy markets showed continued volatility as the April 6 deadline approached, w
 | 30 March (morning) | First convoy of 20 agreed oil tankers begins transit through Strait | Implementation phase |
 | 30 March (afternoon) | Trump expands threat targets to include **desalination plants** alongside power plants, oil wells | Escalation risk |
 | 31 March (midday) | Defense Secretary Hegseth & Gen. Caine brief on operations; deadline reaffirmed | Ongoing |
+| 31 March (morning/early afternoon) | **Iranian President Pezeshkian**: Iran has "necessary will" to end war, seeking security guarantees | Negotiation signal |
 | 31 March (afternoon) | Trump Truth Social: confirms talks continuing | Ongoing |
 | 31 March | Brent crude **$111-119.24/barrel** (peak $119.24); Houthis reinforce Yemen positions | Markets volatile / Escalation risk |
-| **April 6, 8 PM ET** | **Final deadline for energy plant destruction pause** | Pending negotiation outcome |
+| 1 April (afternoon) | Trump announces US could end offensive in **2–3 weeks**; no deal required to wind down | Wind-down announced |
+| 1 April | Trump tells European allies to **"get your own oil"**; national address scheduled for April 2 | Communication |
+| 1 April | Brent crude **$108–116/barrel** (markets adjust to wind-down timeline) | Markets adjusting |
+| **April 2, evening ET** | **Trump scheduled national address on Iran war** | Confirmed |
+| **April 6, 8 PM ET** | **Original deadline for energy plant destruction pause** (status uncertain given wind-down timeline) | Pending |
 
 ---
 
@@ -1392,4 +1433,17 @@ The timeline continues through 31 March 2026. As of this date, the April 6 deadl
 
 ---
 
-*Document compiled 25 March 2026 from multiple open-source news reports. All events verified against two or more sources where possible. Casualty figures are subject to revision as official counts remain disputed. The conflict is ongoing.*
+*Document compiled 1 April 2026 from multiple open-source news reports. All events verified against two or more sources where possible. Casualty figures are subject to revision as official counts remain disputed. The conflict is ongoing.*
+
+---
+
+## NEW DEVELOPMENTS — APRIL 1, 2026
+
+| Source | Coverage | URL |
+|--------|----------|-----|
+| Al Jazeera — Trump tells allies 'get your own oil' | April 1, 2026 | <a href="https://www.aljazeera.com/news/2026/4/1/trump-tells-allies-get-your-own-oil-says-iran-war-could-end-in-2-3-weeks" target="_blank">aljazeera.com</a> |
+| BBC — Trump says US will leave Iran 'whether we have a deal or not' | April 1, 2026 | <a href="https://www.bbc.com/news/live/c8jke9v9xv9t" target="_blank">bbc.com</a> |
+| CNN — Iran war live updates | April 1, 2026 | <a href="https://edition.cnn.com/2026/04/01/world/live-news/iran-war-us-trump-oil" target="_blank">cnn.com</a> |
+| NBC News — Live updates on Trump/Hormuz | April 1, 2026 | <a href="https://www.nbcnews.com/world/iran/live-blog/live-updates-iran-war-gas-prices-trump-hormuz-tanker-isfahan-rcna265972" target="_blank">nbcnews.com</a> |
+| Sky News — Iran war latest | April 1, 2026 | <a href="https://news.sky.com/story/iran-war-latest-trump-tehran-israel-strikes-us-drone-live-sky-news-13509565" target="_blank">skynews.com</a> |
+| DW — Iran war live blog | April 1, 2026 | <a href="https://www.dw.com/en/iran-war-live-blog-april-1/live-76615254" target="_blank">dw.com</a> |

@@ -1,11 +1,91 @@
 # Trump Social Media Posts — Iran War (1 March 2026 Onwards)
 
-**Compiled:** 27 March 2026
-**Coverage:** 1 March 2026 – 25 March 2026
+**Compiled:** 31 March 2026
+**Coverage:** 28 February 2026 – 30 March 2026
 **Sources:** NPR, CNBC, Al Jazeera, NBC News, Time, OPB, Wikipedia, Washington Post, Amnesty International
 **Platforms:** Truth Social (primary), public statements
 
 > **Note on sourcing:** News aggregators typically summarise rather than quote Trump's Truth Social posts in full. Where verbatim fragments appear in source reporting they are shown in quotation marks. Where only a paraphrase is available this is flagged. Post times beyond date are not available in any source reviewed. Where platform is not confirmed as Truth Social specifically, this is noted.
+
+---
+
+## 28 February 2026, 9:37 PM ET — **Trump (Truth Social):** Khamenei dead; bombing will continue
+
+> "Khamenei, one of the most evil people in History, is dead. This is not only Justice for the people of Iran, but for all Great Americans, and those people from many Countries throughout the World, that have been killed or mutilated by Khamenei and his gang of bloodthirsty THUGS. He was unable to avoid our Intelligence and Highly Sophisticated Tracking Systems and, working closely with Israel, there was not a thing he, or the other leaders that have been killed along with him, could do. This is the single greatest chance for the Iranian people to take back their Country. We are hearing that many of their IRGC, Military, and other Security and Police Forces, no longer want to fight, and are looking for Immunity from us. As I said last night, 'Now they can have Immunity, later they only get Death!' Hopefully, the IRGC and Police will peacefully merge with the Iranian Patriots, and work together as a unit to bring back the Country to the Greatness it deserves. That process should soon be starting in that, not only the death of Khamenei but the Country has been, in only one day, very much destroyed and, even, obliterated. The heavy and pinpoint bombing, however, will continue, uninterrupted throughout the week or, as long as necessary to achieve our objective of PEACE THROUGHOUT THE MIDDLE EAST AND, INDEED, THE WORLD! Thank you for your attention to this matter. PRESIDENT DONALD J. TRUMP"
+
+*Truth Social · 26.8k ReTruths · 100k Likes*
+
+---
+
+## 1 March 2026, 5:25 AM ET — **Trump (Truth Social)**
+
+> "Iran just stated that they are going to hit very hard today, harder than they have ever hit before. THEY BETTER NOT DO THAT, HOWEVER, BECAUSE IF THEY DO, WE WILL HIT THEM WITH A FORCE THAT HAS NEVER BEEN SEEN BEFORE! Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 9.89k ReTruths · 41.1k Likes*
+
+---
+
+## 1 March 2026, 5:21 PM ET — **Trump (Truth Social)**
+
+> "I have just been informed that we have destroyed and sunk 9 Iranian Naval Ships, some of them relatively large and important. We are going after the rest — They will soon be floating at the bottom of the sea, also! In a different attack, we largely destroyed their Naval Headquarters. Other than that, their Navy is doing very well! PRESIDENT DONALD J. TRUMP"
+
+*Truth Social · 8.25k ReTruths · 33.1k Likes*
+
+---
+
+## 2 March 2026, 9:43 PM ET — **Trump (Truth Social)**
+
+> "If I didn't terminate Obama's horrendous Iran Nuclear Deal (JCPOA), Iran would have had a Nuclear Weapon three years ago. That was the most dangerous transaction we have ever entered into, and had it been allowed to stand, the World would be an entirely different place right now. You can blame Barack Hussein Obama, and Sleepy Joe Biden. THANK YOU PRESIDENT TRUMP!"
+
+*Truth Social · 5.27k ReTruths · 18.4k Likes*
+
+---
+
+## 2 March 2026, 11:20 PM ET — **Trump (Truth Social)**
+
+> "The Radical Left Democrats, a Party that has completely lost its way, are complaining bitterly about the very necessary and important attack, by the United States and Israel, on Iran. What most people understand is that they are only complaining BECAUSE I DID IT and, if I didn't do it, they would be screaming 'Why didn't TRUMP attack Iran, he should do it, IMMEDIATELY?' There's nothing surprising about this! It's the same people that the other night at The State of the Union Address wouldn't stand for ANYBODY, including a mother who lost her beautiful daughter to an illegal alien, a Great and Brave Helicopter Pilot, who got the Congressional Medal of Honor, or a 100-year-old Veteran Warrior whose Bravery is Legend! The fact is, whatever I do, they will be on the opposite side. These people are SICK, CRAZY, and DEMENTED, but America, despite them all, is now BIGGER, BETTER, AND STRONGER THAN EVER BEFORE. MAKE AMERICA GREAT AGAIN! President DONALD J. TRUMP"
+
+*Truth Social · 12.6k ReTruths · 53.8k Likes*
+
+---
+
+## 28 February 2026, 9:37 PM ET — **Trump (Truth Social)** — Khamenei Killed
+
+> "Khamenei, one of the most evil people in History, is dead. This is not only Justice for the people of Iran, but for all Great Americans, and those people from many Countries throughout the World, that have been killed or mutilated by Khamenei and his gang of bloodthirsty THUGS. He was unable to avoid our Intelligence and Highly Sophisticated Tracking Systems and, working closely with Israel, there was not a thing he, or the other leaders that have been killed along with him, could do. This is the single greatest chance for the Iranian people to take back their Country. We are hearing that many of their IRGC, Military, and other Security and Police Forces, no longer want to fight, and are looking for Immunity from us. As I said last night, 'Now they can have Immunity, later they only get Death!' Hopefully, the IRGC and Police will peacefully merge with the Iranian Patriots, and work together as a unit to bring back the Country to the Greatness it deserves. That process should soon be starting in that, not only the death of Khamenei but the Country has been, in only one day, very much destroyed and, even, obliterated. The heavy and pinpoint bombing, however, will continue, uninterrupted throughout the week or, as long as necessary to achieve our objective of PEACE THROUGHOUT THE MIDDLE EAST AND, INDEED, THE WORLD! Thank you for your attention to this matter. PRESIDENT DONALD J. TRUMP"
+
+*Truth Social · 26.8k ReTruths · 100k Likes*
+
+---
+
+## 1 March 2026, 5:25 AM ET — **Trump (Truth Social)**
+
+> "Iran just stated that they are going to hit very hard today, harder than they have ever hit before. THEY BETTER NOT DO THAT, HOWEVER, BECAUSE IF THEY DO, WE WILL HIT THEM WITH A FORCE THAT HAS NEVER BEEN SEEN BEFORE! Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 9.89k ReTruths · 41.1k Likes*
+
+---
+
+## 1 March 2026, 5:21 PM ET — **Trump (Truth Social)** — Naval Ships Sunk
+
+> "I have just been informed that we have destroyed and sunk 9 Iranian Naval Ships, some of them relatively large and important. We are going after the rest — They will soon be floating at the bottom of the sea, also! In a different attack, we largely destroyed their Naval Headquarters. Other than that, their Navy is doing very well! PRESIDENT DONALD J. TRUMP"
+
+*Truth Social · 8.25k ReTruths · 33.1k Likes*
+
+---
+
+## 2 March 2026, 9:43 PM ET — **Trump (Truth Social)** — JCPOA/Obama Criticism
+
+> "If I didn't terminate Obama's horrendous Iran Nuclear Deal (JCPOA), Iran would have had a Nuclear Weapon three years ago. That was the most dangerous transaction we have ever entered into, and had it been allowed to stand, the World would be an entirely different place right now. You can blame Barack Hussein Obama, and Sleepy Joe Biden. THANK YOU PRESIDENT TRUMP!"
+
+*Truth Social · 5.27k ReTruths · 18.4k Likes*
+
+---
+
+## 2 March 2026, 11:20 PM ET — **Trump (Truth Social)** — Democrats Criticism
+
+> "The Radical Left Democrats, a Party that has completely lost its way, are complaining bitterly about the very necessary and important attack, by the United States and Israel, on Iran. What most people understand is that they are only complaining BECAUSE I DID IT and, if I didn't do it, they would be screaming — Why didn't 'TRUMP' attack Iran, he should do it, IMMEDIATELY? There's nothing surprising about this! It's the same people that the other night at The State of the Union Address wouldn't stand for ANYBODY, including a mother who lost her beautiful daughter to an illegal alien, a Great and Brave Helicopter Pilot, who got the Congressional Medal of Honor, or a 100-year-old Veteran Warrior whose Bravery is Legend! The fact is, whatever I do, they will be on the opposite side. These people are SICK, CRAZY, and DEMENTED, but America, despite them all, is now BIGGER, BETTER, AND STRONGER THAN EVER BEFORE. MAKE AMERICA GREAT AGAIN! President DONALD J. TRUMP"
+
+*Truth Social · 12.6k ReTruths · 53.8k Likes*
 
 ---
 
@@ -185,6 +265,22 @@ Trump publicly declared the Iran war "won" and claimed Iran had offered a "very 
 
 ---
 
+## 30 March 2026, 3:29 AM ET — **Trump (Truth Social)**
+
+> "Big day in Iran. Many long sought after targets have been taken out and destroyed by our GREAT MILITARY, the finest and most lethal in the World. God bless you all! President DJT"
+
+*Truth Social · 9.27k ReTruths · 49.2k Likes*
+
+---
+
+## 30 March 2026, 12:26 PM ET — **Trump (Truth Social):** Threatens further destruction if deal not reached
+
+> "The United States of America is in serious discussions with A NEW, AND MORE REASONABLE, REGIME to end our Military Operations in Iran. Great progress has been made but, if for any reason a deal is not shortly reached, which it probably will be, and if the Hormuz Strait is not immediately 'Open for Business,' we will conclude our lovely 'stay' in Iran by blowing up and completely obliterating all of their Electric Generating Plants, Oil Wells and Kharg Island (and possibly all desalinization plants!), which we have purposefully not yet 'touched.' This will be in retribution for our many soldiers, and others, that Iran has butchered and killed over the old Regime's 47 year 'Reign of Terror.' Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 4.09k ReTruths · 15.5k Likes*
+
+---
+
 ## Summary
 
 | Date | Platform | Key Content | Verbatim Status |
@@ -201,6 +297,8 @@ Trump publicly declared the Iran war "won" and claimed Iran had offered a "very 
 | 22 Mar | Truth Social | "America will hit and obliterate their various POWER PLANTS, STARTING WITH THE BIGGEST ONE FIRST!" — 48-hour ultimatum | Partial quote confirmed |
 | 23 Mar | Social media | 5-day postponement of power plant strikes; talks described as "productive" | Summary only |
 | 24 Mar | Unconfirmed | Declared war "won"; Iran offered "very big present" re Hormuz | Fragments confirmed |
+| 30 Mar | Truth Social | "Big day in Iran" — targets destroyed | Full quote confirmed |
+| 30 Mar | Truth Social | Threatens power plants, oil wells, desalinization if deal not reached | Partial quote confirmed |
 
 ---
 

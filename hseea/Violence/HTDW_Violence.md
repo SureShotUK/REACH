@@ -1,16 +1,18 @@
+<img src="../../NoxdownPortlandLogo.png" alt="Alt Text" style="width:40%; height:auto;" align="right">
+
 # Dealing with Violence and Aggression: A Guide for Staff
 
 ---
 
 ## Document Control
 
-| Field | Detail |
+| Field | Detail |		
 |-------|--------|
-| Company | *[Company Name]* |
+| Company | *Noxdown Limited* |
 | Document reference | HTDW-VAA-001 |
 | Issue date | February 2026 |
 | Next review date | February 2027 |
-| Approved by | *[Name and job title]* |
+| Approved by | *Steve Irwin, Group Operations Director* |
 
 ---
 
@@ -18,7 +20,7 @@
 
 This guide tells you what to do if you experience violence or aggression in the course of your work. It applies to all staff, regardless of your role or where you are working.
 
-[Company Name] takes violence and aggression seriously. We define it as physical assault or threats, verbal abuse (including swearing, shouting, and threatening language), and psychological intimidation — whether face-to-face, by telephone, or in writing. None of these are acceptable, and none should be treated as a normal part of your job.
+Noxdown takes violence and aggression seriously. We define it as physical assault or threats, verbal abuse (including swearing, shouting, and threatening language), and psychological intimidation — whether face-to-face, by telephone, or in writing. None of these are acceptable, and none should be treated as a normal part of your job.
 
 This guide has three chapters, each written for a specific staff group. Read the chapter that applies to your role. The sections on reporting and post-incident support at the end apply to everyone.
 
@@ -236,7 +238,7 @@ Your report will be treated in confidence and will not be used against you in an
 
 ## After an Incident
 
-[Company Name] is committed to supporting every member of staff following any incident of violence or aggression, regardless of its severity.
+Noxdown is committed to supporting every member of staff following any incident of violence or aggression, regardless of its severity.
 
 After an incident, management will:
 

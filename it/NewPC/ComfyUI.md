@@ -21,7 +21,8 @@ docker run -d \
   --restart unless-stopped \
   --runtime nvidia \
   --gpus all \
-  -p 18189:8188 \
+  -p 127.0.0.1:8189:8188 \
+  -p 192.168.1.192:8189:8188 \
   -v /mnt/models/comfyui:/root/ComfyUI/models \
   -v /opt/comfyui/storage:/root \
   -v /opt/comfyui/input:/root/ComfyUI/input \
@@ -43,7 +44,8 @@ docker run -d \
   --restart unless-stopped \
   --runtime nvidia \
   --gpus all \
-  -p 18188:8188 \
+  -p 127.0.0.1:18188:8188 \
+  -p 192.168.1.192:8188:8188 \
   -v /mnt/models/comfyui-amelia:/root/ComfyUI/models \
   -v /opt/comfyui-amelia/storage:/root \
   -v /opt/comfyui-amelia/input:/root/ComfyUI/input \

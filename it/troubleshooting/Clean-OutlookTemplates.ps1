@@ -200,32 +200,57 @@ function Clean-Template {
             $mailItem.Body = $cleanedText
             $mailItem.HTMLBody = $cleanedHTML
 
-            # Save as new template (overwrites original)
-            $mailItem.SaveAs($Template.FullName, 5)  # 5 = olTemplate format
+            # CRITICAL FIX: Call Save() BEFORE SaveAs() to preserve CFBF format
+            # Microsoft documented workaround: Save() initializes the message format properly
+            # so that SaveAs() exports correct CFBF structure instead of converting to HTML
+            # Reference: https://learn.microsoft.com/en-gb/answers/questions/4664525/
+            Write-Log "  Saving to Outlook drafts folder (required for format preservation)" "INFO"
+            $mailItem.Save()
+
+            # Save to a TEMPORARY new file (not overwriting original)
+            $tempPath = $Template.FullName + ".tmp"
+            Write-Log "  Exporting cleaned template to temporary file" "INFO"
+            $mailItem.SaveAs($tempPath, 5)  # 5 = olTemplate format
+
+            # Clean up COM objects BEFORE file operations
+            $mailItem.Close(1)  # 1 = olDiscard (removes from Drafts folder)
+            [System.Runtime.Interopservices.Marshal]::ReleaseComObject($mailItem) | Out-Null
+            [System.Runtime.Interopservices.Marshal]::ReleaseComObject($namespace) | Out-Null
+            [System.Runtime.Interopservices.Marshal]::ReleaseComObject($outlook) | Out-Null
+
+            # Force garbage collection to release file handles
+            [System.GC]::Collect()
+            [System.GC]::WaitForPendingFinalizers()
+
+            # Small delay to ensure file handles are released
+            Start-Sleep -Milliseconds 500
+
+            # Swap files: Delete original, rename temp to original
+            Remove-Item -Path $Template.FullName -Force
+            Rename-Item -Path $tempPath -NewName $Template.Name -Force
 
             Write-Log "  Template cleaned and saved successfully" "SUCCESS"
             $script:cleanedCount++
+
+            return $true
         } else {
             Write-Log "  No problematic characters found - template is clean" "INFO"
             $script:skippedCount++
+
+            # Clean up COM objects
+            $mailItem.Close(1)  # 1 = olDiscard (don't save to Outlook)
+            [System.Runtime.Interopservices.Marshal]::ReleaseComObject($mailItem) | Out-Null
+            [System.Runtime.Interopservices.Marshal]::ReleaseComObject($namespace) | Out-Null
+            [System.Runtime.Interopservices.Marshal]::ReleaseComObject($outlook) | Out-Null
+
+            return $true
         }
-
-        # Clean up COM objects
-        $mailItem.Close(1)  # 1 = olDiscard (don't save to Outlook)
-        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($mailItem) | Out-Null
-        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($namespace) | Out-Null
-        [System.Runtime.Interopservices.Marshal]::ReleaseComObject($outlook) | Out-Null
-
-        return $true
 
     } catch {
         Write-Log "  ERROR cleaning template: $($_.Exception.Message)" "ERROR"
         Write-Log "  Restoring from backup: $BackupPath" "WARNING"
 
-        # Restore from backup
-        Copy-Item -Path $BackupPath -Destination $Template.FullName -Force
-
-        # Clean up COM objects on error
+        # Clean up COM objects on error first
         try {
             if ($mailItem) {
                 $mailItem.Close(1)
@@ -233,9 +258,20 @@ function Clean-Template {
             }
             if ($namespace) { [System.Runtime.Interopservices.Marshal]::ReleaseComObject($namespace) | Out-Null }
             if ($outlook) { [System.Runtime.Interopservices.Marshal]::ReleaseComObject($outlook) | Out-Null }
+            [System.GC]::Collect()
+            [System.GC]::WaitForPendingFinalizers()
         } catch {
             # Ignore cleanup errors
         }
+
+        # Remove temp file if it exists
+        $tempPath = $Template.FullName + ".tmp"
+        if (Test-Path $tempPath) {
+            Remove-Item -Path $tempPath -Force -ErrorAction SilentlyContinue
+        }
+
+        # Restore from backup
+        Copy-Item -Path $BackupPath -Destination $Template.FullName -Force
 
         $script:errorCount++
         return $false

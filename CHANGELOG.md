@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## [Unreleased] - 2026-03-31
+## [Unreleased] - 2026-04-01
+
+### Added
+- **`Iran_War_Timeline.md`** — Extended coverage to 1 April 2026:
+  - **April 1, afternoon ET**: Trump announces US military campaign wind-down in 2–3 weeks regardless of deal outcome; message to European allies to "get your own oil" from Strait of Hormuz; national address scheduled for April 2 evening ET
+  - **March 31, morning/early afternoon ET**: Iranian President Masoud Pezeshkian states Iran has "necessary will" to end war provided security guarantees received (previously missing entry)
+  - Updated Brent crude range: $108–116/barrel (adjusting to wind-down timeline); markets respond positively
 
 ### Changed
 - **`Iran_War_Timeline.md`** — Extended coverage to 31 March 2026 (days 28–31 of conflict):

@@ -77,6 +77,11 @@ When the user provides PDF documents:
 
 **Accurate References**: Always cite specific regulations, guidance document numbers (e.g., HSG65, INDG163), and relevant sections when providing compliance advice.
 
+**HSE Guidance Paragraph Citations**: HSE guidance documents (e.g. L74, HSG65) contain numbered paragraphs interspersed with unnumbered expository text. Do not cite an unnumbered paragraph as belonging to the nearest numbered paragraph — this produces an inaccurate reference that cannot be verified. Instead:
+- If the text falls within a named section (e.g. Guidance 3), cite as `[L74, Guidance 3]`
+- If no section label is available, cite as `[L74, p.X]` (page reference)
+- After drafting any document with HSE guidance citations, verify each cited paragraph against the source PDF to confirm the quoted text appears in the numbered paragraph attributed to it, not in adjacent unnumbered text
+
 **Regulation Hyperlinks**: Whenever a document references a specific UK regulation (an Act of Parliament, a Statutory Instrument, or an individual regulation within an SI), hyperlink it to legislation.gov.uk. Use the HTML anchor format with `target="_blank"` as specified in the shared CLAUDE.md link format requirements. Always verify the URL with WebFetch before inserting. Common URL patterns:
 - SI regulation: `https://www.legislation.gov.uk/uksi/YEAR/NUMBER/regulation/N/made`
 - Act section: `https://www.legislation.gov.uk/ukpga/YEAR/NUMBER/section/N`
