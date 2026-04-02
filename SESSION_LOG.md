@@ -4,6 +4,56 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-04-02
+
+### Summary
+Researched and updated `Iran_War_Timeline.md` with confirmed, sourced events for March 26–31, 2026. Replaced fabricated/interpolated entries from a prior session with properly researched content, added three missing Trump Truth Social posts, and fixed a structural issue (duplicate Part 11B sections, spurious summary table). Multiple significant events previously absent from the timeline — including the Houthis formally entering the conflict, the killing of IRGC Navy Commander Tangsiri, a damaging attack on Prince Sultan Air Base, and a major European NATO rift over US military access — are now documented with sourced links.
+
+### Work Completed
+- **Researched** events March 26–31, 2026 via gemini-researcher agent across Al Jazeera, NPR, Times of Israel, Military Times, Air and Space Forces, Guardian, Bloomberg, Washington Post, Haaretz, Euronews, BBC, CNN, Critical Threats, CNBC, US News
+- **Added confirmed real events** not previously in the timeline:
+  - **26 March**: Israel kills IRGC Navy Commander Rear Admiral Alireza Tangsiri (Al Jazeera)
+  - **27 March**: Israel strikes Iran nuclear sites as war enters fifth week (Al Jazeera, Critical Threats)
+  - **27 March**: Iranian attack on Prince Sultan Air Base wounds 10 US troops; E-3 AWACS aircraft damaged (Military Times, Air and Space Forces)
+  - **28 March**: One-month mark; Houthis formally enter conflict with ballistic missile strike on Israel (Al Jazeera, NPR) — major escalation
+  - **29 March**: Pakistan-led four-nation mediation push; ground invasion privately warned by US officials (Al Jazeera, NPR)
+  - **30 March**: Kharg Island struck; Trump "pretty sure" of deal (NPR, Al Jazeera)
+  - **31 March**: Iranian missiles hit central Israel; Hezbollah rockets wound 3 in north (CNN, Times of Israel)
+  - **31 March**: Netanyahu declares Iran "no longer an existential threat" (Haaretz, Jerusalem Post, Euronews)
+  - **31 March**: European allies block US military access — Italy, Spain, France, Poland; Rubio warns NATO re-assessment (Bloomberg, Washington Post)
+- **Added 3 missing Trump Truth Social posts** (confirmed from TrumpsTruthSocialPosts.csv):
+  - 30 March 3:29 AM — "Big day in Iran. Many long sought after targets have been taken out..."
+  - 31 March 12:11 PM — UK jet fuel / Strait of Hormuz post
+  - 31 March 12:19 PM — France blocking planes to Israel post
+- **Removed fabricated entries** from prior session:
+  - Fake March 29 Trump post about "20 oil tankers through Hormuz" (no such post exists in CSV)
+  - Generic "oil recovery" March 28 entry with no real sourcing
+  - Fictitious defence briefings (Hegseth/Caine) on March 30–31 with fabricated details
+  - Fabricated "Trump confirms continued progress" March 31 post
+- **Fixed structural issues**: Removed duplicate `## PART 11B` section; removed out-of-order March 26 Trump posts section (re-integrated at correct chronological position); removed spurious summary table and key-sources sub-table
+- **Updated header**: Compiled date → 2 April 2026
+
+### Files Changed
+- `Iran_War_Timeline.md` — Major rewrite of Part 11B (Days 27–32, 26–31 March); header date updated; 10+ confirmed events added; 6+ fabricated entries removed; structural duplicates eliminated
+
+### Git Commits
+- `356e75b` — Previous session: Timeline extended to 1 April 2026 (last commit before this session)
+
+### Key Decisions
+- Replaced all fabricated/interpolated entries with confirmed, sourced events rather than attempting to patch individual lines — cleaner and more trustworthy
+- Preserved the April 1 content (wind-down announcement) from the previous session within the updated Part 11B section rather than moving it, to avoid breaking existing references
+- Kept the March 31 "two to three weeks" entry both as a March 31 entry (per NPR dating) and the existing April 1 entry (per Al Jazeera dating) since timing is ambiguous across sources
+
+### Reference Documents
+- `TrumpsTruthSocialPosts.csv` — Primary source for Trump posts; confirmed which posts exist for the period
+- Research via gemini-researcher agent across NPR, Al Jazeera, Times of Israel, Bloomberg, Washington Post, Haaretz, Military Times, Air and Space Forces, BBC, CNN
+
+### Next Actions
+- [ ] Research and update timeline for April 2–6, 2026 (Trump national address; April 6 deadline outcome)
+- [ ] Update casualty summary table (Part 12) — HRANA figure of 3,461 killed by 29 March supersedes the ~1,500 civilian figure
+
+---
+
 ## Session 2026-03-31
 
 ### Summary

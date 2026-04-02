@@ -1,5 +1,5 @@
 # 2026 Iran War — Comprehensive Chronological Timeline
-**Compiled:** 1 April 2026 | **Coverage:** June 2025 precursor through 1 April 2026
+**Compiled:** 2 April 2026 | **Coverage:** June 2025 precursor through 1 April 2026
 **Sources:** Reuters, BBC, NPR, Al Jazeera, CNN, CNBC, NBC News, AP, Guardian, Wikipedia, Alma Research, Critical Threats, Time, Axios, PBS, Stars and Stripes, UN Press Office, HRANA/Hengaw NGOs, Trump Truth Social posts (primary source)
 
 > **Operations:** US codename — **Operation Epic Fury** | Israeli codename — **Operation Roaring Lion** | Iranian response — **Operation True Promise 4**
@@ -911,6 +911,94 @@ Trump announced he was delaying his planned China trip by five or six weeks to f
 
 ---
 
+### 18–19 March 2026 — Israel kills Iranian Intelligence Minister Khatib; two further senior officials assassinated
+Israel killed **Esmail Khatib**, Iran's Minister of Intelligence, in the third high-profile assassination within 48 hours. On 17 March, **Ali Larijani** (head of Iran's Supreme National Security Council) and **Gholamreza Soleimani** (head of the Basij) had been killed. Also killed on 18–19 March: Mohammad Khasravani (Shiraz Prosecutor's Office deputy judge), Bahman Parsani (senior Basij official), and General Afshin Naqshbandi (Iranian Army IRGC representative).
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/18/israel-says-it-killed-iran-intel-minister-in-third-assassination-in-2-days" target="_blank">Al Jazeera — Iran intelligence minister killed</a>
+- **Source:** <a href="https://israel-alma.org/daily-report-the-second-iran-war-march-19-2026-1800/" target="_blank">Alma Research — Daily Report March 19</a>
+
+---
+
+### 19 March 2026 — Israel strikes South Pars Gas Field (Asaluyeh) and Caspian Sea naval assets
+In two of the war's most significant Israeli strikes, the IDF attacked Iran's premier gas export infrastructure and, for the first time, struck naval targets in the Caspian Sea.
+
+**South Pars / Asaluyeh complex:**
+Israel struck the South Pars gas field processing complex at Asaluyeh, damaging four gas treatment plants and knocking out approximately **12% of Iran's total gas production capacity**. Netanyahu stated "Israel acted alone," though three Israeli officials told the New York Times the strike was coordinated with the Trump administration. Netanyahu subsequently committed Israel to no further South Pars strikes unless Iran again targeted Qatar. Over 200 targets were struck across western and central Iran on this day, including ballistic missile storage/launch sites, UAV facilities, air defence systems, weapons production sites, Yazd airport, fuel depots, and facilities in Amikhbir and Shiraz.
+
+**Caspian Sea — Bandar Anzali (first-ever Caspian strike):**
+In an unprecedented expansion of the war's geographic scope, Israel struck Iranian Navy targets at Bandar Anzali on the Caspian Sea — the first strikes in northern Iran since the conflict began. IDF spokesman Lt. Col. Nadav Shoshani confirmed: *"We have for the first time carried out strikes in northern Iran in the Caspian Sea."* Destroyed: **four missile boats, one corvette**, a command centre, and a shipyard. Naval assets at Bandar Abbas were also struck. A senior IDF naval officer said the damage could take years to recover from.
+
+- **Source:** <a href="https://en.wikipedia.org/wiki/2026_South_Pars_field_attack" target="_blank">Wikipedia — 2026 South Pars field attack</a>
+- **Source:** <a href="https://www.jpost.com/israel-news/defense-news/article-890567" target="_blank">Jerusalem Post — Israel strikes Caspian Sea for first time</a>
+- **Source:** <a href="https://www.timesofisrael.com/liveblog_entry/asked-whether-trump-approved-strike-on-irans-south-pars-gas-netanyahu-says-diplomatically-israel-acted-alone/" target="_blank">Times of Israel — Netanyahu: "Israel acted alone"</a>
+- **Source:** <a href="https://www.timesofisrael.com/liveblog_entry/idf-four-iranian-navy-missile-boats-a-corvette-and-naval-infrastructure-destroyed-in-north-iran-strikes-last-night/" target="_blank">Times of Israel — Caspian Sea strikes confirmed</a>
+
+---
+
+### 19 March 2026 — Iran retaliates: mass strikes on Gulf states and Israel
+Iran launched its most significant regional escalation of the war, striking energy infrastructure and military bases across the Gulf and escalating rocket fire on Israel.
+
+**Qatar — Ras Laffan Industrial City:**
+Iranian missiles struck **Ras Laffan Industrial City**, the world's largest LNG export complex. Two of Qatar's 14 LNG trains and one of its two gas-to-liquids facilities were damaged. QatarEnergy CEO Saad Sherida al-Kaabi confirmed **17% of Qatar's LNG export capacity** was knocked out, with a repair timeline of **3–5 years**. Estimated damage: ~$26 billion replacement cost; ~$20 billion in lost annual revenue. Qatar's long-term LNG supply contracts with Italy, Belgium, South Korea, and China were potentially subject to force majeure.
+
+**Saudi Arabia:**
+Four ballistic missiles launched toward **Riyadh** were intercepted by Saudi air defences, with four injuries from shrapnel. A drone struck the **SAMREF refinery at Yanbu**; damage was under assessment.
+
+**UAE:**
+Strikes targeted **Habshan gas facilities** and the **Bab oilfield**; damage was primarily from intercepted missile debris. **Al Dhafra Air Force Base** and a French military base in the UAE were also impacted.
+
+**Kuwait:**
+Two oil refineries at **Al-Ahmadi** and **Abdullah ports** were attacked. Kuwaiti authorities separately arrested a **Hezbollah cell of ten operatives** who had been planning infrastructure attacks inside Kuwait.
+
+**Oman:**
+**Salalah port** was targeted.
+
+**Israel — missile salvos and Haifa refinery:**
+Iran launched five missile salvos at Jerusalem and northern Israel within one hour. A cluster warhead missile struck a residential building in **Ramat Gan** (east of Tel Aviv), killing **two civilians in their 70s** found outside their safe room; the IRGC stated this was *"revenge for the blood of martyr Dr. Ali Larijani."* A missile struck the **Bazan oil refinery in Haifa** (Israel's largest, processing 197,000 bbl/day), damaging electrical infrastructure; S&P Global confirmed damage to *"essential infrastructure."* A foreign worker from Thailand was killed by shrapnel at Moshav Adanim; three women were killed in Beit Awwa (West Bank) by cluster munition debris. Campaign totals by 19 March: **17 Israeli civilian deaths**, 3,834 injured since 28 February.
+
+**Lebanon (Hezbollah):**
+49 separate attack waves on 18–19 March: 38 rocket/missile, 10 UAV, 1 anti-tank — approximately 36 waves per day.
+
+- **Source:** <a href="https://en.wikipedia.org/wiki/2026_Iranian_strikes_on_Qatar" target="_blank">Wikipedia — 2026 Iranian strikes on Qatar</a>
+- **Source:** <a href="https://en.wikipedia.org/wiki/2026_Iranian_strikes_on_Saudi_Arabia" target="_blank">Wikipedia — 2026 Iranian strikes on Saudi Arabia</a>
+- **Source:** <a href="https://www.cnbc.com/2026/03/19/iran-attack-qatar-lng-capacity.html" target="_blank">CNBC — Iran attack wipes out 17% of Qatar's LNG capacity</a>
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/19/iran-attacks-cut-17-of-qatars-lng-capacity-for-up-to-5-years-qatarenergy" target="_blank">Al Jazeera — Iran attacks cut 17% of Qatar's LNG capacity</a>
+- **Source:** <a href="https://www.pbs.org/newshour/world/iran-intensifies-attacks-on-gulf-energy-sites-after-israel-struck-its-key-gas-field" target="_blank">PBS — Iran intensifies attacks on Gulf energy sites</a>
+- **Source:** <a href="https://www.spglobal.com/energy/en/news-research/latest-news/crude-oil/032026-israels-haifa-refinery-confirms-damage-to-essential-infrastructure" target="_blank">S&P Global — Haifa refinery damage confirmed</a>
+- **Source:** <a href="https://www.cnn.com/2026/03/19/middleeast/us-israel-iran-middle-east-war-day-20-what-we-know-intl-hnk" target="_blank">CNN — Day 20: what we know</a>
+- **Source:** <a href="https://israel-alma.org/daily-report-the-second-iran-war-march-19-2026-1800/" target="_blank">Alma Research — Daily Report March 19</a>
+
+---
+
+### 19 March 2026 — Diplomatic responses: Qatar expels Iranian attachés; Iran warns "zero restraint"
+
+**Qatar MFA (official statement):**
+Qatar issued a strong condemnation of the Iranian strikes on Ras Laffan, declared Iranian embassy military and security attachés **persona non grata** (ordered to leave within 24 hours), and invoked **Article 51 of the UN Charter**, reserving the right to self-defence. Qatar PM **Sheikh Mohammed bin Abdulrahman Al Thani**: *"Wisdom seems to be lacking these days."* QatarEnergy CEO al-Kaabi subsequently stated he had warned of the dangers of provoking Iran.
+
+**UAE MFA:** Condemned the attacks as *"terrorist attacks"* and *"a dangerous escalation."*
+
+**Saudi FM Prince Faisal bin Farhan:** *"What little trust there was before has completely been shattered."* Saudi Arabia reserved the right to take military action *"if deemed necessary."*
+
+**Kuwait:** Condemned the Iranian strikes on Saudi refineries.
+
+**Iran FM Abbas Araghchi (posted on X):** Warned of *"ZERO restraint"* if Iran's energy facilities were attacked again, stating Iran's response had *"employed [a] FRACTION of our power."*
+
+**IRGC statement:** Warned it *"will destroy the oil and gas industry of its Gulf neighbors"* (characterised as American interests) if the Iranian energy sector was again struck.
+
+**Netanyahu:** Claimed Iran *"has no ability to enrich uranium"* and *"no ability to produce ballistic missiles,"* and stated the war aimed to *"create conditions for the Iranian people to take their fate into their own hands."*
+
+**France:** Called for ceasing attacks on civilian infrastructure.
+
+**EU:** Demanded an operational halt; condemned Hezbollah's role.
+
+**Lebanon (internal):** Anti-Hezbollah factions publicly promoted direct Israel-Lebanon negotiations, rejecting Hezbollah's insistence that any settlement must reflect battlefield conditions.
+
+- **Source:** <a href="https://mofa.gov.qa/en/latest-articles/statements/qatar-condemns--denounces-blatant-iranian-attack-on-ras-laffan-industrial-city" target="_blank">Qatar MFA — Qatar condemns Iranian attack on Ras Laffan</a>
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/19/wrap-iran-ratchets-up-pressure-on-gulf-states" target="_blank">Al Jazeera — War enters new phase as South Pars strike sparks Gulf response</a>
+- **Source:** <a href="https://www.euronews.com/2026/03/19/trump-threatens-to-entirely-blow-up-irans-largest-gas-field-if-it-attacks-qatars-lng-again" target="_blank">Euronews — Trump threatens to blow up South Pars</a>
+
+---
+
 ### 19 March 2026, 2:05 AM ET — **Trump (Truth Social):** South Pars gas field; Israel/Qatar clarification
 
 > "Israel, out of anger for what has taken place in the Middle East, has violently lashed out at a major facility known as South Pars Gas Field in Iran. A relatively small section of the whole has been hit. The United States knew nothing about this particular attack, and the country of Qatar was in no way, shape, or form, involved with it, nor did it have any idea that it was going to happen. Unfortunately, Iran did not know this, or any of the pertinent facts pertaining to the South Pars attack, and unjustifiably and unfairly attacked a portion of Qatar's LNG Gas facility. NO MORE ATTACKS WILL BE MADE BY ISRAEL pertaining to this extremely important and valuable South Pars Field unless Iran unwisely decides to attack a very innocent, in this case, Qatar — In which instance the United States of America, with or without the help or consent of Israel, will massively blow up the entirety of the South Pars Gas Field at an amount of strength and power that Iran has never seen or witnessed before. I do not want to authorize this level of violence and destruction because of the long term implications that it will have on the future of Iran, but if Qatar's LNG is again attacked, I will not hesitate to do so. Thank you for your attention to this matter. President DONALD J. TRUMP"
@@ -1150,209 +1238,15 @@ The UN Human Rights Council held an urgent meeting on the Iran war, with over 82
 
 ---
 
-## PART 11B — DAYS 28–31 (27–31 MARCH 2026)
+## PART 11B — DAYS 27–32 (26–31 MARCH 2026)
 
 ---
 
-### 27 March 2026, ~09:00 (local time) — Iranian IRGC threatens Hormuz closure if power plants struck
+### 26 March 2026 — Israel kills IRGC Navy Commander Alireza Tangsiri
 
-The Islamic Revolutionary Guard Corps (IRGC) issued a formal statement warning that "the Strait of Hormuz will be completely closed and will not be opened until our destroyed power plants are rebuilt." Iran's response to Trump's April 6 ultimatum continued to harden over the day. Iranian naval forces increased patrols in the southern Persian Gulf, signaling readiness for escalation.
+Israel struck and killed Rear Admiral Alireza Tangsiri, commander of the IRGC Navy since 2017. Tangsiri had directed IRGC naval operations in the Persian Gulf and Strait of Hormuz throughout the conflict, including operations against international shipping. His death was the latest in a series of Iranian command eliminations since the war began.
 
-- **Source:** <a href="https://www.theguardian.com/world/live/2026/mar/27/middle-east-crisis-live-iran-war-trump-ultimatum-major-attack-strait-of-hormuz-open-israel-hit-tehran-retaliation" target="_blank">The Guardian — Iran war live updates, March 27</a>
-
----
-
-### 27 March 2026, late — Pakistani mediators relay Trump's deadline extension details to Tehran
-
-Following Trump's announcement on 26 March extending the energy plant destruction pause until April 6 at 8 PM ET, Pakistani military officials provided additional clarification on the timeline to Iranian counterparts in Islamabad. The US and Pakistani teams coordinated with Gulf Arab states including Saudi Arabia and UAE as intermediaries.
-
-- **Source:** <a href="https://www.washingtonpost.com/national-security/2026/03/24/us-iran-peace-talks-pakistan-turkey-egypt/" target="_blank">Washington Post — US-Iran peace talks via Pakistan, Turkey, Egypt</a>
-
----
-
-### 28 March 2026 — Oil production continues to recover as some shipping resumes
-
-Brent crude prices began stabilizing following the volatile spike during the war. Some international oil companies reported tentative discussions with Iran regarding resumption of exports from the South Pars and Kharg Island facilities. However, no formal agreements had been reached by end of day.
-
-- **Source:** <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-uncertainty-oil-prices-strait-of-hormuz-houthis-red-sea/" target="_blank">CBS News — Iran war live updates, March 28</a>
-
----
-
-### 29 March 2026, afternoon ET — **Trump (Truth Social)**: "Great progress" in talks; confirms Iran agreed to allow additional ships through Hormuz
-
-Trump posted on Truth Social that he had been informed "great progress" was being made in negotiations with a new Iranian regime. Crucially, the post confirmed that Iran had agreed to allow 20 oil tankers to transit the Strait of Hormuz starting March 30, which Trump described as taking place "out of a sign of respect." The US president stated this represented meaningful movement toward opening the strait "for business."
-
-- **Source:** <a href="https://www.nytimes.com/live/2026/03/29/world/iran-war-trump-israel-oil" target="_blank">New York Times — Iran War Live, March 29</a>
-- **Source:** <a href="https://www.thehindu.com/news/international/iran-israel-us-war-updates-live-march-30-2026/article70801564.ece" target="_blank">The Hindu — Iran war live updates, March 30</a>
-
-**Trump (Truth Social):** "Great progress has been made in our negotiations with Iran. I have been advised that Iran agreed to allow 20 ships carrying oil through the Strait of Hormuz starting today (March 30) morning and continuing over the next few days 'out of a sign of respect.' This is very good news! President DONALD J. TRUMP"
-
----
-
-### 29 March 2026 — Trump warns allies to prepare for self-sufficient oil access
-
-Trump issued statements calling on allied nations, particularly the UK and EU countries, to establish independent mechanisms to secure their oil supplies from the Gulf region without reliance on Iranian cooperation or US protection. He suggested these nations would need to "build up delayed courage" and "fight for yourselves" regarding energy security in the Hormuz Strait region.
-
-- **Source:** <a href="https://www.independent.co.uk/news/world/middle-east/iran-us-war-live-trump-oil-kharg-israel-houthis-updates-b2948815.html" target="_blank">The Independent — Iran-US war live updates, March 29</a>
-
----
-
-### 30 March 2026, early morning (local time) — First 20 agreed oil tankers begin Hormuz transit
-
-As announced by Trump on the previous day, Iranian authorities permitted a convoy of 20 oil tankers to pass through the Strait of Hormuz beginning at approximately 05:00 local time (March 30). This marked the first formal agreement-based passage of significant vessels since the war began and was described by both sides as a confidence-building measure pending further negotiations.
-
-- **Source:** <a href="https://www.cnn.com/2026/03/30/world/live-news/iran-war-us-israel-trump" target="_blank">CNN — Iran-US war live updates, March 30</a>
-- **Source:** <a href="https://www.nytimes.com/live/2026/03/29/world/iran-war-trump-israel-oil" target="_blank">New York Times — Iran War Live, March 30</a>
-
----
-
-### 30 March 2026, afternoon ET — **Trump (Truth Social)**: Threatens power plants and desalination plants if deal not reached by April 6
-
-Following the initial shipment passage on March 30, Trump reiterated the April 6 deadline while expanding his stated targets to include desalination infrastructure. The post emphasized that discussions were "serious" with what he characterized as a "new, more reasonable regime" in Iran and expressed confidence a deal would be reached "shortly."
-
-**Trump (Truth Social):** "The United States of America is in serious discussions with A NEW, AND MORE REASONABLE, REGIME to end our Military Operations in Iran. Great progress has been made but, if for any reason a deal is not shortly reached, which it probably will be, and if the Hormuz Strait is not immediately 'Open for Business,' we will conclude our lovely 'stay' in Iran by blowing up and completely obliterating all of their Electric Generating Plants, Oil Wells and Kharg Island (and possibly all desalinization plants!), which we have purposefully not yet 'touched.' This will be in retribution for our many soldiers, and others, that Iran has butchered and killed over the old Regime's 47 year 'Reign of Terror.' Thank you for your attention to this matter. President DONALD J. TRUMP"
-
-*Truth Social · 4.09k ReTruths · 15.5k Likes*
-
-- **Source:** <a href="https://www.dw.com/en/iran-war-trump-threatens-to-blow-up-desalination-plants/live-76586932" target="_blank">DW — Iran war: Trump threatens to 'blow up' desalination plants</a>
-- **Source:** <a href="https://www.cnn.com/2026/03/30/world/live-news/iran-war-us-israel-trump" target="_blank">CNN — Day 31 of Middle East conflict, March 30</a>
-
----
-
-### 30 March 2026 — Defense and military leaders brief press on operations status
-
-US Defense Secretary Pete Hegseth and Joint Chiefs Chairman Gen. Dan Caine held a briefing on the current state of operations in the Middle East. They discussed ongoing surveillance activities, the status of targeted facility preparations, and reiterated that the US remains committed to achieving its objectives before the April 6 deadline while continuing diplomatic efforts.
-
-- **Source:** <a href="https://www.nytimes.com/live/2026/03/31/world/iran-war-oil-trump" target="_blank">New York Times — Iran War Live Updates, March 31</a>
-- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">Associated Press — Iran war live updates, March 31</a>
-
----
-
-### 31 March 2026, morning ET — **Trump (Truth Social)**: Confirms continued progress; reiterates April 6 deadline
-
-As the second half of the week began, Trump posted an update confirming that talks continued with Iranian representatives. While not providing specifics on the negotiation positions, he maintained confidence that the agreed 20 tankers would continue to pass through the strait in the coming days as part of a broader resolution process. The April 6, 8 PM ET deadline for energy plant strikes remained in effect.
-
-- **Source:** <a href="https://www.newsweek.com/iran-war-live-trump-heralds-big-day-taking-oil-11754720" target="_blank">Newsweek — Iran War Live Updates, March 31</a>
-- **Source:** <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-uncertainty-oil-prices-strait-of-hormuz-houthis-red-sea/" target="_blank">CBS News — Iran war live updates, March 31</a>
-
----
-
-### 31 March 2026, midday ET — **Defense Secretary Hegseth and Gen. Caine brief on operations**
-
-US Defense Secretary Pete Hegseth and Joint Chiefs of Staff Chairman General Dan Caine held a press briefing on the current state of military operations in the Middle East. The officials addressed:
-- Ongoing surveillance activities targeting Iranian infrastructure
-- Preparatory status for potential strikes on energy facilities (power plants, oil wells, desalination plants) pending negotiation outcomes
-- Continued diplomatic efforts with Pakistani, Turkish, and Egyptian mediators
-- Reaffirmed that the April 6, 8 PM ET deadline remained in effect
-
-The briefing confirmed that US forces maintain capability to execute rapid strikes on Iranian energy infrastructure should negotiations fail to produce results.
-
-- **Source:** <a href="https://www.nytimes.com/live/2026/03/31/world/iran-war-oil-trump" target="_blank">New York Times — Iran War Live Updates, March 31</a>
-- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">Associated Press — Iran war live updates, March 31</a>
-
----
-
-### 31 March 2026, afternoon ET — **Iranian President Pezeshkian: Iran Has "Necessary Will" to End War**
-
-Iranian President **Masoud Pezeshkian** stated on Monday, March 31, that Iran has the **"necessary will"** to end the war with the United States and Israel. However, the President emphasized that any decision to halt hostilities is contingent upon receiving **security guarantees** from the US. The conditions include assurances that US military operations would cease permanently and that promised rebuilding assistance would be delivered as part of a comprehensive resolution agreement.
-
-Pezeshkian's statement represents a significant shift toward negotiation readiness from the Iranian government, aligning with reports that Iranian negotiators had been engaging in behind-the-scenes talks facilitated by Pakistan and Turkey. The conditions Iran seeks mirror Trump's core demands: complete cessation of uranium enrichment, dismantling of ballistic missile capabilities, and guaranteed open transit through the Strait of Hormuz.
-
-- **Source:** <a href="https://www.euronews.com/2026/03/31/iran-has-necessary-will-to-end-war-but-seeking-guarantees-president-masoud-pezeshkian-says" target="_blank">Euronews — Iran has 'necessary will' to end war but seeking guarantees</a>
-- **Source:** <a href="https://www.bbc.com/news/live/c36r5p1l7w3t" target="_blank">BBC — Iran president Masoud Pezeshkian statement, March 31</a>
-
----
-
-### 31 March 2026, afternoon ET — **Trump Truth Social: Confirms talks continuing**
-
-President Trump posted on Truth Social confirming that discussions with Iranian representatives continued, expressing confidence in the negotiation process while maintaining the April 6 deadline. The post did not provide specific details about negotiation positions but reaffirmed that the agreed tanker transit would continue as part of broader resolution efforts.
-
-- **Source:** <a href="https://www.cnn.com/2026/03/31/world/live-news/iran-war-us-israel-trump" target="_blank">CNN — Iran war live updates, March 31</a>
-- **Source:** <a href="https://www.newsweek.com/iran-war-live-trump-heralds-big-day-taking-oil-11754720" target="_blank">Newsweek — Iran War Live Updates, March 31</a>
-
----
-
-### 31 March 2026 — Markets react to deadline uncertainty; Houthis reinforce positions
-
-Energy markets showed continued volatility as the April 6 deadline approached, with **Brent crude trading in a range of $111-119.24/barrel** (peak ~$119.24). Regional analysts and intelligence reports indicated that **Houthi forces in Yemen were reinforcing their military positions** and coordinating with Iranian counterparts. Security assessments warned of potential parallel escalation routes should Iran-US negotiations fail to produce an agreement.
-
-- **Source:** <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-uncertainty-oil-prices-strait-of-hormuz-houthis-red-sea/" target="_blank">CBS News — Iran war live updates, March 31</a>
-- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">Associated Press — Iran war live updates, March 31</a>
-
----
-
-### 1 April 2026, afternoon ET — **Trump: US to Leave Iran in 2–3 Weeks, No Deal Required**
-
-President Trump told reporters on Tuesday, April 1, 2026, that the United States military campaign in Iran could end within **two to three weeks**, regardless of whether a formal deal is reached with Tehran. In a press conversation, Trump stated the US will "leave whether we have a deal or not" once its objectives are met.
-
-The President also told European allies facing high fuel prices that they should **"get your own oil"** from the Strait of Hormuz, saying the US would no longer be responsible for securing the waterway after the Iranian threat is eliminated. He indicated other nations—particularly those relying on the strait for energy imports—must take responsibility for its security.
-
-Trump confirmed he will deliver a **national address to the American people on Wednesday night (April 1, 2026 9pm EDT or 2am on 2 April BST)** regarding the war's progress and path forward.
-
-The White House indicated that while Iran has shown interest in reaching an agreement following their military losses, no formal ceasefire framework has been accepted as of this date. The April 6 deadline for potential strikes on power plants and energy infrastructure remains technically in effect but may be reconsidered given the wind-down timeline.
-
-- **Source:** <a href="https://www.aljazeera.com/news/2026/4/1/trump-tells-allies-get-your-own-oil-says-iran-war-could-end-in-2-3-weeks" target="_blank">Al Jazeera — Trump tells allies to get your own oil</a>
-- **Source:** <a href="https://www.bbc.com/news/live/c8jke9v9xv9t" target="_blank">BBC — Trump says US will leave Iran 'whether we have a deal or not'</a>
-- **Source:** <a href="https://www.cnn.com/2026/04/01/world/live-news/iran-war-us-trump-oil" target="_blank">CNN — Iran war live updates, April 1</a>
-
----
-
-### 1 April 2026 — Markets react to wind-down timeline; European allies respond
-
-European Union officials expressed concern over Trump's suggestion that member states should secure their own energy supplies through the Hormuz Strait. Energy markets showed modest gains as the possibility of a quicker US exit emerged, with Brent crude trading in a range of **$108–116/barrel** (down from peak ~$126).
-
-- **Source:** <a href="https://www.aljazeera.com/news/2026/4/1/trump-tells-allies-get-your-own-oil-says-iran-war-could-end-in-2-3-weeks" target="_blank">Al Jazeera — Markets and European response</a>
-
----
-
-
-## PART 11B SUMMARY — NEGOTIATION TIMELINE AND DEADLINES (26–31 MARCH 2026)
-
-| Date | Key Development | Status |
-|------|----------|--------|
-| 26 March | Trump extends energy plant destruction pause to **April 6, 8 PM ET** (per Iranian request) | Ongoing |
-| 27 March | IRGC threatens total Hormuz closure if power plants struck | Escalation risk |
-| 28 March | Oil production recovery discussions continue; no formal agreements | Monitoring |
-| 29 March | Trump confirms **Iran agreed to allow 20 oil tankers** through Hormuz starting March 30 | Partial breakthrough |
-| 30 March (morning) | First convoy of 20 agreed oil tankers begins transit through Strait | Implementation phase |
-| 30 March (afternoon) | Trump expands threat targets to include **desalination plants** alongside power plants, oil wells | Escalation risk |
-| 31 March (midday) | Defense Secretary Hegseth & Gen. Caine brief on operations; deadline reaffirmed | Ongoing |
-| 31 March (morning/early afternoon) | **Iranian President Pezeshkian**: Iran has "necessary will" to end war, seeking security guarantees | Negotiation signal |
-| 31 March (afternoon) | Trump Truth Social: confirms talks continuing | Ongoing |
-| 31 March | Brent crude **$111-119.24/barrel** (peak $119.24); Houthis reinforce Yemen positions | Markets volatile / Escalation risk |
-| 1 April (afternoon) | Trump announces US could end offensive in **2–3 weeks**; no deal required to wind down | Wind-down announced |
-| 1 April | Trump tells European allies to **"get your own oil"**; national address scheduled for April 2 | Communication |
-| 1 April | Brent crude **$108–116/barrel** (markets adjust to wind-down timeline) | Markets adjusting |
-| **April 2, evening ET** | **Trump scheduled national address on Iran war** | Confirmed |
-| **April 6, 8 PM ET** | **Original deadline for energy plant destruction pause** (status uncertain given wind-down timeline) | Pending |
-
----
-
-## KEY SOURCES — MARCH 27–31, 2026 COVERAGE
-
-| Source | Coverage Period | URL |
-|--------|-----------------|-----|
-| CNN — Iran war live updates | March 28–30, 2026 | <a href="https://www.cnn.com/2026/03/30/world/live-news/iran-war-us-israel-trump" target="_blank">edition.cnn.com</a> |
-| New York Times — Iran War live blog | March 27–31, 2026 | <a href="https://www.nytimes.com/live/2026/03/29/world/iran-war-trump-israel-oil" target="_blank">nytimes.com</a> |
-| New York Times — Iran War March 31 updates | March 31, 2026 | <a href="https://www.nytimes.com/live/2026/03/31/world/iran-war-oil-trump" target="_blank">nytimes.com</a> |
-| Associated Press — Iran war live | March 31, 2026 | <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">apnews.com</a> |
-| The Guardian — Middle East crisis | March 27, 2026 | <a href="https://www.theguardian.com/world/live/2026/mar/27/middle-east-crisis-live-iran-war-trump-ultimatum" target="_blank">theguardian.com</a> |
-| The Hindu — Iran war live updates | March 30, 2026 | <a href="https://www.thehindu.com/news/international/iran-israel-us-war-updates-live-march-30-2026/article70801564.ece" target="_blank">thehindu.com</a> |
-| Washington Post — US-Iran peace talks | March 24, 2026 (context) | <a href="https://www.washingtonpost.com/national-security/2026/03/24/us-iran-peace-talks-pakistan-turkey-egypt/" target="_blank">washingtonpost.com</a> |
-| CNN — Iran war live updates | March 31, 2026 | <a href="https://www.cnn.com/2026/03/31/world/live-news/iran-war-us-israel-trump" target="_blank">edition.cnn.com</a> |
-| DW — Trump threatens desalination plants | March 31, 2026 | <a href="https://www.dw.com/en/iran-war-trump-threatens-to-blow-up-desalination-plants/live-76586932" target="_blank">dw.com</a> |
-| Newsweek — Iran War live updates | March 31, 2026 | <a href="https://www.newsweek.com/iran-war-live-trump-heralds-big-day-taking-oil-11754720" target="_blank">newsweek.com</a> |
-| CBS News — Iran war live updates | March 31, 2026 | <a href="https://www.cbsnews.com/live-updates/iran-war-us-trump-uncertainty-oil-prices-strait-of-hormuz-houthis-red-sea/" target="_blank">cbsnews.com</a> |
-| Associated Press — Iran war live | March 31, 2026 | <a href="https://apnews.com/live/iran-war-israel-trump-03-31-2026" target="_blank">apnews.com</a> |
-| The Independent — Iran-US war live | March 29, 2026 | <a href="https://www.independent.co.uk/news/world/middle-east/iran-us-war-live-trump-oil-kharg-israel-houthis-updates-b2948815.html" target="_blank">independent.co.uk</a> |
-
----
-
-The timeline continues through 31 March 2026. As of this date, the April 6 deadline for potential US strikes on Iranian power plants and energy infrastructure remains in effect pending negotiation outcomes.
-
----
-
-## PART 11B — DAY 27 (26 MARCH 2026)
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/26/iranian-naval-commander-alireza-tangsiri-killed-in-attack-says-israel" target="_blank">Al Jazeera — Tangsiri killed (26 March)</a>
 
 ---
 
@@ -1377,6 +1271,174 @@ The timeline continues through 31 March 2026. As of this date, the April 6 deadl
 > "As per Iranian Government request, please let this statement serve to represent that I am pausing the period of Energy Plant destruction by 10 Days to Monday, April 6, 2026, at 8 P.M., Eastern Time. Talks are ongoing and, despite erroneous statements to the contrary by the Fake News Media, and others, they are going very well. Thank you for your attention to this matter! President DONALD J. TRUMP"
 
 *Truth Social · 9.77k ReTruths · 45.2k Likes*
+
+---
+
+### 27 March 2026 — Israel strikes Iran nuclear sites; war enters fifth week
+
+Israel launched fresh strikes on Iranian nuclear and missile facilities as the conflict entered its fifth week. Multiple sites in central and western Iran were targeted; Iran's air defence networks were unable to mount effective resistance.
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/27/israel-launches-strikes-on-iran-nuclear-sites-as-war-enters-fifth-week" target="_blank">Al Jazeera — Nuclear sites struck, war enters fifth week</a>
+- **Source:** <a href="https://www.criticalthreats.org/analysis/iran-update-march-27-2026" target="_blank">Critical Threats — Iran Update 27 March</a>
+
+---
+
+### 27 March 2026 — Prince Sultan Air Base attacked; 10 US troops wounded; E-3 AWACS aircraft damaged
+
+An Iranian attack on Prince Sultan Air Base in Saudi Arabia wounded 10 US service members and damaged an E-3 AWACS (Airborne Warning and Control System) aircraft — a critical US airborne early warning asset. The AWACS damage was one of Iran's more consequential strikes against US military hardware during the war.
+
+- **Source:** <a href="https://www.militarytimes.com/news/your-military/2026/03/27/10-us-troops-wounded-in-attack-on-prince-sultan-airbase/" target="_blank">Military Times — 10 US troops wounded at Prince Sultan</a>
+- **Source:** <a href="https://www.airandspaceforces.com/key-e-3-awacs-aircraft-damaged-iranian-attack-saudi-air-base/" target="_blank">Air and Space Forces — E-3 AWACS damaged</a>
+
+---
+
+### 27 March 2026 — IRGC: Hormuz "will be completely closed" if power plants struck
+
+The IRGC issued a formal statement warning that the Strait of Hormuz "will be completely closed and will not be opened until our destroyed power plants are rebuilt," in direct response to Trump's April 6 ultimatum. Iranian naval forces increased patrols in the southern Persian Gulf.
+
+- **Source:** <a href="https://www.theguardian.com/world/live/2026/mar/27/middle-east-crisis-live-iran-war-trump-ultimatum-major-attack-strait-of-hormuz-open-israel-hit-tehran-retaliation" target="_blank">The Guardian — Iran war live, 27 March</a>
+
+---
+
+### 28 March 2026 — One-month mark; Houthis formally enter the conflict
+
+The US-Israeli military campaign against Iran reached its one-month mark. In a major escalation, Yemen's Houthi movement claimed responsibility for a ballistic missile strike on Israel, formally entering the conflict. The Houthis announced activation of their full military arsenal in solidarity with Iran. HRANA reported the cumulative Iranian death toll had reached approximately 3,461 killed, including 1,551 civilians and 236 children.
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/28/yemens-houthis-claim-responsibility-for-a-missile-attack-on-israel-2" target="_blank">Al Jazeera — Houthis claim missile attack on Israel (28 March)</a>
+- **Source:** <a href="https://www.npr.org/2026/03/28/nx-s1-5764720/iran-war-one-month" target="_blank">NPR — One month of the Iran war; Houthis enter</a>
+
+---
+
+### 29 March 2026 — Pakistan leads four-nation mediation push; ground invasion warned
+
+Pakistan, Turkey, Egypt, and a fourth intermediary state jointly pressed the US and Iran toward a negotiated resolution. Pakistan Army Chief Field Marshal Syed Asim Munir continued to facilitate direct communication between Tehran and Washington in Islamabad. NPR reported US officials had privately warned that a ground invasion of Iran remained "on the table" if negotiations failed before the April 6 deadline.
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/29/pakistan-hosts-four-nation-bid-to-encourage-us-iran-towards-diplomacy" target="_blank">Al Jazeera — Pakistan four-nation diplomacy (29 March)</a>
+- **Source:** <a href="https://www.npr.org/2026/03/29/nx-s1-5765344/pakistan-diplomatic-discussions-iran-war" target="_blank">NPR — Pakistan talks; ground invasion warning</a>
+
+---
+
+### 30 March 2026, 3:29 AM ET — **Trump (Truth Social)**
+
+> "Big day in Iran. Many long sought after targets have been taken out and destroyed by our GREAT MILITARY, the finest and most lethal in the World. God bless you all! President DJT"
+
+*Truth Social · 9.27k ReTruths · 49.2k Likes*
+
+---
+
+### 30 March 2026 — Kharg Island and further Iran targets struck; Trump "pretty sure" of deal
+
+US forces conducted additional strikes on Kharg Island and military targets across Iran. NPR confirmed the 10 US service members wounded at Prince Sultan Air Base on 27 March had been treated and were returning to duty. Trump publicly stated he was "pretty sure" an Iran deal would be reached before the April 6 deadline, while negotiations remained ongoing through Pakistani and Turkish intermediaries.
+
+- **Source:** <a href="https://www.npr.org/2026/03/30/nx-s1-5765967/trump-iran-israel-lebanon-kharg-island-oil" target="_blank">NPR — Prince Sultan casualties; Kharg Island (30 March)</a>
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/30/trump-pretty-sure-of-iran-deal-but-can-pakistan-led-efforts-end-the-war" target="_blank">Al Jazeera — Trump 'pretty sure' of deal (30 March)</a>
+
+---
+
+### 30 March 2026, 12:26 PM ET — **Trump (Truth Social):** Serious discussions with "new, more reasonable regime"
+
+> "The United States of America is in serious discussions with A NEW, AND MORE REASONABLE, REGIME to end our Military Operations in Iran. Great progress has been made but, if for any reason a deal is not shortly reached, which it probably will be, and if the Hormuz Strait is not immediately 'Open for Business,' we will conclude our lovely 'stay' in Iran by blowing up and completely obliterating all of their Electric Generating Plants, Oil Wells and Kharg Island (and possibly all desalinization plants!), which we have purposefully not yet 'touched.' This will be in retribution for our many soldiers, and others, that Iran has butchered and killed over the old Regime's 47 year 'Reign of Terror.' Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 4.09k ReTruths · 15.5k Likes*
+
+- **Source:** <a href="https://www.dw.com/en/iran-war-trump-threatens-to-blow-up-desalination-plants/live-76586932" target="_blank">DW — Trump threatens desalination plants</a>
+- **Source:** <a href="https://www.cnn.com/2026/03/30/world/live-news/iran-war-us-israel-trump" target="_blank">CNN — Day 31 of Middle East conflict, 30 March</a>
+
+---
+
+### 31 March 2026 — Iran strikes central Israel; Hezbollah fires rocket barrage at north
+
+Iranian missiles struck central Israel; CNN published footage of burning cars in streets after missile debris fell in residential areas; a missile also landed near the West Bank village of Marda. In a separate attack, Hezbollah fired a rocket barrage at northern Israel, lightly wounding three people. The IDF struck the Hezbollah rocket launchers in response.
+
+- **Source:** <a href="https://edition.cnn.com/2026/03/31/world/video/israel-iran-missile-debris-cars-vrtc" target="_blank">CNN — Cars burn after missile debris (31 March)</a>
+- **Source:** <a href="https://www.timesofisrael.com/liveblog-march-31-2026/" target="_blank">Times of Israel — Liveblog 31 March</a>
+- **Source:** <a href="https://www.aljazeera.com/news/2026/3/31/iran-war-what-is-happening-on-day-32-of-us-israel-attacks" target="_blank">Al Jazeera — Day 32 summary</a>
+
+---
+
+### 31 March 2026 — Netanyahu: Iran "no longer an existential threat"
+
+Israeli PM Netanyahu issued a video statement declaring the Iranian regime is "weaker than ever" and Israel is "stronger than ever." He listed five strategic "plagues" delivered to Iran: its nuclear programme, ballistic missiles, regime infrastructure, internal security forces, and senior leadership. In an interview with Haaretz: "Iran is still a threat to Israel, but no longer an existential one." To Newsmax: "It's definitely beyond the halfway point. But I don't want to put a schedule on it."
+
+- **Source:** <a href="https://www.haaretz.com/israel-news/israel-security/2026-03-31/ty-article/.premium/netanyahu-iran-still-a-threat-to-israel-but-no-longer-an-existential-one/0000019d-454d-df54-a1bf-cdef61130000" target="_blank">Haaretz — Netanyahu: Iran no longer existential threat</a>
+- **Source:** <a href="https://www.euronews.com/2026/03/31/netanyahu-iran-war-usa-trump" target="_blank">Euronews — Netanyahu: war goals beyond halfway</a>
+- **Source:** <a href="https://www.jpost.com/israel-news/article-891834" target="_blank">Jerusalem Post — Netanyahu: regime 'weaker than ever'</a>
+
+---
+
+### 31 March 2026 — European allies block US military access; major NATO rift
+
+A significant rift opened between the US and its European allies over the Iran war:
+
+- **Italy** denied US military aircraft landing rights at an air base in Sicily
+- **Spain** closed its airspace to US military jets bound for the Middle East
+- **France** blocked US aircraft carrying military supplies to Israel from overflying French territory *(see Trump's Truth Social post below)*
+- **Poland** refused a US request to consider relocating Patriot air defence batteries to the region
+- **Secretary of State Marco Rubio** stated the US may have to "reassess its relationship with NATO" after the war
+
+Bloomberg: *"Europe Blocks US Military Access Over Trump's Iran War, Straining NATO Ties."*
+
+- **Source:** <a href="https://www.bloomberg.com/news/articles/2026-03-31/europe-hardens-stance-against-trump-s-iran-war-in-threat-to-nato" target="_blank">Bloomberg — Europe Blocks US Military Access (31 March)</a>
+- **Source:** <a href="https://www.washingtonpost.com/world/2026/03/31/europe-allies-trump-iran-war-opposition/" target="_blank">Washington Post — Italy blocks US air base use</a>
+
+---
+
+### 31 March 2026 — Iranian President Pezeshkian: Iran has "necessary will" to end war
+
+Iranian President Masoud Pezeshkian stated Iran has the "necessary will" to end the war with the US and Israel, but any decision to halt hostilities was contingent on receiving security guarantees — including permanent cessation of military operations and delivery of promised rebuilding assistance. The statement was a significant public signal of negotiation readiness from Tehran.
+
+- **Source:** <a href="https://www.euronews.com/2026/03/31/iran-has-necessary-will-to-end-war-but-seeking-guarantees-president-masoud-pezeshkian-says" target="_blank">Euronews — Iran has 'necessary will' to end war</a>
+- **Source:** <a href="https://www.bbc.com/news/live/c36r5p1l7w3t" target="_blank">BBC — Pezeshkian statement, 31 March</a>
+
+---
+
+### 31 March 2026, 12:11 PM ET — **Trump (Truth Social):** Allies told to "TAKE" the Strait
+
+> "All of those countries that can't get jet fuel because of the Strait of Hormuz, like the United Kingdom, which refused to get involved in the decapitation of Iran, I have a suggestion for you: Number 1, buy from the U.S., we have plenty, and Number 2, build up some delayed courage, go to the Strait, and just TAKE IT. You'll have to start learning how to fight for yourself, the U.S.A. won't be there to help you anymore, just like you weren't there for us. Iran has been, essentially, decimated. The hard part is done. Go get your own oil! President DJT"
+
+*Truth Social · 14.5k ReTruths · 57.6k Likes*
+
+---
+
+### 31 March 2026, 12:19 PM ET — **Trump (Truth Social):** France blocked planes to Israel
+
+> "The Country of France wouldn't let planes headed to Israel, loaded up with military supplies, fly over French territory. France has been VERY UNHELPFUL with respect to the 'Butcher of Iran,' who has been successfully eliminated! The U.S.A. will REMEMBER!!! President DJT"
+
+*Truth Social · 8.24k ReTruths · 32.8k Likes*
+
+---
+
+### 31 March 2026 — Trump: war could end in "two to three weeks"; national address announced
+
+Trump told reporters the US military campaign could end within "two weeks, maybe two weeks, maybe three," even without a ceasefire deal, provided he was confident Iran could not build a nuclear weapon. CENTCOM confirmed more than 11,000 targets struck and 150+ Iranian vessels damaged or destroyed since 28 February. Brent crude was trading at approximately $116/barrel. Trump confirmed he would address the nation on the war on Wednesday evening (1 April, 9 PM EDT).
+
+- **Source:** <a href="https://www.npr.org/2026/03/31/nx-s1-5766991/iran-war-lebanon-israel-dubai-trump-oil-europe" target="_blank">NPR — Trump hints at end in 2-3 weeks (31 March)</a>
+- **Source:** <a href="https://www.usnews.com/news/world/articles/2026-03-31/trump-says-the-us-could-end-the-iran-war-in-two-to-three-weeks" target="_blank">US News — Trump: war could end in 2-3 weeks</a>
+- **Source:** <a href="https://www.cnbc.com/2026/03/31/trump-iran-war.html" target="_blank">CNBC — Trump to address nation on Iran war</a>
+
+---
+
+### 1 April 2026, afternoon ET — **Trump: US to Leave Iran in 2–3 Weeks, No Deal Required**
+
+President Trump told reporters on Tuesday, April 1, 2026, that the United States military campaign in Iran could end within **two to three weeks**, regardless of whether a formal deal is reached with Tehran. In a press conversation, Trump stated the US will "leave whether we have a deal or not" once its objectives are met.
+
+The President also told European allies facing high fuel prices that they should **"get your own oil"** from the Strait of Hormuz, saying the US would no longer be responsible for securing the waterway after the Iranian threat is eliminated. He indicated other nations—particularly those relying on the strait for energy imports—must take responsibility for its security.
+
+Trump confirmed he will deliver a **national address to the American people on Wednesday night (April 1, 2026 9pm EDT or 2am on 2 April BST)** regarding the war's progress and path forward.
+
+The White House indicated that while Iran has shown interest in reaching an agreement following their military losses, no formal ceasefire framework has been accepted as of this date. The April 6 deadline for potential strikes on power plants and energy infrastructure remains technically in effect but may be reconsidered given the wind-down timeline.
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/1/trump-tells-allies-get-your-own-oil-says-iran-war-could-end-in-2-3-weeks" target="_blank">Al Jazeera — Trump tells allies to get your own oil</a>
+- **Source:** <a href="https://www.bbc.com/news/live/c8jke9v9xv9t" target="_blank">BBC — Trump says US will leave Iran 'whether we have a deal or not'</a>
+- **Source:** <a href="https://www.cnn.com/2026/04/01/world/live-news/iran-war-us-trump-oil" target="_blank">CNN — Iran war live updates, April 1</a>
+
+---
+
+### 1 April 2026 — Markets react to wind-down timeline; European allies respond
+
+European Union officials expressed concern over Trump's suggestion that member states should secure their own energy supplies through the Hormuz Strait. Energy markets showed modest gains as the possibility of a quicker US exit emerged, with Brent crude trading in a range of **$108–116/barrel** (down from peak ~$126).
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/1/trump-tells-allies-get-your-own-oil-says-iran-war-could-end-in-2-3-weeks" target="_blank">Al Jazeera — Markets and European response</a>
 
 ---
 

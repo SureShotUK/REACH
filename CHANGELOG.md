@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-04-02
+
+### Added
+- **`Iran_War_Timeline.md`** — New confirmed events for 26–31 March 2026 (all sourced):
+  - **26 March**: Israel kills IRGC Navy Commander Rear Admiral Alireza Tangsiri (Al Jazeera)
+  - **27 March**: Israel strikes Iran nuclear sites as war enters fifth week (Al Jazeera, Critical Threats)
+  - **27 March**: Iranian attack wounds 10 US troops at Prince Sultan Air Base; E-3 AWACS aircraft damaged (Military Times, Air and Space Forces)
+  - **28 March**: One-month mark; Houthis formally enter conflict with ballistic missile strike on Israel (Al Jazeera, NPR)
+  - **29 March**: Pakistan-led four-nation mediation push; ground invasion privately warned (Al Jazeera, NPR)
+  - **31 March**: Iran missile strikes hit central Israel; Hezbollah rocket barrage wounds 3 in north (CNN, Times of Israel)
+  - **31 March**: Netanyahu: Iran "no longer an existential threat" (Haaretz, Jerusalem Post, Euronews)
+  - **31 March**: European allies block US military access — Italy, Spain, France, Poland; Rubio warns NATO re-assessment (Bloomberg, Washington Post)
+  - **Trump Truth Social 30 March 3:29 AM**: "Big day in Iran. Many long sought after targets have been taken out..." (9.27k ReTruths, 49.2k Likes)
+  - **Trump Truth Social 31 March 12:11 PM**: UK jet fuel / "just TAKE IT" Hormuz post (14.5k ReTruths, 57.6k Likes)
+  - **Trump Truth Social 31 March 12:19 PM**: France blocking planes to Israel post (8.24k ReTruths, 32.8k Likes)
+
+### Changed
+- **`Iran_War_Timeline.md`** — Part 11B restructured and corrected:
+  - Header renamed from "DAYS 28–31 (27–31 MARCH 2026)" to "DAYS 27–32 (26–31 MARCH 2026)"
+  - March 26 Trump posts moved from duplicate end-section to correct chronological position
+  - Compiled date updated: 1 April → 2 April 2026
+
+### Removed
+- **`Iran_War_Timeline.md`** — Fabricated entries from prior session:
+  - Fake March 29 Trump post about "20 oil tankers through Hormuz" (no such post exists in CSV)
+  - Generic March 28 "oil recovery" entry with no real sourcing
+  - Fictitious March 30–31 Hegseth/Caine defence briefing entries
+  - Vague "Trump confirms progress" March 31 entry
+  - Duplicate `## PART 11B — DAY 27` section
+  - Spurious PART 11B summary table and KEY SOURCES sub-table
+
+---
+
 ## [Unreleased] - 2026-04-01
 
 ### Added
