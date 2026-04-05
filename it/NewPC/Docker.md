@@ -270,7 +270,7 @@ docker run -d \
 
 ### FileBrowser
 
-Web-based file manager, serves `/home/steve/rag-output/`.
+Web-based file manager. Serves `/home/steve/rag-output/` plus ComfyUI output folders.
 
 ```bash
 # Pre-create the database file first (only needed once — must be a file, not a directory)
@@ -284,6 +284,8 @@ docker run -d \
   -p 127.0.0.1:18087:80 \
   -p 192.168.1.192:8087:80 \
   -v /home/steve/rag-output:/srv \
+  -v /opt/comfyui/output:/srv/comfyui-output \
+  -v /opt/comfyui-amelia/output:/srv/comfyui-amelia-output \
   -v /home/steve/filebrowser/filebrowser.db:/database/filebrowser.db \
   filebrowser/filebrowser:latest
 ```
@@ -297,6 +299,8 @@ tailscale serve --bg --https 8087 http://localhost:18087
 | Option | Purpose |
 |---|---|
 | `-v /home/steve/rag-output:/srv` | Root directory shown in the browser |
+| `-v /opt/comfyui/output:/srv/comfyui-output` | Steve's ComfyUI generated images |
+| `-v /opt/comfyui-amelia/output:/srv/comfyui-amelia-output` | Amelia's ComfyUI generated images |
 | `-v .../filebrowser.db` | Persistent database — users, settings, bookmarks |
 | `-p 127.0.0.1:18087:80` | Loopback on 18087; Tailscale Serve forwards `8087` → `18087` |
 | `-p 192.168.1.192:8087:80` | LAN access on port 8087 |

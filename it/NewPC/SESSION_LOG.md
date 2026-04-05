@@ -2,6 +2,52 @@
 
 ---
 
+## Session 2026-04-05 (2)
+
+### Summary
+Diagnosed and resolved two ComfyUI issues: (1) OOM errors on first generation with the Qwen-Rapid-AIO-NSFW-v23 model fixed by adding `--reserve-vram 3` to CLI_ARGS; (2) Tailscale access broken after container rebuild due to wrong loopback port in ComfyUI.md (8189 instead of 18189) — corrected and container rebuilt. Also fixed FileBrowser to expose ComfyUI input/output folders, set up `.gitignore` to exclude build artifacts and junk, and committed all legitimate untracked content to git. Diagnosed that Qwen workflow saves generated images to the input folder (`/opt/comfyui/input/`) as temp files by design.
+
+### Work Completed
+- Fixed Qwen OOM error — `--reserve-vram 3` added to `CLI_ARGS` reserves 3GB VRAM headroom preventing fragmentation-induced allocation failures
+- Fixed Tailscale access broken by wrong loopback port — `ComfyUI.md` had `127.0.0.1:8189` instead of `127.0.0.1:18189`; container rebuilt with correct binding
+- Updated `ComfyUI.md` docker run command: corrected loopback port to `18189` and added `--reserve-vram 3`
+- Added `.gitignore` — excludes `.NET bin/obj`, `*.log`, `*.oft`, `*.bin`, `*_files/`, `Backups_*/`, and named temp files
+- Committed all legitimate untracked content (139 files): Canada, REACH HVO, IUCLID, hseea subdirs, insurance, ZeroTrust, postgres-security, wsl-postgresql-setup, IT security docs, NewPC workflows/configs, OutlookTemplateCleaner source
+- Updated `Docker.md` — FileBrowser now mounts `/opt/comfyui/input/`, `/opt/comfyui/output/`, `/opt/comfyui-amelia/input/`, `/opt/comfyui-amelia/output/`; rebuilt FileBrowser container
+- Added "warnings before destructive commands" rule to `CLAUDE.md` (shared) and memory — warnings must appear before commands, not after
+- Diagnosed Qwen generated image location: saved to `/opt/comfyui/input/` as `ComfyUI_temp_*` files by design (image-edit workflow outputs feed directly to next input)
+- Cross-platform git sync verified end-to-end: Windows pulled successfully after Linux push
+
+### Files Changed
+- `it/NewPC/ComfyUI.md` — corrected loopback port `8189`→`18189`; added `--reserve-vram 3` to CLI_ARGS
+- `it/NewPC/Docker.md` — FileBrowser command updated with ComfyUI input/output volume mounts
+- `CLAUDE.md` (shared) — added "Warnings Before Instructions" principle
+- `.gitignore` — created with exclusion rules for build artifacts, logs, binary Outlook files, temp files
+
+### Git Commits
+- `50af171` — Add cross-platform git sync infrastructure and update NewPC CLAUDE.md
+- `f63318e` — End of session — cross-platform git sync infrastructure added
+- `ae427a2` — Normalise line endings and commit local content changes
+- `64f3a33` — Add .gitignore and commit all legitimate untracked content
+
+### Key Decisions
+- **`--reserve-vram 3`** rather than `--lowvram` — preserves performance while fixing the specific fragmentation issue; `--lowvram` would be slower across the board
+- **Loopback port `18189`** — follows the `1XXXX` convention documented in CLAUDE.md; `ComfyUI.md` had a typo that went unnoticed until Tailscale broke
+- **Qwen saves to input folder** — this is by design for the image-edit workflow; generated images become available as inputs without downloading. FileBrowser now exposes this folder.
+- **`git add -u` not `git add -A`** for line-ending normalisation commit — avoided accidentally committing junk before `.gitignore` was in place
+
+### Reference Documents
+- `it/NewPC/ComfyUI.md` — corrected docker run command
+- `it/NewPC/Docker.md` — updated FileBrowser command
+
+### Next Actions
+- [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
+- [ ] Verify FileBrowser shows `comfyui-input/` folder with generated images
+- [ ] Check if Load Image node in Qwen workflow can browse input folder to select previous generations
+- [ ] Confirm Windows git credentials working — run `/sync-files` from Windows Claude Code
+
+---
+
 ## Session 2026-04-05
 
 ### Summary

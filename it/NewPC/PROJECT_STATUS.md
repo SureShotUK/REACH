@@ -6,7 +6,7 @@
 
 ## Current State
 
-Server (`amelai`) is fully operational. Cross-platform git sync infrastructure is now in place — `.gitattributes` normalises line endings and the `/sync-files` slash command handles bidirectional sync between Windows and Linux machines.
+Server (`amelai`) is fully operational. ComfyUI OOM issue with Qwen-Rapid-AIO-NSFW-v23 resolved with `--reserve-vram 3`. FileBrowser now exposes ComfyUI input and output folders. Git repo fully synced between Windows and Linux with `.gitignore` and `/sync-files` command in place.
 
 ## Service Status
 
@@ -21,24 +21,27 @@ Server (`amelai`) is fully operational. Cross-platform git sync infrastructure i
 
 ## Active Work Areas
 
-- Cross-platform git sync: verify end-to-end on Windows 11 PC
+- Verify ComfyUI OOM fix works end-to-end on first generation attempt
 
 ## Recently Completed
 
-- Created cross-platform git sync infrastructure: `.gitattributes` + `/sync-files` slash command
-- Created Open WebUI FileWriter tool — models can now genuinely write files to `/home/steve/rag-output/`; accessible via FileBrowser
-- Fixed NIC dropping off PCIe bus (`igc PCIe link lost`) — `pcie_aspm=off` added to GRUB kernel parameters
-- Fixed Ollama OOM kills — ComfyUI VRAM hoarding identified as root cause; browser bookmarklet and nightly cron restart added
-- Created `Linux_Troubleshooting.md` — reference guide for server crash diagnosis and fixes
-- Fixed MCP web search, Open WebUI Ollama connection, hf-env auto-activation
-- Created `New_PC_Builds.md` — personal Windows 11 PC build guide
+- Fixed Qwen-Rapid-AIO OOM error — `--reserve-vram 3` added to ComfyUI CLI_ARGS
+- Fixed ComfyUI Tailscale access — loopback port typo corrected (`8189`→`18189` in docker run)
+- FileBrowser updated — now exposes `comfyui-input/`, `comfyui-output/`, `comfyui-amelia-input/`, `comfyui-amelia-output/`
+- Created `.gitignore` and committed all 139 previously untracked files
+- Cross-platform git sync fully operational — Windows and Linux in sync via GitHub
+- Added "warnings before commands" rule to shared CLAUDE.md
 
 ## Pending / Next Actions
 
-- [ ] Pull on Windows 11 PC and run `/sync-files` to verify cross-platform sync end-to-end
-- [ ] Verify git credentials configured on Windows (GitHub PAT or Git Credential Manager)
-- [ ] Test FileWriter tool end-to-end — ask model to write a file, verify it appears in FileBrowser
+- [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
+- [ ] Verify FileBrowser shows `comfyui-input/` with Qwen-generated images
+- [ ] Check Load Image node can browse input folder to select previous generations without downloading
 - [ ] Monitor NIC stability — confirm `pcie_aspm=off` holds
+- [ ] Address `systemd-networkd-wait-online` timeouts (WiFi adapter wlp11s0)
+- [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
+- [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
+- [ ] Set static DHCP reservation on router for `192.168.1.192`
 - [ ] Address `systemd-networkd-wait-online` timeouts (WiFi adapter wlp11s0 — known ASUS X870E Linux issue)
 - [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
 - [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case

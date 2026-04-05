@@ -2,6 +2,24 @@
 
 ---
 
+## [Unreleased] - 2026-04-05 (2)
+
+### Fixed
+- ComfyUI (Steve) OOM error on first generation with Qwen-Rapid-AIO-NSFW-v23 — added `--reserve-vram 3` to `CLI_ARGS`; reserves 3GB VRAM headroom to prevent fragmentation-induced allocation failures
+- ComfyUI (Steve) Tailscale access broken after container rebuild — loopback port was `127.0.0.1:8189` (wrong) corrected to `127.0.0.1:18189` in both `ComfyUI.md` and active container
+
+### Added
+- `.gitignore` — excludes `.NET bin/obj`, `*.log`, `*.oft`, `*.bin`, `*_files/`, `it/troubleshooting/Backups_*/`, and named temp files
+- FileBrowser now mounts ComfyUI input and output folders: `comfyui-input/`, `comfyui-output/`, `comfyui-amelia-input/`, `comfyui-amelia-output/`
+- 139 previously untracked files committed: Canada regulatory docs, REACH HVO, IUCLID, hseea subdirs, insurance, ZeroTrust, postgres-security, wsl-postgresql-setup, IT security docs, NewPC workflows/configs, OutlookTemplateCleaner source
+
+### Documentation
+- `ComfyUI.md` — corrected docker run command (loopback port + `--reserve-vram 3`)
+- `Docker.md` — FileBrowser command updated with all four ComfyUI volume mounts
+- `CLAUDE.md` (shared) — added "Warnings Before Instructions" principle: warnings must appear before commands, not after
+
+---
+
 ## [Unreleased] - 2026-04-05
 
 ### Added

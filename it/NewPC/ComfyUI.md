@@ -21,16 +21,16 @@ docker run -d \
   --restart unless-stopped \
   --runtime nvidia \
   --gpus all \
-  -p 127.0.0.1:8189:8188 \
+  -p 127.0.0.1:18189:8188 \
   -p 192.168.1.192:8189:8188 \
+  -e CUDA_VISIBLE_DEVICES=1 \
+  -e CLI_ARGS="--disable-xformers --reserve-vram 3" \
+  -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
   -v /mnt/models/comfyui:/root/ComfyUI/models \
   -v /opt/comfyui/storage:/root \
   -v /opt/comfyui/input:/root/ComfyUI/input \
   -v /opt/comfyui/output:/root/ComfyUI/output \
   -v /opt/comfyui/workflows:/root/ComfyUI/user/default/workflows \
-  -e CUDA_VISIBLE_DEVICES=1 \
-  -e CLI_ARGS="--disable-xformers" \
-  -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
   yanwk/comfyui-boot:cu128-slim
 ```
 
