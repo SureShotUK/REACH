@@ -1,0 +1,802 @@
+# AI Training Research: FLUX LoRA + LLM Fine-tuning
+# Hardware: 2x RTX 3090 (48GB NVLink), Ryzen 9 7900X, 64GB DDR5, Ubuntu 24.04
+# Research date: March 2026
+
+================================================================================
+TOPIC 1: IMAGE LORA TRAINING FOR FLUX.1 DEV
+================================================================================
+
+---
+## 1.1 TRAINING TOOLS COMPARISON
+---
+
+### ai-toolkit (ostris) — RECOMMENDED for FLUX LoRAs
+- GitHub: https://github.com/ostris/ai-toolkit
+- Status: Actively maintained, 977+ commits, sponsored by a16z, Replicate, HuggingFace
+- FLUX support: Yes — dedicated FLUX config files including train_lora_flux_24gb.yaml
+- Designed specifically for consumer hardware including RTX 3090 (24GB)
+- Has a GUI (flux_train_ui.py) as well as CLI (run.py)
+- Includes example YAML configs for FLUX, FLUX Schnell, FLUX Kontext
+- Docker and pip installation supported
+- Uses 8-bit optimizer (adamw8bit) + gradient checkpointing to fit 24GB
+- Considered the community standard for FLUX LoRA training as of 2026
+- Installation (Ubuntu 24.04):
+    git clone https://github.com/ostris/ai-toolkit.git
+    cd ai-toolkit
+    git submodule update --init --recursive
+    python -m venv venv
+    source venv/bin/activate
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+    pip install -r requirements.txt
+
+### kohya_ss (sd-scripts)
+- GitHub: https://github.com/kohya-ss/sd-scripts
+- Current version: 0.10.1 (February 2026)
+- FLUX support: Yes — added in v0.10.0 (January 2026), main branch now includes FLUX
+- PyTorch 2.6.0+ and CUDA 12.4 required
+- Mature project with 2,490+ commits
+- More complex configuration than ai-toolkit
+- Better documentation for advanced scenarios (multi-GPU, custom schedulers)
+- Supports LoRA, DreamBooth, textual inversion, fine-tuning
+- Good choice if you need features not in ai-toolkit (e.g., specific scheduler options)
+- Installation: pip-based, see https://github.com/kohya-ss/sd-scripts/blob/main/README.md
+
+### SimpleTuner
+- GitHub: https://github.com/bghira/SimpleTuner
+- Status: 9,160+ commits, actively maintained
+- FLUX support: Full — dedicated Flux.1 guide including Kontext and QKV fusion
+- Motto: "good default settings for most use cases, so less tinkering is required"
+- Installs via pip: pip install 'simpletuner[cuda]'
+- Supports most models on 24GB GPU with optimisations
+- Has web UI plus CLI
+- Multi-GPU, DeepSpeed, FSDP2 support
+- Good second choice if ai-toolkit doesn't work for your use case
+
+### fal.ai / cloud options
+- fal.ai: Cloud fine-tuning service; ~12-20 images recommended; $1-2 per run
+- Good for experimentation before committing to local setup
+- No local GPU required; results returned as .safetensors file
+- Replicate: Similar cloud service; 20-30 minute training; simple web interface
+- Limitation: Less control over parameters; data leaves your machine
+
+### VERDICT: Use ai-toolkit (ostris) for FLUX LoRA on RTX 3090
+Reasons: Purpose-built for FLUX, has a 24GB example config, active development,
+widest community adoption for FLUX specifically, GUI option available.
+SimpleTuner is a solid alternative if you hit issues.
+
+---
+## 1.2 TRAINING PARAMETERS (RTX 3090, 24GB VRAM)
+---
+
+Source: Official ai-toolkit example config (train_lora_flux_24gb.yaml)
+
+### Core Parameters (verified from official config)
+    network_type: lora
+    rank (r): 16
+    alpha (linear_alpha): 16
+    learning_rate: 1e-4
+    total_steps: 2000
+    batch_size: 1
+    gradient_accumulation_steps: 1
+    optimizer: adamw8bit
+    noise_scheduler: flowmatch
+    dtype (training): bf16 (bfloat16)
+    save_dtype: float16
+    gradient_checkpointing: true
+    EMA: enabled (decay 0.99)
+
+### Why these values?
+- Rank 16 / Alpha 16: The alpha/rank ratio = 1.0, meaning no additional scaling.
+  This is standard. Higher rank (32, 64) captures more detail but uses more VRAM
+  and trains slower. For a character LoRA, rank 16 is a solid starting point.
+  Try rank 32 if results lack detail (VRAM permitting).
+- bf16: Required for FLUX (uses modern transformer architecture). Do NOT use fp16.
+- adamw8bit: 8-bit Adam optimizer from bitsandbytes — halves optimizer memory usage.
+- gradient_checkpointing: Recomputes activations during backprop instead of storing
+  them. Saves significant VRAM at cost of ~20% slower training.
+- 2000 steps: Good starting point for a character LoRA with 20-50 images.
+  With batch_size=1 and 20 images, 2000 steps = ~100 effective passes through data.
+  Increase to 3000-4000 if underfitting; decrease if overfitting.
+
+### VRAM Usage (RTX 3090, 24GB)
+- FLUX.1 Dev fp8 model: ~12-14GB model weights
+- Training overhead (activations, gradients, optimiser states): ~8-10GB
+- With the above settings, total: ~20-22GB — fits within 24GB with margin
+- If OOM occurs: reduce resolution to 512 or 768, or increase gradient_accumulation_steps to 2
+
+### Noise scheduler note
+FLUX uses "flowmatch" (flow matching), NOT the DDPM/DDIM schedulers used by SD 1.5/SDXL.
+Do not use cosine or linear noise schedulers from older tutorials — they are for different models.
+
+### Training time estimate (RTX 3090)
+- 2000 steps, rank 16, 1024px resolution, batch_size=1: approximately 45-90 minutes
+- Checkpoint saved every 250 steps by default (can inspect intermediate results)
+
+---
+## 1.3 DATASET PREPARATION FOR CHARACTER LoRAs
+---
+
+### Recommended image count
+- Minimum: 12-15 images (will produce results but limited generalisability)
+- Good: 20-30 images
+- Ideal: 30-50 images for a well-rounded character LoRA
+- Beyond 50: diminishing returns for a single character; ensure variety increases
+  proportionally with image count (don't just add similar images)
+
+### Image quality requirements
+- Resolution: Aim for minimum 768x768, ideally 1024x1024 or higher
+  (ai-toolkit supports multiple resolutions: 512, 768, 1024)
+- Sharpness: Images must be in focus. Blurry images teach the model to generate blur.
+- Compression: Avoid heavy JPEG compression artifacts. Use PNG or high-quality JPEG.
+- Lighting: Well-lit images preferred. Some variety in lighting is good, but avoid
+  extreme shadows that obscure facial features.
+- No watermarks, text overlays, or heavy filters (Instagram-style filters, etc.)
+
+### What to INCLUDE for variety
+- Multiple angles: front-facing, 3/4 view, profile, slight upward/downward angles
+- Multiple expressions: neutral, smiling, serious, etc.
+- Multiple lighting conditions: natural daylight, indoor, golden hour
+- Multiple backgrounds: avoid the same background in every image (model will learn it)
+- Multiple clothing/outfits: prevents the LoRA from baking in a specific outfit
+- Different hair states if applicable: tied up, loose, etc.
+- Full body, half body, and close-up/portrait shots
+
+### What to AVOID
+- Multiple people in the same frame (model cannot isolate the target subject)
+- Extreme occlusion: sunglasses covering eyes, hands covering face, hats that obscure
+- Heavy makeup that significantly changes appearance across images
+- Group photos or crowd scenes
+- Very similar/near-identical images (e.g., 10 photos taken in 2 seconds in same pose)
+- Extreme side profiles where only one eye is visible
+- Images where the subject is very small in the frame
+- Old childhood photos mixed with current adult photos (identity confusion)
+- Screenshots from video (often blurry/compressed)
+
+### Captioning strategy
+Two valid approaches:
+
+APPROACH A — Trigger word only (simpler, recommended for beginners):
+- Do NOT write descriptive captions
+- Every image gets a caption file containing ONLY the trigger word
+  e.g., each .txt file contains: TOK
+- The model learns to associate everything in the image with that trigger word
+- Easier to use in practice
+
+APPROACH B — Descriptive captions with trigger word embedded (more flexible):
+- Caption describes the scene, with trigger word included
+  e.g.: "TOK, a woman with brown hair smiling, wearing a red jacket, outdoor setting"
+- Allows the LoRA to be used more naturally in complex prompts
+- More work to caption but produces more controllable results
+- ai-toolkit supports caption dropout (5% by default) which randomly ignores captions
+  during training, improving flexibility
+
+### Captioning tools (for approach B)
+- Florence-2: Strong image understanding, good for detailed captions
+  (available via HuggingFace: microsoft/Florence-2-large)
+- JoyCaption: Purpose-built for anime/illustration LoRA training, less useful for
+  real photos
+- BLIP-2: Older but still capable; available as HuggingFace space
+- WD-tagger: Tag-based (outputs "brown hair, blue eyes, smile" style tags).
+  Good for anime, less natural for real people photos
+- Manual captioning is often the best approach for a small personal dataset —
+  you know exactly what's in your own photos
+
+### Trigger words
+- Choose a word or short phrase that does NOT appear in normal training data
+  Examples: "SJPRS", "MYPRSN", "TOK", "UNIQUECHAR2024"
+- Avoid: real names, common words, celebrity names
+- The trigger word is what you type in the prompt to "activate" the LoRA
+- It appears in every caption (or is the only content of the caption)
+- In ai-toolkit config: set trigger_word in the dataset section
+
+### Folder structure and file naming
+Standard format (compatible with ai-toolkit, kohya_ss, SimpleTuner):
+
+    dataset/
+    ├── img001.jpg
+    ├── img001.txt          (caption file, same name as image)
+    ├── img002.jpg
+    ├── img002.txt
+    ├── img003.png
+    ├── img003.txt
+    └── ...
+
+- .txt file same filename as image, contains the caption or trigger word
+- Supported formats: .jpg, .jpeg, .png, .webp
+- ai-toolkit config: set folder_path to the dataset directory
+- ai-toolkit config: set caption_ext to ".txt"
+
+### Image preprocessing
+- Face cropping tools (e.g., FFHQ alignment): OPTIONAL for portraits/headshots.
+  Can improve consistency if all images are portrait-oriented. Not needed for
+  full-body character LoRAs.
+- Background removal: Generally NOT recommended for character LoRAs.
+  White/transparent backgrounds cause the model to expect plain backgrounds
+  when the LoRA is used. Keep original backgrounds for better generalisability.
+- Resizing: ai-toolkit handles this automatically via aspect bucketing.
+  No need to pre-resize images manually.
+
+---
+## 1.4 USING THE TRAINED LoRA IN COMFYUI
+---
+
+### Where to place the file
+Your trained LoRA will be saved as a .safetensors file.
+Place it in your ComfyUI models directory:
+    /mnt/models/comfyui/loras/my_character_lora.safetensors
+
+For Amelia's restricted instance (hard-link):
+    sudo ln /mnt/models/comfyui/loras/my_character_lora.safetensors \
+            /mnt/models/comfyui-amelia/loras/my_character_lora.safetensors
+
+### Loading in a FLUX workflow
+Per your existing CLAUDE.md: FLUX uses a single model input (no CLIP passthrough).
+Insert the Load LoRA node between the checkpoint loader and KSampler.
+
+Node chain:
+  Load Checkpoint (flux1-dev-fp8.safetensors)
+       |
+  Load LoRA (your .safetensors, strength 0.8)
+       |
+  KSampler (or equivalent)
+
+### Recommended strength values
+- Start at 0.8 (as documented in your CLAUDE.md)
+- Range: 0.6 - 1.0 for character LoRAs
+- Lower (0.5-0.7): More flexibility, less character likeness
+- Higher (0.9-1.0): Stronger character likeness, may reduce prompt flexibility
+- If results show distortion at 1.0: reduce to 0.7-0.8
+- Experiment in 0.1 increments
+
+### Prompt strategy
+Always include your trigger word in the prompt:
+    "SJPRS person standing in a garden, wearing casual clothes, natural lighting,
+     photorealistic, high quality"
+
+The LoRA handles the identity; the rest of the prompt controls the scene.
+
+================================================================================
+TOPIC 2: LLM FINE-TUNING / LoRA ADAPTATION
+================================================================================
+
+---
+## 2.1 WHAT IS ACHIEVABLE WITH 48GB VRAM?
+---
+
+### The key formula
+Model VRAM for inference (fp16): approximately (parameters in billions) x 2 GB
+Example: 7B model = ~14GB at fp16
+
+QLoRA training additional overhead: gradients + activations + optimiser states
+add roughly 1.5-2x the inference VRAM requirement.
+
+### VRAM requirements table (QLoRA training, 4-bit base model)
+
+| Model Size | Inference (fp16) | QLoRA Training (4-bit) | Fits on 24GB? | Fits on 48GB? |
+|------------|-----------------|------------------------|---------------|---------------|
+| 3B         | ~6GB            | ~8-10GB                | Yes           | Yes           |
+| 7-8B       | ~14GB           | ~12-16GB               | Yes (w/ GC)   | Yes           |
+| 13B        | ~26GB           | ~16-20GB               | Yes (w/ GC)   | Yes           |
+| 30-34B     | ~60GB           | ~24-30GB               | Marginal/No   | Yes           |
+| 70B        | ~140GB          | ~40-48GB               | No            | Yes (tight)   |
+| 72B (Qwen) | ~144GB          | ~48-52GB               | No            | Tight/No      |
+
+Notes:
+- GC = gradient checkpointing enabled
+- QLoRA uses 4-bit NormalFloat (NF4) quantisation for the base model weights
+- Only the LoRA adapter weights are stored and updated in fp16/bf16
+- "Fits" assumes batch_size=1, sequence length ~2048; longer sequences use more VRAM
+- Original QLoRA paper (Dettmers et al.): 33B model fine-tunable on 24GB; 65B on 48GB
+
+### Practical recommendations for your hardware (48GB NVLink)
+
+FOR SINGLE GPU (24GB):
+- 7B models: Very comfortable for QLoRA (e.g., Llama 3.1 8B, Qwen3.5 9B)
+- 13B models: Fine with gradient checkpointing
+- 30B+: Not recommended on single 24GB
+
+FOR DUAL GPU (48GB NVLink):
+- Up to 70B models feasible with QLoRA
+- 27-35B models: Excellent quality-to-VRAM ratio, recommended sweet spot
+- Best option for custom knowledge chatbot: 13B-27B QLoRA
+- Unsloth supports multi-GPU with NVLink; LLaMA-Factory supports FSPM+QLoRA on 2x24GB
+
+### NVLink for training
+NVLink (112.5 GB/s) benefits model parallelism — splitting a large model across both
+GPUs. For QLoRA of small-medium models (7B-13B) that fit on a single GPU, NVLink
+provides minimal benefit. For larger models (27B-70B), tools like DeepSpeed ZeRO-3 or
+FSDP can leverage NVLink to distribute model weights across both cards.
+Unsloth explicitly documents NVLink multi-GPU support.
+
+---
+## 2.2 BEST TOOLS FOR LLM FINE-TUNING
+---
+
+### Unsloth — RECOMMENDED for beginners and intermediate users
+- GitHub: https://github.com/unslothai/unsloth
+- 54,100+ stars, 4,500+ forks (March 2026)
+- Installation: pip install unsloth
+- Key claims: 2x faster training, 70% less VRAM vs standard training
+  (80% less VRAM for RL tasks)
+- Specific VRAM reductions: Llama 3.1 8B (-70%), Qwen3.5 4B (-60%), gpt-oss 20B (-70%)
+- Supports: Qwen3.5, Llama 3/4, Gemma, Mistral, DeepSeek, and all HuggingFace models
+- Export to: GGUF (Ollama), vLLM, SGLang, HuggingFace format
+- Multi-GPU with NVLink: Explicitly supported
+- QLoRA, LoRA, full fine-tuning, 4-bit training all supported
+- Works with: CUDA 7.0+, RTX 20/30/40 series, A100, H100
+- Best for: Straightforward fine-tuning with minimum setup friction
+
+### LLaMA-Factory
+- GitHub: https://github.com/hiyouga/LLaMA-Factory
+- 68,600+ stars, 2,978 commits (March 2026)
+- Installation: pip install llamafactory
+- Supports 100+ LLMs and VLMs including Llama 4, Qwen3, DeepSeek R1, Mistral
+- Key feature: Gradio web UI for zero-code fine-tuning (great for beginners)
+- "FSPM+QLoRA fine-tunes a 70B model on 2x24GB GPUs" — directly relevant
+- Advanced optimisers: GaLore, Adam-mini, Muon, APOLLO
+- FlashAttention-2, Unsloth integration, Liger Kernel included
+- Supports day-0/day-1 new model releases
+- Best for: Users who want a web UI; teams needing to support many model families
+
+### axolotl
+- GitHub: https://github.com/axolotl-ai-cloud/axolotl
+- Current version: v0.15.0 (March 6, 2026)
+- Configuration: Single YAML file covering entire pipeline
+- Supports Qwen3.5, Llama 4, Magistral, GLM, and vision-language models
+- LoRA and QLoRA with memory optimisations
+- Docker images available; cloud platform support (RunPod, Vast.ai, Modal)
+- Best for: ML practitioners comfortable with YAML configuration who want flexibility
+
+### torchtune (PyTorch native)
+- GitHub: https://github.com/pytorch/torchtune
+- CLI-driven: tune run lora_finetune_single_device --config llama3_1/8B_lora_single_device
+- VRAM benchmarks (batch=2, bf16, torch compile):
+  Llama 3.1 8B full finetune: 18.9GB; QLoRA: 7.4GB (on RTX 4090)
+- Supports Llama 3/4, Gemma, Mistral, Qwen, Phi, Llama-4 Scout
+- Hackable recipes for SFT, DPO, PPO, GRPO, quantization-aware training
+- Best for: PyTorch developers who want low-level control
+
+### VERDICT: Start with Unsloth
+Reasons: Easiest install, best VRAM efficiency, GGUF/Ollama export built-in,
+excellent documentation, Jupyter notebook examples available.
+Use LLaMA-Factory if you prefer a web UI or need to fine-tune a very wide
+variety of models.
+
+---
+## 2.3 DATASET PREPARATION FOR CUSTOM KNOWLEDGE CHATBOT
+---
+
+### Data formats comparison
+
+FORMAT 1 — Conversational / OpenAI Chat format (RECOMMENDED)
+    {"messages": [
+        {"role": "system", "content": "You are a helpful assistant specialising in X."},
+        {"role": "user", "content": "What is the difference between A and B?"},
+        {"role": "assistant", "content": "A differs from B in the following ways..."}
+    ]}
+
+FORMAT 2 — Alpaca format
+    {"instruction": "What is the capital of France?",
+     "input": "",
+     "output": "The capital of France is Paris."}
+     or with context:
+    {"instruction": "Summarise this document.",
+     "input": "The document text goes here...",
+     "output": "Summary of the document..."}
+
+FORMAT 3 — Prompt-completion (simplest)
+    {"prompt": "The capital of France is",
+     "completion": " Paris."}
+
+USE CASES:
+- Conversational format: Best for chatbots; supports system prompts; most flexible
+- Alpaca format: Good for instruction-following tasks; simpler to generate
+- Prompt-completion: Simplest but least flexible; no system prompt support
+
+Unsloth and LLaMA-Factory both natively support all three formats.
+TRL's SFTTrainer auto-detects the format.
+
+### Minimum dataset size
+- Minimum viable: 50-100 examples (will fine-tune but limited coverage)
+- Reasonable starting point: 200-500 examples
+- Good: 1,000-5,000 examples for domain knowledge injection
+- Large: 10,000+ for significant behaviour change
+- Quality beats quantity significantly — 200 well-crafted examples outperform
+  1,000 noisy/redundant examples
+- Research (philschmid.de): 10,000 examples with optimised training ≈ 135 minutes on
+  a single L4 24GB (comparable to RTX 3090)
+
+### What makes good training examples?
+- Diverse: Cover the breadth of your knowledge domain, not just the most common cases
+- Accurate: Every answer must be correct — wrong answers are learned just as readily
+- Appropriately detailed: Match the response length/detail you want from the chatbot
+- Representative: Similar to the questions you expect users to ask
+- Includes edge cases and common misconceptions (model should handle these correctly)
+- Consistent tone/style: If you want formal responses, all examples should be formal
+
+### Types of data suitable for custom knowledge chatbot
+1. Q&A pairs from your domain documents (most direct approach)
+2. Document + question + answer triples (Alpaca format with context)
+3. Conversation transcripts (if you have existing chat logs)
+4. Instruction + completion pairs (task-based)
+5. Distilled from a larger model: ask GPT-4 / Claude to generate Q&A pairs from
+   your documents, then quality-check and curate
+
+### Data cleaning essentials
+- Remove duplicates and near-duplicates (semantic similarity > 0.95)
+- Ensure consistent formatting (no mixed markdown/plain text unless intentional)
+- Verify factual accuracy before including any example
+- Remove any examples where the answer is "I don't know" unless that is desired behaviour
+- Check for and remove personally identifiable information (PII)
+- Balance topics — avoid 80% of examples being about one subtopic
+
+### System prompt / persona injection
+The system prompt is the most efficient way to inject persona and knowledge context.
+Training on examples that include a system prompt teaches the model to follow it:
+
+    {"messages": [
+        {"role": "system", "content": "You are an expert in [domain]. Answer questions
+         accurately and concisely based on [organisation] policies and procedures.
+         If you are uncertain, say so."},
+        {"role": "user", "content": "..."},
+        {"role": "assistant", "content": "..."}
+    ]}
+
+At inference time, always provide the same system prompt for consistent behaviour.
+
+### Tools for dataset preparation
+- Converting documents to Q&A: Claude/GPT-4 API with a generation prompt
+  (most efficient for creating 200-500 examples from existing documents)
+- Distilabel (HuggingFace): Framework for synthetic dataset generation
+- LabelStudio: Open-source annotation tool for manual Q&A creation
+- For deduplication: datasets library (HuggingFace): dataset.map() + filter()
+
+### Practical approach for a small business knowledge chatbot
+1. Collect source documents (FAQs, policies, procedures, product specs)
+2. Use Claude/GPT-4 with prompt: "Generate 5 Q&A pairs from this document section
+   that a user might ask. Format as JSON with 'question' and 'answer' fields."
+3. Review and correct all generated Q&A pairs
+4. Convert to conversational format with consistent system prompt
+5. Split: 80% train, 10% validation, 10% test
+6. Target: 300-500 curated examples minimum
+
+---
+## 2.4 TRAINING PARAMETERS FOR LLM LoRA/QLoRA
+---
+
+### Recommended configuration (verified from philschmid.de research + HuggingFace TRL docs)
+
+QLoRA setup:
+    load_in_4bit: true
+    bnb_4bit_quant_type: "nf4"            # NormalFloat 4 — better precision than int4
+    bnb_4bit_use_double_quant: true        # Save additional 0.4 bits per parameter
+    bnb_4bit_compute_dtype: bfloat16       # Faster training with bf16 compute
+
+LoRA adapter config:
+    r (rank): 16
+    lora_alpha: 16                         # alpha/r = 1.0 (standard starting point)
+    lora_dropout: 0.05                     # Small dropout for regularisation
+    bias: "none"
+    task_type: "CAUSAL_LM"
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj",
+                     "gate_proj", "up_proj", "down_proj"]  # All attention + MLP layers
+
+Training arguments:
+    per_device_train_batch_size: 1-2
+    gradient_accumulation_steps: 4-8      # Effective batch = batch_size x grad_accum
+    learning_rate: 2e-4
+    lr_scheduler: "constant"              # or "cosine" for longer runs
+    warmup_ratio: 0.03
+    num_train_epochs: 3                   # or specify max_steps
+    bf16: true
+    gradient_checkpointing: true
+    optim: "adamw_8bit"                   # bitsandbytes 8-bit Adam
+    packing: true                         # Pack multiple short examples per sequence
+
+### LoRA rank guidance
+- Rank 8: Smallest, fewest parameters, fastest; fine for simple tasks / style injection
+- Rank 16: Standard for knowledge injection; good balance (recommended starting point)
+- Rank 32: More capacity for complex domain knowledge; uses more VRAM
+- Rank 64+: For complex tasks or full-rank approximation; only if 16/32 underfits
+- Alpha = rank is the conventional default; alpha = 2*rank can improve stability
+  (the scaling factor = alpha/rank; keeping them equal = scale factor of 1.0)
+
+### QLoRA vs full LoRA — when to use each
+
+QLoRA (4-bit base model + fp16 adapter):
+- USE WHEN: Limited VRAM; large base model; knowledge injection / chatbot persona
+- ADVANTAGE: ~4x memory reduction on base model
+- TRADEOFF: Slightly lower quality than full LoRA due to quantisation of base weights
+- RULE OF THUMB: Model would OOM in full LoRA → use QLoRA
+
+Full LoRA (bf16/fp16 base model):
+- USE WHEN: VRAM is not a constraint; maximum quality needed
+- ADVANTAGE: No quantisation error; faster training
+- For 7B model: ~28GB in bf16 + LoRA overhead → exceeds 24GB → use QLoRA
+- For 3B model: ~12GB in bf16 → fits in 24GB → full LoRA is viable
+
+For your 24GB single GPU: QLoRA for 7B+, full LoRA viable for 3B or smaller
+For your 48GB dual GPU: QLoRA for 13B-70B, full LoRA viable for 7B-13B
+
+### Recommended base models for a knowledge chatbot (as of March 2026)
+
+| Model | Size | Context | Use case | Pull command |
+|-------|------|---------|----------|--------------|
+| Llama 3.1 8B Instruct | 8B | 128K | General chatbot, well-tested | (HuggingFace) |
+| Qwen3.5 9B | 9B | 256K | Excellent reasoning + vision | ollama pull qwen3.5:9b |
+| Qwen3.5 27B | 27B | 256K | High quality, still fits comfortably | ollama pull qwen3.5:27b |
+| Mistral 7B Instruct v0.3 | 7B | 32K | Lightweight, fast | (HuggingFace) |
+| Qwen3.5 35B | 35B | 256K | Near-top quality on 48GB | ollama pull qwen3.5:35b |
+
+RECOMMENDATION for knowledge chatbot: Start with Qwen3.5:9B (fits single GPU,
+256K context, excellent instruction following). Upgrade to Qwen3.5:27B for better
+quality if needed.
+
+### Typical training time (single RTX 3090, 500 examples, QLoRA)
+- 7B model, rank 16, 3 epochs: 15-45 minutes
+- 13B model, rank 16, 3 epochs: 30-90 minutes
+- 27B model (both GPUs), rank 16, 3 epochs: 60-180 minutes
+- Optimised (Flash Attention + packing): reduce by 30-50%
+
+---
+## 2.5 DEPLOYING THE FINE-TUNED MODEL IN OLLAMA
+---
+
+### Step 1: Save the merged model (Unsloth approach — recommended)
+Unsloth can save directly to GGUF format with one call:
+
+    # During/after training in Python (Unsloth):
+    model.save_pretrained_gguf(
+        "my_finetuned_model",
+        tokenizer,
+        quantization_method="q4_k_m"   # Q4_K_M is recommended for Ollama
+    )
+    # Output: my_finetuned_model-Q4_K_M.gguf
+
+### Alternative Step 1: Merge LoRA adapter into base model (non-Unsloth)
+    # Using PEFT / transformers:
+    from peft import AutoPeftModelForCausalLM
+    model = AutoPeftModelForCausalLM.from_pretrained("path/to/adapter")
+    merged = model.merge_and_unload()
+    merged.save_pretrained("merged_model/")
+    tokenizer.save_pretrained("merged_model/")
+
+### Step 2: Convert merged model to GGUF (if not using Unsloth export)
+    # Clone llama.cpp
+    git clone https://github.com/ggml-org/llama.cpp
+    cd llama.cpp
+    pip install -r requirements/requirements-convert_hf_to_gguf.txt
+
+    # Convert to GGUF (fp16 first)
+    python convert_hf_to_gguf.py merged_model/ --outtype f16 --outfile model.gguf
+
+    # Then quantise (Q4_K_M recommended for Ollama)
+    ./llama-quantize model.gguf model_q4km.gguf Q4_K_M
+
+### Step 3: Create a Modelfile
+Create a file called "Modelfile" (no extension):
+
+    FROM ./model_q4km.gguf
+    PARAMETER temperature 0.7
+    PARAMETER num_ctx 8192
+    SYSTEM """You are a helpful assistant with expertise in [your domain].
+    Answer questions accurately and concisely. If uncertain, say so."""
+
+### Step 4: Register with Ollama
+    ollama create my-custom-chatbot -f Modelfile
+    ollama run my-custom-chatbot
+
+### Step 5: Verify
+    ollama list          # Should show my-custom-chatbot
+    ollama run my-custom-chatbot "What is [domain-specific question]?"
+
+================================================================================
+TOPIC 3: COMMON MISTAKES AND PITFALLS
+================================================================================
+
+---
+## 3.1 IMAGE LoRA PITFALLS
+---
+
+### Overfitting (most common issue)
+Symptoms:
+- Generated images look nearly identical to training images regardless of prompt
+- Model cannot place the character in new contexts or poses
+- Character always appears in the same outfit or background
+
+Causes:
+- Too many training steps (e.g., 5000 steps for 15 images)
+- Learning rate too high (> 1e-3)
+- Too few images with not enough variety
+- Not using caption dropout
+
+Prevention:
+- Use checkpoint saves (every 250 steps) and test each checkpoint
+- Stop training when the character is recognisable but the model still follows prompts
+- Enable caption dropout (0.05-0.1 in ai-toolkit)
+- Ensure image variety (different backgrounds, clothes, lighting)
+- Use EMA (Exponential Moving Average) — enabled by default in ai-toolkit
+
+### Underfitting
+Symptoms:
+- Generated images don't resemble the target person
+- Trigger word doesn't change output noticeably
+
+Causes:
+- Too few training steps
+- Learning rate too low
+- Blurry or low-quality source images
+- Insufficient FLUX LoRA rank for the task
+
+Fix:
+- Train longer (add 500-1000 steps, evaluate checkpoint)
+- Increase learning rate slightly (try 2e-4)
+- Improve image quality in dataset
+- Increase rank from 16 to 32
+
+### Face distortion
+Symptoms:
+- Extra eyes, misaligned features, "melting" faces
+
+Causes:
+- Including images where the face is small, occluded, or at extreme angles
+- Too high LoRA strength at inference (> 1.0)
+
+Fix:
+- Curate dataset: remove images with poor face visibility
+- At inference: reduce LoRA strength to 0.6-0.8
+- Try fewer training steps
+
+### Style bleed
+Symptoms:
+- The LoRA subtly changes the base model's style even when not using the trigger word
+
+Causes:
+- High learning rate causing the LoRA to affect more than intended
+- Training too long
+
+Fix:
+- Keep learning rate at 1e-4 or lower
+- Don't over-train; use the minimum steps needed for good likeness
+
+---
+## 3.2 LLM FINE-TUNING PITFALLS
+---
+
+### Catastrophic forgetting
+Symptoms:
+- Model gains domain knowledge but loses general language capabilities
+- Model becomes worse at tasks it previously handled well
+
+Causes:
+- Fine-tuning with a high learning rate on a small, narrow dataset
+- Training too long
+
+Prevention:
+- Use LoRA/QLoRA (only adapter weights change; base model frozen)
+- Keep learning rate ≤ 2e-4
+- Include some general instruction-following examples in your dataset
+- Limit to 3-5 epochs
+
+LoRA/QLoRA greatly reduces this risk compared to full fine-tuning.
+
+### Hallucination amplification
+Symptoms:
+- Model confidently answers questions outside its training data with wrong answers
+- More confident and wrong than the base model
+
+Prevention:
+- Include examples in training data where the correct answer is "I don't know" or
+  "I cannot find information about X in [knowledge base]"
+- Add system prompt guidance: "If uncertain, say you don't know"
+- Do not train model to answer questions outside its intended scope
+
+### Dataset contamination
+Symptoms:
+- Model reproduces training examples verbatim
+- Privacy issues if personal data was included
+
+Prevention:
+- Review every training example for PII before training
+- Deduplicate dataset before training
+- Use synthetic/generated Q&A rather than raw document text where possible
+
+### Learning rate too high
+Symptoms:
+- Loss spikes or diverges during training
+- Model produces nonsense after training
+
+Fix:
+- Reduce from 2e-4 to 1e-4 or 5e-5
+- Add warmup steps (3% of total steps)
+
+### Learning rate too low
+Symptoms:
+- Loss barely decreases; model unchanged after training
+
+Fix:
+- Increase from 2e-5 to 1e-4 or 2e-4
+- Check that you're actually training LoRA layers (not frozen base model only)
+
+### Sequence length / VRAM OOM during training
+Symptoms:
+- CUDA out of memory error when training starts
+
+Fix:
+- Reduce max_seq_length (e.g., 2048 → 1024)
+- Enable gradient checkpointing
+- Reduce batch_size to 1
+- Increase gradient_accumulation_steps to compensate (maintains effective batch size)
+
+================================================================================
+TOPIC 4: RECOMMENDED RESOURCES
+================================================================================
+
+---
+## 4.1 REPOSITORIES (verified active as of March 2026)
+---
+
+Image LoRA:
+- ai-toolkit: https://github.com/ostris/ai-toolkit
+- kohya sd-scripts: https://github.com/kohya-ss/sd-scripts  (v0.10.1)
+- SimpleTuner: https://github.com/bghira/SimpleTuner
+
+LLM Fine-tuning:
+- Unsloth: https://github.com/unslothai/unsloth
+- LLaMA-Factory: https://github.com/hiyouga/LLaMA-Factory
+- axolotl: https://github.com/axolotl-ai-cloud/axolotl  (v0.15.0)
+- TRL (HuggingFace): https://github.com/huggingface/trl
+- torchtune: https://github.com/pytorch/torchtune
+- PEFT: https://github.com/huggingface/peft
+- llama.cpp (GGUF conversion): https://github.com/ggml-org/llama.cpp
+
+---
+## 4.2 DOCUMENTATION
+---
+
+- ai-toolkit example configs: https://github.com/ostris/ai-toolkit/tree/main/config/examples
+- Unsloth docs: https://unsloth.ai/docs/
+- LLaMA-Factory README: https://github.com/hiyouga/LLaMA-Factory/blob/main/README.md
+- HuggingFace TRL SFTTrainer: https://huggingface.co/docs/trl/main/en/sft_trainer
+- PEFT LoRA guide: https://huggingface.co/docs/peft/main/en/developer_guides/lora
+- Replicate FLUX fine-tune guide: https://replicate.com/blog/fine-tune-flux
+- philschmid LLM fine-tuning guide: https://www.philschmid.de/fine-tune-llms-in-2025
+
+---
+## 4.3 COMMUNITY
+---
+
+- r/StableDiffusion — FLUX LoRA training discussion (note: Civitai blocked in UK)
+- r/LocalLLaMA — LLM fine-tuning discussion and tool recommendations
+- Unsloth Discord: linked from https://github.com/unslothai/unsloth
+- ai-toolkit GitHub Discussions: https://github.com/ostris/ai-toolkit/discussions
+
+================================================================================
+VERIFICATION NOTES
+================================================================================
+
+Sources consulted and cross-checked:
+1. ai-toolkit GitHub repo (ostris) — config example verified directly
+2. kohya sd-scripts GitHub repo — version 0.10.1 confirmed, FLUX support confirmed
+3. SimpleTuner GitHub repo — FLUX support confirmed, pip install method verified
+4. Unsloth GitHub repo — VRAM claims, model support, GGUF export confirmed
+5. LLaMA-Factory GitHub repo — 2x24GB training claim verified in README
+6. axolotl GitHub repo — v0.15.0 release date confirmed (March 6, 2026)
+7. torchtune GitHub repo — VRAM benchmarks extracted directly
+8. HuggingFace TRL SFTTrainer docs — dataset formats verified, parameters confirmed
+9. HuggingFace PEFT LoRA docs — rank/alpha relationship confirmed
+10. bitsandbytes 4-bit blog post — QLoRA VRAM table verified
+11. Replicate FLUX fine-tune blog — image count (12-20), trigger word guidance
+12. philschmid.de fine-tuning guide — training time estimates, configuration confirmed
+13. HuggingFace diffusers LoRA docs — LoRA parameter descriptions verified
+14. Ollama Modelfile docs — FROM directive and syntax confirmed
+
+Key caveats:
+- FLUX parameter recommendations (rank 16, 1e-4 LR, 2000 steps) are from the
+  official ai-toolkit 24GB example config — these are solid starting points but
+  optimal values depend on your specific dataset
+- VRAM estimates are approximate; actual usage depends on sequence length,
+  batch size, and specific model architecture
+- Training time estimates are benchmarks; actual times will vary
+- Civitai is inaccessible from UK (blocked by Online Safety Act); alternative
+  FLUX LoRA community resources via r/StableDiffusion and HuggingFace spaces

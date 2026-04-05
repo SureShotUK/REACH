@@ -1,0 +1,234 @@
+"investment dealer" means a person or company registered in the category of investment 
+dealer; 
+"managed account" means an account of a client for which a person or company makes the 
+investment decisions if that person or company has discretion to trade in securities for the 
+account without requiring the client's express consent to a transaction; 
+"marketplace" has the same meaning as in section 1.1 of National Instrument 21-101 
+Marketplace Operation; 
+"MFDA" means the Mutual Fund Dealers Association of Canada; 
+"MFDA provision" means a by-law, rule, regulation or policy of the MFDA named in Appendix H, 
+as amended from time to time; 
+"mutual fund dealer" means a person or company registered in the category of mutual fund 
+dealer; 
+"operating charge" means any amount charged to a client by a registered firm in respect of the 
+operation, transfer or termination of a client's account and includes any federal, provincial or 
+territorial sales taxes paid on that amount; 
+"original cost" means the total amount paid to purchase a security, including any transaction 
+charges related to the purchase; 
+"permitted client" means any of the following: 
+          (a)       a Canadian financial institution or a Schedule III bank; 
+          (b)       the Business Development Bank of Canada incorporated under the Business 
+                    Development Bank of Canada Act (Canada); 
+          (c)       a subsidiary of any person or company referred to in paragraph (a) or (b), if 
+                    the person or company owns all of the voting securities of the subsidiary, 
+                    except the voting securities required by law to be owned by directors of the 
+                    subsidiary; 
+          (d)       a person or company registered under the securities legislation of a jurisdiction 
+                    of Canada as an adviser, investment dealer, mutual fund dealer or exempt 
+                    market dealer; 
+          (e)       a pension fund that is regulated by either the federal Office of the 
+                    Superintendent of Financial Institutions or a pension commission or similar 
+                    regulatory authority of a jurisdiction of Canada or a wholly-owned subsidiary of 
+                    such a pension fund; 
+          (f)       an entity organized in a foreign jurisdiction that is analogous to any of the 
+                    entities referred to in paragraphs (a) to (e); 
+          (g)       the Government of Canada or a jurisdiction of Canada, or any Crown 
+                    corporation, agency or wholly-owned entity of the Government of Canada or a 
+                    jurisdiction of Canada; 
+(h)       any national, federal, state, provincial, territorial or municipal government of or 
+          in any foreign jurisdiction, or any agency of that government; 
+(i)       a municipality, public board or commission in Canada and a metropolitan 
+          community, school board, the Comité de gestion de la taxe scolaire de l'île de 
+          Montréal or an intermunicipal management board in Québec; 
+(j)       a trust company or trust corporation registered or authorized to carry on 
+          business under the Trust and Loan Companies Act (Canada) or under 
+          comparable legislation in a jurisdiction of Canada or a foreign jurisdiction, 
+          acting on behalf of a managed account managed by the trust company or trust 
+          corporation, as the case may be; 
+(k)       a person or company acting on behalf of a managed account managed by the 
+          person or company, if the person or company is registered or authorized to 
+          carry on business as an adviser or the equivalent under the securities 
+          legislation of a jurisdiction of Canada or a foreign jurisdiction; 
+(l)       an investment fund if one or both of the following apply: 
+          (i)       the fund is managed by a person or company registered as an 
+                    investment fund manager under the securities legislation of a 
+                    jurisdiction of Canada; 
+          (ii)      the fund is advised by a person or company authorized to act as an 
+                    adviser under the securities legislation of a jurisdiction of Canada; 
+(m)       in respect of a dealer, a registered charity under the Income Tax Act (Canada) 
+          that obtains advice on the securities to be traded from an eligibility adviser, as 
+          defined in section 1.1 of National Instrument 45-106 Prospectus Exemptions, 
+          or an adviser registered under the securities legislation of the jurisdiction of the 
+          registered charity; 
+(n)       in respect of an adviser, a registered charity under the Income Tax Act 
+          (Canada) that is advised by an eligibility adviser, as defined in section 1.1 of 
+          National Instrument 45-106 Prospectus Exemptions, or an adviser registered 
+          under the securities legislation of the jurisdiction of the registered charity; 
+(o)       an individual who beneficially owns financial assets, as defined in section 1.1 
+          of National Instrument 45-106 Prospectus Exemptions, having an aggregate 
+          realizable value that, before taxes but net of any related liabilities, exceeds $5 
+          million; 
+(p)       a person or company that is entirely owned by an individual or individuals 
+          referred to in paragraph (o), who holds the beneficial ownership interest in the 
+          person or company directly or through a trust, the trustee of which is a trust 
+          company or trust corporation registered or authorized to carry on business 
+          under the Trust and Loan Companies Act (Canada) or under comparable 
+          legislation in a jurisdiction of Canada or a foreign jurisdiction; 
+(q)       a person or company, other than an individual or an investment fund, that has 
+          net assets of at least $25 million as shown on its most recently prepared 
+          financial statements; 
+          (r)       a person or company that distributes securities of its own issue in Canada only 
+                    to persons or companies referred to in paragraphs (a) to (q); 
+"portfolio manager" means a person or company registered in the category of portfolio manager; 
+"principal jurisdiction" means 
+          (a)       for a person or company other than an individual, the jurisdiction of Canada in 
+                    which the person or company's head office is located, and 
+          (b)       for an individual, the jurisdiction of Canada in which the individual's working 
+                    office is located; 
+"principal regulator" has the same meaning as in section 4A.1 of Multilateral Instrument 11-102 
+Passport System; 
+"qualified custodian" means a Canadian custodian or a foreign custodian; 
+"registered firm" means a registered dealer, a registered adviser, or a registered investment 
+fund manager; 
+"registered individual" means an individual who is registered 
+          (a)       in a category that authorizes the individual to act as a dealer or an adviser on 
+                    behalf of a registered firm, 
+          (b)       as ultimate designated person, or 
+          (c)       as chief compliance officer; 
+"related issuer" has the same meaning as in section 1.1 of National Instrument 33-105 
+Underwriting Conflicts; 
+"restricted dealer" means a person or company registered in the category of restricted dealer; 
+"restricted portfolio manager" means a person or company registered in the category of 
+restricted portfolio manager; 
+"Schedule III bank" means an authorized foreign bank named in Schedule III of the Bank Act 
+(Canada); 
+"scholarship plan dealer" means a person or company registered in the category of scholarship 
+plan dealer; 
+"sponsoring firm" means the firm registered in a jurisdiction of Canada on whose behalf an 
+individual acts as a dealer, an underwriter, an adviser, a chief compliance officer or an ultimate 
+designated person; 
+"sub-adviser" means an adviser to 
+          (a)       a registered adviser, or 
+          (b)       a registered dealer acting as a portfolio manager as permitted by section 8.24 
+                    [IIROC members with discretionary authority]; 
+"investment dealer" means a person or company registered in the category of investment 
+dealer; 
+"managed account" means an account of a client for which a person or company makes the 
+investment decisions if that person or company has discretion to trade in securities for the 
+account without requiring the client's express consent to a transaction; 
+"marketplace" has the same meaning as in section 1.1 of National Instrument 21-101 
+Marketplace Operation; 
+"MFDA" means the Mutual Fund Dealers Association of Canada; 
+"MFDA provision" means a by-law, rule, regulation or policy of the MFDA named in Appendix H, 
+as amended from time to time; 
+"mutual fund dealer" means a person or company registered in the category of mutual fund 
+dealer; 
+"operating charge" means any amount charged to a client by a registered firm in respect of the 
+operation, transfer or termination of a client's account and includes any federal, provincial or 
+territorial sales taxes paid on that amount; 
+"original cost" means the total amount paid to purchase a security, including any transaction 
+charges related to the purchase; 
+"permitted client" means any of the following: 
+          (a)       a Canadian financial institution or a Schedule III bank; 
+          (b)       the Business Development Bank of Canada incorporated under the Business 
+                    Development Bank of Canada Act (Canada); 
+          (c)       a subsidiary of any person or company referred to in paragraph (a) or (b), if 
+                    the person or company owns all of the voting securities of the subsidiary, 
+                    except the voting securities required by law to be owned by directors of the 
+                    subsidiary; 
+          (d)       a person or company registered under the securities legislation of a jurisdiction 
+                    of Canada as an adviser, investment dealer, mutual fund dealer or exempt 
+                    market dealer; 
+          (e)       a pension fund that is regulated by either the federal Office of the 
+                    Superintendent of Financial Institutions or a pension commission or similar 
+                    regulatory authority of a jurisdiction of Canada or a wholly-owned subsidiary of 
+                    such a pension fund; 
+          (f)       an entity organized in a foreign jurisdiction that is analogous to any of the 
+                    entities referred to in paragraphs (a) to (e); 
+          (g)       the Government of Canada or a jurisdiction of Canada, or any Crown 
+                    corporation, agency or wholly-owned entity of the Government of Canada or a 
+                    jurisdiction of Canada; 
+(h)       any national, federal, state, provincial, territorial or municipal government of or 
+          in any foreign jurisdiction, or any agency of that government; 
+(i)       a municipality, public board or commission in Canada and a metropolitan 
+          community, school board, the Comité de gestion de la taxe scolaire de l'île de 
+          Montréal or an intermunicipal management board in Québec; 
+(j)       a trust company or trust corporation registered or authorized to carry on 
+          business under the Trust and Loan Companies Act (Canada) or under 
+          comparable legislation in a jurisdiction of Canada or a foreign jurisdiction, 
+          acting on behalf of a managed account managed by the trust company or trust 
+          corporation, as the case may be; 
+(k)       a person or company acting on behalf of a managed account managed by the 
+          person or company, if the person or company is registered or authorized to 
+          carry on business as an adviser or the equivalent under the securities 
+          legislation of a jurisdiction of Canada or a foreign jurisdiction; 
+(l)       an investment fund if one or both of the following apply: 
+          (i)       the fund is managed by a person or company registered as an 
+                    investment fund manager under the securities legislation of a 
+                    jurisdiction of Canada; 
+          (ii)      the fund is advised by a person or company authorized to act as an 
+                    adviser under the securities legislation of a jurisdiction of Canada; 
+(m)       in respect of a dealer, a registered charity under the Income Tax Act (Canada) 
+          that obtains advice on the securities to be traded from an eligibility adviser, as 
+          defined in section 1.1 of National Instrument 45-106 Prospectus Exemptions, 
+          or an adviser registered under the securities legislation of the jurisdiction of the 
+          registered charity; 
+(n)       in respect of an adviser, a registered charity under the Income Tax Act 
+          (Canada) that is advised by an eligibility adviser, as defined in section 1.1 of 
+          National Instrument 45-106 Prospectus Exemptions, or an adviser registered 
+          under the securities legislation of the jurisdiction of the registered charity; 
+(o)       an individual who beneficially owns financial assets, as defined in section 1.1 
+          of National Instrument 45-106 Prospectus Exemptions, having an aggregate 
+          realizable value that, before taxes but net of any related liabilities, exceeds $5 
+          million; 
+(p)       a person or company that is entirely owned by an individual or individuals 
+          referred to in paragraph (o), who holds the beneficial ownership interest in the 
+          person or company directly or through a trust, the trustee of which is a trust 
+          company or trust corporation registered or authorized to carry on business 
+          under the Trust and Loan Companies Act (Canada) or under comparable 
+          legislation in a jurisdiction of Canada or a foreign jurisdiction; 
+(q)       a person or company, other than an individual or an investment fund, that has 
+          net assets of at least $25 million as shown on its most recently prepared 
+          financial statements; 
+          (r)       a person or company that distributes securities of its own issue in Canada only 
+                    to persons or companies referred to in paragraphs (a) to (q); 
+"portfolio manager" means a person or company registered in the category of portfolio manager; 
+"principal jurisdiction" means 
+          (a)       for a person or company other than an individual, the jurisdiction of Canada in 
+                    which the person or company's head office is located, and 
+          (b)       for an individual, the jurisdiction of Canada in which the individual's working 
+                    office is located; 
+"principal regulator" has the same meaning as in section 4A.1 of Multilateral Instrument 11-102 
+Passport System; 
+"qualified custodian" means a Canadian custodian or a foreign custodian; 
+"registered firm" means a registered dealer, a registered adviser, or a registered investment 
+fund manager; 
+"registered individual" means an individual who is registered 
+          (a)       in a category that authorizes the individual to act as a dealer or an adviser on 
+                    behalf of a registered firm, 
+          (b)       as ultimate designated person, or 
+          (c)       as chief compliance officer; 
+"related issuer" has the same meaning as in section 1.1 of National Instrument 33-105 
+Underwriting Conflicts; 
+"restricted dealer" means a person or company registered in the category of restricted dealer; 
+"restricted portfolio manager" means a person or company registered in the category of 
+restricted portfolio manager; 
+"Schedule III bank" means an authorized foreign bank named in Schedule III of the Bank Act 
+(Canada); 
+"scholarship plan dealer" means a person or company registered in the category of scholarship 
+plan dealer; 
+"sponsoring firm" means the firm registered in a jurisdiction of Canada on whose behalf an 
+individual acts as a dealer, an underwriter, an adviser, a chief compliance officer or an ultimate 
+designated person; 
+"sub-adviser" means an adviser to 
+          (a)       a registered adviser, or 
+          (b)       a registered dealer acting as a portfolio manager as permitted by section 8.24 
+                    [IIROC members with discretionary authority]; 
+e self-directed RESP restricts its investments in securities to securities in 
+                    which the person or company who trades the self-directed RESP is permitted 
+                    to trade. 
+Exchange contract – Alberta, British Columbia, New Brunswick, Nova 
+Scotia and Saskatchewan 
+8.20 (1) In Alberta, British Columbia, New Brunswick, Nova Scotia and Saskatchewan, the 
+dealer registration requirement does not apply to a person or company in respect of a trade in 
+an exchange contract by the person or company if one of the following applies: 

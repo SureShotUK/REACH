@@ -1,0 +1,34 @@
+# TYPE  DATABASE        USER            ADDRESS                 METHOD                 OPTIONS
+
+# --- Secure Defaults for Local Connections ---
+# Allow all users to connect to all databases via Unix domain sockets using peer authentication.
+# This assumes OS users map directly to DB users.
+local   all             all                                     peer
+
+# --- Secure Connections for Database Users ---
+# Enforce SSL and SCRAM-SHA-256 for all remote connections to all databases.
+# Replace 0.0.0.0/0 with specific client IP ranges that need access.
+# Example: hostssl all all 192.168.1.0/24 scram-sha-256
+# Example: hostssl mydatabase myuser 10.0.0.5/32 scram-sha-256
+
+# For this example, I'll keep the broad address range but enforce hostssl and scram-sha-256.
+# **WARNING:** For production, restrict 'ADDRESS' to known IPs/subnets.
+hostssl all             all             0.0.0.0/0               scram-sha-256
+hostssl all             all             ::/0                    scram-sha-256
+
+# --- Specific Rules for Replication (Already Good, but consolidating) ---
+# Replication connections from localhost (IPv4 and IPv6) with SCRAM-SHA-256
+local   replication     all                                     peer
+host    replication     all             127.0.0.1/32            scram-sha-256
+host    replication     all             ::1/128                 scram-sha-256
+
+# Allow replication connections from a specific Azure VM with SCRAM-SHA-256
+host    replication     all             20.254.117.127/32       scram-sha-256
+
+# --- Administrative Access ---
+# Administrative login for 'postgres' superuser via local Unix socket using peer authentication.
+# This is secure if the OS user 'postgres' is properly secured.
+# If remote 'postgres' access is needed, create a separate rule with specific IP and strong auth.
+# Example: hostssl postgres postgres 192.168.1.10/32 scram-sha-256
+# For now, replacing the 'trust' with 'peer' for local unix socket.
+local   postgres        postgres                                peer

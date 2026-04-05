@@ -1,0 +1,186 @@
+B.5: Rules and Policies 
+         (b)       a registered dealer acting as a commodity trading manager as permitted by subsection 44(2) [exemptions from 
+                   registration requirements] of Ontario Regulation 90;  
+         “sub-advisory services” means services provided by a sub-adviser to a principal adviser for purposes of providing, on 
+         a discretionary basis, adviser services in respect of contracts to the principal adviser’s sub-advisory clients; 
+         “sub-advisory client” means a client of a principal adviser for whom a sub-adviser to the principal adviser provides sub-
+         advisory services; 
+         “trading restrictions in the CFA” means the provisions of section 33 of the Act that prohibit a person or company from 
+         trading in contracts unless the person or company satisfies the applicable provisions of section 33 of the Act; 
+         “U.K.” means the United Kingdom of Great Britain and Northern Ireland; and 
+         “U.S.” means the United States of America. 
+(2)      Terms used in this Rule that are defined in the Act have the meaning ascribed to them in the Act, unless otherwise 
+         defined in this Rule or the context otherwise requires. 
+(3)      Terms used in this Rule that are not defined in the Act but are defined in subsection 1(1) of the Securities Act have the 
+         same meaning as in the Securities Act unless the context otherwise requires. 
+(4)      In this Rule, a person or company is deemed to be an affiliate of another person or company if one of them is the 
+         subsidiary of the other or if both are subsidiaries of the same person or company or if each of them is controlled by the 
+         same person or company.  
+(5)      A  person  or  company  is  deemed  to  be  controlled  by  another  person  or  company  or  by  two  or  more  persons  and 
+         companies if, 
+         (a)       voting securities of the first-mentioned person or company carrying more than 50 per cent of the votes for the 
+                   election of directors are held, otherwise than by way of security only, by or for the benefit of the other person or 
+                   company or by or for the benefit of the other persons and companies; and 
+         (b)       the votes carried by such securities are entitled, if exercised, to elect a majority of the board of directors of the 
+                   first-mentioned person or company.  
+(6)      A person or company shall be deemed to be a subsidiary of another person or company if, 
+         (a)       it is controlled by, 
+                   (i)      that other, or 
+                   (ii)     that other and one or more persons and companies each of which is controlled by that other, or 
+                   (iii)    two or more persons and companies each of which is controlled by that other; or 
+         (b)       it is a subsidiary of a person or company that is that other’s subsidiary.  
+PART 2 DEALER REGISTRATION EXEMPTIONS 
+2. General condition to exemptions from the CFA dealer registration requirement  
+         The exemptions in this Part are not available to a person or company if the person or company is registered under the 
+         Act and if their category of registration permits the person or company to act as a dealer or trade in the contract for which 
+         the exemption is provided. 
+3. Dealer registration exemption – International dealer 
+(1)      The CFA dealer registration requirement does not apply to a person or company in respect of a trade in a contract to, 
+         with or on behalf of a CFA permitted client, where the person or company is acting as principal or agent in such trade to, 
+         with or on behalf of the CFA permitted client, if at the time of the trade all of the following apply: 
+         (a)       the trade is in respect of a foreign contract on a non-Canadian exchange; 
+October 13, 2022                                                                                              (2022), 45 OSCB 8730 
+B.5: Rules and Policies 
+         (b)       the person or company: 
+                   (i)      has its head office or principal place of business in a specified foreign jurisdiction and does not have 
+                            an office or place of business in Ontario; 
+                   (ii)     engages in the business of trading in contracts in the specified foreign jurisdiction; and  
+                   (iii)    is registered, licensed or otherwise authorized under the securities, commodity futures or derivatives 
+                            legislation of the specified foreign jurisdiction in which its head office or principal place of business is 
+                            located in a category of registration, licensing or authorization that permits it to carry on the activities 
+                            in that jurisdiction that registration as a dealer would permit it to carry on in Ontario;  
+         (c)       the person or company has provided to the CFA permitted client, other than a CFA permitted client that is 
+                   registered under the securities, commodity futures or derivatives legislation of a jurisdiction of Canada, the 
+                   following disclosure in writing: 
+                   (i)      a statement that the person or company is not registered in Ontario to trade in contracts as principal 
+                            or agent; 
+                   (ii)     a statement specifying the location of the head office or principal place of business of the person or 
+                            company; 
+                   (iii)    a statement that all or substantially all of the assets of the person or company may be situated outside 
+                            of Canada; 
+                   (iv)     a statement that there may be difficulty enforcing legal rights against the person or company because 
+                            of the above; and 
+                   (v)      the name and address of the person or company’s agent for service of process in Ontario; and  
+         (d)       the  person  or  company  has  submitted  to  the  Commission  a  completed  Form  32-506F1  Submission  to 
+                   Jurisdiction and Appointment of Agent for Service; 
+(2)      A person or company that relied on the exemption in subsection (1) during the 12-month period preceding December 1 
+         of a year must notify the Commission of that fact by December 1 of that year. 
+(3)      Subsection  (2)  does  not  apply  to  a  person  or  company  that  complies  with  the  filing  and  fee  payment  requirements 
+         applicable to an unregistered exempt international firm under Ontario Securities Commission Rule 13-502 Fees.  
+(4)      If a person or company relied on the exemption in subsection (1) during the 12-month period preceding December 1 of 
+         a year and is not registered under the Securities Act and does not rely on the OSA international dealer exemption, the 
+         person or company must pay a participation fee based on its specified Ontario revenues for its previous financial year in 
+         compliance with the requirements of Part 3 and section 6.4 of OSC Rule 13-502 Fees, as if the person or company relied 
+         on the OSA international dealer exemption. 
+(5)      The CFA adviser registration requirement does not apply to a person or company that is exempt from the CFA dealer 
+         registration requirement under this section where the person or company provides advice to a CFA permitted client and 
+         the advice is 
+         (a)       in connection with an activity or trade described under subsection (1), and 
+         (b)       not in respect of a managed account of the CFA permitted client. 
+4. Dealer registration exemption – CFA permitted client of an international dealer 
+The CFA dealer registration requirement does not apply to a CFA permitted client in respect of a trade in a contract on a non-
+Canadian exchange to, with or on behalf of a person or company relying on the dealer registration exemption in section 3.  
+5. Exemption from the trading restrictions in the Act  
+The trading restrictions in the Act do not apply to a person or company in connection with a trade in a contract on a non-Canadian 
+exchange if the person or company is exempt from the CFA dealer registration exemption under section 3 or section 4. 
+October 13, 2022                                                                                              (2022), 45 OSCB 8731 
+B.5: Rules and Policies 
+         (b)       a registered dealer acting as a commodity trading manager as permitted by subsection 44(2) [exemptions from 
+                   registration requirements] of Ontario Regulation 90;  
+         “sub-advisory services” means services provided by a sub-adviser to a principal adviser for purposes of providing, on 
+         a discretionary basis, adviser services in respect of contracts to the principal adviser’s sub-advisory clients; 
+         “sub-advisory client” means a client of a principal adviser for whom a sub-adviser to the principal adviser provides sub-
+         advisory services; 
+         “trading restrictions in the CFA” means the provisions of section 33 of the Act that prohibit a person or company from 
+         trading in contracts unless the person or company satisfies the applicable provisions of section 33 of the Act; 
+         “U.K.” means the United Kingdom of Great Britain and Northern Ireland; and 
+         “U.S.” means the United States of America. 
+(2)      Terms used in this Rule that are defined in the Act have the meaning ascribed to them in the Act, unless otherwise 
+         defined in this Rule or the context otherwise requires. 
+(3)      Terms used in this Rule that are not defined in the Act but are defined in subsection 1(1) of the Securities Act have the 
+         same meaning as in the Securities Act unless the context otherwise requires. 
+(4)      In this Rule, a person or company is deemed to be an affiliate of another person or company if one of them is the 
+         subsidiary of the other or if both are subsidiaries of the same person or company or if each of them is controlled by the 
+         same person or company.  
+(5)      A  person  or  company  is  deemed  to  be  controlled  by  another  person  or  company  or  by  two  or  more  persons  and 
+         companies if, 
+         (a)       voting securities of the first-mentioned person or company carrying more than 50 per cent of the votes for the 
+                   election of directors are held, otherwise than by way of security only, by or for the benefit of the other person or 
+                   company or by or for the benefit of the other persons and companies; and 
+         (b)       the votes carried by such securities are entitled, if exercised, to elect a majority of the board of directors of the 
+                   first-mentioned person or company.  
+(6)      A person or company shall be deemed to be a subsidiary of another person or company if, 
+         (a)       it is controlled by, 
+                   (i)      that other, or 
+                   (ii)     that other and one or more persons and companies each of which is controlled by that other, or 
+                   (iii)    two or more persons and companies each of which is controlled by that other; or 
+         (b)       it is a subsidiary of a person or company that is that other’s subsidiary.  
+PART 2 DEALER REGISTRATION EXEMPTIONS 
+2. General condition to exemptions from the CFA dealer registration requirement  
+         The exemptions in this Part are not available to a person or company if the person or company is registered under the 
+         Act and if their category of registration permits the person or company to act as a dealer or trade in the contract for which 
+         the exemption is provided. 
+3. Dealer registration exemption – International dealer 
+(1)      The CFA dealer registration requirement does not apply to a person or company in respect of a trade in a contract to, 
+         with or on behalf of a CFA permitted client, where the person or company is acting as principal or agent in such trade to, 
+         with or on behalf of the CFA permitted client, if at the time of the trade all of the following apply: 
+         (a)       the trade is in respect of a foreign contract on a non-Canadian exchange; 
+October 13, 2022                                                                                              (2022), 45 OSCB 8730 
+B.5: Rules and Policies 
+         (b)       the person or company: 
+                   (i)      has its head office or principal place of business in a specified foreign jurisdiction and does not have 
+                            an office or place of business in Ontario; 
+                   (ii)     engages in the business of trading in contracts in the specified foreign jurisdiction; and  
+                   (iii)    is registered, licensed or otherwise authorized under the securities, commodity futures or derivatives 
+                            legislation of the specified foreign jurisdiction in which its head office or principal place of business is 
+                            located in a category of registration, licensing or authorization that permits it to carry on the activities 
+                            in that jurisdiction that registration as a dealer would permit it to carry on in Ontario;  
+         (c)       the person or company has provided to the CFA permitted client, other than a CFA permitted client that is 
+                   registered under the securities, commodity futures or derivatives legislation of a jurisdiction of Canada, the 
+                   following disclosure in writing: 
+                   (i)      a statement that the person or company is not registered in Ontario to trade in contracts as principal 
+                            or agent; 
+                   (ii)     a statement specifying the location of the head office or principal place of business of the person or 
+                            company; 
+                   (iii)    a statement that all or substantially all of the assets of the person or company may be situated outside 
+                            of Canada; 
+                   (iv)     a statement that there may be difficulty enforcing legal rights against the person or company because 
+                            of the above; and 
+                   (v)      the name and address of the person or company’s agent for service of process in Ontario; and  
+         (d)       the  person  or  company  has  submitted  to  the  Commission  a  completed  Form  32-506F1  Submission  to 
+                   Jurisdiction and Appointment of Agent for Service; 
+(2)      A person or company that relied on the exemption in subsection (1) during the 12-month period preceding December 1 
+         of a year must notify the Commission of that fact by December 1 of that year. 
+(3)      Subsection  (2)  does  not  apply  to  a  person  or  company  that  complies  with  the  filing  and  fee  payment  requirements 
+         applicable to an unregistered exempt international firm under Ontario Securities Commission Rule 13-502 Fees.  
+(4)      If a person or company relied on the exemption in subsection (1) during the 12-month period preceding December 1 of 
+         a year and is not registered under the Securities Act and does not rely on the OSA international dealer exemption, the 
+         person or company must pay a participation fee based on its specified Ontario revenues for its previous financial year in 
+         compliance with the requirements of Part 3 and section 6.4 of OSC Rule 13-502 Fees, as if the person or company relied 
+         on the OSA international dealer exemption. 
+(5)      The CFA adviser registration requirement does not apply to a person or company that is exempt from the CFA dealer 
+         registration requirement under this section where the person or company provides advice to a CFA permitted client and 
+         the advice is 
+         (a)       in connection with an activity or trade described under subsection (1), and 
+         (b)       not in respect of a managed account of the CFA permitted client. 
+4. Dealer registration exemption – CFA permitted client of an international dealer 
+The CFA dealer registration requirement does not apply to a CFA permitted client in respect of a trade in a contract on a non-
+Canadian exchange to, with or on behalf of a person or company relying on the dealer registration exemption in section 3.  
+5. Exemption from the trading restrictions in the Act  
+The trading restrictions in the Act do not apply to a person or company in connection with a trade in a contract on a non-Canadian 
+exchange if the person or company is exempt from the CFA dealer registration exemption under section 3 or section 4. 
+October 13, 2022                                                                                              (2022), 45 OSCB 8731 
+ a spouse and/or a family trust as described in clause (o.1) above established by the individual or 
+                   the individual’s spouse, beneficially own financial assets, as defined in section 1.1 of NI 45-106, having an 
+                   aggregate realizable value that, before taxes but net of any related liabilities, exceeds $5 million; 
+         (p)       a person or company that is entirely owned by an individual or individuals referred to in paragraph (o), who holds 
+                   the beneficial ownership interest in the person or company directly or through a trust, the trustee of which is a 
+                   trust company or trust corporation registered or authorized to carry on business under the Trust and Loan 
+                   Companies Act (Canada) or under comparable legislation in a jurisdiction of Canada or a foreign jurisdiction;  
+         (q)       a person or company, other than an individual or an investment fund, that has net assets of at least $25 million 
+                   as shown on its most recently prepared financial statements; 
+         (r)       a person or company that distributes securities of its own issue in Canada only to persons or companies referred 
+                   to in paragraphs (a) to (q); 
+         “commodity trading manager” means an adviser that is registered under the Act in the category of “commodity trading 
+         manager” as provided for in section 8 [categories of registration] of Regulation 90 under the Act; 
+October 13, 2022                                                                                              (2022), 45 OSCB 8728 

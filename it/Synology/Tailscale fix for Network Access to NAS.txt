@@ -1,0 +1,164 @@
+  # Check what profile Tailscale's network adapter has
+  Get-NetConnectionProfile | Select-Object Name, NetworkCategory, InterfaceAlias
+
+  Look for the Tailscale entry. If NetworkCategory says Public, run:
+
+  # Change Tailscale adapter to Private
+  $ts = Get-NetConnectionProfile | Where-Object { $_.InterfaceAlias -like "*Tailscale*" }
+  Set-NetConnectionProfile -InterfaceIndex $ts.InterfaceIndex -NetworkCategory Private
+
+  Then test \\100.86.207.97\MyDocs\ again.
+
+  ---
+  Start with the DSM firewall check — what do you see in the firewall rules?
+  
+  
+   # Check the SMB inbound firewall rule and its remote address scope
+Get-NetFirewallRule -DisplayName "File and Printer Sharing (SMB-In)" | Get-NetFirewallAddressFilter | Select-Object RemoteAddress
+
+  If RemoteAddress shows only LocalSubnet or 192.168.x.x ranges, that's the problem — it's not allowing SMB from the 100.x.x.x Tailscale range.
+
+  Fix — add Tailscale subnet to the allowed addresses:
+
+  # Allow SMB from Tailscale IP range on Win10
+New-NetFirewallRule -DisplayName "SMB via Tailscale" `
+    -Direction Inbound `
+    -Protocol TCP `
+    -LocalPort 445 `
+    -RemoteAddress "100.64.0.0/10" `
+    -Action Allow `
+    -Profile Any
+
+  Then test \\100.86.207.97\MyDocs\ again. What does the ping return?
+
+❯ General failure on ping
+
+● "General failure" is different from "Request timed out" — it means the packet couldn't even be sent, the Tailscale adapter itself isn't routing traffic correctly. Tailscale may show as connected but isn't
+  actually tunnelling.
+
+  Run these on Win10 cmd/PowerShell:
+
+  tailscale status
+
+  This will show whether the NAS (100.86.207.97) is listed as a peer and what state it's in. Look for the NAS entry — does it show an IP and say it's reachable?
+
+  route print
+
+  Look for a route to 100.64.0.0 — there should be one pointing to the Tailscale adapter. If it's missing or pointing to the wrong interface, that's the problem.
+
+  Also try:
+
+  tailscale ping 100.86.207.97
+
+  This is a Tailscale-level ping (bypasses Windows networking) — if this works but regular ping fails, it's a routing/adapter issue. If this also fails, the Tailscale connection to the NAS isn't established at
+   all.
+
+  What do those return?
+
+Pinging 100.86.207.97 with 32 bytes of data:
+General failure.
+General failure.
+General failure.
+General failure.
+
+Ping statistics for 100.86.207.97:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+PS C:\Users\Steve> tailscale status
+100.120.116.23   steve-sara-and-milly  irwin455@  windows  -
+100.79.83.113    amelai                irwin455@  linux    -
+100.86.207.97    irwinnas              irwin455@  linux    -
+100.95.206.56    steves-s24-ultra      irwin455@  android  -
+100.115.160.126  steveslenovo          irwin455@  windows  -
+
+# Health check:
+#     - Tailscale can't reach the configured DNS servers. Internet connectivity may be affected.
+PS C:\Users\Steve> tailscale ping 100.86.207.97
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 32ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 31ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 30ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 32ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 31ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 30ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 31ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 31ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 32ms
+pong from irwinnas (100.86.207.97) via DERP(lhr) in 32ms
+direct connection not established
+
+
+● Good diagnostic output. Key findings:
+
+  - tailscale ping works via DERP relay (London) — Tailscale is authenticated and communicating
+  - "direct connection not established" — no direct WireGuard tunnel between Win10 and the NAS
+  - Regular ping gives "General failure" — Windows routing stack can't send packets to 100.x.x.x at all
+
+  The Tailscale daemon is working in userspace (hence DERP works), but the WireGuard network adapter on Windows isn't routing traffic properly. This is why SMB also fails — packets never leave the machine.
+
+  Check the routing table first:
+
+  route print | findstr 100.
+
+  There should be a route for 100.64.0.0 pointing to the Tailscale adapter. If it's missing, that confirms the adapter is broken.
+
+  Then try restarting Tailscale properly — PowerShell as Administrator:
+
+  Stop-Service -Name Tailscale
+  Start-Service -Name Tailscale
+
+  Then re-test ping 100.86.207.97.
+
+  If that doesn't fix it, the WireGuard driver on Win10 is in a bad state and the fix is a clean reinstall of Tailscale:
+  1. Uninstall Tailscale via Settings → Apps
+  2. Reboot
+  3. Download and reinstall from tailscale.com
+  4. Log back in with your irwin455@ account
+
+  The Win11 machine works because its WireGuard adapter is healthy. What does route print | findstr 100. show?
+
+PS C:\Users\Steve> route print | findstr 100.
+    100.79.83.113  255.255.255.255         On-link    100.120.116.23      5
+    100.86.207.97  255.255.255.255         On-link    100.120.116.23      5
+    100.95.206.56  255.255.255.255         On-link    100.120.116.23      5
+  100.100.100.100  255.255.255.255         On-link    100.120.116.23      5
+  100.115.160.126  255.255.255.255         On-link    100.120.116.23      5
+   100.120.116.23  255.255.255.255         On-link    100.120.116.23    261
+PS C:\Users\Steve> Stop-Service -Name Tailscale
+PS C:\Users\Steve> Start-Service -Name Tailscale
+PS C:\Users\Steve> ping 100.86.207.97
+
+Pinging 100.86.207.97 with 32 bytes of data:
+General failure.
+General failure.
+General failure.
+General failure.
+
+Ping statistics for 100.86.207.97:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+	
+	
+Get-NetAdapter | Where-Object { $_.InterfaceAlias -like "*Tailscale*" -or $_.InterfaceDescription -like "*WireGuard*" }
+
+  What does the Status column show?
+
+  Also check Device Manager:
+  1. Right-click Start → Device Manager
+  2. Expand Network adapters
+  3. Look for Tailscale or WireGuard entry
+  4. Does it have a yellow warning triangle?
+
+  And check for errors in Event Viewer — PowerShell:
+
+  Get-WinEvent -LogName Application | Where-Object { $_.ProviderName -like "*Tailscale*" } | Select-Object -First 10 | Format-List TimeCreated, Message
+
+
+PS C:\Users\Steve> Get-NetAdapter | Where-Object { $_.InterfaceAlias -like "*Tailscale*" -or $_.InterfaceDescription -like "*WireGuard*" }
+
+Name                      InterfaceDescription                    ifIndex Status       MacAddress             LinkSpeed
+----                      --------------------                    ------- ------       ----------             ---------
+ProtonVPN                 WireGuard Tunnel                             34 Up                                   100 Gbps
+Tailscale                 Tailscale Tunnel                             35 Up                                   100 Gbps
+
+
+PS C:\Users\Steve> Get-WinEvent -LogName Application | Where-Object { $_.ProviderName -like "*Tailscale*" } | Select-Object -First 10 | Format-List TimeCreated, Message
+PS C:\Users\Steve>
+

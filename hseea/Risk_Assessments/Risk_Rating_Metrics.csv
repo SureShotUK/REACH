@@ -1,0 +1,6 @@
+Rating,Likelihood Label,Likelihood Definition,Severity Label,Severity Definition
+1,Rare / Very Unlikely,Minimal chance of occurrence; highly unlikely.,Insignificant / Negligible,Minor injury (e.g. small cut or bruise); no time off required; negligible damage.
+2,Unlikely,Low probability but not negligible; may happen sporadically or under specific circumstances.,Minor / Minor Injury,First aid required; limited and easily manageable impact; minor damage.
+3,Possible / Moderate,Moderate chance of occurrence; neither uncommon nor frequent.,Moderate / Moderate Injury,Noticeable injury or illness requiring medical treatment; lost time; significant damage.
+4,Likely,Significant probability; a good chance it will happen.,Major / Major Injury,Significant injury or long-term disability; major damage; serious breach of safety standards.
+5,Almost Certain,Highly likely to happen; practically a certainty.,Catastrophic / Death,Fatal or catastrophic harm; multi-person impact; total loss of facility or process.

@@ -26,3 +26,29 @@ temp/
 # Personal Notes (if any)
 PERSONAL_NOTES.md
 drafts/
+
+# .NET build output
+bin/
+obj/
+
+# Log files
+*.log
+
+# Outlook binary template files (binary format, not source files)
+*.oft
+
+# Binary stream extract files (created by OutlookTemplateCleaner diagnostic scripts)
+*.bin
+
+# Word/Outlook companion folders (created when saving as web page)
+*_files/
+
+# Outlook troubleshooting script backup directories (timestamped, auto-created)
+it/troubleshooting/Backups_*/
+
+# Specific temp/working files
+it/troubleshooting/inspect_output.txt
+it/NewPC/Log.txt
+it/NewPC/Temp2.txt
+it/NewPC/nvidia.html
+it/NewPC/*.webp

@@ -1,0 +1,373 @@
+INDICATION OF TERMS
+REFERENCE NUMBER: 6332654
+COMPANY NAME: CompanyName
+TOTAL PAYABLE: GBP19,958.00
+Premium breakdown:
+ Cyber & Privacy: GBP11,100.00
+ Cyber Crime: GBP6,050.00
+ Insurance Premium Tax: GBP2,058.00
+Policy Administration Fee: GBP750.00
+BUSINESS OPERATIONS: The supply of fuel & fuelcards, fixed price fuel hedging 
+services, fuel advisory & consultancy services, 
+manufacture & supply of AdBlue 
+LEGAL ACTION: Worldwide
+TERRITORIAL SCOPE: Worldwide
+AGGREGATE DEDUCTIBLE: GBP10,000.00 in the aggregate
+REPUTATIONAL HARM PERIOD: 12 months
+INDEMNITY PERIOD: 12 months
+TIME FRANCHISE: 8 hours
+WORDING: Cyber Proactive Response v4.0
+ENDORSEMENTS: Complaints Notice (NON USA)
+Merchant Breaches Exclusion Clause
+Named Insured Endorsement
+Trading Loss Exclusion Clause
+Cyber Incident Response Within The Limit Clause
+SUBJECTIVITIES: This quote is subject to the following being provided by 
+the stated deadline:
+1. Satisfactory confirmation that you have 
+downloaded & registered our incident response 
+mobile app, details of which can be found with 
+your policy documents. (30 days post binding)
+2. Confirmation of the timeframe in which you 
+implement all high severity and critical patches 
+after they have been released by the vendor (prior 
+to binding)
+POLICY PERIOD: 12 months
+DATE OF ISSUE: Today
+OPTIONAL EXTENDED REPORTING 
+PERIOD:
+12 months for 100% of applicable annualised premium
+SECURITY: Certain underwriters at Lloyd's and other insurers
+UNDERWRITER: AN Underwriter
+
+THIS INDICATION OF TERMS IS ONLY VALID FOR 30 DAYS FROM THE DATE OF ISSUE
+PLEASE REFER TO THE FOLLOWING PAGES FOR A FULL BREAKDOWN OF LIMITS, 
+RETENTIONS AND APPLICABLE CLAUSES
+
+SCHEDULE
+INSURING CLAUSE 1: CYBER INCIDENT RESPONSE
+SECTION A: INCIDENT RESPONSE COSTS
+Limit of liability: GBP500,000 each and every claim
+SECTION B: LEGAL AND REGULATORY COSTS
+Limit of liability: GBP500,000 each and every claim
+SECTION C: IT SECURITY AND FORENSIC COSTS
+Limit of liability: GBP500,000 each and every claim
+SECTION D: CRISIS COMMUNICATION COSTS
+Limit of liability: GBP500,000 each and every claim
+SECTION E: PRIVACY BREACH MANAGEMENT COSTS
+Limit of liability: GBP500,000 each and every claim
+SECTION F: THIRD PARTY PRIVACY BREACH MANAGEMENT COSTS
+Limit of liability: GBP500,000 each and every claim
+SECTION G: POST BREACH REMEDIATION COSTS
+Limit of liability: GBP50,000 each and every claim, subject to a 
+maximum of 10% of all sums we have paid 
+as a direct result of the cyber event
+INSURING CLAUSE 2: CYBER CRIME
+SECTION A: FUNDS TRANSFER FRAUD
+Limit of liability: GBP250,000 each and every claim
+SECTION B: INVOICE MANIPULATION
+Limit of liability: GBP250,000 each and every claim
+SECTION C: NEW VENDOR FRAUD
+Limit of liability: GBP250,000 each and every claim
+SECTION D: PHYSICAL GOODS FRAUD
+Limit of liability: GBP250,000 each and every claim
+
+SECTION E: THEFT OF PERSONAL FUNDS
+Limit of liability: GBP250,000 each and every claim
+SECTION F: CORPORATE IDENTITY THEFT
+Limit of liability: GBP250,000 each and every claim
+SECTION G: THEFT OF FUNDS HELD IN ESCROW
+Limit of liability: GBP250,000 each and every claim
+SECTION H: THEFT OF CLIENT FUNDS
+Limit of liability: GBP50,000 each and every claim
+SECTION I: CUSTOMER PAYMENT FRAUD
+Limit of liability: GBP50,000 each and every claim
+SECTION J: TELEPHONE HACKING
+Limit of liability: GBP250,000 each and every claim
+SECTION K: UNAUTHORISED USE OF COMPUTER RESOURCES
+Limit of liability: GBP250,000 each and every claim
+INSURING CLAUSE 3: CYBER EXTORTION
+Limit of liability: GBP500,000 each and every claim
+INSURING CLAUSE 4: SYSTEM DAMAGE AND BUSINESS INTERRUPTION
+SECTION A: SYSTEM DAMAGE AND RECTIFICATION COSTS
+Limit of liability: GBP500,000 each and every claim
+SECTION B: HARDWARE REPLACEMENT COSTS
+Limit of liability: GBP500,000 each and every claim
+SECTION C: INCOME LOSS AND INCREASED COST OF WORKING
+Limit of liability: GBP500,000 each and every claim
+SECTION D: EMERGENCY AND ADDITIONAL OPERATIONAL CONTINUITY COSTS
+Limit of liability: GBP100,000 each and every claim
+
+SECTION E: VOLUNTARY AND REGULATORY SHUTDOWN
+Limit of liability: GBP500,000 each and every claim
+SECTION F: DEPENDENT BUSINESS INTERRUPTION
+Limit of liability: GBP500,000 each and every claim
+SECTION G: CONSEQUENTIAL REPUTATIONAL HARM
+Limit of liability: GBP500,000 each and every claim
+SECTION H: LOST OR MISSED BIDS
+Limit of liability: GBP500,000 each and every claim
+SECTION I: CLAIM PREPARATION COSTS
+Limit of liability: GBP25,000 each and every claim
+INSURING CLAUSE 5: NETWORK SECURITY & PRIVACY LIABILITY
+SECTION A: NETWORK SECURITY LIABILITY
+Limit of liability: GBP500,000 each and every claim, including costs and 
+expenses
+SECTION B: PRIVACY LIABILITY
+Limit of liability: GBP500,000 each and every claim, including costs and 
+expenses
+SECTION C: MANAGEMENT LIABILITY
+Limit of liability: GBP500,000 each and every claim, including costs and 
+expenses
+SECTION D: REGULATORY FINES, PENALTIES AND INVESTIGATION COSTS
+Limit of liability: GBP500,000 each and every claim, including costs and 
+expenses
+SECTION E: PCI FINES, PENALTIES AND ASSESSMENTS
+Limit of liability: GBP500,000 each and every claim, including costs and 
+expenses
+SECTION F: CONTINGENT BODILY INJURY
+Limit of liability: GBP250,000 each and every claim, including costs and 
+expenses
+INSURING CLAUSE 6: CRIMINAL REWARD COVER
+Limit of liability: GBP100,000 each and every claim
+
+INSURING CLAUSE 7: MEDIA LIABILITY
+SECTION A: DEFAMATION
+Limit of liability: GBP500,000 each and every claim, including costs and 
+expenses
+SECTION B: INTELLECTUAL PROPERTY RIGHTS INFRINGEMENT
+Limit of liability: GBP500,000 each and every claim, including costs and 
+expenses
+INSURING CLAUSE 8: TECHNOLOGY ERRORS AND OMISSIONS
+NO COVER GIVEN
+INSURING CLAUSE 9: COURT ATTENDANCE COSTS
+Limit of liability: GBP100,000 each and every claim
+
+OUR REGULATORY STATUS
+Insurance Provider is authorised and regulated by the United Kingdom Financial 
+Conduct Authority (FCA). Insurance Provider’s Firm Reference Number at the FCA is 
+XXXXXX. These details may be checked by visiting the Financial Conduct Authority website at 
+https://register.fca.org.uk/. Alternatively the Financial Conduct Authority may be contacted on 
++44 (0)20 7066 1000.
+We are covered by the Financial Services Compensation Scheme (FSCS). You may be entitled to 
+compensation from the scheme if we cannot meet our obligations to you in respect of 
+insurance policies that we have underwritten on behalf of insurers. This depends on the type of 
+business and the circumstances of the claim. In respect of general insurance business the FSCS 
+will cover 90% of the claim, without any upper limit and for compulsory classes of insurance, the 
+FSCS will cover 100% of the claim, without any upper limit. Further information about 
+compensation scheme arrangements is available from the FSCS.
+HOW TO COMPLAIN
+We intend to provide an excellent service to you. However, we recognize that there may be 
+occasions when you feel that this has not been achieved. If you are unhappy with any aspect of 
+the service that you receive from us, please contact insurer stating the nature of your complaint, 
+the certificate and/or claim number.
+You can contact us directly at complaints@insurer.com or please write to:
+Chief Executive Officer
+Insurance Provider
+11th Floor, 8 Bishopsgate
+London EC2N 4BQ
+United Kingdom
+If after taking this action you are still unhappy with the response it may be possible in certain 
+circumstances for you to refer the matter to Lloyd's of London. The contact details are as follows:
+Complaints Department
+Fidentia House
+Walter Burke Way
+Chatham
+Kent ME4 4RN
+Telephone: +44 (0)20 7327 5693
+E-mail: complaints@lloyds.com
+Your complaint will be acknowledged promptly in writing.
+A decision on your complaint will be provided to you, in writing, within 8 weeks of the complaint 
+being made.
+If you remain dissatisfied after receiving the response, you may have the right to refer your 
+complaint to the Financial Ombudsman Service (FOS). The contact details are as follows:
+
+Financial Ombudsman Service
+Exchange Tower
+London
+E14 9SR
+United Kingdom
+Telephone from outside the UK: +44 20 7964 0500
+Telephone from inside the UK: 0800 023 4 567
+Fax: +44 20 7964 1001
+The existence of this complaints procedure does not affect any right of legal action you may 
+have against Insurance Provider or Lloyd’s as detailed in the Service of Suit condition on 
+the last page of your policy. 
+DATA PROTECTION NOTICE
+We collect and use relevant information about you to provide you with your insurance cover or 
+the insurance cover that benefits you and to meet our legal obligations. Where you provide us 
+or your agent or broker with details about other people, you must provide this notice to them.
+The information we collect and use includes details such as your name, address and contact 
+details and any other information that we collect about you in connection with the insurance 
+cover from which you benefit. This information may include more sensitive details such as 
+information about your health and any criminal convictions you may have.
+In certain circumstances, we may need your consent to process certain categories of 
+information about you (including sensitive details such as information about your health and 
+any criminal convictions you may have). Where we need your consent, we will ask you for it 
+separately. You do not have to give your consent and you may withdraw your consent at any 
+time. However, if you do not give your consent, or you withdraw your consent, this may affect 
+our ability to provide the insurance cover from which you benefit and may prevent us from 
+providing cover for you or handling your claims.
+The way insurance works means that your information may be shared with, and used by, a 
+number of third parties in the insurance sector for example, insurers, agents or brokers, 
+reinsurers, loss adjusters, sub-contractors, regulators, law enforcement agencies, fraud and 
+crime prevention and detection agencies and compulsory insurance databases. We will only 
+disclose your personal information in connection with the insurance cover that we provide and 
+to the extent required or permitted by law.
+We will process individual insured’s details, as well as any other personal information you 
+provide to us in respect of your insurance cover, in accordance with our privacy notice and 
+applicable data protection laws.
+To enable us to use individual insured’s details in accordance with applicable data protection 
+laws, we need you to provide those individuals with certain information about how we will use 
+their details in connection with your insurance cover.
+You agree to provide to each individual insured this notice, on or before the date that the 
+individual becomes an individual insured under your insurance cover or, if earlier, the date that 
+you first provide information about the individual to us.
+We are committed to using only the personal information we need to provide you with your 
+insurance cover. To help us achieve this, you should only provide to us information about 
+individual insureds that we ask for from time to time.
+
+You have rights in relation to the information we hold about you, including the right to access 
+your information. If you wish to exercise your rights, discuss how we use your information or 
+request a copy of our full privacy notice, please contact us directly at dataprotection@insurer.com.
+For more information about how we use your personal information please see our full privacy 
+notice, which is available online on our website at:
+http://www.insurer.com/privacy
+
+OTHER COSTS, FEES AND CHARGES
+A Policy Administration Fee may be charged by Insurance Provider for administration 
+costs incurred by it for its role in the distribution of this policy. Any applicable Policy 
+Administration Fee:
+a. is separate from and in addition to the premium stated in the Schedule;
+b. is not subject to any tax that would otherwise be applied to the premium; and
+c. constitutes a separate agreement between the Insured stated in the Schedule and insurer 
+Underwriting Limited which will come into effect upon inception of the policy.
+If a Policy Administration Fee is applicable then it will be deemed fully earned upon inception of 
+this policy and it will not be refundable in the event this policy is cancelled in accordance with 
+the terms and conditions of this policy
+
+MERCHANT BREACHES EXCLUSION CLAUSE
+ATTACHING TO POLICY 
+NUMBER:
+N/A
+THE INSURED: CompanyName
+WITH EFFECT FROM: -
+It is understood and agreed that the following EXCLUSIONS RELATING 
+TO ALL INSURING CLAUSES is added to this Policy:
+Merchant breaches
+arising directly from a payment card data breach affecting a merchant 
+for whom you operate as the acquiring bank where your systems have 
+not been compromised or for financial loss arising from chargebacks on 
+payment cards where you are the issuing bank.
+SUBJECT OTHERWISE TO THE TERMS AND CONDITIONS OF THE 
+POLICY
+
+NAMED INSURED ENDORSEMENT
+ATTACHING TO POLICY 
+NUMBER:
+N/A
+THE INSURED: CompanyName
+WITH EFFECT FROM: -
+It is understood and agreed that the following entities are added to "THE 
+INSURED" in the Schedule:
+CompanyName and ANOtherCompany and
+SUBJECT OTHERWISE TO THE TERMS AND CONDITIONS OF THE 
+POLICY
+
+TRADING LOSS EXCLUSION CLAUSE
+ATTACHING TO POLICY 
+NUMBER:
+N/A
+THE INSURED: CompanyName
+WITH EFFECT FROM: -
+It is understood and agreed that the following is added to the 
+EXCLUSIONS RELATING TO ALL INSURING CLAUSES:
+Trading loss
+arising directly or indirectly out of any trading losses or trading liabilities 
+incurred by you, or any loss of your profit arising from the loss of any 
+client, account or business.
+SUBJECT OTHERWISE TO THE TERMS AND CONDITIONS OF THE 
+POLICY
+
+CYBER INCIDENT RESPONSE WITHIN THE LIMIT CLAUSE
+ATTACHING TO POLICY 
+NUMBER:
+N/A
+THE INSURED: CompanyName
+WITH EFFECT FROM: -
+It is understood and agreed that HOW MUCH WE WILL PAY is deleted in 
+its entirety and replaced with the following:
+YOUR MAXIMUM LIMITS UNDER THIS POLICY
+The maximum amount payable by us under this Policy for any one claim 
+or series of related claims is the policy limit.
+The maximum amount payable by us under any Insuring Clause for any 
+one claim or series of related claims is the amount shown as the limit in 
+the Schedule for that Insuring Clause.
+The maximum amount payable by us under any Section for any one 
+claim or series of related claims is the amount shown as the limit in the 
+Schedule for that Section.
+HOW YOUR LIMITS OPERATE
+The policy limit is provided on an each and every claim basis. This means 
+that the policy limit is not subject to an aggregate limit and the full 
+policy limit will be available to you for any unrelated claims for which you 
+are entitled to cover under this Policy.
+For example, if you have a policy limit of GBP1,000,000 and a claim 
+erodes GBP800,000 of that policy limit, should you notify a subsequent 
+unrelated and covered claim under this Policy, the full GBP1,000,000 
+policy limit will be available to you for the subsequent claim.
+YOUR MAXIMUM LIMIT FOR RELATED INCIDENTS
+Where more than one claim arises from the same original cause or 
+single source or event, all of those claims will be deemed to be one claim 
+and only one policy limit will apply in respect of that claim.
+PAYMENT FOR PHYSICAL GOODS
+If we make any payment under INSURING CLAUSE 2 (SECTION D only), 
+we will do so on a cost price basis. This means that any payment we
+make will be based on the original purchase price or cost of production 
+of your tangible property and will not include your loss of profit.
+PAYMENT FOR LOSS INCURRED BEFORE TIME FRANCHISE ELAPSED
+In respect of INSURING CLAUSE 4 (SECTIONS C, D, E and F only), where 
+you are entitled to cover for any income loss or increased cost of 
+working, any income loss or increased cost of working incurred before 
+the time franchise elapsed will also be covered.
+YOUR LIABILITY COVERAGES
+
+In respect of INSURING CLAUSES 5, 7, 8 and 9 we may at any time pay to 
+you in connection with any claim the amount of the policy limit (after 
+deduction of any amounts already paid). Upon that payment being 
+made we will relinquish the conduct and control of the claim and be 
+under no further liability in connection with that claim except for the 
+payment of costs and expenses incurred prior to the date of such 
+payment (unless the policy limit is stated to be inclusive of costs and 
+expenses).
+If costs and expenses are stated in the Schedule to be in addition to the 
+policy limit, or if the operation of local laws require costs and expenses to 
+be paid in addition to the policy limit, and if a damages payment in 
+excess of the policy limit has to be made to dispose of any claim, our 
+liability for costs and expenses will be in the same proportion as the 
+policy limit bears to the total amount of the damages payment.
+It is further understood and agreed that the following amendments are 
+made to this Policy:
+1. The “Incident response limit” DEFINITION is deleted in its entirety.
+2. The first part a. of the “Continuous cover” CONDITION is deleted in its 
+entirety and replaced with the following:
+a. the indemnity will be subject to the applicable limit of liability of 
+the earlier Policy under which the matter should have been reported 
+or the policy limit, whichever is the lower;
+3. The fourth paragraph of the “Optional extended reporting period” 
+CONDITION is deleted in its entirety and replaced with the following:
+The right to the optional extended reporting period will not be 
+available to you where cancellation or non-renewal by us is due to 
+non-payment of the premium or your failure to pay any amounts in 
+excess of the applicable policy limit or within the amount of the 
+applicable deductible as is required by this Policy in the payment of 
+claims.
+4. The third paragraph of the “Agreement to pay claims (Our duty to 
+defend)” CONDITION is deleted in its entirety and replaced with the 
+following:
+We will endeavour to settle any claim through negotiation, 
+mediation or some other form of alternative dispute resolution and 
+will pay on your behalf the amount we agree with the claimant. If we
+cannot settle using these means, we will pay the amount which you
+are found liable to pay either in court or through arbitration 
+proceedings, subject always to the policy limit.
+SUBJECT OTHERWISE TO THE TERMS AND CONDITIONS OF THE 
+POLICY
