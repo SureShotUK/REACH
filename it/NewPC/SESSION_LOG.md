@@ -2,6 +2,43 @@
 
 ---
 
+## Session 2026-04-05
+
+### Summary
+Set up cross-platform git synchronisation infrastructure so Claude Code context files (CLAUDE.md, session logs, documentation) can be kept in sync between the Windows 11 PC and the amelai Linux server. Created a `.gitattributes` file to fix line-ending differences between platforms, and a new `/sync-files` slash command that handles commit → pull → push in the correct order for bidirectional sync.
+
+### Work Completed
+- Diagnosed that the existing `/sync-session` command only pushes and never pulls — not suitable for cross-platform use
+- Created `.gitattributes` — normalises all text files to LF in the git repo; Windows checkouts receive CRLF, Linux receives LF; binary files (PDFs, Office docs, images, model files) exempt
+- Created `.claude/commands/sync-files.md` — `/sync-files` command that handles all four sync states: ahead-only, behind-only, diverged, and up-to-date; uses rebase so local changes take priority on conflict
+- Staged and pushed session management commands (`session-*.md`) that were untracked
+- Updated `CLAUDE.md` with session learnings: ComfyUI model structure (FLUX self-contained), VRAM/Ollama contention table, Docker dual-port binding strategy, bash special characters in passwords, and file delivery pattern via `Temp.txt`
+
+### Files Changed
+- `.gitattributes` — created; cross-platform line ending normalisation
+- `.claude/commands/sync-files.md` — created; `/sync-files` slash command for bidirectional git sync
+- `.claude/commands/session-*.md` — staged (were previously untracked)
+- `it/NewPC/CLAUDE.md` — major update with knowledge captured across recent sessions
+
+### Git Commits
+- `50af171` — Add cross-platform git sync infrastructure and update NewPC CLAUDE.md
+
+### Key Decisions
+- **Rebase strategy for conflict resolution** — `git pull --rebase` is used so local commits are replayed on top of remote changes; in a conflict on the same line, local wins. True "newest file by mtime" is not feasible reliably in git.
+- **`.gitattributes` at repo root** — applied once, affects all projects in the monorepo
+- **CRLF preserved for `.ps1`, `.bat`, `.cmd`** — PowerShell scripts expect CRLF on Windows; all other files normalised to LF
+
+### Reference Documents
+- `.gitattributes` — repo root; line ending configuration
+- `.claude/commands/sync-files.md` — `/sync-files` command definition
+
+### Next Actions
+- [ ] Pull on Windows 11 PC to get `.gitattributes` and `/sync-files` command
+- [ ] Run `/sync-files` from Windows Claude Code to verify end-to-end sync works
+- [ ] Verify git credentials configured on Windows (GitHub PAT or Git Credential Manager)
+
+---
+
 ## Session 2026-03-24 (2)
 
 ### Summary

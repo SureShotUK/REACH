@@ -2,6 +2,17 @@
 
 ---
 
+## [Unreleased] - 2026-04-05
+
+### Added
+- `.gitattributes` — repo-root line ending normalisation: LF stored in git, CRLF on Windows checkout, LF on Linux; binary files exempt
+- `.claude/commands/sync-files.md` — `/sync-files` slash command for bidirectional cross-platform git sync; handles ahead/behind/diverged cases; uses rebase so local changes win on conflict
+
+### Documentation
+- `CLAUDE.md` updated with: FLUX.1 dev fp8 self-contained model structure, VRAM/Ollama contention reference table, Docker dual-port binding strategy (`1XXXX` loopback + LAN IP pattern), bash special character password handling, `Temp.txt` file delivery pattern
+
+---
+
 ## [Unreleased] - 2026-03-24 (2)
 
 ### Added

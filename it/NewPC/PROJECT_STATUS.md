@@ -1,12 +1,12 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-03-24
+**Last Updated**: 2026-04-05
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. Open WebUI models now have genuine filesystem write capability via the FileWriter tool — files are written to `/home/steve/rag-output/` and immediately accessible in FileBrowser.
+Server (`amelai`) is fully operational. Cross-platform git sync infrastructure is now in place — `.gitattributes` normalises line endings and the `/sync-files` slash command handles bidirectional sync between Windows and Linux machines.
 
 ## Service Status
 
@@ -21,21 +21,24 @@ Server (`amelai`) is fully operational. Open WebUI models now have genuine files
 
 ## Active Work Areas
 
-- Monitoring NIC stability after `pcie_aspm=off` fix
+- Cross-platform git sync: verify end-to-end on Windows 11 PC
 
 ## Recently Completed
 
+- Created cross-platform git sync infrastructure: `.gitattributes` + `/sync-files` slash command
 - Created Open WebUI FileWriter tool — models can now genuinely write files to `/home/steve/rag-output/`; accessible via FileBrowser
 - Fixed NIC dropping off PCIe bus (`igc PCIe link lost`) — `pcie_aspm=off` added to GRUB kernel parameters
-- Fixed Ollama OOM kills — ComfyUI VRAM hoarding identified as root cause (28.4GB held overnight); browser bookmarklet and nightly cron restart added
+- Fixed Ollama OOM kills — ComfyUI VRAM hoarding identified as root cause; browser bookmarklet and nightly cron restart added
 - Created `Linux_Troubleshooting.md` — reference guide for server crash diagnosis and fixes
 - Fixed MCP web search, Open WebUI Ollama connection, hf-env auto-activation
 - Created `New_PC_Builds.md` — personal Windows 11 PC build guide
 
 ## Pending / Next Actions
 
+- [ ] Pull on Windows 11 PC and run `/sync-files` to verify cross-platform sync end-to-end
+- [ ] Verify git credentials configured on Windows (GitHub PAT or Git Credential Manager)
 - [ ] Test FileWriter tool end-to-end — ask model to write a file, verify it appears in FileBrowser
-- [ ] Monitor NIC stability over coming days — confirm `pcie_aspm=off` holds
+- [ ] Monitor NIC stability — confirm `pcie_aspm=off` holds
 - [ ] Address `systemd-networkd-wait-online` timeouts (WiFi adapter wlp11s0 — known ASUS X870E Linux issue)
 - [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
 - [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case
