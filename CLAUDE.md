@@ -51,6 +51,11 @@ Use the AskUserQuestion tool when multiple pieces of information are needed. Pro
 - Mark todos as completed immediately after finishing (don't batch completions)
 - Keep exactly ONE task in_progress at any time
 
+### Warnings Before Instructions
+When providing instructions that include destructive, irreversible, or high-risk actions (e.g. deleting files, discarding changes, dropping databases, force-pushing, running `rm -rf`, `git clean`, `git checkout -- .`, etc.):
+- **Always place the warning BEFORE the commands**, not after
+- The user must see the risk before they can act on the instructions — a warning after the commands is useless
+
 ### Professional Objectivity
 - Prioritize technical accuracy and truthfulness over validating the user's beliefs
 - Focus on facts and problem-solving

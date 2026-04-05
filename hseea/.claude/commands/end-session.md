@@ -1,1 +1,0 @@
-/mnt/c/Users/SteveIrwin/terminai/.claude/commands/end-session.md

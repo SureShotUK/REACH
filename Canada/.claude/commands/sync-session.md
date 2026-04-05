@@ -1,1 +1,0 @@
-/mnt/c/Users/SteveIrwin/terminai/.claude/commands/sync-session.md
