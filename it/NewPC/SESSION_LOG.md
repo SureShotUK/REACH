@@ -2,6 +2,33 @@
 
 ---
 
+## Session 2026-04-06
+
+### Summary
+Permanently mounted the Synology DS920+ `MyDocs` NAS share to the Linux server (`amelai`) at `/docs`. Attempted SMB/CIFS first but persistent `STATUS_LOGON_FAILURE` from the credentials file (special characters in password causing auth failure despite correct content) led to switching to NFS, which worked first time. CLAUDE.md updated with a Linux session housekeeping checklist.
+
+### Work Completed
+- Installed `nfs-common` and `cifs-utils` (cifs-utils later removed)
+- Discovered NFS export path: `/volume2/MyDocs` restricted to `192.168.1.192`
+- Added permanent NFS mount to `/etc/fstab`: `192.168.1.216:/volume2/MyDocs /docs nfs defaults,_netdev,nofail 0 0`
+- Verified mount works and files are accessible from both Linux and the existing Windows SMB share
+- Removed `cifs-utils` and `smbclient` (installed only for troubleshooting)
+- Updated `CLAUDE.md` with Linux session housekeeping section (remove temp packages, run updates, clean up credentials/temp files)
+
+### Files Changed
+- `it/NewPC/CLAUDE.md` — added "Linux Session Housekeeping" section
+
+### Key Decisions
+- Switched from SMB/CIFS to NFS after persistent credentials file auth failures caused by special characters in password
+- NFS uses IP-based auth (no credentials file needed) — simpler and more robust for Linux-only mounts
+- Files created via NFS are visible on the existing Windows SMB share immediately (same underlying volume)
+
+### Next Actions
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai
+- [ ] Verify `/docs` auto-mounts correctly after next reboot
+
+---
+
 ## Session 2026-04-05 (2)
 
 ### Summary

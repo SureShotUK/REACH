@@ -355,6 +355,32 @@ docker run -e SOME_URL=postgresql://user:${PGPASS}@host:5432/db ...
 
 ---
 
+## Linux Session Housekeeping
+
+At the end of any session involving Linux work on amelai, always remind the user to run the following best practice steps:
+
+**1. Remove packages installed only for troubleshooting or testing:**
+```bash
+sudo apt remove <package>
+sudo apt autoremove
+```
+
+**2. Apply any pending system updates:**
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+**3. Check for Docker image/container cleanup if Docker work was involved:**
+```bash
+docker system prune
+```
+
+**4. Remove any temporary files or credentials created during the session** (e.g. `/etc/nas-credentials` if replaced by a different auth method, temp scripts, test files).
+
+This applies after: package installations, configuration changes, troubleshooting sessions, or any work that may have left the system in an intermediate state.
+
+---
+
 ## File Content Delivery
 
 When you need to provide file content for the user to copy to their Linux machine, always write it to `Temp.txt` in the current working directory rather than displaying it in a code block. This avoids copy-paste formatting issues (leading spaces added by markdown rendering).

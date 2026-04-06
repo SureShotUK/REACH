@@ -2,6 +2,19 @@
 
 ---
 
+## [Unreleased] - 2026-04-06
+
+### Added
+- NFS mount for Synology DS920+ `MyDocs` share at `/docs` — entry added to `/etc/fstab` (`192.168.1.216:/volume2/MyDocs /docs nfs defaults,_netdev,nofail 0 0`)
+
+### Removed
+- `cifs-utils` and `smbclient` — installed during SMB troubleshooting, no longer needed
+
+### Documentation
+- `CLAUDE.md` — added "Linux Session Housekeeping" section: remove temp packages, run updates, clean up credentials/temp files at end of each Linux session
+
+---
+
 ## [Unreleased] - 2026-04-05 (2)
 
 ### Fixed

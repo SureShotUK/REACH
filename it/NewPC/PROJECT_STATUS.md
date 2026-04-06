@@ -1,12 +1,12 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-04-05
+**Last Updated**: 2026-04-06
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. ComfyUI OOM issue with Qwen-Rapid-AIO-NSFW-v23 resolved with `--reserve-vram 3`. FileBrowser now exposes ComfyUI input and output folders. Git repo fully synced between Windows and Linux with `.gitignore` and `/sync-files` command in place.
+Server (`amelai`) is fully operational. Synology `MyDocs` NAS share permanently mounted at `/docs` via NFS. ComfyUI OOM issue with Qwen-Rapid-AIO-NSFW-v23 resolved with `--reserve-vram 3`. FileBrowser exposes ComfyUI input and output folders. Git repo fully synced between Windows and Linux.
 
 ## Service Status
 
@@ -25,6 +25,7 @@ Server (`amelai`) is fully operational. ComfyUI OOM issue with Qwen-Rapid-AIO-NS
 
 ## Recently Completed
 
+- Mounted Synology DS920+ `MyDocs` share permanently at `/docs` via NFS
 - Fixed Qwen-Rapid-AIO OOM error — `--reserve-vram 3` added to ComfyUI CLI_ARGS
 - Fixed ComfyUI Tailscale access — loopback port typo corrected (`8189`→`18189` in docker run)
 - FileBrowser updated — now exposes `comfyui-input/`, `comfyui-output/`, `comfyui-amelia-input/`, `comfyui-amelia-output/`
@@ -34,6 +35,8 @@ Server (`amelai`) is fully operational. ComfyUI OOM issue with Qwen-Rapid-AIO-NS
 
 ## Pending / Next Actions
 
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai
+- [ ] Verify `/docs` NFS mount auto-mounts correctly after reboot
 - [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
 - [ ] Verify FileBrowser shows `comfyui-input/` with Qwen-generated images
 - [ ] Check Load Image node can browse input folder to select previous generations without downloading
