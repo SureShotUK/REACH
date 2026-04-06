@@ -1,0 +1,22 @@
+2026-02-16 13:17:43 [INFO] === Outlook Template Cleaning Script Started ===
+2026-02-16 13:17:43 [INFO] Log file: C:\Users\SteveIrwin\terminai\it\troubleshooting\CleanTemplates_20260216_131743.log
+2026-02-16 13:17:43 [INFO] Searching in specified path: C:\Users\SteveIrwin\terminai\it\troubleshooting\Target.oft
+2026-02-16 13:17:43 [INFO]   Found 1 template
+2026-02-16 13:17:43 [INFO] Found 1 template(s) to process
+2026-02-16 13:17:43 [INFO] 
+--- Processing Template ---
+2026-02-16 13:17:44 [INFO]   Backup created: C:\Users\SteveIrwin\terminai\it\troubleshooting\Backups_20260216_131743\Target.oft
+2026-02-16 13:17:44 [INFO] Processing: Target.oft
+2026-02-16 13:17:45 [INFO]   Original body length: 641 characters
+2026-02-16 13:17:45 [INFO]   Removed 5 problematic character(s)
+2026-02-16 13:17:45 [INFO]   Cleaned body length: 636 characters
+2026-02-16 13:17:46 [INFO]   Saved cleaned template to temporary file
+2026-02-16 13:17:46 [SUCCESS]   Template cleaned and saved successfully
+2026-02-16 13:17:46 [SUCCESS] 
+=== Processing Complete ===
+2026-02-16 13:17:46 [INFO] Templates found: 1
+2026-02-16 13:17:46 [SUCCESS] Templates cleaned: 1
+2026-02-16 13:17:46 [INFO] Templates skipped (already clean): 0
+2026-02-16 13:17:46 [INFO] Errors encountered: 0
+2026-02-16 13:17:46 [INFO] 
+Log file saved to: C:\Users\SteveIrwin\terminai\it\troubleshooting\CleanTemplates_20260216_131743.log

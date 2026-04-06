@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "KRBSvh6BVm0=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SteveIrwin\\terminai\\it\\troubleshooting\\OutlookTemplateCleaner\\OutlookTemplateCleaner.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SteveIrwin\\.nuget\\packages\\openmcdf\\2.2.1.8\\openmcdf.2.2.1.8.nupkg.sha512"
+  ],
+  "logs": []
+}

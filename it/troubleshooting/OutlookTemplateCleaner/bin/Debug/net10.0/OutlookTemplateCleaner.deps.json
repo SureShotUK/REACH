@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "OutlookTemplateCleaner/1.0.0": {
+        "dependencies": {
+          "OpenMcdf": "2.2.1.8"
+        },
+        "runtime": {
+          "OutlookTemplateCleaner.dll": {}
+        }
+      },
+      "OpenMcdf/2.2.1.8": {
+        "runtime": {
+          "lib/netstandard2.0/OpenMcdf.dll": {
+            "assemblyVersion": "2.2.1.8",
+            "fileVersion": "2.2.1.8"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OutlookTemplateCleaner/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OpenMcdf/2.2.1.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-d6eV7JFJJui4YTCSQWRPWKCX0snSbUR344uPVVsjQthM1ojAay0pPka8jzbJlxEkznDQeV61MS+Yuc1fz3iOxg==",
+      "path": "openmcdf/2.2.1.8",
+      "hashPath": "openmcdf.2.2.1.8.nupkg.sha512"
+    }
+  }
+}

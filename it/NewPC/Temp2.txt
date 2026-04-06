@@ -1,0 +1,137 @@
+To Update Open-WebUI
+
+docker stop open-webui
+  docker rm open-webui
+  docker pull ghcr.io/open-webui/open-webui:main
+  docker run -d \
+    --name open-webui \
+    --restart always \
+    --gpus all \
+    -p 3000:8080 \
+    -v open-webui:/app/backend/data \
+    -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
+    ghcr.io/open-webui/open-webui:main
+	
+To fix the issue in ComfyUI where it runs out of memory  
+
+*** MAKE SURE YOU SET THE RIGHT PORTS ****
+
+docker run -d \
+    --name comfyui \
+    --network ai-network \
+    --restart unless-stopped \
+    --runtime nvidia \
+    --gpus all \
+    -p 8189:8188 \
+    -v /mnt/models/comfyui:/root/ComfyUI/models \
+    -v /opt/comfyui/storage:/root \
+    -v /opt/comfyui/input:/root/ComfyUI/input \
+    -v /opt/comfyui/output:/root/ComfyUI/output \
+    -v /opt/comfyui/workflows:/root/ComfyUI/user/default/workflows \
+    -e CLI_ARGS="--disable-xformers" \
+    -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+    yanwk/comfyui-boot:cu128-slim
+
+comfyui-amelia
+
+docker run -d \
+    --name comfyui-amelia \
+    --network ai-network \
+    --restart unless-stopped \
+    --runtime nvidia \
+    --gpus all \
+    -p 8188:8188 \
+    -v /mnt/models/comfyui-amelia:/root/ComfyUI/models \
+    -v /opt/comfyui-amelia/storage:/root \
+    -v /opt/comfyui-amelia/input:/root/ComfyUI/input \
+    -v /opt/comfyui-amelia/output:/root/ComfyUI/output \
+    -v /opt/comfyui-amelia/workflows:/root/ComfyUI/user/default/workflows \
+    -e CLI_ARGS="--disable-xformers" \
+    -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+    yanwk/comfyui-boot:cu128-slim
+
+  After it starts, also reconnect it to ai-network and add the firewall rule again (recreating the
+  container resets network connections):
+
+  docker network connect ai-network open-webui
+  sudo ufw allow from 172.18.0.0/16 to any port 11434
+  
+  <HF_TOKEN_REDACTED>
+  
+  wget --header="Authorization: Bearer <HF_TOKEN_REDACTED>" \
+  -O /mnt/models/comfyui/checkpoints/flux1-dev-fp8.safetensors \
+  "https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors"
+  
+    Next session priorities:
+  1. Install NVLink bridge (P3669)
+  2. Download Pixar LoRA from Hugging Face
+  3. Configure Open WebUI → ComfyUI integration
+  4. Set up Wan2.2 video generation
+  
+  
+  sudo wget --header="Authorization: Bearer " \
+  -O /mnt/models/comfyui/checkpoints/diffusion_pytorch_model-00001-of-00003.safetensors \
+  "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B/resolve/main/diffusion_pytorch_model-00001-of-00003.safetensors"
+  
+  wget --header="Authorization: Bearer " \
+  -O /mnt/models/comfyui/checkpoints/diffusion_pytorch_model-00002-of-00003.safetensors \
+  "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B/resolve/main/diffusion_pytorch_model-00002-of-00003.safetensors?download=true"
+  
+  sudo wget --header="Authorization: Bearer " \
+  -O /mnt/models/comfyui/checkpoints/diffusion_pytorch_model-00003-of-00003.safetensors \
+  "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B/resolve/main/diffusion_pytorch_model-00003-of-00003.safetensors"
+  
+  From  - https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B/tree/main
+  
+  
+  
+  sudo wget --header="Authorization: Bearer"  \
+  -O /mnt/models/comfyui/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors  \
+  "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors"
+  
+  sudo wget --header="Authorization: Bearer "  \
+  -O /mnt/models/comfyui/loras/Qwen-Image-Lightning-4steps-V1.0.safetensors  \
+  "https://huggingface.co/Osrivers/Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors/resolve/main/Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors"
+  
+  
+  sudo ln /mnt/models/comfyui/loras/Qwen-Image-Lightning-4steps-V1.0.safetensors /mnt/models/comfyui-amelia/loras/Qwen-Image-Lightning-4steps-V1.0.safetensors
+  
+  
+  sudo wget --header="Authorization: Bearer "  \
+  -O /mnt/models/comfyui/reactor/inswapper_128.onnx \
+    "https://huggingface.co/xingren23/comfyflow-models/resolve/976de8449674de379b02c144d0b3cfa2b61482f2/insightface/inswapper_128.onnx"
+	
+
+
+sudo wget --header="Authorization: Bearer "  \
+-c "https://huggingface.co/Comfy-Org/Qwen-Image-Edit_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_edit_2511_fp8mixed.safetensors" \
+    -O /mnt/models/comfyui/diffusion_models/qwen_image_edit_2511_fp8mixed.safetensors
+
+  # Text encoder (~7 GB)
+  sudo wget --header="Authorization: Bearer "  \
+-c "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors" \
+    -O /mnt/models/comfyui/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors
+
+  # VAE (~254 MB)
+  sudo wget --header="Authorization: Bearer "  \
+-c "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors" \
+    -O /mnt/models/comfyui/vae/qwen_image_vae.safetensors
+	
+	--header="Authorization: Bearer hf_My_PASSWORD"
+
+docker stop open-webui && docker rm open-webui
+docker pull ghcr.io/open-webui/open-webui:main
+
+docker run -d \
+  --name open-webui \
+  --restart always \
+  --gpus all \
+  --network ai-network \
+  -p 3000:8080 \
+  -v open-webui:/app/backend/data \
+  -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
+  -e VECTOR_DB=pgvector \
+  -e PGVECTOR_DB_URL=postgresql://openwebui:${PGPASS}@192.168.1.192:5432/openwebui_vectors \
+  -e RAG_EMBEDDING_ENGINE=ollama \
+  -e RAG_EMBEDDING_MODEL=nomic-embed-text \
+  ghcr.io/open-webui/open-webui:main
