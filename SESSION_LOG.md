@@ -4,6 +4,59 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-04-06
+
+### Summary
+Updated `Iran_War_Timeline.md` with all events from 1–6 April 2026 (Part 13). All 9 remaining Trump Truth Social posts from `TrumpsTruthSocialPosts.csv` (rows 50–58, covering 1–5 April) were added verbatim at correct chronological positions. Web research via a general-purpose agent produced verified, sourced entries for: Trump's national address (1 April), Iran ceasefire denial, B1 bridge strike (2 April), F-15E/A-10 shootdown and dual rescue operation (3–5 April, Easter), Tehran mass strike on Iranian military leaders, and the April 6 deadline day with Iran's rejection of Trump's Tuesday ultimatum. All included URLs were verified via WebFetch before inclusion.
+
+### Work Completed
+- **Read** `TrumpsTruthSocialPosts.csv` — extracted 9 unprocessed posts (rows 50–58, 1–5 April 2026)
+- **Researched** events 1–6 April 2026 via general-purpose agent (Al Jazeera, Fox News, PBS, NBC News, ABC News, Euronews, The War Zone, CBS News)
+- **Verified** 12 URLs via WebFetch before inclusion in the timeline
+- **Added Part 13** to `Iran_War_Timeline.md` covering 1–6 April 2026:
+  - **1 Apr 1:44 PM** — Trump Truth Social: Iran's new regime asks for ceasefire (CSV row 50)
+  - **1 Apr 9 PM EDT** — Trump national address on Operation Epic Fury (PBS verified)
+  - **1 Apr** — Iran denies ceasefire claim (Al Jazeera verified)
+  - **2 Apr 5:37 PM** — Trump Truth Social: Biggest bridge in Iran destroyed (CSV row 51)
+  - **2 Apr** — US/Israel strike B1 highway bridge Tehran–Karaj; 8 killed, 95 wounded (Fox News + The War Zone verified)
+  - **3 Apr 3:41 AM** — Trump Truth Social: Bridges next, then power plants (CSV row 52)
+  - **3 Apr** — F-15E Strike Eagle + A-10 shot down over Iran (PBS verified); Trump requests $1.5T defence budget (Euronews verified)
+  - **3 Apr 1:22 PM** — Trump Truth Social: Open Hormuz, TAKE THE OIL (CSV row 53)
+  - **3 Apr 8:20 PM** — Trump Truth Social: KEEP THE OIL, ANYONE? (CSV row 54)
+  - **4 Apr** — First US pilot rescued (daylight, 7-hour operation)
+  - **4 Apr 3:05 PM** — Trump Truth Social: 48-hour ultimatum (CSV row 55); verified via Al Jazeera, NBC News, ABC News
+  - **4 Apr 9:37 PM** — Trump Truth Social: Tehran mass strike kills Iranian military leaders (CSV row 56)
+  - **5 Apr 5:08 AM** — Trump Truth Social: "WE GOT HIM!" — second rescue complete (CSV row 57)
+  - **5 Apr** — F-15E WSO (colonel) rescued from mountain crevice; CIA deception op; Delta Force/SEAL Team Six (Al Jazeera + NBC News + PBS verified)
+  - **5 Apr 12:52 PM** — Trump Truth Social: Colonel rescued; press conference announced for Mon 7 April 1 PM (CSV row 58)
+  - **6 Apr** — Iran rejects Trump's Tuesday (7 Apr) deadline; Haifa missile strike kills 4; Iran attacks Kuwait/Bahrain energy infrastructure; Mahshahr petrochemical complex struck (Al Jazeera live blog verified)
+- **Added Part 13 casualty summary table** (updated to 5–6 April 2026 figures)
+- **Added Part 13 key sources table** with all verified links
+- **Updated compiled date** in timeline footer to 6 April 2026
+
+### Files Changed
+- `Iran_War_Timeline.md` — Added Part 13 (1–6 April 2026): 9 Truth Social posts; 12+ sourced news events; updated casualty table; new key sources section; 211 lines added (1,511 → 1,722 lines)
+
+### Git Commits
+- `288444b` — Most recent prior commit: Sync all local files with remote
+
+### Key Decisions
+- Included only URLs that either passed WebFetch verification or were from the agent's verified list; Axios and Bloomberg URLs (403/paywalled) were excluded from the document
+- The operative April 6 deadline was clarified: Trump's March 26 post set the 10-day pause to "Monday April 6, 8 PM ET," but subsequent reporting (ABC News verified) confirmed the live deadline as **Tuesday 7 April, 8 PM ET** — noted in the timeline
+- PBS article for Trump's national address listed "Wednesday, April 2" as the date; April 1, 2026 is a Wednesday, so the article was published on April 2 reporting the April 1 speech — documented as 1 April in the timeline
+
+### Reference Documents
+- `TrumpsTruthSocialPosts.csv` — Source for all Truth Social posts (rows 50–58 processed this session)
+- `Iran_War_Timeline.md` — Updated document
+
+### Next Actions
+- [ ] Watch for outcome of April 7, 8 PM ET deadline (Trump's power plant/energy infrastructure ultimatum)
+- [ ] Trump press conference Monday 7 April, 1 PM ET — Oval Office (re: pilot rescues)
+- [ ] Update timeline with April 7+ events in next session
+- [ ] Update casualty figures when April 6–7 totals confirmed
+
+---
+
 ## Session 2026-04-02
 
 ### Summary

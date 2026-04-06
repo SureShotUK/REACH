@@ -1,6 +1,6 @@
 # Project Status
 
-**Last Updated**: 2026-04-02
+**Last Updated**: 2026-04-06
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
@@ -8,12 +8,12 @@
 The terminai repository contains seven specialized project folders, plus a new standalone Iran War Timeline document. A comprehensive 2026 Iran war chronological timeline (`Iran_War_Timeline.md`) has been created covering June 2025 through 25 March 2026, with ~80 sourced events, fact-checked against live source URLs.: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the Maintenance project (maintenance admin system for a UK manufacturing/engineering business). A new Portland Fuel internal briefing paper (`Epic_Fury.md`) has been produced covering Operation Epic Fury (joint US-Israeli strikes on Iran, 28 Feb 2026) and its global energy market implications, with full citations from EIA, IEA, CSIS, and live news sources.
 
 ## Active Work Areas
-- **Iran War Timeline**: UPDATED TO 2 APRIL 2026 (2026-04-02)
-  - `Iran_War_Timeline.md` — ~95 sourced events + 43 Trump Truth Social posts; June 2025–1 April 2026; ~1,500 lines
-  - Part 11B (March 26–31) fully rewritten with confirmed sourced events; fabricated entries from prior session removed
-  - Key events now documented: Tangsiri killed (26 Mar); nuclear sites struck, Prince Sultan AWACS attack (27 Mar); Houthis enter conflict (28 Mar); Europe blocks US military access, Netanyahu "no longer existential threat" (31 Mar)
-  - Deadline: April 6, 8 PM ET — Trump threatened power/desalination plant strikes if Hormuz not open
-  - **Monitor**: April 6 deadline outcome; Trump national address April 2 content
+- **Iran War Timeline**: UPDATED TO 6 APRIL 2026 (2026-04-06)
+  - `Iran_War_Timeline.md` — 100+ sourced events + 52 Trump Truth Social posts (all CSV rows processed); June 2025–6 April 2026; 1,722 lines
+  - Part 13 added: 1–6 April 2026 — 9 Truth Social posts + 12 verified news events
+  - Key events documented: Trump national address (1 Apr); B1 bridge struck Tehran-Karaj (2 Apr); F-15E + A-10 shot down (3 Apr); dual pilot rescues via Delta Force/SEAL Team Six (4–5 Apr, Easter); Tehran mass strike kills Iranian military leaders; Iran rejects Tuesday deadline (6 Apr)
+  - **Live deadline**: Tuesday 7 April, 8 PM ET — Trump's ultimatum on power plants/energy infrastructure/Kharg Island
+  - **Monitor**: April 7 deadline outcome; Trump press conference April 7, 1 PM ET (pilot rescues)
 
 - **Operation Epic Fury Briefing — Portland Fuel**: COMPLETED (2026-03-02)
   - `Epic_Fury.md` — internal briefing paper on US-Israeli military strikes on Iran (28 Feb 2026)
@@ -135,6 +135,15 @@ The terminai repository contains seven specialized project folders, plus a new s
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Iran War Timeline — Part 13 added: 1–6 April 2026** (2026-04-06):
+  - All 9 remaining Truth Social posts (CSV rows 50–58) added verbatim at correct positions
+  - Trump national address (1 Apr, 9 PM EDT) documented with PBS-verified takeaways
+  - B1 highway bridge strike (2 Apr): Middle East's tallest bridge; 8 killed, 95 wounded; IRGC threatens retaliation
+  - F-15E Strike Eagle + A-10 shot down over Iran (3 Apr): first confirmed US aircraft lost inside Iran
+  - Dual pilot rescue operation (4–5 Apr): CIA deception campaign; Delta Force/SEAL Team Six; colonel rescued from mountain crevice; Trump "WE GOT HIM!"
+  - Tehran mass strike (4 Apr): 50+ Iranian military leaders killed
+  - April 6 deadline day: Iran rejects Tuesday ultimatum; Iranian missile hits Haifa (4 dead); Kuwait/Bahrain energy infrastructure attacked
+  - Casualty table updated to 5–6 April 2026 figures
 - **Iran War Timeline — Trump Truth Social Posts Added** (2026-03-27):
   - User supplied `TrumpsTruthSocialPosts.csv` with 44 rows (40 unique posts after deduplication)
   - All 40 posts inserted verbatim into `Iran_War_Timeline.md` at correct chronological positions

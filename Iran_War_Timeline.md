@@ -1508,4 +1508,215 @@ European Union officials expressed concern over Trump's suggestion that member s
 | CNN — Iran war live updates | April 1, 2026 | <a href="https://edition.cnn.com/2026/04/01/world/live-news/iran-war-us-trump-oil" target="_blank">cnn.com</a> |
 | NBC News — Live updates on Trump/Hormuz | April 1, 2026 | <a href="https://www.nbcnews.com/world/iran/live-blog/live-updates-iran-war-gas-prices-trump-hormuz-tanker-isfahan-rcna265972" target="_blank">nbcnews.com</a> |
 | Sky News — Iran war latest | April 1, 2026 | <a href="https://news.sky.com/story/iran-war-latest-trump-tehran-israel-strikes-us-drone-live-sky-news-13509565" target="_blank">skynews.com</a> |
+
+---
+
+## PART 13 — 1–6 APRIL 2026
+
+---
+
+### 1 April 2026, 1:44 PM ET — **Trump (Truth Social):** Iran's new regime president asks for ceasefire
+
+> "Iran's New Regime President, much less Radicalized and far more intelligent than his predecessors, has just asked the United States of America for a CEASEFIRE! We will consider when Hormuz Strait is open, free, and clear. Until then, we are blasting Iran into oblivion or, as they say, back to the Stone Ages!!! President DJT"
+
+*Truth Social · 11k ReTruths · 50k Likes*
+
+Iran's Foreign Ministry denied the claim, with Foreign Minister Abbas Araghchi telling Al Jazeera there was "no negotiation" underway, though Iran indicated readiness in principle to reach a deal subject to security guarantees.
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/1/iran-denies-trumps-claim-iranian-president-requested-ceasefire" target="_blank">Al Jazeera — Iran denies Trump's ceasefire claim (1 April)</a>
+
+---
+
+### 1 April 2026, 9:00 PM EDT — Trump national address on Operation Epic Fury
+
+President Trump delivered his first formal primetime address to the nation about Operation Epic Fury from the Oval Office. Key points:
+
+- Claimed core strategic objectives are "nearing completion" — Iran's navy gone, air force in ruins, most military leaders dead
+- Said the US would strike Iran "extremely hard over the next two to three weeks"
+- Gave no definitive end date and made no mention of ongoing ceasefire negotiations
+- Acknowledged American concerns about rising gas prices, calling them a "short-term increase" and framing the conflict as "a true investment for your children and your grandchildren's future"
+- Took a notably softer tone on NATO allies compared to earlier in the week, avoiding direct attacks on European partners
+
+- **Source:** <a href="https://www.pbs.org/newshour/politics/4-takeaways-from-trumps-address-on-the-iran-war" target="_blank">PBS NewsHour — 4 takeaways from Trump's address on the Iran war</a>
+
+---
+
+### 2 April 2026, 5:37 PM ET — **Trump (Truth Social):** Biggest bridge in Iran destroyed
+
+> "The biggest bridge in Iran comes tumbling down, never to be used again — Much more to follow! IT IS TIME FOR IRAN TO MAKE A DEAL BEFORE IT IS TOO LATE, AND THERE IS NOTHING LEFT OF WHAT STILL COULD BECOME A GREAT COUNTRY! President DONALD J. TRUMP"
+
+*Truth Social · 6.42k ReTruths · 26.3k Likes*
+
+---
+
+### 2 April 2026 — US/Israel strike Iran's B1 highway bridge
+
+US and Israeli forces struck the B1 highway bridge in Alborz Province, connecting Tehran to the suburb of Karaj — described as one of the tallest bridges in the Middle East. The bridge was hit in two waves of strikes approximately one hour apart. Iranian state television reported 8 killed and 95 wounded; the second strike occurred as emergency teams responded to the first.
+
+The Pentagon identified the bridge as part of Iran's planned military supply route for moving ballistic missiles and attack drones from Tehran to launch sites in western Iran. Imagery posted to social media showed a visible breach in the roadway, with analysis indicating strikes used 2,000-lb class Joint Direct Attack Munitions (JDAMs). Iran's IRGC threatened retaliatory strikes against bridges in US-allied nations including Kuwait, Saudi Arabia, Bahrain, and Abu Dhabi.
+
+- **Source:** <a href="https://www.foxnews.com/world/irans-tallest-bridge-collapses-reported-us-airstrikes-iran-threatens-american-allies-retaliation" target="_blank">Fox News — Iran's tallest bridge collapses in reported US airstrikes</a>
+- **Source:** <a href="https://www.twz.com/news-features/key-iranian-bridge-severed-by-airstrikes" target="_blank">The War Zone — Key Iranian bridge severed by airstrikes</a>
+
+---
+
+### 3 April 2026, 3:41 AM ET — **Trump (Truth Social):** Bridges next, then power plants
+
+> "Our Military, the greatest and most powerful (by far!) anywhere in the World, hasn't even started destroying what's left in Iran. Bridges next, then Electric Power Plants! New Regime leadership knows what has to be done, and has to be done, FAST! President DONALD J. TRUMP"
+
+*Truth Social · 7.53k ReTruths · 35k Likes*
+
+---
+
+### 3 April 2026 — F-15E Strike Eagle and A-10 shot down over Iran
+
+A US Air Force F-15E Strike Eagle was shot down over south-western Iran, with both crew members ejecting into hostile territory. A US A-10 attack aircraft was also shot down the same day. This was the first confirmed loss of a US aircraft inside Iranian territory during the war. Trump requested a $1.5 trillion defence budget for 2027 from Congress — the largest proposed Pentagon spending increase since World War II.
+
+- **Source:** <a href="https://www.pbs.org/newshour/world/what-to-know-about-the-daring-rescue-of-two-u-s-aviators-shot-down-in-iran" target="_blank">PBS NewsHour — What to know about the daring rescue of two US aviators shot down in Iran</a>
+- **Source:** <a href="https://www.euronews.com/2026/04/03/trump-says-us-can-open-hormuz-with-a-little-more-time-and-asks-congress-for-15tr-for-defen" target="_blank">Euronews — Trump requests $1.5 trillion defence budget (3 April)</a>
+
+---
+
+### 3 April 2026, 1:22 PM ET — **Trump (Truth Social):** Open Hormuz, Take the Oil
+
+> "With a little more time, we can easily OPEN THE HORMUZ STRAIT, TAKE THE OIL, & MAKE A FORTUNE. IT WOULD BE A 'GUSHER' FOR THE WORLD??? President DONALD J. TRUMP"
+
+*Truth Social · 8.33k ReTruths · 39.3k Likes*
+
+---
+
+### 3 April 2026, 8:20 PM ET — **Trump (Truth Social):** KEEP THE OIL, ANYONE?
+
+> "KEEP THE OIL, ANYONE?"
+
+*Truth Social · 6.73k ReTruths · 34.8k Likes*
+
+---
+
+### 4 April 2026 — First US pilot rescued from Iran
+
+The pilot of the downed F-15E Strike Eagle was located and rescued shortly after the shootdown in a daylight operation lasting approximately seven hours over Iranian airspace. Trump did not publicly confirm this first rescue until the second was also complete, so as not to jeopardise the ongoing operation.
+
+- **Source:** <a href="https://www.pbs.org/newshour/world/what-to-know-about-the-daring-rescue-of-two-u-s-aviators-shot-down-in-iran" target="_blank">PBS NewsHour — Two US aviators rescued in Iran</a>
+
+---
+
+### 4 April 2026, 3:05 PM ET — **Trump (Truth Social):** 48-hour ultimatum on Hormuz / power plants
+
+> "Remember when I gave Iran ten days to MAKE A DEAL or OPEN UP THE HORMUZ STRAIT. Time is running out - 48 hours before all Hell will reign down on them. Glory be to GOD! President DONALD J. TRUMP"
+
+*Truth Social · 10.9k ReTruths · 48.4k Likes*
+
+Trump threatened to destroy Iran's power plants, oil facilities, and "possibly all desalination plants" if the Strait was not opened. He referenced "Bridge Day" and "Power Plant Day" as imminent operations. Iran's General Aliabadi dismissed the threat as "helpless, nervous, unbalanced and stupid."
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/4/trump-says-iran-has-48-hours-to-make-deal-as-search-for-us-pilot-continues" target="_blank">Al Jazeera — Trump gives Iran 48 hours to make deal (4 April)</a>
+- **Source:** <a href="https://www.nbcnews.com/world/iran/iran-unswayed-trumps-48-hour-deadline-threats-obliterate-energy-infras-rcna264607" target="_blank">NBC News — Iran unswayed by Trump's 48-hour deadline</a>
+- **Source:** <a href="https://abcnews.com/International/trump-blowing-country-iran-deal-reached-48-hours/story?id=131744086" target="_blank">ABC News — Trump: 'blowing up the entire country' if no deal in 48 hours</a>
+
+---
+
+### 4 April 2026, 9:37 PM ET — **Trump (Truth Social):** Mass strike on Tehran kills Iranian military leaders
+
+> "Many of Iran's Military Leaders, who have led them poorly and unwisely, are terminated, along with much else, with this massive strike in Tehran! President DONALD J. TRUMP"
+
+*Truth Social · 8.88k ReTruths · 40.8k Likes*
+
+Reports indicated over 50 senior Iranian commanders were killed in the strike. No specific names of those eliminated in this operation were independently confirmed at time of publication.
+
+---
+
+### 5 April 2026 (Easter Sunday), 5:08 AM ET — **Trump (Truth Social):** WE GOT HIM! Second pilot rescue complete
+
+> "WE GOT HIM! My fellow Americans, over the past several hours, the United States Military pulled off one of the most daring Search and Rescue Operations in U.S. History, for one of our incredible Crew Member Officers, who also happens to be a highly respected Colonel, and who I am thrilled to let you know is now SAFE and SOUND! This brave Warrior was behind enemy lines in the treacherous mountains of Iran, being hunted down by our enemies, who were getting closer and closer by the hour, but was never truly alone because his Commander in Chief, Secretary of War, Chairman of the Joint Chiefs of Staff, and fellow Warfighters were monitoring his location 24 hours a day, and diligently planning for his rescue. At my direction, the U.S. Military sent dozens of aircraft, armed with the most lethal weapons in the World, to retrieve him. He sustained injuries, but he will be just fine. This miraculous Search and Rescue Operation comes in addition to a successful rescue of another brave Pilot, yesterday, which we did not confirm, because we did not want to jeopardize our second rescue operation. This is the first time in military memory that two U.S. Pilots have been rescued, separately, deep in Enemy Territory. WE WILL NEVER LEAVE AN AMERICAN WARFIGHTER BEHIND! The fact that we were able to pull off both of these operations, without a SINGLE American killed, or even wounded, just proves once again, that we have achieved overwhelming Air Dominance and Superiority over the Iranian skies. This is a moment that ALL Americans, Republican, Democrat, and everyone else, should be proud of and united around. We truly have the best, most professional, and lethal Military in the History of the World. GOD BLESS AMERICA, GOD BLESS OUR TROOPS, AND HAPPY EASTER TO ALL!"
+
+*Truth Social · 19.9k ReTruths · 85.3k Likes*
+
+---
+
+### 5 April 2026 — F-15E crew rescue: operational detail
+
+The weapons systems officer (WSO) — a highly respected colonel — evaded capture for more than 24 hours while wounded, sheltering in a mountain crevice in the mountains of Iran. US special operations forces (Delta Force and SEAL Team Six) scaled a 7,000-foot ridge deep inside Iranian territory to extract him under cover of darkness. The CIA simultaneously ran a deception operation, spreading false information inside Iran that both crew members had already been found, which confused Iranian search teams.
+
+Two Black Hawk helicopters came under fire during the operation. Two C-130 transport planes experienced technical malfunctions and were destroyed by US forces to prevent capture. Iran's joint military command claimed strikes on rescue aircraft. Trump stated this was "the first time in military memory that two US Pilots have been rescued, separately, deep in Enemy Territory."
+
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/5/us-pilot-from-downed-f-15-plane-rescued-in-iran-what-we-know" target="_blank">Al Jazeera — US pilot from downed F-15 rescued in Iran: what we know (5 April)</a>
+- **Source:** <a href="https://www.nbcnews.com/world/iran/second-airman-f-15e-was-shot-iran-rescued-safely-us-officials-say-rcna266688" target="_blank">NBC News — Second airman from F-15E rescued safely (5 April)</a>
+- **Source:** <a href="https://www.pbs.org/newshour/world/what-to-know-about-the-daring-rescue-of-two-u-s-aviators-shot-down-in-iran" target="_blank">PBS NewsHour — What to know about the daring rescue of two US aviators</a>
+
+---
+
+### 5 April 2026, 12:52 PM ET — **Trump (Truth Social):** Details of colonel rescue; press conference announced
+
+> "We have rescued the seriously wounded, and really brave, F-15 Crew Member/Officer, from deep inside the mountains of Iran. The Iranian Military was looking hard, in big numbers, and getting close. He is a highly respected Colonel. This type of raid is seldom attempted because of the danger to 'man and equipment.' It just doesn't happen! The second raid came after the first one, where we rescued the pilot in broad daylight, also unusual, spending seven hours over Iran. An AMAZING show of bravery and talent by all! I will be having a News Conference, with the Military, at the Oval Office, on Monday, at 1:00 P.M. God Bless our great MILITARY WARRIORS! President DONALD J. TRUMP"
+
+*Truth Social · 11.9k ReTruths · 57k Likes*
+
+Trump announced a press conference with military leadership at the Oval Office for Monday 7 April 2026 at 1:00 PM ET.
+
+---
+
+### 6 April 2026 — Iran rejects Trump's Tuesday deadline; regional attacks escalate
+
+As Trump's extended deadline approached (now operative: **Tuesday, 7 April 2026, 8:00 PM ET**), Iran stated it had formulated its own response to US peace proposals but would not engage in direct negotiations while US-Israeli attacks continued. Diplomatic activity continued through intermediaries Pakistan, Egypt, and Turkey.
+
+Key events on 6 April 2026:
+- An Iranian ballistic missile struck a **residential building in Haifa, Israel**, killing at least 4 people
+- Iran struck **energy infrastructure in Kuwait and Bahrain**, with power and water facilities targeted in Kuwait and an oil facility hit in Bahrain
+- Israel separately struck Iran's largest petrochemical complex at **Mahshahr** (responsible for ~70% of Iran's domestic gasoline supply), per reporting
+- Iran's parliament speaker Mohammad-Bagher Ghalibaf called Trump's approach "war crimes" and rejected the US 15-point framework as "one-sided and unacceptable"
+- Oil prices remained elevated at approximately $100/barrel as markets watched the approaching deadline
+
+- **Source:** <a href="https://www.aljazeera.com/news/liveblog/2026/4/6/iran-war-live-tehran-rejects-trumps-tuesday-deadline-on-strait-of-hormuz" target="_blank">Al Jazeera live blog — Tehran rejects Trump's Tuesday deadline (6 April)</a>
+- **Source:** <a href="https://abcnews.com/International/trump-blowing-country-iran-deal-reached-48-hours/story?id=131744086" target="_blank">ABC News — Trump deadline: April 7, 8 PM ET (updated 6 April)</a>
+
+---
+
+## PART 13 — CUMULATIVE CASUALTY AND DAMAGE SUMMARY (as of 5–6 April 2026)
+
+---
+
+| Category | Figure | Source |
+|---|---|---|
+| Iran: killed | 2,076+ confirmed civilians; 6,000+ total (incl. military) | Al Jazeera |
+| Iran: wounded/hospitalised | 26,500+ total; 6,833 hospitalised | Al Jazeera |
+| Iran: displaced | 3.2 million+ | NPR |
+| Iran: civilian structures damaged/destroyed | 82,000+ | Al Jazeera |
+| Iran: hospitals damaged | 25 damaged, 9 out of service | NPR |
+| Israel: killed | 26+ | Al Jazeera |
+| Israel: wounded | 6,951+ | Al Jazeera |
+| US service members killed | 13 | Time / Al Jazeera |
+| US service members wounded | 200+ | NBC |
+| US aircraft lost in Iran | 2 (F-15E + A-10, 3 April) | PBS NewsHour |
+| Lebanon: killed | 1,461 (121 children) | Al Jazeera |
+| Lebanon: wounded | 4,430 | Al Jazeera |
+| Iraq: killed | 109+ | Al Jazeera |
+| UAE: killed | 12 | Al Jazeera |
+| Kuwait: killed | 7 | Al Jazeera |
+| Bahrain: killed | 3 | Al Jazeera |
+| Iranian targets struck (cumulative) | 11,000+ | CENTCOM |
+| Iranian vessels sunk/damaged | 150+ | CENTCOM |
+| Brent crude (6 April) | ~$100/barrel | ABC News / Al Jazeera |
+
+---
+
+## KEY SOURCES — PART 13
+
+| Source | URL |
+|---|---|
+| Al Jazeera — Iran denies ceasefire claim | <a href="https://www.aljazeera.com/news/2026/4/1/iran-denies-trumps-claim-iranian-president-requested-ceasefire" target="_blank">aljazeera.com</a> |
+| PBS NewsHour — Trump national address takeaways | <a href="https://www.pbs.org/newshour/politics/4-takeaways-from-trumps-address-on-the-iran-war" target="_blank">pbs.org</a> |
+| Fox News — Iran bridge collapse | <a href="https://www.foxnews.com/world/irans-tallest-bridge-collapses-reported-us-airstrikes-iran-threatens-american-allies-retaliation" target="_blank">foxnews.com</a> |
+| The War Zone — Bridge severed by airstrikes | <a href="https://www.twz.com/news-features/key-iranian-bridge-severed-by-airstrikes" target="_blank">twz.com</a> |
+| Euronews — Trump Hormuz / $1.5T defence budget | <a href="https://www.euronews.com/2026/04/03/trump-says-us-can-open-hormuz-with-a-little-more-time-and-asks-congress-for-15tr-for-defen" target="_blank">euronews.com</a> |
+| PBS NewsHour — Two aviators rescued in Iran | <a href="https://www.pbs.org/newshour/world/what-to-know-about-the-daring-rescue-of-two-u-s-aviators-shot-down-in-iran" target="_blank">pbs.org</a> |
+| Al Jazeera — 48-hour ultimatum | <a href="https://www.aljazeera.com/news/2026/4/4/trump-says-iran-has-48-hours-to-make-deal-as-search-for-us-pilot-continues" target="_blank">aljazeera.com</a> |
+| NBC News — Iran unswayed by deadline | <a href="https://www.nbcnews.com/world/iran/iran-unswayed-trumps-48-hour-deadline-threats-obliterate-energy-infras-rcna264607" target="_blank">nbcnews.com</a> |
+| ABC News — Trump 48-hour deadline | <a href="https://abcnews.com/International/trump-blowing-country-iran-deal-reached-48-hours/story?id=131744086" target="_blank">abcnews.com</a> |
+| Al Jazeera — F-15 rescue: what we know | <a href="https://www.aljazeera.com/news/2026/4/5/us-pilot-from-downed-f-15-plane-rescued-in-iran-what-we-know" target="_blank">aljazeera.com</a> |
+| NBC News — Second F-15E airman rescued | <a href="https://www.nbcnews.com/world/iran/second-airman-f-15e-was-shot-iran-rescued-safely-us-officials-say-rcna266688" target="_blank">nbcnews.com</a> |
+| Al Jazeera live blog — 6 April | <a href="https://www.aljazeera.com/news/liveblog/2026/4/6/iran-war-live-tehran-rejects-trumps-tuesday-deadline-on-strait-of-hormuz" target="_blank">aljazeera.com</a> |
+
+---
+
+*Document updated 6 April 2026. All events verified against two or more sources where possible. Casualty figures are subject to revision. The conflict is ongoing. Next major deadline: Tuesday 7 April 2026, 8:00 PM ET — Trump's ultimatum on Iranian energy infrastructure and Strait of Hormuz.*
 | DW — Iran war live blog | April 1, 2026 | <a href="https://www.dw.com/en/iran-war-live-blog-april-1/live-76615254" target="_blank">dw.com</a> |

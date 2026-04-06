@@ -6,6 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-04-06
+
+### Added
+- **`Iran_War_Timeline.md` — Part 13 (1–6 April 2026)**:
+  - Trump Truth Social posts (all 9 from CSV rows 50–58): ceasefire demand (1 Apr); bridge destroyed (2 Apr); bridges/power plants warning (3 Apr); TAKE THE OIL (3 Apr); KEEP THE OIL (3 Apr); 48-hour ultimatum (4 Apr); Tehran mass strike (4 Apr); WE GOT HIM rescue (5 Apr); colonel rescue details (5 Apr)
+  - Trump national address on Operation Epic Fury (1 Apr, 9 PM EDT) — PBS NewsHour verified
+  - Iran denies ceasefire claim (1 Apr) — Al Jazeera verified
+  - US/Israel strike B1 highway bridge Tehran–Karaj (2 Apr): 8 killed, 95 wounded — Fox News + The War Zone verified
+  - F-15E Strike Eagle + A-10 shot down over Iran (3 Apr): first US aircraft lost inside Iran — PBS verified
+  - Trump requests $1.5 trillion defence budget from Congress (3 Apr) — Euronews verified
+  - First US pilot (F-15E) rescued in daylight, 7-hour operation (4 Apr) — PBS verified
+  - Trump's 48-hour ultimatum on Strait / power plants (4 Apr) — Al Jazeera, NBC News, ABC News verified
+  - Tehran mass strike kills 50+ Iranian military leaders (4 Apr)
+  - Dual rescue operation detail: CIA deception, Delta Force/SEAL Team Six, colonel rescued from mountain crevice (5 Apr) — Al Jazeera, NBC News, PBS verified
+  - Trump announces press conference for 7 April, 1 PM ET, Oval Office
+  - April 6 deadline day: Iran rejects Tuesday (7 Apr) ultimatum; Iranian missile hits Haifa (4 dead); Kuwait/Bahrain energy infrastructure attacked; Mahshahr petrochemical complex struck — Al Jazeera live blog verified
+  - Part 13 cumulative casualty/damage summary table (updated to 5–6 April 2026)
+  - Part 13 key sources table with 12 verified links
+
+### Changed
+- **`Iran_War_Timeline.md`** — Compiled date updated to 6 April 2026; footer note updated with next major deadline (7 April, 8 PM ET)
+- **`PROJECT_STATUS.md`** — Iran War Timeline status updated to 6 April 2026; next actions updated
+- **`SESSION_LOG.md`** — New session entry added for 2026-04-06
+
+---
+
 ## [Unreleased] - 2026-04-02
 
 ### Added
