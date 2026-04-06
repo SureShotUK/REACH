@@ -1,6 +1,6 @@
 # Project Status
 
-**Last Updated**: 2026-04-06
+**Last Updated**: 2026-04-06 (evening)
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
@@ -8,6 +8,12 @@
 The terminai repository contains seven specialized project folders, plus a new standalone Iran War Timeline document. A comprehensive 2026 Iran war chronological timeline (`Iran_War_Timeline.md`) has been created covering June 2025 through 25 March 2026, with ~80 sourced events, fact-checked against live source URLs.: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the Maintenance project (maintenance admin system for a UK manufacturing/engineering business). A new Portland Fuel internal briefing paper (`Epic_Fury.md`) has been produced covering Operation Epic Fury (joint US-Israeli strikes on Iran, 28 Feb 2026) and its global energy market implications, with full citations from EIA, IEA, CSIS, and live news sources.
 
 ## Active Work Areas
+- **Iran & Hormuz Briefing Documents**: CREATED (2026-04-06)
+  - `Iran_Briefing.md` (93 lines) — two-page strategic overview: economy, oil/gas, refining, sanctions, allegiances, nuclear
+  - `Hormuz_Strait.md` (129 lines) — two-page strategic overview: volumes by product, exporters, destinations, Europe's exposure by fuel type, pipeline bypass capacity
+  - Both include Portland Long.png logo; all links HTML format with `target="_blank"`; all sources verified
+  - **Monitor**: Update war-impact sections if Kharg Island or remaining energy infrastructure is struck (7 Apr deadline)
+
 - **Iran War Timeline**: UPDATED TO 6 APRIL 2026 (2026-04-06)
   - `Iran_War_Timeline.md` — 100+ sourced events + 52 Trump Truth Social posts (all CSV rows processed); June 2025–6 April 2026; 1,722 lines
   - Part 13 added: 1–6 April 2026 — 9 Truth Social posts + 12 verified news events
@@ -135,6 +141,11 @@ The terminai repository contains seven specialized project folders, plus a new s
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Iran_Briefing.md & Hormuz_Strait.md created** (2026-04-06):
+  - Two strategic briefing documents, ~2 pages each, all sources verified via WebFetch
+  - Iran: economy ($376bn nominal GDP), oil/gas pre-war (3.3 mb/d, Kharg Island, South Pars), refining (Mahshahr 70% domestic gasoline), sanctions timeline, China/Russia allegiances, nuclear (408 kg at 60%)
+  - Hormuz: 20 mb/d petroleum + 77 Mt/year LNG; Saudi Arabia 38% of crude flows; Qatar 18.8% of global LNG with no bypass; Europe's diesel (>25% imports), jet fuel (25–38% supply), and LNG (~10%) exposure mapped; pipeline bypass ~4–5 mb/d realistic vs. 20 mb/d flowing
+
 - **Iran War Timeline — Part 13 added: 1–6 April 2026** (2026-04-06):
   - All 9 remaining Truth Social posts (CSV rows 50–58) added verbatim at correct positions
   - Trump national address (1 Apr, 9 PM EDT) documented with PBS-verified takeaways

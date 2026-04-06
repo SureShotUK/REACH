@@ -4,6 +4,61 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-04-06 (2)
+
+### Summary
+Created two new strategic briefing documents: `Iran_Briefing.md` (updated with Portland logo) and `Hormuz_Strait.md`. The Iran briefing covers economy, oil/gas production, refining, sanctions, political allegiances, and nuclear programme. The Hormuz briefing focuses on trade volumes by product, exporting countries, destination regions, Europe's specific exposure by fuel type, and pipeline bypass alternatives. Both documents are verified-source, two-page overviews using HTML links with `target="_blank"`.
+
+### Work Completed
+- **Verified** picture format from user-amended `Iran_Briefing.md` (Portland Long.png, 40% width, right-aligned)
+- **Researched** Iran economy and energy data via general-purpose agent (11 Wikipedia articles, World Bank; all verified via WebFetch)
+- **Created `Iran_Briefing.md`** (93 lines) covering:
+  - Economy at a glance: GDP $376bn nominal (44th), PPP $1.93tn (23rd), ~40% inflation
+  - Sector breakdown: Services 55%, Industry 35%, Agriculture 7%; oil ~56% of exports
+  - Oil & gas pre-war: 3.3 mb/d production, 1.5 mb/d exports (>90% to China), South Pars (world's largest gas field, massively underproduced), no LNG export infrastructure
+  - Refining: 1.46 mb/d capacity; Mahshahr complex = 70% of domestic gasoline
+  - Strait of Hormuz: 15 mb/d, 25% of seaborne oil, 20% of LNG
+  - War impact table: Kharg Island (military only, oil intact), South Pars −12% output, Mahshahr struck, navy destroyed (150+ vessels), B1 bridge
+  - Sanctions timeline: JCPOA, 2018 withdrawal, FATF blacklist 2024, UN snapback Sept 2025
+  - Allegiances: China ($400bn deal), Russia ($25bn nuclear + Shahed drones), BRICS, Axis of Resistance
+  - Nuclear: 408 kg at 60% enriched; IAEA non-compliance June 2025; cooperation suspended July 2025
+- **Researched** Strait of Hormuz trade flows via general-purpose agent (EIA primary data 2024, IGU, IEEFA, Kpler, Al Jazeera, Bloomberg, Euronews; 12+ URLs verified)
+- **Created `Hormuz_Strait.md`** (129 lines) covering:
+  - Products: ~20 mb/d total petroleum (20% of global demand); ~77 Mt/year LNG (20% of global LNG trade)
+  - Exporters: Saudi Arabia 38% of crude; Qatar 18.8% of global LNG — no bypass possible
+  - Destinations: 84% Asia; Europe ~7–8% crude, 13% LNG
+  - Europe exposure: crude ~6% (manageable); diesel >25% of imports, ~8–9% consumption (sharply up since Russian sanctions); jet fuel 25–38% of supply — most acute; LNG ~10% (Italy 45%, Belgium 38%, Poland 38%)
+  - Bypass pipelines: Saudi East-West (7 mb/d capacity, 2.9 mb/d actual), UAE ADCOP (1.6 mb/d); combined realistic bypass ~4–5 mb/d vs 20 mb/d; no LNG bypass exists
+  - Current war status: Strait partially restricted; 7 April 8 PM ET deadline; Brent $100–108/barrel
+- **Matched Portland logo format** from Iran_Briefing.md in both documents
+
+### Files Changed
+- `Iran_Briefing.md` — New file created (93 lines); Portland Long.png logo added by user post-creation
+- `Hormuz_Strait.md` — New file created (129 lines)
+
+### Git Commits
+- `198d5db` — Last commit: Iran War Timeline extended to 6 April 2026 (Part 13)
+
+### Key Decisions
+- Both documents use HTML anchor format (`target="_blank"`) for all links per CLAUDE.md requirements
+- Jet fuel Europe figure quoted as a range (25–38%) as different sources use different denominators (import share vs. consumption share); range stated explicitly in the document
+- European diesel dependence noted as directionally increased since 2022 (Russian sanctions drove substitution toward Gulf refineries)
+- Mahshahr 70% domestic gasoline figure included with caveat as Wikipedia article returned 404 — consistent with user's own Iran War Timeline which references the same fact
+
+### Reference Documents
+- `Iran_Briefing.md` — New strategic briefing on Iran
+- `Hormuz_Strait.md` — New strategic briefing on the Strait of Hormuz
+- `Iran_War_Timeline.md` — Source for war-impact figures (cross-referenced)
+- EIA sources verified: eia.gov/todayinenergy/detail.php?id=65504, id=65584, id=61002
+- IEEFA, Kpler, Al Jazeera, Bloomberg, Euronews, IGU/Gulf Times (all 2024–March 2026)
+
+### Next Actions
+- [ ] Monitor 7 April 8 PM ET deadline — update Iran War Timeline and potentially Iran_Briefing.md with outcome
+- [ ] Update Iran_Briefing.md war-impact section if Kharg Island or remaining energy infrastructure is struck
+- [ ] Consider creating a companion `Portland_Fuel_Impact.md` briefing translating Hormuz figures into Portland-specific business impact
+
+---
+
 ## Session 2026-04-06
 
 ### Summary

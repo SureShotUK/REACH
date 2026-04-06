@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-04-06 (evening)
+
+### Added
+- **`Iran_Briefing.md`** — New two-page strategic briefing on Iran (93 lines):
+  - Economy at a glance: GDP $376bn nominal (44th), PPP $1.93tn, ~40% inflation, sector breakdown
+  - Oil & gas pre-war: 3.3 mb/d production, 1.5 mb/d exports (>90% China), South Pars, no LNG infrastructure
+  - Refining: 1.46 mb/d capacity; six major refineries; Mahshahr = 70% domestic gasoline
+  - War impact table: Kharg (military only), South Pars −12%, Mahshahr struck, navy destroyed, B1 bridge
+  - Sanctions: JCPOA, 2018 withdrawal, FATF 2024, UN snapback Sept 2025
+  - Allegiances: China ($400bn), Russia ($25bn nuclear + Shahed drones), BRICS, Axis of Resistance
+  - Nuclear: 408 kg at 60%; IAEA non-compliance June 2025; cooperation suspended July 2025
+  - Portland Long.png logo; all links HTML `target="_blank"`; all sources verified via WebFetch
+- **`Hormuz_Strait.md`** — New two-page strategic briefing on the Strait of Hormuz (129 lines):
+  - Products: ~20 mb/d petroleum (20% global demand, >25% seaborne trade); ~77 Mt/year LNG (20% global LNG)
+  - Breakdown: crude ~14–15 mb/d; refined products ~5–6 mb/d; LNG ~10 Bcf/day
+  - Exporters: Saudi Arabia 38% of crude; Qatar 18.8% global LNG — no bypass possible
+  - Destinations: 84% Asia (China/India/Japan/South Korea = 69%); Europe ~7–8% crude, ~13% LNG
+  - Europe exposure: crude ~6% (manageable); diesel >25% of imports (up sharply since 2022 Russian sanctions); jet fuel 25–38% of supply; LNG ~10% (Italy 45%, Belgium 38%, Poland 38% from Qatar)
+  - Bypass capacity: Saudi East-West (7 mb/d max, 2.9 mb/d actual), UAE ADCOP (1.6 mb/d); combined realistic ~4–5 mb/d; no LNG bypass exists
+  - Current war status: partial restriction, 7 Apr deadline, Brent $100–108/barrel
+  - Portland Long.png logo; all links HTML `target="_blank"`; sources: EIA (2024), IGU, IEEFA, Kpler, Al Jazeera, Bloomberg, Euronews
+
+---
+
 ## [Unreleased] - 2026-04-06
 
 ### Added
