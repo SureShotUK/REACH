@@ -6,7 +6,7 @@
 
 ## Current State
 
-Server (`amelai`) is fully operational. Synology `MyDocs` NAS share permanently mounted at `/docs` via NFS. ComfyUI OOM issue with Qwen-Rapid-AIO-NSFW-v23 resolved with `--reserve-vram 3`. FileBrowser exposes ComfyUI input and output folders. Git repo fully synced between Windows and Linux.
+Server (`amelai`) is fully operational. Primary network connection switched to Aquantia AQC113 10GbE NIC (`ethernet2_5g`, 192.168.1.192) after the Intel igc NIC crashed a second time — `pcie_aspm=off` proved insufficient; igc driver now blacklisted. Timezone corrected to Europe/London. NFS mount, ComfyUI, and all services running normally.
 
 ## Service Status
 
@@ -25,33 +25,26 @@ Server (`amelai`) is fully operational. Synology `MyDocs` NAS share permanently 
 
 ## Recently Completed
 
+- Switched primary NIC to Aquantia AQC113 10GbE — Intel igc I226-V blacklisted after second PCIe crash
+- Fixed system timezone to `Europe/London` (was UTC, causing log timestamps to show 1hr early)
+- Removed broken WiFi section from netplan (no password set was causing `netplan apply` errors)
 - Mounted Synology DS920+ `MyDocs` share permanently at `/docs` via NFS
 - Fixed Qwen-Rapid-AIO OOM error — `--reserve-vram 3` added to ComfyUI CLI_ARGS
 - Fixed ComfyUI Tailscale access — loopback port typo corrected (`8189`→`18189` in docker run)
-- FileBrowser updated — now exposes `comfyui-input/`, `comfyui-output/`, `comfyui-amelia-input/`, `comfyui-amelia-output/`
-- Created `.gitignore` and committed all 139 previously untracked files
-- Cross-platform git sync fully operational — Windows and Linux in sync via GitHub
-- Added "warnings before commands" rule to shared CLAUDE.md
 
 ## Pending / Next Actions
 
+- [ ] **Verify on next reboot**: 90-second boot delay (WiFi `wlp11s0`) resolved — if not, run `sudo systemctl mask systemd-networkd-wait-online.service`
+- [ ] **Verify on next reboot**: `/docs` NFS mount auto-mounts correctly
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
-- [ ] Verify `/docs` NFS mount auto-mounts correctly after reboot
 - [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
 - [ ] Verify FileBrowser shows `comfyui-input/` with Qwen-generated images
-- [ ] Check Load Image node can browse input folder to select previous generations without downloading
-- [ ] Monitor NIC stability — confirm `pcie_aspm=off` holds
-- [ ] Address `systemd-networkd-wait-online` timeouts (WiFi adapter wlp11s0)
+- [ ] Set static DHCP reservation on router for `192.168.1.192`
 - [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
 - [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
-- [ ] Set static DHCP reservation on router for `192.168.1.192`
-- [ ] Address `systemd-networkd-wait-online` timeouts (WiFi adapter wlp11s0 — known ASUS X870E Linux issue)
 - [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
 - [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case
 - [ ] Confirm Ryzen 7 9800X3D UK street price and retailer availability
-- [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
-- [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
-- [ ] Set static DHCP reservation on router for `192.168.1.192`
 
 ## Key Files
 

@@ -2,6 +2,39 @@
 
 ---
 
+## Session 2026-04-06 (2)
+
+### Summary
+Diagnosed a second Intel igc NIC PCIe crash on amelai (April 6, ~21:16 BST) — confirmed `pcie_aspm=off` was active and did not prevent recurrence. Permanently fixed by switching the primary network connection to the Aquantia AQC113 10GbE NIC (`ethernet2_5g`, 192.168.1.192) and blacklisting the igc driver. Also fixed system timezone (was UTC, now Europe/London), removed broken WiFi section from netplan, and documented the 90-second boot delay caused by the WiFi adapter with a pending verification on next reboot.
+
+### Work Completed
+- Diagnosed igc NIC crash recurrence from `journalctl -b -1 -k` logs — confirmed `pcie_aspm=off` was in `/proc/cmdline` but NIC still dropped
+- Identified Aquantia AQC113 10GbE NIC (`ethernet2_5g`) as the permanent alternative — was uncabled and unused
+- Updated `/etc/netplan/*.yaml`: swapped IPs and metrics — Aquantia gets 192.168.1.192/metric 100 (primary), Intel igc gets 192.168.1.193/metric 200 (secondary, optional)
+- Removed broken WiFi section from netplan (no password set was causing `netplan apply` to error on `netplan-wpa-wlp11s0.service`)
+- Moved ethernet cable from Intel port to Aquantia port on rear I/O panel
+- Ran `sudo netplan apply` — Aquantia came up at 192.168.1.192, confirmed with `ip addr show ethernet2_5g`
+- Blacklisted igc driver: `echo "blacklist igc" | sudo tee /etc/modprobe.d/blacklist-igc.conf && sudo update-initramfs -u`
+- Fixed timezone: `sudo timedatectl set-timezone Europe/London`
+- Updated `Linux_Troubleshooting.md` — Issue 2 rewritten to document both incidents, failed ASPM fix, and permanent Aquantia switchover; Issue 4 added for WiFi boot delay
+
+### Files Changed
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 2 updated (two incidents, permanent fix documented); Issue 4 added (90-second boot delay, WiFi adapter)
+
+### Key Decisions
+- **`pcie_aspm=off` is insufficient** — Intel I226-V igc driver has a deeper bug; ASPM disabling only addresses one trigger
+- **Aquantia AQC113 as permanent primary** — more reliable driver (`atlantic`), faster (10GbE capable vs 2.5GbE), already on the motherboard
+- **igc driver blacklisted** — prevents the faulty NIC from loading and potentially destabilising the system even as a secondary interface
+- **WiFi removed from netplan** — was misconfigured (no password), caused `netplan apply` errors, and likely responsible for 90-second boot delay
+
+### Next Actions
+- [ ] Verify 90-second boot delay is resolved on next reboot (WiFi removed from netplan)
+- [ ] If boot delay persists: `sudo systemctl mask systemd-networkd-wait-online.service`
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai
+- [ ] Verify `/docs` NFS mount auto-mounts correctly after reboot
+
+---
+
 ## Session 2026-04-06
 
 ### Summary

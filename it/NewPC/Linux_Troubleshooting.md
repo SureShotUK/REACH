@@ -226,7 +226,7 @@ journalctl -b -1 | tail -20
 | SSH service died, system fine | sshd bug or config issue | Restart sshd; check `/etc/ssh/sshd_config` |
 | Thermal messages | Overheating | Check fan curves; clean dust; improve airflow |
 | Docker OOM | Container exceeded memory limits | Set `--memory` limits on containers |
-| `igc PCIe link lost, device now detached` | NIC dropped off PCIe bus (ASPM bug) | See Issue 2 below — disable PCIe ASPM for the igc driver |
+| `igc PCIe link lost, device now detached` | NIC dropped off PCIe bus (Intel igc bug) | See Issue 2 below — igc driver has been blacklisted; Aquantia NIC is now primary |
 
 ---
 
@@ -249,88 +249,116 @@ If `/var/log/journal/` does not exist, logs only live in RAM and are lost on reb
 
 ## Issue 2: NIC Drops Off PCIe Bus — `igc PCIe link lost`
 
-### What Happened (amelai, 2026-03-24)
+### Background — Two Incidents
 
-At 10:21:38 the Intel igc NIC lost its PCIe connection:
+This issue occurred twice. The first attempt at a fix (`pcie_aspm=off`) did not prevent recurrence. The permanent fix (switching to the Aquantia NIC and blacklisting igc) was applied after the second incident.
+
+---
+
+### Incident 1 (amelai, 2026-03-24)
+
+At 10:21:38 UTC the Intel igc NIC lost its PCIe connection:
 
 ```
 Mar 24 10:21:38 amelai kernel: igc 0000:0b:00.0 ethernet10g: PCIe link lost, device now detached
 ```
 
-This triggered a kernel oops (hence the "Modules linked in" dump in the logs). The system itself kept running normally for ~5 hours, but with no network interface it was completely unreachable via SSH or Tailscale. A physical reboot was required.
+This triggered a kernel oops. The system kept running normally for ~5 hours but was completely unreachable via SSH or Tailscale. A physical reboot was required.
 
 **This is not a system crash** — the server was healthy but cut off from the network.
 
 ---
 
-### Root Cause: PCIe ASPM
+### Incident 2 (amelai, 2026-04-06)
 
-**ASPM (Active State Power Management)** is a PCIe power-saving feature that puts devices into low-power states during idle periods. The Intel I225/I226 NIC (used by the `igc` driver) has a known bug where it enters a power state it cannot recover from, causing the kernel to report the device as detached.
+The NIC crashed again at 20:16:43 UTC (21:16 BST) — approximately 5.5 hours after boot:
 
-This is a driver/firmware-level issue affecting Intel I225-V and I226-V NICs on Linux, particularly when PCIe ASPM L1 substates are enabled.
+```
+Apr 06 20:16:43 amelai kernel: igc 0000:0b:00.0 ethernet10g: PCIe link lost, device now detached
+Apr 06 20:16:43 amelai kernel: igc: Failed to read reg 0xc030!
+```
+
+The `pcie_aspm=off` kernel parameter was confirmed active in `/proc/cmdline` during this boot — it did **not** prevent the crash. The Intel I226-V igc driver has a deeper bug that ASPM disabling alone cannot fix.
 
 ---
 
-### Fix: Disable PCIe ASPM via Kernel Boot Parameter
+### Root Cause
 
-> **Note**: The `igc` module does not support an `aspm_disable` parameter on kernel 6.17. The only reliable fix is the kernel boot parameter below.
+The Intel I225-V and I226-V NICs (used by the `igc` driver) have a known driver/firmware-level bug on Linux. The NIC enters a state it cannot recover from, causing the kernel to detach the device. `pcie_aspm=off` addresses one trigger (ASPM power state transitions) but not the underlying instability.
 
-**Step 1: Edit the GRUB config**
-
-```bash
-sudo nano /etc/default/grub
-```
-
-Find the line:
-```
-GRUB_CMDLINE_LINUX_DEFAULT=""
-```
-
-Add `pcie_aspm=off`:
-```
-GRUB_CMDLINE_LINUX_DEFAULT="pcie_aspm=off"
-```
-
-**Step 2: Apply and reboot**
-
-```bash
-sudo update-grub
-sudo reboot
-```
-
-**Step 3: Verify the fix**
-
-```bash
-journalctl -b 0 -k | grep -i "igc\|pcie link\|aspm"
-```
-
-Expected output confirms success:
-```
-kernel: PCIe ASPM is disabled
-kernel: igc 0000:0b:00.0 ethernet10g: NIC Link is Up 1000 Mbps Full Duplex
-```
-
-No `PCIe link lost` errors should appear.
-
-**Trade-off**: Disabling ASPM system-wide increases idle power consumption slightly. On a server running AI workloads 24/7, the GPUs dominate power draw and are never in a low-power state — this is a non-issue in practice.
+The ASUS ProArt X870E-CREATOR WIFI has a second NIC — an **Aquantia AQC113 10GbE** (Marvell `atlantic` driver) — which does not have this bug. The permanent fix is to use that NIC instead.
 
 ---
 
-### Monitoring: Alert if NIC Goes Down Again
+### Permanent Fix: Switch to Aquantia NIC and Blacklist igc
 
-To catch a future recurrence before it requires a physical reboot, set up a cron job that restarts the network if the interface disappears:
+**Current state after fix (2026-04-06):**
+
+| Interface | Driver | Chip | IP | Role |
+|---|---|---|---|---|
+| `ethernet2_5g` | atlantic | Aquantia AQC113 | 192.168.1.192 | Primary (metric 100) |
+| `ethernet10g` | igc (blacklisted) | Intel I226-V | 192.168.1.193 | Disabled — igc driver blacklisted |
+
+**Step 1: Edit `/etc/netplan/*.yaml`**
+
+Make the Aquantia NIC primary (metric 100, main IP) and the Intel NIC secondary (metric 200, optional):
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ethernet2_5g:
+      match:
+        macaddress: a0:ad:9f:1c:cf:c9
+      set-name: ethernet2_5g
+      addresses:
+        - 192.168.1.192/24
+      routes:
+        - to: default
+          via: 192.168.1.1
+          metric: 100
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+
+    ethernet10g:
+      match:
+        macaddress: 30:c5:99:a7:07:1b
+      set-name: ethernet10g
+      optional: true
+      addresses:
+        - 192.168.1.193/24
+      routes:
+        - to: default
+          via: 192.168.1.1
+          metric: 200
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+```
+
+**Step 2: Move the ethernet cable** from the Intel port to the Aquantia port on the rear I/O panel.
+
+**Step 3: Apply the netplan change**
 
 ```bash
-# Check every 5 minutes if ethernet10g is up; restart networking if not
-crontab -e
+sudo netplan apply
 ```
 
-Add:
-```
-*/5 * * * * ip link show ethernet10g | grep -q "state UP" || sudo systemctl restart networking
+**Step 4: Blacklist the igc driver** so it cannot load and crash even as a secondary device:
+
+```bash
+echo "blacklist igc" | sudo tee /etc/modprobe.d/blacklist-igc.conf
+sudo update-initramfs -u
 ```
 
-However, once ASPM is disabled the NIC should remain stable. Monitor for a week before relying on this.
+Takes effect on next reboot.
+
+**Step 5: Verify**
+
+```bash
+ip addr show ethernet2_5g
+# Should show inet 192.168.1.192/24 and state UP
+```
 
 ---
 
@@ -427,5 +455,45 @@ This ensures VRAM is always free by morning regardless of what was left loaded.
 | Open WebUI | ~0.5GB |
 
 ComfyUI and Ollama cannot safely share VRAM when large models are loaded in both simultaneously. Always free ComfyUI VRAM before loading large Ollama models, or rely on the 2am cron restart.
+
+---
+
+## Issue 4: 90-Second Boot Delay — WiFi Adapter (`wlp11s0`)
+
+### What Happened (amelai, observed 2026-04-06)
+
+During boot, the system stalls for up to 90 seconds on:
+
+```
+Job sys-subsystem-net-devices-wlp11s0.device/start running (36s / 1min 30s)
+```
+
+Systemd is waiting for the WiFi adapter (`wlp11s0`) to become ready. This is a known issue with the ASUS X870E WiFi adapter on Linux.
+
+---
+
+### Root Cause
+
+The WiFi interface was previously configured in `/etc/netplan/*.yaml`, causing `systemd-networkd-wait-online` to wait for it to come online during boot. The adapter is slow to initialise, resulting in a near-90-second stall before the timeout expires and boot continues.
+
+---
+
+### Fix Applied (2026-04-06) — Pending Verification on Next Boot
+
+The WiFi section was removed from `/etc/netplan/*.yaml` as part of the NIC switchover work (Issue 2). With WiFi no longer managed by `systemd-networkd`, `wait-online` should no longer wait for `wlp11s0` during boot.
+
+> **TODO**: Verify on next reboot that the boot delay is gone.
+
+---
+
+### If the Delay Persists After Reboot
+
+If the 90-second stall continues despite removing WiFi from netplan, mask the `systemd-networkd-wait-online` service:
+
+```bash
+sudo systemctl mask systemd-networkd-wait-online.service
+```
+
+This tells systemd to skip waiting for network interfaces to come online during boot entirely. This is safe on amelai — all services (Tailscale, Docker, Ollama) handle their own connectivity and reconnect independently.
 
 ---

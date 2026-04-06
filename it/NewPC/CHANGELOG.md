@@ -2,6 +2,19 @@
 
 ---
 
+## [Unreleased] - 2026-04-06 (2)
+
+### Fixed
+- Intel igc I226-V NIC recurring PCIe crash — `pcie_aspm=off` confirmed insufficient; permanent fix applied: primary connection moved to Aquantia AQC113 10GbE NIC (`ethernet2_5g`, 192.168.1.192), igc driver blacklisted via `/etc/modprobe.d/blacklist-igc.conf`
+- `netplan apply` failing on `netplan-wpa-wlp11s0.service` — removed broken WiFi section (no password configured) from `/etc/netplan/*.yaml`
+- System timezone incorrect (was UTC) — set to `Europe/London` via `timedatectl`
+
+### Documentation
+- `Linux_Troubleshooting.md` — Issue 2 rewritten: two incidents documented, `pcie_aspm=off` failure noted, permanent Aquantia switchover documented with full netplan config
+- `Linux_Troubleshooting.md` — Issue 4 added: 90-second boot delay caused by WiFi adapter `wlp11s0`; fix applied (WiFi removed from netplan); verification pending on next reboot
+
+---
+
 ## [Unreleased] - 2026-04-06
 
 ### Added
