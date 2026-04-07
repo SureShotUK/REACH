@@ -500,11 +500,9 @@ This tells systemd to skip waiting for network interfaces to come online during 
 
 ## Issue 5: ASUS Dual GPU PCIe Link Speed — RTX 3090s Run at 2.5GT/s (downgraded)
 
-**Current status (2026-04-07): UNRESOLVED — confirmed BIOS/AGESA bug. Reported to ASUS. Awaiting fix in future BIOS release.**
+**Status (2026-04-07): RESOLVED** — Root cause was the `pcie_aspm=off` kernel parameter preventing PCIe link equalization from completing. Removed from GRUB and BIOS ASPM restored to Auto. Both GPUs now running at Gen 4 (16GT/s).
 
-**Issue**: Both RTX 3090 GPUs are stuck at PCIe Gen 1 (2.5GT/s) despite being Gen 4 capable. All configurable causes have been eliminated. The CPU PCIe root ports responsible for the GPU slots are not responding to BIOS Gen 4 settings.
-
-**Performance impact**: None for AI inference workloads. See Performance Impact section below.
+**Issue**: Both RTX 3090 GPUs were stuck at PCIe Gen 1 (2.5GT/s) despite being Gen 4 capable.
 
 ---
 
@@ -517,7 +515,7 @@ sudo lspci -vvv -s 03:00.0 | grep -E "LnkSta|LnkCap"
 nvidia-smi --query-gpu=pcie.link.gen.current,pcie.link.gen.max,pcie.link.width.current --format=csv
 ```
 
-**Current output (problematic):**
+**Problematic output:**
 ```
 LnkCap: Port #0, Speed 16GT/s, Width x16   ← GPU capable of Gen 4
 LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)   ← Actually running at Gen 1
@@ -526,13 +524,16 @@ pcie.link.gen.current, pcie.link.gen.max, pcie.link.width.current
 1, 4, 8   ← Gen 1 current, Gen 4 max
 ```
 
-**Expected output (after fix):**
+**Resolved output:**
 ```
-LnkSta: Speed 16GT/s, Width x8
-pcie.link.gen.current = 4
+LnkCap: Port #0, Speed 16GT/s, Width x16
+LnkSta: Speed 16GT/s, Width x8 (downgraded)
+
+pcie.link.gen.current, pcie.link.gen.max, pcie.link.width.current
+4, 4, 8
 ```
 
-Note: Width x8 is correct — both GPUs share the CPU's PCIe lanes, so x8 each is expected.
+Note: `Width x8 (downgraded)` is correct and expected — both GPUs share the CPU's PCIe lanes, so x8 each is normal.
 
 ---
 
@@ -598,8 +599,6 @@ All relevant BIOS settings have been verified correct on BIOS 2103:
 
 ### Full Troubleshooting Log (2026-04-07)
 
-Every configurable cause has been tested and eliminated:
-
 | Step | Action | Result |
 |---|---|---|
 | 1 | Verified all BIOS settings (Above 4G, ReBAR, CSM, Gen 4) | Settings correct — no change to link speed |
@@ -608,10 +607,10 @@ Every configurable cause has been tested and eliminated:
 | 4 | Physically reseated both GPUs, removed NVLink bridge | No change |
 | 5 | Tested with single GPU only (PCIEX16_1 alone) | Still 2.5GT/s — not a dual-GPU issue |
 | 6 | Set CPU PCIE ASPM Mode Control to Disabled in BIOS | No change |
-| 7 | Removed `pcie_aspm=off` kernel parameter from GRUB | No change to link speed; fixed nvidia-smi width reporting |
-| 8 | Restored ASPM to Auto in BIOS | No change |
+| 7 | Removed `pcie_aspm=off` kernel parameter from GRUB | **Both GPUs jumped to Gen 4 (16GT/s) — FIXED** |
+| 8 | Restored ASPM to Auto in BIOS | Gen 4 confirmed stable |
 
-**Conclusion**: The CPU root ports `00:01.1` and `00:01.3` do not respond to any BIOS Gen 4 settings. This is a BIOS/AGESA firmware bug. Raised with ASUS support and ASUS forum.
+**Root cause**: `pcie_aspm=off` was preventing PCIe link equalization from completing. PCIe Gen 3 and above require signal equalization during link training — with ASPM disabled kernel-wide, those state transitions were blocked and the link fell back to Gen 1 (which does not require equalization). Once the igc NIC was blacklisted, `pcie_aspm=off` was no longer needed and safe to remove.
 
 ---
 
@@ -646,17 +645,34 @@ The RTX 3090 is a PCIe 4.0 device — it should negotiate at 16GT/s. The X870E m
 
 ---
 
+### Fix Summary
+
+**The fix**: Remove `pcie_aspm=off` from `/etc/default/grub` and set BIOS CPU PCIE ASPM Mode Control to Auto.
+
+```bash
+sudo nano /etc/default/grub
+# Change: GRUB_CMDLINE_LINUX_DEFAULT="pcie_aspm=off"
+# To:     GRUB_CMDLINE_LINUX_DEFAULT=""
+sudo update-grub
+sudo reboot
+```
+
+In BIOS: Advanced > Onboard Devices Configuration > CPU PCIE ASPM Mode Control → **Auto**
+
+**Why `pcie_aspm=off` was originally added**: To prevent the Intel igc NIC from crashing (Issue 2). Now that the igc driver is blacklisted, it is safe to remove.
+
+**Why it caused Gen 1 fallback**: PCIe Gen 3+ link training requires signal equalization. With `pcie_aspm=off` blocking ASPM state transitions kernel-wide, the equalization process could not complete and the link fell back to Gen 1 — the only PCIe generation that does not require equalization.
+
 ### Verification Checklist
 
-- [x] Both GPUs reseated firmly — done, no effect
-- [x] NVLink bridge removed and tested — no effect
-- [x] BIOS CSM disabled — confirmed
-- [x] Above 4G Decoding enabled — confirmed
-- [x] Resizable BAR enabled — confirmed
-- [x] PCIe Link Speed set to Gen 4 — confirmed, no effect
-- [x] BIOS updated to 2103 — no effect
-- [x] Single GPU tested — still Gen 1, not a dual-GPU issue
-- [x] ASPM settings tested — no effect
-- [ ] ASUS BIOS fix — pending future release
+- [x] Both GPUs reseated firmly
+- [x] BIOS CSM disabled
+- [x] Above 4G Decoding enabled
+- [x] Resizable BAR enabled
+- [x] PCIe Link Speed set to Gen 4 in BIOS
+- [x] BIOS updated to 2103
+- [x] `pcie_aspm=off` removed from GRUB
+- [x] BIOS CPU PCIE ASPM Mode Control set to Auto
+- [x] `LnkSta` shows 16GT/s for both cards ✓
 
 ---

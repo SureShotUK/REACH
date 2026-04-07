@@ -6,7 +6,7 @@
 
 ## Current State
 
-Server (`amelai`) is fully operational. All services running normally. One outstanding hardware-level issue: both RTX 3090 GPUs are stuck at PCIe Gen 1 (2.5GT/s) — confirmed BIOS/AGESA bug on BIOS 2103; all configurable and physical causes eliminated; raised with ASUS. Performance impact on AI workloads is nil. `pcie_aspm=off` kernel parameter removed (was needed for igc NIC, now unnecessary as igc is blacklisted).
+Server (`amelai`) is fully operational. Both RTX 3090s now running at PCIe Gen 4 (16GT/s) — fixed by removing `pcie_aspm=off` kernel parameter (was blocking PCIe link equalization). All services running normally.
 
 ## Service Status
 
@@ -25,8 +25,8 @@ Server (`amelai`) is fully operational. All services running normally. One outst
 
 ## Recently Completed
 
-- Exhaustive PCIe Gen 1 investigation — confirmed BIOS/AGESA bug; `ASUS_PCIe_Support_Case.md` created for ASUS support
-- Removed `pcie_aspm=off` kernel parameter — no longer needed (igc blacklisted); fixes nvidia-smi width reporting
+- **Fixed PCIe Gen 1 fallback** — both RTX 3090s now at Gen 4 (16GT/s); root cause was `pcie_aspm=off` blocking PCIe link equalization
+- Removed `pcie_aspm=off` kernel parameter — was blocking Gen 4 link training; safe to remove as igc is blacklisted
 - Updated BIOS to 2103 (from 2102) — no change to PCIe Gen issue
 - Switched primary NIC to Aquantia AQC113 10GbE — Intel igc I226-V blacklisted after second PCIe crash
 - Fixed system timezone to `Europe/London`
@@ -34,9 +34,6 @@ Server (`amelai`) is fully operational. All services running normally. One outst
 
 ## Pending / Next Actions
 
-- [ ] **ASUS forum**: Post PCIe Gen 1 issue with diagnostic data from `ASUS_PCIe_Support_Case.md`
-- [ ] **ASUS support**: Contact technical team — reference CPU root ports `00:01.1`/`00:01.3` stuck at 2.5GT/s on BIOS 2103
-- [ ] **Monitor**: ASUS BIOS 2104+ for PCIe Gen fix in release notes
 - [ ] **Verify on next reboot**: 90-second boot delay (WiFi `wlp11s0`) resolved — if not, run `sudo systemctl mask systemd-networkd-wait-online.service`
 - [ ] **Verify on next reboot**: `/docs` NFS mount auto-mounts correctly
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai

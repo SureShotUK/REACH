@@ -5,7 +5,7 @@
 ## Session 2026-04-07
 
 ### Summary
-Investigated the dual RTX 3090 PCIe Gen 1 fallback issue on amelai. Exhaustively tested every configurable and physical cause — BIOS settings, BIOS update (2102→2103), GPU reseating, NVLink removal, single-GPU isolation, and ASPM configuration. All causes eliminated. Confirmed this is a BIOS/AGESA firmware bug specific to CPU root ports `00:01.1` and `00:01.3`. Removed the now-unnecessary `pcie_aspm=off` kernel parameter. Updated `Linux_Troubleshooting.md` Issue 5 comprehensively and created `ASUS_PCIe_Support_Case.md` for submission to ASUS support.
+Investigated and resolved the dual RTX 3090 PCIe Gen 1 fallback issue on amelai. After exhaustive testing of BIOS settings, BIOS update (2102→2103), GPU reseating, NVLink removal, and single-GPU isolation — the fix turned out to be removing the `pcie_aspm=off` kernel parameter from GRUB and restoring BIOS ASPM to Auto. Both GPUs now running at PCIe Gen 4 (16GT/s). The parameter had been added months earlier to address the Intel igc NIC crashes, but with igc now blacklisted it was safe to remove — and it had been silently blocking PCIe link equalization the entire time.
 
 ### Work Completed
 - Pulled latest files from GitHub at session start
@@ -34,10 +34,7 @@ Investigated the dual RTX 3090 PCIe Gen 1 fallback issue on amelai. Exhaustively
 - `it/NewPC/ASUS_PCIe_Support_Case.md` — new ASUS support case document
 
 ### Next Actions
-- [ ] Post on ASUS ProArt X870E forum with diagnostic data from `ASUS_PCIe_Support_Case.md`
-- [ ] Contact ASUS technical support — reference CPU root ports `00:01.1` and `00:01.3` stuck at 2.5GT/s on BIOS 2103
-- [ ] Monitor ASUS BIOS releases for 2104+ — watch for PCIe Gen fix in release notes
-- [ ] Verify 90-second boot delay (WiFi `wlp11s0`) still resolved — was pending from last session
+- [ ] Verify 90-second boot delay (WiFi `wlp11s0`) still resolved — pending from last session
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
 
 ---
