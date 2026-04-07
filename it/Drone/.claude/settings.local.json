@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.dji.com)",
+      "Bash(gemini:*)",
+      "Bash(mcp list:*)",
+      "Bash(mcp server:*)"
+    ]
+  }
+}

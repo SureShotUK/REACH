@@ -209,7 +209,7 @@ Sources: <a href="https://en.wikipedia.org/wiki/Western_Canadian_Select" target=
 
 ## 9. Export Markets
 
-Canada exports approximately 4.3–4.5 MMb/d of crude oil (2024–2025). Despite being the world's 4th largest crude producer, the US has historically absorbed virtually all exports — a structural vulnerability now actively being addressed.
+Canada exports approximately 4.3–4.5 MMb/d of crude oil (2024–2025). Despite being the world's largest crude producer, the US has historically absorbed virtually all exports — a structural vulnerability now actively being addressed.
 
 ### Destination Breakdown (May 2024 – April 2025)
 

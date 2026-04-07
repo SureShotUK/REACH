@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git branch:*)",
+      "Bash(git pull:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git push:*)",
+      "Bash(git log:*)",
+      "Bash(tree:*)",
+      "Bash(ln:*)",
+      "Bash(cat:*)",
+      "WebSearch",
+      "WebFetch(domain:www.hse.gov.uk)",
+      "WebFetch(domain:www.legislation.gov.uk)",
+      "Bash(git rm:*)",
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:www.gov.uk)",
+      "WebFetch(domain:assets.publishing.service.gov.uk)",
+      "WebFetch(domain:legionellacontrol.com)",
+      "WebFetch(domain:ukhsa.blog.gov.uk)",
+      "WebFetch(domain:publichealthscotland.scot)",
+      "WebFetch(domain:www.scotlandsfiredoorinspectors.scot)",
+      "WebFetch(domain:firedoorcare.co.uk)",
+      "WebFetch(domain:www.london-fire.gov.uk)",
+      "WebFetch(domain:firedoors.bwf.org.uk)",
+      "WebFetch(domain:www.firesafe.org.uk)",
+      "WebFetch(domain:www.bwf.org.uk)",
+      "WebFetch(domain:www.riba.org)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

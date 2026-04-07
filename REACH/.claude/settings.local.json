@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nEnd of session documentation - UK REACH deadline extension analysis\n\nCreated comprehensive update document analyzing UK Government''s announcement\nof 3-year REACH registration deadline extension (Option 1 selected).\n\nKey updates:\n- New registration deadline: 27 October 2029 (was 27 October 2026)\n- ATRm framework NOT finalized - still \"under consideration\"\n- Critical constraint: ATRm must be published by October 2027 for 2-year transition\n- Waiting period identified: ~22 months before registration work can commence\n- Consultant preference order: CS Regulatory → TT Environmental → Valpak\n- Project phase shift: From urgent crisis to passive monitoring mode\n\nFiles:\n- UpdateDec25.md - NEW comprehensive analysis (v1.1, 221 lines)\n- SESSION_LOG.md - Added session 2025-12-22 entry\n- PROJECT_STATUS.md - Updated for extended timeline and ATRm constraints\n- CHANGELOG.md - Added 2025-12-22 release notes\n\nStrategic impact: All registration work now on hold pending ATRm publication.\nBusiness can continue importing normally until late 2027 with no immediate\naction or costs required.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(gemini -p \"Search for detailed information about UK REACH registration number UK-01-9638319484-0-XXXX for HVO \\(Hydrotreated Vegetable Oil\\), CAS 700-571-2. I need to find: 1\\) Whether this is a valid active registration, 2\\) The lead registrant company name, 3\\) The tonnage band covered by this registration, 4\\) Any consortium arrangements, 5\\) Official UK HSE or ECHA documentation confirming this registration. Please focus on authoritative UK government sources and official REACH databases.\")",
+      "WebSearch",
+      "WebFetch(domain:echa.europa.eu)",
+      "WebFetch(domain:www.hse.gov.uk)",
+      "WebFetch(domain:www.gov.uk)",
+      "WebFetch(domain:iuclid6.echa.europa.eu)",
+      "Bash(git commit:*)",
+      "WebFetch(domain:www.comply-with-uk-reach.service.gov.uk)",
+      "WebFetch(domain:comply-chemical-regulations.service.gov.uk)",
+      "Bash(gemini -p \"Search for EU REACH registration information for HVO \\(Hydrotreated Vegetable Oil\\), specifically for the substance ''Renewable hydrocarbons, diesel type fraction'' with EC number 700-571-2 and CAS number 928771-01-1. Find:\n1. Active EU REACH registration numbers from the ECHA database\n2. Registrant companies and registration status\n3. Official ECHA substance information page URL\nFocus on official ECHA \\(echa.europa.eu\\) sources only.\")",
+      "Bash(gemini:*)"
+    ]
+  }
+}

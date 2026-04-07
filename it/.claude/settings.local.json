@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.cisa.gov)",
+      "WebFetch(domain:nvlpubs.nist.gov)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(ls:*)",
+      "Bash(gemini -p \"Search for successful AI PC builds for local LLM inference in 2024-2025. Focus on Reddit r/LocalLLaMA and r/homelab posts where users share their complete builds for running coding models like Codestral, DeepSeek Coder, Code Llama, and general LLMs. I need real component lists, prices, and reported performance metrics \\(tokens per second\\). Include both new and used GPU options. Find builds at different price points: budget \\(~$1500\\), mid-range \\(~$2500\\), and high-end \\(~$4000+\\). Include URLs to the source posts.\")",
+      "Bash(gemini:*)",
+      "Bash(test:*)",
+      "Bash(dotnet --version:*)",
+      "Bash(cmd.exe /c \"dotnet --version\")",
+      "Bash(cmd.exe /c \"dotnet new console -n OutlookTemplateCleaner -f net10.0\")",
+      "Bash(cmd.exe /c \"dotnet add package OpenMcdf\")",
+      "Bash(cmd.exe /c \"dotnet build\")",
+      "Bash(cmd.exe /c \"dotnet add package OpenMcdf --version 2.2.1.8\")",
+      "Bash(cmd.exe /c \"dotnet run --project OutlookTemplateCleaner\\\\OutlookTemplateCleaner.csproj Backups_20260216_124525\\\\Target.oft\")",
+      "Bash(cmd.exe /c \"dotnet build -c Release\")",
+      "Bash(cmd.exe /c \"dotnet run --project OutlookTemplateCleaner\\\\OutlookTemplateCleaner.csproj -- Target.oft\")",
+      "Bash(cmd.exe /c \"dotnet run --project OutlookTemplateCleaner\\\\OutlookTemplateCleaner.csproj -- Target.oft --inspect\")",
+      "Bash(cmd.exe /c \"dotnet run --project OutlookTemplateCleaner\\\\OutlookTemplateCleaner.csproj -- Target.oft.backup --inspect\")",
+      "Bash(cmd.exe /c \"dotnet run --project OutlookTemplateCleaner\\\\OutlookTemplateCleaner.csproj -- Target.oft.backup --scan\")",
+      "Bash(python3:*)",
+      "WebFetch(domain:azure.microsoft.com)",
+      "WebFetch(domain:www.microsoft.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:vertexaisearch.cloud.google.com)",
+      "WebFetch(domain:support.apple.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

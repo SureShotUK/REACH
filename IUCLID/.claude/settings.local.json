@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gemini -p \"Search for publicly available IUCLID 6 dossier files \\(.i6z files\\) for HVO \\(Hydrotreated Vegetable Oil\\) or Renewable hydrocarbons diesel fraction. Check ECHA dissemination portal specifically for:\n- EC Number: 700-571-2\n- CAS Number: 928771-01-1\n- EU REACH Registration: 01-2120043692-58 or 01-2119450077-42\n\nCan REACH registration dossiers be downloaded as .i6z files from ECHA? What formats are available for download from ECHA''s registered substances database?\")",
+      "Bash(gemini -p \"Search UK HSE REACH compliance portal and UK government resources for downloadable IUCLID 6 dossier files \\(.i6z files\\) for registered substances. Specifically look for:\n- HVO \\(Hydrotreated Vegetable Oil\\)\n- EC 700-571-2\n- UK REACH Registration: UK-01-9638319484-0-0004\n\nDoes the UK HSE provide any downloadable dossier templates or reference dossiers for registered substances?\")",
+      "Bash(gemini -p \"Search for IUCLID 6 Cloud publicly available templates, reference dossiers, or example .i6z files from:\n1. ECHA IUCLID website \\(iuclid6.echa.europa.eu\\)\n2. IUCLID training materials or example files\n3. Official IUCLID repositories or download sections\n\nAre there any publicly available IUCLID 6 template dossiers or example .i6z files that can be downloaded for learning or reference purposes?\")",
+      "WebSearch",
+      "WebFetch(domain:echa.europa.eu)",
+      "WebFetch(domain:iuclid6.echa.europa.eu)"
+    ]
+  }
+}

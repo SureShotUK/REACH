@@ -1,3 +1,5 @@
+<img src="Portland Long.png" alt="Alt Text" style="width:40%; height:auto;" align="right">
+
 # 2026 Iran War — Comprehensive Chronological Timeline
 **Compiled:** 2 April 2026 | **Coverage:** June 2025 precursor through 1 April 2026
 **Sources:** Reuters, BBC, NPR, Al Jazeera, CNN, CNBC, NBC News, AP, Guardian, Wikipedia, Alma Research, Critical Threats, Time, Axios, PBS, Stars and Stripes, UN Press Office, HRANA/Hengaw NGOs, Trump Truth Social posts (primary source)

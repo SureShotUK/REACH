@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import docx; print\\('python-docx available'\\)\" 2>&1)",
+      "Bash(pip install python-docx -q 2>&1 | tail -3)",
+      "Bash(pip install python-docx -q --break-system-packages 2>&1 | tail -3)",
+      "Bash(python3 /tmp/build_incident_form.py 2>&1)",
+      "Bash(cd /mnt/c/Users/SteveIrwin/terminai && git add hseea/Violence/HTDW_Violence.md \"hseea/Violence/Incident_Report_Form.docx\" hseea/SESSION_LOG.md hseea/PROJECT_STATUS.md hseea/CHANGELOG.md && git status --short 2>&1)",
+      "Bash(cd /mnt/c/Users/SteveIrwin/terminai && git commit -m \"$\\(cat <<'EOF'\nEnd of session documentation - Violence and aggression staff guide and incident report form created\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(cd /mnt/c/Users/SteveIrwin/terminai && git push origin main 2>&1)"
+    ]
+  }
+}
