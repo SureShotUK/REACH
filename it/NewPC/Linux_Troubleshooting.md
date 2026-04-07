@@ -500,166 +500,163 @@ This tells systemd to skip waiting for network interfaces to come online during 
 
 ## Issue 5: ASUS Dual GPU PCIe Link Speed — RTX 3090s Run at 2.5GT/s (downgraded)
 
-**Issue**: RTX 3090 GPUs show `LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)` instead of expected 16GT/s at PCIe 4.0.
+**Current status (2026-04-07): UNRESOLVED — confirmed BIOS/AGESA bug. Reported to ASUS. Awaiting fix in future BIOS release.**
+
+**Issue**: Both RTX 3090 GPUs are stuck at PCIe Gen 1 (2.5GT/s) despite being Gen 4 capable. All configurable causes have been eliminated. The CPU PCIe root ports responsible for the GPU slots are not responding to BIOS Gen 4 settings.
+
+**Performance impact**: None for AI inference workloads. See Performance Impact section below.
+
+---
 
 ### Symptoms
 
 ```bash
-sudo lspci -vv | grep -E "VGA|LnkSta" | grep -A1 "VGA\|3D"
-
-# Current problematic output:
-01:00.0 VGA compatible controller: NVIDIA Corporation GA102 [GeForce RTX 3090]
-                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
-03:00.0 VGA compatible controller: NVIDIA Corporation GA102 [GeForce RTX 3090]
-                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
-
-# Expected output (after fix):
-LnkSta: Speed 16GT/s, Width x8
+# GPU diagnostic commands
+sudo lspci -vvv -s 01:00.0 | grep -E "LnkSta|LnkCap"
+sudo lspci -vvv -s 03:00.0 | grep -E "LnkSta|LnkCap"
+nvidia-smi --query-gpu=pcie.link.gen.current,pcie.link.gen.max,pcie.link.width.current --format=csv
 ```
 
-### Root Cause Analysis
+**Current output (problematic):**
+```
+LnkCap: Port #0, Speed 16GT/s, Width x16   ← GPU capable of Gen 4
+LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)   ← Actually running at Gen 1
 
-Both GPUs are connected directly to CPU PCIe lanes:
-- **GPU 1**: bus `01:00.0` via CPU port `01.1` (PCIe 5.0)
-- **GPU 2**: bus `03:00.0` via CPU port `01.3` (PCIe 5.0)
+pcie.link.gen.current, pcie.link.gen.max, pcie.link.width.current
+1, 4, 8   ← Gen 1 current, Gen 4 max
+```
 
-The `(downgraded)` flag indicates link training couldn't negotiate PCIe 4.0 speeds, falling back to PCIe 3.0 (2.5GT/s). Since **both** GPUs show identical behavior, the cause is likely:
+**Expected output (after fix):**
+```
+LnkSta: Speed 16GT/s, Width x8
+pcie.link.gen.current = 4
+```
 
-1. **BIOS PCIe Gen mode setting** — Set to "Gen3 Auto" instead of "Gen4 Auto/Gen4"
-2. **Physical contact issue** — GPU connectors need reseating
-3. **Motherboard CPU socket contact** — Affects PCIe lane training (less common)
+Note: Width x8 is correct — both GPUs share the CPU's PCIe lanes, so x8 each is expected.
+
+---
+
+### Root Cause
+
+The CPU PCIe root ports that feed the two GPU slots are themselves initialising at Gen 1 and not responding to BIOS Gen 4 settings:
+
+```bash
+sudo lspci -vvv | grep -E "PCI bridge|LnkSta" | head -40
+```
+
+| CPU Root Port | Speed | Device |
+|---|---|---|
+| `00:01.1` | **2.5GT/s** | GPU 1 slot — stuck at Gen 1 |
+| `00:01.2` | 32GT/s | NVMe slot — working correctly at Gen 5 |
+| `00:01.3` | **2.5GT/s** | GPU 2 slot — stuck at Gen 1 |
+| `00:02.1` | 16GT/s | Other devices — working at Gen 4 |
+
+Gen 5 and Gen 4 work correctly on other CPU root ports. Only `00:01.1` and `00:01.3` (the GPU slots) are stuck at Gen 1. This is not a hardware fault with the GPUs — it is a BIOS/AGESA firmware bug where those specific root ports are not being initialised at the correct speed.
+
+---
 
 ### Diagnostic Commands
 
-#### Check negotiated speed vs capability
 ```bash
+# GPU link capability and current status
 sudo lspci -vvv -s 01:00.0 | grep -E "LnkSta|LnkCap"
 sudo lspci -vvv -s 03:00.0 | grep -E "LnkSta|LnkCap"
-```
 
-**Expected LnkCap**: `Speed 16GT/s, Width x16` (both GPUs support PCIe 4.0)
-**Current LnkSta**: `Speed 2.5GT/s, Width x8` (negotiated at Gen3 fallback)
+# nvidia-smi confirmation
+nvidia-smi --query-gpu=pcie.link.gen.current,pcie.link.gen.max,pcie.link.width.current --format=csv
 
-#### Verify BIOS version
-```bash
+# CPU root port speeds (the definitive diagnostic)
+sudo lspci -vvv | grep -E "PCI bridge|LnkSta" | head -40
+
+# Confirm BIOS version
 sudo dmidecode -t bios | grep -i version
+
+# Confirm kernel boot parameters
+cat /proc/cmdline
 ```
 
-Your system should be on BIOS **2102 (Beta)** or stable release which supports PCIe 4.0.
+---
 
-### Fix Procedure
+### BIOS Settings (Confirmed Correct — Not the Cause)
 
-#### Prerequisites
-- Physical access to amelai
-- SSH session active (to run diagnostics before/after)
-- Tailscale connected (for remote access after reboot)
+All relevant BIOS settings have been verified correct on BIOS 2103:
 
-#### Step 1: Power down and drain residual power
-```bash
-sudo shutdown -h now
-```
+| Setting | Path | Value | Status |
+|---|---|---|---|
+| Launch CSM | Boot > CSM | Disabled | Confirmed correct |
+| Above 4G Decoding | Advanced > PCI Subsystem Settings | Enabled | Confirmed correct |
+| Re-size BAR Support | Advanced > PCI Subsystem Settings | Enabled | Confirmed correct |
+| SR-IOV Support | Advanced > PCI Subsystem Settings | Disabled | Correct — not needed |
+| CPU PCIE ASPM Mode Control | Advanced > Onboard Devices Configuration | Auto | Tested both Auto and Disabled — no effect |
+| PCIEX16_1 Bandwidth Bifurcation | Advanced > Onboard Devices Configuration | Auto | No effect |
+| PCIEX16_2 Bandwidth Bifurcation | Advanced > Onboard Devices Configuration | Auto | No effect |
+| PCIEX16_1 Link Mode | Advanced > PCIE Link Speed | Gen 4 | Set — no effect |
+| PCIEX16_2 Link Mode | Advanced > PCIE Link Speed | Gen 4 | Set — no effect |
+| PCIEX16(4) Link Mode | Advanced > PCIE Link Speed | Gen 4 | Set — no effect |
 
-Wait for complete power-down, then proceed physically:
+---
 
-1. **Unplug amelai from mains**
-2. **Hold power button 10-15 seconds** (drains capacitors)
-3. **Open case and reseat both GPUs**:
-   - Release PCIe clips at rear of each card
-   - Pull straight up to remove GPU
-   - Inspect slot for dust/debris (use compressed air if needed)
-   - Reinsert firmly until clips click audibly
-   - Verify auxiliary power cables fully seated
+### Full Troubleshooting Log (2026-04-07)
 
-#### Step 2: Enter BIOS before OS boots
+Every configurable cause has been tested and eliminated:
 
-After reseating, boot and immediately tap **Delete** repeatedly.
+| Step | Action | Result |
+|---|---|---|
+| 1 | Verified all BIOS settings (Above 4G, ReBAR, CSM, Gen 4) | Settings correct — no change to link speed |
+| 2 | Set PCIEX16_1 and PCIEX16_2 Link Mode to Gen 4 in BIOS | CPU root ports still at 2.5GT/s |
+| 3 | Updated BIOS from 2102 to 2103 | No change |
+| 4 | Physically reseated both GPUs, removed NVLink bridge | No change |
+| 5 | Tested with single GPU only (PCIEX16_1 alone) | Still 2.5GT/s — not a dual-GPU issue |
+| 6 | Set CPU PCIE ASPM Mode Control to Disabled in BIOS | No change |
+| 7 | Removed `pcie_aspm=off` kernel parameter from GRUB | No change to link speed; fixed nvidia-smi width reporting |
+| 8 | Restored ASPM to Auto in BIOS | No change |
 
-##### BIOS Settings to Check
+**Conclusion**: The CPU root ports `00:01.1` and `00:01.3` do not respond to any BIOS Gen 4 settings. This is a BIOS/AGESA firmware bug. Raised with ASUS support and ASUS forum.
 
-| Setting | Path | Value | Reason |
-|---------|------|-------|--------|
-| CSM (Compatibility Support Module) | Boot > CSM | **Disabled** | Required for Resizable BAR and proper PCIe training |
-| Above 4G Decoding | Advanced > PCI Subsystem Settings | **Enabled** | Critical for dual GPU — addresses memory-mapped IO for large VRAM cards |
-| Resizable BAR | Advanced > PCI Subsystem Settings > Re-size BAR Support | **Enabled** | NVIDIA GPUs benefit from this; helps with PCIe configuration |
+---
 
-##### Look for PCIe Gen Mode Setting
+### Current Kernel Boot Parameters
 
-This may be in one of these locations:
-- **Advanced → PCI Subsystem Settings → PCIe Link Speed**
-- **Ai Tweaker → Extreme Tweaker → PCIe Configuration**
-- **Ai Overclock Tuner settings** during boot
+`pcie_aspm=off` has been **removed** from `/etc/default/grub` as it is no longer needed (Intel igc NIC is blacklisted — see Issue 2) and was interfering with nvidia-smi link width reporting. Current `GRUB_CMDLINE_LINUX_DEFAULT` is empty.
 
-If set to **"Auto"**, **"Gen3 Auto"**, or similar, change it to:
-- **"Gen4"** (manual override) or
-- **"Gen4 Auto"** (if available)
-
-Save changes and exit BIOS (typically F10).
-
-#### Step 3: Verify fix after OS boots
-
-Once Ubuntu is running and Tailscale connection is active:
-
-```bash
-# Check link status for both GPUs
-sudo lspci -vvv -s 01:00.0 | grep -E "LnkSta|LnkCap"
-sudo lspci -vvv -s 03:00.0 | grep -E "LnkSta|LnkCap"
-```
-
-**Expected output after successful fix:**
-```
-LnkCap: Port #0, Speed 16GT/s, Width x16
-LnkSta: Speed 16GT/s, Width x8
-```
-
-Note: Width x8 is correct for your setup (both GPUs sharing x16 lanes equally). The key is Speed 16GT/s instead of 2.5GT/s.
-
-#### Step 4: Optional — Force PCIe rescan (if speed unchanged)
-```bash
-echo 1 | sudo tee /sys/bus/pci/rescan_bus
-nvidia-smi -q | grep "Link"
-```
-
-This attempts to re-enumerate PCIe buses without rebooting. Sometimes helps if the issue is a firmware initialization glitch.
+---
 
 ### Performance Impact
 
 **For AI inference workloads**: This downgrade **does not affect performance**. The RTX 3090s operate independently with their own VRAM pools. The PCIe link speed only impacts:
-- Model loading from system RAM to GPU VRAM (slower with Gen3)
+- Model loading from system RAM to GPU VRAM (slightly slower at Gen 1)
 - Small parameter updates during training
-- CPU-initiated operations
+- CPU-initiated memory transfers
 
-**For dual-GPU model splitting** (tensor parallel): NVLink handles inter-GPU communication regardless of PCIe link speed, so even if running split models across both GPUs, inference performance remains unaffected.
+**For dual-GPU model splitting** (tensor parallel): NVLink handles inter-GPU communication regardless of PCIe link speed, so inference across both GPUs is completely unaffected.
 
-### Additional Notes
+---
 
-#### BIOS 2102 Beta Information
+### Reference: PCIe Speed Equivalents
 
-Your system is currently on **BIOS 2102 (Beta)** which should support PCIe 4.0 correctly:
-- Version specifically adds DDR5 stability improvements
-- Covers all security patches including CVE-2025-2884
-- Cannot rollback to versions prior to 1804 due to PSP firmware
+| LnkSta Speed | PCIe Generation | Bandwidth (x8) |
+|---|---|---|
+| 2.5 GT/s | **Gen 1** | ~2 GB/s — current state |
+| 5.0 GT/s | Gen 2 | ~4 GB/s |
+| 8.0 GT/s | Gen 3 | ~8 GB/s |
+| **16.0 GT/s** | **Gen 4** | **~16 GB/s — expected** |
+| 32.0 GT/s | Gen 5 | ~32 GB/s |
 
-If the Gen4 setting doesn't resolve the issue, consider updating to the next stable release from ASUS when available.
+The RTX 3090 is a PCIe 4.0 device — it should negotiate at 16GT/s. The X870E motherboard slots support PCIe 5.0 but the GPU caps negotiation at Gen 4 (its maximum).
 
-#### Reference: PCIe Speed Equivalents
-
-| LnkSta Speed | PCIe Generation | Notes |
-|--------------|-----------------|-------|
-| 2.5 GT/s | Gen 3 (x1 = 250 MB/s) | Current fallback state |
-| 5.0 GT/s | Gen 4 (x1 = 500 MB/s) | - |
-| 8.0 GT/s | Gen 5 (x1 = 800 MB/s) | - |
-| **16.0 GT/s** | **Gen 5 (x1 = 1.6 GB/s)** | **Expected for X870E + Ryzen 7900X** |
-
-Wait — your RTX 3090s are PCIe 4.0 devices, so they should negotiate at **16GT/s** even though your motherboard slots support up to PCIe 5.0 (32GT/s).
+---
 
 ### Verification Checklist
 
-- [ ] Both GPUs reseated firmly
-- [ ] BIOS CSM disabled
-- [ ] Above 4G Decoding enabled
-- [ ] Resizable BAR enabled
-- [ ] PCIe Link Speed set to Gen4
-- [ ] Reboot completed after BIOS changes
-- [ ] `LnkSta` shows 16GT/s for both cards
+- [x] Both GPUs reseated firmly — done, no effect
+- [x] NVLink bridge removed and tested — no effect
+- [x] BIOS CSM disabled — confirmed
+- [x] Above 4G Decoding enabled — confirmed
+- [x] Resizable BAR enabled — confirmed
+- [x] PCIe Link Speed set to Gen 4 — confirmed, no effect
+- [x] BIOS updated to 2103 — no effect
+- [x] Single GPU tested — still Gen 1, not a dual-GPU issue
+- [x] ASPM settings tested — no effect
+- [ ] ASUS BIOS fix — pending future release
 
 ---

@@ -2,6 +2,20 @@
 
 ---
 
+## [Unreleased] - 2026-04-07
+
+### Changed
+- `GRUB_CMDLINE_LINUX_DEFAULT` — removed `pcie_aspm=off` kernel parameter; no longer needed as igc driver is blacklisted; was interfering with nvidia-smi PCIe width reporting
+
+### Documentation
+- `Linux_Troubleshooting.md` — Issue 5 comprehensively rewritten: confirmed as BIOS/AGESA bug (not physical or configuration), full troubleshooting log table, corrected PCIe speed reference table (Gen 1=2.5GT/s was previously mislabelled as Gen 3), updated BIOS settings table with all options verified, updated checklist
+- `ASUS_PCIe_Support_Case.md` — new document created: full system spec, all diagnostic outputs, every BIOS setting applied, chronological step-by-step troubleshooting log, elimination summary table; intended for ASUS forum post and technical support
+
+### Investigation
+- Confirmed RTX 3090 PCIe Gen 1 issue is a BIOS/AGESA firmware bug on BIOS 2103: CPU root ports `00:01.1` and `00:01.3` stuck at 2.5GT/s regardless of BIOS Gen 4 setting, physical reseating, NVLink removal, single GPU test, or ASPM configuration changes
+
+---
+
 ## [Unreleased] - 2026-04-06 (2)
 
 ### Fixed

@@ -1,12 +1,12 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-04-06
+**Last Updated**: 2026-04-07
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. Primary network connection switched to Aquantia AQC113 10GbE NIC (`ethernet2_5g`, 192.168.1.192) after the Intel igc NIC crashed a second time — `pcie_aspm=off` proved insufficient; igc driver now blacklisted. Timezone corrected to Europe/London. NFS mount, ComfyUI, and all services running normally.
+Server (`amelai`) is fully operational. All services running normally. One outstanding hardware-level issue: both RTX 3090 GPUs are stuck at PCIe Gen 1 (2.5GT/s) — confirmed BIOS/AGESA bug on BIOS 2103; all configurable and physical causes eliminated; raised with ASUS. Performance impact on AI workloads is nil. `pcie_aspm=off` kernel parameter removed (was needed for igc NIC, now unnecessary as igc is blacklisted).
 
 ## Service Status
 
@@ -25,20 +25,22 @@ Server (`amelai`) is fully operational. Primary network connection switched to A
 
 ## Recently Completed
 
+- Exhaustive PCIe Gen 1 investigation — confirmed BIOS/AGESA bug; `ASUS_PCIe_Support_Case.md` created for ASUS support
+- Removed `pcie_aspm=off` kernel parameter — no longer needed (igc blacklisted); fixes nvidia-smi width reporting
+- Updated BIOS to 2103 (from 2102) — no change to PCIe Gen issue
 - Switched primary NIC to Aquantia AQC113 10GbE — Intel igc I226-V blacklisted after second PCIe crash
-- Fixed system timezone to `Europe/London` (was UTC, causing log timestamps to show 1hr early)
-- Removed broken WiFi section from netplan (no password set was causing `netplan apply` errors)
+- Fixed system timezone to `Europe/London`
 - Mounted Synology DS920+ `MyDocs` share permanently at `/docs` via NFS
-- Fixed Qwen-Rapid-AIO OOM error — `--reserve-vram 3` added to ComfyUI CLI_ARGS
-- Fixed ComfyUI Tailscale access — loopback port typo corrected (`8189`→`18189` in docker run)
 
 ## Pending / Next Actions
 
+- [ ] **ASUS forum**: Post PCIe Gen 1 issue with diagnostic data from `ASUS_PCIe_Support_Case.md`
+- [ ] **ASUS support**: Contact technical team — reference CPU root ports `00:01.1`/`00:01.3` stuck at 2.5GT/s on BIOS 2103
+- [ ] **Monitor**: ASUS BIOS 2104+ for PCIe Gen fix in release notes
 - [ ] **Verify on next reboot**: 90-second boot delay (WiFi `wlp11s0`) resolved — if not, run `sudo systemctl mask systemd-networkd-wait-online.service`
 - [ ] **Verify on next reboot**: `/docs` NFS mount auto-mounts correctly
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
 - [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
-- [ ] Verify FileBrowser shows `comfyui-input/` with Qwen-generated images
 - [ ] Set static DHCP reservation on router for `192.168.1.192`
 - [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
 - [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)

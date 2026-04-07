@@ -2,6 +2,46 @@
 
 ---
 
+## Session 2026-04-07
+
+### Summary
+Investigated the dual RTX 3090 PCIe Gen 1 fallback issue on amelai. Exhaustively tested every configurable and physical cause — BIOS settings, BIOS update (2102→2103), GPU reseating, NVLink removal, single-GPU isolation, and ASPM configuration. All causes eliminated. Confirmed this is a BIOS/AGESA firmware bug specific to CPU root ports `00:01.1` and `00:01.3`. Removed the now-unnecessary `pcie_aspm=off` kernel parameter. Updated `Linux_Troubleshooting.md` Issue 5 comprehensively and created `ASUS_PCIe_Support_Case.md` for submission to ASUS support.
+
+### Work Completed
+- Pulled latest files from GitHub at session start
+- Verified all BIOS settings on 2103: CSM, Above 4G Decoding, ReBAR, SR-IOV, ASPM, Bifurcation, PCIe Link Speed all confirmed/configured
+- Identified via `sudo lspci -vvv | grep -E "PCI bridge|LnkSta"` that CPU root ports `00:01.1` and `00:01.3` are stuck at 2.5GT/s while `00:01.2` (NVMe) runs at 32GT/s — problem is in the root ports, not the GPU cards
+- Confirmed `nvidia-smi --query-gpu=pcie.link.gen.current,...`: Gen 1 current, Gen 4 max on both GPUs
+- Updated BIOS from 2102 to 2103 via EZ Flash (required both `.CAP` and `.CFG` files on FAT32 USB) — no change
+- Physically reseated both GPUs, removed NVLink bridge — no change
+- Tested single GPU only in PCIEX16_1 — still Gen 1; dual-GPU configuration not the cause
+- Set CPU PCIE ASPM Mode Control to Disabled in BIOS — no change
+- Removed `pcie_aspm=off` from `GRUB_CMDLINE_LINUX_DEFAULT` (safe: igc is blacklisted) and restored BIOS ASPM to Auto — no change to link speed; fixed nvidia-smi width reporting (was showing 1, now correctly shows 8/16)
+- Updated `Linux_Troubleshooting.md` — Issue 5 fully rewritten with confirmed diagnosis, complete troubleshooting log table, corrected PCIe speed table, updated BIOS settings table, updated checklist
+- Created `ASUS_PCIe_Support_Case.md` — formatted support document with system spec, all diagnostic outputs, chronological step log, and elimination summary table
+
+### Files Changed
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 5 comprehensively rewritten (confirmed BIOS/AGESA bug, full troubleshooting log, corrected PCIe speed table)
+- `it/NewPC/ASUS_PCIe_Support_Case.md` — new document created for ASUS technical support
+
+### Key Decisions
+- **`pcie_aspm=off` removed from GRUB** — no longer needed (igc blacklisted); was interfering with nvidia-smi link width reporting
+- **Confirmed BIOS/AGESA bug** — not a physical, BIOS setting, or OS configuration issue; awaiting future ASUS BIOS fix
+- **Performance impact is nil** — AI inference is entirely on-GPU; PCIe speed only affects model load time from RAM to VRAM
+
+### Reference Documents
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 5 (updated)
+- `it/NewPC/ASUS_PCIe_Support_Case.md` — new ASUS support case document
+
+### Next Actions
+- [ ] Post on ASUS ProArt X870E forum with diagnostic data from `ASUS_PCIe_Support_Case.md`
+- [ ] Contact ASUS technical support — reference CPU root ports `00:01.1` and `00:01.3` stuck at 2.5GT/s on BIOS 2103
+- [ ] Monitor ASUS BIOS releases for 2104+ — watch for PCIe Gen fix in release notes
+- [ ] Verify 90-second boot delay (WiFi `wlp11s0`) still resolved — was pending from last session
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai
+
+---
+
 ## Session 2026-04-06 (2)
 
 ### Summary
