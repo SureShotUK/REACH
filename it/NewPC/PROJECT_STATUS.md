@@ -34,7 +34,6 @@ Server (`amelai`) is fully operational. Both RTX 3090s now running at PCIe Gen 4
 
 ## Pending / Next Actions
 
-- [ ] **Verify on next reboot**: 90-second boot delay (WiFi `wlp11s0`) resolved — if not, run `sudo systemctl mask systemd-networkd-wait-online.service`
 - [ ] **Verify on next reboot**: `/docs` NFS mount auto-mounts correctly
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
 - [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry

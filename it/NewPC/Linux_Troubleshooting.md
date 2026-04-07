@@ -478,11 +478,9 @@ The WiFi interface was previously configured in `/etc/netplan/*.yaml`, causing `
 
 ---
 
-### Fix Applied (2026-04-06) — Pending Verification on Next Boot
+### Fix Applied (2026-04-06) — Verified (2026-04-07)
 
-The WiFi section was removed from `/etc/netplan/*.yaml` as part of the NIC switchover work (Issue 2). With WiFi no longer managed by `systemd-networkd`, `wait-online` should no longer wait for `wlp11s0` during boot.
-
-> **TODO**: Verify on next reboot that the boot delay is gone.
+The WiFi section was removed from `/etc/netplan/*.yaml` as part of the NIC switchover work (Issue 2). With WiFi no longer managed by `systemd-networkd`, `wait-online` no longer waits for `wlp11s0` during boot. Boot delay confirmed resolved on next reboot.
 
 ---
 
