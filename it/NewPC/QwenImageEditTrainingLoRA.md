@@ -304,9 +304,17 @@ sudo kill -9 <PID>
 
 ### Create your training scripts
 
-Create one pair of scripts per LoRA. Replace `MY_LORA_NAME`, `MY_DATASET_PATH`, and `MY_LORA_RANK` with your values. Copy these commands from a file (not a rendered markdown block) to avoid line-break issues.
+Create one pair of scripts per LoRA. All three steps below must be run in the same terminal session in order. Replace `MY_LORA_NAME`, `MY_DATASET_PATH`, and `MY_LORA_RANK` with your values. Copy these commands from a file (not a rendered markdown block) to avoid line-break issues.
 
-**Stage 1 script** (run once per dataset — caches embeddings to disk):
+**Step 1 — Activate the environment and navigate to DiffSynth-Studio:**
+
+```bash
+source /home/steve/diffsynth-env/bin/activate   # skip if already activated in this shell
+mkdir -p /home/steve/DiffSynth-Studio/examples/qwen_image/model_training/lora
+cd /home/steve/DiffSynth-Studio
+```
+
+**Step 2 — Create the Stage 1 script** (run once per dataset — caches embeddings to disk):
 
 ```bash
 cat > /home/steve/DiffSynth-Studio/examples/qwen_image/model_training/lora/MY_LORA_NAME_stage1.sh << 'EOF'
@@ -317,7 +325,7 @@ accelerate launch --num_processes 2 --mixed_precision bf16 examples/qwen_image/m
 EOF
 ```
 
-**Stage 2 script** (trains the LoRA — run after Stage 1):
+**Step 3 — Create the Stage 2 script** (trains the LoRA — run after Stage 1):
 
 ```bash
 cat > /home/steve/DiffSynth-Studio/examples/qwen_image/model_training/lora/MY_LORA_NAME_stage2.sh << 'EOF'
