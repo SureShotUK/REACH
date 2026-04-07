@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-04-07
+
+### Added
+- **`Briefings/Canada_Oil_Briefing.md`** — 455-line, 15-section professional briefing on global oil markets and Canada's oil industry:
+  - Global oil at a glance: supply/demand/surplus table; IEA vs OPEC 2030 forecast divergence
+  - Top 10 producers, reserves, and consumers with verified volumes
+  - Canada economy: C$84bn direct GDP, C$208.2bn exports, 316k direct + 428k indirect jobs
+  - Production by province (Alberta 83.6%) and by extraction type (oil sands 59%)
+  - Oil sands vs conventional: SAGD and mining explained with cost/GHG comparison table
+  - WCS price discount history and TMX impact (C$13bn Year 1 uplift; discount below $10/bbl March 2025)
+  - Export markets: US 93.8%; Asia ~400 kb/d via TMX; China top Indo-Pacific buyer
+  - Global refining: 103.8 mb/d capacity; China overtook US 2023; product mix breakdown
+  - Canadian refining 20-year history: closures, Sturgeon 2017, 17 refineries at 90% utilisation
+  - Pipelines: Enbridge 3.1 MMb/d, TMX 890 kb/d, Keystone 640 kb/d; expansion and new proposals
+  - Environment & regulation: consumer carbon tax abolished March 2025; federal emissions cap 106–112 Mt by 2030
+  - Trump/US-Canada: 10% energy tariff; IEEPA struck down Feb 2026; energy now exempt; diversification response
+- **Memory system initialised**: `/home/steve/.claude/projects/-docs-terminai/memory/MEMORY.md` and `project_briefings.md` created
+
+### Changed
+- **`CLAUDE.md`** — Added `## Briefings` section with format standards (Portland Long.png header, HTML links, tables, sources) and 6-step briefing creation blueprint
+
+---
+
 ## [Unreleased] - 2026-04-06 (evening)
 
 ### Added

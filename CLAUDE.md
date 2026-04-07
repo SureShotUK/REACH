@@ -153,6 +153,41 @@ Each project may have its own additional commands in `<project>/.claude/commands
 ### Project-Specific Agents
 Each project has specialized agents in `<project>/.claude/agents/` that are specific to that project's domain.
 
+## Briefings
+
+Standalone intelligence/research briefing papers live in `/docs/terminai/Briefings/`. All future briefings must be created there.
+
+### Briefing Format Standards
+
+Every briefing must follow this structure and format:
+
+1. **Header image** — Always place the Portland Long logo at the very top, before any heading:
+   ```html
+   <img src="../Portland Long.png" alt="Alt Text" style="width:40%; height:auto;" align="right">
+   ```
+   *(The path uses `../` because briefings are one level below the root where the image lives.)*
+
+2. **Title and date** — `# Title: Strategic Briefing` followed by an italicised date line.
+
+3. **Horizontal rules** (`---`) between every major section.
+
+4. **Tables** for key statistics wherever possible (cleaner than prose lists).
+
+5. **Sources** — Every section that uses statistics or factual claims must end with a `Sources:` line using verified HTML anchor links with `target="_blank"`. No unverified links.
+
+6. **Closing sources note** — A final italicised `*Sources: ...*` line listing all major references.
+
+### Briefing Creation Blueprint (Process)
+
+When creating a new briefing:
+
+1. **Clarify before researching** — Ask the user: audience/purpose, depth required, any specific angle or concern, and whether any suggested additional sections make sense.
+2. **Agree the outline** — Confirm section headings with the user before writing content.
+3. **Research first** — Use WebSearch/WebFetch to gather current data; verify all statistics and URLs before inclusion.
+4. **Draft section by section** — Write each section, cite sources inline, verify every link with WebFetch.
+5. **Place in `/docs/terminai/Briefings/`** — Named `<Topic>_Briefing.md` (e.g. `Canada_Oil_Briefing.md`).
+6. **Update the Projects table** in this CLAUDE.md if the briefing introduces a new subject area.
+
 ## Important Notes
 
 - When working in a specific project folder, always refer to that project's CLAUDE.md for project-specific guidance

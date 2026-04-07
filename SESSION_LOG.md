@@ -4,6 +4,60 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-04-07
+
+### Summary
+Established the Briefings folder as the canonical location for standalone intelligence/research papers, documented the briefing creation process and format standards in CLAUDE.md, and produced `Canada_Oil_Briefing.md` — a 455-line, 15-section professional briefing covering global oil markets and Canada's oil industry in depth. The session also initialised the auto-memory system for the project.
+
+### Work Completed
+- **Formalised briefings process** — added a `## Briefings` section to root `CLAUDE.md` with format standards (Portland Long.png header, HTML anchor links, horizontal rules, tables) and a 6-step creation blueprint
+- **Initialised memory system** — created `/home/steve/.claude/projects/-docs-terminai/memory/MEMORY.md` index and `project_briefings.md` memory file recording the Briefings folder location and format requirements
+- **Created `Briefings/Canada_Oil_Briefing.md`** (455 lines, 15 sections) covering:
+  - Global oil at a glance: 106.3 mb/d supply, 103.7 mb/d demand, ~2.6 mb/d surplus; IEA vs OPEC forecast divergence (105.5 vs 113.3 mb/d by 2030)
+  - Top 10 producers (Wikipedia Nov 2025 crude data): US 13.8 mb/d → Kuwait 2.6 mb/d; Canada #4
+  - Top 10 proven reserves: Venezuela 304 bn bbl → Libya 50 bn bbl; Canada #4 at ~163–170 bn bbl
+  - Top 10 consumers: US 18.99 mb/d → Germany ~2.1 mb/d; Canada #9 at ~2.3 mb/d
+  - Canada economy overview: C$84bn direct GDP (3.7%), C$208.2bn energy exports (89% US), 316k direct jobs
+  - Production by province: Alberta 83.6% of 5.13 MMb/d; plus Saskatchewan 8.8%, NL 4.1%, BC 2.7%
+  - Oil sands vs conventional: SAGD in-situ vs surface mining explained; dilbit vs SCO; cost/GHG comparison table
+  - WCS price discount: historical differential table; Nov 2018 $50/bbl crisis; narrowed to <$10/bbl post-TMX; C$13bn Year 1 TMX uplift
+  - Export markets: 93.8% US; ~400 kb/d Asia via TMX; China C$5.9bn (May 2024–Sep 2025); strategic vulnerability
+  - Global refining: 103.8 mb/d total capacity; China overtook US in 2023; 5.8 mb/d new capacity to 2030; product mix
+  - Canadian refining history: closures 2005–2013; Sturgeon 2017; 17 refineries at 90% utilisation
+  - Canadian refining by product: diesel 37%, gasoline 36% (both 2024 records); east/west crude source split; 19.6 million m³ exports (+10.5%)
+  - Pipelines: Enbridge 3.1 MMb/d, TMX 890 kb/d, Keystone 640 kb/d; expansion plans; new post-Trump proposals
+  - Environment & regulation: consumer carbon tax abolished March 2025; industrial OBPS retained; federal emissions cap (106–112 Mt by 2030); Alberta challenge; Bill C-69
+  - Trump/US-Canada: 10% energy tariff Feb 2025; IEEPA struck down Feb 2026; Section 122 replacement exempts energy; industry diversification response
+
+### Files Changed
+- `CLAUDE.md` — Added `## Briefings` section with format standards and 6-step creation blueprint
+- `Briefings/Canada_Oil_Briefing.md` — New file created (455 lines); Portland Long.png logo at top; all links HTML `target="_blank"`; all source URLs verified
+- `/home/steve/.claude/projects/-docs-terminai/memory/MEMORY.md` — Created memory index
+- `/home/steve/.claude/projects/-docs-terminai/memory/project_briefings.md` — Created project memory for briefings location/format
+
+### Git Commits
+- *(no new commits — documentation pending this end-session commit)*
+
+### Key Decisions
+- **Briefings folder** (`/docs/terminai/Briefings/`) established as the canonical location for all standalone intelligence/research papers going forward
+- **Portland Long.png** must always appear at the top of every briefing (before the title), using `../Portland Long.png` relative path from the Briefings subfolder
+- **Audience** for Canada Oil Briefing: professional oil industry (investment/business + policy/geopolitical); professional tone, data-dense tables
+- **Three additional sections added** beyond user's original outline: WCS price discount, Export markets, Environment & regulation — all confirmed by user
+- **Trump section**: concise summary rather than deep-dive (user's choice); covers tariff timeline, Supreme Court ruling, current status, industry response
+- **Data basis clarified**: crude oil vs total liquids figures explained in Section 1 to avoid cross-source confusion
+
+### Reference Documents
+- `Briefings/Canada_Oil_Briefing.md` — New document created this session
+- Sources used: IEA (Oil 2025), EIA (STEO, Global Refining Outlook), CER (multiple market snapshots), CAPP, Statistics Canada, Natural Resources Canada, Alberta Central, Wikipedia (WCS, Oil Sands, Reserves, Producers, US-Canada Trade War), Government of Canada (Emissions Cap), Fasken LLP (IEEPA ruling)
+
+### Next Actions
+- [ ] Review Canada_Oil_Briefing.md and flag any statistics that need updating as the Iran conflict situation evolves (Iran is #7 producer, output disrupted)
+- [ ] Consider adding a sister briefing: Canada LNG / natural gas (LNG Canada Phase 1 milestone relevant)
+- [ ] Eastern Canada pipeline question is now strategically live — could become a dedicated briefing
+- [ ] Sync files to GitHub via `/sync-session`
+
+---
+
 ## Session 2026-04-06 (2)
 
 ### Summary

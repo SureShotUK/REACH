@@ -1,6 +1,6 @@
 # Project Status
 
-**Last Updated**: 2026-04-06 (evening)
+**Last Updated**: 2026-04-07
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
@@ -8,6 +8,13 @@
 The terminai repository contains seven specialized project folders, plus a new standalone Iran War Timeline document. A comprehensive 2026 Iran war chronological timeline (`Iran_War_Timeline.md`) has been created covering June 2025 through 25 March 2026, with ~80 sourced events, fact-checked against live source URLs.: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the Maintenance project (maintenance admin system for a UK manufacturing/engineering business). A new Portland Fuel internal briefing paper (`Epic_Fury.md`) has been produced covering Operation Epic Fury (joint US-Israeli strikes on Iran, 28 Feb 2026) and its global energy market implications, with full citations from EIA, IEA, CSIS, and live news sources.
 
 ## Active Work Areas
+- **Briefings Folder** — ESTABLISHED (2026-04-07)
+  - `/docs/terminai/Briefings/` — canonical location for all standalone intelligence/research papers
+  - Format standards and 6-step creation blueprint documented in root `CLAUDE.md`
+  - `Canada_Oil_Briefing.md` (455 lines, 15 sections) — created 2026-04-07; professional oil industry audience
+  - `Iran_Briefing.md` — created 2026-04-06; economy, oil/gas, refining, sanctions, nuclear, war impact
+  - `Hormuz_Strait.md` — created 2026-04-06; volumes, exporters, destinations, Europe exposure, bypass capacity
+
 - **Iran & Hormuz Briefing Documents**: CREATED (2026-04-06)
   - `Iran_Briefing.md` (93 lines) — two-page strategic overview: economy, oil/gas, refining, sanctions, allegiances, nuclear
   - `Hormuz_Strait.md` (129 lines) — two-page strategic overview: volumes by product, exporters, destinations, Europe's exposure by fuel type, pipeline bypass capacity
@@ -141,6 +148,14 @@ The terminai repository contains seven specialized project folders, plus a new s
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Canada_Oil_Briefing.md created** (2026-04-07):
+  - 455-line, 15-section briefing for professional oil industry audience
+  - Global stats: 106.3 mb/d supply, 103.7 mb/d demand, IEA/OPEC 2030 forecast divergence
+  - Canada: #4 producer (5.13 MMb/d), #4 reserves (163–170 bn bbl), C$208.2bn energy exports (89% US)
+  - Covers: global producers/reserves/consumers tables, oil sands vs conventional, WCS discount, TMX impact, export market shift, refining (global + Canadian 20-year), pipelines, environment/regulation, Trump tariff timeline
+  - IEEPA struck down Feb 2026; energy exports now tariff-free; industry accelerating Asian diversification
+  - All links verified; all sources cited; Portland Long.png header applied
+- **CLAUDE.md updated** (2026-04-07): Added `## Briefings` section with full format standards and 6-step creation blueprint
 - **Iran_Briefing.md & Hormuz_Strait.md created** (2026-04-06):
   - Two strategic briefing documents, ~2 pages each, all sources verified via WebFetch
   - Iran: economy ($376bn nominal GDP), oil/gas pre-war (3.3 mb/d, Kharg Island, South Pars), refining (Mahshahr 70% domestic gasoline), sanctions timeline, China/Russia allegiances, nuclear (408 kg at 60%)
