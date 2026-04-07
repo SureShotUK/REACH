@@ -34,7 +34,6 @@ Server (`amelai`) is fully operational. Both RTX 3090s now running at PCIe Gen 4
 
 ## Pending / Next Actions
 
-- [ ] **Verify on next reboot**: `/docs` NFS mount auto-mounts correctly
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
 - [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
 - [ ] Set static DHCP reservation on router for `192.168.1.192`
