@@ -2,6 +2,29 @@
 
 ---
 
+## [Unreleased] - 2026-04-08
+
+### Fixed
+- Boot failure caused by `pci=nomsi` in `GRUB_CMDLINE_LINUX_DEFAULT` — this parameter disables MSI for all PCIe devices including NVMe SSDs, causing NVMe controllers to fail and dropping the system to initramfs; recovered by editing GRUB at boot menu; `GRUB_CMDLINE_LINUX_DEFAULT` restored to empty
+
+### Documentation
+- `Linux_Troubleshooting.md` — Issue 5 Performance Impact section rewritten to describe correct idle/load PCIe link behaviour (Gen 1 at idle via ASPM is normal, Gen 4 under load confirmed)
+- `Linux_Troubleshooting.md` — WARNING section added: `pci=nomsi` must not be added to GRUB; documents symptoms and recovery procedure
+- `Linux_Troubleshooting.md` — Status line, reference table, and verification checklist updated to reflect idle/load behaviour
+
+---
+
+## [Unreleased] - 2026-04-07
+
+### Fixed
+- RTX 3090 PCIe Gen 1 fallback — both GPUs now running at Gen 4 (16GT/s); root cause was `pcie_aspm=off` kernel parameter blocking PCIe link equalization during link training; removed from `GRUB_CMDLINE_LINUX_DEFAULT`; BIOS CPU PCIE ASPM Mode Control restored to Auto
+
+### Documentation
+- `Linux_Troubleshooting.md` — Issue 5 fully updated: status changed to RESOLVED, root cause explained, fix procedure documented, troubleshooting log completed with final step result, verification checklist updated
+- `ASUS_PCIe_Support_Case.md` — created during investigation (no longer needed for submission as issue resolved)
+
+---
+
 ## [Unreleased] - 2026-04-06 (2)
 
 ### Fixed

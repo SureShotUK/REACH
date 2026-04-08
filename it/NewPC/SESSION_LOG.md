@@ -2,6 +2,78 @@
 
 ---
 
+## Session 2026-04-08
+
+### Summary
+Recovered from a boot failure caused by `pci=nomsi` being applied to GRUB (following suggestions from an old troubleshooting log). Discovered that the GPU PCIe link showing Gen 1 at idle is expected ASPM power-management behaviour — the GPUs ramp to Gen 4 under load. Issue 5 is confirmed fully resolved. Linux_Troubleshooting.md updated to document the idle/load behaviour and add a clear warning against `pci=nomsi`.
+
+### Work Completed
+- Diagnosed boot failure: `pci=nomsi` in `GRUB_CMDLINE_LINUX_DEFAULT` disabled MSI for all PCIe devices including NVMe SSDs; NVMe controllers timed out and dropped to initramfs shell
+- Recovered system by editing GRUB at boot menu (held SHIFT, pressed `e`, removed `pci=nomsi` from `linux` line)
+- Confirmed GRUB back to `=""` and BIOS ASPM at Auto (both already correct)
+- Attempted cold power cycle — GPUs still showing 2.5GT/s at idle
+- Identified correct explanation: ASPM power management drops PCIe link to Gen 1 when GPUs are idle; this is normal behaviour, not a fault
+- User confirmed Gen 4 (16GT/s) on both cards by checking `lspci` and `nvidia-smi` while a GPU workload was running
+- Updated `Linux_Troubleshooting.md`: status line, Performance Impact section rewritten to describe idle/load behaviour, reference table corrected, verification checklist updated, WARNING section added for `pci=nomsi`
+
+### Files Changed
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 5 status updated; Performance Impact section rewritten; reference table corrected; verification checklist updated; WARNING section added documenting `pci=nomsi` boot failure and recovery
+
+### Git Commits
+- No commits from prior sessions relevant to this session's work — changes committed at end of session
+
+### Key Decisions
+- **`pci=nomsi` must never be added** — breaks NVMe boot devices; recovery requires GRUB menu edit
+- **Gen 1 at idle is correct** — ASPM idle power management; verify Gen 4 only under active GPU load, not at idle
+- **GPU Link Speed Output.txt is obsolete** — was from the pre-fix troubleshooting session; the parameters discussed there are no longer relevant and should not be applied
+
+### Reference Documents
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 5 (updated with idle/load behaviour clarification and pci=nomsi warning)
+- `it/NewPC/GPU Link Speed Output.txt` — old troubleshooting log (now superseded; caused this session's incident)
+
+### Next Actions
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai (carried over)
+- [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
+
+---
+
+## Session 2026-04-07
+
+### Summary
+Investigated and resolved the dual RTX 3090 PCIe Gen 1 fallback issue on amelai. After exhaustive testing of BIOS settings, BIOS update (2102→2103), GPU reseating, NVLink removal, and single-GPU isolation — the fix turned out to be removing the `pcie_aspm=off` kernel parameter from GRUB and restoring BIOS ASPM to Auto. Both GPUs now running at PCIe Gen 4 (16GT/s). The parameter had been added months earlier to address the Intel igc NIC crashes, but with igc now blacklisted it was safe to remove — and it had been silently blocking PCIe link equalization the entire time.
+
+### Work Completed
+- Pulled latest files from GitHub at session start
+- Verified all BIOS settings on 2103: CSM, Above 4G Decoding, ReBAR, SR-IOV, ASPM, Bifurcation, PCIe Link Speed all confirmed/configured
+- Identified via `sudo lspci -vvv | grep -E "PCI bridge|LnkSta"` that CPU root ports `00:01.1` and `00:01.3` are stuck at 2.5GT/s while `00:01.2` (NVMe) runs at 32GT/s — problem is in the root ports, not the GPU cards
+- Confirmed `nvidia-smi --query-gpu=pcie.link.gen.current,...`: Gen 1 current, Gen 4 max on both GPUs
+- Updated BIOS from 2102 to 2103 via EZ Flash (required both `.CAP` and `.CFG` files on FAT32 USB) — no change
+- Physically reseated both GPUs, removed NVLink bridge — no change
+- Tested single GPU only in PCIEX16_1 — still Gen 1; dual-GPU configuration not the cause
+- Set CPU PCIE ASPM Mode Control to Disabled in BIOS — no change
+- Removed `pcie_aspm=off` from `GRUB_CMDLINE_LINUX_DEFAULT` (safe: igc is blacklisted) and restored BIOS ASPM to Auto — no change to link speed; fixed nvidia-smi width reporting (was showing 1, now correctly shows 8/16)
+- Updated `Linux_Troubleshooting.md` — Issue 5 fully rewritten with confirmed diagnosis, complete troubleshooting log table, corrected PCIe speed table, updated BIOS settings table, updated checklist
+- Created `ASUS_PCIe_Support_Case.md` — formatted support document with system spec, all diagnostic outputs, chronological step log, and elimination summary table
+
+### Files Changed
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 5 comprehensively rewritten (confirmed BIOS/AGESA bug, full troubleshooting log, corrected PCIe speed table)
+- `it/NewPC/ASUS_PCIe_Support_Case.md` — new document created for ASUS technical support
+
+### Key Decisions
+- **`pcie_aspm=off` removed from GRUB** — no longer needed (igc blacklisted); was interfering with nvidia-smi link width reporting
+- **Confirmed BIOS/AGESA bug** — not a physical, BIOS setting, or OS configuration issue; awaiting future ASUS BIOS fix
+- **Performance impact is nil** — AI inference is entirely on-GPU; PCIe speed only affects model load time from RAM to VRAM
+
+### Reference Documents
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 5 (updated)
+- `it/NewPC/ASUS_PCIe_Support_Case.md` — new ASUS support case document
+
+### Next Actions
+- [ ] Verify 90-second boot delay (WiFi `wlp11s0`) still resolved — pending from last session
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai
+
+---
+
 ## Session 2026-04-06 (2)
 
 ### Summary

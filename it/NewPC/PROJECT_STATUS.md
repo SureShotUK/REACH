@@ -1,12 +1,12 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-04-06
+**Last Updated**: 2026-04-08
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. Primary network connection switched to Aquantia AQC113 10GbE NIC (`ethernet2_5g`, 192.168.1.192) after the Intel igc NIC crashed a second time — `pcie_aspm=off` proved insufficient; igc driver now blacklisted. Timezone corrected to Europe/London. NFS mount, ComfyUI, and all services running normally.
+Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16GT/s) under load — ASPM drops link to Gen 1 at idle, which is normal power-management behaviour. `GRUB_CMDLINE_LINUX_DEFAULT` is empty. All services running normally.
 
 ## Service Status
 
@@ -25,20 +25,19 @@ Server (`amelai`) is fully operational. Primary network connection switched to A
 
 ## Recently Completed
 
+- **Confirmed PCIe Gen 4 under load** — Gen 1 at idle is normal ASPM idle power management; verified Gen 4 (16GT/s) on both GPUs during active workload
+- **Recovered from `pci=nomsi` boot failure** — parameter disables MSI for NVMe controllers, preventing boot; system restored and GRUB left empty
+- **Fixed PCIe Gen 1 fallback** — both RTX 3090s now at Gen 4 (16GT/s); root cause was `pcie_aspm=off` blocking PCIe link equalization
+- Removed `pcie_aspm=off` kernel parameter — was blocking Gen 4 link training; safe to remove as igc is blacklisted
+- Updated BIOS to 2103 (from 2102) — no change to PCIe Gen issue
 - Switched primary NIC to Aquantia AQC113 10GbE — Intel igc I226-V blacklisted after second PCIe crash
-- Fixed system timezone to `Europe/London` (was UTC, causing log timestamps to show 1hr early)
-- Removed broken WiFi section from netplan (no password set was causing `netplan apply` errors)
+- Fixed system timezone to `Europe/London`
 - Mounted Synology DS920+ `MyDocs` share permanently at `/docs` via NFS
-- Fixed Qwen-Rapid-AIO OOM error — `--reserve-vram 3` added to ComfyUI CLI_ARGS
-- Fixed ComfyUI Tailscale access — loopback port typo corrected (`8189`→`18189` in docker run)
 
 ## Pending / Next Actions
 
-- [ ] **Verify on next reboot**: 90-second boot delay (WiFi `wlp11s0`) resolved — if not, run `sudo systemctl mask systemd-networkd-wait-online.service`
-- [ ] **Verify on next reboot**: `/docs` NFS mount auto-mounts correctly
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
 - [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
-- [ ] Verify FileBrowser shows `comfyui-input/` with Qwen-generated images
 - [ ] Set static DHCP reservation on router for `192.168.1.192`
 - [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
 - [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)

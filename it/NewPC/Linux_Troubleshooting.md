@@ -478,11 +478,9 @@ The WiFi interface was previously configured in `/etc/netplan/*.yaml`, causing `
 
 ---
 
-### Fix Applied (2026-04-06) — Pending Verification on Next Boot
+### Fix Applied (2026-04-06) — Verified (2026-04-07)
 
-The WiFi section was removed from `/etc/netplan/*.yaml` as part of the NIC switchover work (Issue 2). With WiFi no longer managed by `systemd-networkd`, `wait-online` should no longer wait for `wlp11s0` during boot.
-
-> **TODO**: Verify on next reboot that the boot delay is gone.
+The WiFi section was removed from `/etc/netplan/*.yaml` as part of the NIC switchover work (Issue 2). With WiFi no longer managed by `systemd-networkd`, `wait-online` no longer waits for `wlp11s0` during boot. Boot delay confirmed resolved on next reboot.
 
 ---
 
@@ -500,166 +498,196 @@ This tells systemd to skip waiting for network interfaces to come online during 
 
 ## Issue 5: ASUS Dual GPU PCIe Link Speed — RTX 3090s Run at 2.5GT/s (downgraded)
 
-**Issue**: RTX 3090 GPUs show `LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)` instead of expected 16GT/s at PCIe 4.0.
+**Status (2026-04-08): RESOLVED** — Root cause was the `pcie_aspm=off` kernel parameter preventing PCIe link equalization from completing. Removed from GRUB and BIOS ASPM restored to Auto. Both GPUs run at Gen 4 (16GT/s) under load and drop to Gen 1 (2.5GT/s) at idle — this is normal ASPM power management behaviour, not a fault.
+
+**Issue**: Both RTX 3090 GPUs were stuck at PCIe Gen 1 (2.5GT/s) despite being Gen 4 capable.
+
+---
 
 ### Symptoms
 
 ```bash
-sudo lspci -vv | grep -E "VGA|LnkSta" | grep -A1 "VGA\|3D"
-
-# Current problematic output:
-01:00.0 VGA compatible controller: NVIDIA Corporation GA102 [GeForce RTX 3090]
-                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
-03:00.0 VGA compatible controller: NVIDIA Corporation GA102 [GeForce RTX 3090]
-                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
-
-# Expected output (after fix):
-LnkSta: Speed 16GT/s, Width x8
+# GPU diagnostic commands
+sudo lspci -vvv -s 01:00.0 | grep -E "LnkSta|LnkCap"
+sudo lspci -vvv -s 03:00.0 | grep -E "LnkSta|LnkCap"
+nvidia-smi --query-gpu=pcie.link.gen.current,pcie.link.gen.max,pcie.link.width.current --format=csv
 ```
 
-### Root Cause Analysis
+**Problematic output:**
+```
+LnkCap: Port #0, Speed 16GT/s, Width x16   ← GPU capable of Gen 4
+LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)   ← Actually running at Gen 1
 
-Both GPUs are connected directly to CPU PCIe lanes:
-- **GPU 1**: bus `01:00.0` via CPU port `01.1` (PCIe 5.0)
-- **GPU 2**: bus `03:00.0` via CPU port `01.3` (PCIe 5.0)
+pcie.link.gen.current, pcie.link.gen.max, pcie.link.width.current
+1, 4, 8   ← Gen 1 current, Gen 4 max
+```
 
-The `(downgraded)` flag indicates link training couldn't negotiate PCIe 4.0 speeds, falling back to PCIe 3.0 (2.5GT/s). Since **both** GPUs show identical behavior, the cause is likely:
+**Resolved output:**
+```
+LnkCap: Port #0, Speed 16GT/s, Width x16
+LnkSta: Speed 16GT/s, Width x8 (downgraded)
 
-1. **BIOS PCIe Gen mode setting** — Set to "Gen3 Auto" instead of "Gen4 Auto/Gen4"
-2. **Physical contact issue** — GPU connectors need reseating
-3. **Motherboard CPU socket contact** — Affects PCIe lane training (less common)
+pcie.link.gen.current, pcie.link.gen.max, pcie.link.width.current
+4, 4, 8
+```
+
+Note: `Width x8 (downgraded)` is correct and expected — both GPUs share the CPU's PCIe lanes, so x8 each is normal.
+
+---
+
+### Root Cause
+
+The CPU PCIe root ports that feed the two GPU slots are themselves initialising at Gen 1 and not responding to BIOS Gen 4 settings:
+
+```bash
+sudo lspci -vvv | grep -E "PCI bridge|LnkSta" | head -40
+```
+
+| CPU Root Port | Speed | Device |
+|---|---|---|
+| `00:01.1` | **2.5GT/s** | GPU 1 slot — stuck at Gen 1 |
+| `00:01.2` | 32GT/s | NVMe slot — working correctly at Gen 5 |
+| `00:01.3` | **2.5GT/s** | GPU 2 slot — stuck at Gen 1 |
+| `00:02.1` | 16GT/s | Other devices — working at Gen 4 |
+
+Gen 5 and Gen 4 work correctly on other CPU root ports. Only `00:01.1` and `00:01.3` (the GPU slots) are stuck at Gen 1. This is not a hardware fault with the GPUs — it is a BIOS/AGESA firmware bug where those specific root ports are not being initialised at the correct speed.
+
+---
 
 ### Diagnostic Commands
 
-#### Check negotiated speed vs capability
 ```bash
+# GPU link capability and current status
 sudo lspci -vvv -s 01:00.0 | grep -E "LnkSta|LnkCap"
 sudo lspci -vvv -s 03:00.0 | grep -E "LnkSta|LnkCap"
-```
 
-**Expected LnkCap**: `Speed 16GT/s, Width x16` (both GPUs support PCIe 4.0)
-**Current LnkSta**: `Speed 2.5GT/s, Width x8` (negotiated at Gen3 fallback)
+# nvidia-smi confirmation
+nvidia-smi --query-gpu=pcie.link.gen.current,pcie.link.gen.max,pcie.link.width.current --format=csv
 
-#### Verify BIOS version
-```bash
+# CPU root port speeds (the definitive diagnostic)
+sudo lspci -vvv | grep -E "PCI bridge|LnkSta" | head -40
+
+# Confirm BIOS version
 sudo dmidecode -t bios | grep -i version
+
+# Confirm kernel boot parameters
+cat /proc/cmdline
 ```
 
-Your system should be on BIOS **2102 (Beta)** or stable release which supports PCIe 4.0.
+---
 
-### Fix Procedure
+### BIOS Settings (Confirmed Correct — Not the Cause)
 
-#### Prerequisites
-- Physical access to amelai
-- SSH session active (to run diagnostics before/after)
-- Tailscale connected (for remote access after reboot)
+All relevant BIOS settings have been verified correct on BIOS 2103:
 
-#### Step 1: Power down and drain residual power
-```bash
-sudo shutdown -h now
-```
+| Setting | Path | Value | Status |
+|---|---|---|---|
+| Launch CSM | Boot > CSM | Disabled | Confirmed correct |
+| Above 4G Decoding | Advanced > PCI Subsystem Settings | Enabled | Confirmed correct |
+| Re-size BAR Support | Advanced > PCI Subsystem Settings | Enabled | Confirmed correct |
+| SR-IOV Support | Advanced > PCI Subsystem Settings | Disabled | Correct — not needed |
+| CPU PCIE ASPM Mode Control | Advanced > Onboard Devices Configuration | Auto | Tested both Auto and Disabled — no effect |
+| PCIEX16_1 Bandwidth Bifurcation | Advanced > Onboard Devices Configuration | Auto | No effect |
+| PCIEX16_2 Bandwidth Bifurcation | Advanced > Onboard Devices Configuration | Auto | No effect |
+| PCIEX16_1 Link Mode | Advanced > PCIE Link Speed | Gen 4 | Set — no effect |
+| PCIEX16_2 Link Mode | Advanced > PCIE Link Speed | Gen 4 | Set — no effect |
+| PCIEX16(4) Link Mode | Advanced > PCIE Link Speed | Gen 4 | Set — no effect |
 
-Wait for complete power-down, then proceed physically:
+---
 
-1. **Unplug amelai from mains**
-2. **Hold power button 10-15 seconds** (drains capacitors)
-3. **Open case and reseat both GPUs**:
-   - Release PCIe clips at rear of each card
-   - Pull straight up to remove GPU
-   - Inspect slot for dust/debris (use compressed air if needed)
-   - Reinsert firmly until clips click audibly
-   - Verify auxiliary power cables fully seated
+### Full Troubleshooting Log (2026-04-07)
 
-#### Step 2: Enter BIOS before OS boots
+| Step | Action | Result |
+|---|---|---|
+| 1 | Verified all BIOS settings (Above 4G, ReBAR, CSM, Gen 4) | Settings correct — no change to link speed |
+| 2 | Set PCIEX16_1 and PCIEX16_2 Link Mode to Gen 4 in BIOS | CPU root ports still at 2.5GT/s |
+| 3 | Updated BIOS from 2102 to 2103 | No change |
+| 4 | Physically reseated both GPUs, removed NVLink bridge | No change |
+| 5 | Tested with single GPU only (PCIEX16_1 alone) | Still 2.5GT/s — not a dual-GPU issue |
+| 6 | Set CPU PCIE ASPM Mode Control to Disabled in BIOS | No change |
+| 7 | Removed `pcie_aspm=off` kernel parameter from GRUB | **Both GPUs jumped to Gen 4 (16GT/s) — FIXED** |
+| 8 | Restored ASPM to Auto in BIOS | Gen 4 confirmed stable |
 
-After reseating, boot and immediately tap **Delete** repeatedly.
+**Root cause**: `pcie_aspm=off` was preventing PCIe link equalization from completing. PCIe Gen 3 and above require signal equalization during link training — with ASPM disabled kernel-wide, those state transitions were blocked and the link fell back to Gen 1 (which does not require equalization). Once the igc NIC was blacklisted, `pcie_aspm=off` was no longer needed and safe to remove.
 
-##### BIOS Settings to Check
+---
 
-| Setting | Path | Value | Reason |
-|---------|------|-------|--------|
-| CSM (Compatibility Support Module) | Boot > CSM | **Disabled** | Required for Resizable BAR and proper PCIe training |
-| Above 4G Decoding | Advanced > PCI Subsystem Settings | **Enabled** | Critical for dual GPU — addresses memory-mapped IO for large VRAM cards |
-| Resizable BAR | Advanced > PCI Subsystem Settings > Re-size BAR Support | **Enabled** | NVIDIA GPUs benefit from this; helps with PCIe configuration |
+### Current Kernel Boot Parameters
 
-##### Look for PCIe Gen Mode Setting
+`pcie_aspm=off` has been **removed** from `/etc/default/grub` as it is no longer needed (Intel igc NIC is blacklisted — see Issue 2) and was interfering with nvidia-smi link width reporting. Current `GRUB_CMDLINE_LINUX_DEFAULT` is empty.
 
-This may be in one of these locations:
-- **Advanced → PCI Subsystem Settings → PCIe Link Speed**
-- **Ai Tweaker → Extreme Tweaker → PCIe Configuration**
-- **Ai Overclock Tuner settings** during boot
+---
 
-If set to **"Auto"**, **"Gen3 Auto"**, or similar, change it to:
-- **"Gen4"** (manual override) or
-- **"Gen4 Auto"** (if available)
+### WARNING: Do Not Add `pci=nomsi` (2026-04-08 Incident)
 
-Save changes and exit BIOS (typically F10).
+Applying `pci=nomsi` to `GRUB_CMDLINE_LINUX_DEFAULT` will **prevent the system from booting**. This parameter disables MSI (Message Signaled Interrupts) for all PCIe devices system-wide, including the NVMe SSDs. Without MSI, the NVMe controllers fail to initialise and the root filesystem cannot be mounted.
 
-#### Step 3: Verify fix after OS boots
+**Symptoms**: Boot hangs with `nvme: I/O timeout, disable controller` and `Identify Controller failed` errors, then drops to an initramfs shell with `No devices listed in conf file were found`.
 
-Once Ubuntu is running and Tailscale connection is active:
+**Recovery**: At the GRUB menu (hold SHIFT on reboot), press `e` to edit the boot entry, remove `pci=nomsi` from the `linux` line, then press Ctrl+X to boot. Once booted, permanently remove it from `/etc/default/grub` and run `sudo update-grub`.
 
-```bash
-# Check link status for both GPUs
-sudo lspci -vvv -s 01:00.0 | grep -E "LnkSta|LnkCap"
-sudo lspci -vvv -s 03:00.0 | grep -E "LnkSta|LnkCap"
-```
+The parameters `nvidia_aspm=0`, `pcie_ports=native`, and `pcie_ports=compat` are also **not needed** and should not be added — the system operates correctly with an empty `GRUB_CMDLINE_LINUX_DEFAULT`.
 
-**Expected output after successful fix:**
-```
-LnkCap: Port #0, Speed 16GT/s, Width x16
-LnkSta: Speed 16GT/s, Width x8
-```
-
-Note: Width x8 is correct for your setup (both GPUs sharing x16 lanes equally). The key is Speed 16GT/s instead of 2.5GT/s.
-
-#### Step 4: Optional — Force PCIe rescan (if speed unchanged)
-```bash
-echo 1 | sudo tee /sys/bus/pci/rescan_bus
-nvidia-smi -q | grep "Link"
-```
-
-This attempts to re-enumerate PCIe buses without rebooting. Sometimes helps if the issue is a firmware initialization glitch.
+---
 
 ### Performance Impact
 
-**For AI inference workloads**: This downgrade **does not affect performance**. The RTX 3090s operate independently with their own VRAM pools. The PCIe link speed only impacts:
-- Model loading from system RAM to GPU VRAM (slower with Gen3)
-- Small parameter updates during training
-- CPU-initiated operations
+**For AI inference workloads**: Both GPUs run at Gen 4 (16GT/s) during active workloads. PCIe link speed only affects CPU↔GPU data transfers (model loading, memory transfers) — once a model is loaded into VRAM, inference runs entirely on the GPU and is not affected by PCIe link speed.
 
-**For dual-GPU model splitting** (tensor parallel): NVLink handles inter-GPU communication regardless of PCIe link speed, so even if running split models across both GPUs, inference performance remains unaffected.
+**ASPM idle behaviour (expected)**: When the GPUs are idle, ASPM drops the PCIe link to Gen 1 (2.5GT/s) to save power. `lspci` and `nvidia-smi` checks taken at idle will show `Speed 2.5GT/s (downgraded)` and `pcie.link.gen.current = 1` — this is correct, not a fault. The link ramps back to Gen 4 automatically when the GPU becomes active.
 
-### Additional Notes
+**To verify Gen 4 is working**: Check link speed while a workload is running (e.g. Ollama inference, ComfyUI generation):
+```bash
+watch -n 0.5 'nvidia-smi --query-gpu=pcie.link.gen.current,pcie.link.gen.max,pcie.link.width.current --format=csv'
+```
+Expected under load: `4, 4, 8` for both GPUs.
 
-#### BIOS 2102 Beta Information
+**For dual-GPU model splitting** (tensor parallel): NVLink handles inter-GPU communication regardless of PCIe link speed, so inference across both GPUs is completely unaffected.
 
-Your system is currently on **BIOS 2102 (Beta)** which should support PCIe 4.0 correctly:
-- Version specifically adds DDR5 stability improvements
-- Covers all security patches including CVE-2025-2884
-- Cannot rollback to versions prior to 1804 due to PSP firmware
+---
 
-If the Gen4 setting doesn't resolve the issue, consider updating to the next stable release from ASUS when available.
+### Reference: PCIe Speed Equivalents
 
-#### Reference: PCIe Speed Equivalents
+| LnkSta Speed | PCIe Generation | Bandwidth (x8) |
+|---|---|---|
+| 2.5 GT/s | **Gen 1** | ~2 GB/s — idle/ASPM power-save state (normal) |
+| 5.0 GT/s | Gen 2 | ~4 GB/s |
+| 8.0 GT/s | Gen 3 | ~8 GB/s |
+| **16.0 GT/s** | **Gen 4** | **~16 GB/s — expected** |
+| 32.0 GT/s | Gen 5 | ~32 GB/s |
 
-| LnkSta Speed | PCIe Generation | Notes |
-|--------------|-----------------|-------|
-| 2.5 GT/s | Gen 3 (x1 = 250 MB/s) | Current fallback state |
-| 5.0 GT/s | Gen 4 (x1 = 500 MB/s) | - |
-| 8.0 GT/s | Gen 5 (x1 = 800 MB/s) | - |
-| **16.0 GT/s** | **Gen 5 (x1 = 1.6 GB/s)** | **Expected for X870E + Ryzen 7900X** |
+The RTX 3090 is a PCIe 4.0 device — it should negotiate at 16GT/s. The X870E motherboard slots support PCIe 5.0 but the GPU caps negotiation at Gen 4 (its maximum).
 
-Wait — your RTX 3090s are PCIe 4.0 devices, so they should negotiate at **16GT/s** even though your motherboard slots support up to PCIe 5.0 (32GT/s).
+---
+
+### Fix Summary
+
+**The fix**: Remove `pcie_aspm=off` from `/etc/default/grub` and set BIOS CPU PCIE ASPM Mode Control to Auto.
+
+```bash
+sudo nano /etc/default/grub
+# Change: GRUB_CMDLINE_LINUX_DEFAULT="pcie_aspm=off"
+# To:     GRUB_CMDLINE_LINUX_DEFAULT=""
+sudo update-grub
+sudo reboot
+```
+
+In BIOS: Advanced > Onboard Devices Configuration > CPU PCIE ASPM Mode Control → **Auto**
+
+**Why `pcie_aspm=off` was originally added**: To prevent the Intel igc NIC from crashing (Issue 2). Now that the igc driver is blacklisted, it is safe to remove.
+
+**Why it caused Gen 1 fallback**: PCIe Gen 3+ link training requires signal equalization. With `pcie_aspm=off` blocking ASPM state transitions kernel-wide, the equalization process could not complete and the link fell back to Gen 1 — the only PCIe generation that does not require equalization.
 
 ### Verification Checklist
 
-- [ ] Both GPUs reseated firmly
-- [ ] BIOS CSM disabled
-- [ ] Above 4G Decoding enabled
-- [ ] Resizable BAR enabled
-- [ ] PCIe Link Speed set to Gen4
-- [ ] Reboot completed after BIOS changes
-- [ ] `LnkSta` shows 16GT/s for both cards
+- [x] Both GPUs reseated firmly
+- [x] BIOS CSM disabled
+- [x] Above 4G Decoding enabled
+- [x] Resizable BAR enabled
+- [x] PCIe Link Speed set to Gen 4 in BIOS
+- [x] BIOS updated to 2103
+- [x] `pcie_aspm=off` removed from GRUB
+- [x] BIOS CPU PCIE ASPM Mode Control set to Auto
+- [x] `LnkSta` shows 16GT/s for both cards under load ✓ (2.5GT/s at idle is normal ASPM behaviour)
 
 ---
