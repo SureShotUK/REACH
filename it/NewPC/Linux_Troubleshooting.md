@@ -498,7 +498,7 @@ This tells systemd to skip waiting for network interfaces to come online during 
 
 ## Issue 5: ASUS Dual GPU PCIe Link Speed — RTX 3090s Run at 2.5GT/s (downgraded)
 
-**Status (2026-04-07): RESOLVED** — Root cause was the `pcie_aspm=off` kernel parameter preventing PCIe link equalization from completing. Removed from GRUB and BIOS ASPM restored to Auto. Both GPUs now running at Gen 4 (16GT/s).
+**Status (2026-04-08): RESOLVED** — Root cause was the `pcie_aspm=off` kernel parameter preventing PCIe link equalization from completing. Removed from GRUB and BIOS ASPM restored to Auto. Both GPUs run at Gen 4 (16GT/s) under load and drop to Gen 1 (2.5GT/s) at idle — this is normal ASPM power management behaviour, not a fault.
 
 **Issue**: Both RTX 3090 GPUs were stuck at PCIe Gen 1 (2.5GT/s) despite being Gen 4 capable.
 
@@ -618,12 +618,29 @@ All relevant BIOS settings have been verified correct on BIOS 2103:
 
 ---
 
+### WARNING: Do Not Add `pci=nomsi` (2026-04-08 Incident)
+
+Applying `pci=nomsi` to `GRUB_CMDLINE_LINUX_DEFAULT` will **prevent the system from booting**. This parameter disables MSI (Message Signaled Interrupts) for all PCIe devices system-wide, including the NVMe SSDs. Without MSI, the NVMe controllers fail to initialise and the root filesystem cannot be mounted.
+
+**Symptoms**: Boot hangs with `nvme: I/O timeout, disable controller` and `Identify Controller failed` errors, then drops to an initramfs shell with `No devices listed in conf file were found`.
+
+**Recovery**: At the GRUB menu (hold SHIFT on reboot), press `e` to edit the boot entry, remove `pci=nomsi` from the `linux` line, then press Ctrl+X to boot. Once booted, permanently remove it from `/etc/default/grub` and run `sudo update-grub`.
+
+The parameters `nvidia_aspm=0`, `pcie_ports=native`, and `pcie_ports=compat` are also **not needed** and should not be added — the system operates correctly with an empty `GRUB_CMDLINE_LINUX_DEFAULT`.
+
+---
+
 ### Performance Impact
 
-**For AI inference workloads**: This downgrade **does not affect performance**. The RTX 3090s operate independently with their own VRAM pools. The PCIe link speed only impacts:
-- Model loading from system RAM to GPU VRAM (slightly slower at Gen 1)
-- Small parameter updates during training
-- CPU-initiated memory transfers
+**For AI inference workloads**: Both GPUs run at Gen 4 (16GT/s) during active workloads. PCIe link speed only affects CPU↔GPU data transfers (model loading, memory transfers) — once a model is loaded into VRAM, inference runs entirely on the GPU and is not affected by PCIe link speed.
+
+**ASPM idle behaviour (expected)**: When the GPUs are idle, ASPM drops the PCIe link to Gen 1 (2.5GT/s) to save power. `lspci` and `nvidia-smi` checks taken at idle will show `Speed 2.5GT/s (downgraded)` and `pcie.link.gen.current = 1` — this is correct, not a fault. The link ramps back to Gen 4 automatically when the GPU becomes active.
+
+**To verify Gen 4 is working**: Check link speed while a workload is running (e.g. Ollama inference, ComfyUI generation):
+```bash
+watch -n 0.5 'nvidia-smi --query-gpu=pcie.link.gen.current,pcie.link.gen.max,pcie.link.width.current --format=csv'
+```
+Expected under load: `4, 4, 8` for both GPUs.
 
 **For dual-GPU model splitting** (tensor parallel): NVLink handles inter-GPU communication regardless of PCIe link speed, so inference across both GPUs is completely unaffected.
 
@@ -633,7 +650,7 @@ All relevant BIOS settings have been verified correct on BIOS 2103:
 
 | LnkSta Speed | PCIe Generation | Bandwidth (x8) |
 |---|---|---|
-| 2.5 GT/s | **Gen 1** | ~2 GB/s — current state |
+| 2.5 GT/s | **Gen 1** | ~2 GB/s — idle/ASPM power-save state (normal) |
 | 5.0 GT/s | Gen 2 | ~4 GB/s |
 | 8.0 GT/s | Gen 3 | ~8 GB/s |
 | **16.0 GT/s** | **Gen 4** | **~16 GB/s — expected** |
@@ -671,6 +688,6 @@ In BIOS: Advanced > Onboard Devices Configuration > CPU PCIE ASPM Mode Control �
 - [x] BIOS updated to 2103
 - [x] `pcie_aspm=off` removed from GRUB
 - [x] BIOS CPU PCIE ASPM Mode Control set to Auto
-- [x] `LnkSta` shows 16GT/s for both cards ✓
+- [x] `LnkSta` shows 16GT/s for both cards under load ✓ (2.5GT/s at idle is normal ASPM behaviour)
 
 ---

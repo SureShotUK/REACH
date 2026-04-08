@@ -1,0 +1,202 @@
+Expected output for both GPUs: LnkSta: Speed 16GT/s
+
+❯ steve@amelai:~$ sudo lspci -vvv -s 01:00.0 | grep LnkSta
+[sudo] password for steve:
+M!Sorry, try again.
+[sudo] password for steve:
+                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+ EqualizationPhase1+
+steve@amelai:~$ sudo lspci -vvv -s 03:00.0 | grep LnkSta
+                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+ EqualizationPhase1+
+steve@amelai:~$ nvidia-smi --query-gpu=pcie.link.gen.current --format=csv
+pcie.link.gen.current
+1
+
+
+● I see the same 2.5GT/s result. The EqualizationComplete+ confirms the link CAN train properly at Gen 4 — something after boot is downgrading it.
+
+  Since you're on Windows terminal, let me give you a quick diagnostic: What happens when you run this?
+
+  sudo dmesg | grep -i "pcie.*link\|retrain"
+
+  This will show if there's any kernel-level PCIe link event happening that we can identify.
+
+  ---
+  In the meantime, here are the two most likely causes:
+
+  1. AMD chipset power management (most likely) — The X870E chipset is forcing downgrades during idle periods
+  2. NVIDIA driver ASPM — The nvidia kernel module managing PCIe power states independently of BIOS settings
+
+  ---
+  Try this quick test that might fix it immediately:
+
+  # Add NVIDIA ASPM disable flag
+  sudo nano /etc/default/grub
+  # Change line to: GRUB_CMDLINE_LINUX_DEFAULT="nvidia_aspm=0"
+  sudo update-grub
+  sudo reboot
+
+  This tells NVIDIA's driver to stop managing PCIe power states, which can trigger the downgrades.
+
+✻ Brewed for 44s
+
+❯ steve@amelai:~$ sudo dmesg | grep -i "pcie.*link\|retrain"
+[    0.656225] pci 0000:01:00.0: 126.024 Gb/s available PCIe bandwidth, limited by 16.0 GT/s PCIe x8 link at 0000:00:01.1 (capable of 252.048 Gb/s with 16.0 GT/s PCIe x16 link)
+[    0.656883] pci 0000:03:00.0: 126.024 Gb/s available PCIe bandwidth, limited by 16.0 GT/s PCIe x8 link at 0000:00:01.3 (capable of 252.048 Gb/s with 16.0 GT/s PCIe x16 link)
+[    0.661382] pci 0000:08:00.0: broken device, retraining non-functional downstream link at 2.5GT/s
+[    1.662050] pci 0000:08:00.0: retraining failed
+[    1.664760] pci 0000:0a:00.0: 7.876 Gb/s available PCIe bandwidth, limited by 8.0 GT/s PCIe x1 link at 0000:08:04.0 (capable of 15.752 Gb/s with 8.0 GT/s PCIe x2 link)
+[    1.670623] pci 0000:0c:00.0: 15.752 Gb/s available PCIe bandwidth, limited by 8.0 GT/s PCIe x2 link at 0000:08:06.0 (capable of 63.012 Gb/s with 16.0 GT/s PCIe x4 link)
+[    1.671157] pci 0000:0d:00.0: 63.012 Gb/s available PCIe bandwidth, limited by 16.0 GT/s PCIe x4 link at 0000:00:02.1 (capable of 126.028 Gb/s with 32.0 GT/s PCIe x4 link)   The grup file line was already
+set to nvidia_aspm=0
+
+● Good news - we have a clear diagnostic now! Look at this line:
+
+  [    0.661382] pci 0000:08:00.0: broken device, retraining non-functional downstream link at 2.5GT/s
+
+  There's a broken PCIe device on the AMD switch. Device 08:00.0 is failing and its downgraded link is affecting other ports sharing the same root port or controller.
+
+  ---
+  What 08:00.0 Is
+
+  Let me identify it for you:
+
+  sudo lspci -nn -s 08:00.0
+
+  This is likely an AMD PCIe switch device (since you see 05:00.0, 05:08.0 in your earlier output as well).
+
+  ---
+  Immediate Fix Attempt
+
+  The broken downstream link at 08:00.0 may be causing the root ports (00:01.1 and 00:01.3) to downgrade their links. Try disabling ASPM at BIOS level first since nvidia_aspm=0 didn't work:
+
+  BIOS: Advanced → Onboard Devices Configuration
+  - CPU PCIE ASPM Mode Control: Set to Disabled (not Auto)
+
+  This is more aggressive than the kernel flag and affects all PCIe devices.
+
+  ---
+  If That Doesn't Work — Identify and Disable the Broken Device
+
+  Once we know what 08:00.0 is, we may need to:
+  1. Blacklist its driver if it's an optional device
+  2. Physically disconnect/clear it from use
+  3. Add kernel boot parameter to ignore it
+
+❯ steve@amelai:~$ sudo lspci -nn -s 08:00.0
+08:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series Chipset PCIe Switch Downstream Port [1022:43f5] (rev 01), In the BIOS there are 2 ASPM settings both were set to Auto but I already
+changed the one that referenced PCIE to disabled
+
+● Perfect — we found it. The AMD 600 Series Chipset PCIe Switch Downstream Port (08:00.0) is failing to train properly at boot, which causes the system to downgrade all shared links to 2.5GT/s as a safety
+  mechanism.
+
+  The switch device itself is non-functional or malfunctioning.
+
+  ---
+  Quick Test: Disable ASPM Completely via BIOS
+
+  Since nvidia_aspm=0 didn't help, try BIOS-level disable:
+
+  Reboot → BIOS:
+  - Advanced → Onboard Devices Configuration → CPU PCIE ASPM Mode Control: Set to Disabled (you've done this)
+  - Check for: Chipset PCIe ASPM Control or similar — set this to Disabled too
+  - Also check: PCH PCIe ASPM Mode Control if available
+
+  Save and reboot. If the switch is still present but failing, we need to isolate it.
+
+  ---
+  If Downgrading Persists: Disable the Switch Device
+
+  We can disable this device at boot via kernel parameter:
+
+  # Edit GRUB
+  sudo nano /etc/default/grub
+
+  # Add to GRUB_CMDLINE_LINUX_DEFAULT (combine with existing nvidia_aspm=0):
+  GRUB_CMDLINE_LINUX_DEFAULT="nvidia_aspm=0 pcie_ports=native"
+
+  # Apply and reboot
+  sudo update-grub
+  sudo reboot
+
+  The pcie_ports=native parameter tells the kernel to use native PCIe power management instead of BIOS ACPI control, which can bypass the switch issue.
+
+  ---
+  If Still Failing: Force Ignore the Broken Device
+
+  As a last resort, we can disable this port entirely at boot:
+
+  # Kernel parameter to force root port behavior
+  GRUB_CMDLINE_LINUX_DEFAULT="nvidia_aspm=0 pcie_ports=native acpi_enforce_resources=lax"
+
+  # Or blacklist via kernel (requires knowing exact driver)
+  # sudo modprobe -r <driver-name>
+
+  Run sudo lspci -k -s 08:00.0 to see which driver is bound to it, then we can prevent that driver from loading at boot.
+
+steve@amelai:~$ sudo lspci -k -s 08:00.0
+[sudo] password for steve:
+08:00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] 600 Series Chipset PCIe Switch Downstream Port (rev 01)
+        Subsystem: ASMedia Technology Inc. Device 3328
+        Kernel driver in use: pcieport
+steve@amelai:~$ sudo lspci -vvv -s 01:00.0 | grep LnkSta
+                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+ EqualizationPhase1+
+steve@amelai:~$ sudo lspci -vvv -s 03:00.0 | grep LnkSta
+                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+ EqualizationPhase1+
+steve@amelai:~$ nvidia-smi --query-gpu=pcie.link.gen.current --format=csv
+pcie.link.gen.current
+1
+1
+steve@amelai:~$ sudo dmesg | grep -i "pcie.*link\|retrain"
+[    0.656979] pci 0000:01:00.0: 126.024 Gb/s available PCIe bandwidth, limited by 16.0 GT/s PCIe x8 link at 0000:00:01.1 (capable of 252.048 Gb/s with 16.0 GT/s PCIe x16 link)
+[    0.657636] pci 0000:03:00.0: 126.024 Gb/s available PCIe bandwidth, limited by 16.0 GT/s PCIe x8 link at 0000:00:01.3 (capable of 252.048 Gb/s with 16.0 GT/s PCIe x16 link)
+[    0.661373] pci 0000:08:00.0: broken device, retraining non-functional downstream link at 2.5GT/s
+[    1.661110] pci 0000:08:00.0: retraining failed
+[    1.663740] pci 0000:0a:00.0: 7.876 Gb/s available PCIe bandwidth, limited by 8.0 GT/s PCIe x1 link at 0000:08:04.0 (capable of 15.752 Gb/s with 8.0 GT/s PCIe x2 link)
+[    1.667682] pci 0000:0c:00.0: 15.752 Gb/s available PCIe bandwidth, limited by 8.0 GT/s PCIe x2 link at 0000:08:06.0 (capable of 63.012 Gb/s with 16.0 GT/s PCIe x4 link)
+[    1.668217] pci 0000:0d:00.0: 63.012 Gb/s available PCIe bandwidth, limited by 16.0 GT/s PCIe x4 link at 0000:00:02.1 (capable of 126.028 Gb/s with 32.0 GT/s PCIe x4 link) I have disabled both ASPM
+settings in the bios
+
+● Good — now we know: the pcieport driver is bound to the broken AMD switch (08:00.0), and this broken port is causing all other PCIe links under that root to downgrade.
+
+  Since you've disabled both ASPM settings in BIOS, let's try forcing native PCIe ports management via kernel parameter:
+
+  # Edit GRUB - update with pcie_ports=native
+  sudo nano /etc/default/grub
+  # Line should read:
+  GRUB_CMDLINE_LINUX_DEFAULT="nvidia_aspm=0 pcie_ports=native"
+
+  # Apply and reboot
+  sudo update-grub
+  sudo reboot
+
+  The pcie_ports=native parameter tells the kernel to manage PCIe directly instead of through BIOS ACPI, which can bypass the switch's failing link training.
+
+  ---
+  If That Doesn't Work: Disable the Broken Port Entirely
+
+  If the PCIE port still degrades, we can disable it at boot by telling the pcieport driver to ignore device 08:00.0:
+
+  # Add to GRUB_CMDLINE_LINUX_DEFAULT
+  GRUB_CMDLINE_LINUX_DEFAULT="nvidia_aspm=0 pcie_ports=native pci=nomsi"
+
+  sudo update-grub
+  sudo reboot
+
+  The pci=nomsi flag can sometimes help with problematic MSI signaling on broken devices.
+
+  ---
+  Last Resort: Blacklist the Driver for This Specific Device
+
+  If the above doesn't work, we can try unbinding it at boot via initramfs hooks or kernel parameter:
+
+  # Alternative kernel parameter to ignore the device entirely
+  GRUB_CMDLINE_LINUX_DEFAULT="pcie_ports=compat"
+
+  sudo update-grub
+  sudo reboot
+
+  Try pcie_ports=compat first — if no improvement, we'll move to the more aggressive blacklisting approach.

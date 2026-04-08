@@ -2,6 +2,18 @@
 
 ---
 
+## [Unreleased] - 2026-04-08
+
+### Fixed
+- Boot failure caused by `pci=nomsi` in `GRUB_CMDLINE_LINUX_DEFAULT` — this parameter disables MSI for all PCIe devices including NVMe SSDs, causing NVMe controllers to fail and dropping the system to initramfs; recovered by editing GRUB at boot menu; `GRUB_CMDLINE_LINUX_DEFAULT` restored to empty
+
+### Documentation
+- `Linux_Troubleshooting.md` — Issue 5 Performance Impact section rewritten to describe correct idle/load PCIe link behaviour (Gen 1 at idle via ASPM is normal, Gen 4 under load confirmed)
+- `Linux_Troubleshooting.md` — WARNING section added: `pci=nomsi` must not be added to GRUB; documents symptoms and recovery procedure
+- `Linux_Troubleshooting.md` — Status line, reference table, and verification checklist updated to reflect idle/load behaviour
+
+---
+
 ## [Unreleased] - 2026-04-07
 
 ### Fixed

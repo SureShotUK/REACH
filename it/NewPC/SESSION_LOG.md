@@ -2,6 +2,41 @@
 
 ---
 
+## Session 2026-04-08
+
+### Summary
+Recovered from a boot failure caused by `pci=nomsi` being applied to GRUB (following suggestions from an old troubleshooting log). Discovered that the GPU PCIe link showing Gen 1 at idle is expected ASPM power-management behaviour — the GPUs ramp to Gen 4 under load. Issue 5 is confirmed fully resolved. Linux_Troubleshooting.md updated to document the idle/load behaviour and add a clear warning against `pci=nomsi`.
+
+### Work Completed
+- Diagnosed boot failure: `pci=nomsi` in `GRUB_CMDLINE_LINUX_DEFAULT` disabled MSI for all PCIe devices including NVMe SSDs; NVMe controllers timed out and dropped to initramfs shell
+- Recovered system by editing GRUB at boot menu (held SHIFT, pressed `e`, removed `pci=nomsi` from `linux` line)
+- Confirmed GRUB back to `=""` and BIOS ASPM at Auto (both already correct)
+- Attempted cold power cycle — GPUs still showing 2.5GT/s at idle
+- Identified correct explanation: ASPM power management drops PCIe link to Gen 1 when GPUs are idle; this is normal behaviour, not a fault
+- User confirmed Gen 4 (16GT/s) on both cards by checking `lspci` and `nvidia-smi` while a GPU workload was running
+- Updated `Linux_Troubleshooting.md`: status line, Performance Impact section rewritten to describe idle/load behaviour, reference table corrected, verification checklist updated, WARNING section added for `pci=nomsi`
+
+### Files Changed
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 5 status updated; Performance Impact section rewritten; reference table corrected; verification checklist updated; WARNING section added documenting `pci=nomsi` boot failure and recovery
+
+### Git Commits
+- No commits from prior sessions relevant to this session's work — changes committed at end of session
+
+### Key Decisions
+- **`pci=nomsi` must never be added** — breaks NVMe boot devices; recovery requires GRUB menu edit
+- **Gen 1 at idle is correct** — ASPM idle power management; verify Gen 4 only under active GPU load, not at idle
+- **GPU Link Speed Output.txt is obsolete** — was from the pre-fix troubleshooting session; the parameters discussed there are no longer relevant and should not be applied
+
+### Reference Documents
+- `it/NewPC/Linux_Troubleshooting.md` — Issue 5 (updated with idle/load behaviour clarification and pci=nomsi warning)
+- `it/NewPC/GPU Link Speed Output.txt` — old troubleshooting log (now superseded; caused this session's incident)
+
+### Next Actions
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai (carried over)
+- [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
+
+---
+
 ## Session 2026-04-07
 
 ### Summary

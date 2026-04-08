@@ -1,12 +1,12 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-04-07
+**Last Updated**: 2026-04-08
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. Both RTX 3090s now running at PCIe Gen 4 (16GT/s) — fixed by removing `pcie_aspm=off` kernel parameter (was blocking PCIe link equalization). All services running normally.
+Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16GT/s) under load — ASPM drops link to Gen 1 at idle, which is normal power-management behaviour. `GRUB_CMDLINE_LINUX_DEFAULT` is empty. All services running normally.
 
 ## Service Status
 
@@ -25,6 +25,8 @@ Server (`amelai`) is fully operational. Both RTX 3090s now running at PCIe Gen 4
 
 ## Recently Completed
 
+- **Confirmed PCIe Gen 4 under load** — Gen 1 at idle is normal ASPM idle power management; verified Gen 4 (16GT/s) on both GPUs during active workload
+- **Recovered from `pci=nomsi` boot failure** — parameter disables MSI for NVMe controllers, preventing boot; system restored and GRUB left empty
 - **Fixed PCIe Gen 1 fallback** — both RTX 3090s now at Gen 4 (16GT/s); root cause was `pcie_aspm=off` blocking PCIe link equalization
 - Removed `pcie_aspm=off` kernel parameter — was blocking Gen 4 link training; safe to remove as igc is blacklisted
 - Updated BIOS to 2103 (from 2102) — no change to PCIe Gen issue
