@@ -355,6 +355,24 @@ docker run -e SOME_URL=postgresql://user:${PGPASS}@host:5432/db ...
 
 ---
 
+## PCIe Link Speed Diagnostics
+
+**PCIe gen checks must be taken under active GPU load, not at idle.**
+
+With ASPM enabled (the correct system state), the RTX 3090s drop their PCIe link to Gen 1 (2.5GT/s) when idle — this is normal power-management behaviour. `lspci` and `nvidia-smi` checks taken on an idle system will always show `Speed 2.5GT/s (downgraded)` and `pcie.link.gen.current = 1`. This is not a fault.
+
+To verify Gen 4 is operating correctly, check while a workload is running:
+```bash
+watch -n 0.5 'nvidia-smi --query-gpu=pcie.link.gen.current,pcie.link.gen.max,pcie.link.width.current --format=csv'
+```
+Expected under load: `4, 4, 8` for both GPUs.
+
+**Do not interpret idle readings as a PCIe regression.** If Gen 4 is needed permanently (no ASPM idle drops), that would require `pcie_aspm=off` in GRUB — but this is known to prevent PCIe link equalization on this system and must not be used.
+
+**`pci=nomsi` must never be added to GRUB** — it disables MSI interrupts for all PCIe devices system-wide, including the NVMe SSDs, causing the system to fail to boot. See `Linux_Troubleshooting.md` Issue 5 WARNING section for recovery procedure.
+
+---
+
 ## Linux Session Housekeeping
 
 At the end of any session involving Linux work on amelai, always remind the user to run the following best practice steps:
@@ -384,6 +402,12 @@ This applies after: package installations, configuration changes, troubleshootin
 ## File Content Delivery
 
 When you need to provide file content for the user to copy to their Linux machine, always write it to `Temp.txt` in the current working directory rather than displaying it in a code block. This avoids copy-paste formatting issues (leading spaces added by markdown rendering).
+
+## CLAUDE.md Updates
+
+**Always apply suggested CLAUDE.md updates immediately** — do not ask for review or present them as optional suggestions. When a session reveals a new pattern, lesson, or operational rule worth preserving, update this file (or the relevant parent CLAUDE.md) directly as part of the session, then include the change in the session-end commit.
+
+---
 
 ## User Preferences
 
