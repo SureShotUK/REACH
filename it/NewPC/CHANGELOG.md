@@ -2,6 +2,16 @@
 
 ---
 
+## [Unreleased] - 2026-04-12
+
+### Added
+- `N8N_Setup.md` — n8n workflow automation Docker setup guide; covers install, Tailscale configuration, update procedure, backup, and troubleshooting
+
+### Changed
+- `CLAUDE.md` — port assignment table and access URL table updated to include n8n (container `5678`, loopback `15678`, LAN/Tailscale `5678`)
+
+---
+
 ## [Unreleased] - 2026-04-08
 
 ### Fixed

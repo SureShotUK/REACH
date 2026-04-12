@@ -2,6 +2,40 @@
 
 ---
 
+## Session 2026-04-12
+
+### Summary
+Set up n8n workflow automation tool in Docker on amelai. Created full setup documentation covering installation, Tailscale configuration, update procedure, backup, and troubleshooting. The n8n container is live and accessible on LAN and via Tailscale HTTPS.
+
+### Work Completed
+- Created `N8N_Setup.md` — full install, config, update, backup, and troubleshooting guide
+- Ran `docker run` with dual port bindings following established server pattern (loopback `15678`, LAN `5678`)
+- Configured Tailscale serve: `https://amelai.tail926601.ts.net:5678` → `http://localhost:15678`
+- Diagnosed Docker registry issue: `docker.n8n.io` unreachable; switched to `n8nio/n8n` (Docker Hub)
+- Updated `CLAUDE.md` port tables (both the port assignment table and access URL table) to include n8n
+
+### Files Changed
+- `it/NewPC/N8N_Setup.md` — **created** — full n8n Docker setup, Tailscale config, update and backup procedures
+- `it/NewPC/CLAUDE.md` — port tables updated to add n8n (`5678` / `15678`)
+
+### Key Decisions
+- **Use `n8nio/n8n` (Docker Hub)** not `docker.n8n.io/n8nio/n8n` — the vendor's custom registry is unreachable from this server's network
+- **Port assignment**: container `5678`, loopback `15678`, LAN/Tailscale `5678` — consistent with existing dual-binding strategy
+- **`N8N_SECURE_COOKIE=false`** required because Tailscale terminates TLS; container sees plain HTTP
+- **Encryption key must be preserved** — stored credentials are unrecoverable without it
+
+### Reference Documents
+- `it/NewPC/N8N_Setup.md` — new setup guide
+- `it/NewPC/Tailscale.md` — Tailscale serve configuration reference
+
+### Next Actions
+- [ ] Complete n8n first-login owner account setup at `https://amelai.tail926601.ts.net:5678`
+- [ ] Store `N8N_ENCRYPTION_KEY` in a password manager
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai (carried over)
+- [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
+
+---
+
 ## Session 2026-04-08
 
 ### Summary

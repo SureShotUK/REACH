@@ -314,6 +314,7 @@ All Docker services on this server use **dual `-p` bindings** to allow access fr
 | ComfyUI (Amelia) | 8188 | 18188 | 8188 |
 | FileBrowser | 80 | 18087 | 8087 |
 | SearXNG | 8080 | 18080 | 8080 |
+| n8n | 5678 | 15678 | 5678 |
 
 **Access URLs:**
 
@@ -324,6 +325,7 @@ All Docker services on this server use **dual `-p` bindings** to allow access fr
 | ComfyUI (Amelia) | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` |
 | FileBrowser | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` |
 | SearXNG | `http://192.168.1.192:8080` | `https://amelai.tail926601.ts.net:8080` |
+| n8n | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` |
 
 > Local network access is plain HTTP. Tailscale access is HTTPS — always include `https://` explicitly in the browser. See `Tailscale.md` for full explanation of how the two paths work independently.
 

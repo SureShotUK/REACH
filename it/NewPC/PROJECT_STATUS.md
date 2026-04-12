@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-04-08
+**Last Updated**: 2026-04-12
 
 ---
 
@@ -18,6 +18,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Running |
 | FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
 | MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
+| n8n | `n8n` | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` | Running |
 
 ## Active Work Areas
 
@@ -25,6 +26,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Recently Completed
 
+- **Installed n8n** — workflow automation running in Docker; accessible at `https://amelai.tail926601.ts.net:5678`; full setup guide at `N8N_Setup.md`
 - **Confirmed PCIe Gen 4 under load** — Gen 1 at idle is normal ASPM idle power management; verified Gen 4 (16GT/s) on both GPUs during active workload
 - **Recovered from `pci=nomsi` boot failure** — parameter disables MSI for NVMe controllers, preventing boot; system restored and GRUB left empty
 - **Fixed PCIe Gen 1 fallback** — both RTX 3090s now at Gen 4 (16GT/s); root cause was `pcie_aspm=off` blocking PCIe link equalization
@@ -36,6 +38,8 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
+- [ ] Complete n8n first-login owner account setup
+- [ ] Store n8n encryption key in password manager
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
 - [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
 - [ ] Set static DHCP reservation on router for `192.168.1.192`
@@ -58,6 +62,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | `Tailscale.md` | Tailscale commands, port forwarding, troubleshooting, Docker binding strategy |
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
 | `FileWriter.py` | Open WebUI Tool — paste into Workspace → Tools to give models file write capability |
+| `N8N_Setup.md` | n8n workflow automation — Docker setup, Tailscale config, update and backup procedures |
 | `CLAUDE.md` | Project-specific guidance for this directory |
 
 ## Hardware
