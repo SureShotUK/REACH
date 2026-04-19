@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-04-12
+**Last Updated**: 2026-04-19
 
 ---
 
@@ -22,10 +22,12 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Active Work Areas
 
+- **Alexa WOL skill** — submitted for Amazon certification; awaiting approval (3-5 business days)
 - Verify ComfyUI OOM fix works end-to-end on first generation attempt
 
 ## Recently Completed
 
+- **Alexa Wake-on-LAN infrastructure** — wol-webhook systemd service, Tailscale Funnel (port 8443), AWS Lambda, custom Alexa skill with PIN verification all working; skill submitted for certification
 - **Installed n8n** — workflow automation running in Docker; accessible at `https://amelai.tail926601.ts.net:5678`; full setup guide at `N8N_Setup.md`
 - **Confirmed PCIe Gen 4 under load** — Gen 1 at idle is normal ASPM idle power management; verified Gen 4 (16GT/s) on both GPUs during active workload
 - **Recovered from `pci=nomsi` boot failure** — parameter disables MSI for NVMe controllers, preventing boot; system restored and GRUB left empty
@@ -38,6 +40,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
+- [ ] Await Alexa skill certification approval; test on real Echo device once approved
 - [ ] Complete n8n first-login owner account setup
 - [ ] Store n8n encryption key in password manager
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
@@ -63,6 +66,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
 | `FileWriter.py` | Open WebUI Tool — paste into Workspace → Tools to give models file write capability |
 | `N8N_Setup.md` | n8n workflow automation — Docker setup, Tailscale config, update and backup procedures |
+| `wol/WOL_Setup.md` | Alexa Wake-on-LAN setup — full end-to-end guide including Lambda, Tailscale Funnel, skill config |
 | `CLAUDE.md` | Project-specific guidance for this directory |
 
 ## Hardware

@@ -1,0 +1,58 @@
+import urllib.request
+import os
+
+WEBHOOK_URL = "https://amelai.tail926601.ts.net:8443/wol/YOUR_SECRET_TOKEN"
+PIN = os.environ.get("WOL_PIN", "")
+
+def lambda_handler(event, context):
+    request_type = event.get('request', {}).get('type', '')
+
+    if request_type == 'LaunchRequest':
+        return ask("What's your PIN?")
+
+    elif request_type == 'IntentRequest':
+        intent_name = event.get('request', {}).get('intent', {}).get('name', '')
+
+        if intent_name == 'WakeComputerIntent':
+            slots = event.get('request', {}).get('intent', {}).get('slots', {})
+            spoken_pin = slots.get('pin_number', {}).get('value', '') or ''
+            if spoken_pin == PIN:
+                trigger_wol()
+                return tell("Switching on your computer.")
+            elif spoken_pin == '':
+                return ask("What's your PIN?")
+            else:
+                return tell("Incorrect PIN.")
+
+        elif intent_name in ('AMAZON.StopIntent', 'AMAZON.CancelIntent'):
+            return tell("Goodbye.")
+
+        elif intent_name == 'AMAZON.HelpIntent':
+            return ask("Say wake up followed by your PIN to switch on your computer.")
+
+    return tell("Sorry, I didn't understand that.")
+
+def ask(text):
+    return {
+        "version": "1.0",
+        "response": {
+            "outputSpeech": {"type": "PlainText", "text": text},
+            "shouldEndSession": False
+        }
+    }
+
+def tell(text):
+    return {
+        "version": "1.0",
+        "response": {
+            "outputSpeech": {"type": "PlainText", "text": text},
+            "shouldEndSession": True
+        }
+    }
+
+def trigger_wol():
+    try:
+        req = urllib.request.Request(WEBHOOK_URL, method='POST')
+        urllib.request.urlopen(req, timeout=8)
+    except Exception:
+        pass

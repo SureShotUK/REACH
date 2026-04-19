@@ -2,6 +2,48 @@
 
 ---
 
+## Session 2026-04-19
+
+### Summary
+Set up Alexa Wake-on-LAN for the Windows 11 PC (Steve's personal desktop). Infrastructure is fully working — wol-webhook service on amelai, Tailscale Funnel, and AWS Lambda are all operational. Custom Alexa skill works correctly in the test simulator with PIN verification. Skill submitted for Amazon certification (required because Alexa+ blocks development/unreviewed skills on real devices).
+
+### Work Completed
+- Installed `wakeonlan` on amelai; confirmed working with `-i 192.168.1.255` broadcast flag
+- Created Python wol-webhook service (`/opt/wol-webhook/wol_webhook.py`) running as systemd service on port 9999
+- Configured Tailscale Funnel on port 8443 exposing webhook publicly at `https://amelai.tail926601.ts.net:8443`
+- Created AWS Lambda function `SteveOP_WOL_Skill` (eu-west-2) with Alexa Skills Kit trigger
+- Created custom Alexa skill (ID: `amzn1.ask.skill.d1357b39-a05e-490a-a5d0-3c702eaee152`)
+- Diagnosed fauxmo failure — Linksys Velop WHW03v2 mesh router blocks UPnP/SSDP multicast between wired and WiFi
+- Diagnosed Alexa+ restriction — development skills blocked on real devices regardless of account match
+- Added PIN verification to skill (voice PIN required before WOL packet is sent)
+- Filled in Distribution section and submitted skill for Amazon certification
+- Created `WOL_Setup.md` — full end-to-end documentation
+- Created GitHub Gists for Privacy Policy and Terms of Use (required for certification)
+
+### Files Changed
+- `it/NewPC/wol/WOL_Setup.md` — **created** — full WOL setup documentation
+- `it/NewPC/wol/Temp.txt` — working file used throughout session
+
+### Key Decisions
+- **fauxmo abandoned** — Velop mesh router blocks multicast between wired amelai and WiFi Alexa devices; not configurable
+- **Webhook broadcast address** — `wakeonlan -i 192.168.1.255` required; default 255.255.255.255 doesn't reach the PC
+- **Tailscale Funnel port 8443** — isolated from other services (all others tailnet-only); keeps WOL webhook separate
+- **PIN added to skill** — security measure since skill will be publicly listed in Alexa Skills Store after certification
+- **AMAZON.SearchQuery → AMAZON.NUMBER** — slot type change needed to reliably capture spoken PIN digits
+- **WakeComputerIntent handles PIN** — Alexa routes second-turn responses to WakeComputerIntent; PinIntent never triggered
+
+### Reference Documents
+- `it/NewPC/wol/WOL_Setup.md` — complete setup guide
+- Privacy Policy Gist: `https://gist.github.com/SureShotUK/0bbe7d527c26dd76f2279e8d8b7f1913`
+
+### Next Actions
+- [ ] Await Amazon certification approval (3-5 business days)
+- [ ] Once certified, test "Alexa, open wol machine" on real Echo device with PIN
+- [ ] If certification approved, update WOL_Setup.md with confirmed working status
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai (carried over)
+
+---
+
 ## Session 2026-04-12
 
 ### Summary

@@ -2,6 +2,20 @@
 
 ---
 
+## [Unreleased] - 2026-04-19
+
+### Added
+- `wol/WOL_Setup.md` — complete Alexa Wake-on-LAN setup guide; covers wol-webhook service, Tailscale Funnel, AWS Lambda, Alexa skill configuration and troubleshooting
+- wol-webhook Python systemd service on amelai (`/opt/wol-webhook/`) — receives HTTP POST and sends WOL magic packet
+- Tailscale Funnel on port 8443 exposing wol-webhook publicly for Lambda access
+- AWS Lambda function `SteveOP_WOL_Skill` (eu-west-2) — Alexa skill backend with PIN verification
+- Custom Alexa skill (ID: `amzn1.ask.skill.d1357b39-a05e-490a-a5d0-3c702eaee152`) — invocation "wol machine"; submitted for certification
+
+### Changed
+- `wol-webhook` uses `wakeonlan -i 192.168.1.255` (subnet broadcast) rather than default 255.255.255.255
+
+---
+
 ## [Unreleased] - 2026-04-12
 
 ### Added
