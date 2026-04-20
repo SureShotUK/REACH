@@ -4,6 +4,53 @@ This file tracks all Claude Code sessions for the REACH compliance project.
 
 ---
 
+## Session 2026-04-20
+
+### Summary
+Created two new HVO IUCLID guidance documents and worked through the Article 26 Inquiry dossier validation process in a live IUCLID 6 Cloud session. Resolved 12 distinct validation errors across Sections 1.1, 1.2, 1.4 and 14 through iterative troubleshooting, correcting the guide in real time to reflect actual IUCLID behaviour.
+
+### Work Completed
+- Created `REACH/HVO/Article_26-Inquiry_Plan.md` — high-level how-to guide covering portal account setup, substance data, submission steps and next actions after HSE response
+- Created `REACH/HVO/IUCLID6_Article26_Inquiry_Guide.md` — detailed click-by-click IUCLID walkthrough, updated iteratively throughout session as real validation errors were encountered and resolved
+- Resolved 12 validation failures (BRs) through live troubleshooting:
+  - BR121: Type of substance must be set to UVCB in Section 1.1
+  - BR122/BR186: Molecular formula justification required in Remarks of all reference substances (including constituent group reference substances)
+  - BR020: Each reference substance needs at least one identifier — IUPAC name used for constituent groups
+  - BR075: Degree of purity must be set to 100% w/w for UVCB
+  - BR175: Type of composition must be "legal entity composition of the substance"
+  - BR195: Manufacturing process description required in Description field for UVCB
+  - BR196: UVCB constituents must be separate reference substances — free-text name not available; two new reference substances created (C15-C18 n-alkanes, C15-C18 iso-alkanes)
+  - BR232/BR086/BR167: Section 14 fields — Type 3 (not Type 1 as originally drafted), New studies = No
+  - BR228: Section 1.4 analytical sub-entry — Type of information = "methods and results"; Rationale = "analysis scientifically not necessary (other information available)"; Analysis type = "gas chromatography [GC]" (not generic "chromatography")
+- Confirmed UK REACH inquiry type numbering differs from EU REACH: Type 3 = "inquiry for a substance before its registration"
+
+### Files Changed
+- `REACH/HVO/Article_26-Inquiry_Plan.md` — **NEW** high-level Article 26 inquiry how-to guide
+- `REACH/HVO/IUCLID6_Article26_Inquiry_Guide.md` — **NEW** detailed IUCLID step-by-step guide (updated 5+ times during session to reflect live findings)
+
+### Git Commits
+- No commits this session (filesystem went down during session; changes saved to disk)
+
+### Key Decisions
+- **Three reference substances required**: Parent HVO substance + one per constituent group (n-alkanes, iso-alkanes) — IUCLID constituent fields only accept linked reference substances, not free text
+- **UVCB constituent concentration ranges**: n-alkanes 30-70%, iso-alkanes 25-65% — intentionally not summing to 100% to account for trace aromatics
+- **Section 1.4 analytical approach**: Use "analysis scientifically not necessary (other information available)" rather than "existing data" as the rationale; cite Phillips 66 SDS (Feb 2024) as the source
+- **Guide now reflects live IUCLID behaviour**: Corrected several assumptions from initial draft (Type 1 → Type 3, chromatography → gas chromatography [GC], sub-entry save behaviour)
+
+### Reference Documents
+- `REACH/HVO/IUCLID6_Article26_Inquiry_Guide.md` — primary working document for next session
+- `REACH/HVO/hvo_fail.csv` — original 8 validation failures (trial dossier)
+- `REACH/HVO/hvo_fail_main.csv` — subsequent validation failures (main dossier, updated multiple times)
+
+### Next Actions
+- [ ] Run validation after last Section 1.4 change (BR228 — "methods and results" + "analysis scientifically not necessary") — confirm clean pass
+- [ ] If validation passes, export dossier as `.i6z` using Advanced Options with "Include Legal Entity" ticked
+- [ ] Submit via Comply with UK REACH portal (comply-chemical-regulations.service.gov.uk)
+- [ ] Note submission reference number and await HSE response (up to 15 working days)
+- [ ] On receipt of response: identify Lead Registrant and initiate consortium membership discussions
+
+---
+
 ## Session 2026-02-12 10:52
 
 ### Summary

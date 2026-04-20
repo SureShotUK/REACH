@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased] - 2026-04-20 (Session 4)
+
+### Added
+- `REACH/HVO/Article_26-Inquiry_Plan.md` — high-level Article 26 inquiry how-to guide covering portal setup, substance data, submission steps and post-response actions
+- `REACH/HVO/IUCLID6_Article26_Inquiry_Guide.md` — detailed click-by-click IUCLID 6 Cloud guide, built and validated against a live session; includes pre-filled HVO data for all fields
+
+### Changed
+- `IUCLID6_Article26_Inquiry_Guide.md` updated iteratively during session to reflect actual IUCLID behaviour:
+  - Inquiry type corrected to Type 3 (UK REACH numbering differs from EU REACH)
+  - Section 1.2 approach changed: two constituent reference substances required (free-text names not supported)
+  - Section 1.4 analysis type corrected to "gas chromatography [GC]"; Type of information = "methods and results"; Rationale = "analysis scientifically not necessary"
+  - Sub-entry save behaviour documented (critical: commit sub-entry before saving parent record)
+  - Three reference substances now required: HVO parent + C15-C18 n-alkanes + C15-C18 iso-alkanes
+
+### Fixed
+- 12 validation failures resolved across Sections 1.1, 1.2, 1.4 and 14 (BR020, BR075, BR121, BR122, BR167, BR175, BR186, BR195, BR196, BR228, BR232, BR086)
+
+---
+
 ## [Unreleased] - 2026-02-12 (Session 3)
 
 ### Added

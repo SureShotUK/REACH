@@ -1,6 +1,6 @@
 # REACH Project - Current Status
 
-**Last Updated**: 2026-02-12
+**Last Updated**: 2026-04-20
 
 ## Current State
 
@@ -41,6 +41,12 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
   - Option 1 (GB supplier): 6-8 weeks, no registration
   - Option 2 (consortium): 4-6 months, then can import
 
+## Current State
+
+UK REACH compliance project for multiple substances: **Urea** (existing DUIN, monitoring phase) and **HVO** (active — Article 26 Inquiry dossier in progress in IUCLID 6 Cloud, validation almost complete).
+
+**HVO Status (updated 2026-04-20)**: Article 26 Inquiry dossier being prepared in IUCLID 6 Cloud. Worked through 12 validation failures in live session. One remaining item to confirm (BR228 Section 1.4) before dossier can be exported and submitted to HSE via Comply with UK REACH portal.
+
 ## Active Work Areas
 
 ### Urea Project (Monitoring Phase)
@@ -49,15 +55,16 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 - **Consultant Relationships**: Periodic (annual) check-ins with CS Regulatory (low priority until 2027)
 - **Documentation**: All major planning documents complete; project now in waiting phase
 
-### HVO Project (Active Planning Phase - NEW)
-- **Compliance Research**: ✅ COMPLETE - Comprehensive research and strategy documents created
-- **DUIN Clarification**: ✅ COMPLETE - Confirmed Urea DUIN does not cover HVO
-- **One-Page Action Plan**: ✅ COMPLETE - Created concise consortium registration guide (12 Feb 2026)
-- **Article 26 Enquiry**: ⏭️ NEXT - Submit enquiry to identify HVO lead registrant
-- **Pathway Decision**: ⏭️ PENDING - Choose between:
-  - GB supplier (downstream user) - £0 cost, immediate import
-  - Join consortium - £2,000-£10,000 LoA + £399 HSE fee, 3-6 months
-- **Documentation**: Complete compliance guidance suite in `/HVO/` and `/research/` directories
+### HVO Project (Active — Inquiry Dossier In Progress)
+- **Compliance Research**: ✅ COMPLETE
+- **DUIN Clarification**: ✅ COMPLETE — Urea DUIN does not cover HVO
+- **Action Plan**: ✅ COMPLETE — `UK_REACH_HVO_Action_Plan.md`
+- **Article 26 Inquiry Plan**: ✅ COMPLETE — `Article_26-Inquiry_Plan.md`
+- **IUCLID6 Guide**: ✅ COMPLETE — `IUCLID6_Article26_Inquiry_Guide.md` (reflects live validation findings)
+- **IUCLID Dossier**: 🔄 IN PROGRESS — Validation almost clean; BR228 (Section 1.4) to confirm on next login
+- **Portal Submission**: ⏭️ NEXT — Export `.i6z` and submit via Comply with UK REACH portal
+- **HSE Response**: ⏭️ PENDING — Up to 15 working days after submission
+- **Consortium Contact**: ⏭️ PENDING — Initiate after HSE reveals Lead Registrant identity
 
 ## Previous Work (Now on Hold Pending ATRm)
 
@@ -130,20 +137,12 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 
 ## Next Priorities
 
-### HVO Project - IMMEDIATE (Feb-Mar 2026)
-1. **Clarify DUIN status for HVO** - Determine if DUIN was submitted for HVO specifically (affects urgency)
-2. **Submit Article 26 enquiry** - Use Comply with UK REACH portal to identify lead registrant
-   - Substance: HVO (CAS 928771-01-1, EC 700-571-2)
-   - Portal: https://comply-chemical-regulations.service.gov.uk/
-   - Timeline: HSE responds within 15 working days
-3. **Parallel track: Contact GB suppliers** - Greenergy, Crown Oil, Certas Energy, Nationwide Fuels
-   - Request UK REACH registration confirmation
-   - Request commercial proposals with pricing
-   - Compare vs. consortium costs (£2k-£10k + £399)
-4. **Decide compliance pathway**:
-   - Option A: GB supplier (downstream user) - £0 registration, 6-8 weeks
-   - Option B: Join consortium - £2,399-£10,399 total, 3-6 months
-5. **Execute chosen pathway** - Supply agreement OR consortium registration
+### HVO Project - IMMEDIATE
+1. **Confirm BR228 resolved** — log into IUCLID, run validation; Section 1.4 fields: Type of information = "methods and results", Rationale = "analysis scientifically not necessary (other information available)"
+2. **Export dossier** — Create Dossier > Inquiry > UK REACH > Advanced Options > Include Legal Entity > export `.i6z`
+3. **Submit via portal** — comply-chemical-regulations.service.gov.uk > New submission > upload `.i6z` > note reference number
+4. **Await HSE response** — up to 15 working days; response reveals Lead Registrant identity
+5. **Contact Lead Registrant** — initiate consortium membership and Letter of Access negotiation
 
 ### Urea Project - Monitoring Phase (2025-2027)
 6. **Monitor ATRm publication** - Watch for government legislation (expected 2026)
