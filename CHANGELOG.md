@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-04-22
+
+### Added
+- **`Physical_Market.md`** — new internal reference document (~700 lines) analysing physical oil products market under Hormuz closure scenario:
+  - Hormuz flow collapse: 20.1 mb/d → 3.8 mb/d; 870 tankers at anchor; Middle East refinery losses
+  - Per-product analysis: diesel, jet fuel, petrol/naphtha, LPG, fuel oil — trade flows, current constraints, shortage regions, timeline
+  - UK-specific exposure: jet fuel critical (Kuwait 38%, ARA 6-year lows, shortage risk 6–8 weeks); diesel high risk (8–12 weeks, Scotland/NI first); petrol/residential LPG low risk
+  - Cape rerouting impact: +16–32 days; war risk insurance escalation; tanker earnings down 44–50%
+  - Alternative supply assessment: US + India can cover ~400–600 kbd of ~600–800 kbd European deficit
+  - UK SPR: 68M bbl (~68 days blended; jet-specific ~15–20 days); IEA 400 MMbbl global release
+  - Crack spread table: jet $80/bbl (4× normal); diesel doubled; naphtha swung positive
+  - Shortage probability matrix by product and timeframe (4/8/12/16 weeks)
+
+### Changed
+- **`Iran_War_Timeline.md`** — extended from ~1,900 to ~2,300+ lines; PART 13 and PART 14 added covering 9–22 April 2026:
+  - PART 13 (9–15 Apr): ceasefire immediately broken; 230 tankers stranded; US Navy freedom-of-navigation Hormuz entry; 21-hour Islamabad talks collapse on nuclear issue; naval blockade of Iranian ports (13 April 10:00 AM ET); China halts weapons to Iran; 13 ships stopped by Pentagon; record 34 ships transited in one day
+  - PART 14 (16–22 Apr): Israel-Lebanon 10-day ceasefire brokered (first talks in 34 years, Washington DC); Hormuz declared open (17 Apr); mines removed with US assistance; Iran agrees to never close Hormuz again; Israel formally prohibited from bombing Lebanon; TOUSKA seized by USS Spruance/US Marines (19 Apr); Operation Midnight Hammer disclosed (7 B-2s, 14 GBU-57 MOPs, June 2025); ceasefire extended indefinitely; new Supreme Leader Mojtaba Khamenei; Iran losing $500M/day
+  - 27 Trump Truth Social posts added (policy/decision-relevant, media rants excluded)
+  - "Current Peace Positions" section added: US requirements vs Iran demands
+  - April 9–22 summary table added
+  - Closing datestamp updated to 22 April 2026
+
+---
+
 ## [Unreleased] - 2026-04-07
 
 ### Added

@@ -1,32 +1,31 @@
 # Project Status
 
-**Last Updated**: 2026-04-07
+**Last Updated**: 2026-04-22
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
-The terminai repository contains seven specialized project folders, plus a new standalone Iran War Timeline document. A comprehensive 2026 Iran war chronological timeline (`Iran_War_Timeline.md`) has been created covering June 2025 through 25 March 2026, with ~80 sourced events, fact-checked against live source URLs.: HSEEA (health/safety/environment), IT (infrastructure/security), REACH (chemical compliance), NewCar2026 (electric vehicle research), XmlDotnetCoding (C# XML trade reporting), Canada (Canadian financial compliance), and the Maintenance project (maintenance admin system for a UK manufacturing/engineering business). A new Portland Fuel internal briefing paper (`Epic_Fury.md`) has been produced covering Operation Epic Fury (joint US-Israeli strikes on Iran, 28 Feb 2026) and its global energy market implications, with full citations from EIA, IEA, CSIS, and live news sources.
+The terminai repository contains seven specialized project folders plus standalone Iran War analysis documents. The Iran War Timeline now covers the full conflict from June 2025 through 22 April 2026 (2,300+ lines, 130+ sourced events). A new companion document `Physical_Market.md` analyses the physical oil products market under Hormuz closure. As of 22 April 2026: a ceasefire is in force (extended indefinitely); US naval blockade on Iranian commerce remains active; Iran's government is described as "fractured" under new Supreme Leader Mojtaba Khamenei; nuclear negotiations stalled (US: 20-year enrichment ban; Iran: offered 3–5 years).
 
 ## Active Work Areas
+
+- **Iran War Timeline** — CURRENT TO 22 APRIL 2026
+  - `Iran_War_Timeline.md` — 2,300+ lines; June 2025–22 April 2026; 130+ sourced events; 79 Trump Truth Social posts
+  - PART 13 (9–15 April): ceasefire broken immediately; 21-hour Islamabad talks collapse; naval blockade implemented 13 April; China halts weapons to Iran
+  - PART 14 (16–22 April): Israel-Lebanon ceasefire (first talks in 34 years); Hormuz declared open (17 Apr); mines removed; TOUSKA seized; Operation Midnight Hammer disclosed; ceasefire extended
+  - **Monitor**: Iran unified proposal (precondition for resumed Islamabad talks); US blockade status; nuclear enrichment negotiations
+
+- **Physical Market Analysis** — NEW (2026-04-22)
+  - `Physical_Market.md` — ~700-line internal reference document; physical oil products market under Hormuz closure
+  - Key findings: Hormuz flows 20.1 mb/d → 3.8 mb/d; jet fuel most acute (Kuwait 38% of UK supply; ARA stocks 6-year lows; shortage risk 6–8 weeks); diesel high risk (8–12 weeks; Scotland first); petrol/residential LPG low risk
+  - **Monitor**: Update as Hormuz situation evolves
+
 - **Briefings Folder** — ESTABLISHED (2026-04-07)
   - `/docs/terminai/Briefings/` — canonical location for all standalone intelligence/research papers
   - Format standards and 6-step creation blueprint documented in root `CLAUDE.md`
   - `Canada_Oil_Briefing.md` (455 lines, 15 sections) — created 2026-04-07; professional oil industry audience
   - `Iran_Briefing.md` — created 2026-04-06; economy, oil/gas, refining, sanctions, nuclear, war impact
   - `Hormuz_Strait.md` — created 2026-04-06; volumes, exporters, destinations, Europe exposure, bypass capacity
-
-- **Iran & Hormuz Briefing Documents**: CREATED (2026-04-06)
-  - `Iran_Briefing.md` (93 lines) — two-page strategic overview: economy, oil/gas, refining, sanctions, allegiances, nuclear
-  - `Hormuz_Strait.md` (129 lines) — two-page strategic overview: volumes by product, exporters, destinations, Europe's exposure by fuel type, pipeline bypass capacity
-  - Both include Portland Long.png logo; all links HTML format with `target="_blank"`; all sources verified
-  - **Monitor**: Update war-impact sections if Kharg Island or remaining energy infrastructure is struck (7 Apr deadline)
-
-- **Iran War Timeline**: UPDATED TO 6 APRIL 2026 (2026-04-06)
-  - `Iran_War_Timeline.md` — 100+ sourced events + 52 Trump Truth Social posts (all CSV rows processed); June 2025–6 April 2026; 1,722 lines
-  - Part 13 added: 1–6 April 2026 — 9 Truth Social posts + 12 verified news events
-  - Key events documented: Trump national address (1 Apr); B1 bridge struck Tehran-Karaj (2 Apr); F-15E + A-10 shot down (3 Apr); dual pilot rescues via Delta Force/SEAL Team Six (4–5 Apr, Easter); Tehran mass strike kills Iranian military leaders; Iran rejects Tuesday deadline (6 Apr)
-  - **Live deadline**: Tuesday 7 April, 8 PM ET — Trump's ultimatum on power plants/energy infrastructure/Kharg Island
-  - **Monitor**: April 7 deadline outcome; Trump press conference April 7, 1 PM ET (pilot rescues)
 
 - **Operation Epic Fury Briefing — Portland Fuel**: COMPLETED (2026-03-02)
   - `Epic_Fury.md` — internal briefing paper on US-Israeli military strikes on Iran (28 Feb 2026)
@@ -148,6 +147,19 @@ The terminai repository contains seven specialized project folders, plus a new s
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Physical_Market.md created** (2026-04-22):
+  - New internal reference document: physical oil products market under Hormuz closure scenario
+  - Hormuz disruption scale: flows collapsed from 20.1 mb/d to ~3.8 mb/d; 870 tankers at anchor
+  - Per-product analysis: diesel, jet, petrol/naphtha, LPG, fuel oil — trade flows, constraints, who's already in shortage, who's next
+  - Cape rerouting: +16–32 days; war risk insurance 0.2–0.4% of vessel value; LR2 tanker earnings down 44–45%
+  - UK exposure: jet critical (Kuwait 38% of supply, ARA 6-year lows, shortage risk 6–8 wks); diesel high (Grangemouth closure, 8–12 wks); petrol/LPG residential low risk
+  - SPR: UK 68M bbl (~68 days blended; jet-specific only 15–20 days); IEA 400 MMbbl global release (≈4 days global cover)
+  - Crack spreads: jet $80/bbl (4× normal); diesel doubled; naphtha swung positive
+- **Iran_War_Timeline.md extended to 22 April 2026** (2026-04-22):
+  - PART 13: ceasefire broken; 230 tankers stranded; US Navy enters Hormuz (11 Apr); 21-hour Islamabad talks collapse on nuclear; naval blockade implemented 13 April; China halts weapons supply
+  - PART 14: Israel-Lebanon 10-day ceasefire (first talks in 34 years); Hormuz declared open (17 Apr); mines removed; Iran agrees Hormuz never closed again; Israel banned from bombing Lebanon; TOUSKA seized; Operation Midnight Hammer details; ceasefire extended; Iran losing $500M/day
+  - 27 Trump Truth Social posts added (policy/decision-relevant only)
+  - Peace positions section added (US requirements vs Iran demands)
 - **Canada_Oil_Briefing.md created** (2026-04-07):
   - 455-line, 15-section briefing for professional oil industry audience
   - Global stats: 106.3 mb/d supply, 103.7 mb/d demand, IEA/OPEC 2030 forecast divergence

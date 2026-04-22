@@ -4,6 +4,55 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-04-22
+
+### Summary
+Extended the Iran War Timeline from April 9 to April 22, 2026, adding two new parts (PART 13 and PART 14) covering the naval blockade, Islamabad talks collapse, Israel-Lebanon ceasefire, Hormuz reopening, TOUSKA seizure, and Operation Midnight Hammer disclosure. Also created a new internal reference document — `Physical_Market.md` — analysing the physical oil and products market under a Hormuz closure scenario, with per-product breakdown, regional impact assessment, and detailed UK shortage risk timeline.
+
+### Work Completed
+- **Iran_War_Timeline.md — PART 13 (9–15 April 2026):** Ceasefire immediately broken; 230 tankers stranded; US Navy freedom-of-navigation operation (April 11); 21-hour Islamabad talks collapse on nuclear issue (April 11–12); naval blockade of Iranian ports implemented 10:00 AM ET April 13; China agrees to halt weapons supply to Iran; confirmed 13 ships stopped by Pentagon; record 34 ships transited Hormuz in one day
+- **Iran_War_Timeline.md — PART 14 (16–22 April 2026):** Trump brokers Israel-Lebanon 10-day ceasefire (first talks in 34 years); Iran declares Hormuz "fully open" (April 17); mines removed with US assistance; Iran agrees to never close Hormuz again; Israel formally prohibited from bombing Lebanon; TOUSKA cargo ship seized by USS Spruance/US Marines (April 19); Operation Midnight Hammer details disclosed (7 B-2 bombers, 14 GBU-57 MOPs; June 2025 nuclear site strikes); ceasefire extended indefinitely citing Iran's "fractured" government under new Supreme Leader Mojtaba Khamenei; Iran losing $500M/day
+- **27 Trump Truth Social posts included** (filtered for public-informing or policy-relevant content; media rants excluded)
+- **Current peace positions section added** to timeline — US requirements vs Iran demands clearly set out
+- **Physical_Market.md created** — new ~700-line internal reference document covering:
+  - Scale of Hormuz disruption (20.1 mb/d → 3.8 mb/d; 870 tankers at anchor)
+  - Middle East refinery losses (Ruwais 922k b/d, KNPC 940k b/d, Ras Tanura 550k b/d constrained)
+  - Per-product analysis: diesel, jet fuel, petrol/naphtha, LPG, fuel oil/HSFO
+  - Trade flow rerouting (Cape route adds 16–32 days; war risk insurance 0.2–0.4% of vessel value)
+  - Regional impact table (South Asia already in shortage; East Africa critical)
+  - UK-specific exposure: jet fuel critical (Kuwait 38% of imports, ARA stocks at 6-year lows, shortage risk in 6–8 weeks); diesel high risk (Grangemouth closure exposed Scotland, shortage risk 8–12 weeks); petrol/residential LPG low risk
+  - Alternative supply assessment (US + India can cover ~400–600 kbd of 600–800 kbd deficit)
+  - UK SPR: 68M bbl (~68 days blended; jet-specific only ~15–20 days)
+  - Crack spread table: jet at $80/bbl (4x normal); diesel doubled; naphtha swung positive
+  - Shortage probability matrix by product and timeframe
+
+### Files Changed
+- `Iran_War_Timeline.md` — Extended from ~1,900 to ~2,300+ lines; PART 13 and PART 14 added; closing datestamp updated to 22 April 2026
+- `Physical_Market.md` — New file created at `/docs/terminai/Physical_Market.md`
+
+### Git Commits
+- *(no new commits this session — pending this end-session commit)*
+
+### Key Decisions
+- **Trump post filter**: Posts included only if they inform the public of decisions/actions already made or imminent, or are widely reported as policy statements. Personal attacks on media, political opponents, and off-topic commentary excluded
+- **Physical_Market.md**: Internal document format (no Portland Long logo); plain markdown; industry-knowledge assumed; both physical and price effects included; per-product depth with global region overview + UK-specific analysis
+- **Operation Midnight Hammer** identified as a June 2025 pre-war B-2 strike on Iranian nuclear sites (Fordow, Natanz, Isfahan) — referenced in timeline as disclosed April 21, 2026
+- **Grangemouth closure** (April 2025) flagged as a material worsening of UK product supply resilience — Scotland now 100% import-dependent
+
+### Reference Documents
+- `Iran_War_Timeline.md` — Extended to 22 April 2026
+- `Physical_Market.md` — New internal physical market analysis document
+- Sources: IEA OMR April 2026, EIA STEO April 2026, Wood Mackenzie, S&P Global, NPR, CNBC, NBC News, CNN, Al Jazeera, Kpler, Windward Maritime, Riviera Maritime, CSIS, EnergyVoice, UK Gov Energy Trends 2025
+
+### Next Actions
+- [ ] Verify individual source URLs in Physical_Market.md are still live (some may be scenario-specific)
+- [ ] Update Physical_Market.md when/if Hormuz situation changes (ceasefire resolution)
+- [ ] Update Iran_War_Timeline.md when new events occur or Iran submits unified proposal
+- [ ] Consider adding a CITT presentation section on Physical_Market findings
+- [ ] Consider creating a Briefings-format version of Physical_Market.md for external/client use
+
+---
+
 ## Session 2026-04-07
 
 ### Summary

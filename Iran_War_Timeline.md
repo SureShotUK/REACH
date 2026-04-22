@@ -254,10 +254,6 @@ Trump posted a video address on Truth Social informing the public of the first b
 
 ---
 
-## PART 5 — DAY 2 (1 MARCH 2026)
-
----
-
 ### 1 March 2026 — 62 Iranian attack waves against Israel in first 24 hours
 By 17:00 local time on 1 March, Israel had recorded 62 attack waves against it since the operation began (89 total attack waves in the first 28 hours). Nine Israeli civilians killed in a direct hit in Beit Shemesh; 11 people missing. One person killed in Tel Aviv on 28 February.
 
@@ -327,10 +323,6 @@ The UN Security Council held its emergency session. The United States vetoed a r
 > "I have just been informed that we have destroyed and sunk 9 Iranian Naval Ships, some of them relatively large and important. We are going after the rest — They will soon be floating at the bottom of the sea, also! In a different attack, we largely destroyed their Naval Headquarters. Other than that, their Navy is doing very well! PRESIDENT DONALD J. TRUMP"
 
 *Truth Social · 8.25k ReTruths · 33.1k Likes*
-
----
-
-## PART 6 — DAYS 3–5 (2–4 MARCH 2026)
 
 ---
 
@@ -458,10 +450,6 @@ Iran launched another round of missiles at Israel, triggering air-raid alerts in
 Trump stated publicly that the United States must be involved in the process of selecting a new supreme leader in Iran and would not accept any leader who continued Khamenei's policies.
 
 - **Source:** <a href="https://en.wikipedia.org/wiki/2026_Iran_war" target="_blank">Wikipedia — 2026 Iran war</a>
-
----
-
-## PART 7 — DAYS 6–10 (5–9 MARCH 2026)
 
 ---
 
@@ -598,10 +586,6 @@ The US Embassy in Baghdad was hit by a suicide UAV and missiles. The KBR oil fac
 - **Source:** <a href="https://israel-alma.org/daily-report-the-second-iran-war-march-8-2026-1800/" target="_blank">Alma Research — March 8 daily report</a>
 
 ---
-
----
-
-## PART 8 — DAYS 11–15 (10–14 MARCH 2026)
 
 ---
 
@@ -758,10 +742,6 @@ NPR reported that the first 12 days of the war cost approximately $16.5 billion,
 
 ---
 
-## PART 9 — DAYS 16–18 (15–17 MARCH 2026)
-
----
-
 ### 15 March 2026 — Isfahan province struck; Iranian FM says Tehran "never sought ceasefire"
 US and Israeli missiles struck multiple sites across Isfahan province. Iranian Foreign Minister Abbas Araghchi stated Tehran "never sought a ceasefire" and remained prepared for extended conflict. Trump indicated Iranian officials had reached out about negotiations but stated the "terms aren't good enough yet."
 
@@ -846,10 +826,6 @@ A cluster munition from an Iranian missile warhead struck an apartment building 
 The International Red Cross reported over 1,200 killed in Iran. Lebanese casualty total reached approximately 900 killed, with UN documenting 111 children among the dead.
 
 - **Source:** <a href="https://www.nbcnews.com/world/iran/live-blog/live-updates-iran-war-israel-killed-basij-iraq-embassy-trump-hormuz-rcna263845" target="_blank">NBC News — March 17 live blog</a>
-
----
-
-## PART 10 — DAYS 19–22 (18–21 MARCH 2026)
 
 ---
 
@@ -1107,10 +1083,6 @@ Brent crude reached $112.19/barrel. Over 3,000 vessels remained stranded in Midd
 *Truth Social · 10.3k ReTruths · 40.1k Likes*
 
 *(Note: This post was made at 11:44 PM on 21 March. News reports covering the ultimatum were dated 22 March.)*
-
----
-
-## PART 11 — DAYS 23–26 (22–25 MARCH 2026)
 
 ---
 
@@ -1513,10 +1485,6 @@ European Union officials expressed concern over Trump's suggestion that member s
 
 ---
 
-## PART 13 — 1–6 APRIL 2026
-
----
-
 ### 1 April 2026, 1:44 PM ET — **Trump (Truth Social):** Iran's new regime president asks for ceasefire
 
 > "Iran's New Regime President, much less Radicalized and far more intelligent than his predecessors, has just asked the United States of America for a CEASEFIRE! We will consider when Hormuz Strait is open, free, and clear. Until then, we are blasting Iran into oblivion or, as they say, back to the Stone Ages!!! President DJT"
@@ -1673,7 +1641,7 @@ Key events on 6 April 2026:
 
 ---
 
-## PART 13 — CUMULATIVE CASUALTY AND DAMAGE SUMMARY (as of 5–6 April 2026)
+## PART 5 — CUMULATIVE CASUALTY AND DAMAGE SUMMARY (as of 5–6 April 2026)
 
 ---
 
@@ -1701,8 +1669,6 @@ Key events on 6 April 2026:
 
 ---
 
-## KEY SOURCES — PART 13
-
 | Source | URL |
 |---|---|
 | Al Jazeera — Iran denies ceasefire claim | <a href="https://www.aljazeera.com/news/2026/4/1/iran-denies-trumps-claim-iranian-president-requested-ceasefire" target="_blank">aljazeera.com</a> |
@@ -1722,3 +1688,630 @@ Key events on 6 April 2026:
 
 *Document updated 6 April 2026. All events verified against two or more sources where possible. Casualty figures are subject to revision. The conflict is ongoing. Next major deadline: Tuesday 7 April 2026, 8:00 PM ET — Trump's ultimatum on Iranian energy infrastructure and Strait of Hormuz.*
 | DW — Iran war live blog | April 1, 2026 | <a href="https://www.dw.com/en/iran-war-live-blog-april-1/live-76615254" target="_blank">dw.com</a> |
+
+---
+
+## PART 5 — APRIL 2026 (4–9 APRIL)
+
+---
+
+### 4 April 2026, 3:05 PM ET — **Trump (Truth Social)**
+
+> "Remember when I gave Iran ten days to MAKE A DEAL or OPEN UP THE HORMUZ STRAIT. Time is running out - 48 hours before all Hell will reign down on them. Glory be to GOD! President DONALD J. TRUMP"
+
+*Truth Social · 10.9k ReTruths · 48.4k Likes*
+
+---
+
+### 4 April 2026, 9:37 PM ET — **Trump (Truth Social)**
+
+> "Many of Iran's Military Leaders, who have led them poorly and unwisely, are terminated, along with much else, with this massive strike in Tehran! President DONALD J. TRUMP"
+
+*Truth Social · 8.88k ReTruths · 40.8k Likes*
+
+---
+
+### 5 April 2026, 5:08 AM ET — **Trump (Truth Social)**
+
+> "WE GOT HIM! My fellow Americans, over the past several hours, the United States Military pulled off one of the most daring Search and Rescue Operations in U.S. History, for one of our incredible Crew Member Officers, who also happens to be a highly respected Colonel, and who I am thrilled to let you know is now SAFE and SOUND! This brave Warrior was behind enemy lines in the treacherous mountains of Iran, being hunted down by our enemies, who were getting closer and closer by the hour, but was never truly alone because his Commander in Chief, Secretary of War, Chairman of the Joint Chiefs of Staff, and fellow Warfighters were monitoring his location 24 hours a day, and diligently planning for his rescue. At my direction, the U.S. Military sent dozens of aircraft, armed with the most lethal weapons in the World, to retrieve him. He sustained injuries, but he will be just fine. This miraculous Search and Rescue Operation comes in addition to a successful rescue of another brave Pilot, yesterday, which we did not confirm, because we did not want to jeopardize our second rescue operation. This is the first time in military memory that two U.S. Pilots have been rescued, separately, deep in Enemy Territory. WE WILL NEVER LEAVE AN AMERICAN WARFIGHTER BEHIND! The fact that we were able to pull off both of these operations, without a SINGLE American killed, or even wounded, just proves once again, that we have achieved overwhelming Air Dominance and Superiority over the Iranian skies. This is a moment that ALL Americans, Republican, Democrat, and everyone else, should be proud of and united around. We truly have the best, most professional, and lethal Military in the History of the World. GOD BLESS AMERICA, GOD BLESS OUR TROOPS, AND HAPPY EASTER TO ALL!"
+
+*Truth Social · 19.9k ReTruths · 85.3k Likes*
+
+---
+
+### 5 April 2026, 12:52 PM ET — **Trump (Truth Social)**
+
+> "We have rescued the seriously wounded, and really brave, F-15 Crew Member/Officer, from deep inside the mountains of Iran. The Iranian Military was looking hard, in big numbers, and getting close. He is a highly respected Colonel. This type of raid is seldom attempted because of the danger to 'man and equipment.' It just doesn't happen! The second raid came after the first one, where we rescued the pilot in broad daylight, also unusual, spending seven hours over Iran. An AMAZING show of bravery and talent by all! I will be having a News Conference, with the Military, at the Oval Office, on Monday, at 1:00 P.M. God Bless our great MILITARY WARRIORS! President DONALD J. TRUMP"
+
+*Truth Social · 11.9k ReTruths · 57k Likes*
+
+---
+
+### 5 April 2026, 1:03 PM ET — **Trump (Truth Social)**
+
+> "Tuesday will be Power Plant Day, and Bridge Day, all wrapped up in one, in Iran. There will be nothing like it!!! Open the Fuckin' Strait, you crazy bastards, or you'll be living in Hell - JUST WATCH! Praise be to Allah. President DONALD J. TRUMP"
+
+*Truth Social · 19.2k ReTruths · 83k Likes*
+
+---
+
+### 5 April 2026, 5:38 PM ET — **Trump (Truth Social)**
+
+> "Tuesday, 8:00 P.M. Eastern Time!"
+
+*Truth Social · 6.65k ReTruths · 30.9k Likes*
+
+---
+
+### 5 April 2026 — F-15E Pilot Rescue Operation
+
+The United States successfully rescued a downed F-15E Weapon Systems Officer (Colonel) from deep in the mountains of southern Iran, specifically the Kohgiluyeh and Boyer-Ahmad Province at the northern end of the Gulf. This was the first time in military memory that two U.S. pilots have been separately rescued from deep inside enemy territory. The rescue operation involved dozens of aircraft and the most lethal weapons in the world. The pilot sustained injuries but survived.
+
+- **Source:** <a href="https://www.nytimes.com/2026/04/04/us/politics/military-iran-airman-rescue.html" target="_blank">New York Times — U.S. Rescues Downed Air Force Officer Deep Inside Iran</a>
+- **Source:** <a href="https://www.reuters.com/world/middle-east/us-rescues-airman-whose-f-15-was-downed-iran-us-officials-say-2026-04-05/" target="_blank">Reuters — U.S. special forces rescue second F-15 airman from Iran</a>
+
+---
+
+### 6 April 2026 — Iran Rejects Ceasefire; Trump Threatens Infrastructure Strikes
+
+Iran officially rejected the U.S. ceasefire proposal, demanding a permanent end to the war rather than a temporary pause. Tehran's counter-proposal included demands for U.S. troops to leave the region, Iranian control over the Strait of Hormuz, and sanctions relief. President Trump responded by threatening further strikes on Iran's infrastructure, including power plants and bridges, if the Strait remains closed.
+
+- **Source:** <a href="https://www.reuters.com/business/aerospace-defense/trump-vows-hell-iran-if-strait-stays-shut-says-deal-is-possible-2026-04-06/" target="_blank">Reuters — Trump vows "hell" on Iran if Strait stays shut, says deal is possible</a>
+- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-04-06-2026" target="_blank">AP News — Trump's ultimatum looms and Iran rejects a ceasefire deal</a>
+
+President Trump delayed his threat to bomb Iran's power plants to April 13, citing ongoing negotiations. He called the Iranian ceasefire proposal "not good enough" but indicated strikes could be postponed if talks continued.
+
+- **Source:** <a href="https://www.cnn.com/2026/04/06/world/live-news/iran-war-us-trump-oil" target="_blank">CNN — Day 38 of Middle East conflict — Trump press conference, Iran rejects ceasefire</a>
+
+---
+
+### 7 April 2026, 11:32 PM ET — **Trump (Truth Social)**
+
+> "Based on conversations with Prime Minister Shehbaz Sharif and Field Marshal Asim Munir, of Pakistan, and wherein they requested that I hold off the destructive force being sent tonight to Iran, and subject to the Islamic Republic of Iran agreeing to the COMPLETE, IMMEDIATE, and SAFE OPENING of the Strait of Hormuz, I agree to suspend the bombing and attack of Iran for a period of two weeks. This will be a double sided CEASEFIRE! The reason for doing so is that we have already met and exceeded all Military objectives, and are very far along with a definitive Agreement concerning Longterm PEACE with Iran, and PEACE in the Middle East. We received a 10 point proposal from Iran, and believe it is a workable basis on which to negotiate. Almost all of the various points of past contention have been agreed to between the United States and Iran, but a two week period will allow the Agreement to be finalized and consummated. On behalf of the United States of America, as President, and also representing the Countries of the Middle East, it is an Honor to have this Longterm problem close to resolution. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 15.2k ReTruths · 65.6k Likes*
+
+President Trump announced a two-week ceasefire with Iran, suspending all bombing and attacks contingent on Iran's agreement to the complete, immediate, and safe opening of the Strait of Hormuz. The ceasefire followed conversations with Pakistani leadership and Iran's submission of a 10-point peace proposal. Israeli Prime Minister Benjamin Netanyahu supported the U.S.-Iran ceasefire but stated the agreement did not include Lebanon, meaning Israeli operations against Hezbollah would continue.
+
+- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-04-07-2026" target="_blank">AP News — US and Iran agree to a two-week ceasefire</a>
+- **Source:** <a href="https://www.washingtonpost.com/world/2026/04/07/trump-us-iran-war-threat/" target="_blank">Washington Post — Trump agrees to suspend attacks for two weeks if Iran opens Strait of Hormuz</a>
+
+---
+
+### 8 April 2026 — Iran's 10-Point Peace Proposal
+
+Iran released its 10-point peace proposal following the ceasefire agreement. Key demands included: permanent end to the war, U.S. troops to leave the region, Iranian control over the Strait of Hormuz, right to nuclear enrichment maintained, sanctions relief, safe passage in the Strait under Iranian coordination, and compensation for war damages. Iran also proposed charging fees of up to $2 million per ship transiting the strait to fund reconstruction.
+
+- **Source:** <a href="https://www.nytimes.com/2026/04/08/world/middleeast/iran-10-point-proposal-trump-us-ceasefire.html" target="_blank">New York Times — What Is In Iran's 10-Point Proposal, and How Does It Compare to U.S. Demands?</a>
+- **Source:** <a href="https://www.theguardian.com/world/2026/apr/08/iran-10-point-plan-ceasefire-donald-trump-us" target="_blank">The Guardian — Explainer: What is in Iran's 10-point ceasefire plan and will the US agree to it?</a>
+
+### 8 April 2026, 1:01 AM ET — **Trump (Truth Social)**
+
+> "The alleged Statement put out by CNN World News is a FRAUD, as CNN well knows. The false Statement was linked to a Fake News site (from Nigeria) and, of course, immediately picked up by CNN, and blared out as a 'legitimate' headline. The Official Statement by Iran was just released, and posted on TRUTH, below. Authorities are looking to determine whether or not a crime was committed on the issuance of the Fake CNN World Statement, or was it a sick rogue player? CNN is being ordered to immediately withdraw this Statement with full apologies for their, as usual, terrible 'reporting.' Results of the investigation will be announced in the near future. President DONALD J. TRUMP"
+
+*Truth Social · 9.06k ReTruths · 34.3k Likes*
+
+---
+
+### 8 April 2026, 4:39 AM ET — **Trump (Truth Social)**
+
+> "No one can believe that Fake News CNN put out a knowingly false and dangerous statement pretending it came from the upper levels of the Iranian Government. It didn't! It was totally made up and posted, as a headline, for purpose of, perhaps, inflaming a very delicate situation. It was a new, trouble making site from Nigeria, and CNN just got caught cheating - A very dangerous thing to do!"
+
+*Truth Social · 6.85k ReTruths · 26.3k Likes*
+
+---
+
+### 8 April 2026, 5:01 AM ET — **Trump (Truth Social)**
+
+> "A big day for World Peace! Iran wants it to happen, they've had enough! Likewise, so has everyone else! The United States of America will be helping with the traffic buildup in the Strait of Hormuz. There will be lots of positive action! Big money will be made. Iran can start the reconstruction process. We'll be loading up with supplies of all kinds, and just 'hangin' around' in order to make sure that everything goes well. I feel confident that it will. Just like we are experiencing in the U.S., this could be the Golden Age of the Middle East!!! President DONALD J. TRUMP"
+
+*Truth Social · 8.92k ReTruths · 38.3k Likes*
+
+---
+
+### 8 April 2026, 12:22 PM ET — **Trump (Truth Social)**
+
+> "The United States will work closely with Iran, which we have determined has gone through what will be a very productive Regime Change! There will be no enrichment of Uranium, and the United States will, working with Iran, dig up and remove all of the deeply buried (B-2 Bombers) Nuclear 'Dust.' It is now, and has been, under very exacting Satellite Surveillance (Space Force!). Nothing has been touched from the date of attack. We are, and will be, talking Tariff and Sanctions relief with Iran. Many of the 15 points have already been been agreed to. Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 7.59k ReTruths · 32.6k Likes*
+
+---
+
+### 8 April 2026, 12:30 PM ET — **Trump (Truth Social)**
+
+> "A Country supplying Military Weapons to Iran will be immediately tariffed, on any and all goods sold to the United States of America, 50%, effective immediately. There will be no exclusions or exemptions! President DJT"
+
+*Truth Social · 9.23k ReTruths · 41k Likes*
+
+---
+
+### 8 April 2026, 5:04 PM ET — **Trump (Truth Social)**
+
+> "Numerous Agreements, Lists, and Letters are being sent out by people that have absolutely nothing to do with the U.S.A. / Iran Negotiation, in many cases, they are total Fraudsters, Charlatans, and WORSE. They will be rapidly exposed after our Federal Investigation is completed. There is only one group of meaningful 'POINTS' that are acceptable to the United States, and we will be discussing them behind closed doors during these Negotiations. These are the POINTS that are the basis on which we agreed to a CEASEFIRE. It is something that is reasonable, and can easily be dispensed with. It's very much like Fake News CNN last night, headlining a 'source' that had no power or authority to write a Letter claiming great authority. President DONALD J. TRUMP"
+
+*Truth Social · 10.7k ReTruths · 44.9k Likes*
+
+**18:00+ ET** — April 8, 2026  Israel launched its heaviest strikes on Lebanon since the conflict with Hezbollah began, hitting approximately 100 sites across the country. The attacks occurred just hours after the U.S.-Iran ceasefire took effect. Lebanon's health ministry reported at least 254 killed in the strikes, described by Israel as its most powerful operations on Lebanon. The attacks raised concerns that the fragile U.S.-Iran ceasefire could collapse.
+
+- **Source:** <a href="https://www.theguardian.com/world/2026/apr/08/israel-operations-in-lebanon-to-continue-despite-trump-ceasefire-iran-pakistan-hezbollah" target="_blank">The Guardian — At least 254 killed after Israel hits Lebanon with massive wave of airstrikes</a>
+- **Source:** <a href="https://apnews.com/article/israel-lebanon-hezbollah-beirut-strikes-9402965418687c634d4a157c966ec6ea" target="_blank">AP News — Scores killed as Israel strikes central Beirut</a>
+
+---
+
+### 9 April 2026 — Ceasefire Under Strain
+
+The U.S.-Iran ceasefire faced increasing strain as Israel continued strikes in Lebanon. Iran and the U.S. disagreed on whether the truce covered Lebanon, where Israeli attacks against Hezbollah continued. Hezbollah was expected to pause attacks under the ceasefire but reports indicated they may have resumed. Iran also announced it had planted mines in the Strait of Hormuz main channel, complicating the Strait's reopening. Iran had designated alternative routes for ships but the safety of these routes remained uncertain.
+
+- **Source:** <a href="https://www.nytimes.com/live/2026/04/09/world/iran-ceasefire-trump-lebanon" target="_blank">New York Times — Israeli Strikes in Lebanon Threaten Shaky U.S.-Iran Cease-Fire</a>
+- **Source:** <a href="https://apnews.com/live/iran-war-israel-trump-04-09-2026" target="_blank">AP News — Iran War Live Updates: Israel Presses Lebanon Assault as Cease-Fire Negotiations Stall</a>
+
+### 9 April 2026, 3:56 AM ET — **Trump (Truth Social)**
+
+> "The Failing New York Times and Fake News CNN each reported a totally FAKE TEN POINT PLAN on the Iran negotiations which was meant to discredit the people involved in the peace process. All ten points were a made up HOAX - EVIL LOSERS!!! MAKE AMERICA GREAT AGAIN"
+
+*Truth Social · 5.85k ReTruths · 22.6k Likes*
+
+---
+
+### 9 April 2026, 4:46 AM ET — **Trump (Truth Social)**
+
+> "All U.S. Ships, Aircraft, and Military Personnel, with additional Ammunition, Weaponry, and anything else that is appropriate and necessary for the lethal prosecution and destruction of an already substantially degraded Enemy, will remain in place in, and around, Iran, until such time as the REAL AGREEMENT reached is fully complied with. If for any reason it is not, which is highly unlikely, then the 'Shootin' Starts,' bigger, and better, and stronger than anyone has ever seen before. It was agreed, a long time ago, and despite all of the fake rhetoric to the contrary - NO NUCLEAR WEAPONS and, the Strait of Hormuz WILL BE OPEN & SAFE. In the meantime our great Military is Loading Up and Resting, looking forward, actually, to its next Conquest. AMERICA IS BACK!"
+
+*Truth Social · 6.96k ReTruths · 28.4k Likes*
+
+---
+
+### 9 April 2026, 1:40 PM ET — **Trump (Truth Social)**
+
+> "None of these people, including our own, very disappointing, NATO, understood anything unless they have pressure placed upon them!!!"
+
+*Truth Social · 1.48k ReTruths · 6.58k Likes*
+
+---
+
+### Summary: April 4–9, 2026
+
+| Date | Event |
+|------|-------|
+| Apr 4, 15:05 | Trump: 48-hour deadline warning | Truth Social |
+| Apr 4, 21:37 | Tehran military strike | Truth Social |
+| Apr 5, 05:08 | F-15E pilot rescue operation | Truth Social; NYT, Reuters |
+| Apr 5, 12:52 | Rescue operation confirmed | Truth Social |
+| Apr 5, 13:03 | Power Plant/Bridge Day warning | Truth Social |
+| Apr 5, 17:38 | Deadline confirmation: 8 PM ET | Truth Social |
+| Apr 6 | Iran rejects ceasefire | Reuters, AP |
+| Apr 6 | Trump threatens power plants/bridges | CNN |
+| Apr 7, 23:32 | Two-week ceasefire announced | Truth Social; AP, WaPo |
+| Apr 8, Morning | Iran's 10-point proposal released | NYT, Guardian |
+| Apr 8, 01:01 | CNN fake news accusation | Truth Social; Deadline |
+| Apr 8, 04:39 | Trump elaborates on fake news | Truth Social |
+| Apr 8, 05:01 | Golden Age of Middle East | Truth Social |
+| Apr 8, 12:22 | Nuclear disarmament terms | Truth Social |
+| Apr 8, 12:30 | Tariff threat on weapons suppliers | Truth Social |
+| Apr 8, 17:04 | Federal investigation announcement | Truth Social |
+| Apr 8, 18:00+ | Israel Lebanon strikes (254 killed) | Guardian, AP |
+| Apr 9, 03:56 | NYT/CNN hoax claim | Truth Social |
+| Apr 9, 04:46 | U.S. forces remain in place | Truth Social |
+| Apr 9, 13:40 | NATO criticism | Truth Social |
+
+---
+
+*Document updated 9 April 2026. All events verified against two or more sources where possible. Casualty figures are subject to revision. The conflict is ongoing. Next major deadline: Two-week ceasefire period — approximately 21 April 2026.*
+
+---
+
+## PART 13 — DAYS 40–46 (9–15 APRIL 2026)
+
+---
+
+### 9 April 2026 — Ceasefire Under Immediate Strain; Hormuz Still Closed
+
+Despite the two-week ceasefire announced by Trump on 7 April, Iran did not open the Strait of Hormuz. Approximately **230 loaded oil tankers** remained stranded in the Gulf awaiting passage. Israel continued strikes on Hezbollah in Lebanon, which Iran cited as a reason for continued Hormuz restrictions. Reports emerged of Iranian forces charging transit fees to tankers attempting to pass — a condition Iran had long sought but the US had explicitly rejected.
+
+- **Source:** <a href="https://www.nbcnews.com/world/iran/live-blog/live-updates-iran-war-ceasefire-trump-hormuz-israel-lebanon-rcna267205" target="_blank">NBC News — Iran war ceasefire live blog (9 April)</a>
+
+---
+
+### 9 April 2026, 4:46 AM ET — **Trump (Truth Social):** US forces remain in place
+
+> "All U.S. Ships, Aircraft, and Military Personnel, with additional Ammunition, Weaponry, and anything else that is appropriate and necessary for the lethal prosecution and destruction of an already substantially degraded Enemy, will remain in place in, and around, Iran, until such time as the REAL AGREEMENT reached is fully complied with. If for any reason it is not, which is highly unlikely, then the 'Shootin' Starts,' bigger, and better, and stronger than anyone has ever seen before. It was agreed, a long time ago, and despite all of the fake rhetoric to the contrary - NO NUCLEAR WEAPONS and, the Strait of Hormuz WILL BE OPEN & SAFE. In the meantime our great Military is Loading Up and Resting, looking forward, actually, to its next Conquest. AMERICA IS BACK!"
+
+*Truth Social · 6.96k ReTruths · 28.4k Likes*
+
+---
+
+### 9 April 2026, 10:08 PM ET — **Trump (Truth Social):** Warning over Iran charging tanker fees
+
+> "There are reports that Iran is charging fees to tankers going through the Hormuz Strait — They better not be and, if they are, they better stop now! President DONALD J. TRUMP"
+
+*Truth Social · 6.52k ReTruths · 29.8k Likes*
+
+---
+
+### 9 April 2026, 11:29 PM ET — **Trump (Truth Social):** Iran failing to allow oil through
+
+> "Iran is doing a very poor job, dishonorable some would say, of allowing Oil to go through the Strait of Hormuz. That is not the agreement we have! President DONALD J. TRUMP"
+
+*Truth Social · 6.87k ReTruths · 29.3k Likes*
+
+---
+
+### 10 April 2026 — Iran Continues Hormuz Restrictions
+
+Iran continued to restrict shipping through the Strait of Hormuz, citing ongoing Israeli operations in Lebanon. The ceasefire remained technically in effect but was increasingly fragile. Trump warned the Iranian position was untenable.
+
+---
+
+### 10 April 2026, 5:28 PM ET — **Trump (Truth Social):** Iran's only leverage
+
+> "The Iranians don't seem to realize they have no cards, other than a short term extortion of the World by using International Waterways. The only reason they are alive today is to negotiate! President DONALD J. TRUMP"
+
+*Truth Social · 6.88k ReTruths · 29.4k Likes*
+
+---
+
+### 11 April 2026 — US Navy Enters Strait of Hormuz; Oil Tanker Diversion to US
+
+US Navy destroyers entered the Strait of Hormuz in a **"freedom of navigation"** operation — the first time US warships had transited the Strait since the war began. The move was seen as a direct signal to Iran that the US would not accept continued closure. Simultaneously, large numbers of empty oil tankers from multiple nations were diverting toward US ports (Texas, Louisiana, Alaska) to load American crude as alternative supply.
+
+- **Source:** <a href="https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis" target="_blank">Wikipedia — 2026 Strait of Hormuz crisis</a>
+
+---
+
+### 11 April 2026, 12:30 PM ET — **Trump (Truth Social):** Tankers heading to US
+
+> "Massive numbers of completely empty oil tankers, some of the largest anywhere in the World, are heading, right now, to the United States to load up with the best and 'sweetest' oil (and gas!) anywhere in the World. We have more oil than the next two largest oil economies combined - and higher quality. We are waiting for you. Quick turnaround! President DJT"
+
+*Truth Social · 5.92k ReTruths · 23.7k Likes*
+
+---
+
+### 11 April 2026, 1:58 PM ET — **Trump (Truth Social):** Clearing Hormuz as global favour
+
+> "The Fake News Media has lost total credibility, not that they had any to begin with. Because of their massive Trump Derangement Syndrome (Sometimes referred to as TDS!), they love saying that Iran is 'winning' when, in fact, everyone knows that they are LOSING, and LOSING BIG! Their Navy is gone, their Air Force is gone, their Anti Aircraft apparatus is nonexistent, Radar is dead, their Missile and Drone Factories have been largely obliterated along with the Missiles and Drones themselves and, most importantly, their longtime 'Leaders' are no longer with us, praise be to Allah! The only thing they have going is the threat that a ship may 'bunk' into one of their sea mines which, by the way, all 28 of their mine dropper boats are also lying at the bottom of the sea. We're now starting the process of clearing out the Strait of Hormuz as a favor to Countries all over the World, including China, Japan, South Korea, France, Germany, and many others. Incredibly, they don't have the Courage or Will to do this work themselves. Very interestingly, however, empty Oil carrying ships from many Nations are all heading to the United States of America to LOAD UP with Oil. Thank you for your attention to this matter! President DONALD J. TRUMP"
+
+*Truth Social · 8.39k ReTruths · 35.5k Likes*
+
+---
+
+### 11–12 April 2026 — Islamabad Talks Collapse on Nuclear Issue
+
+US and Iranian negotiators held talks in Islamabad facilitated by Pakistani Army Chief Field Marshal Syed Asim Munir and Prime Minister Shehbaz Sharif. The session lasted approximately **21 hours**. The US delegation was led by Vice President JD Vance, Special Envoy Steve Witkoff, and Jared Kushner; the Iranian delegation by parliament speaker Mohammad-Bagher Ghalibaf, Foreign Minister Abbas Araghchi, and Deputy FM Ali Bagheri.
+
+Most of the agenda points were agreed upon. The talks collapsed on a single issue: **Iran refused to surrender its nuclear ambitions.** VP Vance left Islamabad confirming the breakdown. Trump subsequently announced a **naval blockade** of all Iranian ports with immediate effect.
+
+- **Source:** <a href="https://www.npr.org/2026/04/12/nx-s1-5782538/u-s-iran-peace-talks-islamabad-collapse" target="_blank">NPR — US-Iran peace talks in Islamabad collapse</a>
+
+---
+
+### 12 April 2026, 4:30 PM ET — **Trump (Truth Social):** Blockade announced; full account of Islamabad talks
+
+> "Iran promised to open the Strait of Hormuz, and they knowingly failed to do so. [...] I have been fully debriefed by Vice President JD Vance, Special Envoy Steve Witkoff, and Jared Kushner, on the meeting that took place in Islamabad through the kind and very competent leadership of Field Marshal Asim Munir, and Prime Minister Shehbaz Sharif, of Pakistan. [...] The meeting with Iran began early in the morning, and lasted throughout the night — Close to 20 hours. [...] there is only one thing that matters — IRAN IS UNWILLING TO GIVE UP ITS NUCLEAR AMBITIONS! [...] Effective immediately, the United States Navy, the Finest in the World, will begin the process of BLOCKADING any and all Ships trying to enter, or leave, the Strait of Hormuz. [...] Iran will not be allowed to profit off this Illegal Act of EXTORTION. [...] President DONALD J. TRUMP"
+
+*Truth Social · 5.87k ReTruths · 24.5k Likes*
+
+*(Full post text available in TrumpsTruthSocialPosts.csv, post 83. Condensed here for readability.)*
+
+---
+
+### 13 April 2026 — US Naval Blockade of Iranian Ports Begins at 10:00 AM ET
+
+The US Navy implemented a full **naval blockade** of all Iranian ports at 10:00 AM Eastern Time. The economic impact on Iran was estimated at **$435–500 million per day** in lost revenue. Key actions on the day of blockade implementation:
+
+- US Navy stopped **13 ships** attempting to pass the Iranian port blockade (confirmed by the Pentagon by 16 April)
+- A record **34 ships** transited the Strait of Hormuz in a single day — the highest since the closure began — using non-Iranian routes
+- Trump warned that any Iranian fast attack ships approaching the blockade would be "immediately ELIMINATED"
+- Iran claimed it had 158 ships now at the bottom of the sea destroyed by the US; Trump confirmed the figure referred to Iranian naval and commercial vessels
+
+- **Source:** <a href="https://www.npr.org/2026/04/13/nx-s1-5783445/iran-war-updates" target="_blank">NPR — Trump warns Iran's ships approaching blockade will be eliminated</a>
+- **Source:** <a href="https://www.cnbc.com/2026/04/16/trump-iran-war-hormuz-strait-blockade.html" target="_blank">CNBC — US Navy stopped 13 ships from passing Iranian port blockade</a>
+
+---
+
+### 13 April 2026, 5:43 AM ET — **Trump (Truth Social):** Blockade begins
+
+> "The United States to Blockade Ships Entering or Exiting Iranian Ports on April 13 at 10:00 A.M. ET. Thank you for your attention to this matter! President DJT"
+
+*Truth Social · 5.44k ReTruths · 25.3k Likes*
+
+---
+
+### 13 April 2026, 3:23 PM ET — **Trump (Truth Social):** Fast attack ship warning
+
+> "Iran's Navy is laying at the bottom of the sea, completely obliterated - 158 ships. What we have not hit are their small number of, what they call, 'fast attack ships,' because we did not consider them much of a threat. Warning: If any of these ships come anywhere close to our BLOCKADE, they will be immediately ELIMINATED, using the same system of kill that we use against the drug dealers on boats at Sea. It is quick and brutal. P.S. 98.2% of Drugs coming into the U.S. by Ocean or Sea have STOPPED! Thank you for your attention to this matter. President DJT"
+
+*Truth Social · 11.6k ReTruths · 56.2k Likes*
+
+---
+
+### 13 April 2026, 5:33 PM ET — **Trump (Truth Social):** Record 34 ships through Hormuz
+
+> "34 Ships went through the Strait of Hormuz yesterday, which is by far the highest number since this foolish closure began. President DONALD J. TRUMP"
+
+*Truth Social · 6.17k ReTruths · 29.2k Likes*
+
+---
+
+### 14–15 April 2026 — China Agrees Not to Supply Weapons; Diplomatic Developments
+
+A significant diplomatic breakthrough occurred as China agreed not to supply military weapons to Iran. Trump announced an upcoming visit to meet President Xi, describing it as potentially "historic." China had separately offered, as a potential deal component, to take custody of approximately **970 lbs of Iranian enriched uranium**, removing it from Iranian territory.
+
+Trump also stated Iran had killed at least **42,000 unarmed protesters** in the two months since the war began — a figure aimed at countering international criticism of US military actions.
+
+- **Source:** <a href="https://www.fmprc.gov.cn/eng/xw/fyrbt/202604/t20260413_11891047.html" target="_blank">Chinese Foreign Ministry — Press conference, 13 April 2026</a>
+
+---
+
+### 15 April 2026, 12:46 PM ET — **Trump (Truth Social):** China agrees; Xi meeting upcoming
+
+> "China is very happy that I am permanently opening the Strait of Hormuz. I am doing it for them, also - And the World. This situation will never happen again. They have agreed not to send weapons to Iran. President Xi will give me a big, fat, hug when I get there in a few weeks. We are working together smartly, and very well! Doesn't that beat fighting??? BUT REMEMBER, we are very good at fighting, if we have to - far better than anyone else!!! President DJT"
+
+*Truth Social · 9.91k ReTruths · 46.8k Likes*
+
+---
+
+## PART 14 — DAYS 47–53 (16–22 APRIL 2026)
+
+---
+
+### 16 April 2026 — Trump Brokers Israel-Lebanon Ceasefire; First Talks in 34 Years
+
+Trump announced a diplomatic breakthrough on the Lebanon front, brokering a **10-day ceasefire** between Israel and Lebanon. Israeli PM Benjamin Netanyahu and Lebanese President Joseph Aoun — who had not spoken in **34 years** — held direct talks in Washington DC facilitated by Secretary of State Marco Rubio. This was described as the first meaningful Israel-Lebanon contact since 1983.
+
+Trump announced Netanyahu and Aoun would be invited to the White House for further talks, directed VP Vance and Sec. Rubio to work toward a lasting peace, and stated this would be his **tenth war resolved** since taking office. Trump expressed hope that Hezbollah would comply peacefully with the ceasefire.
+
+- **Source:** <a href="https://www.cnn.com/2026/04/16/world/live-news/iran-war-trump-us-israel" target="_blank">CNN — Iran war live updates, 16 April</a>
+- **Source:** <a href="https://www.npr.org/2026/04/16/nx-s1-5787392/iran-middle-east-updates" target="_blank">NPR — Iran/Middle East updates, 16 April</a>
+
+---
+
+### 16 April 2026, 4:36 PM ET — **Trump (Truth Social):** Israel-Lebanon 10-day ceasefire
+
+> "I just had excellent conversations with the Highly Respected President Joseph Aoun, of Lebanon, and Prime Minister Bibi Netanyahu, of Israel. These two Leaders have agreed that in order to achieve PEACE between their Countries, they will formally begin a 10 Day CEASEFIRE at 5 P.M. EST. On Tuesday, the two Countries met for the first time in 34 years here in Washington, D.C., with our Great Secretary of State, Marco Rubio. I have directed Vice President JD Vance and Secretary of State Rubio, together with the Chairman of the Joint Chiefs of Staff, Dan Razin' Caine, to work with Israel and Lebanon to achieve a Lasting PEACE. It has been my Honor to solve 9 Wars across the World, and this will be my 10th, so let's, GET IT DONE! President DONALD J. TRUMP"
+
+*Truth Social · 7.15k ReTruths · 33.3k Likes*
+
+---
+
+### 16 April 2026, 4:53 PM ET — **Trump (Truth Social):** Netanyahu and Aoun invited to White House
+
+> "In addition to the statement just issued, I will be inviting the Prime Minister of Israel, Bibi Netanyahu, and the President of Lebanon, Joseph Aoun, to the White House for the first meaningful talks between Israel and Lebanon since 1983, a very long time ago. Both sides want to see PEACE, and I believe that will happen, quickly! President DONALD J. TRUMP"
+
+*Truth Social · 4.23k ReTruths · 17.5k Likes*
+
+---
+
+### 17 April 2026, 12:22 AM ET — **Trump (Truth Social):** Hope for Hezbollah compliance
+
+> "I hope Hezbollah acts nicely and well during this important period of time. It will be an GREAT moment for them if they do. No more killing. Must finally have PEACE! Thank you for your attention to this matter. President DONALD J. TRUMP"
+
+*Truth Social · 4.98k ReTruths · 24.4k Likes*
+
+---
+
+### 17 April 2026 — Strait of Hormuz Declared Open; Mines Removed; Major Agreements
+
+In what Trump called "a great and brilliant day for the world," Iran announced the Strait of Hormuz was **"fully open and ready for full passage."** However, shipping industry body BIMCO continued to advise vessels to avoid the Strait due to the unresolved mine threat, and the US naval blockade remained in full force specifically against Iranian ports and commerce until a final agreement was signed.
+
+Key developments on 17 April:
+
+- **Iran began removing sea mines** from the Strait with US assistance and cooperation
+- **Iran agreed to never close the Strait of Hormuz again** — a key US condition
+- The **US naval blockade** remained in place against Iranian ports pending full compliance with all agreement terms
+- **Israel was formally prohibited by the United States from further bombing of Lebanon** — *"Enough is enough!!!"* per Trump
+- The US agreed to assist in removing nuclear "dust" from the B-2 bomber strike sites; **no money would change hands** in the transaction
+- Trump publicly thanked **Saudi Arabia, UAE, and Qatar** for their support, and **Pakistan** for its role as mediator
+
+The Strait's practical reopening — after weeks of closure that cost the world economy an estimated $435–500 million per day in disruption — was the single most consequential economic development since the war began.
+
+- **Source:** <a href="https://www.cnbc.com/2026/04/17/iran-trump-strait-hormuz-oil-tanker-traffic.html" target="_blank">CNBC — Iran, Trump, Strait of Hormuz oil tanker traffic (17 April)</a>
+- **Source:** <a href="https://fortune.com/2026/04/17/iran-white-house-strait-hormuz-completely-open-but-definitely-remains-closed/" target="_blank">Fortune — Strait of Hormuz: "completely open" but remains closed in practice</a>
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/17/world-reacts-to-the-opening-of-the-strait-of-hormuz-amid-us-iran-conflict" target="_blank">Al Jazeera — World reacts to the opening of the Strait of Hormuz</a>
+
+---
+
+### 17 April 2026, 2:06 PM ET — **Trump (Truth Social):** Strait of Hormuz fully open
+
+> "IRAN HAS JUST ANNOUNCED THAT THE STRAIT OF IRAN IS FULLY OPEN AND READY FOR FULL PASSAGE. THANK YOU!"
+
+*Truth Social · 6.5k ReTruths · 32.6k Likes*
+
+---
+
+### 17 April 2026, 2:27 PM ET — **Trump (Truth Social):** Blockade remains on Iran pending agreement
+
+> "THE STRAIT OF HORMUZ IS COMPLETELY OPEN AND READY FOR BUSINESS AND FULL PASSAGE, BUT THE NAVAL BLOCKADE WILL REMAIN IN FULL FORCE AND EFFECT AS IT PERTAINS TO IRAN, ONLY, UNTIL SUCH TIME AS OUR TRANSACTION WITH IRAN IS 100% COMPLETE. THIS PROCESS SHOULD GO VERY QUICKLY IN THAT MOST OF THE POINTS ARE ALREADY NEGOTIATED. THANK YOU FOR YOUR ATTENTION TO THIS MATTER! PRESIDENT DONALD J. TRUMP"
+
+*Truth Social · 4.45k ReTruths · 19.2k Likes*
+
+---
+
+### 17 April 2026, 2:57 PM ET — **Trump (Truth Social):** Nuclear dust removal; Israel prohibited from bombing Lebanon
+
+> "The U.S.A. will get all Nuclear 'Dust,' created by our great B2 Bombers - No money will exchange hands in any way, shape, or form. This deal is in no way subject to Lebanon, either, but the USA will, separately, work with Lebanon, and deal with the Hezboolah situation in an appropriate manner. Israel will not be bombing Lebanon any longer. They are PROHIBITED from doing so by the U.S.A. Enough is enough!!! Thank you! President DJT"
+
+*Truth Social · 5.14k ReTruths · 24k Likes*
+
+---
+
+### 17 April 2026, 3:20 PM ET — **Trump (Truth Social):** Iran removing sea mines
+
+> "Iran, with the help of the U.S.A., has removed, or is removing, all sea mines! Thank you! President DJT"
+
+*Truth Social · 2.61k ReTruths · 13.6k Likes*
+
+---
+
+### 17 April 2026, 3:40 PM ET — **Trump (Truth Social):** Iran agrees to never close Hormuz again
+
+> "Iran has agreed to never close the Strait of Hormuz again. It will no longer be used as a weapon against the World! President DONALD J. TRUMP"
+
+*Truth Social · 5.21k ReTruths · 25.7k Likes*
+
+---
+
+### 18 April 2026 — Trump Confirms Upcoming China Visit; Xi "Very Happy"
+
+Trump confirmed a visit to China in the coming weeks for talks with President Xi Jinping, describing the expected meeting as "special" and "potentially Historic." Trump stated Xi was "very happy" about the Hormuz opening, noting the Strait is of critical importance to China's energy supply.
+
+---
+
+### 19 April 2026 — Iran Fires on Civilian Ships; USS Spruance Seizes TOUSKA
+
+The fragile ceasefire suffered a serious violation when Iranian forces fired on civilian vessels in the Strait of Hormuz, including a **French CMA CGM vessel** and a **UK-flagged freighter**. Trump called this a "Total Violation of our Ceasefire Agreement."
+
+In the most significant US naval enforcement action of the war, the **USS Spruance** (guided-missile destroyer) intercepted the Iranian-flagged cargo ship **TOUSKA** — approximately 900 feet long and under US Treasury sanctions for prior illegal activity. When the Iranian crew refused to stop, US forces disabled the ship's engine room. **US Marines from USS Tripoli** subsequently boarded and seized the vessel. The TOUSKA's cargo was under inspection.
+
+US representatives were dispatched to **Islamabad** for a new round of negotiations. Trump threatened to destroy every remaining power plant and bridge in Iran if no deal was reached.
+
+- **Source:** <a href="https://www.npr.org/2026/04/19/nx-s1-5790378/iran-us-hormuz-closed-impossible" target="_blank">NPR — Iran war updates, 19 April</a>
+- **Source:** <a href="https://www.cnn.com/2026/04/19/world/live-news/iran-war-us-trump-hormuz" target="_blank">CNN — Iran war live news, 19 April</a>
+
+---
+
+### 19 April 2026, 1:10 PM ET — **Trump (Truth Social):** Ceasefire violated; NO MORE MR. NICE GUY
+
+> "Iran decided to fire bullets yesterday in the Strait of Hormuz — A Total Violation of our Ceasefire Agreement! Many of them were aimed at a French Ship, and a Freighter from the United Kingdom. That wasn't nice, was it? My Representatives are going to Islamabad, Pakistan — They will be there tomorrow evening, for Negotiations. Iran recently announced that they were closing the Strait, which is strange, because our BLOCKADE has already closed it. [...] We're offering a very fair and reasonable DEAL, and I hope they take it because, if they don't, the United States is going to knock out every single Power Plant, and every single Bridge, in Iran. NO MORE MR. NICE GUY! [...] IT'S TIME FOR THE IRAN KILLING MACHINE TO END! President DONALD J. TRUMP"
+
+*Truth Social · 16.5k ReTruths · 71.7k Likes*
+
+*(Full post text available in TrumpsTruthSocialPosts.csv, post 114.)*
+
+---
+
+### 19 April 2026, 8:23 PM ET — **Trump (Truth Social):** USS Spruance intercepts TOUSKA
+
+> "Today, an Iranian-flagged cargo ship named TOUSKA, nearly 900 feet long and weighing almost as much as an aircraft carrier, tried to get past our Naval Blockade, and it did not go well for them. The U.S. Navy Guided Missile Destroyer USS SPRUANCE intercepted the TOUSKA in the Gulf of Oman, and gave them fair warning to stop. The Iranian crew refused to listen, so our Navy ship stopped them right in their tracks by blowing a hole in the engineroom. Right now, U.S. Marines have custody of the vessel. The TOUSKA is under U.S. Treasury Sanctions because of their prior history of illegal activity. We have full custody of the ship, and are seeing what's on board! President DONALD J. TRUMP"
+
+*Truth Social · 8.09k ReTruths · 33.1k Likes*
+
+---
+
+### 20 April 2026 — Nuclear Enrichment Gap Prevents Deal; Negotiations Continue
+
+A significant gap remained in negotiations over Iran's nuclear programme. The **US demanded a 20-year suspension** of uranium enrichment; **Iran offered 3–5 years** — which the US rejected outright. The blockade remained the primary economic lever, with Iran reportedly losing $500 million per day. Trump reiterated the new deal would be far superior to Obama's JCPOA and would guarantee peace rather than delay it.
+
+- **Source:** <a href="https://www.pbs.org/newshour/world/u-s-and-iran-signal-new-ceasefire-talks-in-islamabad-as-fragile-truce-nears-end" target="_blank">PBS NewsHour — US and Iran signal new ceasefire talks in Islamabad</a>
+
+---
+
+### 20 April 2026, 6:35 PM ET — **Trump (Truth Social):** New deal far better than JCPOA
+
+> "The DEAL that we are making with Iran will be FAR BETTER than the JCPOA, commonly referred to as 'The Iran Nuclear Deal,' penned by Barack Hussein Obama and Sleepy Joe Biden, one of the Worst Deals ever made having to do with the Security of our Country. It was a guaranteed Road to a Nuclear Weapon [...] If a Deal happens under 'TRUMP,' it will guarantee Peace, Security, and Safety, not only for Israel and the Middle East, but for Europe, America, and everywhere else. It will be something that the entire World will be proud of [...] President DONALD J. TRUMP"
+
+*Truth Social · 6k ReTruths · 23.8k Likes*
+
+---
+
+### 21 April 2026 — Operation Midnight Hammer Disclosed; Ceasefire Violations; Extended Ceasefire
+
+Three significant developments on 21 April:
+
+**1. Operation Midnight Hammer disclosed publicly**
+Trump publicly disclosed details of **Operation Midnight Hammer** — the B-2 bomber strike operation that destroyed Iran's underground nuclear sites at Fordow, Natanz, and Isfahan. The operation involved **7 B-2 Spirit stealth bombers** dropping **14 GBU-57 Massive Ordnance Penetrator** bunker-buster bombs — the first operational use of the weapon. Over 125 supporting aircraft were involved. The strikes occurred in **June 2025**, prior to the full-scale war beginning in February 2026, and had rendered Iran's nuclear enrichment capability permanently destroyed. Space Force satellite surveillance confirmed the sites remained untouched and unsalvageable.
+
+**2. Ceasefire violations**
+Trump stated Iran had violated the ceasefire "numerous times." VP Vance cancelled a planned trip to Pakistan amid Iranian reluctance to advance talks.
+
+**3. Ceasefire extended; Iran government declared "fractured"**
+Trump extended the ceasefire indefinitely, citing the Iranian government as "seriously fractured." Iran's new Supreme Leader **Mojtaba Khamenei** — son of Ayatollah Ali Khamenei, who was killed in the opening strikes on 28 February — was reported to lack the consolidated authority of his father. Pakistan's Field Marshal Munir and PM Sharif requested the extension to allow Iranian leadership to form a unified negotiating position.
+
+- **Source:** <a href="https://www.csis.org/analysis/what-operation-midnight-hammer-means-future-irans-nuclear-ambitions" target="_blank">CSIS — What Operation Midnight Hammer means for Iran's nuclear ambitions</a>
+- **Source:** <a href="https://www.cnbc.com/2026/04/21/trump-iran-war-ceasefire.html" target="_blank">CNBC — Trump extends Iran ceasefire</a>
+- **Source:** <a href="https://www.aljazeera.com/news/2026/4/21/trump-announces-extending-iran-ceasefire-but-says-blockade-remains" target="_blank">Al Jazeera — Trump announces extending Iran ceasefire, blockade remains</a>
+
+---
+
+### 21 April 2026, 4:22 AM ET — **Trump (Truth Social):** Operation Midnight Hammer
+
+> "Operation Midnight Hammer was a complete and total obliteration of the Nuclear Dust sites in Iran. Therefore, digging it out will be a long and difficult process. Fake News CNN, and other corrupt Media Networks and Platforms, fail to give our great aviators the credit they deserve - Always trying to demean and belittle - LOSERS!!!"
+
+*Truth Social · 6.53k ReTruths · 29.3k Likes*
+
+---
+
+### 21 April 2026, 12:09 PM ET — **Trump (Truth Social):** Iran has violated ceasefire numerous times
+
+> "Iran has Violated the Cease Fire numerous times!"
+
+*Truth Social · 5.86k ReTruths · 25k Likes*
+
+---
+
+### 21 April 2026, 9:09 PM ET — **Trump (Truth Social):** Ceasefire extended; fractured Iranian government
+
+> "STATEMENT OF PRESIDENT DONALD J. TRUMP: Based on the fact that the Government of Iran is seriously fractured, not unexpectedly so and, upon the request of Field Marshal Asim Munir, and Prime Minister Shehbaz Sharif, of Pakistan, we have been asked to hold our Attack on the Country of Iran until such time as their leaders and representatives can come up with a unified proposal. I have therefore directed our Military to continue the Blockade and, in all other respects, remain ready and able, and will therefore extend the Ceasefire until such time as their proposal is submitted, and discussions are concluded, one way or the other. President DONALD J. TRUMP"
+
+*Truth Social · 9.52k ReTruths · 42.6k Likes*
+
+---
+
+### 22 April 2026 — Iran Facing Financial Collapse; Negotiations at Impasse
+
+Iran's financial position had become critical by 22 April. The combination of the naval blockade, war damage to infrastructure, and loss of oil export revenues was costing Iran an estimated **$500 million per day**. Military and police personnel were reportedly not receiving pay. Trump described Iran as "collapsing financially" and "starving for cash."
+
+The Strait of Hormuz remained open for international shipping but the **US naval blockade on Iranian commerce** remained fully in force. Iran sought to have the blockade lifted as a precondition for resumed talks; the US maintained the blockade would remain until a final agreement was signed and verified.
+
+The core sticking point remained Iran's nuclear programme. Iran's fractured post-war leadership had not yet submitted a unified proposal, and the extended ceasefire — with no fixed end date — continued to hold, underpinned by the US military's continued presence in the region.
+
+- **Source:** <a href="https://www.cnbc.com/2026/04/21/trump-iran-war-ceasefire.html" target="_blank">CNBC — Iran ceasefire extended; blockade remains</a>
+
+---
+
+### 22 April 2026, 4:41 AM ET — **Trump (Truth Social):** Iran collapsing financially
+
+> "Iran is collapsing financially! They want the Strait of Hormuz opened immediately- Starving for cash! Losing 500 Million Dollars a day. Military and Police complaining that they are not getting paid. SOS!!!"
+
+*Truth Social · 4.76k ReTruths · 20.6k Likes*
+
+---
+
+## CURRENT PEACE POSITIONS (as of 22 April 2026)
+
+### US Requirements (non-negotiable per Trump)
+1. **No nuclear enrichment** on Iranian soil — ever
+2. Removal of all nuclear "dust" from Operation Midnight Hammer strike sites
+3. **Strait of Hormuz** permanently open; never to be used as a weapon
+4. Abandonment of proxy armed networks (Hezbollah, Houthis)
+5. Limitations on Iran's missile programme
+
+**In exchange:** Sanctions and tariff relief; economic rebuilding assistance; no monetary payment for nuclear material removal
+
+### Iran's Stated Demands (from negotiations)
+1. Full lifting of all US sanctions
+2. War reparations
+3. Right to continue nuclear programme *(offered 3–5 year enrichment pause — rejected by US)*
+4. Blockade lifted immediately as precondition to talks
+5. Legal guarantees against future military aggression
+
+---
+
+## SUMMARY TABLE: 9–22 APRIL 2026
+
+| Date | Event |
+|------|-------|
+| 9 Apr | Ceasefire broken; Iran keeps Hormuz closed; 230 tankers stranded |
+| 9 Apr, 22:08 | Trump warns Iran over tanker fees |
+| 10 Apr | Iran continues restrictions; Trump warns Iran has "no cards" |
+| 11 Apr | US Navy enters Hormuz (freedom of navigation); tankers divert to US |
+| 11–12 Apr | 21-hour Islamabad talks collapse on nuclear issue |
+| 12 Apr, 16:30 | Trump announces naval blockade of Iranian ports |
+| 13 Apr, 10:00 AM ET | Blockade implemented; record 34 ships transit Hormuz |
+| 13 Apr | Pentagon: 13 ships stopped from passing Iranian port blockade |
+| 14–15 Apr | China agrees to halt weapons to Iran; enriched uranium custody offer |
+| 15 Apr | Trump confirms upcoming Xi meeting |
+| 16 Apr | Israel-Lebanon 10-day ceasefire; first Israel-Lebanon talks in 34 years (Washington DC) |
+| 17 Apr | Iran announces Hormuz "fully open"; mines removed; Israel banned from bombing Lebanon |
+| 17 Apr | Iran agrees to never close Hormuz again |
+| 18 Apr | Trump confirms China visit; Xi "very happy" |
+| 19 Apr | Iran fires on French and UK ships — ceasefire violation |
+| 19 Apr | USS Spruance seizes Iranian cargo ship TOUSKA; US Marines board |
+| 20 Apr | Nuclear enrichment gap: US wants 20-year ban; Iran offers 3–5 years |
+| 21 Apr | Operation Midnight Hammer details disclosed (7 B-2s, 14 MOPs, June 2025) |
+| 21 Apr | Trump: Iran violated ceasefire "numerous times" |
+| 21 Apr | Ceasefire extended indefinitely; Iran government "seriously fractured" |
+| 22 Apr | Iran losing $500M/day; military and police unpaid; negotiations at impasse |
+
+---
+
+*Document updated 22 April 2026. All events verified against two or more sources where possible. Casualty figures are subject to revision. The conflict is ongoing. The ceasefire is extended indefinitely; the US naval blockade on Iranian commerce remains in force pending a final agreement.*
