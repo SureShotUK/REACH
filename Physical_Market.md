@@ -61,7 +61,7 @@ The Gulf is home to some of the world's largest and most complex export-oriented
 
 The UAE's **Ruwais refinery** is the single most important export-oriented refinery in the Gulf, producing approximately 40 million tonnes of products per year, the majority of which transited Hormuz. Kuwait's refineries — major suppliers to the UK and South Asia — are similarly constrained. Saudi export capacity at Ras Tanura and Jubail is partially reroutable via the Red Sea/Yanbu pipeline system, but volumes are limited.
 
-**Key constraint:** Even where refineries are physically operational (Saudi, UAE, Oman), the inability of product tankers to load and clear the Strait means output is either stockpiling onshore, being flared/curtailed, or supplied to domestic markets. As of April 2026, approximately **870 tankers** are at anchor in Gulf waters awaiting safe passage.
+**Key constraint:** Even where refineries are physically operational (Saudi, UAE, Oman), the inability of product tankers to load and clear the Strait means output is either stockpiling onshore, being flared/curtailed, or supplied to domestic markets. As of mid-April 2026, approximately **426 tankers** plus a further ~53 LNG/LPG carriers are at anchor in Gulf waters awaiting safe passage — with the total across all vessel types exceeding 800 at peak.
 
 ---
 
@@ -117,7 +117,7 @@ Jet fuel is the tightest market globally and the product most likely to drive vi
 
 - ARA jet fuel stocks at **6-year lows** as of March/April 2026
 - Jet crack spread surged to **$80/barrel** — approximately double the pre-war level
-- Benchmark Jet A-1 CIF NWE prices spiked to **$1,800/tonne** (March 2026 peak) vs ~$800/tonne pre-war
+- Benchmark Jet A-1 CIF NWE prices spiked to **nearly $1,800/tonne** (early April 2026 peak) vs ~$800/tonne pre-war
 - IEA notes jet demand is particularly inelastic at short notice — airlines cannot easily reduce schedules, and jet has few substitutes
 
 Jet fuel is geographically concentrated in its supply chain in a way that diesel is not. The US Gulf Coast does not export significant jet volumes to Europe (US domestic aviation demand absorbs most domestic jet production). India's Jamnagar and Nayara complexes can produce jet but the certification, specification, and logistics pipeline to deliver into European airports takes weeks to establish.
@@ -146,7 +146,7 @@ The more significant issue on the light end is **naphtha**. The Gulf exports lar
 - **South Korea and Japan** (petrochemical feedstock for steam crackers)
 - **India** (blending and petrochemicals)
 
-Naphtha prices spiked from **$776/tonne** (early March 2026) to over **$1,000/tonne** (mid-March) — a 30% surge in two weeks. The Asian petrochemical complex is severely feedstock-constrained. This has knock-on effects for plastics, fertilisers, and chemical production chains globally.
+Naphtha prices spiked from **$776/tonne** (6 March 2026) to over **$1,000/tonne** within approximately one week — a ~30% surge driven by Gulf feedstock supply collapse. The Asian petrochemical complex is severely feedstock-constrained. This has knock-on effects for plastics, fertilisers, and chemical production chains globally.
 
 #### Petrol-specific UK risk
 The UK is a **net gasoline exporter** — Fawley and Humber produce more petrol than UK demand absorbs, and export surplus to West Africa and the US. UK petrol supply is primarily sourced from domestic refinery output and NW European (ARA) traded volumes. Direct UK petrol shortage from Hormuz closure is **unlikely within a 3-month horizon** unless:
@@ -212,7 +212,7 @@ The effective result is that a fleet of, say, 100 LR tankers dedicated to this t
 
 ### War risk insurance
 
-War risk insurance premiums on Gulf of Oman / Hormuz transits have escalated from **0.125% to 0.2–0.4%** of vessel value. For a VLCC (valued at ~$120m), this represents an additional $240,000–$480,000 per voyage. Many P&I clubs and underwriters are declining cover entirely for Hormuz transits; the practical effect is that despite nominally "open" passage declarations, most commercial operators are not sending vessels through.
+War risk insurance premiums on Gulf of Oman / Hormuz transits escalated from a pre-crisis norm of **~0.125–0.25% of vessel value** to **1–5%** by mid-March 2026, with some underwriters quoting up to 10% for specific transits at the height of hostilities. By late March/April, premiums moderated to approximately **0.8–1%** but remain several times pre-crisis levels. Many P&I clubs and underwriters are declining cover entirely for Hormuz transits; the practical effect is that despite nominally "open" passage declarations, most commercial operators are not sending vessels through. For a VLCC (valued at ~$120m), the April 2026 rate of ~1% represents an additional $1.2m per voyage — versus ~$150,000–300,000 pre-war.
 
 ### Tanker market dynamics
 
@@ -466,6 +466,6 @@ April 2026       May 2026           June 2026          July 2026+
 
 ---
 
-*Sources: IEA Oil Market Report April 2026 | EIA STEO April 2026 | EIA Hormuz chokepoint analysis | Wood Mackenzie Middle East crude export analysis | S&P Global Ruwais/Hormuz reporting | EnergyVoice UK diesel/jet exposure analysis | CNBC UK refinery supply chain | Kpler jet fuel supply analysis | Windward Maritime Intelligence | Riviera Maritime tanker market | Al Jazeera SPR analysis | ORF India LPG crisis analysis | Stratas Advisors naphtha/LPG impact report | Invezz jet fuel crisis analysis | Centre for Research on Energy and Clean Air Russian sanctions tracker | UK Government Energy Trends 2025 | IEA Emergency Stock Release Announcement March 2026*
+*Sources: <a href="https://www.iea.org/reports/oil-market-report-april-2026" target="_blank">IEA Oil Market Report April 2026</a> | <a href="https://www.eia.gov/outlooks/steo/report/global_oil.php" target="_blank">EIA Short-Term Energy Outlook April 2026</a> | <a href="https://www.eia.gov/todayinenergy/detail.php?id=65504" target="_blank">EIA — Strait of Hormuz remains critical oil chokepoint</a> | <a href="https://www.woodmac.com" target="_blank">Wood Mackenzie — Middle East crude export analysis</a> | <a href="https://www.spglobal.com/commodityinsights/en" target="_blank">S&P Global Commodity Insights — Ruwais/Hormuz reporting</a> | <a href="https://www.energyvoice.com/markets/594932/diesel-jet-fuel-gb-middle-east-hormuz/" target="_blank">EnergyVoice — UK diesel/jet fuel exposure analysis</a> | <a href="https://www.cnbc.com/2026/04/15/uk-jet-fuel-kerosene-diesel-refineries-import-supply-chain.html" target="_blank">CNBC — UK jet fuel, kerosene and diesel refinery supply chain</a> | <a href="https://www.kpler.com" target="_blank">Kpler — jet fuel supply analysis</a> | <a href="https://www.windward.ai" target="_blank">Windward Maritime Intelligence</a> | <a href="https://www.rivieramm.com" target="_blank">Riviera Maritime — tanker market analysis</a> | <a href="https://www.aljazeera.com/economy/2026/3/15/strategic-oil-release-may-calm-markets-but-cannot-fix-hormuz-disruption" target="_blank">Al Jazeera — strategic oil release cannot fix Hormuz disruption</a> | <a href="https://www.orfonline.org/expert-speak/one-narrow-strait-millions-of-cylinders-india-s-lpg-crisis" target="_blank">ORF — One Narrow Strait, Millions of Cylinders: India's LPG Crisis</a> | <a href="https://www.stratasadvisors.com" target="_blank">Stratas Advisors — naphtha/LPG impact report</a> | <a href="https://invezz.com/news/2026/04/22/analysis-why-jet-fuel-is-the-biggest-oil-market-crisis-now/" target="_blank">Invezz — why jet fuel is the biggest oil market crisis now</a> | <a href="https://energyandcleanair.org/product/russia-fossil-tracker/" target="_blank">Centre for Research on Energy and Clean Air — Russia fossil fuel sanctions tracker</a> | <a href="https://www.gov.uk/government/statistics/energy-trends-december-2025" target="_blank">UK Government Energy Trends December 2025</a> | <a href="https://www.iea.org/news/iea-member-countries-to-carry-out-largest-ever-oil-stock-release-amid-market-disruptions-from-middle-east-conflict" target="_blank">IEA — Emergency oil stock release announcement, 11 March 2026</a>*
 
 *This document is an internal reference for Portland Fuel analytical and commercial purposes. All figures are based on information available at the time of writing and are subject to revision as the situation develops.*

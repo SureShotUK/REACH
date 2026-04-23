@@ -4,6 +4,44 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-04-23
+
+### Summary
+Added verified HTML anchor links (with `target="_blank"`) to all 17 sources in `Physical_Market.md`, then cross-checked the document's key statistics against those sources. 13 of 17 statistics were confirmed correct; 4 inaccuracies were found and corrected. Also updated `CLAUDE.md` to make the source-link requirement apply to all documents, not just formal briefings.
+
+### Work Completed
+- **Physical_Market.md — 17 source links added**: Converted the consolidated plain-text sources block (line 469) to individual HTML anchor links. 9 sources link to specific articles (IEA OMR, EIA Hormuz article, EnergyVoice, CNBC UK refinery article, Al Jazeera SPR analysis, ORF India LPG, Invezz jet fuel, CREA Russia tracker, UK Gov Energy Trends Dec 2025, IEA SPR press release); 8 link to publisher homepages (Wood Mac, S&P Global, Kpler, Windward, Riviera, Stratas — all paywalled)
+- **Physical_Market.md — statistical accuracy check**: Cross-verified all key statistics against publicly accessible sources. Confirmed correct: Kuwait 38% UK jet imports, Hormuz ~20 mb/d pre-crisis, ARA stocks 6-year low, jet crack $80/bbl, IEA 400 MMbbl SPR release ≈ 4 days cover, India LPG 60%/90% Hormuz dependency, UK diesel import mix (US 35%/NL 21%/BE 16%/Kuwait 14%), Cape of Good Hope +16–32 days/extra $932,905, naphtha $776→$1,000/tonne (~30%), UK SPR 68 MMbbl, US ULSD exports 167→396 kbd (+137%), Pembroke 270,000 b/d, Fawley 270,000 b/d, Humber 221,000 b/d
+- **Physical_Market.md — 4 corrections made**:
+  1. War risk insurance: corrected from "0.125%→0.2–0.4%" to "0.125–0.25%→1–5% peak by mid-March; ~0.8–1% by April; VLCC cost updated to ~$1.2m/voyage"
+  2. Tanker count: corrected from "~870 tankers" to "~426 tankers + 53 LNG/LPG carriers; 800+ all vessel types at peak"
+  3. Jet A-1 peak timing: corrected from "March 2026 peak" to "early April 2026 peak"
+  4. Naphtha surge speed: corrected from "in two weeks" to "within approximately one week"
+- **CLAUDE.md — scope note added**: Added **Scope** note under Hyperlinks/Verification Process, making explicit that the source-link requirement applies to all documents (briefings, internal reference docs, analysis papers), not just formal briefings in `/Briefings/`
+
+### Files Changed
+- `Physical_Market.md` — Sources converted to HTML anchor links; 4 statistical corrections applied
+- `CLAUDE.md` — Scope note added: source weblinks required in all documents, not just briefings
+
+### Git Commits
+- *(no new commits this session — pending this end-session commit)*
+
+### Key Decisions
+- For paywalled commercial sources (Wood Mac, S&P Global, Kpler, Windward, Riviera, Stratas): linked to publisher homepage rather than fabricating specific article URLs — the correct approach per CLAUDE.md guidance
+- War risk insurance was the most significant inaccuracy (document implied a minor escalation; actual peak was 1–5%, order-of-magnitude worse than stated)
+- Tanker count "870" was the most imprecise figure — appears to have blended all vessel types and multiple time points rather than reflecting a single verified snapshot
+
+### Reference Documents
+- `Physical_Market.md` — Sources now fully linked; statistics verified against public sources
+- `CLAUDE.md` — Source-link scope note added
+
+### Next Actions
+- [ ] Update `Physical_Market.md` if Hormuz situation changes materially (ceasefire resolution or further deterioration)
+- [ ] Update `Iran_War_Timeline.md` when Iran submits unified proposal or new events occur post-22 April
+- [ ] Consider whether Physical_Market.md should be reformatted as a formal client-facing briefing (currently internal reference only)
+
+---
+
 ## Session 2026-04-22
 
 ### Summary

@@ -140,6 +140,8 @@ When including hyperlinks to external resources in markdown documents:
 3. Only after successful verification, add the link in HTML format with `target="_blank"`
 4. For government/regulatory links, check if publications have been superseded or updated
 
+**Scope — applies to all documents:** This requirement applies to every document in this repository — briefings, internal reference documents, analysis papers, and any other written output. Every statistic or factual claim drawn from an external source must have a verified HTML anchor link. This is not limited to formal briefings in the `/Briefings/` folder.
+
 ## Session Management
 
 ### Shared Commands

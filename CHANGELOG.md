@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-04-23
+
+### Changed
+- **`Physical_Market.md`** — All 17 sources converted from plain text to verified HTML anchor links with `target="_blank"`. 9 link to specific articles; 8 link to publisher homepages (paywalled commercial providers).
+- **`Physical_Market.md`** — 4 statistical corrections after cross-checking against public sources:
+  - War risk insurance: "0.125%→0.2–0.4%" corrected to "0.125–0.25%→1–5% peak mid-March; ~0.8–1% by April; VLCC cost ~$1.2m/voyage"
+  - Tanker count: "~870 tankers" corrected to "~426 tankers + 53 LNG/LPG carriers; 800+ all vessel types at peak"
+  - Jet A-1 peak: "March 2026 peak" corrected to "early April 2026 peak"
+  - Naphtha surge timing: "in two weeks" corrected to "within approximately one week"
+- **`CLAUDE.md`** — Added **Scope** note under Hyperlinks/Verification Process: source weblink requirement explicitly applies to all documents (briefings, internal reference docs, analysis papers), not just formal briefings in `/Briefings/`
+
+---
+
 ## [Unreleased] - 2026-04-22
 
 ### Added

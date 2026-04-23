@@ -1,6 +1,6 @@
 # Project Status
 
-**Last Updated**: 2026-04-22
+**Last Updated**: 2026-04-23
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
@@ -15,9 +15,10 @@ The terminai repository contains seven specialized project folders plus standalo
   - PART 14 (16–22 April): Israel-Lebanon ceasefire (first talks in 34 years); Hormuz declared open (17 Apr); mines removed; TOUSKA seized; Operation Midnight Hammer disclosed; ceasefire extended
   - **Monitor**: Iran unified proposal (precondition for resumed Islamabad talks); US blockade status; nuclear enrichment negotiations
 
-- **Physical Market Analysis** — NEW (2026-04-22)
+- **Physical Market Analysis** — VERIFIED & SOURCED (2026-04-23)
   - `Physical_Market.md` — ~700-line internal reference document; physical oil products market under Hormuz closure
   - Key findings: Hormuz flows 20.1 mb/d → 3.8 mb/d; jet fuel most acute (Kuwait 38% of UK supply; ARA stocks 6-year lows; shortage risk 6–8 weeks); diesel high risk (8–12 weeks; Scotland first); petrol/residential LPG low risk
+  - All 17 sources now have verified HTML anchor links; 13/17 key statistics independently verified; 4 corrections applied (war risk insurance, tanker count, jet A-1 peak timing, naphtha surge speed)
   - **Monitor**: Update as Hormuz situation evolves
 
 - **Briefings Folder** — ESTABLISHED (2026-04-07)
@@ -147,6 +148,11 @@ The terminai repository contains seven specialized project folders plus standalo
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Physical_Market.md sources verified and corrected** (2026-04-23):
+  - All 17 sources converted to verified HTML anchor links with `target="_blank"`
+  - 13/17 key statistics independently cross-checked against public sources — confirmed correct
+  - 4 inaccuracies corrected: war risk insurance range (0.2–0.4% → 1–5% peak); tanker count (870 → ~426 tankers + 53 LNG/LPG carriers); jet A-1 peak timing (March → early April); naphtha surge (two weeks → approximately one week)
+  - `CLAUDE.md` updated: source-link requirement now explicitly applies to all documents, not just formal briefings
 - **Physical_Market.md created** (2026-04-22):
   - New internal reference document: physical oil products market under Hormuz closure scenario
   - Hormuz disruption scale: flows collapsed from 20.1 mb/d to ~3.8 mb/d; 870 tankers at anchor
