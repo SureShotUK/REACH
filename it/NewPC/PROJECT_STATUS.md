@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-04-19
+**Last Updated**: 2026-05-04
 
 ---
 
@@ -14,7 +14,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 |---|---|---|---|---|
 | Ollama | host process | `http://192.168.1.192:11434` | via Open WebUI | Running |
 | Open WebUI | `open-webui` | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` | Running |
-| ComfyUI (Steve) | `comfyui` | `http://192.168.1.192:8189` | `https://amelai.tail926601.ts.net:8189` | Running |
+| ComfyUI (Steve) | `comfyui` | Tailscale only | `https://amelai.tail926601.ts.net:8189` | **Needs rebuild** |
 | ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Running |
 | FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
 | MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
@@ -22,11 +22,14 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Active Work Areas
 
+- **ComfyUI (Steve) rebuild required** — Docker run command updated; container must be recreated before Tailscale access and new output path take effect
 - **Alexa WOL skill** — submitted for Amazon certification; awaiting approval (3-5 business days)
 - Verify ComfyUI OOM fix works end-to-end on first generation attempt
 
 ## Recently Completed
 
+- **Docker.md overhaul** — `runlike` documented; ComfyUI Steve output moved to NAS (`/docs/Projects/Claude Code Shared/Output`); FileBrowser workflows volume added; loopback port corrected to 18189; LAN binding removed (Tailscale-only); port table fixed
+- **FileBrowser delete issue resolved** — root cause was Linux file ownership (ComfyUI writes as root); moving output to NAS with permissive mount options fixes it
 - **Alexa Wake-on-LAN infrastructure** — wol-webhook systemd service, Tailscale Funnel (port 8443), AWS Lambda, custom Alexa skill with PIN verification all working; skill submitted for certification
 - **Installed n8n** — workflow automation running in Docker; accessible at `https://amelai.tail926601.ts.net:5678`; full setup guide at `N8N_Setup.md`
 - **Confirmed PCIe Gen 4 under load** — Gen 1 at idle is normal ASPM idle power management; verified Gen 4 (16GT/s) on both GPUs during active workload
@@ -40,6 +43,9 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
+- [ ] **Recreate `comfyui` container** — `docker stop comfyui && docker rm comfyui` then run updated command from `Docker.md`
+- [ ] Verify Tailscale Serve: `sudo tailscale serve status` — confirm `8189 → localhost:18189`; add if missing
+- [ ] Test `https://amelai.tail926601.ts.net:8189` after rebuild
 - [ ] Await Alexa skill certification approval; test on real Echo device once approved
 - [ ] Complete n8n first-login owner account setup
 - [ ] Store n8n encryption key in password manager

@@ -2,6 +2,24 @@
 
 ---
 
+## [Unreleased] - 2026-05-04
+
+### Added
+- `Docker.md` — `runlike` section: how to reconstruct `docker run` commands from running containers (`pip install runlike` / `runlike <name>`)
+- `Docker.md` — FileBrowser now mounts `/opt/comfyui/workflows:/srv/comfyui-workflows`
+
+### Changed
+- `Docker.md` — Steve's ComfyUI output volume changed from `/opt/comfyui/output` to `/docs/Projects/Claude Code Shared/Output` (NAS mount); fixes FileBrowser delete permissions
+- `Docker.md` — FileBrowser output volume updated to match new NAS path
+- `Docker.md` — Steve's ComfyUI loopback port corrected from `8189` to `18189` (fixes Tailscale HTTPS access)
+- `Docker.md` — Steve's ComfyUI LAN binding (`192.168.1.192:8189`) removed; now Tailscale-only
+- `Docker.md` — port map table corrected for Steve's ComfyUI (loopback 8189 → 18189)
+
+### Fixed
+- Tailscale access to Steve's ComfyUI was broken — Tailscale Serve forwarded to `localhost:18189` but container was bound to `127.0.0.1:8189`; corrected loopback port in run command
+
+---
+
 ## [Unreleased] - 2026-04-19
 
 ### Added

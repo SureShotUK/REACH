@@ -2,6 +2,37 @@
 
 ---
 
+## Session 2026-05-04
+
+### Summary
+Research session on new Qwen3.6 model family (released April 2026), followed by a series of Docker.md improvements: adding `runlike` documentation, moving Steve's ComfyUI output to the NAS, fixing the Tailscale loopback port for Steve's ComfyUI, and locking Steve's ComfyUI to Tailscale-only access. FileBrowser delete permission issue diagnosed as a Linux file ownership problem, resolved by moving output to the NAS mount.
+
+### Work Completed
+- Researched Qwen3.6-27B (dense, ~16.8GB VRAM at Q4) and Qwen3.6-35B-A3B (MoE, ~22GB at Q4) — both fit comfortably in 48GB VRAM; both available in Ollama
+- Added `runlike` section to Docker.md — documents how to reconstruct `docker run` commands from running containers
+- Changed Steve's ComfyUI output volume from `/opt/comfyui/output` to `/docs/Projects/Claude Code Shared/Output` (NAS mount) — fixes FileBrowser delete permissions (Linux ownership mismatch was root cause)
+- Updated FileBrowser run command to match new output path
+- Added `/opt/comfyui/workflows:/srv/comfyui-workflows` volume to FileBrowser run command
+- Fixed Steve's ComfyUI loopback port: `127.0.0.1:8189` → `127.0.0.1:18189` (was breaking Tailscale access — Tailscale Serve was forwarding to 18189 but container was only listening on 8189)
+- Corrected port map table in Docker.md to match
+- Removed LAN binding (`192.168.1.192:8189:8188`) from Steve's ComfyUI — now Tailscale-only access
+
+### Files Changed
+- `it/NewPC/Docker.md` — `runlike` section added; ComfyUI Steve output path updated; FileBrowser workflows volume added; loopback port corrected; LAN binding removed; port table fixed
+
+### Key Decisions
+- **NAS as ComfyUI output target** — resolves FileBrowser unauthorised-delete issue caused by root-owned files written by ComfyUI container; NAS mount permissions allow FileBrowser to delete
+- **Steve's ComfyUI Tailscale-only** — removed LAN binding intentionally; access only via `https://amelai.tail926601.ts.net:8189`
+- **Loopback port 18189** — corrects to the `1XXXX` convention used by all other services; Tailscale Serve config was already correct, only the Docker run command was wrong
+
+### Next Actions
+- [ ] Recreate `comfyui` container using updated run command from Docker.md (stop → rm → run)
+- [ ] Verify `sudo tailscale serve status` shows `8189 → localhost:18189`; add if missing
+- [ ] Test Tailscale HTTPS access at `https://amelai.tail926601.ts.net:8189` after container rebuild
+- [ ] Install Qwen3.6-27B or 35B-A3B via `ollama pull qwen3.6:27b` / `ollama pull qwen3.6:35b-a3b` when ready
+
+---
+
 ## Session 2026-04-19
 
 ### Summary

@@ -20,6 +20,35 @@ Docker is a **containerisation platform** — it packages an application and all
 
 ---
 
+## To Re-Create Running Container `Run` Commands
+
+If you need to reconstruct the `docker run` command for a container that is already running (e.g. inherited a container with no docs, or want to verify a container matches what's documented), use **`runlike`**:
+
+```bash
+pip install runlike
+runlike <container_name>
+```
+
+Examples:
+
+```bash
+runlike comfyui
+runlike comfyui-amelia
+runlike filebrowser
+```
+
+It inspects the running container and outputs a clean, copy-pasteable `docker run` command with all flags, volumes, environment variables, and port bindings reconstructed.
+
+**Without installing** (runs via Docker itself):
+
+```bash
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock assaflavie/runlike <container_name>
+```
+
+> The exact run commands for all services on this server are documented in the **Service docker run Commands** section below — `runlike` is most useful when inheriting an undocumented container or verifying the current state of a running one.
+
+---
+
 ## Common Commands
 
 ### Viewing containers
@@ -176,12 +205,11 @@ docker run -d \
   --restart unless-stopped \
   --runtime nvidia \
   --gpus all \
-  -p 127.0.0.1:8189:8188 \
-  -p 192.168.1.192:8189:8188 \
+  -p 127.0.0.1:18189:8188 \
   -v /mnt/models/comfyui:/root/ComfyUI/models \
   -v /opt/comfyui/storage:/root \
   -v /opt/comfyui/input:/root/ComfyUI/input \
-  -v /opt/comfyui/output:/root/ComfyUI/output \
+  -v "/docs/Projects/Claude Code Shared/Output:/root/ComfyUI/output" \
   -v /opt/comfyui/workflows:/root/ComfyUI/user/default/workflows \
   -e CUDA_VISIBLE_DEVICES=1 \
   -e CLI_ARGS="--disable-xformers" \
@@ -284,7 +312,8 @@ docker run -d \
   -p 127.0.0.1:18087:80 \
   -p 192.168.1.192:8087:80 \
   -v /home/steve/rag-output:/srv \
-  -v /opt/comfyui/output:/srv/comfyui-output \
+  -v "/docs/Projects/Claude Code Shared/Output:/srv/comfyui-output" \
+  -v /opt/comfyui/workflows:/srv/comfyui-workflows \
   -v /opt/comfyui-amelia/output:/srv/comfyui-amelia-output \
   -v /home/steve/filebrowser/filebrowser.db:/database/filebrowser.db \
   filebrowser/filebrowser:latest
@@ -346,7 +375,7 @@ docker exec open-webui curl -s "http://searxng:8080/search?q=test&format=json" |
 | Service | Container | Container port | Loopback host port | LAN/Tailscale port |
 |---|---|---|---|---|
 | Open WebUI | `open-webui` | 8080 | 3000 | 3000 |
-| ComfyUI (Steve) | `comfyui` | 8188 | 8189 | 8189 |
+| ComfyUI (Steve) | `comfyui` | 8188 | 18189 | 8189 |
 | ComfyUI (Amelia) | `comfyui-amelia` | 8188 | 18188 | 8188 |
 | FileBrowser | `filebrowser` | 80 | 18087 | 8087 |
 | SearXNG | `searxng` | 8080 | — | 8080 (Tailscale IP) |
