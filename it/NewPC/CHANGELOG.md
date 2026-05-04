@@ -2,6 +2,22 @@
 
 ---
 
+## [Unreleased] - 2026-05-04 (2)
+
+### Added
+- `CLAUDE.md` — "Docker Run Command Updates" rule: always update both service-specific file and `Docker.md` in same session
+- `Temp.txt` — ReActor NSFW face swap workflow JSON (two Load Image nodes → ReActorFaceSwap → SaveImage)
+
+### Changed
+- `ComfyUI.md` — Steve's container: `--reserve-vram 3` added to CLI_ARGS; workflows volume updated to `/docs/Projects/Claude Code Shared/Workflows`; Tailscale-only access note added
+- `Docker.md` — Steve's ComfyUI run command: `--reserve-vram 3` added; workflows volume corrected; options table updated; access line corrected to Tailscale-only
+
+### Fixed
+- ComfyUI every-other-image OOM (`TextEncodeQwenImageEditPlus` allocation failure) — `--reserve-vram 3` had been lost from running container; restoring it prevents VRAM exhaustion between generations
+- ReActorFaceSwap workflow widget_values order for v0.6.2: `swap_model` and `facedetection` must precede face index values
+
+---
+
 ## [Unreleased] - 2026-05-04
 
 ### Added

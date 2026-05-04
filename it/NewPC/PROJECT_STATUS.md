@@ -14,7 +14,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 |---|---|---|---|---|
 | Ollama | host process | `http://192.168.1.192:11434` | via Open WebUI | Running |
 | Open WebUI | `open-webui` | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` | Running |
-| ComfyUI (Steve) | `comfyui` | Tailscale only | `https://amelai.tail926601.ts.net:8189` | **Needs rebuild** |
+| ComfyUI (Steve) | `comfyui` | Tailscale only | `https://amelai.tail926601.ts.net:8189` | **Needs rebuild** — run command updated |
 | ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Running |
 | FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
 | MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
@@ -22,12 +22,14 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Active Work Areas
 
-- **ComfyUI (Steve) rebuild required** — Docker run command updated; container must be recreated before Tailscale access and new output path take effect
+- **ComfyUI (Steve) rebuild required** — run command updated with `--reserve-vram 3` and correct workflows volume path; container must be recreated
 - **Alexa WOL skill** — submitted for Amazon certification; awaiting approval (3-5 business days)
-- Verify ComfyUI OOM fix works end-to-end on first generation attempt
+- **ReActor face swap workflow** — JSON in `Temp.txt`; needs saving to Workflows folder after container rebuild
 
 ## Recently Completed
 
+- **ComfyUI OOM fix** — diagnosed missing `--reserve-vram 3` from running container via `docker inspect`; corrected in both `ComfyUI.md` and `Docker.md`; CLAUDE.md rule added to keep both files in sync
+- **ReActor face swap workflow created** — basic two-image (body + face) → ReActorFaceSwap → SaveImage workflow; widget values corrected for v0.6.2 node order
 - **Docker.md overhaul** — `runlike` documented; ComfyUI Steve output moved to NAS (`/docs/Projects/Claude Code Shared/Output`); FileBrowser workflows volume added; loopback port corrected to 18189; LAN binding removed (Tailscale-only); port table fixed
 - **FileBrowser delete issue resolved** — root cause was Linux file ownership (ComfyUI writes as root); moving output to NAS with permissive mount options fixes it
 - **Alexa Wake-on-LAN infrastructure** — wol-webhook systemd service, Tailscale Funnel (port 8443), AWS Lambda, custom Alexa skill with PIN verification all working; skill submitted for certification
@@ -43,9 +45,10 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
-- [ ] **Recreate `comfyui` container** — `docker stop comfyui && docker rm comfyui` then run updated command from `Docker.md`
+- [ ] **Recreate `comfyui` container** — `docker stop comfyui && docker rm comfyui` then run updated command from `Docker.md` (includes `--reserve-vram 3` and correct workflows path)
 - [ ] Verify Tailscale Serve: `sudo tailscale serve status` — confirm `8189 → localhost:18189`; add if missing
 - [ ] Test `https://amelai.tail926601.ts.net:8189` after rebuild
+- [ ] Save ReActor face swap workflow from `Temp.txt` to `/docs/Projects/Claude Code Shared/Workflows/FaceSwap.json`
 - [ ] Await Alexa skill certification approval; test on real Echo device once approved
 - [ ] Complete n8n first-login owner account setup
 - [ ] Store n8n encryption key in password manager

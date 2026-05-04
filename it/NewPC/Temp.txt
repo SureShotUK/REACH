@@ -1,6 +1,80 @@
-cat > /home/steve/DiffSynth-Studio/examples/qwen_image/model_training/lora/stage2_train.sh << 'EOF'
-export HF_HOME=/mnt/models/huggingface
-export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-
-accelerate launch --config_file examples/qwen_image/model_training/special/low_vram_training/accelerate_zero3_2gpu.yaml examples/qwen_image/model_training/train.py --dataset_base_path "./models/train/my_character_lora_cache" --max_pixels 262144 --dataset_repeat 50 --model_id_with_origin_paths "Qwen/Qwen-Image-Edit-2511:transformer/diffusion_pytorch_model*.safetensors" --learning_rate 1e-4 --num_epochs 5 --remove_prefix_in_ckpt "pipe.dit." --output_path "./models/train/my_character_lora" --lora_base_model "dit" --lora_target_modules "to_q,to_k,to_v,add_q_proj,add_k_proj,add_v_proj,to_out.0,to_add_out,img_mlp.net.2,img_mod.1,txt_mlp.net.2,txt_mod.1" --lora_rank 16 --use_gradient_checkpointing --dataset_num_workers 2 --find_unused_parameters --zero_cond_t --initialize_model_on_cpu --task "sft:train"
-EOF
+{
+  "last_node_id": 4,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [50, 150],
+      "size": {"0": 315, "1": 314},
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [1], "slot_index": 0},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "properties": {"Node name for S&R": "LoadImage"},
+      "widgets_values": ["example.png", "upload"],
+      "title": "Base Image (body)"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [50, 530],
+      "size": {"0": 315, "1": 314},
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [2], "slot_index": 0},
+        {"name": "MASK", "type": "MASK", "links": null}
+      ],
+      "properties": {"Node name for S&R": "LoadImage"},
+      "widgets_values": ["example.png", "upload"],
+      "title": "Face Source"
+    },
+    {
+      "id": 3,
+      "type": "ReActorFaceSwap",
+      "pos": [450, 300],
+      "size": {"0": 420, "1": 420},
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {"name": "input_image", "type": "IMAGE", "link": 1},
+        {"name": "source_image", "type": "IMAGE", "link": 2}
+      ],
+      "outputs": [
+        {"name": "IMAGE", "type": "IMAGE", "links": [3], "slot_index": 0}
+      ],
+      "properties": {},
+      "widgets_values": [true, "inswapper_128.onnx", "retinaface_resnet50", "GFPGANv1.4.pth", 1, 0.5, "no", "no", "0", "0", 1]
+    },
+    {
+      "id": 4,
+      "type": "SaveImage",
+      "pos": [970, 300],
+      "size": {"0": 315, "1": 270},
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "images", "type": "IMAGE", "link": 3}
+      ],
+      "outputs": [],
+      "properties": {"Node name for S&R": "SaveImage"},
+      "widgets_values": ["FaceSwap"]
+    }
+  ],
+  "links": [
+    [1, 1, 0, 3, 0, "IMAGE"],
+    [2, 2, 0, 3, 1, "IMAGE"],
+    [3, 3, 0, 4, 0, "IMAGE"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

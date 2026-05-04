@@ -206,25 +206,25 @@ docker run -d \
   --runtime nvidia \
   --gpus all \
   -p 127.0.0.1:18189:8188 \
+  -e CUDA_VISIBLE_DEVICES=1 \
+  -e CLI_ARGS="--disable-xformers --reserve-vram 3" \
+  -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
   -v /mnt/models/comfyui:/root/ComfyUI/models \
   -v /opt/comfyui/storage:/root \
   -v /opt/comfyui/input:/root/ComfyUI/input \
   -v "/docs/Projects/Claude Code Shared/Output:/root/ComfyUI/output" \
-  -v /opt/comfyui/workflows:/root/ComfyUI/user/default/workflows \
-  -e CUDA_VISIBLE_DEVICES=1 \
-  -e CLI_ARGS="--disable-xformers" \
-  -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+  -v "/docs/Projects/Claude Code Shared/Workflows:/root/ComfyUI/user/default/workflows" \
   yanwk/comfyui-boot:cu128-slim
 ```
 
 | Option | Purpose |
 |---|---|
 | `CUDA_VISIBLE_DEVICES=1` | Restricts this container to GPU 1 only; prevents OOM errors from large models |
+| `--reserve-vram 3` | Keeps 3 GB free at all times — prevents every-other-generation OOM with large models |
 | `-v /mnt/models/comfyui` | Model files on second drive — shared with host, survive container rebuild |
-| `-v /opt/comfyui/output` | Generated images folder |
 | `--runtime nvidia` | Enables NVIDIA GPU access via the container toolkit |
 
-**Access**: `http://192.168.1.192:8189` (LAN) · `https://amelai.tail926601.ts.net:8189` (Tailscale)
+**Access**: `https://amelai.tail926601.ts.net:8189` (Tailscale only — no LAN binding)
 
 #### Accessing ComfyUI files from SSH
 

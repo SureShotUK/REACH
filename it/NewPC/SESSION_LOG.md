@@ -2,6 +2,36 @@
 
 ---
 
+## Session 2026-05-04 (2)
+
+### Summary
+Diagnosed and resolved recurring ComfyUI OOM error (every-other-image generation failure with `TextEncodeQwenImageEditPlus`). Root cause was `--reserve-vram 3` missing from the running `comfyui` container — lost at some point during a previous container rebuild. Updated `ComfyUI.md` and `Docker.md` with the corrected run command and added a CLAUDE.md rule to keep both files in sync. Also created a basic NSFW face swap workflow using ReActor, fixing widget value ordering for v0.6.2.
+
+### Work Completed
+- Diagnosed every-other-image OOM: `docker inspect comfyui` confirmed `CLI_ARGS=--disable-xformers` — `--reserve-vram 3` was missing
+- Updated Steve's ComfyUI run command in both `ComfyUI.md` and `Docker.md`: added `--reserve-vram 3`, updated workflows volume to `/docs/Projects/Claude Code Shared/Workflows`
+- Added rule to `CLAUDE.md`: docker run commands must always be updated in both the service-specific file and `Docker.md`
+- Created NSFW face swap workflow (`Temp.txt`) — two Load Image nodes (body + face source) → ReActorFaceSwap → SaveImage
+- Fixed ReActorFaceSwap widget_values for v0.6.2: correct order is `[enabled, swap_model, facedetection, face_restore_model, face_restore_visibility, codeformer_weight, detect_gender_input, detect_gender_source, input_faces_index, source_faces_index, console_log_level]`
+
+### Files Changed
+- `it/NewPC/ComfyUI.md` — Steve's container: `--reserve-vram 3` added to CLI_ARGS; workflows volume path updated; Tailscale-only access note added
+- `it/NewPC/Docker.md` — Same run command corrections; `--reserve-vram 3` purpose documented in options table; access line updated to Tailscale-only
+- `it/NewPC/CLAUDE.md` — Added "Docker Run Command Updates" rule section; updated port table note for Steve's ComfyUI
+- `it/NewPC/Temp.txt` — ReActor face swap workflow JSON (two Load Image nodes → ReActorFaceSwap → SaveImage)
+
+### Key Decisions
+- **`--reserve-vram 3` is the fix for every-other-image OOM** — keeps 3GB headroom so text encoder can allocate between generations; without it, cached model fills VRAM completely
+- **Both files must stay in sync** — docker run commands now explicitly required in both service file and Docker.md; rule added to CLAUDE.md
+- **ReActor v0.6.2 widget order** — `swap_model` and `facedetection` come before face index values; different from older versions
+
+### Next Actions
+- [ ] Recreate `comfyui` container with updated run command from `ComfyUI.md`/`Docker.md`
+- [ ] Verify face swap workflow loads correctly and runs without errors
+- [ ] Save working face swap workflow to `/docs/Projects/Claude Code Shared/Workflows/` for persistence
+
+---
+
 ## Session 2026-05-04
 
 ### Summary

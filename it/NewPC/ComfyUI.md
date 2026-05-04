@@ -22,39 +22,45 @@ docker run -d \
   --runtime nvidia \
   --gpus all \
   -p 127.0.0.1:18189:8188 \
-  -p 192.168.1.192:8189:8188 \
   -e CUDA_VISIBLE_DEVICES=1 \
   -e CLI_ARGS="--disable-xformers --reserve-vram 3" \
   -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
   -v /mnt/models/comfyui:/root/ComfyUI/models \
   -v /opt/comfyui/storage:/root \
   -v /opt/comfyui/input:/root/ComfyUI/input \
-  -v /opt/comfyui/output:/root/ComfyUI/output \
-  -v /opt/comfyui/workflows:/root/ComfyUI/user/default/workflows \
+  -v "/docs/Projects/Claude Code Shared/Output:/root/ComfyUI/output" \
+  -v "/docs/Projects/Claude Code Shared/Workflows:/root/ComfyUI/user/default/workflows" \
   yanwk/comfyui-boot:cu128-slim
 ```
 
 > **Note**: `CUDA_VISIBLE_DEVICES=1` is used instead of `--cuda-device 1` in CLI_ARGS — it is more reliable as it makes GPU 1 the only GPU the container can see. This prevents OOM errors with large models (e.g. Qwen image edit) that nearly fill a single GPU's VRAM.
+>
+> This instance has no LAN port binding — access via Tailscale only (`https://amelai.tail926601.ts.net:8189`). Output and workflows are mounted from fstab-managed paths under `/docs/Projects/Claude Code Shared/`.
 
 **Amelia's** (GPU 0, internal port 18188):
 ```bash
-docker run -d \
-  --name comfyui-amelia \
-  --network ai-network \
-  --restart unless-stopped \
-  --runtime nvidia \
-  --gpus all \
-  -p 127.0.0.1:18188:8188 \
-  -p 192.168.1.192:8188:8188 \
-  -v /mnt/models/comfyui-amelia:/root/ComfyUI/models \
-  -v /opt/comfyui-amelia/storage:/root \
-  -v /opt/comfyui-amelia/input:/root/ComfyUI/input \
-  -v /opt/comfyui-amelia/output:/root/ComfyUI/output \
-  -v /opt/comfyui-amelia/workflows:/root/ComfyUI/user/default/workflows \
-  -e CUDA_VISIBLE_DEVICES=0 \
-  -e CLI_ARGS="--disable-xformers" \
-  -e PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
-  yanwk/comfyui-boot:cu128-slim
+docker run --name=comfyui-amelia \
+        --hostname=f1290bbde2d5 \
+        --user=root \
+        --volume /opt/comfyui-amelia/workflows:/root/ComfyUI/user/default/workflows \
+        --volume /opt/comfyui-amelia/storage:/root \
+        --volume /opt/comfyui-amelia/input:/root/ComfyUI/input \
+        --volume /mnt/models/comfyui-amelia:/root/ComfyUI/models \
+        --volume /opt/comfyui-amelia/output:/root/ComfyUI/output \
+        --env=NVIDIA_VISIBLE_DEVICES=all \
+        --env=NVIDIA_DRIVER_CAPABILITIES=compute,utility \
+        --env=CUDA_VISIBLE_DEVICES=0 \
+        --env=CLI_ARGS=--disable-xformers \
+        --env=PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+        --network=ai-network \
+        --workdir=/root \
+        -p 127.0.0.1:18188:8188 \
+        -p 192.168.1.192:8188:8188 \
+        --restart=unless-stopped \
+        --runtime=nvidia \
+        --detach=true \
+        yanwk/comfyui-boot:cu128-slim \
+        bash /runner-scripts/entrypoint.sh
 ```
 
 ### Tailscale Serve config
@@ -330,6 +336,12 @@ Saves the generated image to the output folder.
 | `filename_prefix` | Prefix added to the output filename | `ComfyUI` |
 
 Images are saved to `/opt/comfyui/output/` (yours) or `/opt/comfyui-amelia/output/` (Amelia's).
+
+> **Save Image vs Preview Image**: ComfyUI has two similar nodes — `Save Image` and `Preview Image`. They look identical on the canvas but behave differently:
+> - **`Save Image`** — writes a permanent file to the output folder (e.g. `ComfyUI_00001_.png`). The image appears in the Assets panel on the left and can be dragged directly into `Load Image` input nodes.
+> - **`Preview Image`** — writes a temporary file with a randomised name prefix (e.g. `ComfyUI_temp_tmnux_00001_.png`). It does **not** appear in the Assets panel and cannot be dragged into input nodes.
+>
+> Always use `Save Image` if you want to reuse an output as an input to another workflow.
 
 ---
 

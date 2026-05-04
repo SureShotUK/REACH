@@ -290,6 +290,16 @@ A nightly cron at 2am also restarts both ComfyUI containers as a safety net.
 
 ---
 
+## Docker Run Command Updates
+
+**Always update `docker run` commands in both places:**
+1. The service-specific file (e.g. `ComfyUI.md`, `Software_Setup.md`)
+2. `Docker.md` — the "Service docker run Commands" section
+
+Both files must stay in sync. If you update one, update the other in the same session.
+
+---
+
 ## Docker Port Binding Strategy
 
 All Docker services on this server use **dual `-p` bindings** to allow access from both the local network and Tailscale:
@@ -310,7 +320,7 @@ All Docker services on this server use **dual `-p` bindings** to allow access fr
 | Service | Container port | Loopback host port | LAN/Tailscale port |
 |---|---|---|---|
 | Open WebUI | 8080 | 3000 | 3000 |
-| ComfyUI (Steve) | 8188 | 18189 | 8189 |
+| ComfyUI (Steve) | 8188 | 18189 | 8189 (Tailscale only — no LAN binding) |
 | ComfyUI (Amelia) | 8188 | 18188 | 8188 |
 | FileBrowser | 80 | 18087 | 8087 |
 | SearXNG | 8080 | 18080 | 8080 |
