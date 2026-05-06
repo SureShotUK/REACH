@@ -1,12 +1,14 @@
 # Project Status
 
-**Last Updated**: 2026-02-27
+**Last Updated**: 2026-05-06
 
 ## Current State
 
 This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, first aid needs assessments for both sites, fire door compliance analysis, and now a violence and aggression risk assessment.
 
-**Recent Update**: Violence and aggression staff guide and incident report form created. `Violence/HTDW_Violence.md` provides role-specific guidance for all three staff groups (office, warehouse, drivers). `Violence/Incident_Report_Form.docx` provides a standalone Word incident report form (HTDW-VAA-001-F1). Document reference abbreviation confirmed as **VAA** (not VAG) throughout this project.
+**Recent Update (2026-05-06)**: Grain dust / gluten conditions risk assessment briefing created — `Briefings/Grain_Dust_Gluten_Risk_Briefing.md`. Covers coeliac disease, IgE wheat allergy, and NCGS with peer-reviewed evidence, risk matrix, symptom comparison table, COSHH regulatory position, control measures, and recommendations for a specific employee in an office 50 yards from active grain drying/loading operations.
+
+**Previous Update**: Violence and aggression staff guide and incident report form created. `Violence/HTDW_Violence.md` provides role-specific guidance for all three staff groups (office, warehouse, drivers). `Violence/Incident_Report_Form.docx` provides a standalone Word incident report form (HTDW-VAA-001-F1). Document reference abbreviation confirmed as **VAA** (not VAG) throughout this project.
 
 **Infrastructure Update**: The repository structure has been reorganized to support multiple projects (hseea and it) with shared context files and slash commands at the parent `/terminai/` level. This allows for better organization and reuse of common tooling across different project domains.
 
@@ -36,6 +38,15 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 - **Assessment Templates**: Not started - Risk, COSHH, DSE templates needed (next priority after strategic plan implementation begins)
 
 ## Recently Completed
+
+- **Grain Dust / Gluten Conditions Risk Assessment Briefing** (2026-05-06):
+  - Created `Briefings/Grain_Dust_Gluten_Risk_Briefing.md` — 300+ line evidence-based briefing
+  - Covers three conditions separately: coeliac disease (Moderate risk), IgE wheat allergy (High risk), NCGS (Low risk) for an office worker 50 yards from active grain drying/loading
+  - Key finding: IgE allergy rates higher than coeliac in airborne scenario (inhalation is direct IgE trigger; coeliac requires indirect mucociliary→swallowing pathway)
+  - Watery eyes/rhinitis/respiratory symptoms = IgE allergy only; coeliac and NCGS have no ocular/respiratory airborne mechanism
+  - NEJM 2007 "150 grams" figure verified as correct (grams of gluten-containing dust particles derived from 5 kg/day feed handling)
+  - All citations verified: Catassi 2007, Kasim NEJM 2007, PMC3810540, PMC6182669, PMC10156020, EH40, COSHH 2002
+  - Pending: confirm employee's specific condition; consider dust sampling to quantify office exposure; arrange occupational health referral if IgE allergy confirmed
 
 - **Violence and Aggression Staff Guide and Incident Form** (2026-02-27):
   - Created `Violence/HTDW_Violence.md` — staff guide (HTDW-VAA-001): 3 chapters (office/warehouse/drivers), 5 rights, numbered step sequences, incident reporting, management support commitments, Appendix A incident report form

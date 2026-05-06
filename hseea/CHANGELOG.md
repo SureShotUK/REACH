@@ -4,6 +4,29 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-05-06
+
+### Added
+- `Briefings/Grain_Dust_Gluten_Risk_Briefing.md` — evidence-based risk assessment briefing for grain dust exposure and gluten-related conditions:
+  - Three conditions assessed separately: coeliac disease (Moderate risk), IgE-mediated wheat allergy (High risk), NCGS (Low risk)
+  - Scientific mechanisms explained: indirect mucociliary pathway for coeliac; direct inhalation trigger for IgE allergy; ingestion-only for NCGS
+  - Dose threshold evidence: Catassi 2007 RCT (10–50 mg/day); NEJM 2007 farmers case (>150g/day gluten-containing dust)
+  - UK regulatory position: EH40 WEL 10 mg/m³ inhalable, 'Sen' notation, COSHH 2002 employer duties
+  - Risk assessment matrix with explanatory note on counterintuitive IgE > coeliac rating in airborne scenario
+  - Detailed symptom comparison table: watery eyes/rhinitis/wheeze = IgE allergy only; GI symptoms = coeliac/NCGS; silent mucosal damage = coeliac only
+  - Control measures by hierarchy: engineering (dust suppression), administrative (notification protocol), PPE (FFP2/FFP3, EpiPen)
+  - Condition-specific recommendations with priority ratings
+
+### Changed
+- Nothing changed — new document only
+
+### Documentation
+- All 8 source URLs verified before inclusion
+- Corrected NEJM citation wording from "gluten exposure" to "gluten-containing dust particles" (150g is total dust, not pure gluten)
+- Added explanatory note in risk matrix explaining why IgE allergy rates higher than coeliac in an airborne proximity scenario
+
+---
+
 ## [Unreleased] - 2026-02-27 (2)
 
 ### Added

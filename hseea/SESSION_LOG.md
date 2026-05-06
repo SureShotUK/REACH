@@ -6,6 +6,42 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-05-06
+
+### Summary
+Created a comprehensive evidence-based risk assessment briefing paper on grain dust exposure for employees with gluten-related conditions (`Grain_Dust_Gluten_Risk_Briefing.md`). The briefing covers three clinically distinct conditions — coeliac disease, IgE-mediated wheat allergy, and non-coeliac gluten sensitivity (NCGS) — and assesses airborne proximity risk for a specific employee working in an office ~50 yards from grain storage sheds with active drying and loading/unloading operations. All citations verified against peer-reviewed literature and HSE guidance; all links verified via WebFetch.
+
+### Work Completed
+- Researched peer-reviewed scientific literature on airborne grain dust, gluten exposure pathways, dose thresholds, baker's asthma, and NCGS via parallel Explore subagents
+- Researched UK HSE regulatory framework: EH40 WEL (10 mg/m³ inhalable, 'Sen' notation), COSHH 2002, EH66, INDG140; all URLs verified
+- Verified all source citations including: Catassi et al. 2007 (PMID 17209192 — gluten dose threshold), Kasim et al. NEJM 2007 (DOI 10.1056/NEJMc063112 — inhaled grain dust causing non-responsive coeliac disease in farmers), PMC3810540 (baker's asthma), PMC6182669 (NCGS review), PMC10156020 (IgE wheat allergy with allergic conjunctivitis)
+- Confirmed the NEJM "150 grams" figure is correct as stated (grams of gluten-containing dust particles, not pure gluten); corrected briefing wording from "gluten exposure" to "gluten-containing dust particles" to match the paper
+- Created `Grain_Dust_Gluten_Risk_Briefing.md` — full briefing covering: site context, science of all three conditions, exposure pathway analysis, risk assessment matrix, regulatory position, control measures, and recommendations
+- Added explanatory note under risk matrix addressing the counterintuitive finding that IgE allergy rates higher than coeliac disease in an airborne scenario (inhalation is the direct IgE trigger; coeliac requires inefficient mucociliary→swallowing pathway)
+- Added detailed symptom profiles per condition including a comparison table; answered specific question on watery eyes (conjunctivitis is an IgE allergy symptom, not coeliac or NCGS)
+
+### Files Changed
+- `/docs/terminai/Briefings/Grain_Dust_Gluten_Risk_Briefing.md` — created: 300+ line evidence-based risk assessment briefing
+
+### Key Decisions
+- **Risk ratings counterintuitive but correct**: IgE allergy rates High (above coeliac Moderate) in this airborne scenario because inhalation directly triggers IgE reactions at lower concentrations; coeliac requires indirect mucociliary-to-ingestion pathway
+- **Evidence gap acknowledged**: No published studies directly measure airborne gluten at 50 yards from grain drying/loading; risk ratings are qualitative, not quantified
+- **Watery eyes = IgE allergy only**: Allergic conjunctivitis is an IgE allergy symptom; coeliac disease and NCGS do not cause ocular or respiratory symptoms via any airborne mechanism
+- **150g figure is grams**: Verified directly from NEJM 2007 paper — derived from average 5 kg/day feed handling in enclosed cattle barns; represents gluten-containing dust particles (not pure gluten)
+
+### Reference Documents
+- `/docs/terminai/Briefings/Grain_Dust_Gluten_Risk_Briefing.md` — the delivered output
+- <https://pubmed.ncbi.nlm.nih.gov/17209192/> — Catassi 2007 gluten threshold RCT
+- <https://www.nejm.org/doi/full/10.1056/NEJMc063112> — Kasim 2007 inhaled grain dust / non-responsive coeliac
+- <https://www.hse.gov.uk/pubns/books/eh40.htm> — EH40 WEL for grain dust
+
+### Next Actions
+- [ ] Confirm whether the specific employee has coeliac disease, IgE wheat allergy, or NCGS (briefing currently covers all three; a condition-specific version may be needed for HR records)
+- [ ] Consider dust sampling at office location during active drying/loading operations to quantify actual airborne concentrations (fills the key evidence gap identified in the briefing)
+- [ ] If IgE wheat allergy: arrange occupational health referral, spirometry baseline, and ensure epinephrine auto-injector is on site
+
+---
+
 ## Session 2026-02-27 (2)
 
 ### Summary
