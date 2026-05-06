@@ -4,6 +4,40 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-05-06 — UK Drone Regulation Guide & Insurance Research
+
+### Summary
+Created two new reference documents in the Drone directory covering UK CAA drone regulations and insurance requirements. The regulation guide covers all three operator categories (Open/Specific/Certified), licence types (Flyer ID, Operator ID, A2 CofC, GVC, RPC levels), weight classes, and BVLOS. The insurance document addresses whether a business using a sub-250g drone on its own site needs dedicated insurance and whether standard PLI covers it.
+
+### Work Completed
+- **Created `UK_Drone_Regulations.md`** — comprehensive CAA framework reference covering Open/Specific/Certified categories, all weight classes (UK0–UK6), A1/A2/A3 subcategories, A2 CofC, PDRA01, UK SORA, GVC phase-out, BVLOS/RPC certificates, no-fly zones, and a quick decision table
+- **Created `Drone_Insurance.md`** — business-focused insurance guide: why own-site commercial use triggers mandatory insurance under Assimilated Reg 785/2004, why standard PLI won't cover it (aviation exclusion), and cost-effective options (BMFA ~£60–80/year)
+- **Verified 11 CAA/ARPAS/Coverdrone URLs** live before inclusion — all returned HTTP 200
+- Answered user question: UAS = Unmanned Aircraft System (the complete drone system including controller and comms links)
+
+### Files Changed
+- `it/Drone/UK_Drone_Regulations.md` — **NEW** — UK CAA drone regulation reference guide (all categories, licences, restrictions)
+- `it/Drone/Drone_Insurance.md` — **NEW** — drone insurance guide for own-site business use
+
+### Key Decisions
+- Guide covers both recreational and commercial audiences (user confirmed)
+- Overview reference depth chosen over deep-dive (user confirmed)
+- Focus on sub-250g and 250g–25kg weight classes (user confirmed)
+- BVLOS overview section included despite it being edge-case for most readers
+- Jan 2026 rule change (Operator ID threshold dropped to 100g for camera drones) highlighted prominently
+- BMFA commercial membership identified as cheapest compliant insurance option (~£60–80/year)
+
+### Reference Documents
+- <a href="https://www.caa.co.uk/drones/moving-on-to-more-advanced-flying/insurance-requirements/" target="_blank">CAA: Drone Insurance Requirements</a>
+- <a href="https://www.caa.co.uk/drones/remote-pilot-qualifications/a2-certificate-of-competence-a2-cofc/" target="_blank">CAA: A2 Certificate of Competency</a>
+- <a href="https://www.caa.co.uk/drones/specific-category/specific-category-overview/" target="_blank">CAA: Specific Category Overview</a>
+
+### Next Actions
+- [ ] Use-case deep-dive documents (e.g. commercial warehouse roof inspection, site survey) — flagged by user as next step
+- [ ] Verify BMFA commercial membership cost/scope when purchasing drone
+
+---
+
 ## Session 2026-03-22 — Synology NAS SMB Access & Win10 Tailscale Fix
 
 ### Summary

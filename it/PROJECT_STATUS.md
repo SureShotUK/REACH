@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-03-19
+**Last Updated**: 2026-05-06
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
@@ -107,6 +107,16 @@
   - Remote (Tailscale): `https://amelai.tail926601.ts.net` (HTTPS via Tailscale Serve)
 - **Ethernet**: RTL8126 5Gb NIC restricted to 1Gb advertisement (`ethtool advertise 0x020`) via `fix-ethernet.service` systemd unit — resolves link flapping with Linksys WHW03 V2 (1Gb) router. Re-enable full speeds when router is upgraded (see `Software_Setup.md` §15)
 - **Next**: Install second RTX 3090, set `OLLAMA_MAX_LOADED_MODELS=2`, work through `Local_CC.md` phases
+
+### Drone Operations & Regulation (UK)
+- **Status**: Foundation documents created; use-case deep-dives planned
+- **Files**: `Drone/UK_Drone_Regulations.md`, `Drone/Drone_Insurance.md`, `Drone/Drone_Buying_Guide.md`
+- **Coverage**:
+  - `UK_Drone_Regulations.md` — Full CAA framework reference: Open/Specific/Certified categories, weight classes (UK0–UK6), A1/A2/A3, A2 CofC, PDRA01, UK SORA, GVC, BVLOS/RPC-L1/L2/L3, no-fly zones, quick decision table
+  - `Drone_Insurance.md` — Business insurance guide: Assimilated Reg 785/2004, PLI aviation exclusion, BMFA/ARPAS options, compliance checklist
+  - `Drone_Buying_Guide.md` — Hardware procurement for warehouse roof inspection (sub-250g recreational, Yorkshire private site)
+- **Key facts**: Jan 2026 — Operator ID threshold dropped to 100g for camera drones; GVC phased out Dec 2027; BMFA commercial membership ~£60–80/year for occasional business use
+- **Next**: Use-case deep-dive documents (commercial warehouse inspection, site survey)
 
 ### Zero Trust Network Access (ZTNA)
 - **Status**: Research complete, deployment guides created, ready for pilot deployment

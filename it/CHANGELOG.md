@@ -2,6 +2,18 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-05-06 — UK Drone Regulation & Insurance Documentation
+
+### Added
+- `it/Drone/UK_Drone_Regulations.md` — UK CAA drone regulation reference guide covering Open/Specific/Certified categories, all weight classes (UK0–UK6), A1/A2/A3 subcategories, A2 CofC, PDRA01, UK SORA, GVC phase-out (Dec 2027), BVLOS/RPC certificates, key restrictions, recreational vs commercial comparison, and quick decision table
+- `it/Drone/Drone_Insurance.md` — business drone insurance guide: mandatory insurance under Assimilated Regulation (EU) 785/2004, aviation exclusion in standard PLI, compliant insurance options with costs (BMFA ~£60–80/year, specialist insurers £100–300/year), and pre-flight compliance checklist
+
+### Documentation
+- All 11 external URLs (CAA, ARPAS-UK, Coverdrone) verified live before inclusion
+- January 2026 CAA registration rule change (100g threshold for camera drones) documented
+
+---
+
 ## [Unreleased] - 2026-03-22 — Synology NAS SMB & Win10 Tailscale Fix
 
 ### Fixed
