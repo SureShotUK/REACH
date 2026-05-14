@@ -1,0 +1,17 @@
+[Unit]
+Description=Whisper STT WebSocket Server
+After=network.target
+
+[Service]
+User=steve
+WorkingDirectory=/opt/stt
+ExecStart=/opt/stt/venv/bin/python stt_server.py
+Restart=on-failure
+RestartSec=5
+# Use GPU 1 (Steve's GPU — same allocation as comfyui container)
+Environment=CUDA_VISIBLE_DEVICES=1
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

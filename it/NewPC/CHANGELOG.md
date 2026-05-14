@@ -2,6 +2,26 @@
 
 ---
 
+## [Unreleased] - 2026-05-14
+
+### Added
+- `stt/stt_server.py` — WebSocket STT server: faster-whisper large-v3 on CUDA GPU 1, RMS energy VAD, auto-reconnect, initial_prompt for proper nouns
+- `stt/stt_client.py` — Windows STT client: pystray system tray icon, F9 global hotkey, clipboard paste, reconnect loop
+- `stt/stt_server.service` — systemd unit for STT server (GPU 1, auto-restart)
+- `stt/requirements_server.txt` / `stt/requirements_client.txt` — dependency lists
+- `stt/start_stt.bat` / `stt/start_stt.vbs` — legacy launchers (superseded by Task Scheduler)
+- `STT_Voice_Input.md` — full setup and troubleshooting guide
+- `STT_New_Machine_Guide.md` — clean installation guide for additional Windows machines
+
+### Changed
+- `CLAUDE.md` — STT service added to port/service table (port 9090, GPU 1, systemd)
+
+### Fixed
+- torchaudio CUDA 13 incompatibility: replaced silero-vad with RMS energy threshold VAD — no torchaudio dependency
+- Windows auto-start keyboard hook failure: VBS hidden window (`style 0`) breaks `keyboard` global hooks; Task Scheduler `RunLevel Highest` is the correct solution
+
+---
+
 ## [Unreleased] - 2026-05-04 (2)
 
 ### Added

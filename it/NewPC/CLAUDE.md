@@ -326,6 +326,12 @@ All Docker services on this server use **dual `-p` bindings** to allow access fr
 | SearXNG | 8080 | 18080 | 8080 |
 | n8n | 5678 | 15678 | 5678 |
 
+**Systemd services (not Docker — no loopback/LAN split):**
+
+| Service | Port | GPU | Notes |
+|---|---|---|---|
+| STT server (Whisper) | 9090 | GPU 1 | WebSocket, Tailscale only, ~3 GB VRAM |
+
 **Access URLs:**
 
 | Service | Local network | Tailscale |

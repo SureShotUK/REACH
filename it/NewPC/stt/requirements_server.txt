@@ -1,0 +1,12 @@
+# Server dependencies — install inside /opt/stt/venv on amelai
+# Requires: CUDA 12.x, Python 3.10+
+#
+# IMPORTANT: torch and torchaudio must be installed from the cu121 index,
+# NOT from plain PyPI — PyPI ships CUDA 13 builds which break on CUDA 12.x:
+#   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
+#   pip install -r requirements_server.txt
+faster-whisper>=1.0.0
+websockets>=12.0
+numpy>=1.24.0
+# No silero-vad or torchaudio — VAD is a simple RMS energy threshold in stt_server.py.
+# Whisper vad_filter=True handles hallucination suppression during transcription.

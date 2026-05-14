@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-05-04
+**Last Updated**: 2026-05-14
 
 ---
 
@@ -19,6 +19,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
 | MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
 | n8n | `n8n` | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` | Running |
+| STT Server | systemd `stt_server` | — | `ws://amelai.tail926601.ts.net:9090` | Running |
 
 ## Active Work Areas
 
@@ -28,6 +29,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Recently Completed
 
+- **STT voice input system** — full end-to-end speech-to-text for Claude Code terminal sessions; faster-whisper large-v3 on amelai GPU 1 (port 9090 systemd service); Windows client with pystray tray icon, F9 hotkey, auto-start via Task Scheduler with elevated privileges; setup guides at `STT_Voice_Input.md` and `STT_New_Machine_Guide.md`
 - **ComfyUI OOM fix** — diagnosed missing `--reserve-vram 3` from running container via `docker inspect`; corrected in both `ComfyUI.md` and `Docker.md`; CLAUDE.md rule added to keep both files in sync
 - **ReActor face swap workflow created** — basic two-image (body + face) → ReActorFaceSwap → SaveImage workflow; widget values corrected for v0.6.2 node order
 - **Docker.md overhaul** — `runlike` documented; ComfyUI Steve output moved to NAS (`/docs/Projects/Claude Code Shared/Output`); FileBrowser workflows volume added; loopback port corrected to 18189; LAN binding removed (Tailscale-only); port table fixed
@@ -75,6 +77,9 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
 | `FileWriter.py` | Open WebUI Tool — paste into Workspace → Tools to give models file write capability |
 | `N8N_Setup.md` | n8n workflow automation — Docker setup, Tailscale config, update and backup procedures |
+| `STT_Voice_Input.md` | Speech-to-text setup guide — server (amelai) and Windows client |
+| `STT_New_Machine_Guide.md` | STT client install guide for additional Windows machines on the tailnet |
+| `stt/` | STT source files — `stt_server.py`, `stt_client.py`, service unit, requirements |
 | `wol/WOL_Setup.md` | Alexa Wake-on-LAN setup — full end-to-end guide including Lambda, Tailscale Funnel, skill config |
 | `CLAUDE.md` | Project-specific guidance for this directory |
 

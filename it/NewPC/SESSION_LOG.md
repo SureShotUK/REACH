@@ -2,6 +2,55 @@
 
 ---
 
+## Session 2026-05-14
+
+### Summary
+Built and deployed a complete speech-to-text voice input system for Claude Code terminal sessions. The system uses faster-whisper large-v3 running on amelai (GPU 1) as a WebSocket server, with a Windows client that streams mic audio, displays a system tray icon, and pastes transcribed text into the focused terminal window via clipboard. After several dependency and startup issues, the full stack is working end-to-end with auto-start via Task Scheduler.
+
+### Work Completed
+- Created `/opt/stt/` Python venv on amelai with faster-whisper, websockets, numpy
+- Built `stt_server.py` — WebSocket server with RMS energy VAD and faster-whisper large-v3 on CUDA (GPU 1, port 9090); systemd service `stt_server` enabled and running
+- Built `stt_client.py` — Windows client with pystray system tray icon (grey=paused, green=listening), F9 global hotkey, clipboard paste into focused window, auto-reconnect loop
+- Resolved torchaudio CUDA 13 incompatibility: silero-vad pip package and torch.hub both import torchaudio which requires `libcudart.so.13` — CUDA 12.x only has `.so.12`; replaced with simple RMS energy threshold VAD
+- Added `initial_prompt` to Whisper transcribe call so proper nouns ("Claude", "amelai", etc.) are recognised correctly
+- Tuned `ENERGY_THRESHOLD=0.025` and `SILENCE_FRAMES=50` for natural speech in a quiet room
+- Added UFW rule for Tailscale subnet → port 9090
+- Resolved Windows auto-start: VBS with hidden window style (`0`) breaks `keyboard` global hooks; Task Scheduler with `RunLevel Highest` is the correct solution
+- Created `STT_Voice_Input.md` — full setup guide for this machine
+- Created `STT_New_Machine_Guide.md` — clean from-scratch guide for other Windows machines on the tailnet
+- Updated `CLAUDE.md` port table with STT service (port 9090, GPU 1)
+- Saved torchaudio CUDA lesson to persistent memory
+
+### Files Changed
+- `it/NewPC/stt/stt_server.py` — WebSocket server, energy VAD, faster-whisper large-v3, initial_prompt, tuned thresholds
+- `it/NewPC/stt/stt_client.py` — pystray tray icon, F9 hotkey, clipboard paste, auto-reconnect
+- `it/NewPC/stt/stt_server.service` — systemd unit, GPU 1, auto-restart
+- `it/NewPC/stt/requirements_server.txt` — server deps (no torchaudio/silero-vad)
+- `it/NewPC/stt/requirements_client.txt` — client deps including pystray, Pillow
+- `it/NewPC/stt/start_stt.bat` — legacy launcher (superseded by Task Scheduler)
+- `it/NewPC/stt/start_stt.vbs` — legacy VBS launcher (superseded by Task Scheduler)
+- `it/NewPC/STT_Voice_Input.md` — full setup and troubleshooting guide (created)
+- `it/NewPC/STT_New_Machine_Guide.md` — new machine installation guide (created)
+- `it/NewPC/CLAUDE.md` — STT service added to port/service table
+
+### Key Decisions
+- **RMS energy VAD over silero-vad**: silero-vad (pip and torch.hub) imports torchaudio which is built against CUDA 13; amelai has CUDA 12.x — incompatible. Simple `sqrt(mean(frame²)) > threshold` works well enough for a quiet room with Whisper's own `vad_filter=True` as backup
+- **Task Scheduler `RunLevel Highest` for auto-start**: VBS `WshShell.Run ... 0` (hidden window) runs without interactive desktop access, breaking `keyboard`'s low-level hook; BAT with `/min` has same issue. Task Scheduler with highest privileges matches the admin terminal environment where everything works
+- **Pystray system tray over console**: console window steals focus and breaks text injection into other windows; tray icon with grey/green state is cleaner UX
+- **Auto-reconnect loop**: startup timing — Tailscale isn't always ready when the scheduled task fires; 5-second retry loop ensures eventual connection without user intervention
+- **initial_prompt for proper nouns**: Whisper defaults to common words; seeding with domain vocabulary ("Claude", "Tailscale", "amelai", "ComfyUI", etc.) significantly improves accuracy on technical terms
+
+### Reference Documents
+- `it/NewPC/STT_Voice_Input.md` — complete setup guide
+- `it/NewPC/STT_New_Machine_Guide.md` — new machine guide
+- `it/NewPC/stt/` — all source files
+
+### Next Actions
+- [ ] Verify STT auto-starts correctly after next reboot (Task Scheduler confirmed working in testing)
+- [ ] Consider adding more domain vocabulary to `initial_prompt` as usage reveals more misrecognised terms
+
+---
+
 ## Session 2026-05-04 (2)
 
 ### Summary
