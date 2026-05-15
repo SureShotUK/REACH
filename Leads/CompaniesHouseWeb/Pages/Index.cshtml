@@ -1,0 +1,44 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Company Lookup";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="section-card">
+            <div class="card-header p-3">Company Lookup</div>
+            <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                    Enter a Companies House registration number to retrieve a full company profile,
+                    officers, persons with significant control, insolvency status, and latest filed accounts.
+                </p>
+
+                <form method="get" action="/Company">
+                    <div class="mb-3">
+                        <label for="number" class="form-label fw-semibold">Company Number</label>
+                        <input type="text"
+                               class="form-control form-control-lg"
+                               id="number"
+                               name="number"
+                               placeholder="e.g. 12345678"
+                               maxlength="8"
+                               autofocus
+                               required />
+                        <div class="form-text">8-digit Companies House registration number.</div>
+                    </div>
+                    <button type="submit" class="btn btn-lg w-100" style="background-color:#002147;color:#fff;">
+                        Look Up Company
+                    </button>
+                </form>
+
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger mt-3">@Model.ErrorMessage</div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

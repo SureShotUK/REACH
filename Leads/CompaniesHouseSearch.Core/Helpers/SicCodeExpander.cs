@@ -1,0 +1,372 @@
+namespace CompaniesHouseSearch.Helpers;
+
+public static class SicCodeExpander
+{
+    // Full Companies House SIC code list (UK SIC 2007)
+    private static readonly Dictionary<string, string> AllCodes = new()
+    {
+        // Section A — Agriculture, Forestry and Fishing
+        ["01110"] = "Growing of cereals, leguminous crops and oil seeds",
+        ["01120"] = "Growing of rice",
+        ["01130"] = "Growing of vegetables and melons, roots and tubers",
+        ["01140"] = "Growing of sugar cane",
+        ["01150"] = "Growing of tobacco",
+        ["01160"] = "Growing of fibre crops",
+        ["01190"] = "Growing of other non-perennial crops",
+        ["01210"] = "Growing of grapes",
+        ["01220"] = "Growing of tropical and subtropical fruits",
+        ["01230"] = "Growing of citrus fruits",
+        ["01240"] = "Growing of pome fruits and stone fruits",
+        ["01250"] = "Growing of other tree and bush fruits and nuts",
+        ["01260"] = "Growing of oleaginous fruits",
+        ["01270"] = "Growing of beverage crops",
+        ["01280"] = "Growing of spices, aromatic, drug and pharmaceutical crops",
+        ["01290"] = "Growing of other perennial crops",
+        ["01300"] = "Plant propagation",
+        ["01410"] = "Raising of dairy cattle",
+        ["01420"] = "Raising of other cattle and buffaloes",
+        ["01430"] = "Raising of horses and other equines",
+        ["01440"] = "Raising of camels and camelids",
+        ["01450"] = "Raising of sheep and goats",
+        ["01460"] = "Raising of swine/pigs",
+        ["01470"] = "Raising of poultry",
+        ["01480"] = "Raising of other animals",
+        ["01500"] = "Mixed farming",
+        ["01610"] = "Support activities for crop production",
+        ["01620"] = "Support activities for animal production",
+        ["01630"] = "Post-harvest crop activities",
+        ["01640"] = "Seed processing for propagation",
+        ["01700"] = "Hunting, trapping and related service activities",
+        ["02100"] = "Silviculture and other forestry activities",
+        ["02200"] = "Logging",
+        ["02300"] = "Gathering of wild growing non-wood products",
+        ["02400"] = "Support services to forestry",
+        ["03110"] = "Marine fishing",
+        ["03120"] = "Freshwater fishing",
+        ["03210"] = "Marine aquaculture",
+        ["03220"] = "Freshwater aquaculture",
+
+        // Section B — Mining and Quarrying
+        ["05100"] = "Mining of hard coal",
+        ["05200"] = "Mining of lignite",
+        ["06100"] = "Extraction of crude petroleum",
+        ["06200"] = "Extraction of natural gas",
+        ["07100"] = "Mining of iron ores",
+        ["08110"] = "Quarrying of ornamental and building stone, limestone, gypsum, chalk and slate",
+        ["08120"] = "Operation of gravel and sand pits; mining of clays and kaolin",
+        ["08910"] = "Mining of chemical and fertiliser minerals",
+        ["08920"] = "Extraction of peat",
+        ["08990"] = "Other mining and quarrying n.e.c.",
+        ["09100"] = "Support activities for petroleum and natural gas extraction",
+        ["09900"] = "Support activities for other mining and quarrying",
+
+        // Section C — Manufacturing (selected key codes)
+        ["10110"] = "Processing and preserving of meat",
+        ["10120"] = "Processing and preserving of poultry meat",
+        ["10200"] = "Processing and preserving of fish, crustaceans and molluscs",
+        ["10310"] = "Processing and preserving of potatoes",
+        ["10390"] = "Other processing and preserving of fruit and vegetables",
+        ["10410"] = "Manufacture of oils and fats",
+        ["10510"] = "Operation of dairies and cheese making",
+        ["10610"] = "Manufacture of grain mill products",
+        ["10710"] = "Manufacture of bread; manufacture of fresh pastry goods and cakes",
+        ["10810"] = "Manufacture of sugar",
+        ["10850"] = "Manufacture of prepared meals and dishes",
+        ["10910"] = "Manufacture of prepared feeds for farm animals",
+        ["11010"] = "Distilling, rectifying and blending of spirits",
+        ["11020"] = "Manufacture of wine from grape",
+        ["11050"] = "Manufacture of beer",
+        ["11070"] = "Manufacture of soft drinks; production of mineral waters and other bottled waters",
+        ["19100"] = "Manufacture of coke oven products",
+        ["19201"] = "Mineral oil refining",
+        ["19209"] = "Other treatment of petroleum products (excluding petrochemicals manufacture)",
+        ["20140"] = "Manufacture of other organic basic chemicals",
+        ["20150"] = "Manufacture of fertilisers and nitrogen compounds",
+        ["20600"] = "Manufacture of man-made fibres",
+        ["22110"] = "Manufacture of rubber tyres and tubes; retreading and rebuilding of rubber tyres",
+        ["22190"] = "Manufacture of other rubber products",
+        ["23520"] = "Manufacture of lime and plaster",
+        ["24100"] = "Manufacture of basic iron and steel and of ferro-alloys",
+        ["25110"] = "Manufacture of metal structures and parts of structures",
+        ["25120"] = "Manufacture of doors and windows of metal",
+        ["28110"] = "Manufacture of engines and turbines, except aircraft, vehicle and cycle engines",
+        ["28220"] = "Manufacture of lifting and handling equipment",
+        ["29100"] = "Manufacture of motor vehicles",
+        ["29201"] = "Manufacture of bodies (coachwork) for motor vehicles (except caravans)",
+        ["29202"] = "Manufacture of trailers and semi-trailers",
+        ["29310"] = "Manufacture of electrical and electronic equipment for motor vehicles",
+        ["30110"] = "Building of ships and floating structures",
+        ["30200"] = "Manufacture of railway locomotives and rolling stock",
+        ["30300"] = "Manufacture of air and spacecraft and related machinery",
+        ["30910"] = "Manufacture of motorcycles",
+        ["30920"] = "Manufacture of bicycles and invalid carriages",
+
+        // Section D — Electricity, Gas, Steam and Air Conditioning Supply
+        ["35110"] = "Production of electricity",
+        ["35120"] = "Transmission of electricity",
+        ["35130"] = "Distribution of electricity",
+        ["35140"] = "Trade of electricity",
+        ["35210"] = "Manufacture of gas",
+        ["35220"] = "Distribution of gaseous fuels through mains",
+        ["35230"] = "Trade of gas through mains",
+        ["35300"] = "Steam and air conditioning supply",
+
+        // Section E — Water Supply, Sewerage, Waste
+        ["36000"] = "Water collection, treatment and supply",
+        ["37000"] = "Sewerage",
+        ["38110"] = "Collection of non-hazardous waste",
+        ["38120"] = "Collection of hazardous waste",
+        ["38210"] = "Treatment and disposal of non-hazardous waste",
+        ["38220"] = "Treatment and disposal of hazardous waste",
+        ["38310"] = "Dismantling of wrecks",
+        ["38320"] = "Recovery of sorted materials",
+        ["39000"] = "Remediation activities and other waste management services",
+
+        // Section F — Construction
+        ["41100"] = "Development of building projects",
+        ["41201"] = "Construction of commercial buildings",
+        ["41202"] = "Construction of domestic buildings",
+        ["42110"] = "Construction of roads and motorways",
+        ["42120"] = "Construction of railways and underground railways",
+        ["42130"] = "Construction of bridges and tunnels",
+        ["42210"] = "Construction of utility projects for fluids",
+        ["42220"] = "Construction of utility projects for electricity and telecommunications",
+        ["42910"] = "Construction of water projects",
+        ["42990"] = "Construction of other civil engineering projects n.e.c.",
+        ["43110"] = "Demolition",
+        ["43120"] = "Site preparation",
+        ["43130"] = "Test drilling and boring",
+        ["43210"] = "Electrical installation",
+        ["43220"] = "Plumbing, heat and air-conditioning installation",
+        ["43290"] = "Other construction installation",
+        ["43310"] = "Plastering",
+        ["43320"] = "Joinery installation",
+        ["43330"] = "Floor and wall covering",
+        ["43341"] = "Painting",
+        ["43342"] = "Glazing",
+        ["43390"] = "Other building completion and finishing",
+        ["43910"] = "Roofing activities",
+        ["43990"] = "Other specialised construction activities n.e.c.",
+
+        // Section G — Wholesale and Retail Trade
+        ["45111"] = "Sale of new cars and light motor vehicles",
+        ["45112"] = "Sale of used cars and light motor vehicles",
+        ["45190"] = "Sale of other motor vehicles",
+        ["45200"] = "Maintenance and repair of motor vehicles",
+        ["45310"] = "Wholesale trade of motor vehicle parts and accessories",
+        ["45320"] = "Retail trade of motor vehicle parts and accessories",
+        ["45400"] = "Sale, maintenance and repair of motorcycles and related parts and accessories",
+        ["46110"] = "Agents selling agricultural raw materials, livestock, textile raw materials and semi-finished goods",
+        ["46120"] = "Agents involved in the sale of fuels, ores, metals and industrial chemicals",
+        ["46130"] = "Agents involved in the sale of timber and building materials",
+        ["46140"] = "Agents involved in the sale of machinery, industrial equipment, ships and aircraft",
+        ["46150"] = "Agents involved in the sale of furniture, household goods, hardware and ironmongery",
+        ["46160"] = "Agents involved in the sale of textiles, clothing, fur, footwear and leather goods",
+        ["46170"] = "Agents involved in the sale of food, beverages and tobacco",
+        ["46180"] = "Agents specialised in the sale of other particular products",
+        ["46190"] = "Agents involved in the sale of a variety of goods",
+        ["46210"] = "Wholesale of grain, unmanufactured tobacco, seeds and animal feeds",
+        ["46220"] = "Wholesale of flowers and plants",
+        ["46230"] = "Wholesale of live animals",
+        ["46240"] = "Wholesale of hides, skins and leather",
+        ["46310"] = "Wholesale of fruit and vegetables",
+        ["46320"] = "Wholesale of meat and meat products",
+        ["46330"] = "Wholesale of dairy products, eggs and edible oils and fats",
+        ["46340"] = "Wholesale of beverages",
+        ["46350"] = "Wholesale of tobacco products",
+        ["46360"] = "Wholesale of sugar and chocolate and sugar confectionery",
+        ["46370"] = "Wholesale of coffee, tea, cocoa and spices",
+        ["46380"] = "Wholesale of other food, including fish, crustaceans and molluscs",
+        ["46390"] = "Non-specialised wholesale of food, beverages and tobacco",
+        ["46410"] = "Wholesale of textiles",
+        ["46420"] = "Wholesale of clothing and footwear",
+        ["46430"] = "Wholesale of electrical household appliances",
+        ["46440"] = "Wholesale of china and glassware and cleaning materials",
+        ["46450"] = "Wholesale of perfume and cosmetics",
+        ["46460"] = "Wholesale of pharmaceutical goods",
+        ["46470"] = "Wholesale of furniture, carpets and lighting equipment",
+        ["46480"] = "Wholesale of watches and jewellery",
+        ["46490"] = "Wholesale of other household goods",
+        ["46510"] = "Wholesale of computers, computer peripheral equipment and software",
+        ["46520"] = "Wholesale of electronic and telecommunications equipment and parts",
+        ["46610"] = "Wholesale of agricultural machinery, equipment and supplies",
+        ["46620"] = "Wholesale of machine tools",
+        ["46630"] = "Wholesale of mining, construction and civil engineering machinery",
+        ["46640"] = "Wholesale of machinery for the textile industry",
+        ["46650"] = "Wholesale of office furniture",
+        ["46660"] = "Wholesale of other office machinery and equipment",
+        ["46690"] = "Wholesale of other machinery and equipment",
+        ["46710"] = "Wholesale of solid, liquid and gaseous fuels and related products",
+        ["46720"] = "Wholesale of metals and metal ores",
+        ["46730"] = "Wholesale of wood, construction materials and sanitary equipment",
+        ["46740"] = "Wholesale of hardware, plumbing and heating equipment and supplies",
+        ["46750"] = "Wholesale of chemical products",
+        ["46760"] = "Wholesale of other intermediate products",
+        ["46770"] = "Wholesale of waste and scrap",
+        ["46900"] = "Non-specialised wholesale trade",
+        ["47110"] = "Retail sale in non-specialised stores with food, beverages or tobacco predominating",
+        ["47190"] = "Other retail sale in non-specialised stores",
+        ["47210"] = "Retail sale of fruit and vegetables in specialised stores",
+        ["47220"] = "Retail sale of meat and meat products in specialised stores",
+        ["47230"] = "Retail sale of fish, crustaceans and molluscs in specialised stores",
+        ["47240"] = "Retail sale of bread, cakes, flour confectionery and sugar confectionery in specialised stores",
+        ["47250"] = "Retail sale of beverages in specialised stores",
+        ["47260"] = "Retail sale of tobacco products in specialised stores",
+        ["47290"] = "Other retail sale of food in specialised stores",
+        ["47300"] = "Retail sale of automotive fuel in specialised stores",
+        ["47410"] = "Retail sale of computers, peripheral units and software in specialised stores",
+        ["47420"] = "Retail sale of telecommunications equipment in specialised stores",
+        ["47430"] = "Retail sale of audio and video equipment in specialised stores",
+        ["47510"] = "Retail sale of textiles in specialised stores",
+        ["47520"] = "Retail sale of hardware, paints and glass in specialised stores",
+        ["47530"] = "Retail sale of carpets, rugs, wall and floor coverings in specialised stores",
+        ["47540"] = "Retail sale of electrical household appliances in specialised stores",
+        ["47591"] = "Retail sale of musical instruments and scores",
+        ["47599"] = "Retail of furniture, lighting, and similar in specialised stores",
+        ["47610"] = "Retail sale of books in specialised stores",
+        ["47620"] = "Retail sale of newspapers and stationery in specialised stores",
+        ["47630"] = "Retail sale of music and video recordings in specialised stores",
+        ["47640"] = "Retail sale of sports goods, fishing gear, camping goods, boats and bicycles",
+        ["47650"] = "Retail sale of games and toys in specialised stores",
+        ["47710"] = "Retail sale of clothing in specialised stores",
+        ["47720"] = "Retail sale of footwear and leather goods in specialised stores",
+        ["47730"] = "Dispensing chemist in specialised stores",
+        ["47740"] = "Retail sale of medical and orthopaedic goods in specialised stores",
+        ["47750"] = "Retail sale of cosmetic and toilet articles in specialised stores",
+        ["47760"] = "Retail sale of flowers, plants, seeds, fertilisers, pet animals and pet food",
+        ["47770"] = "Retail sale of watches and jewellery in specialised stores",
+        ["47781"] = "Retail sale in commercial art galleries",
+        ["47782"] = "Retail sale by opticians",
+        ["47789"] = "Other retail sale of new goods in specialised stores",
+        ["47790"] = "Retail sale of second-hand goods in stores",
+        ["47810"] = "Retail sale via stalls and markets of food, beverages and tobacco products",
+        ["47820"] = "Retail sale via stalls and markets of textiles, clothing and footwear",
+        ["47890"] = "Retail sale via stalls and markets of other goods",
+        ["47910"] = "Retail sale via mail order houses or via Internet",
+        ["47990"] = "Other retail sale not in stores, stalls or markets",
+
+        // Section H — Transportation and Storage
+        ["49100"] = "Passenger rail transport, interurban",
+        ["49200"] = "Freight rail transport",
+        ["49310"] = "Urban and suburban passenger land transport",
+        ["49320"] = "Taxi operation",
+        ["49390"] = "Other passenger land transport n.e.c.",
+        ["49410"] = "Freight transport by road",
+        ["49420"] = "Removal services",
+        ["49500"] = "Transport via pipeline",
+        ["50100"] = "Sea and coastal passenger water transport",
+        ["50200"] = "Sea and coastal freight water transport",
+        ["50300"] = "Inland passenger water transport",
+        ["50400"] = "Inland freight water transport",
+        ["51101"] = "Scheduled passenger air transport",
+        ["51102"] = "Non-scheduled passenger air transport",
+        ["51210"] = "Freight air transport",
+        ["51220"] = "Space transport",
+        ["52101"] = "Operation of warehousing and storage facilities for water transport activities",
+        ["52102"] = "Operation of warehousing and storage facilities for air transport activities",
+        ["52103"] = "Operation of warehousing and storage facilities for land transport activities",
+        ["52211"] = "Operation of rail freight terminals",
+        ["52212"] = "Operation of rail passenger facilities at railway stations",
+        ["52213"] = "Operation of bus and coach passenger facilities at bus and coach stations",
+        ["52219"] = "Other service activities incidental to land transportation n.e.c.",
+        ["52220"] = "Service activities incidental to water transportation",
+        ["52230"] = "Service activities incidental to air transportation",
+        ["52241"] = "Cargo handling for water transport activities",
+        ["52242"] = "Cargo handling for air transport activities",
+        ["52243"] = "Cargo handling for land transport activities",
+        ["52290"] = "Other transportation support activities",
+        ["53100"] = "Postal activities under universal service obligation",
+        ["53201"] = "Licensed carriers",
+        ["53202"] = "Unlicensed carriers",
+
+        // Section I — Accommodation and Food Service
+        ["55100"] = "Hotels and similar accommodation",
+        ["55201"] = "Holiday centres and villages",
+        ["55202"] = "Youth hostels",
+        ["55209"] = "Other holiday and other short-stay accommodation",
+        ["55300"] = "Recreational vehicle parks, trailer parks and camping grounds",
+        ["55900"] = "Other accommodation",
+        ["56101"] = "Licensed restaurants",
+        ["56102"] = "Unlicensed restaurants and cafes",
+        ["56103"] = "Take-away food shops and mobile food stands",
+        ["56210"] = "Event catering activities",
+        ["56290"] = "Other food service activities",
+        ["56301"] = "Licensed club",
+        ["56302"] = "Public houses and bars",
+
+        // Section N — Administrative and Support Services (selected)
+        ["77110"] = "Renting and leasing of cars and light motor vehicles",
+        ["77120"] = "Renting and leasing of trucks and other heavy vehicles",
+        ["77210"] = "Renting and leasing of recreational and sports goods",
+        ["77290"] = "Renting and leasing of other personal and household goods",
+        ["77310"] = "Renting and leasing of agricultural machinery and equipment",
+        ["77320"] = "Renting and leasing of construction and civil engineering machinery and equipment",
+        ["77330"] = "Renting and leasing of office machinery and equipment",
+        ["77340"] = "Renting and leasing of water transport equipment",
+        ["77350"] = "Renting and leasing of air transport equipment",
+        ["77390"] = "Renting and leasing of other machinery, equipment and tangible goods n.e.c.",
+        ["77400"] = "Leasing of intellectual property and similar products, except copyrighted works",
+        ["78101"] = "Motion picture, television and other theatrical casting",
+        ["78102"] = "Temporary employment agency activities",
+        ["78109"] = "Other activities of employment placement agencies",
+        ["78200"] = "Temporary employment agency activities",
+        ["78300"] = "Human resources provision and management of human resources functions",
+        ["80100"] = "Private security activities",
+        ["80200"] = "Security systems service activities",
+        ["80300"] = "Investigation activities",
+        ["81100"] = "Combined facilities support activities",
+        ["81210"] = "General cleaning of buildings",
+        ["81221"] = "Window cleaning services",
+        ["81222"] = "Specialised cleaning services",
+        ["81223"] = "Furnace and chimney cleaning services",
+        ["81229"] = "Other building and industrial cleaning activities",
+        ["81291"] = "Disinfecting and exterminating services",
+        ["81299"] = "Other cleaning services",
+        ["81300"] = "Landscape service activities",
+    };
+
+    /// <summary>
+    /// Expands any prefix (fewer than 5 digits) to all matching SIC codes.
+    /// Exact 5-digit codes are passed through unchanged.
+    /// </summary>
+    public static string[] Expand(string[] inputs)
+    {
+        var result = new HashSet<string>();
+
+        foreach (var input in inputs)
+        {
+            var trimmed = input.Trim();
+
+            if (trimmed.Length == 5)
+            {
+                // Exact code — use as-is whether or not it's in our list
+                result.Add(trimmed);
+            }
+            else
+            {
+                // Prefix — expand to all matching codes
+                var matches = AllCodes.Keys
+                    .Where(code => code.StartsWith(trimmed, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                if (matches.Count == 0)
+                {
+                    Console.Error.WriteLine($"Warning: no SIC codes found matching prefix '{trimmed}'");
+                }
+                else
+                {
+                    Console.WriteLine($"Prefix '{trimmed}' expanded to {matches.Count} SIC codes: {string.Join(", ", matches)}");
+                    foreach (var m in matches) result.Add(m);
+                }
+            }
+        }
+
+        return [.. result];
+    }
+
+    /// <summary>
+    /// Returns the description for a SIC code, or the code itself if not found.
+    /// </summary>
+    public static string Describe(string code) =>
+        AllCodes.TryGetValue(code, out var desc) ? desc : code;
+}
