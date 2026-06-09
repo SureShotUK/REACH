@@ -2,6 +2,22 @@
 
 ---
 
+## [Unreleased] - 2026-06-09
+
+### Added
+- `androidApp/gradle.properties` — missing config file; required `android.useAndroidX=true` and `android.enableJetifier=true` for successful build
+
+### Fixed
+- Android Studio build error: "Configuration `:app:debugRuntimeClasspath` contains AndroidX dependencies but `android.useAndroidX` not enabled" — fixed by creating `gradle.properties`
+- AI Voice app API timeout: URL in settings must include full path `/api/chat/completions`
+- Raw `<function_calls>` XML appearing in app responses: disabled all Open WebUI Built-in Tools except Web Search
+
+### Changed
+- Open WebUI model settings: Built-in Tools — all disabled except Web Search
+- Open WebUI Admin Panel: Web Search enabled, provider set to SearXNG at `http://192.168.1.192:8080`
+
+---
+
 ## [Unreleased] - 2026-05-14
 
 ### Added

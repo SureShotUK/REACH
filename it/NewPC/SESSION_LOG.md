@@ -2,6 +2,42 @@
 
 ---
 
+## Session 2026-06-09
+
+### Summary
+Built and sideloaded the AI Voice Android app onto the Samsung S24 Ultra. Resolved Android Studio setup issues (NAS incompatibility, missing gradle.properties), then worked through first-run issues including API connectivity, VRAM contention, raw tool call output, and web search configuration. App is now working end-to-end: voice input → Open WebUI → spoken response via Tailscale.
+
+### Work Completed
+- Identified that Android Studio cannot build from a Synology NAS path (Gradle I/O failures); moved project to local `C:\Projects\androidApp\`
+- Created missing `gradle.properties` with `android.useAndroidX=true`, `android.enableJetifier=true`, and JVM args — fixes AndroidX build error
+- Accepted Gradle daemon toolchain migration prompt (performance improvement, no downsides)
+- Dismissed build warnings: Configuration cache, Jetifier, Windows Defender Active Scanning (none require action)
+- Built APK successfully via Build → Assemble App; transferred via Phone Link; sideloaded to S24 Ultra
+- Resolved API timeout: URL in settings must include full path `/api/chat/completions`
+- Resolved raw function call output (`<function_calls>` XML in responses): disabled all Built-in Tools in Open WebUI model settings
+- Configured SearXNG as Open WebUI web search provider (`http://192.168.1.192:8080`); re-enabled web search tool only
+- Documented `ollama ps` / `ollama stop <model>` / `sudo systemctl restart ollama` for VRAM management
+- Noted Open WebUI auto-reloads last-used model after Ollama service restart; model unloads after ~4 minutes idle
+
+### Files Changed
+- `androidApp/gradle.properties` — created (was missing; AndroidX build error without it)
+
+### Git Commits
+- No new commits this session (gradle.properties needs committing)
+
+### Key Decisions
+- Android Studio projects must be on a local drive, not a network share — Gradle cannot handle SMB I/O reliably
+- Disable all Open WebUI Built-in Tools except Web Search to prevent raw tool call XML appearing in app responses
+- Use `ollama ps` to check VRAM usage; `ollama stop <model>` to free it; Open WebUI will silently reload the model within minutes so this is only useful for immediate VRAM recovery
+
+### Next Actions
+- [ ] Commit `gradle.properties` to git and push so it's available on all machines
+- [ ] Test web search via the app ("what's in the news today?")
+- [ ] Consider increasing app read timeout beyond 120s for cold model loads
+- [ ] Add the Ollama `--keep-alive 0` flag consideration to avoid auto-reload after VRAM pressure incidents
+
+---
+
 ## Session 2026-05-14
 
 ### Summary
