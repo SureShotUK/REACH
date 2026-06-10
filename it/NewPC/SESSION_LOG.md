@@ -2,6 +2,39 @@
 
 ---
 
+## Session 2026-06-10 (STT fixes + documentation)
+
+### Summary
+Fixed four bugs in the STT Windows client (`stt_client.py`) affecting keyboard hook reliability and paste behaviour, and reworked the STT server (`stt_server.py`) to lazy-load the Whisper model on first use and unload it after 15 minutes of idle — freeing ~3 GB VRAM when not in use. Created comprehensive documentation covering both apps.
+
+### Work Completed
+- **Client fix — keyboard hook re-entrancy**: Replaced `keyboard.send("ctrl+v")` with a direct Windows `SendInput` call via `ctypes`. The old approach re-entered the keyboard hook during paste, causing Ctrl/Esc keypresses to be dropped intermittently.
+- **Client fix — spurious toggling**: Added 500 ms debounce with `threading.Lock` to `_toggle()`. Prevents hook glitches firing the toggle twice in quick succession.
+- **Client fix — double F9 handler registration**: `main()` was missing `global _hotkey_handle`, making `_hotkey_handle` a local variable. `_reregister_hotkey()` therefore never removed the original handler, stacking a second one on every re-register call.
+- **Client fix — blocking sleep in async context**: Made `_inject()` async with `await asyncio.sleep(0.15)` instead of `time.sleep(0.08)`, which had been blocking the entire event loop during paste.
+- **Server fix — lazy VRAM loading**: Removed module-level `WhisperModel()` call. Model now loads on the first transcription request via `_get_model()` (runs in a thread executor to avoid blocking the event loop).
+- **Server fix — idle VRAM unload**: Added `_idle_monitor()` background asyncio task that checks every 60 seconds and unloads the model after 15 minutes with no transcription activity (`gc.collect()` after `del _model`).
+- **Documentation**: Created `stt/STT_Documentation.md` — covers both server and client with system architecture diagram, prerequisites, installation, configuration reference, VRAM lifecycle table, updating procedures (including plain-English venv explanation), and troubleshooting guide.
+
+### Files Changed
+- `stt/stt_client.py` — four bug fixes: ctypes SendInput paste, debounced toggle, global hotkey handle, async inject
+- `stt/stt_server.py` — lazy model load, 15-minute idle unload, `_idle_monitor()` background task
+- `stt/STT_Documentation.md` — created (comprehensive server + client documentation)
+
+### Key Decisions
+- `SendInput` via `ctypes` (stdlib) chosen over `pyautogui` to avoid adding a new dependency — no changes to `requirements_client.txt` needed
+- `_idle_monitor()` continues running indefinitely after model unload (sleeping 60 s, checking one boolean); resource cost is negligible and stopping/restarting it would add complexity for zero measurable gain
+- Model loading runs in `run_in_executor` so the WebSocket server stays responsive during the ~30 s load time; first utterance after a long idle will have a one-time delay
+- `asyncio.Lock` for model load/unload created in `main()` (not at module level) to comply with Python 3.10+ requirement that asyncio primitives be created inside a running event loop
+
+### Next Actions
+- [ ] Deploy updated `stt_server.py` to amelai: `scp stt/stt_server.py steve@amelai.tail926601.ts.net:/opt/stt/stt_server.py` then `sudo systemctl restart stt_server`
+- [ ] Deploy updated `stt_client.py` to Windows 11 PC and restart via `restart_stt.bat`
+- [ ] Verify first-utterance model-load delay is acceptable (~30 s after 15 min idle)
+- [ ] Verify VRAM is freed after 15 min idle: `nvidia-smi --query-gpu=memory.used --format=csv` before and after
+
+---
+
 ## Session 2026-06-10
 
 ### Summary

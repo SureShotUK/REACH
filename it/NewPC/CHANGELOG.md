@@ -2,6 +2,24 @@
 
 ---
 
+## [Unreleased] - 2026-06-10 (STT fixes)
+
+### Added
+- `stt/STT_Documentation.md` — comprehensive documentation for server and client: architecture diagram, prerequisites, installation, VRAM lifecycle, configuration reference, updating guide (including plain-English venv explanation), troubleshooting
+- `stt/stt_server.py` — `_idle_monitor()` background task: unloads Whisper model from VRAM after 15 minutes with no transcription
+- `stt/stt_server.py` — `_get_model()` / `_unload_model()` lazy-load pattern with `asyncio.Lock`
+
+### Changed
+- `stt/stt_server.py` — model no longer loaded at startup; lazy-loads on first transcription request via `run_in_executor`
+- `stt/stt_client.py` — `_inject()` made async; `time.sleep` replaced with `await asyncio.sleep(0.15)`
+
+### Fixed
+- `stt/stt_client.py` — Ctrl/Esc keypresses dropped during paste: replaced `keyboard.send("ctrl+v")` with Windows `SendInput` via `ctypes`, eliminating keyboard hook re-entrancy
+- `stt/stt_client.py` — Spurious F9 toggling: added 500 ms debounce with `threading.Lock` in `_toggle()`
+- `stt/stt_client.py` — Double F9 handler after re-register: added `global _hotkey_handle` to `main()` so `_reregister_hotkey()` can correctly remove the original handler
+
+---
+
 ## [Unreleased] - 2026-06-10
 
 ### Added
