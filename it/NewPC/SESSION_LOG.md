@@ -2,6 +2,33 @@
 
 ---
 
+## Session 2026-06-10 (STT — Milly's laptop deployment)
+
+### Summary
+Deployed the STT client to Milly's laptop and resolved three issues: Tailscale ACL with a stale IP blocking access, Task Scheduler launching with a visible console window, and diagnosing the "green icon goes grey" behaviour as a connectivity failure rather than a toggle bug. STT transcription is now working on Milly's laptop with auto-start on login.
+
+### Work Completed
+- **Diagnosed "green goes grey" as connectivity failure** — the icon going grey after a few seconds means the WebSocket reconnect loop called `_update_tray(connected=False)`, not a spurious toggle. Root cause was Tailscale not reaching amelai.
+- **Fixed Tailscale ACL stale IP** — Milly's device IP had changed; ACL had the old `100.112.97.111`. Updated to her new IP in the Tailscale admin console. LAN access (192.168.1.192:8188) worked throughout; only Tailscale URL was broken.
+- **Fixed Task Scheduler console window** — task was using `python.exe` instead of `pythonw.exe`. Swapped to `pythonw.exe` full path; console window gone.
+- **Confirmed STT working end-to-end** — F9 toggles, speech transcribed, text pasted into Notepad; auto-start on login working.
+
+### Files Changed
+- None — troubleshooting session only
+
+### Git Commits
+- `6d85d67` — previous session commit (STT fixes + docs); no new commit this session
+
+### Key Decisions
+- Tailscale ACL uses hardcoded device IPs — these go stale if a device is removed and re-added. Consider replacing with Tailscale tags or user identities to avoid recurrence.
+
+### Next Actions
+- [ ] Consider replacing hardcoded IPs in Tailscale ACL with tags to avoid stale-IP recurrence
+- [ ] Deploy updated `stt_server.py` to amelai if not already done (lazy load / idle unload)
+- [ ] Deploy updated `stt_client.py` to Steve's Windows PC if not already done
+
+---
+
 ## Session 2026-06-10 (2)
 
 ### Summary

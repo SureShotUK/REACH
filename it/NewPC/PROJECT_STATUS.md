@@ -53,8 +53,9 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 ## Pending / Next Actions
 
 - [ ] **Deploy STT server fix** — `scp stt/stt_server.py steve@amelai.tail926601.ts.net:/opt/stt/stt_server.py` then `sudo systemctl restart stt_server`
-- [ ] **Deploy STT client fix** — copy `stt/stt_client.py` to Windows 11 PC and restart via `restart_stt.bat`
+- [ ] **Deploy STT client fix** — copy `stt/stt_client.py` to Steve's Windows 11 PC and restart via `restart_stt.bat`
 - [ ] Verify STT VRAM freed after 15 min idle: `nvidia-smi --query-gpu=memory.used --format=csv`
+- [ ] **Tailscale ACL** — replace hardcoded device IPs with Tailscale tags to prevent stale-IP breakage when devices are re-added
 - [ ] **Rebuild and reinstall AI Voice APK** with dark theme + location changes
 - [ ] Grant location permission on first launch after reinstall
 - [ ] Test location-based queries: "weather here", "nearest Italian restaurant", "nearest car park"
