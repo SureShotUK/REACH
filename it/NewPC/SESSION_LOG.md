@@ -2,6 +2,42 @@
 
 ---
 
+## Session 2026-06-10 (2)
+
+### Summary
+Fixed SearXNG not being accessible via Tailscale (wrong Docker port binding + missing ACL rule), then added dark theme toggle and GPS location awareness to the AI Voice Android app. Location is injected into the system prompt so queries like "weather here" and "nearest Italian restaurant" work correctly.
+
+### Work Completed
+- **SearXNG Tailscale fix** — Docker container was bound to Tailscale IP `100.79.83.113:8080` instead of loopback `127.0.0.1:18080`; recreated container with correct dual bindings
+- **Tailscale serve** — added `--bg` flag to persist the rule: `sudo tailscale serve --https=8080 --bg http://127.0.0.1:18080`
+- **Tailscale ACL** — port 8080 needed an explicit allow rule in the admin ACL (`https://login.tailscale.com/admin/acls`); without it the phone shows a connection error even with serve configured
+- **Dark theme** — toggle added to Settings screen; applies immediately across the whole app; preference persists between sessions
+- **GPS location** — `ACCESS_COARSE_LOCATION` permission added; `LocationManager` + `Geocoder` resolve coordinates to a place name; injected into system prompt as "User's current location: X" on every request
+- **Docker.md** — SearXNG run command corrected to dual `-p 127.0.0.1:18080:8080` + `-p 192.168.1.192:8080:8080` bindings
+- **CLAUDE.md** — Tailscale ACL lesson documented: every port served via Tailscale serve also needs an ACL allow rule
+
+### Files Changed
+- `androidApp/app/src/main/AndroidManifest.xml` — `ACCESS_COARSE_LOCATION` permission added
+- `androidApp/app/src/main/java/com/portlandlong/aivoice/MainActivity.kt` — dark theme apply on start; `getLastLocation()` + `geocodeLocation()` helpers; location injected into system prompt
+- `androidApp/app/src/main/java/com/portlandlong/aivoice/SettingsActivity.kt` — dark mode `SwitchMaterial` wired up
+- `androidApp/app/src/main/res/layout/activity_settings.xml` — dark theme switch added
+- `androidApp/app/src/main/res/values/strings.xml` — `label_dark_mode` string added
+- `Docker.md` — SearXNG run command fixed
+- `CLAUDE.md` — Tailscale ACL note added to access URL table
+
+### Key Decisions
+- Location fetched with `ACCESS_COARSE_LOCATION` (not fine) — sufficient accuracy for local queries, less invasive
+- `getLastKnownLocation()` used rather than requesting a fresh GPS fix — avoids delay before each AI query; returns cached position which is accurate enough for restaurant/weather queries
+- Geocoding done on IO thread; coordinate fetch on main thread to avoid blocking
+
+### Next Actions
+- [ ] Rebuild APK and reinstall with all session changes (dark theme, location, SearXNG fix)
+- [ ] Grant location permission on first launch
+- [ ] Test "what's the weather here", "nearest Italian restaurant", "nearest car park"
+- [ ] Verify dark theme toggle works correctly
+
+---
+
 ## Session 2026-06-10 (STT fixes + documentation)
 
 ### Summary

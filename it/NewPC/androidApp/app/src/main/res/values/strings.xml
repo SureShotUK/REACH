@@ -12,5 +12,6 @@
     <string name="label_api_key">API Key</string>
     <string name="label_model">Model</string>
     <string name="label_search_url">SearXNG Search URL</string>
+    <string name="label_dark_mode">Dark Theme</string>
     <string name="save">Save</string>
 </resources>

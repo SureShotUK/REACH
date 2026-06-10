@@ -349,14 +349,16 @@ docker run -d \
   --name searxng \
   --restart unless-stopped \
   --network ai-network \
-  -p 100.79.83.113:8080:8080 \
+  -p 127.0.0.1:18080:8080 \
+  -p 192.168.1.192:8080:8080 \
   -v /opt/searxng:/etc/searxng:rw \
   searxng/searxng:latest
 ```
 
 | Option | Purpose |
 |---|---|
-| `-p 100.79.83.113:8080:8080` | Binds to Tailscale IP — accessible from Tailscale network and by Open WebUI |
+| `-p 127.0.0.1:18080:8080` | Loopback — Tailscale serve proxies `https://amelai.tail926601.ts.net:8080` here |
+| `-p 192.168.1.192:8080:8080` | LAN IP — local network access at `http://192.168.1.192:8080` |
 | `-v /opt/searxng:/etc/searxng` | Persistent config, including `settings.yml` |
 | `--network ai-network` | Allows Open WebUI to reach it at `http://searxng:8080` |
 

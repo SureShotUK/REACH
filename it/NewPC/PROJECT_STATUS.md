@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-06-10 (STT fixes)
+**Last Updated**: 2026-06-10 (2) (STT fixes)
 
 ---
 
@@ -30,6 +30,8 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 ## Recently Completed
 
 - **STT client/server fixes** — four client bugs fixed (keyboard hook re-entrancy stealing Ctrl/Esc, spurious toggle, double F9 handler, blocking sleep in async); server now lazy-loads Whisper on first speech and unloads from VRAM after 15 min idle; full documentation at `stt/STT_Documentation.md`
+- **AI Voice Android app v3** — dark theme toggle; GPS location injected into system prompt (weather/restaurant/car park queries work); location permission requested on first launch
+- **SearXNG Tailscale fix** — container rebounded to `127.0.0.1:18080` + `192.168.1.192:8080`; Tailscale serve `--bg` rule added; ACL rule added for port 8080
 - **AI Voice Android app v2** — SearXNG web search added (app queries directly, injects results as context); concise system prompt with no special characters; speech corrections map (Weatherby→Wetherby); settings labels enlarged; SearXNG URL setting added; default model `qwen3.6:27b`; full documentation at `AI_Voice_App.md`
 - **AI Voice Android app v1** — built and sideloaded to S24 Ultra; voice input → Open WebUI → TTS response working over Tailscale
 - **STT voice input system** — full end-to-end speech-to-text for Claude Code terminal sessions; faster-whisper large-v3 on amelai GPU 1 (port 9090 systemd service); Windows client with pystray tray icon, F9 hotkey, auto-start via Task Scheduler with elevated privileges; setup guides at `STT_Voice_Input.md` and `STT_New_Machine_Guide.md`
@@ -53,9 +55,9 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 - [ ] **Deploy STT server fix** — `scp stt/stt_server.py steve@amelai.tail926601.ts.net:/opt/stt/stt_server.py` then `sudo systemctl restart stt_server`
 - [ ] **Deploy STT client fix** — copy `stt/stt_client.py` to Windows 11 PC and restart via `restart_stt.bat`
 - [ ] Verify STT VRAM freed after 15 min idle: `nvidia-smi --query-gpu=memory.used --format=csv`
-- [ ] **Verify SearXNG at `https://amelai.tail926601.ts.net:8080`** — open in phone browser; if it doesn't load, configure Tailscale serve for port 8080
-- [ ] **Rebuild and reinstall AI Voice APK** with all session changes
-- [ ] Test web search in app with a current news question
+- [ ] **Rebuild and reinstall AI Voice APK** with dark theme + location changes
+- [ ] Grant location permission on first launch after reinstall
+- [ ] Test location-based queries: "weather here", "nearest Italian restaurant", "nearest car park"
 - [ ] Consider `--keep-alive 0` Ollama flag to prevent auto-reload after VRAM pressure incidents
 - [ ] **Recreate `comfyui` container** — `docker stop comfyui && docker rm comfyui` then run updated command from `Docker.md` (includes `--reserve-vram 3` and correct workflows path)
 - [ ] Verify Tailscale Serve: `sudo tailscale serve status` — confirm `8189 → localhost:18189`; add if missing

@@ -2,6 +2,24 @@
 
 ---
 
+## [Unreleased] - 2026-06-10 (2)
+
+### Added
+- `androidApp` dark theme toggle — `SwitchMaterial` in Settings; applies immediately via `AppCompatDelegate`; persists via `KEY_DARK_MODE` preference
+- `androidApp` GPS location awareness — `ACCESS_COARSE_LOCATION` permission; `getLastKnownLocation()` + `Geocoder` reverse geocoding; location injected into system prompt as "User's current location: X"
+- `AndroidManifest.xml` — `ACCESS_COARSE_LOCATION` permission
+
+### Fixed
+- SearXNG not accessible via Tailscale — Docker container was bound to `100.79.83.113:8080` (Tailscale IP); corrected to `127.0.0.1:18080` (loopback for Tailscale serve) + `192.168.1.192:8080` (LAN)
+- Tailscale serve rule must use `--bg` flag to persist after command exits
+- Tailscale ACL was missing port 8080 allow rule — phone showed connection error until added in admin console
+
+### Documentation
+- `Docker.md` — SearXNG run command corrected with dual port bindings
+- `CLAUDE.md` — Tailscale ACL requirement documented: every Tailscale serve port also needs an ACL allow rule
+
+---
+
 ## [Unreleased] - 2026-06-10 (STT fixes)
 
 ### Added

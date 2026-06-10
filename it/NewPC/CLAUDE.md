@@ -345,6 +345,8 @@ All Docker services on this server use **dual `-p` bindings** to allow access fr
 
 > Local network access is plain HTTP. Tailscale access is HTTPS — always include `https://` explicitly in the browser. See `Tailscale.md` for full explanation of how the two paths work independently.
 
+> **Tailscale ACL**: Each port served via Tailscale serve must also have an explicit allow rule in the Tailscale admin ACL (`https://login.tailscale.com/admin/acls`). Adding a Tailscale serve rule alone is not sufficient — without an ACL entry the phone will show a connection error. Confirmed required for port 8080 (SearXNG).
+
 ### SearXNG as MCP Search Provider
 
 SearXNG is configured as an MCP (Model Context Protocol) server in Claude Code on the Windows 11 PC (`~\.claude\settings.json`). It provides web search capability to Claude Code when running against the local Ollama backend.

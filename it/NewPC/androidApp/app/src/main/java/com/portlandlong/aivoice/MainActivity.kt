@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,6 +27,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
+import android.location.Geocoder
+import android.location.LocationManager
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
@@ -51,12 +54,14 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     companion object {
         const val PERM_REQUEST = 1001
+        const val LOCATION_PERM_REQUEST = 1002
         const val PREFS_NAME = "AiVoicePrefs"
         const val KEY_API_URL = "api_url"
         const val KEY_API_KEY = "api_key"
         const val KEY_MODEL = "model"
         const val KEY_TTS_ENABLED = "tts_enabled"
         const val KEY_SEARCH_URL = "search_url"
+        const val KEY_DARK_MODE = "dark_mode"
         const val DEFAULT_URL = "https://amelai.tail926601.ts.net/api/chat/completions"
         const val DEFAULT_MODEL = "qwen3.6:27b"
         const val DEFAULT_SEARCH_URL = "https://amelai.tail926601.ts.net:8080"
@@ -67,6 +72,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val prefs0 = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        AppCompatDelegate.setDefaultNightMode(
+            if (prefs0.getBoolean(KEY_DARK_MODE, false)) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -96,11 +106,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
         }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), PERM_REQUEST)
-        }
+        val permsNeeded = listOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_COARSE_LOCATION)
+            .filter { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }
+        if (permsNeeded.isNotEmpty())
+            ActivityCompat.requestPermissions(this, permsNeeded.toTypedArray(), PERM_REQUEST)
     }
 
     override fun onInit(status: Int) {
@@ -195,10 +204,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         conversationHistory.add(mapOf("role" to "user", "content" to userText))
 
+        val lastLocation = getLastLocation()
         lifecycleScope.launch {
             val result = withContext(Dispatchers.IO) {
+                val locationName = lastLocation?.let { geocodeLocation(it) }
                 val searchContext = try { searchWeb(searchUrl, userText) } catch (e: Exception) { null }
-                callApi(apiUrl, apiKey, model, conversationHistory, searchContext)
+                callApi(apiUrl, apiKey, model, conversationHistory, searchContext, locationName)
             }
             setIdleState()
             result.fold(
@@ -216,6 +227,25 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             )
         }
     }
+
+    private fun getLastLocation(): android.location.Location? {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) return null
+        val lm = getSystemService(LOCATION_SERVICE) as LocationManager
+        return listOf(LocationManager.NETWORK_PROVIDER, LocationManager.GPS_PROVIDER)
+            .firstNotNullOfOrNull { provider ->
+                try { lm.getLastKnownLocation(provider) } catch (e: Exception) { null }
+            }
+    }
+
+    private fun geocodeLocation(location: android.location.Location): String? = try {
+        @Suppress("DEPRECATION")
+        val addresses = Geocoder(this, Locale.getDefault()).getFromLocation(location.latitude, location.longitude, 1)
+        addresses?.firstOrNull()?.let { addr ->
+            listOfNotNull(addr.locality, addr.adminArea, addr.countryName)
+                .joinToString(", ").takeIf { it.isNotBlank() }
+        }
+    } catch (e: Exception) { null }
 
     private fun searchWeb(searchUrl: String, query: String): String? {
         val encoded = URLEncoder.encode(query, "UTF-8")
@@ -242,11 +272,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         apiKey: String,
         model: String,
         history: List<Map<String, String>>,
-        searchContext: String? = null
+        searchContext: String? = null,
+        locationName: String? = null
     ): Result<String> = runCatching {
         val systemContent = buildString {
             append(SYSTEM_PROMPT)
             append(" Today's date: ${LocalDate.now()}.")
+            if (locationName != null) append(" User's current location: $locationName.")
             if (searchContext != null) append("\n\n$searchContext")
         }
 
