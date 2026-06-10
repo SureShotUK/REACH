@@ -2,6 +2,41 @@
 
 ---
 
+## Session 2026-06-10
+
+### Summary
+Extended the AI Voice Android app with web search via SearXNG, concise response system prompt, speech recognition corrections, and larger settings labels. Created comprehensive documentation covering build, update, and configuration workflows. Fixed 401 after Open WebUI update; SearXNG Tailscale accessibility remains unconfirmed.
+
+### Work Completed
+- Fixed `Error: HTTP 401 Unauthorized` — caused by Open WebUI update invalidating API key; regenerated key in Open WebUI
+- Added SearXNG web search to the app — queries SearXNG before each AI call and injects top 3 results as context
+- Added system prompt — instructs model to be concise, plain text only (no asterisks, backslashes, emojis, hashtags), and confirms it has web search capability
+- Added today's date injection into system prompt so model knows current date
+- Changed default model from `qwen3.5:35b` to `qwen3.6:27b`
+- Increased settings label font size to 18sp bold — was too small to read
+- Added SearXNG URL field to settings screen (default: `https://amelai.tail926601.ts.net:8080`)
+- Added `SPEECH_CORRECTIONS` map — fixes "Weatherby" → "Wetherby" post-transcription; easily extensible
+- Created `AI_Voice_App.md` — full documentation covering architecture, prerequisites, Open WebUI config, build guide, update workflow, settings reference, speech corrections, troubleshooting, and VRAM management
+
+### Files Changed
+- `androidApp/app/src/main/java/com/portlandlong/aivoice/MainActivity.kt` — web search, system prompt, date injection, speech corrections, default model updated
+- `androidApp/app/src/main/java/com/portlandlong/aivoice/SettingsActivity.kt` — SearXNG URL field added
+- `androidApp/app/src/main/res/layout/activity_settings.xml` — label fonts increased, SearXNG URL field added
+- `androidApp/app/src/main/res/values/strings.xml` — `label_search_url` string added
+- `AI_Voice_App.md` — created (comprehensive app documentation)
+
+### Key Decisions
+- Web search calls SearXNG directly from the app and injects results as context — Open WebUI's built-in web search only works via the browser UI, not the raw API
+- Speech corrections use post-processing on transcribed text rather than vocabulary hints (Android SpeechRecognizer has no custom vocabulary API)
+- SearXNG connectivity via Tailscale is unconfirmed — default URL `https://amelai.tail926601.ts.net:8080` may need verifying; search fails silently if unreachable
+
+### Next Actions
+- [ ] Verify SearXNG is accessible at `https://amelai.tail926601.ts.net:8080` from phone browser — if not, configure Tailscale serve for port 8080
+- [ ] Rebuild APK and reinstall with all session changes
+- [ ] Test web search with a current news question ("what's in the news today?")
+
+---
+
 ## Session 2026-06-09
 
 ### Summary

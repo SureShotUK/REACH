@@ -2,6 +2,24 @@
 
 ---
 
+## [Unreleased] - 2026-06-10
+
+### Added
+- `AI_Voice_App.md` — comprehensive documentation: architecture, build guide, update workflow, Open WebUI config, settings reference, speech corrections, troubleshooting, VRAM management
+- `androidApp` SearXNG web search — app queries SearXNG before each AI call and injects top 3 results as context into the system message
+- `androidApp` speech corrections map (`SPEECH_CORRECTIONS`) — post-processes transcribed text to fix misrecognised proper nouns; initial entry: Weatherby → Wetherby
+- `androidApp` SearXNG URL setting — configurable in settings screen, default `https://amelai.tail926601.ts.net:8080`
+
+### Changed
+- `androidApp` system prompt — instructs model to be concise, plain text only (no asterisks/emojis/backslashes), confirms web search capability, includes today's date
+- `androidApp` default model — changed from `qwen3.5:35b` to `qwen3.6:27b`
+- `androidApp` settings labels — increased from `textAppearanceLabelLarge` (~14sp) to 18sp bold
+
+### Fixed
+- `Error: HTTP 401 Unauthorized` — API key invalidated by Open WebUI update; fix: regenerate key in Open WebUI Settings → Account → API Keys
+
+---
+
 ## [Unreleased] - 2026-06-09
 
 ### Added

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AI Voice</string>
+    <string name="speak_response">Speak</string>
+    <string name="tap_mic">Tap mic to speak</string>
+    <string name="listening">Listening…</string>
+    <string name="thinking">Thinking…</string>
+    <string name="mic_desc">Start voice input</string>
+    <string name="settings">Settings</string>
+    <string name="clear_chat">Clear conversation</string>
+    <string name="label_api_url">Open WebUI URL</string>
+    <string name="label_api_key">API Key</string>
+    <string name="label_model">Model</string>
+    <string name="label_search_url">SearXNG Search URL</string>
+    <string name="save">Save</string>
+</resources>
