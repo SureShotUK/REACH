@@ -419,6 +419,32 @@ This applies after: package installations, configuration changes, troubleshootin
 
 ---
 
+## STT Client Troubleshooting
+
+### "Green icon goes grey after a few seconds" — connectivity failure, not a toggle bug
+When the STT client icon turns green then grey within a few seconds of pressing F9, this is **not** the spurious-toggle bug. It means the WebSocket reconnect loop ran and called `_update_tray(connected=False)`, which forces the icon grey regardless of `_listening` state.
+
+**Diagnostic path:**
+1. Is Tailscale connected on the client machine? (`tailscale status`)
+2. Is amelai visible as a peer? (`tailscale ping amelai.tail926601.ts.net`)
+3. Is the STT service running on amelai? (`sudo systemctl status stt_server`)
+4. Check server logs: `tail -f /opt/stt/stt.log` — "Client connected" should appear when the client connects
+
+### Task Scheduler — no console window
+The Task Scheduler task must use `pythonw.exe`, not `python.exe`. Using `python.exe` opens a visible console window on login. Get the correct path with `where pythonw` on the target machine and use the full path in the task's Program/script field. Also requires **Run with highest privileges** ticked for the keyboard hook to work.
+
+---
+
+## Tailscale ACL — Hardcoded IPs Go Stale
+
+The Tailscale ACL uses hardcoded device IPs (e.g. `100.112.97.111`). These become stale if a device is removed from the tailnet and re-added — it gets a new IP and the ACL silently stops matching it.
+
+**Symptom**: LAN access works, Tailscale URL fails, device shows as connected in Tailscale admin.
+**Fix**: Check the device's current IP (`tailscale ip` on the device), update the ACL entry at `https://login.tailscale.com/admin/acls`.
+**Long-term**: Replace hardcoded IPs with Tailscale tags or user identities to avoid recurrence.
+
+---
+
 ## File Content Delivery
 
 When you need to provide file content for the user to copy to their Linux machine, always write it to `Temp.txt` in the current working directory rather than displaying it in a code block. This avoids copy-paste formatting issues (leading spaces added by markdown rendering).
