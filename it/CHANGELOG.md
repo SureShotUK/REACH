@@ -2,6 +2,28 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-06-16 — AI Comparisons, context-mode Upgrade, Docker Doc Fixes
+
+### Added
+- `it/AI/Comparisons/comparisons.md` — Consumer privacy policy comparison for Claude, ChatGPT, Microsoft Copilot, and Gemini (data retention, training opt-out, consumer vs enterprise tiers)
+- `it/AI/Comparisons/commercial_comparisons.md` — SME/commercial AI comparison for 20-person M365 team: features per Office app, pricing tables, commercial privacy controls
+- `it/AI/Comparisons/AlsoRanComparisons.md` — 9 additional AI tools for SME office use beyond the Big Four: Perplexity Enterprise, Mistral AI, Grammarly Business, DeepL Pro, Adobe Acrobat AI, Otter.ai, Gamma, xAI Grok, Notion AI
+- `it/NewPC/Software_Updates.md` — New context-mode MCP Plugin section: SIGSEGV crash explanation, Node.js ≥22.5 requirement, terminal upgrade and doctor commands
+- `it/NewPC/Software_Updates.md` — New File Browser section: version check via `docker inspect` + `docker pull`, full rebuild run command from live container, preserved-files note
+
+### Changed
+- `it/NewPC/Software_Updates.md` — comfyui workflow volume corrected: `/opt/comfyui/workflows` → `/docs/Projects/Claude Code Shared/Workflows`
+- `it/NewPC/Software_Updates.md` — comfyui output volume corrected: `/opt/comfyui/output` → `/docs/Projects/Claude Code Shared/Output`
+- `it/NewPC/Software_Updates.md` — removed LAN port binding (`192.168.1.192:8189:8188`) from comfyui section; container is Tailscale-only
+- `it/NewPC/Software_Updates.md` — "What is preserved" section now lists actual paths per container (yours vs Amelia's differ for workflows and output)
+- `it/NewPC/Software_Updates.md` — dual-port note updated to clarify Amelia's container has both bindings; yours has Tailscale only
+
+### Fixed
+- Claude Team pricing in `commercial_comparisons.md` corrected from $30/user/month to $20/user/month (annual) / $25/user/month (monthly)
+- context-mode MCP crash fixed: Node.js upgraded v20.20.2 → v22.22.3 via nvm; context-mode upgraded v1.0.75 → v1.0.162 (resolves Linux SIGSEGV bug in better-sqlite3)
+
+---
+
 ## [Unreleased] - 2026-05-06 — UK Drone Regulation & Insurance Documentation
 
 ### Added

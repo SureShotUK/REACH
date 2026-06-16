@@ -1,11 +1,21 @@
 # IT Project Status
 
-**Last Updated**: 2026-05-06
+**Last Updated**: 2026-06-16
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
 
 ## Active Work Areas
+
+### AI Tool Comparisons (NEW 2026-06-16)
+- **Status**: Three documents created; one outstanding item (File Browser workflows volume path in live container)
+- **Files**: `it/AI/Comparisons/comparisons.md`, `it/AI/Comparisons/commercial_comparisons.md`, `it/AI/Comparisons/AlsoRanComparisons.md`
+- **Coverage**:
+  - `comparisons.md` — Consumer privacy: Claude, ChatGPT, Copilot, Gemini (data retention, training opt-out, tier differences)
+  - `commercial_comparisons.md` — SME/M365 commercial comparison: features per Office app, pricing (M365 Copilot $21/user/month, Claude Team $20/user/month annual, ChatGPT Business $20/user/month), commercial privacy controls
+  - `AlsoRanComparisons.md` — 9 also-ran tools: Perplexity Enterprise, Mistral AI (best EU data residency), Grammarly Business, DeepL Pro, Adobe Acrobat AI, Otter.ai, Gamma, xAI Grok, Notion AI
+- **Key findings**: All Big Four use data for training by default on consumer plans; Gamma free/Plus trains on content (Team plan required); Mistral AI best for EU sovereignty
+- **Pending**: Update File Browser live container to point `comfyui-workflows` volume at `/docs/Projects/Claude Code Shared/Workflows` (currently stale at `/opt/comfyui/workflows`)
 
 ### Synology DS920+ — Tailscale Remote Access ✅ (Fully Resolved)
 - **Status**: Fully operational. All access methods working on all devices.
@@ -61,7 +71,7 @@
 - **Qwen-Image-Edit**: fp8 transformer download in progress (~20.5GB); text encoder + VAE still to download; `lenML/comfyui_qwen_image_edit_adv` node to install — see `NewPC/HuggingFace.md` for all commands
 - **Video Generation**: Wan2.2-TI2V-5B download ready (3 files, ~18GB); ComfyUI-WanVideoWrapper to install; pending download
 - **Web Search**: Fixed (SearXNG reconnected to ai-network; UFW rule added for 172.18.0.0/16 → port 11434)
-- **Update Procedures**: Documented in `NewPC/Software_Updates.md` including critical post-update network steps
+- **Update Procedures**: Documented in `NewPC/Software_Updates.md` — Ollama, Open WebUI, SearXNG, ComfyUI, File Browser, context-mode MCP (all verified against live containers 2026-06-16)
 
 ### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU)
 - **Status**: Complete. Full AI stack running. Second RTX 3090 ordered. Local_CC.md guide created.

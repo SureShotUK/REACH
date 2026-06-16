@@ -4,6 +4,42 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-06-16 — AI Privacy Comparisons, context-mode Upgrade, Docker Documentation Fixes
+
+### Summary
+Created three new AI comparison documents covering consumer privacy policies, SME commercial offerings, and also-ran tools. Fixed a recurring context-mode MCP crash caused by an outdated Node.js version (v20 → v22) and upgraded context-mode from v1.0.75 to v1.0.162. Corrected Software_Updates.md against live docker containers and added a new File Browser section.
+
+### Work Completed
+- **Created `it/AI/Comparisons/comparisons.md`** — Consumer privacy policy comparison for Claude, ChatGPT, Copilot, and Gemini covering data retention, training use, and opt-out controls
+- **Created `it/AI/Comparisons/commercial_comparisons.md`** — SME/commercial AI comparison for a 20-person M365 team: features, pricing, and commercial privacy; Claude Team corrected to $20/user/month (annual)
+- **Created `it/AI/Comparisons/AlsoRanComparisons.md`** — 9 additional tools beyond the Big Four: Perplexity Enterprise, Mistral AI, Grammarly Business, DeepL Pro, Adobe Acrobat AI, Otter.ai, Gamma, xAI Grok, Notion AI; critical Gamma training warning noted
+- **Fixed context-mode MCP crash** — Root cause: Node.js v20.20.2 + better-sqlite3 SIGSEGV bug on Linux. Upgraded to Node v22.22.3 via nvm; upgraded context-mode v1.0.75 → v1.0.162
+- **Added context-mode section to `Software_Updates.md`** — terminal upgrade commands, doctor check, SIGSEGV explanation, Node.js version requirement
+- **Saved memory note** — `feedback_contextmode_version_warning.md` — flag version warnings to user immediately since MCP tool output is not visible to them
+- **Fixed comfyui volume paths in `Software_Updates.md`** — live container uses `/docs/Projects/Claude Code Shared/Workflows` and `/docs/Projects/Claude Code Shared/Output`, not `/opt/comfyui/` paths
+- **Removed LAN port binding from comfyui section** — live container only has `127.0.0.1:18189:8188` (Tailscale only); comfyui-amelia keeps both bindings
+- **Updated "What is preserved" section** — now lists actual paths for each container separately
+- **Added File Browser section to `Software_Updates.md`** — version check (`docker inspect` + `docker pull`), rebuild run command from live container, preserved-files note, and flag about stale workflows volume pointing to old `/opt/comfyui/workflows` path
+
+### Files Changed
+- `it/AI/Comparisons/comparisons.md` — **NEW** — consumer privacy policy comparison
+- `it/AI/Comparisons/commercial_comparisons.md` — **NEW** — SME commercial AI comparison (Claude Team pricing corrected)
+- `it/AI/Comparisons/AlsoRanComparisons.md` — **NEW** — 9 also-ran AI tools for SME use
+- `it/NewPC/Software_Updates.md` — Added context-mode section; fixed comfyui volume paths; removed LAN port; updated preserved-files note; added File Browser section
+
+### Key Decisions
+- Claude Team price confirmed at $20/user/month (annual) / $25/month (monthly) — initial document had $30
+- Gamma Team plan ($20/seat) required for business use — free/Plus plans DO use content for training
+- Mistral AI flagged as best European data residency option (self-hosted available)
+- comfyui LAN port not reinstated — Tailscale-only access intentional
+- File Browser workflows volume (`/opt/comfyui/workflows`) is stale — flagged but not changed pending user decision on live container
+
+### Next Actions
+- [ ] Update File Browser live container to point workflows volume to `/docs/Projects/Claude Code Shared/Workflows` (if desired)
+- [ ] Consider adding `it/AI/Comparisons/` directory to `it/CLAUDE.md` repository structure
+
+---
+
 ## Session 2026-05-06 — UK Drone Regulation Guide & Insurance Research
 
 ### Summary
