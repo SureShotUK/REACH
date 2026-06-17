@@ -1,3 +1,43 @@
+## Session 2026-06-17
+
+### Summary
+Created two new AI reference documents for the Leads directory: `RemotePrivateAI.md` covering options for hosting a private AI server accessible across the business (with costs and pros/cons), and `AIEnterprisePrivacy.md` covering data privacy controls, training opt-outs, deletion options, and entry-level enterprise pricing for ChatGPT, Microsoft Copilot, Claude, Gemini, Perplexity, and Mistral. Exchange rate in RemotePrivateAI.md was also corrected from £1=$1.27 to £1=$1.35.
+
+### Work Completed
+- Created `RemotePrivateAI.md` — 5 hosting options (on-premise, dedicated GPU rental, cloud GPU, colocation, AI-specialist platforms) with rough GBP costs, pros/cons, and networking guidance (Tailscale)
+- Created `AIEnterprisePrivacy.md` — enterprise privacy guide for 6 AI providers covering training policies, deletion controls, data residency, compliance certs, and pricing for 10–20 users
+- Corrected USD→GBP exchange rate across all conversions in `RemotePrivateAI.md` (£1=$1.27 → £1=$1.35)
+- All external links verified (HTTP 200) before inclusion in both documents
+
+### Files Created/Modified
+- `Leads/RemotePrivateAI.md` — new; private AI hosting options guide with GBP costings
+- `Leads/AIEnterprisePrivacy.md` — new; AI enterprise privacy and pricing reference
+
+### Key Decisions
+- `RemotePrivateAI.md` placed in Leads (not Briefings) — it's an internal IT/strategy reference, not a client-facing briefing
+- `AIEnterprisePrivacy.md` scoped to general privacy controls only (no UK GDPR legal framing) per user preference; internal use only
+- Six providers covered: ChatGPT, Microsoft Copilot, Claude, Gemini, Perplexity, Mistral — Perplexity and Mistral added at user request
+- Exchange rate set to £1 = $1.35 / £1 = €1.18 throughout
+
+### Key Findings (AIEnterprisePrivacy.md)
+- All six providers guarantee no training on data at paid business tiers
+- Main differentiator is data residency: Microsoft, Google, Mistral offer EU/UK; Claude and ChatGPT Team are US-only
+- Best value: Google Workspace Business Standard (£10.30/user) includes Gemini
+- Mistral is the only EU-native provider; offers on-premise deployment
+- Microsoft Copilot is best if already on M365 (£25 add-on, UK/EU data residency)
+
+### Reference Documents
+- `Leads/RemotePrivateAI.md` — private AI hosting options
+- `Leads/AIEnterprisePrivacy.md` — AI enterprise privacy guide
+
+### Next Actions
+- [ ] Deploy CompaniesHouseWeb to Nginx subdomain (carried over from previous session)
+- [ ] Add M365 authentication to web app (deferred)
+- [ ] Evaluate which AI provider to adopt for Portland Fuel internal use based on `AIEnterprisePrivacy.md`
+- [ ] Consider trialling RunPod or Hetzner GPU server for private AI per `RemotePrivateAI.md`
+
+---
+
 ## Session 2026-05-15
 
 ### Summary

@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased] - 2026-06-17
+
+### Added
+- `RemotePrivateAI.md` — Private AI hosting options guide covering on-premise, dedicated GPU rental (Hetzner, Lambda Labs, RunPod), cloud GPU (AWS/Azure/GCP), colocation, and AI-specialist platforms (Vast.ai, Together AI). Includes GBP costings, pros/cons, networking (Tailscale), and recommendation for small business use.
+- `AIEnterprisePrivacy.md` — Enterprise AI privacy reference for 6 providers (ChatGPT, Microsoft Copilot, Claude, Gemini, Perplexity, Mistral). Covers training opt-outs, data deletion, data residency, compliance certifications, and entry-level pricing for 10–20 users. Includes quick comparison table and summary recommendations.
+
+### Changed
+- `RemotePrivateAI.md` — Exchange rate corrected from £1=$1.27 to £1=$1.35 across all USD→GBP conversions; Quick Comparison Matrix cloud GPU range updated to reflect corrected lower bound
+
 ## [Unreleased] - 2026-05-15
 
 ### Added
