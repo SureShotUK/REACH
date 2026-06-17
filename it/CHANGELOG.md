@@ -2,6 +2,17 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-06-17 — GPU Docker Boot Fix
+
+### Added
+- `it/NewPC/WaitOnNvidiaBootForDockerContainers.md` — Documents NVIDIA driver timing problem at boot (exit 128, `nvml error: driver not loaded`), diagnosis steps, systemd service fix, management commands, and how to add future GPU containers
+- `/etc/systemd/system/docker-gpu-containers.service` on amelai — polls `nvidia-smi` at boot then starts open-webui, comfyui, comfyui-amelia; enabled via `systemctl enable`
+
+### Fixed
+- GPU Docker containers (open-webui, comfyui, comfyui-amelia) no longer fail at boot — NVIDIA driver load race condition resolved via systemd service ordering
+
+---
+
 ## [Unreleased] - 2026-06-17 — Firmware Update Process Documented
 
 ### Added

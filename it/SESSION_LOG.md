@@ -4,6 +4,36 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-06-17 — GPU Docker Containers Boot Fix + Server Maintenance
+
+### Summary
+Diagnosed why Open WebUI and both ComfyUI instances failed to start after a reboot while SearXNG, FileBrowser, and n8n started fine. Root cause was the NVIDIA kernel module loading after Docker tried to start GPU containers (exit code 128, `nvml error: driver not loaded`). Fixed with a systemd service that polls `nvidia-smi` before starting GPU containers, and documented the issue and fix in a new reference document.
+
+### Work Completed
+- **Diagnosed GPU container boot failure** — `docker ps -a` showed three GPU containers (open-webui, comfyui, comfyui-amelia) exited with code 128; non-GPU containers unaffected
+- **Confirmed root cause** — `docker inspect open-webui --format='{{.State.Error}}'` returned `nvml error: driver not loaded`; Docker starts before NVIDIA kernel module finishes loading
+- **Started containers manually** — `docker start open-webui comfyui comfyui-amelia`
+- **Created `/etc/systemd/system/docker-gpu-containers.service`** — polls `nvidia-smi` every 2 seconds at boot until NVIDIA driver is ready, then starts all three GPU containers; `ExecStop` gracefully stops them on shutdown
+- **Enabled the service** — `sudo systemctl enable docker-gpu-containers.service`
+- **Created `NewPC/WaitOnNvidiaBootForDockerContainers.md`** — full reference document: problem description, diagnosis steps, service file with explanation table, management commands, and instructions for adding future GPU containers
+
+### Files Changed
+- `it/NewPC/WaitOnNvidiaBootForDockerContainers.md` — **NEW** — GPU container boot ordering fix documentation
+
+### Git Commits
+- `926c9e3` — End of session — firmware update process documented in Software_Updates.md *(earlier in same session)*
+
+### Key Decisions
+- Systemd service approach chosen over Docker restart-policy changes or sleep hacks — polls `nvidia-smi` directly so it waits exactly as long as needed with no arbitrary delay
+- Non-GPU containers (searxng, filebrowser, n8n) left under Docker's own restart policy — only GPU containers need the service
+- `Type=oneshot` + `RemainAfterExit=yes` chosen so `ExecStop` fires on shutdown to gracefully stop containers
+
+### Next Actions
+- [ ] Verify fix holds on next reboot
+- [ ] Update File Browser live container to point workflows volume to `/docs/Projects/Claude Code Shared/Workflows` (carried from previous session)
+
+---
+
 ## Session 2026-06-17 — Server Maintenance: Updates Applied, Firmware Update Process Documented
 
 ### Summary

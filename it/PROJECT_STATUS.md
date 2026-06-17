@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-06-17
+**Last Updated**: 2026-06-17 (GPU boot fix)
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
@@ -72,6 +72,7 @@
 - **Video Generation**: Wan2.2-TI2V-5B download ready (3 files, ~18GB); ComfyUI-WanVideoWrapper to install; pending download
 - **Web Search**: Fixed (SearXNG reconnected to ai-network; UFW rule added for 172.18.0.0/16 → port 11434)
 - **Update Procedures**: Documented in `NewPC/Software_Updates.md` — Ollama, Open WebUI, SearXNG, ComfyUI, File Browser, context-mode MCP, firmware/fwupdmgr (all verified against live containers 2026-06-17)
+- **Boot ordering fix**: `docker-gpu-containers.service` systemd unit created and enabled — polls `nvidia-smi` before starting open-webui, comfyui, comfyui-amelia; documented in `NewPC/WaitOnNvidiaBootForDockerContainers.md`
 
 ### AI PC Build for Local LLM Inference - FULLY OPERATIONAL ✅ (Dual GPU)
 - **Status**: Complete. Full AI stack running. Second RTX 3090 ordered. Local_CC.md guide created.
