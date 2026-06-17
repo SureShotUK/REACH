@@ -2,6 +2,16 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-06-17 — Firmware Update Process Documented
+
+### Added
+- `it/NewPC/Software_Updates.md` — New "Firmware Updates (fwupdmgr)" section: UEFI dbx explanation (CVE-2025-47827), check/install commands, reboot-required check, and recommended combined update sequence (`apt full-upgrade` → `fwupdmgr update` → reboot check)
+
+### Documentation
+- amelai server updated: 16 held-back apt packages installed via `full-upgrade`; UEFI dbx confirmed already at latest version (20250507); no reboot required
+
+---
+
 ## [Unreleased] - 2026-06-16 — AI Comparisons, context-mode Upgrade, Docker Doc Fixes
 
 ### Added

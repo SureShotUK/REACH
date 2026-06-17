@@ -294,6 +294,62 @@ Restart Claude Code (close the terminal and reopen, or start a new session) for 
 
 ---
 
+## Firmware Updates (fwupdmgr)
+
+Ubuntu uses `fwupdmgr` (the Linux Vendor Firmware Service client) to manage firmware updates for hardware devices — including the UEFI Secure Boot revocation database, motherboard firmware, and storage controllers. These updates are separate from apt package updates and must be checked and applied independently.
+
+### What gets updated
+
+The most common firmware update on this system is the **UEFI dbx (Secure Boot Forbidden Signature Database)**. This is a Microsoft-published list of bootloader signatures that are no longer trusted — typically updated when a security vulnerability is found in a bootloader that could allow an attacker to bypass UEFI Secure Boot. Updates to this list are rated **High** urgency and should be applied promptly.
+
+Other devices that may receive updates include the ASUS motherboard firmware, NVMe controllers, and USB4 host controller, though these are less frequent.
+
+### Check for available firmware updates
+
+Ubuntu shows a reminder at SSH login if a firmware update is available:
+
+```
+1 device has a firmware upgrade available.
+Run `fwupdmgr get-upgrades` for more information.
+```
+
+To see what is available:
+
+```bash
+fwupdmgr get-upgrades
+```
+
+This lists all devices and shows available updates with version numbers, urgency, and whether a reboot is required.
+
+### Install firmware updates
+
+```bash
+sudo fwupdmgr update
+```
+
+If no update is actually applied (output says `Devices with the latest available firmware version`), the device was already up to date — no reboot is needed.
+
+If an update is applied, check whether a reboot is required — it will be stated in the `fwupdmgr get-upgrades` output under `Device Flags: • Needs a reboot after installation`.
+
+### Check whether a reboot is needed (after any update)
+
+After running either `sudo apt full-upgrade` or `sudo fwupdmgr update`, check whether Ubuntu has flagged a reboot as required:
+
+```bash
+ls /var/run/reboot-required 2>/dev/null && cat /var/run/reboot-required.pkgs
+```
+
+If the file exists, a reboot is needed and the second command lists which packages triggered it. If the command returns nothing, no reboot is required.
+
+### Recommended update sequence
+
+1. `sudo apt update && sudo apt full-upgrade` — install all held-back packages
+2. `sudo fwupdmgr update` — apply any available firmware updates
+3. Check reboot requirement with the command above
+4. Reboot once if needed (covers both apt and firmware changes)
+
+---
+
 ## Checking Current Versions
 
 ```bash

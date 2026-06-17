@@ -4,6 +4,30 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-06-17 — Server Maintenance: Updates Applied, Firmware Update Process Documented
+
+### Summary
+Diagnosed Ubuntu login messages on amelai about held-back packages and a firmware upgrade. Walked through applying both `apt full-upgrade` and `fwupdmgr update`, confirmed no reboot was needed (no `/var/run/reboot-required` file), and documented the full firmware update process in `Software_Updates.md`.
+
+### Work Completed
+- **Explained Ubuntu login warnings** — clarified difference between 16 held-back apt packages vs firmware upgrade notification
+- **Guided through `apt full-upgrade`** — used instead of `apt upgrade` to resolve held-back packages requiring dependency changes
+- **Guided through `fwupdmgr update`** — output confirmed UEFI dbx already at latest version; no firmware update was applied
+- **Confirmed no reboot needed** — `/var/run/reboot-required` did not exist after update run
+- **Added Firmware Updates section to `Software_Updates.md`** — covers what `fwupdmgr` does, UEFI dbx explanation (CVE-2025-47827), check/install commands, reboot check, and recommended combined update sequence
+
+### Files Changed
+- `it/NewPC/Software_Updates.md` — Added "Firmware Updates (fwupdmgr)" section
+
+### Key Decisions
+- `apt full-upgrade` preferred over `apt upgrade` for amelai maintenance — handles held-back packages that need dependency resolution
+- Reboot-required check (`ls /var/run/reboot-required`) added to standard procedure as definitive confirmation step
+
+### Next Actions
+- [ ] Update File Browser live container to point workflows volume to `/docs/Projects/Claude Code Shared/Workflows` (carried from previous session)
+
+---
+
 ## Session 2026-06-16 — AI Privacy Comparisons, context-mode Upgrade, Docker Documentation Fixes
 
 ### Summary
