@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-06-10 (2) (STT fixes)
+**Last Updated**: 2026-06-18 (n8n lead generation workflow)
 
 ---
 
@@ -23,12 +23,14 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Active Work Areas
 
+- **n8n Lead Generation workflow** — `LeadGen_Workflow.json` built and ready to import; needs "Companies House API" Basic Auth credential created in n8n before first test run
 - **ComfyUI (Steve) rebuild required** — run command updated with `--reserve-vram 3` and correct workflows volume path; container must be recreated
 - **Alexa WOL skill** — submitted for Amazon certification; awaiting approval (3-5 business days)
 - **ReActor face swap workflow** — JSON in `Temp.txt`; needs saving to Workflows folder after container rebuild
 
 ## Recently Completed
 
+- **n8n Lead Generation workflow built** — 17-node importable workflow (`it/NewPC/n8n/LeadGen_Workflow.json`); SIC search + single company modes; CH officers + filing + PDF + SearXNG + Ollama qwen3.6:27b + HTML email digest to steve@portland-fuel.co.uk; full usage guide in `LeadGen_Workflow_Design.md`
 - **STT client/server fixes** — four client bugs fixed (keyboard hook re-entrancy stealing Ctrl/Esc, spurious toggle, double F9 handler, blocking sleep in async); server now lazy-loads Whisper on first speech and unloads from VRAM after 15 min idle; full documentation at `stt/STT_Documentation.md`
 - **AI Voice Android app v3** — dark theme toggle; GPS location injected into system prompt (weather/restaurant/car park queries work); location permission requested on first launch
 - **SearXNG Tailscale fix** — container rebounded to `127.0.0.1:18080` + `192.168.1.192:8080`; Tailscale serve `--bg` rule added; ACL rule added for port 8080
@@ -52,6 +54,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
+- [ ] **Import and test lead gen workflow** — create "Companies House API" Basic Auth credential in n8n, import `it/NewPC/n8n/LeadGen_Workflow.json`, test with 1–2 known companies
 - [ ] **Deploy STT server fix** — `scp stt/stt_server.py steve@amelai.tail926601.ts.net:/opt/stt/stt_server.py` then `sudo systemctl restart stt_server`
 - [ ] **Deploy STT client fix** — copy `stt/stt_client.py` to Steve's Windows 11 PC and restart via `restart_stt.bat`
 - [ ] Verify STT VRAM freed after 15 min idle: `nvidia-smi --query-gpu=memory.used --format=csv`
@@ -89,7 +92,9 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | `Tailscale.md` | Tailscale commands, port forwarding, troubleshooting, Docker binding strategy |
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
 | `FileWriter.py` | Open WebUI Tool — paste into Workspace → Tools to give models file write capability |
-| `N8N_Setup.md` | n8n workflow automation — Docker setup, Tailscale config, update and backup procedures |
+| `n8n/N8N_Setup.md` | n8n workflow automation — Docker setup, Tailscale config, update and backup procedures |
+| `n8n/LeadGen_Workflow.json` | Importable lead generation workflow — ready for n8n import |
+| `n8n/LeadGen_Workflow_Design.md` | Lead gen design + usage guide — input syntax, examples, scoring, run times |
 | `androidApp/` | AI Voice Android app — native Kotlin voice client for Open WebUI over Tailscale |
 | `AI_Voice_App.md` | Full documentation — build guide, update workflow, settings, troubleshooting |
 | `STT_Voice_Input.md` | Speech-to-text setup guide — server (amelai) and Windows client |

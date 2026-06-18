@@ -2,6 +2,38 @@
 
 ---
 
+## Session 2026-06-18 — n8n Lead Generation Workflow built
+
+### Summary
+Built the importable n8n workflow JSON for Portland Fuel's AI lead generation system. The workflow queries Companies House by SIC code + geography (or a single company registration number), enriches each result with directors, accounts PDF text, and SearXNG web results, then uses `qwen3.6:27b` to score and qualify each company against Portland Fuel's five product lines, delivering a ranked HTML email digest to `steve@portland-fuel.co.uk`. Also answered questions about `CLAUDE_CODE_MAX_OUTPUT_TOKENS` configuration.
+
+### Work Completed
+- **Built `LeadGen_Workflow.json`** — 17-node linear n8n workflow, importable via n8n → Workflows → Import from file
+- **Two input modes** — SIC code search (`49410 Yorkshire 15 companies`) and single company lookup (registration number only, e.g. `12345678`)
+- **Full Phase 1 scope** — CH Advanced Search, officers, filing history, PDF download + text extraction, SearXNG enrichment, Ollama AI qualification, HTML email digest
+- **Updated `LeadGen_Workflow_Design.md`** — added comprehensive Usage Guide section at top; fixed stale `qwen3.5:35b` → `qwen3.6:27b` references throughout; moved PDF from Phase 2 → Phase 1 (implemented); updated phase checklist
+- **Answered CLAUDE_CODE_MAX_OUTPUT_TOKENS** — location (`.bashrc` export or `.claude/settings.json`), maximum (64,000 for Sonnet 4.6), raised to 64,000 after 32,000 limit caused a 33-minute run to fail
+
+### Files Changed
+- `it/NewPC/n8n/LeadGen_Workflow.json` — NEW — complete importable n8n workflow (17 nodes)
+- `it/NewPC/n8n/LeadGen_Workflow_Design.md` — Usage Guide added; model name corrected; phase status updated
+
+### Key Decisions
+- **Linear chain architecture** — no IF/Merge branching; mode detection handled entirely in `Parse Input` Code node via regex; single `HTTP: Companies House` node uses a dynamically-built URL covering both modes. Eliminates n8n's known "waiting for all inputs" problem with Merge nodes.
+- **Index-based item merging** — `$('NodeName').all()[i].json` pattern used in each Code node to re-attach previous company data after HTTP nodes replace items. Relies on n8n maintaining item order (confirmed safe for linear flows).
+- **`continueOnFail: true`** on PDF download and Extract PDF Text — companies without a filed accounts PDF pass through cleanly with empty `pdfText`; the AI prompt handles "Not available" gracefully.
+- **Ollama timeout 600,000ms** — covers worst case: 25 companies queued sequentially with ~20s each ≈ 500s total; 10-minute timeout with headroom.
+- **Build via Write + Edit sections** — previous attempt hit 32,000-token limit as a single enormous Write; sectioned approach kept each operation small and succeeded within 64,000-token ceiling.
+
+### Next Actions
+- [ ] Create **"Companies House API"** Basic Auth credential in n8n (username: `f80f8012-64f5-4f45-902a-b1814ea051a1`, password: blank)
+- [ ] Import `it/NewPC/n8n/LeadGen_Workflow.json` into n8n
+- [ ] Test with 1–2 known companies before running a full batch
+- [ ] Verify `qwen3.6:27b` is available: `ollama list` on amelai
+- [ ] If Extract PDF Text node fails on import, check n8n version supports `n8n-nodes-base.extractFromFile` with `operation: "pdf"` — may need adjusting to match installed version
+
+---
+
 ## Session 2026-06-10 (STT — Milly's laptop deployment)
 
 ### Summary

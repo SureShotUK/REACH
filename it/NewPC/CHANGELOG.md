@@ -2,6 +2,22 @@
 
 ---
 
+## [Unreleased] - 2026-06-18
+
+### Added
+- `it/NewPC/n8n/LeadGen_Workflow.json` — importable n8n workflow: 17-node lead generation pipeline (Companies House → officers → filing → PDF → SearXNG → Ollama qwen3.6:27b → HTML email)
+- Two input modes: SIC code + geography search, and single company registration number lookup
+- `continueOnFail` handling on PDF download and extraction — graceful no-accounts path
+- 600,000ms Ollama timeout — covers worst-case 25-company sequential queue
+
+### Changed
+- `it/NewPC/n8n/LeadGen_Workflow_Design.md` — added Usage Guide section (prerequisites, input modes, examples table, score colour guide, VRAM note, run time table); fixed all `qwen3.5:35b` → `qwen3.6:27b`; moved PDF from Phase 2 → Phase 1 implemented; updated phase checklist to reflect completion
+
+### Documentation
+- Usage Guide covers: how to open chat, SIC search syntax with 8 examples, single company lookup with 3 examples, email output format, score colour coding, VRAM note, typical run times
+
+---
+
 ## [Unreleased] - 2026-06-10 (2)
 
 ### Added
