@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-06-18 (n8n lead generation workflow)
+**Last Updated**: 2026-06-19 (Customer Profiler iXBRL extraction)
 
 ---
 
@@ -20,9 +20,11 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
 | n8n | `n8n` | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` | Running |
 | STT Server | systemd `stt_server` | — | `ws://amelai.tail926601.ts.net:9090` | Running |
+| pdf-to-image | `pdf-to-image` | `http://192.168.1.192:8086` | internal only | Running |
 
 ## Active Work Areas
 
+- **n8n Customer Profiler workflow** — `CustomerProfilerWorkingEmail.json` working for PDF and iXBRL paths; needs final test confirming net assets extraction from iXBRL
 - **n8n Lead Generation workflow** — `LeadGen_Workflow.json` built and ready to import; needs "Companies House API" Basic Auth credential created in n8n before first test run
 - **ComfyUI (Steve) rebuild required** — run command updated with `--reserve-vram 3` and correct workflows volume path; container must be recreated
 - **Alexa WOL skill** — submitted for Amazon certification; awaiting approval (3-5 business days)
@@ -30,6 +32,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Recently Completed
 
+- **Customer Profiler iXBRL extraction** — dual-path architecture: PDF → pdf-to-image → qwen2.5vl:7b vision; iXBRL → text download → qwen3.5:27b (think:false); format detected from S3 URL before download; dual targeted extracts for P&L + balance sheet sections; `remove` command; profit after tax; parentheses negatives
 - **n8n Lead Generation workflow built** — 17-node importable workflow (`it/NewPC/n8n/LeadGen_Workflow.json`); SIC search + single company modes; CH officers + filing + PDF + SearXNG + Ollama qwen3.6:27b + HTML email digest to steve@portland-fuel.co.uk; full usage guide in `LeadGen_Workflow_Design.md`
 - **STT client/server fixes** — four client bugs fixed (keyboard hook re-entrancy stealing Ctrl/Esc, spurious toggle, double F9 handler, blocking sleep in async); server now lazy-loads Whisper on first speech and unloads from VRAM after 15 min idle; full documentation at `stt/STT_Documentation.md`
 - **AI Voice Android app v3** — dark theme toggle; GPS location injected into system prompt (weather/restaurant/car park queries work); location permission requested on first launch
@@ -54,6 +57,8 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
+- [ ] **Customer Profiler: final iXBRL test** — confirm net assets extracted for Centrebus (03872099) after dual-section extraction fix
+- [ ] **Customer Profiler: bulk run** — profile a broader set of companies to validate robustness across different iXBRL and PDF account formats
 - [ ] **Import and test lead gen workflow** — create "Companies House API" Basic Auth credential in n8n, import `it/NewPC/n8n/LeadGen_Workflow.json`, test with 1–2 known companies
 - [ ] **Deploy STT server fix** — `scp stt/stt_server.py steve@amelai.tail926601.ts.net:/opt/stt/stt_server.py` then `sudo systemctl restart stt_server`
 - [ ] **Deploy STT client fix** — copy `stt/stt_client.py` to Steve's Windows 11 PC and restart via `restart_stt.bat`

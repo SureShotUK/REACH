@@ -2,6 +2,33 @@
 
 ---
 
+## [Unreleased] - 2026-06-19
+
+### Added
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — `CH: Download iXBRL` HTTP node (GET S3 URL, `responseFormat: text`, `neverError: true`)
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — `Extract iXBRL Text` Code node: strips tags, builds dual targeted extracts (P&L + balance sheet), sends to qwen3.5:27b
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — `Detect Format` Code node: detects PDF vs iXBRL from S3 URL before download
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — `Route: Format` IF node: routes to `CH: Download PDF` (binary) or `CH: Download iXBRL` (text)
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — `Route2` IF node + `Remove Profile` Code node: `remove <regNo>` command
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — profit after tax as fifth financial metric in both extraction paths
+- `it/NewPC/n8n/Centrebus.html` — iXBRL sample filing (Centrebus Ltd, 03872099) for analysis reference
+- `it/NewPC/n8n/pdf-to-image/` — new microservice: FastAPI + poppler PDF-to-PNG converter for Ollama vision model
+
+### Changed
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — financial value parser handles parentheses negatives e.g. `(45,000)` → `-45000`
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — `Extract iXBRL Text` uses dual targeted extracts (P&L anchored on "turnover", balance sheet anchored on "net assets") instead of single contiguous window; fixes net assets missing when on different page
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — `think: false` added to qwen3.5:27b Ollama body; prevents thinking-mode timeout
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — raw HTML truncation increased to 500,000 chars to cover large iXBRL filings
+- `it/NewPC/n8n/pdf-to-image/app.py` — DPI restored to 200
+- `it/NewPC/Software_Updates.md` — DPI value updated in pdf-to-image configuration table
+
+### Fixed
+- `Extract iXBRL Text` had no `parameters`/`jsCode` after node insertion bug displaced the code block into `CH: Download iXBRL` — both nodes corrected
+- `$helpers.getBinaryDataBuffer` throws `ReferenceError: $helpers is not defined` in n8n v2.15.1 Code nodes (task runner context) — redesigned to detect format from S3 URL before download; no binary reading in Code nodes
+- iXBRL content garbled (`~)^▒+-zo▒`) — `binaryMode: separate` stores binary as internal reference ID; fixed by reading response as text (`responseFormat: text`) instead of binary
+
+---
+
 ## [Unreleased] - 2026-06-18
 
 ### Added

@@ -2,6 +2,49 @@
 
 ---
 
+## Session 2026-06-19 — Customer Profiler: iXBRL dual-path extraction built and debugged
+
+### Summary
+Extended the n8n Customer Profiler workflow to handle both PDF and iXBRL account formats from Companies House. A full dual-path architecture was designed and debugged: PDF accounts go through the vision model (pdf-to-image → qwen2.5vl:7b), iXBRL accounts are downloaded as text and parsed by qwen3.5:27b. Multiple bugs were resolved across the session including `$helpers` not existing in the n8n task runner, a node structure bug that left `Extract iXBRL Text` with no code, and a timeout caused by qwen3.5:27b thinking mode. Also added `remove` command, profit after tax metric, and parentheses negative value handling.
+
+### Work Completed
+- **Dual-path iXBRL/PDF detection** — detects format from S3 URL (`application-pdf` vs `xhtml` in path) BEFORE downloading; routes to separate download nodes
+- **`CH: Download iXBRL`** — new HTTP node: GET S3 URL with `responseFormat: text`, `neverError: true`; response stored as `$json.data`
+- **`Extract iXBRL Text`** — new Code node: strips tags, finds P&L section (turnover/employees/profit) and balance sheet section (net assets) as two separate targeted extracts; sends to qwen3.5:27b with `think: false`
+- **`remove <regNo>` command** — new mode in Parse Input; Route2 IF node added; Remove Profile Code node deletes from static data
+- **Profit after tax** — added as fifth financial metric in both extraction paths and profile schema
+- **Parentheses negative handling** — parser checks for `(` in the value line, not just `-`
+- **`think: false`** — added to qwen3.5:27b Ollama body; prevents thinking-mode timeout on iXBRL extraction
+- **Dual targeted extracts** — P&L section anchored on "turnover" (3,000 chars) + balance sheet section anchored on "net assets" (2,000 chars); separated by `--- BALANCE SHEET ---` marker; fixes net assets being on a different page from the P&L figures
+- **pdf-to-image DPI restored to 200** — user requested restoration after testing
+- **Diagnosed `$helpers.getBinaryDataBuffer` unavailable** — confirmed `ReferenceError: $helpers is not defined` in n8n v2.15.1 task runner; pivoted to pre-download format detection
+
+### Files Changed
+- `it/NewPC/n8n/CustomerProfilerWorkingEmail.json` — all changes above; main workflow file
+- `it/NewPC/n8n/pdf-to-image/app.py` — DPI restored to 200
+- `it/NewPC/Software_Updates.md` — DPI value updated in configuration table
+- `it/NewPC/Temp.txt` — diagnostic bash script to compare CH filing formats between companies
+- `it/NewPC/n8n/Centrebus.html` — iXBRL sample file from Companies House (03872099) saved for analysis
+
+### Key Decisions
+- **Detect format from S3 URL, not binary MIME type** — `$helpers.getBinaryDataBuffer` is not available in n8n Code nodes running in the task runner (v2.15.1). S3 URL reliably encodes the content type (`application-pdf` vs `application-xhtml%252Bxml`) so detection moved before the download entirely.
+- **Two separate download nodes** — `CH: Download PDF` (`responseFormat: file`, binary) and `CH: Download iXBRL` (`responseFormat: text`, `$json.data`); avoids any binary reading in Code nodes.
+- **`think: false` for iXBRL extraction** — qwen3.5:27b thinking mode generates thousands of reasoning tokens before a simple five-line answer, causing 2+ minute timeouts. Disabling thinking mode drops response time to seconds.
+- **Dual targeted section extracts** — single contiguous window from earliest marker misses net assets (which appears 80+ KB later in Centrebus's iXBRL). Finding P&L and balance sheet sections independently with specific anchors captures all five metrics regardless of document layout.
+- **`$helpers` in n8n Code nodes** — `$helpers` is NOT available in n8n Code nodes running in the external task runner (n8n v2.15.1). It is only available in the older Function node type. Any Code node logic that needs binary data must use a different approach.
+
+### Reference Documents
+- `it/NewPC/n8n/Centrebus.html` — real iXBRL filing (451 KB) used to diagnose extraction issues; confirmed structure: 79 KB after tag stripping; balance sheet at raw position 11,339; net assets at ~96,432
+
+### Next Actions
+- [ ] Test final version with Centrebus (03872099) to confirm net assets now extracted
+- [ ] Test `remove <regNo>` command end-to-end
+- [ ] Test `list` command to confirm both PDF and iXBRL profiled companies appear in email
+- [ ] Run profiling across a broader set of companies to validate robustness of iXBRL extraction
+- [ ] Consider whether group vs company figures should be differentiated in the prompt (Centrebus has both)
+
+---
+
 ## Session 2026-06-18 — n8n Lead Generation Workflow built
 
 ### Summary

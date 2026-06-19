@@ -1,0 +1,563 @@
+{
+  "name": "Portland Fuel - Customer Profiler",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there welcome to the Portland Company Profiler, what would you like to do? [ add 06880902 10 Trading, Bulk ] [ list ]",
+        "options": {}
+      },
+      "id": "792eb7d3-13a6-4659-bde1-def33f26a3e4",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [-720, 144],
+      "webhookId": "plf-profiler"
+    },
+    {
+      "parameters": {
+        "jsCode": "const msg=($input.first().json.chatInput||$input.first().json.input||'').trim();\nif(msg.toLowerCase()==='list')return[{json:{mode:'list'}}];\nconst rem=msg.match(/^remove\\s+([A-Z0-9]{6,8})$/i);\nif(rem)return[{json:{mode:'remove',companyNumber:rem[1].toUpperCase()}}];\nconst parts=msg.match(/^add\\s+([A-Z0-9]{6,8})\\s+(\\d{1,2})\\s+(.+)$/i);\nif(!parts)throw new Error('Format: add <regNo> <ranking 1-10> <products>  OR: remove <regNo>  OR: list');\nconst products=parts[3].split(',').map(function(p){return p.trim();}).filter(Boolean);\nreturn[{json:{mode:'add',companyNumber:parts[1].toUpperCase(),ranking:Number(parts[2]),products:products}}];"
+      },
+      "id": "7b39a06b-c48c-4fa8-965a-1e629076decb",
+      "name": "Parse Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-480, 144]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.mode }}",
+              "value2": "list"
+            }
+          ]
+        }
+      },
+      "id": "1c3a4d8c-1dc7-43fa-94f6-afdf56dac9e1",
+      "name": "Route",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [-240, 144]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://api.company-information.service.gov.uk/company/'+$json.companyNumber}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "528bd087-bc22-4baa-b2d1-ee5f3a1cbb28",
+      "name": "CH: Company",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [0, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{'https://api.company-information.service.gov.uk/company/'+$('Parse Input').first().json.companyNumber+'/officers?items_per_page=10'}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "ae16f358-acf7-49fe-917f-dc50788d1cea",
+      "name": "CH: Officers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [240, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{'https://api.company-information.service.gov.uk/company/'+$('Parse Input').first().json.companyNumber+'/filing-history?category=accounts&items_per_page=1'}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "a81cc3b1-df52-40be-ae92-8356ebbbb867",
+      "name": "CH: Filing History",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const d=$input.first().json;\nconst f=(d.items||[])[0];\nconst metaUrl=f&&f.links&&f.links.document_metadata?f.links.document_metadata:null;\nreturn[{json:{metaUrl:metaUrl,filingDate:f?f.date:null,filingType:f?f.type:null}}];"
+      },
+      "id": "ca3a914f-5f8f-436e-af4a-6c09c84c69a2",
+      "name": "Get Filing URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 0]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.metaUrl || 'https://api.company-information.service.gov.uk/nosuchfile' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "6df8f155-d3a8-4531-8415-6025164e5ff8",
+      "name": "CH: Doc Metadata",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const meta=$input.first().json;\nconst downloadUrl=meta.links&&meta.links.document?meta.links.document:null;\nreturn[{json:{downloadUrl:downloadUrl}}];"
+      },
+      "id": "c3d4e5f6-a7b8-9012-cdef-012345678901",
+      "name": "Extract PDF URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 0]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.downloadUrl || 'https://document-api.company-information.service.gov.uk/nosuchfile' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "d4e5f6a7-b8c9-0123-defa-123456789012",
+      "name": "CH: Get Redirect",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1440, 0],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const resp=$input.first().json;\nconst hdrs=resp.headers||{};\nconst s3Url=hdrs.location||hdrs.Location||null;\nreturn[{json:{s3Url:s3Url}}];"
+      },
+      "id": "e5f6a7b8-c9d0-1234-efab-234567890123",
+      "name": "Extract S3 URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1680, 0]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.s3Url || 'https://document-api.company-information.service.gov.uk/nosuchfile' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "pdfData"
+            }
+          }
+        }
+      },
+      "id": "f6a7b8c9-d0e1-2345-fabc-345678901234",
+      "name": "CH: Download PDF",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1920, 0],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const s3Url=($input.first().json.s3Url||'').toLowerCase();const format=s3Url.includes('xhtml')||s3Url.includes('xml')?'ixbrl':'pdf';return[{json:{...$input.first().json,format}}];"
+      },
+      "id": "e1f2a3b4-c5d6-7890-efab-456789012345",
+      "name": "Detect Format",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2040, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.format }}",
+              "value2": "pdf"
+            }
+          ]
+        }
+      },
+      "id": "f2a3b4c5-d6e7-8901-fabc-567890123456",
+      "name": "Route: Format",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [2160, 0]
+    },
+    {
+      "id": "b4c5d6e7-f8a9-0123-bcde-789012345678",
+      "name": "CH: Download iXBRL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2400, 200],
+      "continueOnFail": true,
+      "parameters": {
+        "url": "={{ $json.s3Url || 'https://document-api.company-information.service.gov.uk/nosuchfile' }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "try{const raw=$input.first().json.data;if(!raw)return[{json:{ollamaBody:null,hasImages:false,debug:'no data from download'}}];const html=String(raw).substring(0,500000);const text=html.replace(/<[^>]{0,500}>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&pound;/g,'\\u00a3').replace(/&#[0-9]+;/g,' ').replace(/[ \\t]{2,}/g,' ').replace(/\\n{3,}/g,'\\n\\n');const lower=text.toLowerCase();const findFirst=function(terms){let pos=-1;for(const t of terms){const p=lower.indexOf(t);if(p>-1&&(pos===-1||p<pos))pos=p;}return pos;};const plStart=findFirst(['turnover','revenue','income statement','profit and loss account']);const bsStart=findFirst(['net assets','total equity','total net assets']);const plExtract=plStart>-1?text.substring(Math.max(0,plStart-100),plStart+3000):'';const bsExtract=bsStart>-1?text.substring(Math.max(0,bsStart-100),bsStart+2000):'';const extract=[plExtract,bsExtract?'--- BALANCE SHEET ---\\n'+bsExtract:''].filter(Boolean).join('\\n\\n');if(!extract)return[{json:{ollamaBody:null,hasImages:false,debug:'no financial markers found'}}];const prompt='You are reading UK company accounts from an iXBRL filing. Find these figures from the CURRENT YEAR column only:\\n\\n1. Annual turnover or revenue (GBP)\\n2. Average number of employees\\n3. Net assets or total equity (GBP)\\n4. Profit after tax (GBP) - negative if a loss\\n5. Financial year end date\\n\\nIn UK accounts, figures in parentheses e.g. (45,000) are negative. Always output negatives with a minus sign.\\n\\nState each on its own line:\\nTurnover: \\u00a32,450,000\\nEmployees: 45\\nNet assets: \\u00a3890,000\\nProfit: \\u00a3123,456\\nYear: 2023\\n\\nIf a loss: Profit: -\\u00a345,000\\nIf not found: write null.\\n\\nACCOUNTS TEXT:\\n'+extract;const body=JSON.stringify({model:'qwen3.5:27b',prompt:prompt,stream:false,think:false});return[{json:{ollamaBody:body,hasImages:false}}];}catch(e){return[{json:{ollamaBody:null,hasImages:false,debug:'error: '+String(e)}}];}"
+      },
+      "id": "a3b4c5d6-e7f8-9012-abcd-678901234567",
+      "name": "Extract iXBRL Text",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2600, 200],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.1.192:8086/convert",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "pdfData",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Convert PDF to Images",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2160, 0],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const imgData=($input.first().json||{}).images||[];\nif(imgData.length===0)return[{json:{ollamaBody:null,hasImages:false}}];\nconst prompt='You are reading pages from UK company accounts filed at Companies House. Look carefully at every page and find these four figures.\\n\\nIn UK accounts, tables always show TWO columns: the LEFT column is the CURRENT YEAR and the RIGHT column is the prior year. Always take figures from the LEFT (current year) column only.\\n\\n1. Annual turnover or revenue (in GBP) - LEFT column only\\n2. Average number of employees - LEFT column only, single total figure\\n3. Net assets or total equity (in GBP) - LEFT column only\\n4. Profit after tax (in GBP) - LEFT column only. This may be negative (a loss).\\n5. Financial year end date\\n\\nIMPORTANT: If column headings show figures are in thousands (e.g. £000 or £ 000), multiply each figure by 1000 to give the full amount. Preserve the sign for profit — use a minus sign if it is a loss. In UK accounts, figures shown in parentheses e.g. (£45,000) are negative. Always output negative values with a minus sign, not parentheses.\\n\\nState each figure on its own line in exactly this format:\\nTurnover: £2,450,000\\nEmployees: 45\\nNet assets: £890,000\\nProfit: £123,456\\nYear: 2023\\n\\nIf a figure is a loss, write it as: Profit: -£45,000\\nIf you cannot find a figure, write null for that line. Do not list multiple values for the same field.';\nconst body=JSON.stringify({model:'qwen2.5vl:7b',prompt:prompt,images:imgData,stream:false});\nreturn[{json:{ollamaBody:body,hasImages:true}}];"
+      },
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "name": "Prep Vision Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2400, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.1.192:11434/api/generate",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.ollamaBody }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "ca27d850-bc3c-4f55-93d9-1474537dd963",
+      "name": "HTTP: Extract Financials",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2640, 0],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "url": "={{'http://192.168.1.192:8080/search?format=json&categories=general&q='+encodeURIComponent($('Parse Input').first().json.companyNumber+' '+($('CH: Company').first().json.company_name||'')+' employees fleet vehicles')}}",
+        "options": {}
+      },
+      "id": "3bb437bc-6577-453c-9e89-26cffbe75623",
+      "name": "Web Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2880, 0],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const input=$('Parse Input').first().json;\nconst company=$('CH: Company').first().json;\nconst officers=$('CH: Officers').first().json;\nconst webData=$input.first().json;\nlet financials={turnover:null,employees:null,netAssets:null,accountsYear:null};\ntry{\n  const finRaw=$('HTTP: Extract Financials').first().json;\n  if(finRaw&&finRaw.response){\n    const text=finRaw.response;\n    try{\n      const parsed=JSON.parse(text);\n      financials={turnover:parsed.turnover||null,employees:parsed.employees||null,netAssets:parsed.netAssets||null,accountsYear:parsed.year||null};\n    }catch(e){\n      const lines=text.split(/\\r?\\n/);\n      const getNum=function(key){const line=lines.find(function(l){return l.toLowerCase().startsWith(key.toLowerCase());});if(!line)return null;const neg=line.includes('-')||line.includes('(');const n=parseInt(line.slice(key.length).replace(/[^0-9]/g,''));return isNaN(n)?null:(neg?-n:n);};\n      const yearLine=lines.find(function(l){return l.toLowerCase().startsWith('year:');});\n      const yM=yearLine?yearLine.match(/(20\\d\\d|19\\d\\d)/):null;\n      financials={turnover:getNum('Turnover:'),employees:getNum('Employees:'),netAssets:getNum('Net assets:'),profitAfterTax:getNum('Profit:'),accountsYear:yM?yM[1]:null};\n    }\n  }\n}catch(e){}\nconst webResults=(webData.results||[]).slice(0,3);\nconst webSnippets=webResults.map(function(r){return(r.title||'')+': '+(r.content||'').substring(0,150);});\nconst reg=company.registered_office_address||{};\nconst address=[reg.address_line_1,reg.locality,reg.postal_code].filter(Boolean).join(', ');\nconst dirs=(officers.items||[]).filter(function(o){return!o.resigned_on;}).map(function(o){return o.name+' ('+o.officer_role+')';}).slice(0,5);\nconst profile={companyNumber:input.companyNumber,companyName:company.company_name||'',address:address,sicCodes:company.sic_codes||[],incorporated:company.date_of_creation||null,status:company.company_status||'',directors:dirs,customerRanking:input.ranking,products:input.products,financials:financials,webSnippets:webSnippets,profileDate:new Date().toISOString().split('T')[0]};\nconst store=$getWorkflowStaticData('global');\nif(!store.profiles)store.profiles={};\nstore.profiles[input.companyNumber]=profile;\nreturn[{json:profile}];"
+      },
+      "id": "f7e6580e-e7f8-406b-bf26-9651a40cbe2d",
+      "name": "Build & Save Profile",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3120, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p=$input.first().json;const fin=p.financials||{};const date=new Date().toLocaleDateString('en-GB');const subj='Customer Profile Added: '+p.companyName+' ('+p.companyNumber+')';const html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:700px;margin:0 auto\"><h2 style=\"color:#2c3e50\">Customer Profile Saved</h2><p>Profile for <strong>'+p.companyName+'</strong> ('+p.companyNumber+') saved on '+date+'</p><table style=\"width:100%;border-collapse:collapse\"><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold;width:180px\">Ranking</td><td style=\"padding:8px\">'+p.customerRanking+'/10</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Products</td><td style=\"padding:8px\">'+(p.products||[]).join(', ')+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Address</td><td style=\"padding:8px\">'+p.address+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">SIC Codes</td><td style=\"padding:8px\">'+(p.sicCodes||[]).join(', ')+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Incorporated</td><td style=\"padding:8px\">'+(p.incorporated||'Unknown')+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Directors</td><td style=\"padding:8px\">'+(p.directors||[]).join('<br>')+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Turnover</td><td style=\"padding:8px\">'+(fin.turnover?'\\u00a3'+fin.turnover.toLocaleString():'Not extracted')+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Employees</td><td style=\"padding:8px\">'+(fin.employees||'Not extracted')+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Net Assets</td><td style=\"padding:8px\">'+(fin.netAssets?'\\u00a3'+fin.netAssets.toLocaleString():'Not extracted')+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Profit After Tax</td><td style=\"padding:8px\">'+(fin.profitAfterTax!=null?(fin.profitAfterTax<0?'-\\u00a3'+Math.abs(fin.profitAfterTax).toLocaleString():'\\u00a3'+fin.profitAfterTax.toLocaleString()):'Not extracted')+'</td></tr><tr><td style=\"padding:8px;background:#f5f5f5;font-weight:bold\">Accounts Year</td><td style=\"padding:8px\">'+(fin.accountsYear||'Unknown')+'</td></tr></table><p style=\"color:#999;font-size:11px\">Generated '+new Date().toISOString()+' via n8n / amelai</p></body></html>';return[{json:{subject:subj,htmlBody:html}}];"
+      },
+      "id": "8988ffeb-a5ad-484d-9bc1-18897337d6e4",
+      "name": "Format Confirmation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3360, 0]
+    },
+    {
+      "parameters": {
+        "toRecipients": "steve@portland-fuel.co.uk",
+        "subject": "={{ $json.subject }}",
+        "bodyContent": "={{ $json.htmlBody }}",
+        "additionalFields": {
+          "bodyContentType": "html"
+        }
+      },
+      "id": "e6b94889-35bd-45fc-82ac-08e690e11245",
+      "name": "Send Confirmation",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [3600, 0],
+      "webhookId": "e794fabf-a96f-4796-8065-2f10bc7cbe6b",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "Orgklv2FZdo5pC4V",
+          "name": "MyHotmailEmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const store=$getWorkflowStaticData('global');\nconst profiles=store.profiles||{};\nconst list=Object.values(profiles).sort(function(a,b){return b.customerRanking-a.customerRanking;});\nconst date=new Date().toLocaleDateString('en-GB');\nconst subj='Portland Fuel Customer Profiles \\u2014 '+list.length+' companies | '+date;\nconst ch=function(n){return 'https://find-and-update.company-information.service.gov.uk/company/'+n;};\nconst rows=list.map(function(p){const fin=p.financials||{};return '<tr><td style=\"padding:8px;border-bottom:1px solid #ddd\"><strong><a href=\"'+ch(p.companyNumber)+'\" target=\"_blank\">'+p.companyName+'</a></strong><br><small>'+p.companyNumber+'</small></td><td style=\"padding:8px;border-bottom:1px solid #ddd;text-align:center\"><strong>'+p.customerRanking+'/10</strong></td><td style=\"padding:8px;border-bottom:1px solid #ddd\">'+(p.products||[]).join(', ')+'</td><td style=\"padding:8px;border-bottom:1px solid #ddd\">'+(p.sicCodes||[]).join(', ')+'</td><td style=\"padding:8px;border-bottom:1px solid #ddd\">'+(fin.turnover?'\\u00a3'+fin.turnover.toLocaleString():'\\u2014')+'</td><td style=\"padding:8px;border-bottom:1px solid #ddd\">'+(fin.employees||'\\u2014')+'</td><td style=\"padding:8px;border-bottom:1px solid #ddd\">'+(p.profileDate||'')+'</td></tr>';}).join('');\nconst avgRanking=list.length?(list.reduce(function(s,p){return s+p.customerRanking;},0)/list.length).toFixed(1):'0';\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:1100px;margin:0 auto\"><h2 style=\"color:#2c3e50\">Portland Fuel Customer Profiles</h2><p><b>'+list.length+' companies</b> | Average ranking: '+avgRanking+'/10 | '+date+(list.length===0?' \\u2014 No profiles saved yet.':'')+'</p><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\"><thead><tr style=\"background:#2c3e50;color:#fff\"><th style=\"padding:8px;text-align:left\">Company</th><th style=\"padding:8px;width:60px\">Rank</th><th style=\"padding:8px;width:180px\">Products</th><th style=\"padding:8px;width:100px\">SIC</th><th style=\"padding:8px;width:100px\">Turnover</th><th style=\"padding:8px;width:80px\">Employees</th><th style=\"padding:8px;width:90px\">Profiled</th></tr></thead><tbody>'+rows+'</tbody></table><p style=\"color:#999;font-size:11px\">Generated '+new Date().toISOString()+' via n8n / amelai</p></body></html>';\nreturn[{json:{subject:subj,htmlBody:html}}];"
+      },
+      "id": "f46ee270-8e04-4296-bbd2-f39460fe86fe",
+      "name": "Get All Profiles",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [0, 288]
+    },
+    {
+      "parameters": {
+        "toRecipients": "steve@portland-fuel.co.uk",
+        "subject": "={{ $json.subject }}",
+        "bodyContent": "={{ $json.htmlBody }}",
+        "additionalFields": {
+          "bodyContentType": "html"
+        }
+      },
+      "id": "38b7779d-302b-441c-8ba4-18d783b1f286",
+      "name": "Send Profile List",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [240, 288],
+      "webhookId": "50300c45-c9f4-46ca-bba2-129a82eb93b6",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "Orgklv2FZdo5pC4V",
+          "name": "MyHotmailEmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.mode }}",
+              "value2": "remove"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Route2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [0, 288]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input=$('Parse Input').first().json;\nconst store=$getWorkflowStaticData('global');\nif(!store.profiles)store.profiles={};\nconst existing=store.profiles[input.companyNumber];\nif(!existing)return[{json:{companyNumber:input.companyNumber,companyName:'Unknown',removed:false}}];\nconst name=existing.companyName||input.companyNumber;\ndelete store.profiles[input.companyNumber];\nreturn[{json:{companyNumber:input.companyNumber,companyName:name,removed:true}}];"
+      },
+      "id": "b2c3d4e5-f6a7-8901-bcde-123456789012",
+      "name": "Remove Profile",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 432]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p=$input.first().json;\nconst date=new Date().toLocaleDateString('en-GB');\nconst subj=p.removed?'Profile Removed: '+p.companyName+' ('+p.companyNumber+')':'Profile Not Found: '+p.companyNumber;\nconst msg=p.removed?'<p>The profile for <strong>'+p.companyName+'</strong> ('+p.companyNumber+') has been removed from the customer database.</p>':'<p>No profile was found for company number <strong>'+p.companyNumber+'</strong>. Nothing was deleted.</p>';\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:700px;margin:0 auto\"><h2 style=\"color:#2c3e50\">'+(p.removed?'Profile Removed':'Profile Not Found')+'</h2>'+msg+'<p style=\"color:#999;font-size:11px\">'+date+' via n8n / amelai</p></body></html>';\nreturn[{json:{subject:subj,htmlBody:html}}];"
+      },
+      "id": "c3d4e5f6-a7b8-9012-cdef-234567890123",
+      "name": "Format Remove Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 432]
+    },
+    {
+      "parameters": {
+        "toRecipients": "steve@portland-fuel.co.uk",
+        "subject": "={{ $json.subject }}",
+        "bodyContent": "={{ $json.htmlBody }}",
+        "additionalFields": {
+          "bodyContentType": "html"
+        }
+      },
+      "id": "d4e5f6a7-b8c9-0123-defa-345678901234",
+      "name": "Send Remove Email",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [720, 432],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "Orgklv2FZdo5pC4V",
+          "name": "MyHotmailEmail"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Chat Trigger": {
+      "main": [[{ "node": "Parse Input", "type": "main", "index": 0 }]]
+    },
+    "Parse Input": {
+      "main": [[{ "node": "Route", "type": "main", "index": 0 }]]
+    },
+    "Route": {
+      "main": [
+        [{ "node": "Get All Profiles", "type": "main", "index": 0 }],
+        [{ "node": "Route2", "type": "main", "index": 0 }]
+      ]
+    },
+    "Route2": {
+      "main": [
+        [{ "node": "Remove Profile", "type": "main", "index": 0 }],
+        [{ "node": "CH: Company", "type": "main", "index": 0 }]
+      ]
+    },
+    "Remove Profile": {
+      "main": [[{ "node": "Format Remove Email", "type": "main", "index": 0 }]]
+    },
+    "Format Remove Email": {
+      "main": [[{ "node": "Send Remove Email", "type": "main", "index": 0 }]]
+    },
+    "CH: Company": {
+      "main": [[{ "node": "CH: Officers", "type": "main", "index": 0 }]]
+    },
+    "CH: Officers": {
+      "main": [[{ "node": "CH: Filing History", "type": "main", "index": 0 }]]
+    },
+    "CH: Filing History": {
+      "main": [[{ "node": "Get Filing URL", "type": "main", "index": 0 }]]
+    },
+    "Get Filing URL": {
+      "main": [[{ "node": "CH: Doc Metadata", "type": "main", "index": 0 }]]
+    },
+    "CH: Doc Metadata": {
+      "main": [[{ "node": "Extract PDF URL", "type": "main", "index": 0 }]]
+    },
+    "Extract PDF URL": {
+      "main": [[{ "node": "CH: Get Redirect", "type": "main", "index": 0 }]]
+    },
+    "CH: Get Redirect": {
+      "main": [[{ "node": "Extract S3 URL", "type": "main", "index": 0 }]]
+    },
+    "Extract S3 URL": {
+      "main": [[{ "node": "Detect Format", "type": "main", "index": 0 }]]
+    },
+    "Detect Format": {
+      "main": [[{ "node": "Route: Format", "type": "main", "index": 0 }]]
+    },
+    "Route: Format": {
+      "main": [
+        [{ "node": "CH: Download PDF", "type": "main", "index": 0 }],
+        [{ "node": "CH: Download iXBRL", "type": "main", "index": 0 }]
+      ]
+    },
+    "CH: Download PDF": {
+      "main": [[{ "node": "Convert PDF to Images", "type": "main", "index": 0 }]]
+    },
+    "CH: Download iXBRL": {
+      "main": [[{ "node": "Extract iXBRL Text", "type": "main", "index": 0 }]]
+    },
+    "Convert PDF to Images": {
+      "main": [[{ "node": "Prep Vision Prompt", "type": "main", "index": 0 }]]
+    },
+    "Prep Vision Prompt": {
+      "main": [[{ "node": "HTTP: Extract Financials", "type": "main", "index": 0 }]]
+    },
+    "Extract iXBRL Text": {
+      "main": [[{ "node": "HTTP: Extract Financials", "type": "main", "index": 0 }]]
+    },
+    "HTTP: Extract Financials": {
+      "main": [[{ "node": "Web Search", "type": "main", "index": 0 }]]
+    },
+    "Web Search": {
+      "main": [[{ "node": "Build & Save Profile", "type": "main", "index": 0 }]]
+    },
+    "Build & Save Profile": {
+      "main": [[{ "node": "Format Confirmation", "type": "main", "index": 0 }]]
+    },
+    "Format Confirmation": {
+      "main": [[{ "node": "Send Confirmation", "type": "main", "index": 0 }]]
+    },
+    "Get All Profiles": {
+      "main": [[{ "node": "Send Profile List", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1b5f9b0d-de15-4887-ace6-ee1b3f265131",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6e23109a98b6df358d89d07cb68f7791c431eec20aae3940902d07c181cc7d9a"
+  },
+  "id": "1F8QFQOFvFmd8jG9",
+  "tags": []
+}

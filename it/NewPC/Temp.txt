@@ -1,80 +1,28 @@
-{
-  "last_node_id": 4,
-  "last_link_id": 3,
-  "nodes": [
-    {
-      "id": 1,
-      "type": "LoadImage",
-      "pos": [50, 150],
-      "size": {"0": 315, "1": 314},
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {"name": "IMAGE", "type": "IMAGE", "links": [1], "slot_index": 0},
-        {"name": "MASK", "type": "MASK", "links": null}
-      ],
-      "properties": {"Node name for S&R": "LoadImage"},
-      "widgets_values": ["example.png", "upload"],
-      "title": "Base Image (body)"
-    },
-    {
-      "id": 2,
-      "type": "LoadImage",
-      "pos": [50, 530],
-      "size": {"0": 315, "1": 314},
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "outputs": [
-        {"name": "IMAGE", "type": "IMAGE", "links": [2], "slot_index": 0},
-        {"name": "MASK", "type": "MASK", "links": null}
-      ],
-      "properties": {"Node name for S&R": "LoadImage"},
-      "widgets_values": ["example.png", "upload"],
-      "title": "Face Source"
-    },
-    {
-      "id": 3,
-      "type": "ReActorFaceSwap",
-      "pos": [450, 300],
-      "size": {"0": 420, "1": 420},
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {"name": "input_image", "type": "IMAGE", "link": 1},
-        {"name": "source_image", "type": "IMAGE", "link": 2}
-      ],
-      "outputs": [
-        {"name": "IMAGE", "type": "IMAGE", "links": [3], "slot_index": 0}
-      ],
-      "properties": {},
-      "widgets_values": [true, "inswapper_128.onnx", "retinaface_resnet50", "GFPGANv1.4.pth", 1, 0.5, "no", "no", "0", "0", 1]
-    },
-    {
-      "id": 4,
-      "type": "SaveImage",
-      "pos": [970, 300],
-      "size": {"0": 315, "1": 270},
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {"name": "images", "type": "IMAGE", "link": 3}
-      ],
-      "outputs": [],
-      "properties": {"Node name for S&R": "SaveImage"},
-      "widgets_values": ["FaceSwap"]
-    }
-  ],
-  "links": [
-    [1, 1, 0, 3, 0, "IMAGE"],
-    [2, 2, 0, 3, 1, "IMAGE"],
-    [3, 3, 0, 4, 0, "IMAGE"]
-  ],
-  "groups": [],
-  "config": {},
-  "extra": {},
-  "version": 0.4
-}
+CH_API_KEY="your-ch-api-key-here"
+
+for COMPANY in 06880902 03872099; do
+  echo "=== $COMPANY ==="
+  FILING=$(curl -s -u "${CH_API_KEY}:" \
+    "https://api.company-information.service.gov.uk/company/${COMPANY}/filing-history?category=accounts&items_per_page=1")
+  TYPE=$(echo "$FILING" | python3 -c "import sys,json; d=json.load(sys.stdin); f=d.get('items',[]); print(f[0].get('type','none') if f else 'NO FILINGS')")
+  DESC=$(echo "$FILING" | python3 -c "import sys,json; d=json.load(sys.stdin); f=d.get('items',[]); print(f[0].get('description','') if f else '')")
+  META=$(echo "$FILING" | python3 -c "import sys,json; d=json.load(sys.stdin); f=d.get('items',[]); print(f[0].get('links',{}).get('document_metadata','NO META URL') if f else 'NO FILINGS')")
+  echo "  Type: $TYPE"
+  echo "  Desc: $DESC"
+  echo "  Meta URL: $META"
+
+  if [ "$META" != "NO META URL" ] && [ "$META" != "NO FILINGS" ]; then
+    DOC=$(curl -s -u "${CH_API_KEY}:" "$META")
+    DOC_URL=$(echo "$DOC" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('links',{}).get('document','NO DOC URL'))")
+    echo "  Doc URL: $DOC_URL"
+
+    if [ "$DOC_URL" != "NO DOC URL" ]; then
+      # Follow the redirect manually to get S3 URL, then check content-type
+      REDIRECT=$(curl -s -u "${CH_API_KEY}:" -o /dev/null -w "%{redirect_url}" "$DOC_URL")
+      echo "  S3 URL: $REDIRECT"
+      CONTENT_TYPE=$(curl -s -o /dev/null -w "%{content_type}" "$REDIRECT")
+      echo "  Content-Type: $CONTENT_TYPE"
+    fi
+  fi
+  echo ""
+done

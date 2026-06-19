@@ -350,6 +350,57 @@ If the file exists, a reboot is needed and the second command lists which packag
 
 ---
 
+## pdf-to-image
+
+A lightweight internal microservice that converts Companies House accounts PDFs into base64-encoded PNG images for processing by Ollama's vision model. Used exclusively by the n8n Customer Profiler workflow.
+
+**How it works**: When n8n sends a PDF binary to `http://192.168.1.192:8086/convert`, the service uses poppler's `pdftoppm` to render each page to PNG at 100 DPI, encodes them as base64 strings, and returns them in a JSON response. Images are **never saved to disk permanently** — poppler writes temporary files to `/tmp` inside the container during rendering, which are deleted immediately once loaded into memory. Nothing persists between requests.
+
+**Source files**: `/docs/terminai/it/NewPC/n8n/pdf-to-image/` (three files: `app.py`, `requirements.txt`, `Dockerfile`)
+
+Unlike other services on this server, pdf-to-image uses a **custom-built Docker image** rather than a pulled one. Updating it means modifying the source files and rebuilding.
+
+### Modify and rebuild
+
+```bash
+# After editing any file in /docs/terminai/it/NewPC/n8n/pdf-to-image/
+
+# Stop and remove the existing container
+docker stop pdf-to-image && docker rm pdf-to-image
+
+# Rebuild the image from source
+docker build -t pdf-to-image /docs/terminai/it/NewPC/n8n/pdf-to-image/
+
+# Recreate the container
+docker run -d \
+  --name pdf-to-image \
+  --restart unless-stopped \
+  -p 127.0.0.1:18086:8086 \
+  -p 192.168.1.192:8086:8086 \
+  pdf-to-image
+```
+
+**Verify after rebuild**:
+```bash
+curl http://192.168.1.192:8086/health
+# Expected: {"status":"ok"}
+```
+
+### Key configuration (app.py)
+
+| Constant | Current value | Purpose |
+|---|---|---|
+| `DPI` | 200 | Rendering resolution — lower = fewer tokens per page for the vision model; higher = more detail but larger images |
+| `MAX_DIM` | 2000 | Maximum pixel dimension per axis — images larger than this are scaled down before encoding |
+
+> Increasing `DPI` improves readability for very dense financial tables but significantly increases the token count sent to Ollama, which can overflow the model's context window. 100 DPI is the recommended balance for A4 accounts documents.
+
+### What is preserved across rebuilds
+
+Nothing — the container holds no state. All configuration is in the source files, and the Docker image carries no persistent data.
+
+---
+
 ## Checking Current Versions
 
 ```bash
