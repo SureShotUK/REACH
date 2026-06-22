@@ -8,6 +8,22 @@ This file provides project-specific guidance to Claude Code when working on the 
 >
 > Read all three files for complete guidance.
 
+---
+
+## Amelai — The AI System
+
+**Amelai** is the name for the AI PC and all AI applications, AI processing, and AI capabilities running on it. Amelai uses **female pronouns** (she/her).
+
+- **Machine hostname**: `amelai` (lowercase) — used in URLs, SSH, Tailscale device names, and shell commands
+- **As a named system**: "Amelai" (capitalised) in documentation, prose, and conversation
+- **What Amelai provides**: local LLM inference (Ollama), image generation (ComfyUI), workflow automation (n8n), web search (SearXNG), speech-to-text
+
+When Steve says "ask Amelai", "Amelai thinks", or "Amelai's analysis", he is referring to Amelai's AI processing capabilities running on that machine.
+
+> The name is closely related to Steve's daughter's name and is assigned female gender accordingly.
+
+---
+
 ## System Specifications Reference
 
 **When you need to know the system's hardware or software configuration, always read these files:**
@@ -325,6 +341,7 @@ All Docker services on this server use **dual `-p` bindings** to allow access fr
 | FileBrowser | 80 | 18087 | 8087 |
 | SearXNG | 8080 | 18080 | 8080 |
 | n8n | 5678 | 15678 | 5678 |
+| pdf-to-image | 8086 | 18086 | LAN only (internal) |
 
 **Systemd services (not Docker — no loopback/LAN split):**
 
@@ -395,7 +412,7 @@ Expected under load: `4, 4, 8` for both GPUs.
 
 ## Linux Session Housekeeping
 
-At the end of any session involving Linux work on amelai, always remind the user to run the following best practice steps:
+At the end of any session involving Linux work on Amelai, always remind the user to run the following best practice steps:
 
 **1. Remove packages installed only for troubleshooting or testing:**
 ```bash
@@ -426,8 +443,8 @@ When the STT client icon turns green then grey within a few seconds of pressing 
 
 **Diagnostic path:**
 1. Is Tailscale connected on the client machine? (`tailscale status`)
-2. Is amelai visible as a peer? (`tailscale ping amelai.tail926601.ts.net`)
-3. Is the STT service running on amelai? (`sudo systemctl status stt_server`)
+2. Is Amelai visible as a peer? (`tailscale ping amelai.tail926601.ts.net`)
+3. Is the STT service running on Amelai? (`sudo systemctl status stt_server`)
 4. Check server logs: `tail -f /opt/stt/stt.log` — "Client connected" should appear when the client connects
 
 ### Task Scheduler — no console window
@@ -466,7 +483,7 @@ Based on parent CLAUDE.md files, maintain:
 
 ## Personal Windows 11 PC Build
 
-A second build document (`New_PC_Builds.md`) covers a personal Windows 11 desktop to replace the user's Windows 10 machine — entirely separate from the AI server (amelai).
+A second build document (`New_PC_Builds.md`) covers a personal Windows 11 desktop to replace the user's Windows 10 machine — entirely separate from the AI server (Amelai).
 
 **Use case**: Minecraft Bedrock RTX at 1440p, web browsing, Tailscale-connected to the AI PC for remote encoding.
 
@@ -483,6 +500,151 @@ A second build document (`New_PC_Builds.md`) covers a personal Windows 11 deskto
 - Cooler: Arctic Liquid Freezer III 360 (360mm AIO chosen over 240mm for quieter sustained operation)
 
 **Key document**: `New_PC_Builds.md` — full component research, rejected options with reasoning, and video editing via AI PC remote encoding section.
+
+---
+
+## n8n Workflow Generation Patterns
+
+This section records the differences between generated workflow JSON and what n8n actually requires, verified by comparing generated vs. imported/amended versions of the CustomerProfiler and LeadGen workflows.
+
+### Credential IDs and Names (this n8n instance)
+
+| Credential | n8n name | n8n id |
+|---|---|---|
+| Companies House Header Auth | `Header Auth account` | `PL9KCqe3GZ1iSIFZ` |
+| Microsoft Outlook OAuth2 | `MyHotmailEmail` | `Orgklv2FZdo5pC4V` |
+
+**Important**: credential IDs are instance-specific. If n8n is reinstalled they will change — reconnect credentials in the UI after any fresh install.
+
+### Microsoft Outlook Node (typeVersion 2) — Correct Structure
+
+The working structure confirmed by `CustomerProfilerWorkingEmail.json`:
+
+```json
+{
+  "type": "n8n-nodes-base.microsoftOutlook",
+  "typeVersion": 2,
+  "parameters": {
+    "toRecipients": "steve@portland-fuel.co.uk",
+    "subject": "={{ $json.subject }}",
+    "bodyContent": "={{ $json.htmlBody }}",
+    "additionalFields": {
+      "bodyContentType": "html"
+    }
+  },
+  "credentials": {
+    "microsoftOutlookOAuth2Api": { "id": "Orgklv2FZdo5pC4V", "name": "MyHotmailEmail" }
+  }
+}
+```
+
+**Key rules:**
+- **No `operation` field** — do not include `"operation": "sendMail"` or `"operation": "send"`; n8n typeVersion 2 does not use it
+- **`subject` and `bodyContent` are top-level parameters** — expressions like `={{ $json.subject }}` and `={{ $json.htmlBody }}` work correctly in JSON and do not need to be set manually in the UI
+- **`bodyContentType` goes inside `additionalFields`**, not at the top level of parameters
+- A `webhookId` UUID is auto-added by n8n on import; not required in generated JSON
+
+### IF Node (Route) — Simplified Condition
+
+The `"operation": "equal"` field can be omitted — it is the default. Minimal working structure:
+
+```json
+{
+  "type": "n8n-nodes-base.if",
+  "typeVersion": 1,
+  "parameters": {
+    "conditions": {
+      "string": [
+        { "value1": "={{ $json.mode }}", "value2": "list" }
+      ]
+    }
+  }
+}
+```
+
+### Node IDs
+
+n8n expects UUID-format node IDs (e.g. `"7261f06e-bdde-461a-9d51-363aa458b3bd"`). Using short strings like `"p01"` works for import but n8n replaces them with UUIDs on save. Generate with any UUID v4 generator, or use short IDs knowing n8n will replace them.
+
+### Workflow Settings for File Downloads
+
+Add `"binaryMode": "separate"` to the workflow settings object when the workflow downloads files (e.g. PDF accounts):
+
+```json
+"settings": { "executionOrder": "v1", "binaryMode": "separate" }
+```
+
+### $getWorkflowStaticData — Production Mode Only
+
+`$getWorkflowStaticData('global')` **does not persist in test/manual executions**. Data written during a test run is lost when the execution ends.
+
+**To make profile saving work:**
+1. Activate the workflow using the toggle in the top-right of the n8n editor
+2. Use the chat from outside the editor — either the production chat URL or via Open WebUI if connected
+
+Running via the "Chat" button inside the editor = test mode = no persistence.
+
+### Companies House Document Download — Three-Step Process (S3 Redirect)
+
+The filing history `links.document_metadata` URL does **not** directly serve the PDF. There are **three** required steps because the document API redirects to AWS S3:
+
+1. **GET `document_metadata` URL** (with CH API key auth) → returns JSON:
+   ```json
+   { "links": { "document": "https://document-api.company-information.service.gov.uk/document/{id}/content" }, ... }
+   ```
+2. **GET `links.document` URL** (with CH API key auth, **no redirect follow**, `fullResponse: true`, `neverError: true`) → returns 302 with `Location` header pointing to S3 presigned URL
+
+3. **GET `Location` header URL** (S3 presigned URL, **NO auth**, `Accept: application/pdf`, `responseFormat: file`) → returns PDF binary
+
+**CRITICAL — WHY three steps:**
+- `document-api.company-information.service.gov.uk` requires CH API key auth (Basic) to authorise the download
+- It responds with a **302 redirect** to an AWS S3 presigned URL
+- S3 presigned URLs embed their own auth in query params (`X-Amz-Algorithm`, `X-Amz-Signature`)
+- S3 **rejects requests that also carry an `Authorization` header** → 400: "Only one auth mechanism allowed"
+- S3 also rejects requests with **no auth at all** → 401
+- n8n's HTTP node follows redirects and forwards the Authorization header — so you cannot send CH auth and follow the redirect in the same node
+- Solution: disable redirect following to capture the `Location` header (S3 URL), then fetch S3 separately without auth
+
+**Correct node chain in workflow:**
+```
+Get Filing URL     (Code: extracts document_metadata → metaUrl)
+→ CH: Doc Metadata    (GET metaUrl, CH auth → JSON with links.document)
+→ Extract PDF URL     (Code: extracts links.document → downloadUrl)
+→ CH: Get Redirect    (GET downloadUrl, CH auth, followRedirects:false, fullResponse:true, neverError:true → 302 with headers.location)
+→ Extract S3 URL      (Code: extracts headers.location → s3Url)
+→ CH: Download PDF    (GET s3Url, NO auth, Accept:application/pdf, responseFormat:file → PDF binary)
+→ Extract PDF Text    (extractFromFile, binaryPropertyName:pdfData)
+```
+
+**`CH: Get Redirect` node options:**
+```json
+"options": {
+  "redirect": {
+    "redirect": {
+      "followRedirects": false
+    }
+  },
+  "response": {
+    "response": {
+      "fullResponse": true,
+      "neverError": true
+    }
+  }
+}
+```
+
+**`Extract S3 URL` Code node:**
+```javascript
+const resp = $input.first().json;
+const hdrs = resp.headers || {};
+const s3Url = hdrs.location || hdrs.Location || null;
+return [{ json: { s3Url: s3Url } }];
+```
+
+### After Importing Any Workflow
+
+1. **CH header credential**: If the credential dropdown is empty, create it directly in the node (n8n may not match by ID on a fresh import)
+2. **Outlook credential**: If MyHotmailEmail is not auto-matched, reconnect in each Send Email node
 
 ---
 

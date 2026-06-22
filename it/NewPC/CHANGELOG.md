@@ -2,6 +2,22 @@
 
 ---
 
+## [Unreleased] - 2026-06-22
+
+### Added
+- `it/NewPC/n8n/CompanyLookup_Workflow.json` — new 11-node Company Name Lookup workflow; accepts names one-per-line or comma-separated; CH search + Amelai confidence scoring + email (HTML table + CSV) + chat response
+- `it/NewPC/n8n/Company_Lookup.md` — user documentation: production URL, activation steps, both input formats, confidence symbol key
+
+### Changed
+- `it/NewPC/CLAUDE.md` — added Amelai section (name, she/her pronouns, hostname lowercase rules, what she provides); updated prose references from `amelai` to `Amelai`
+- `it/NewPC/n8n/Company_Profiler.md` — updated "amelai" → "Amelai" with she/her pronoun
+
+### Fixed
+- **Multiple companies silently dropped** — n8n Code nodes run once per batch (not once per item); `$input.first()` was discarding companies 2–N. Fixed with `$input.all()` + `$('Parse Names').all()[idx]` in `Prepare Prompt` and `Parse Scores`
+- **CSV attachment never arrived** — `To Binary` binary approach produced attachment n8n Outlook node could not consume. Fixed by base64-encoding CSV in `Build Email + CSV` and using Microsoft Graph API `fileAttachment` format directly in Outlook node `additionalFields.attachments`; `To Binary` node removed
+
+---
+
 ## [Unreleased] - 2026-06-19
 
 ### Added

@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-06-19 (Customer Profiler iXBRL extraction)
+**Last Updated**: 2026-06-22 (Company Name Lookup workflow)
 
 ---
 
@@ -24,6 +24,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Active Work Areas
 
+- **n8n Company Name Lookup workflow** — `CompanyLookup_Workflow.json` built and working; multiple-company processing and CSV attachment both fixed this session; needs verification of CSV attachment and chat rendering; medium/low confidence results may be filtered by Amelai (model behaviour to investigate)
 - **n8n Customer Profiler workflow** — `CustomerProfilerWorkingEmail.json` working for PDF and iXBRL paths; needs final test confirming net assets extraction from iXBRL
 - **n8n Lead Generation workflow** — `LeadGen_Workflow.json` built and ready to import; needs "Companies House API" Basic Auth credential created in n8n before first test run
 - **ComfyUI (Steve) rebuild required** — run command updated with `--reserve-vram 3` and correct workflows volume path; container must be recreated
@@ -32,6 +33,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Recently Completed
 
+- **Company Name Lookup workflow** — 11-node importable workflow (`CompanyLookup_Workflow.json`); accepts names one-per-line or comma-separated; CH search + Amelai confidence scoring + colour-coded email with CSV attachment + markdown chat response; multiple-company bug fixed (Code node batch-mode semantics); CSV attachment fixed (Graph API format)
 - **Customer Profiler iXBRL extraction** — dual-path architecture: PDF → pdf-to-image → qwen2.5vl:7b vision; iXBRL → text download → qwen3.5:27b (think:false); format detected from S3 URL before download; dual targeted extracts for P&L + balance sheet sections; `remove` command; profit after tax; parentheses negatives
 - **n8n Lead Generation workflow built** — 17-node importable workflow (`it/NewPC/n8n/LeadGen_Workflow.json`); SIC search + single company modes; CH officers + filing + PDF + SearXNG + Ollama qwen3.6:27b + HTML email digest to steve@portland-fuel.co.uk; full usage guide in `LeadGen_Workflow_Design.md`
 - **STT client/server fixes** — four client bugs fixed (keyboard hook re-entrancy stealing Ctrl/Esc, spurious toggle, double F9 handler, blocking sleep in async); server now lazy-loads Whisper on first speech and unloads from VRAM after 15 min idle; full documentation at `stt/STT_Documentation.md`
@@ -57,6 +59,8 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
+- [ ] **Company Lookup: verify CSV attachment** — confirm `company_lookup_results.csv` arrives using Graph API `fileAttachment` format
+- [ ] **Company Lookup: medium/low confidence** — investigate why Amelai only returns high-confidence results; may need prompt tuning or model change
 - [ ] **Customer Profiler: final iXBRL test** — confirm net assets extracted for Centrebus (03872099) after dual-section extraction fix
 - [ ] **Customer Profiler: bulk run** — profile a broader set of companies to validate robustness across different iXBRL and PDF account formats
 - [ ] **Import and test lead gen workflow** — create "Companies House API" Basic Auth credential in n8n, import `it/NewPC/n8n/LeadGen_Workflow.json`, test with 1–2 known companies
@@ -98,6 +102,8 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
 | `FileWriter.py` | Open WebUI Tool — paste into Workspace → Tools to give models file write capability |
 | `n8n/N8N_Setup.md` | n8n workflow automation — Docker setup, Tailscale config, update and backup procedures |
+| `n8n/CompanyLookup_Workflow.json` | Importable Company Name Lookup workflow — 11 nodes, pfl-company-lookup webhook |
+| `n8n/Company_Lookup.md` | User documentation for Company Name Lookup — URL, input formats, output description |
 | `n8n/LeadGen_Workflow.json` | Importable lead generation workflow — ready for n8n import |
 | `n8n/LeadGen_Workflow_Design.md` | Lead gen design + usage guide — input syntax, examples, scoring, run times |
 | `androidApp/` | AI Voice Android app — native Kotlin voice client for Open WebUI over Tailscale |

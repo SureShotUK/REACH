@@ -2,6 +2,47 @@
 
 ---
 
+## Session 2026-06-22 — Company Name Lookup workflow built and debugged
+
+### Summary
+Built a new n8n workflow that accepts a list of company names (one per line or comma-separated), searches Companies House for each, has Amelai score match confidence, and returns results both in the chat window and by email with a CSV attachment. The session resolved two persistent bugs: multiple companies being silently dropped (root cause: n8n Code nodes run once for all items as a batch — `$input.first()` was discarding companies 2–N), and CSV attachments never arriving (fixed by using the Microsoft Graph API `fileAttachment` format with base64 directly in the Outlook node, removing the To Binary node). Also established "Amelai" as the name for the AI PC with female pronouns (she/her) across all CLAUDE.md files.
+
+### Work Completed
+- **"Amelai" naming** — updated all CLAUDE.md files to reflect the AI PC name with female pronouns (she/her); hostname `amelai` stays lowercase in URLs/commands, "Amelai" capitalised in prose; saved to persistent memory
+- **Company Name Lookup workflow** — new 11-node n8n workflow (`CompanyLookup_Workflow.json`); webhook prefix `pfl-company-lookup`; accepts names one-per-line or comma-separated (max 50)
+- **Chat response added** — `Respond to Chat` (Respond to Webhook) node returns markdown table with ✓/~/✗ confidence symbols and clickable CH registration number links; fires after email is sent
+- **Multiple companies bug fixed** — root cause identified: n8n Code nodes run **once for all items as a batch**, not once per item. `$input.first()` in `Prepare Prompt` and `Parse Scores` silently dropped companies 2–N. Fixed by switching to `$input.all()` with index-based lookup via `$('Parse Names').all()[idx]`
+- **CSV attachment fixed** — replaced broken binary/To Binary approach with Microsoft Graph API `fileAttachment` format: `csvBase64` generated in `Build Email + CSV`, passed directly to Outlook node `additionalFields.attachments` as `@odata.type: #microsoft.graph.fileAttachment`; `To Binary` node removed
+- **User documentation written** — `Company_Lookup.md` created with production URL, activation steps, both input formats, confidence symbol key, and processing time guidance
+- **Feedback memory saved** — Steve wants reasoning surfaced openly (inferences, assumptions flagged inline); saved to persistent memory
+
+### Files Changed
+- `it/NewPC/n8n/CompanyLookup_Workflow.json` — new 11-node workflow (final working version)
+- `it/NewPC/n8n/Company_Lookup.md` — new user documentation
+- `it/NewPC/CLAUDE.md` — added Amelai section (name, pronouns, hostname rules); updated prose references from lowercase to "Amelai"
+- `it/NewPC/n8n/Company_Profiler.md` — updated "amelai" → "Amelai" with she/her pronoun
+- `~/.claude/projects/-docs-terminai/memory/project_amelai.md` — new memory: Amelai naming rules
+- `~/.claude/projects/-docs-terminai/memory/feedback_show_reasoning.md` — new memory: surface reasoning openly
+
+### Key Decisions
+- **`$input.all()` not `$input.first()` in Code nodes** — n8n Code nodes (typeVersion 2, external task runner) execute once per batch, not once per item. HTTP Request nodes loop over items internally; Code nodes do not. Any Code node that processes multi-item input must use `$input.all()` and map/loop explicitly.
+- **Graph API attachment format** — n8n's Outlook node (typeVersion 2) accepts `additionalFields.attachments` in Microsoft Graph API format directly (`@odata.type`, `contentBytes` as base64). No intermediate binary node needed. The To Binary Code node was removed entirely.
+- **Chat response after email** — `Respond to Webhook` fires at the end of the linear chain (after email is sent). All companies must be processed before the chat window responds — acceptable given the use case.
+- **`$('Parse Names').all()[idx]`** — the correct way to retrieve company name in batch Code nodes downstream of an HTTP Request node that replaces the item JSON with the API response. Paired `.item` references are unreliable in batch mode.
+
+### Reference Documents
+- `it/NewPC/n8n/Company_Lookup.md` — user documentation for the lookup workflow
+- Production URL: `https://amelai.tail926601.ts.net:5678/webhook/pfl-company-lookup/chat`
+
+### Next Actions
+- [ ] Test CSV attachment arrives correctly with the new Graph API format
+- [ ] Verify chat markdown table renders correctly for all confidence levels (✓/~/✗)
+- [ ] Test with companies that have no CH match (should show "No match found" row)
+- [ ] Investigate why only high-confidence matches are returned (Amelai filtering out medium/low — may be a model behaviour issue with qwen3.5:27b)
+- [ ] Consider increasing Ollama timeout beyond 120s for large batches (6 companies × ~25s = 150s worst case)
+
+---
+
 ## Session 2026-06-19 — Customer Profiler: iXBRL dual-path extraction built and debugged
 
 ### Summary
