@@ -574,6 +574,40 @@ The working structure confirmed by `CustomerProfilerWorkingEmail.json`:
 - **`bodyContentType` goes inside `additionalFields`**, not at the top level of parameters
 - A `webhookId` UUID is auto-added by n8n on import; not required in generated JSON
 
+### Microsoft Outlook Node — Attachments Do Not Work (CRITICAL)
+
+n8n's `n8n-nodes-base.microsoftOutlook` (typeVersion 2) **cannot send attachments**. The `additionalFields.attachments` field is not a pass-through to the Microsoft Graph API — n8n processes it internally and silently drops the attachment. All three formats tested failed:
+- Binary property reference: `=[{"name":..., "data":"csvFile"}]`
+- Graph API format inline: `=[{"@odata.type":"#microsoft.graph.fileAttachment", "contentBytes":...}]`
+- Graph API format as expression: `={{ [{...}] }}`
+
+In all cases the email body arrives but no attachment is present. No error is raised.
+
+**Workaround — use an HTTP Request node calling the Graph API directly:**
+
+```json
+{
+  "type": "n8n-nodes-base.httpRequest",
+  "typeVersion": 4.2,
+  "parameters": {
+    "method": "POST",
+    "url": "https://graph.microsoft.com/v1.0/me/sendMail",
+    "authentication": "predefinedCredentialType",
+    "nodeCredentialType": "microsoftOutlookOAuth2Api",
+    "sendBody": true,
+    "contentType": "raw",
+    "rawContentType": "application/json",
+    "body": "={{ JSON.stringify({ message: { subject: $json.subject, body: { contentType: 'HTML', content: $json.htmlBody }, toRecipients: [{ emailAddress: { address: 'steve@portland-fuel.co.uk' } }], attachments: [{ '@odata.type': '#microsoft.graph.fileAttachment', name: 'file.csv', contentType: 'text/csv', contentBytes: $json.csvBase64 }] }, saveToSentItems: false }) }}",
+    "options": { "timeout": 30000 }
+  },
+  "credentials": {
+    "microsoftOutlookOAuth2Api": { "id": "Orgklv2FZdo5pC4V", "name": "MyHotmailEmail" }
+  }
+}
+```
+
+The `predefinedCredentialType` + `microsoftOutlookOAuth2Api` combination tells n8n to inject the Bearer token automatically — the same credential used by the Outlook node works here without modification. Generate `csvBase64` upstream with `Buffer.from(csvContent, 'utf-8').toString('base64')` in a Code node.
+
 ### IF Node (Route) — Simplified Condition
 
 The `"operation": "equal"` field can be omitted — it is the default. Minimal working structure:
