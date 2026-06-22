@@ -2,6 +2,16 @@
 
 ---
 
+## [Unreleased] - 2026-06-22 (2)
+
+### Fixed
+- **CSV attachment never arrived (second attempt)** — n8n's Outlook node (typeVersion 2) silently drops attachments regardless of format (`additionalFields.attachments` is not a Graph API pass-through). Fixed by replacing "Send Results" Outlook node with an HTTP Request node calling `https://graph.microsoft.com/v1.0/me/sendMail` directly using `predefinedCredentialType` auth and a `JSON.stringify()` body with `#microsoft.graph.fileAttachment`
+
+### Changed
+- `it/NewPC/n8n/CompanyLookup_Workflow.json` — "Send Results" node: `n8n-nodes-base.microsoftOutlook` (typeVersion 2) → `n8n-nodes-base.httpRequest` (typeVersion 4.2); same credential, direct Graph API call
+
+---
+
 ## [Unreleased] - 2026-06-22
 
 ### Added

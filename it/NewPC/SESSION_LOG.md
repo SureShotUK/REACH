@@ -2,6 +2,33 @@
 
 ---
 
+## Session 2026-06-22 (2) — CSV attachment fix: Outlook node replaced with Graph API direct call
+
+### Summary
+Diagnosed and fixed the persistent CSV attachment failure in the Company Name Lookup email. After two previous failed attempts using different attachment formats in n8n's Outlook node, the root cause was identified: n8n's Microsoft Outlook node (typeVersion 2) does not pass `additionalFields.attachments` through to the Graph API — it processes the field internally, and neither the binary reference format nor the native Graph API `@odata.type` format worked. The fix replaces the Outlook node entirely with an HTTP Request node calling the Graph API's `sendMail` endpoint directly, using the same existing OAuth2 credential via n8n's `predefinedCredentialType` authentication. Node count stays at 11.
+
+### Work Completed
+- **Diagnosed Outlook node attachment failure** — confirmed `csvBase64` is generated correctly in `Build Email + CSV`; the silent failure is in how n8n's Outlook node processes `additionalFields.attachments` before sending to the Graph API
+- **Replaced "Send Results" node** — `n8n-nodes-base.microsoftOutlook` (typeVersion 2) replaced with `n8n-nodes-base.httpRequest` (typeVersion 4.2) calling `https://graph.microsoft.com/v1.0/me/sendMail`
+- **Authentication** — uses `predefinedCredentialType` with `microsoftOutlookOAuth2Api` (same `MyHotmailEmail` credential, id: `Orgklv2FZdo5pC4V`); n8n handles Bearer token injection and refresh
+- **Payload** — full Graph API `sendMail` body constructed inline as a `JSON.stringify()` expression; includes `fileAttachment` with `contentBytes: $json.csvBase64`; `saveToSentItems: false`
+- **Updated `/tmp/build_lookup_workflow.py`** — single node block replaced; workflow regenerated
+
+### Files Changed
+- `it/NewPC/n8n/CompanyLookup_Workflow.json` — "Send Results" node: Outlook → HTTP Request (Graph API direct)
+
+### Key Decisions
+- **Bypass n8n's Outlook abstraction entirely** — three attachment formats failed inside the Outlook node (binary ref, Graph API format attempt 1, Graph API format attempt 2). Direct Graph API call with known-good payload format is the only reliable path.
+- **`predefinedCredentialType`** — HTTP Request nodes in n8n can reference any OAuth2 credential by type name; the existing `microsoftOutlookOAuth2Api` credential works without modification
+- **`saveToSentItems: false`** — prevents the sent email appearing in Steve's Hotmail Sent Items; set to `true` if a sent-items record is preferred
+
+### Next Actions
+- [ ] Import updated `CompanyLookup_Workflow.json` into n8n and reselect the `MyHotmailEmail` credential in the "Send Results" node if not auto-matched
+- [ ] Test: confirm `company_lookup_results.csv` now arrives as an email attachment
+- [ ] Investigate why Amelai only returns high-confidence matches (possible model filtering behaviour in qwen3.5:27b)
+
+---
+
 ## Session 2026-06-22 — Company Name Lookup workflow built and debugged
 
 ### Summary

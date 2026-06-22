@@ -24,7 +24,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Active Work Areas
 
-- **n8n Company Name Lookup workflow** — `CompanyLookup_Workflow.json` built and working; multiple-company processing and CSV attachment both fixed this session; needs verification of CSV attachment and chat rendering; medium/low confidence results may be filtered by Amelai (model behaviour to investigate)
+- **n8n Company Name Lookup workflow** — `CompanyLookup_Workflow.json` working for multi-company processing and chat response; CSV attachment fix applied (Outlook node replaced with direct Graph API HTTP Request); needs test to confirm attachment now arrives
 - **n8n Customer Profiler workflow** — `CustomerProfilerWorkingEmail.json` working for PDF and iXBRL paths; needs final test confirming net assets extraction from iXBRL
 - **n8n Lead Generation workflow** — `LeadGen_Workflow.json` built and ready to import; needs "Companies House API" Basic Auth credential created in n8n before first test run
 - **ComfyUI (Steve) rebuild required** — run command updated with `--reserve-vram 3` and correct workflows volume path; container must be recreated
@@ -59,7 +59,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
-- [ ] **Company Lookup: verify CSV attachment** — confirm `company_lookup_results.csv` arrives using Graph API `fileAttachment` format
+- [ ] **Company Lookup: verify CSV attachment** — import updated JSON, reselect `MyHotmailEmail` credential in "Send Results" node if needed, test that `company_lookup_results.csv` now arrives
 - [ ] **Company Lookup: medium/low confidence** — investigate why Amelai only returns high-confidence results; may need prompt tuning or model change
 - [ ] **Customer Profiler: final iXBRL test** — confirm net assets extracted for Centrebus (03872099) after dual-section extraction fix
 - [ ] **Customer Profiler: bulk run** — profile a broader set of companies to validate robustness across different iXBRL and PDF account formats
