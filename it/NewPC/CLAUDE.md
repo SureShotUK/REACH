@@ -505,7 +505,37 @@ A second build document (`New_PC_Builds.md`) covers a personal Windows 11 deskto
 
 ## n8n Workflow Generation Patterns
 
-This section records the differences between generated workflow JSON and what n8n actually requires, verified by comparing generated vs. imported/amended versions of the CustomerProfiler and LeadGen workflows.
+This section records the differences between generated workflow JSON and what n8n actually requires, verified by comparing generated vs. imported/amended versions of the CustomerProfiler, LeadGen, and CompanyLookup workflows.
+
+### Code Node Execution Model (CRITICAL)
+
+n8n Code nodes (typeVersion 2, external task runner) **execute once for the entire item batch**, not once per item. HTTP Request nodes loop over items internally; Code nodes do not.
+
+**Always use `$input.all()` and `.map()` when a Code node receives multiple items:**
+
+```javascript
+// WRONG — silently drops items 2-N
+const item = $input.first().json;
+
+// CORRECT — processes all items
+return $input.all().map(function(item, idx) {
+  // process item.json here
+  return {json: { ... }};
+});
+```
+
+**To look up paired data from an upstream node by index:**
+
+```javascript
+// WRONG — .item only works in per-item execution mode
+const name = $('Parse Names').item.json.companyName;
+
+// CORRECT — access by index in batch mode
+const parseNamesItems = $('Parse Names').all();
+const name = parseNamesItems[idx] ? parseNamesItems[idx].json.companyName : '';
+```
+
+**Why this matters:** When a Code node returns N items and the next node is an HTTP Request node, those N requests run correctly (HTTP nodes loop internally). But if the HTTP results then flow into another Code node, that Code node must use `$input.all()` — not `$input.first()` — or only the first result is ever processed. This caused the Company Name Lookup workflow to silently drop companies 2–N across every version until the root cause was identified.
 
 ### Credential IDs and Names (this n8n instance)
 
