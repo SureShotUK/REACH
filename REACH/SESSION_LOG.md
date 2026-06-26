@@ -4,6 +4,57 @@ This file tracks all Claude Code sessions for the REACH compliance project.
 
 ---
 
+## Session 2026-06-26
+
+### Summary
+Live IUCLID 6 Cloud session working through the NRES member registration dossier section by section, correcting the guide in real time as each field and validation issue was encountered. Resolved all six validation failures (2 business rules, 4 completeness checks) and clarified portal submission navigation. Verified the 2030 deadline against the official HSE tonnage band table.
+
+### Work Completed
+- Advised which Section 3.5 sub-sections to complete: **3.5.0** (general use description) and **3.5.4** (widespread uses by professional workers) only — 3.5.1, 3.5.2, 3.5.3, 3.5.5, 3.5.6 all skipped with documented reasons
+- Clarified the exposure assessment justification tick boxes in 3.5.0 — none of the four EU REACH options apply to the NRES pathway; free-text justification used instead
+- Advised on Section 3.5.4 fields: Use number (self-assigned, = 1), Registration/Report Status (Article 10, ≥10 t/yr), Technical function (Fuel), Subsequent service life (No), contributing activities ERC8a (environment) and PROC8a (workers)
+- Confirmed **27 October 2030** deadline is correct for 10–100 t/yr band — verified against live HSE tonnage band table; user's suggestion of 2028 was incorrect (2028 triggers at ≥100 t/yr)
+- Diagnosed and resolved all six validation failures from downloaded CSV:
+  - **BR164** (Section 2.3 PBT): New Part 2b added to guide — create summary record, select "not PBT/vPvB", add NRES justification text
+  - **BR021 + TCC_0303_02** (Section 3.3 Sites): Must create Site entity in Legal Entities first (full address), then link to 3.3 record; office address is correct (direct delivery model)
+  - **TCC_030504_01** (Section 3.5.4): Missing Technical function, Subsequent service life, ERC8a, and PROC8a contributing activities — all added to guide
+  - **TCC_11_04** (Section 11 Guidance): Resolved at Create Dossier step — tick "Guidance on safe use" under lead-provided information checkbox
+  - **TCC_13_02** (Section 13.1 CSR): Resolved at Create Dossier step — tick "Chemical safety report" under lead-provided information checkbox
+- Confirmed "Review by an assessor" checkbox should NOT be ticked — no study data to assess in member dossier
+- Added dossier name: `Portland_Fuel_HVO_NRES_MemberDossier_2026`
+- Added export note: may need to export to previous major IUCLID version (consistent with Article 26 Inquiry approach)
+- Clarified portal navigation: registration is NOT under "Make a New Submission" (Inquiry/PPORD/DUR/SIAN) — look for Registrations or Joint Submissions section; email HSE IT if not found
+
+### Files Changed
+- `REACH/HVO/IUCLID6_NRES_Member_Dossier_Guide.md` — extensively updated throughout session: new Part 2b (PBT), expanded 3.3 Sites with two-step entity creation, 3.5.0 tick box table, 3.5.4 all new fields + contributing activities, updated validation table, updated Create Dossier step with lead checkboxes, export version note, portal navigation note
+
+### Git Commits
+- No commits this session (end-of-session commit pending)
+
+### Key Decisions
+- **None of the four exposure assessment justification tick boxes apply to NRES** — the NRES reason (data held by lead registrant) is not represented in the EU REACH picklist; use free-text field only
+- **Office address is correct for Sites** — Portland Fuel does not hold stock at any premises; direct delivery model documented in Remarks
+- **2030 deadline confirmed** — 10–100 t/yr falls below the 100 t/yr threshold that triggers the 2028 deadline; verified against HSE source
+- **"Review by an assessor" should not be ticked** — no study data in member dossier means nothing has been assessed
+- **Items 5 and 6 (Section 11 and 13.1) resolved at dossier creation, not in dataset** — cannot be fixed by editing the substance record
+
+### Reference Documents
+- `REACH/HVO/IUCLID6_NRES_Member_Dossier_Guide.md` — primary working document
+- HSE tonnage band table: <a href="https://www.hse.gov.uk/reach/duin.htm" target="_blank">hse.gov.uk/reach/duin.htm</a> — confirms 2026/2028/2030 deadlines by tonnage
+
+### Next Actions
+- [ ] Fix Section 2.3 PBT — create record, select "not PBT/vPvB", add justification text
+- [ ] Fix Section 3.3 Sites — create Site entity in Legal Entities with full office address, link to 3.3 record
+- [ ] Fix Section 3.5.4 — add Technical function (Fuel), Subsequent service life (No), ERC8a contributing activity, PROC8a contributing activity
+- [ ] Re-run validation — confirm all six failures are cleared
+- [ ] Create Dossier — tick "Chemical safety report" and "Guidance on safe use" under lead-provided information
+- [ ] Export as `.i6z` — try previous major version if default is rejected by portal
+- [ ] Find correct submission path on Comply portal — look for Registrations/Joint Submissions section; contact ukreachitsupport@defra.gov.uk if not found
+- [ ] Submit dossier and pay £399 SME fee
+- [ ] Record submission reference number in `HVO_NRES_Action_Tracker.md`
+
+---
+
 ## Session 2026-04-20
 
 ### Summary

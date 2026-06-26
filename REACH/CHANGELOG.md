@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased] - 2026-06-26 (Session 5)
+
+### Changed
+- `REACH/HVO/IUCLID6_NRES_Member_Dossier_Guide.md` — major update throughout live IUCLID session:
+  - Added Part 2b: Section 2.3 PBT Assessment (create summary record, select not PBT/vPvB, NRES justification text)
+  - Section 3.3 Sites: two-step process — create Site entity in Legal Entities first, then link; office address guidance for direct-delivery model
+  - Section 3.5: documented all 7 sub-sections with skip/complete decisions; 3.5.0 tick-box table (none apply to NRES); 3.5.4 fully populated (Use number, Registration/Report Status, Technical function, Subsequent service life, ERC8a, PROC8a)
+  - Validation section: added known non-applicable failures table (Article 17/18 intermediates); added six-item fix table from live CSV
+  - Create Dossier step: added lead-provided information checkboxes (Chemical safety report + Guidance on safe use); export version note; portal navigation note
+
+### Fixed
+- Confirmed 27 October 2030 deadline correct for 10–100 t/yr band (verified against HSE tonnage band table); 2028 only triggers at ≥100 t/yr
+
+---
+
 ## [Unreleased] - 2026-04-20 (Session 4)
 
 ### Added

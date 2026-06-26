@@ -1,16 +1,14 @@
 # REACH Project - Current Status
 
-**Last Updated**: 2026-04-20
+**Last Updated**: 2026-06-26
 
 ## Current State
 
-UK REACH compliance project for multiple substances: **Urea** (existing DUIN, monitoring phase) and **HVO** (NEW project, active planning phase).
+UK REACH compliance project for multiple substances: **Urea** (existing DUIN, monitoring phase) and **HVO** (NRES member dossier — final fixes before submission).
 
 **Urea Status**: Extended deadline (27 October 2029), awaiting ATRm framework publication (expected by October 2027). Monitoring phase - no action required until ATRm published.
 
-**HVO Status (NEW - 11 Feb 2026, updated 12 Feb)**: Active compliance planning for new substance import. Company has DUIN for Urea but NOT for HVO (DUIN is per-substance). Small SME, 10-100 tonne band, deadline 27 October 2030 (if DUIN submitted for HVO). Reference documentation complete with verified MSDS/COSHH sheets and ECHA database links. Next step: Article 26 enquiry to identify lead registrant.
-
-**IUCLID Project (NEW - 12 Feb 2026)**: Established separate IUCLID 6 Cloud technical guidance project to support chemical registration dossier preparation. Includes HVO reference data for Article 26 enquiries and consortium registration work.
+**HVO Status (updated 2026-06-26)**: Article 26 Inquiry accepted by DEFRA (ref 0000025852-5). NRES pathway active. IUCLID member dossier built section by section in live session; all six validation failures diagnosed and fixes documented in guide. Three dataset fixes remain to apply (PBT, Sites, 3.5.4 contributing activities), then re-run validation and proceed to Create Dossier and portal submission.
 
 ## Project Parameters
 
@@ -45,7 +43,7 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 
 UK REACH compliance project for multiple substances: **Urea** (existing DUIN, monitoring phase) and **HVO** (active — Article 26 Inquiry dossier in progress in IUCLID 6 Cloud, validation almost complete).
 
-**HVO Status (updated 2026-04-20)**: Article 26 Inquiry dossier being prepared in IUCLID 6 Cloud. Worked through 12 validation failures in live session. One remaining item to confirm (BR228 Section 1.4) before dossier can be exported and submitted to HSE via Comply with UK REACH portal.
+**HVO Status (updated 2026-06-26)**: Article 26 Inquiry accepted by DEFRA (ref 0000025852-5). NRES (New Registration of an Existing Substance) pathway applies. Next step: submit NRES member dossier with Section 13.2 data waiver in IUCLID 6. Full registration deadline: 27 October 2030.
 
 ## Active Work Areas
 
@@ -55,16 +53,20 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 - **Consultant Relationships**: Periodic (annual) check-ins with CS Regulatory (low priority until 2027)
 - **Documentation**: All major planning documents complete; project now in waiting phase
 
-### HVO Project (Active — Inquiry Dossier In Progress)
+### HVO Project (Active — NRES Member Dossier Final Fixes)
 - **Compliance Research**: ✅ COMPLETE
 - **DUIN Clarification**: ✅ COMPLETE — Urea DUIN does not cover HVO
 - **Action Plan**: ✅ COMPLETE — `UK_REACH_HVO_Action_Plan.md`
-- **Article 26 Inquiry Plan**: ✅ COMPLETE — `Article_26-Inquiry_Plan.md`
-- **IUCLID6 Guide**: ✅ COMPLETE — `IUCLID6_Article26_Inquiry_Guide.md` (reflects live validation findings)
-- **IUCLID Dossier**: 🔄 IN PROGRESS — Validation almost clean; BR228 (Section 1.4) to confirm on next login
-- **Portal Submission**: ⏭️ NEXT — Export `.i6z` and submit via Comply with UK REACH portal
-- **HSE Response**: ⏭️ PENDING — Up to 15 working days after submission
-- **Consortium Contact**: ⏭️ PENDING — Initiate after HSE reveals Lead Registrant identity
+- **Article 26 Inquiry**: ✅ COMPLETE — accepted by DEFRA 2026-06-26 (ref 0000025852-5)
+- **NRES Pathway Identified**: ✅ COMPLETE — substance was EU REACH registered pre-Brexit; member dossier + data waiver required
+- **Section 13.2 Waiver Draft**: ✅ COMPLETE — `HVO_Section13_2_Data_Waiver.md`
+- **Action Tracker**: ✅ COMPLETE — `HVO_NRES_Action_Tracker.md`
+- **NRES Dossier Guide**: ✅ COMPLETE (updated this session) — `IUCLID6_NRES_Member_Dossier_Guide.md`
+- **NRES Member Dossier (IUCLID)**: 🔧 IN PROGRESS — 3 dataset fixes remaining (Section 2.3 PBT, 3.3 Sites, 3.5.4 contributing activities) then re-run validation
+- **Portal Submission**: ⏭️ NEXT — Create Dossier (tick lead CSR + Guidance on safe use), export `.i6z`, find Registrations/Joint Submissions in Comply portal, pay £399 SME fee
+- **Substance Group Contact**: ⏭️ PENDING — HSE places us in group after processing (up to 15 working days)
+- **LoA Negotiation**: ⏭️ PENDING — Contact lead registrant once in substance group
+- **Full Registration**: ⏭️ PENDING — Submit by 27 October 2030
 
 ## Previous Work (Now on Hold Pending ATRm)
 
@@ -138,11 +140,16 @@ UK REACH compliance project for multiple substances: **Urea** (existing DUIN, mo
 ## Next Priorities
 
 ### HVO Project - IMMEDIATE
-1. **Confirm BR228 resolved** — log into IUCLID, run validation; Section 1.4 fields: Type of information = "methods and results", Rationale = "analysis scientifically not necessary (other information available)"
-2. **Export dossier** — Create Dossier > Inquiry > UK REACH > Advanced Options > Include Legal Entity > export `.i6z`
-3. **Submit via portal** — comply-chemical-regulations.service.gov.uk > New submission > upload `.i6z` > note reference number
-4. **Await HSE response** — up to 15 working days; response reveals Lead Registrant identity
-5. **Contact Lead Registrant** — initiate consortium membership and Letter of Access negotiation
+1. **Fix Section 2.3 PBT** — create summary record (Σ icon), select "not PBT/vPvB", add NRES justification text (see guide Part 2b)
+2. **Fix Section 3.3 Sites** — create Site entity in Legal Entities with full office address; link to 3.3 record; add Remarks noting direct delivery
+3. **Fix Section 3.5.4** — add Technical function = Fuel; Subsequent service life = No; ERC8a contributing activity (environment); PROC8a contributing activity (workers)
+4. **Re-run validation** — confirm all six failures cleared
+5. **Create Dossier** — tick "Chemical safety report" AND "Guidance on safe use" under lead-provided information; name `Portland_Fuel_HVO_NRES_MemberDossier_2026`
+6. **Export `.i6z`** — use previous major version if applicable (consistent with Article 26 approach)
+7. **Submit via Comply portal** — registration is NOT under "Make a New Submission"; look for Registrations or Joint Submissions section; email ukreachitsupport@defra.gov.uk if not found
+8. **Pay £399 SME fee** and record submission reference in `HVO_NRES_Action_Tracker.md`
+9. **Await HSE processing** — up to 15 working days; registration number issued → can begin importing
+10. **Contact Lead Registrant** — once placed in substance group; initiate LoA negotiation
 
 ### Urea Project - Monitoring Phase (2025-2027)
 6. **Monitor ATRm publication** - Watch for government legislation (expected 2026)
