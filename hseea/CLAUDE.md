@@ -130,3 +130,20 @@ Always verify that guidance reflects current legal requirements, as regulations 
 This project has specialized agents available:
 - `ea-permit-consultant` - Expert assistance with Environment Agency permit applications
 - `hse-compliance-advisor` - Health and safety compliance guidance
+
+---
+
+## Logo
+
+Always include the company logo at the top right of every formal document (SWPs, risk assessments, briefing papers, forms, checklists). Use this HTML snippet at the very first line of the file, before any heading:
+
+```html
+<div align="right"><img src="[RELATIVE_PATH]/NoxdownPortlandLogo.png" alt="Noxdown Portland Logo" height="60"></div>
+```
+
+Logo file is at `terminai/NoxdownPortlandLogo.png`. Adjust the relative path based on document depth:
+- Documents in `hseea/` → `../NoxdownPortlandLogo.png`
+- Documents in `hseea/FLT/` or any other subfolder → `../../NoxdownPortlandLogo.png`
+- Documents three levels deep → `../../../NoxdownPortlandLogo.png`
+
+Apply this to **both** the main procedure document **and** any associated record/checklist forms.

@@ -1,3 +1,5 @@
+<div align="right"><img src="../../NoxdownPortlandLogo.png" alt="Noxdown Portland Logo" height="60"></div>
+
 # Safe Working Procedure: LPG Cylinder Change
 ## Toyota Tonero 30 Forklift Truck (Model 02-8FGF30)
 
