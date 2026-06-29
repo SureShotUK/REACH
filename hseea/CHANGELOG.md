@@ -4,6 +4,28 @@ All notable changes to this HSE/EA compliance repository will be documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased] - 2026-06-29
+
+### Added
+- `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md` (Ref: SWP-FLT-LPG-001) — 36-step, 16-section LPG cylinder change Safe Working Procedure for Toyota Tonero 30 forklift:
+  - Model-specific valve shutdown sequence: outflow valve → engine runs dry → fuel switch OFF → ignition OFF → pipe valve → disconnect piping
+  - Cylinder band sizing table: 290 mm / 300 mm / 310 mm / 320 mm (from Toyota manual A5028-0EE00)
+  - Mandatory leak test using regulator fuel test bar method + soapy water (model-specific)
+  - PPE requirements table: goggles, leather gloves, steel toecap boots, natural fibre clothing
+  - DSEAR-compliant location requirements: ventilation, ignition exclusion zone, signage, drainage awareness
+  - Replacement cylinder inspection checklist (damage, test date, valve, relief valve, label)
+  - Emergency procedures: gas leak response and fire response (CO2/dry powder only; 50 m evacuation)
+  - DSEAR cylinder storage requirements for full and empty cylinders
+  - Cylinder change record table for audit trail
+  - Out-of-service criteria and regulator tar drain maintenance note
+  - Version control table for future review tracking
+
+### Documentation
+- Source: Toyota Forklift Operator's Manual, Publication No. A5028-0EE00 (on file at `FLT/flt_manual.pdf`)
+- Legislative basis: DSEAR 2002, PSSR 2000, MHSWR 1999, Manual Handling Operations Regulations 1992, LOLER 1998, HSWA 1974, HSE HSG234
+
+---
+
 ## [Unreleased] - 2026-05-06
 
 ### Added

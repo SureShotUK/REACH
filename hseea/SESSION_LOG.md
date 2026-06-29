@@ -6,6 +6,45 @@ This file maintains a chronological record of all Claude Code sessions for this 
 
 <!-- New sessions will be added below this line. Keep in reverse chronological order (newest first) -->
 
+## Session 2026-06-29
+
+### Summary
+Created a full Safe Working Procedure (SWP) for changing the LPG/propane cylinder on the Toyota Tonero 30 forklift truck. The procedure is grounded in the Toyota Tonero 30 operator's manual (Publication No. A5028-0EE00) for model-specific steps, and aligned with UK HSE best practice and DSEAR 2002, PSSR 2000, MHSWR 1999, Manual Handling Regulations, and HSE HSG234. A Noxdown logo addition was requested but deferred — no logo file was found in the project directory.
+
+### Work Completed
+- Used Explore subagent to extract LPG-specific content from `FLT/flt_manual.pdf` — valve sequence, band sizes (290/300/310/320 mm), leak-test method (fuel test bar + soapy water), regulator tar drain procedure, and all safety warnings
+- Created `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md` — 16-section, 36-step SWP suitable for workplace display and operator training
+- Procedure covers: PPE table, cylinder area requirements (DSEAR), cylinder inspection checklist, 6-phase step-by-step procedure, mandatory leak test, DSEAR-compliant cylinder storage (full and empty), cylinder change record, emergency procedures (gas leak + fire), out-of-service criteria, and regulator maintenance note
+- Logo addition for Noxdown: searched `hseea` directory — no logo file found; user to provide logo file path or drop into FLT folder to complete
+
+### Files Changed
+- `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md` — created: 36-step LPG cylinder change SWP for Toyota Tonero 30 (Document Ref: SWP-FLT-LPG-001)
+
+### Git Commits
+- None this session — file needs committing
+
+### Key Decisions
+- Valve shutdown sequence follows the manual exactly: outflow valve → engine runs dry → fuel switch OFF → ignition OFF → pipe valve → disconnect piping (not the other way around — pipe valve must be closed before disconnection to prevent liquid spill)
+- Leak test uses the regulator's fuel test bar method specified in the Tonero 30 manual — this is model-specific and must not be substituted
+- Band sizing table (290/300/310/320 mm) included — using wrong band setting leaves the cylinder unsecured; this is the key model-specific detail most generic procedures omit
+- DSEAR compliance: "outdoors preferred" for cylinder change area; indoor only with forced mechanical ventilation
+- Emergency procedure specifies 50 m evacuation distance for cylinder-involved fire — consistent with fire service guidance
+
+### Reference Documents
+- `FLT/flt_manual.pdf` — Toyota Forklift Operator's Manual, Publication No. A5028-0EE00 (source of all model-specific steps)
+- `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md` — the delivered output
+- Legislative basis: DSEAR 2002, PSSR 2000, MHSWR 1999, Manual Handling Operations Regulations 1992, LOLER 1998, HSWA 1974, HSE HSG234
+
+### Next Actions
+- [ ] Commit `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md` to git
+- [ ] Fill in `Authorised By` field and confirm document reference fits site numbering system
+- [ ] Provide Noxdown logo file path (or drop file into `FLT/` folder) to add logo to top right of document
+- [ ] Brief designated FLT operators on this procedure before it goes live
+- [ ] Ensure a cylinder change record sheet is printed and available at the cylinder change area
+- [ ] Confirm DSEAR risk assessment covers the designated cylinder change area and cylinder storage arrangements
+
+---
+
 ## Session 2026-05-06
 
 ### Summary

@@ -1,12 +1,14 @@
 # Project Status
 
-**Last Updated**: 2026-05-06
+**Last Updated**: 2026-06-29
 
 ## Current State
 
-This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, first aid needs assessments for both sites, fire door compliance analysis, and now a violence and aggression risk assessment.
+This HSE/EA compliance knowledge repository is actively being populated with practical compliance guidance and reference materials. Session documentation system is working successfully. Major documentation achievements include a Toyota Tonero 30 LPG cylinder change SWP, office HSE best practices guide, a comprehensive four-document ladder compliance suite, water discharge permit planning documentation, an updated three-year HSE strategic plan with realistic budget allocations, a noise assessment report with full CNAWR 2005 compliance analysis, fire evacuation plans for the office, first aid needs assessments for both sites, fire door compliance analysis, a violence and aggression risk assessment, and a grain dust/gluten risk assessment briefing.
 
-**Recent Update (2026-05-06)**: Grain dust / gluten conditions risk assessment briefing created — `Briefings/Grain_Dust_Gluten_Risk_Briefing.md`. Covers coeliac disease, IgE wheat allergy, and NCGS with peer-reviewed evidence, risk matrix, symptom comparison table, COSHH regulatory position, control measures, and recommendations for a specific employee in an office 50 yards from active grain drying/loading operations.
+**Recent Update (2026-06-29)**: LPG cylinder change SWP created for Toyota Tonero 30 forklift — `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md` (Ref: SWP-FLT-LPG-001). 36-step, 16-section procedure grounded in the Toyota operator's manual (A5028-0EE00) and UK HSE guidance (DSEAR 2002, PSSR 2000, HSG234). Noxdown logo addition pending — no logo file found in project directory.
+
+**Previous Update (2026-05-06)**: Grain dust / gluten conditions risk assessment briefing created — `Briefings/Grain_Dust_Gluten_Risk_Briefing.md`. Covers coeliac disease, IgE wheat allergy, and NCGS with peer-reviewed evidence, risk matrix, symptom comparison table, COSHH regulatory position, control measures, and recommendations for a specific employee in an office 50 yards from active grain drying/loading operations.
 
 **Previous Update**: Violence and aggression staff guide and incident report form created. `Violence/HTDW_Violence.md` provides role-specific guidance for all three staff groups (office, warehouse, drivers). `Violence/Incident_Report_Form.docx` provides a standalone Word incident report form (HTDW-VAA-001-F1). Document reference abbreviation confirmed as **VAA** (not VAG) throughout this project.
 
@@ -14,6 +16,7 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 
 ## Active Work Areas
 
+- **FLT LPG Cylinder Change SWP**: Created — `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md` (SWP-FLT-LPG-001). Needs: git commit; `Authorised By` field completing; Noxdown logo added (logo file not yet in project); operator briefing; cylinder change record sheet printed for use at the vehicle
 - **Violence and Aggression**: Active — core documents complete. Staff guide (`HTDW_Violence.md`) and incident report form (`Incident_Report_Form.docx`) created. Need to: fill in placeholders; implement 15 RA actions (A4, A5, A2, A6c, A9 priority); brief all staff using the guide; distribute incident report form
 - **Fire Door Compliance**: Active — `Fire/ND_FireDoors.md` created. Need to: confirm which doors are on protected escape routes; challenge fire risk assessment wording; engage fire door specialist to assess FD30S upgrade options; establish inspection regime
 - **First Aid Assessments**: Pending implementation — `OfficeFirstAiders.md` and `FirstAidersIndEst.md` created; need commit, training arrangements, and emergency services notification for industrial estate site
@@ -38,6 +41,13 @@ This HSE/EA compliance knowledge repository is actively being populated with pra
 - **Assessment Templates**: Not started - Risk, COSHH, DSE templates needed (next priority after strategic plan implementation begins)
 
 ## Recently Completed
+
+- **Toyota Tonero 30 LPG Cylinder Change SWP** (2026-06-29):
+  - Created `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md` — 36-step, 16-section Safe Working Procedure (Ref: SWP-FLT-LPG-001)
+  - Model-specific steps extracted from Toyota Operator's Manual (Publication A5028-0EE00): exact valve sequence (outflow valve → engine runs dry → fuel switch OFF → ignition OFF → pipe valve → disconnect), band sizes (290/300/310/320 mm), regulator fuel test bar leak-check method
+  - Legislative basis: DSEAR 2002, PSSR 2000, MHSWR 1999, Manual Handling Regulations 1992, LOLER, HSWA 1974, HSE HSG234
+  - Covers: PPE table, DSEAR-compliant location requirements, cylinder inspection checklist, 6-phase procedure, mandatory leak test, cylinder storage (full + empty), cylinder change record, emergency procedures, out-of-service criteria, regulator maintenance note, version control table
+  - Pending: git commit; fill `Authorised By`; add Noxdown logo (logo file path needed); operator briefing; print cylinder change record sheet
 
 - **Grain Dust / Gluten Conditions Risk Assessment Briefing** (2026-05-06):
   - Created `Briefings/Grain_Dust_Gluten_Risk_Briefing.md` — 300+ line evidence-based briefing
@@ -152,6 +162,12 @@ None.
 
 ## Next Priorities
 
+1. **Finalise and Issue LPG Cylinder Change SWP**:
+   - Commit `FLT/Toyota_Tonero_30_LPG_Cylinder_Change_SWP.md`
+   - Add Noxdown logo to top right (provide logo file)
+   - Complete `Authorised By` field and confirm document reference fits site numbering
+   - Brief designated FLT operators; print and laminate for display at cylinder change area
+   - Print cylinder change record sheet; confirm DSEAR risk assessment covers the cylinder change area
 1. **Complete and Issue Violence and Aggression Documents**:
    - Fill in [FILL IN] placeholders in `HTDW_Violence.md` and `Violence_Aggression_Risk_Assessment.md`
    - Set target dates for all 15 RA actions
