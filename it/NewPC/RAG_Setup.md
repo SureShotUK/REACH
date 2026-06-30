@@ -227,10 +227,11 @@ PGPASS='your_password_here'
 # Recreate with RAG environment variables added
 docker run -d \
   --name open-webui \
+  --network ai-network \
   --restart always \
   --gpus all \
-  --network ai-network \
-  -p 3000:8080 \
+  -p 127.0.0.1:3000:8080 \
+  -p 192.168.1.192:3000:8080 \
   -v open-webui:/app/backend/data \
   -v /home/steve/rag-documents:/app/backend/data/uploads \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
@@ -244,8 +245,6 @@ docker run -d \
 The `-v /home/steve/rag-documents:/app/backend/data/uploads` bind mount saves every uploaded file directly to the host. The rest of the Open WebUI data (SQLite DB, secret key, etc.) remains in the named Docker volume as normal.
 
 > **Note on filenames**: Open WebUI renames uploaded files with a UUID prefix on disk (e.g. `3f2a1b8c-document.pdf`). The original filename is stored in the Open WebUI database and shown in the UI — the directory listing will show UUID-prefixed names but all files are present and recoverable.
-
-> **Note on PGVECTOR_DB_URL vs DATABASE_URL**: Open WebUI uses `PGVECTOR_DB_URL` for the vector database connection. If after starting the container you see errors about pgvector mentioning `DATABASE_URL`, try replacing `-e PGVECTOR_DB_URL=...` with `-e DATABASE_URL=...`. The variable name shifted between Open WebUI releases. Check `docker logs open-webui` to diagnose.
 
 > **Note on PGVECTOR_DB_URL vs DATABASE_URL**: Open WebUI uses `PGVECTOR_DB_URL` for the vector database connection. If after starting the container you see errors about pgvector in the logs mentioning `DATABASE_URL`, try replacing `-e PGVECTOR_DB_URL=...` with `-e DATABASE_URL=...` in the command above. The variable name shifted between Open WebUI releases. Check `docker logs open-webui` to diagnose.
 
@@ -427,10 +426,11 @@ PGPASS='your_password_here'
 
 docker run -d \
   --name open-webui \
+  --network ai-network \
   --restart always \
   --gpus all \
-  --network ai-network \
-  -p 3000:8080 \
+  -p 127.0.0.1:3000:8080 \
+  -p 192.168.1.192:3000:8080 \
   -v open-webui:/app/backend/data \
   -v /home/steve/rag-documents:/app/backend/data/uploads \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
@@ -442,6 +442,62 @@ docker run -d \
 ```
 
 **Tip**: Copy this full command into a shell script (e.g., `/home/steve/scripts/start-open-webui.sh`) so you only have to maintain one canonical version.
+
+---
+
+## Database Management
+
+### Resetting the Vector Store
+
+If the `document_chunk` table needs to be recreated (e.g. after switching embedding models, or if the vector dimensions are wrong), drop it via pgAdmin or the Query Tool and restart Open WebUI — it recreates the table automatically on first document upload:
+
+```sql
+DROP TABLE document_chunk;
+```
+
+Then restart the container:
+
+```bash
+docker restart open-webui
+```
+
+To also clear the legacy ChromaDB data from the Docker volume (no longer read when pgvector is active, but takes up space):
+
+```bash
+docker exec open-webui rm -rf /app/backend/data/vector_db/
+```
+
+> **Embedding model dimensions**: Open WebUI v0.10.1 creates the `document_chunk` table as `vector(1536)` regardless of the configured embedding model. `nomic-embed-text` produces 768-dimensional vectors; Open WebUI zero-pads them to 1536 before storage (the last 768 values are always 0.0). The MCP server replicates this exactly when performing similarity searches. This is normal behaviour — do not drop the table to try to get 768-dim columns; it will just be recreated as 1536 again.
+
+---
+
+### Knowledge Store Organisation
+
+When creating Knowledge Bases in Open WebUI (Workspace → Knowledge), the structure of your stores affects the quality of RAG retrieval.
+
+RAG retrieves a fixed number of chunks per query (default: 5). With too many documents in one large store, those 5 chunks can spread thinly across unrelated topics and miss the specific detail you need. Smaller, focused stores mean retrieved chunks are almost always relevant to the question.
+
+**Recommendation: one store per regulatory topic, grouped with a prefix.**
+
+| Store name | Documents to include |
+|---|---|
+| `HSE-DSEAR` | DSEAR Regulations, DSEAR ACoP, EPS Zone Classification guidance |
+| `HSE-Fire` | Fire Safety Order, Fire Escape Plan, Fire Risk Assessment |
+| `HSE-Legionella` | L8 ACoP, HSG274 Parts 1–3 |
+| `HSE-PUWER` | PUWER Regulations, PUWER ACoP |
+| `HSE-WorkAtHeight` | Work at Height Regulations, ladder and scaffolding guidance |
+| `HSE-COSHH` | COSHH Regulations, EH40 WELs, product SDSs |
+| `Maintenance` | PPM schedules, statutory inspection records, repair procedures |
+| `REACH` | REACH Regulations, HVO dossier, SDS library |
+
+**Why this structure:**
+- The `HSE-` prefix groups all compliance stores together visually in the Open WebUI dropdown
+- Questions are typically regulation-specific (*"What does DSEAR say about zone classification?"*) so focused stores return better results than a single `HSE` catch-all
+- For cross-regulation questions, you can reference multiple stores in one message using `#HSE-DSEAR #HSE-Fire`
+
+**When a single large store is better:**
+- Questions consistently span multiple regulations (*"What are my legal duties for contractors?"*)
+- You want a single reference point and are less concerned about retrieval precision
 
 ---
 

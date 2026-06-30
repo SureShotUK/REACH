@@ -16,32 +16,35 @@ var baseUrl = config["CompaniesHouse:BaseUrl"] ?? "https://api.company-informati
 
 // --- Command-line arguments ---
 
-var sicOption = new Option<string>(
-    name: "--sic",
-    description: "Comma-separated SIC codes or prefixes to search (e.g. 49410,49310 or 49)",
-    getDefaultValue: () => "49");
+var sicOption = new Option<string>(name: "--sic", getDefaultValue: () => "49")
+{
+    Description = "Comma-separated SIC codes or prefixes to search (e.g. 49410,49310 or 49)"
+};
 
-var regionOption = new Option<string?>(
-    name: "--region",
-    description: "Town or city name to filter by (e.g. \"Norwich\", \"Manchester\"). Matches the locality field in the registered address.",
-    getDefaultValue: () => "Yorkshire");
+var regionOption = new Option<string?>(name: "--region", getDefaultValue: () => "Yorkshire")
+{
+    Description = "Town or city name to filter by (e.g. \"Norwich\", \"Manchester\"). Matches the locality field in the registered address."
+};
 
-var postcodeOption = new Option<string?>(
-    name: "--postcode",
-    description: "Postcode prefix to filter results by after retrieval (e.g. \"NR\" for Norfolk, \"IP\" for Suffolk, \"CB\" for Cambridge). More reliable than --region for broad geographic areas.");
+var postcodeOption = new Option<string?>("--postcode")
+{
+    Description = "Postcode prefix to filter results by after retrieval (e.g. \"NR\" for Norfolk, \"IP\" for Suffolk, \"CB\" for Cambridge). More reliable than --region for broad geographic areas."
+};
 
-var maxOption = new Option<int>(
-    name: "--max",
-    description: "Maximum number of results to return",
-    getDefaultValue: () => 1000);
+var maxOption = new Option<int>(name: "--max", getDefaultValue: () => 1000)
+{
+    Description = "Maximum number of results to return"
+};
 
-var outputOption = new Option<string?>(
-    name: "--output",
-    description: "Output CSV file path (default: leads_YYYY-MM-DD.csv)");
+var outputOption = new Option<string?>("--output")
+{
+    Description = "Output CSV file path (default: leads_YYYY-MM-DD.csv)"
+};
 
-var officersOption = new Option<bool>(
-    name: "--officers",
-    description: "Fetch director names for each company (slower — one extra API call per company)");
+var officersOption = new Option<bool>("--officers")
+{
+    Description = "Fetch director names for each company (slower — one extra API call per company)"
+};
 
 var rootCommand = new RootCommand("Companies House lead generation tool for Portland Fuel");
 rootCommand.AddOption(sicOption);

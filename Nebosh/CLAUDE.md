@@ -170,3 +170,9 @@ You'll be ready for NGC when you can:
 - Apply health and safety principles to workplace scenarios
 
 Good luck with your NEBOSH NGC studies!
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

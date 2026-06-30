@@ -1,0 +1,303 @@
+{
+  "name": "Portland Fuel — Company Name Lookup",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Paste a list of company names and I'll look up each one on Companies House and score the confidence of each match. Amelai will evaluate uncertain results.\n\nOne company per line:\n```\nCentrebus Limited\nPortland Fuel Ltd\nBP plc\n```\nOr comma-separated on a single line.",
+        "options": {}
+      },
+      "id": "cce59bf9-be51-417d-8c6f-fae254c83010",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1000,
+        0
+      ],
+      "webhookId": "pfl-company-lookup"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = ($input.first().json.chatInput || '').trim();\nif (!raw) throw new Error('Please paste a list of company names — one per line, or comma-separated.');\n\nlet names;\nconst lines = raw.split(/\\r?\\n/).map(function(l){return l.trim();}).filter(Boolean);\nif (lines.length > 1) {\n  names = lines;\n} else {\n  names = raw.split(',').map(function(s){return s.trim();}).filter(Boolean);\n}\n\nif (names.length === 0) throw new Error('No company names found in your input.');\nif (names.length > 50) throw new Error('Maximum 50 companies per lookup. You submitted ' + names.length + '.');\n\nreturn names.map(function(name) {\n  return {json: {companyName: name.replace(/^\"|\"$/g, '')}};\n});"
+      },
+      "id": "8738a592-886c-4ece-8885-6b6080a870cd",
+      "name": "Parse Names",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://api.company-information.service.gov.uk/search/companies?q=' + encodeURIComponent($json.companyName) + '&items_per_page=5' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "00c8dc9d-a7d8-4a0c-8c9d-dfacc31252ce",
+      "name": "CH: Search",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -600,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const parseNamesItems = $('Parse Names').all();\nconst chResults = $input.all();\n\nreturn chResults.map(function(chItem, idx) {\n  const companyName = (parseNamesItems[idx] && parseNamesItems[idx].json.companyName) || '';\n  const searchItems = (chItem.json.items || []).slice(0, 5);\n\n  if (!companyName || searchItems.length === 0) {\n    return {json: {companyName: companyName, ollamaBody: null, noResults: true}};\n  }\n\n  const candidates = searchItems.map(function(item, i) {\n    return (i+1)+'. \"'+item.title+'\" | Reg: '+item.company_number+' | Status: '+(item.company_status||'Unknown')+' | '+(item.address_snippet||'');\n  }).join('\\n');\n\n  const prompt = 'You are matching a company name to UK Companies House registrations.\\n\\n'\n    + 'Search term: \"'+companyName+'\"\\n\\n'\n    + 'Companies House search results:\\n'+candidates+'\\n\\n'\n    + 'For each result, rate how likely it is to be the company we are searching for, with a confidence score from 0 to 100.\\n'\n    + 'Consider:\\n'\n    + '- Exact name match scores very high (90-100)\\n'\n    + '- Same name with Ltd/Limited/PLC/Co variation scores high (80-95)\\n'\n    + '- Likely same company but trading name vs registered name scores medium-high (60-80)\\n'\n    + '- Partial match or similar but potentially different company scores low (20-50)\\n'\n    + '- Prefer Active companies over Dissolved where confidence is similar\\n\\n'\n    + 'Respond with a JSON array ONLY, no other text or explanation:\\n'\n    + '[{\"rank\":1,\"company_number\":\"12345678\",\"company_name\":\"EXAMPLE LIMITED\",\"status\":\"active\",\"confidence\":95,\"reason\":\"Exact name match, active company\"}]\\n\\n'\n    + 'Include all results with confidence >= 25. Always include at least the top result, even if confidence is low.';\n\n  const body = JSON.stringify({model: 'qwen3.5:27b', prompt: prompt, stream: false, think: false});\n  return {json: {companyName: companyName, ollamaBody: body, noResults: false}};\n});"
+      },
+      "id": "aec7fcb1-a447-412c-aad0-e9710dee057a",
+      "name": "Prepare Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.1.192:11434/api/generate",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.ollamaBody }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "4ceb5e8e-f167-4603-a968-f98f11589102",
+      "name": "Amelai: Score Match",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -200,
+        0
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const prepItems = $('Prepare Prompt').all();\nconst ollamaResults = $input.all();\nconst chBase = 'https://find-and-update.company-information.service.gov.uk/company/';\n\nreturn ollamaResults.map(function(ollamaItem, idx) {\n  const companyName = (prepItems[idx] && prepItems[idx].json.companyName) || '';\n  const noResults = (prepItems[idx] && prepItems[idx].json.noResults) || false;\n\n  if (noResults) {\n    return {json: {companyName: companyName, matches: [], noResult: true}};\n  }\n\n  const response = (ollamaItem.json.response || '').trim();\n  let matches = [];\n  try {\n    const jsonMatch = response.match(/\\[[\\s\\S]*\\]/);\n    if (jsonMatch) matches = JSON.parse(jsonMatch[0]);\n  } catch(e) {}\n\n  return {json: {\n    companyName: companyName,\n    matches: matches.map(function(m) {\n      const conf = parseInt(m.confidence) || 0;\n      const lvl = conf >= 80 ? 'high' : conf >= 50 ? 'medium' : 'low';\n      return {\n        company_number: (m.company_number || '').trim(),\n        company_name: m.company_name || '',\n        status: m.status || 'Unknown',\n        confidence: conf,\n        confidence_level: lvl,\n        reason: m.reason || '',\n        ch_url: chBase + (m.company_number || '').trim()\n      };\n    }).sort(function(a,b){return b.confidence - a.confidence;}),\n    noResult: matches.length === 0\n  }};\n});"
+      },
+      "id": "905ec172-92f4-48a8-a3e1-61187fc92ca6",
+      "name": "Parse Scores",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "allResults",
+        "include": "allFields"
+      },
+      "id": "e2599839-e55f-474e-8c83-7e857d3a7d82",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const allResults = ($input.first().json.allResults || []);\nconst date = new Date().toLocaleDateString('en-GB');\n\nconst C = {\n  high:   {bg:'#d4edda', fg:'#155724', label:'High'},\n  medium: {bg:'#fff3cd', fg:'#856404', label:'Medium'},\n  low:    {bg:'#f8d7da', fg:'#721c24', label:'Low'}\n};\n\nlet htmlRows = '';\nconst csvLines = ['\"Searched Name\",\"Company Number\",\"Registered Name\",\"Confidence\",\"Status\",\"Confidence Level\",\"Companies House URL\"'];\n\nfor (const result of allResults) {\n  const name = result.companyName || '';\n\n  if (!result.matches || result.matches.length === 0) {\n    htmlRows += '<tr>'\n      + '<td style=\"padding:8px;border-bottom:1px solid #ddd;vertical-align:top\">'+name+'</td>'\n      + '<td colspan=\"5\" style=\"padding:8px;border-bottom:1px solid #ddd;color:#6c757d;font-style:italic\">No matches found</td>'\n      + '</tr>';\n    csvLines.push('\"'+name.replace(/\"/g,'\"\"')+'\",,,,\"\",\"No match\",\"\"');\n    continue;\n  }\n\n  result.matches.forEach(function(m, idx) {\n    const c = C[m.confidence_level] || C.low;\n    const nameCell = idx === 0\n      ? '<td style=\"padding:8px;border-bottom:1px solid #ddd;vertical-align:top\" rowspan=\"'+result.matches.length+'\">'+name+'</td>'\n      : '';\n    htmlRows += '<tr>'\n      + nameCell\n      + '<td style=\"padding:8px;border-bottom:1px solid #ddd\"><a href=\"'+m.ch_url+'\" style=\"color:#2c3e50\">'+m.company_number+'</a></td>'\n      + '<td style=\"padding:8px;border-bottom:1px solid #ddd\">'+m.company_name+'</td>'\n      + '<td style=\"padding:8px;border-bottom:1px solid #ddd;text-align:center;background:'+c.bg+';color:'+c.fg+'\"><strong>'+m.confidence+'%</strong></td>'\n      + '<td style=\"padding:8px;border-bottom:1px solid #ddd\">'+m.status+'</td>'\n      + '<td style=\"padding:8px;border-bottom:1px solid #ddd;font-size:11px\">'+m.reason+'</td>'\n      + '</tr>';\n    csvLines.push('\"'+name.replace(/\"/g,'\"\"')+'\",\"'+m.company_number+'\",\"'+m.company_name.replace(/\"/g,'\"\"')+'\",\"'+m.confidence+'%\",\"'+m.status+'\",\"'+c.label+'\",\"'+m.ch_url+'\"');\n  });\n}\n\nconst total = allResults.length;\nconst highConf = allResults.filter(function(r){return r.matches&&r.matches[0]&&r.matches[0].confidence>=80;}).length;\nconst noMatch = allResults.filter(function(r){return !r.matches||r.matches.length===0;}).length;\n\nconst html = '<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:1000px;margin:0 auto\">'\n  + '<h2 style=\"color:#2c3e50\">Portland Fuel — Company Name Lookup</h2>'\n  + '<p><strong>'+total+'</strong> searched &nbsp;|&nbsp; <strong>'+highConf+'</strong> high-confidence &nbsp;|&nbsp; <strong>'+noMatch+'</strong> not found &nbsp;|&nbsp; '+date+'</p>'\n  + '<p style=\"font-size:12px\">'\n  + '<span style=\"background:#d4edda;color:#155724;padding:2px 8px;border-radius:3px;margin-right:6px\">High ≥80%</span>'\n  + '<span style=\"background:#fff3cd;color:#856404;padding:2px 8px;border-radius:3px;margin-right:6px\">Medium 50–79%</span>'\n  + '<span style=\"background:#f8d7da;color:#721c24;padding:2px 8px;border-radius:3px\">Low &lt;50%</span>'\n  + '</p>'\n  + '<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\">'\n  + '<thead><tr style=\"background:#2c3e50;color:#fff\">'\n  + '<th style=\"padding:8px;text-align:left;width:200px\">Searched Name</th>'\n  + '<th style=\"padding:8px;width:110px\">Reg No</th>'\n  + '<th style=\"padding:8px;text-align:left\">Registered Name</th>'\n  + '<th style=\"padding:8px;width:90px;text-align:center\">Confidence</th>'\n  + '<th style=\"padding:8px;width:80px\">Status</th>'\n  + '<th style=\"padding:8px;text-align:left\">Reason</th>'\n  + '</tr></thead>'\n  + '<tbody>'+htmlRows+'</tbody>'\n  + '</table>'\n  + '<p style=\"color:#999;font-size:11px;margin-top:16px\">Generated '+new Date().toISOString()+' via n8n / Amelai — full results attached as CSV</p>'\n  + '</body></html>';\n\nconst csvContent = csvLines.join('\\n');\nconst csvBase64 = Buffer.from(csvContent, 'utf-8').toString('base64');\nconst subject = 'Company Lookup — '+total+' searched, '+highConf+' high confidence | '+date;\n\nreturn [{json: {subject: subject, htmlBody: html, csvBase64: csvBase64}}];"
+      },
+      "id": "25202f13-522a-4ff2-b693-5c4d3c56cded",
+      "name": "Build Email + CSV",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "toRecipients": "steve@portland-fuel.co.uk",
+        "subject": "={{ $json.subject }}",
+        "bodyContent": "={{ $json.htmlBody }}",
+        "additionalFields": {
+          "bodyContentType": "html",
+          "attachments": "={{ [{\"@odata.type\": \"#microsoft.graph.fileAttachment\", \"name\": \"company_lookup_results.csv\", \"contentType\": \"text/csv\", \"contentBytes\": $json.csvBase64}] }}"
+        }
+      },
+      "id": "911b4f21-7c67-4f5d-8386-d6ddd287f3a7",
+      "name": "Send Results",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        600,
+        0
+      ],
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "Orgklv2FZdo5pC4V",
+          "name": "MyHotmailEmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const allResults = $('Aggregate').first().json.allResults || [];\nconst date = new Date().toLocaleDateString('en-GB');\nconst SYM = {high: '✓', medium: '~', low: '✗'};\n\nconst total = allResults.length;\nconst highConf = allResults.filter(function(r){return r.matches&&r.matches[0]&&r.matches[0].confidence>=80;}).length;\nconst noMatch = allResults.filter(function(r){return !r.matches||r.matches.length===0;}).length;\n\nlet md = '**Portland Fuel — Company Name Lookup** | ' + total + ' searched, ' + highConf + ' high-confidence, ' + noMatch + ' not found | ' + date + '\\n\\n';\nmd += '✓ High (≥80%)   ~ Medium (50–79%)   ✗ Low (<50%)\\n\\n';\nmd += '| Searched Name | Reg No | Registered Name | Confidence | Status |\\n';\nmd += '|---|---|---|:---:|---|\\n';\n\nfor (const result of allResults) {\n  const name = result.companyName || '';\n  if (!result.matches || result.matches.length === 0) {\n    md += '| ' + name + ' | — | *No match found* | — | — |\\n';\n    continue;\n  }\n  result.matches.forEach(function(m) {\n    const sym = SYM[m.confidence_level] || '?';\n    md += '| ' + name + ' | ' + sym + ' [' + m.company_number + '](' + m.ch_url + ') | ' + m.company_name + ' | ' + m.confidence + '% | ' + m.status + ' |\\n';\n  });\n}\n\nmd += '\\n_Full results and CSV sent to steve@portland-fuel.co.uk_';\n\nreturn [{json: {output: md}}];"
+      },
+      "id": "5a472a6c-d132-4215-b933-66967a30b3cb",
+      "name": "Build Chat Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {output: $json.output} }}"
+      },
+      "id": "b19a0eee-0c73-48db-bf3c-70efcad59b9b",
+      "name": "Respond to Chat",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1000,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "Parse Names",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Names": {
+      "main": [
+        [
+          {
+            "node": "CH: Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CH: Search": {
+      "main": [
+        [
+          {
+            "node": "Prepare Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Prompt": {
+      "main": [
+        [
+          {
+            "node": "Amelai: Score Match",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Amelai: Score Match": {
+      "main": [
+        [
+          {
+            "node": "Parse Scores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Scores": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Build Email + CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Email + CSV": {
+      "main": [
+        [
+          {
+            "node": "Send Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Results": {
+      "main": [
+        [
+          {
+            "node": "Build Chat Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Chat Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

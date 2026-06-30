@@ -1,4 +1,4 @@
-<div align="right"><img src="../../NoxdownPortlandLogo.png" alt="Noxdown Portland Logo" height="60"></div>
+<img src="../../Portland Long.png" alt="../Portland Long.png" style="width:40%; height:auto;" align="right">
 
 # LPG Cylinder Change — Operator Record
 **Document Ref:** SWP-FLT-LPG-001-F1 &nbsp;&nbsp; **Relates to:** SWP-FLT-LPG-001 v1.0
@@ -9,10 +9,10 @@
 
 | Field | Detail |
 |---|---|
-| Date | |
-| Time started | |
-| FLT identity / reg | |
-| Operator name (print) | |
+| Date | \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_|
+| Time started |\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_|
+| FLT identity / reg |\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_|
+| Operator name (print) |\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_|
 
 ---
 

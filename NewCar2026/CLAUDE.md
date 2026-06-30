@@ -132,3 +132,9 @@ This project has specialized agents available:
 - Used vehicle specific history requires VIN-specific research
 
 Always encourage the user to verify critical information with dealers, test drive vehicles, and consider their specific needs and circumstances when making the final decision.
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

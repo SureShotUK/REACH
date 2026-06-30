@@ -17,11 +17,11 @@
 
 ## Before You Start — Checklist
 
-- [✅] Article 26 Inquiry accepted (ref 0000025852-5) ✅
+- ✅ Article 26 Inquiry accepted (ref 0000025852-5)
 - [ ] Section 13.2 data waiver statement saved as PDF (`HVO_Section13_2_Data_Waiver.md`)
-- [✅] IUCLID 6 Cloud account active at iuclid6.echa.europa.eu
-- [ ] Working Context set to **UK REACH** (not ECHA/EU REACH) — see Part 1.2
-- [✅] Existing HVO Substance record and Reference Substances are in place
+- ✅ IUCLID 6 Cloud account active at iuclid6.echa.europa.eu
+- [   ] Working Context set to **UK REACH** (not ECHA/EU REACH) — see Part 1.2
+- ✅ Existing HVO Substance record and Reference Substances are in place
 
 ---
 

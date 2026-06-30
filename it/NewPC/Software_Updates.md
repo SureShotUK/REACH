@@ -51,15 +51,24 @@ docker rm open-webui
 # Pull the latest image
 docker pull ghcr.io/open-webui/open-webui:main
 
+# Set pgvector password (single quotes prevent bash special char issues with ! and $)
+PGPASS='your_postgresql_password'
+
 # Recreate the container
 docker run -d \
   --name open-webui \
   --network ai-network \
   --restart always \
   --gpus all \
-  -p 3000:8080 \
+  -p 127.0.0.1:3000:8080 \
+  -p 192.168.1.192:3000:8080 \
   -v open-webui:/app/backend/data \
+  -v /home/steve/rag-documents:/app/backend/data/uploads \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
+  -e VECTOR_DB=pgvector \
+  -e PGVECTOR_DB_URL=postgresql://openwebui:${PGPASS}@192.168.1.192:5432/openwebui_vectors \
+  -e RAG_EMBEDDING_ENGINE=ollama \
+  -e RAG_EMBEDDING_MODEL=nomic-embed-text \
   ghcr.io/open-webui/open-webui:main
 
 # Verify the container is running

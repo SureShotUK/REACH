@@ -116,7 +116,28 @@
       "mcp__searxng__web_search",
       "WebFetch(domain:www.msi.com)",
       "Skill(update-config)",
-      "Bash(chmod +x \"C:/Users/SteveIrwin/terminai/it/NewPC/.claude/scripts/git-sync.sh\")"
+      "Bash(chmod +x \"C:/Users/SteveIrwin/terminai/it/NewPC/.claude/scripts/git-sync.sh\")",
+      "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index",
+      "Bash(grep -E \"\\\\.md$|\\\\.yaml$|\\\\.yml$|\\\\.json$\")",
+      "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+      "Bash(sudo tailscale serve status)",
+      "Bash(curl *)",
+      "Bash(mkdir -p /docs/terminai/it/NewPC/n8n)",
+      "Bash(mv /docs/terminai/it/NewPC/N8N_Setup.md /docs/terminai/it/NewPC/n8n/N8N_Setup.md)",
+      "Skill(claude-api)",
+      "mcp__plugin_context-mode_context-mode__ctx_search",
+      "Bash(python3 *)",
+      "mcp__plugin_context-mode_context-mode__ctx_execute_file",
+      "Bash(grep *)",
+      "Bash(ssh amelai *)",
+      "Bash(ollama list *)",
+      "Bash(docker exec open-webui *)",
+      "Bash(sudo -u postgres psql -d openwebui_vectors -c \"\\\\dt\" 2>&1)",
+      "Bash(ollama show *)",
+      "Bash(sudo mkdir -p /opt/rag-mcp)",
+      "Bash(sudo chown steve:steve /opt/rag-mcp)",
+      "Bash(mkdir -p /home/steve/rag-mcp)",
+      "Read(//home/steve/**)"
     ]
   }
 }

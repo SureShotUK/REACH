@@ -315,3 +315,9 @@ This project has specialized agents available:
 
 This project has additional commands:
 - `/update-claude` - Update this CLAUDE.md file with session learnings and user preferences
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

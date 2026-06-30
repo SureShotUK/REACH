@@ -217,3 +217,9 @@ All project files to be stored in `/terminai/Maintenance/`:
 
 - `hseea/` - HSE compliance; overlaps with statutory maintenance (fire safety, COSHH, risk assessments)
 - `it/` - IT infrastructure; out of scope for this project's maintenance tracking
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

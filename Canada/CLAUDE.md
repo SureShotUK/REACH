@@ -225,3 +225,9 @@ Always weigh compliance costs against business opportunity and regulatory risk.
 - Be specific about what the firm needs to do vs. what clients or counterparties should handle
 - Note multi-jurisdictional requirements and whether passport system applies
 - Consider UK-Canada regulatory coordination and equivalency issues
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

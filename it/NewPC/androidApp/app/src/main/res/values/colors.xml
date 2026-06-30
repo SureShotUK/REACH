@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1565C0</color>
+    <color name="primary_dark">#003c8f</color>
+    <color name="primary_light">#5E92F3</color>
+    <color name="surface_variant">#EEEEEE</color>
+    <!-- FAB states -->
+    <color name="fab_idle">#1565C0</color>
+    <color name="fab_listening">#C62828</color>
+    <color name="fab_thinking">#E65100</color>
+</resources>

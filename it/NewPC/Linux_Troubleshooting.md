@@ -691,3 +691,189 @@ In BIOS: Advanced > Onboard Devices Configuration > CPU PCIE ASPM Mode Control �
 - [x] `LnkSta` shows 16GT/s for both cards under load ✓ (2.5GT/s at idle is normal ASPM behaviour)
 
 ---
+
+## Issue 6: SSH Connections via Tailscale Repeatedly Dropping
+
+**Status (2026-04-16): MITIGATED** — Root cause is Linksys Velop WHW03v2 router resetting long-lived TCP connections. Immediate fix: Velop reboot + SSH keepalives configured. Permanent fix: put amelai in the Velop DMZ.
+
+---
+
+### Symptoms
+
+SSH sessions via Tailscale drop repeatedly, cycling through three failure modes:
+
+```
+Connection reset by 100.79.83.113 port 22
+ssh: connect to host 100.79.83.113: Connection timed out
+client_loop: send disconnect: Connection reset
+```
+
+The pattern is: session drops → new connection times out for 30–60 seconds → eventually connects again → drops again within minutes.
+
+---
+
+### Network Topology
+
+```
+ISP → TP-Link router (bridge mode — transparent) → Linksys Velop WHW03v2 (192.168.1.1) → amelai (192.168.1.192)
+```
+
+The TP-Link in bridge mode plays no role in connection tracking. The Velop is the NAT gateway and the source of the problem.
+
+---
+
+### Root Cause
+
+The **Linksys Velop WHW03v2** has an aggressive TCP session timeout (~90 seconds) for outbound connections. Tailscale maintains two persistent long-lived TCP connections from amelai to Tailscale's infrastructure:
+
+| Connection | Destination | Purpose |
+|---|---|---|
+| DERP relay | `176.58.88.183:443` (London, derp-8) | Fallback relay if direct WireGuard fails |
+| Control plane | `192.200.0.110:443` | `PollNetMap` — peer routing coordination |
+
+The Velop resets both connections approximately every 90 seconds. When PollNetMap drops, Tailscale temporarily loses the ability to verify the direct WireGuard peer path. When both DERP and the control plane are unavailable simultaneously, the WireGuard tunnel itself becomes unreliable and SSH sessions are killed.
+
+In degraded states the Velop also blocks UDP entirely for brief periods, which directly disrupts the WireGuard tunnel (UDP-based):
+
+```
+netcheck: UDP is blocked, trying HTTPS
+netcheck: UDP is blocked, trying ICMP
+NetInfo{udp=false icmpv4=false}
+```
+
+---
+
+### Diagnosis
+
+Check the tailscaled log to confirm this pattern — resets every ~90 seconds to DERP and control plane:
+
+```bash
+sudo journalctl -u tailscaled --since "2 hours ago" --no-pager | grep -i 'changed\|reset\|handshake\|blocked' | head -40
+```
+
+**Confirming signature** — you will see lines like:
+
+```
+magicsock: derp.Recv(derp-8): read tcp4 192.168.1.192:XXXXX->176.58.88.183:443: read: connection reset by peer
+Received error: PollNetMap: read tcp 192.168.1.192:XXXXX->192.200.0.110:443: read: connection reset by peer
+netcheck: UDP is blocked, trying HTTPS
+```
+
+If these appear at regular ~90-second intervals, the Velop NAT timeout is the cause.
+
+---
+
+### Fix 1: SSH Keepalives (applied 2026-04-16)
+
+Without keepalives, SSH has no way to detect a dead connection — it hangs until the OS-level TCP timeout fires (which can take minutes). Configuring keepalives makes drops faster to detect and helps maintain idle connections through brief disruptions.
+
+**On amelai** — add to `/etc/ssh/sshd_config`:
+
+```bash
+# Check whether the lines already exist
+grep -n 'ClientAlive' /etc/ssh/sshd_config
+
+# Add if not present
+echo "ClientAliveInterval 30" | sudo tee -a /etc/ssh/sshd_config
+echo "ClientAliveCountMax 6" | sudo tee -a /etc/ssh/sshd_config
+
+# Test config before restarting — ALWAYS do this first
+sudo sshd -t
+
+# Start/restart only if sshd -t returns no errors
+sudo systemctl restart ssh
+```
+
+> **WARNING**: Always run `sudo sshd -t` before restarting SSH. If the config has a syntax error, `systemctl restart ssh` will fail and leave SSH stopped — new connections will be refused. Your existing session stays alive (it is a forked child process), but you must fix the config and run `sudo systemctl start ssh` before disconnecting.
+
+**On the Windows client** — add to `C:\Users\SteveIrwin\.ssh\config` (create if it does not exist):
+
+```
+Host 100.79.83.113
+    ServerAliveInterval 30
+    ServerAliveCountMax 6
+    ConnectTimeout 30
+```
+
+Current values set on amelai: `ClientAliveInterval 30`, `ClientAliveCountMax 6` (lines 108–109 of `/etc/ssh/sshd_config`).
+
+---
+
+### Fix 2: Reboot the Velop (immediate, clears degraded state)
+
+When the Velop is actively blocking UDP in addition to resetting TCP connections, a reboot clears its connection tracking table and restores normal behaviour.
+
+Power-cycle the Velop (unplug → wait 10 seconds → plug back in). Amelai loses connectivity for ~2 minutes during restart, then SSH recovers automatically.
+
+---
+
+### Fix 3: Put amelai in the Velop DMZ (permanent fix)
+
+DMZ bypasses the Velop's NAT connection tracking for amelai entirely, preventing the TCP session timeouts from affecting Tailscale's persistent connections.
+
+1. Open `http://192.168.1.1` or the Linksys app
+2. Go to **Security** → **DMZ**
+3. Enable DMZ, enter `192.168.1.192`
+4. Save
+
+After applying, the `connection reset by peer` errors in `journalctl -u tailscaled -f` should stop or drop significantly.
+
+---
+
+### Fix 4: Forward UDP 41641 to amelai
+
+Explicit port forwarding for Tailscale's WireGuard port reduces reliance on DERP relay and makes the direct connection more stable when the Velop is under stress.
+
+In the Velop UI or app → **Port Forwarding**:
+- Protocol: UDP
+- External port: `41641`
+- Internal IP: `192.168.1.192`
+- Internal port: `41641`
+
+---
+
+### Workaround: Use tmux for session persistence
+
+Even when SSH drops, a `tmux` session on amelai survives. Reconnecting and running `tmux attach` resumes exactly where you left off.
+
+```bash
+# Start a named session
+tmux new -s main
+
+# After reconnecting, reattach
+tmux attach -t main
+
+# List sessions if you forget the name
+tmux ls
+```
+
+---
+
+### sshd_config Corruption Warning
+
+During troubleshooting, the literal text `sudo` was accidentally appended to `/etc/ssh/sshd_config`, causing `systemctl restart ssh` to fail with:
+
+```
+/etc/ssh/sshd_config: line 132: Bad configuration option: sudo
+/etc/ssh/sshd_config: terminating, 2 bad configuration options
+```
+
+**Recovery**:
+
+```bash
+# Find which lines contain "sudo"
+grep -n 'sudo' /etc/ssh/sshd_config
+
+# Remove those lines (e.g. lines 132 and 133)
+sudo sed -i '132,133d' /etc/ssh/sshd_config
+
+# Verify config is clean
+sudo sshd -t
+
+# Start SSH (use 'start' not 'restart' if it is currently stopped)
+sudo systemctl start ssh
+```
+
+Always run `sudo sshd -t` after any edit to `/etc/ssh/sshd_config` — it validates the config without restarting the daemon.
+
+---

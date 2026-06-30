@@ -260,9 +260,11 @@ Inside the record, find the **Analytical determination** repeating block and cli
 | Field | Value |
 |-------|-------|
 | **Purpose of analysis** | **identification and quantification** |
-| **Type of information provided** | **methods and results** |
+| **Type of information provided** | **data not available or insufficient** |
 | **Analysis type** | **gas chromatography [GC]** |
 | **Rationale for no results** | **analysis scientifically not necessary (other information available)** |
+
+> **Why "data not available or insufficient"**: Setting this to "methods and results" tells IUCLID an actual document is attached and will cause BR228 to fail if no document is present. Portland Fuel as a prospective registrant does not hold the full analytical package — that resides with the Lead Registrant. Using "data not available or insufficient" with the rationale and justification text is the correct approach for an Article 26 Inquiry.
 
 Enter the following in the **Justification** field:
 

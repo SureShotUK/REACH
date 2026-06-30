@@ -1,28 +1,64 @@
-CH_API_KEY="your-ch-api-key-here"
+Windows Claude Code MCP configuration
+======================================
+Add this to: C:\Users\Steve\.claude\.mcp.json
 
-for COMPANY in 06880902 03872099; do
-  echo "=== $COMPANY ==="
-  FILING=$(curl -s -u "${CH_API_KEY}:" \
-    "https://api.company-information.service.gov.uk/company/${COMPANY}/filing-history?category=accounts&items_per_page=1")
-  TYPE=$(echo "$FILING" | python3 -c "import sys,json; d=json.load(sys.stdin); f=d.get('items',[]); print(f[0].get('type','none') if f else 'NO FILINGS')")
-  DESC=$(echo "$FILING" | python3 -c "import sys,json; d=json.load(sys.stdin); f=d.get('items',[]); print(f[0].get('description','') if f else '')")
-  META=$(echo "$FILING" | python3 -c "import sys,json; d=json.load(sys.stdin); f=d.get('items',[]); print(f[0].get('links',{}).get('document_metadata','NO META URL') if f else 'NO FILINGS')")
-  echo "  Type: $TYPE"
-  echo "  Desc: $DESC"
-  echo "  Meta URL: $META"
+If that file already exists, merge the "rag" block into the existing "mcpServers" object.
+If the file doesn't exist yet, create it with the full content below.
 
-  if [ "$META" != "NO META URL" ] && [ "$META" != "NO FILINGS" ]; then
-    DOC=$(curl -s -u "${CH_API_KEY}:" "$META")
-    DOC_URL=$(echo "$DOC" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('links',{}).get('document','NO DOC URL'))")
-    echo "  Doc URL: $DOC_URL"
+IMPORTANT: Before doing this, set PGPASS as a Windows User environment variable:
+  1. Open Start, search "Edit the system environment variables"
+  2. Click "Environment Variables..."
+  3. Under "User variables for Steve", click "New"
+  4. Variable name:  PGPASS
+  5. Variable value: [your PostgreSQL password - same value as on Amelai]
+  6. Click OK, then OK again
+  7. Restart Claude Code after setting it
 
-    if [ "$DOC_URL" != "NO DOC URL" ]; then
-      # Follow the redirect manually to get S3 URL, then check content-type
-      REDIRECT=$(curl -s -u "${CH_API_KEY}:" -o /dev/null -w "%{redirect_url}" "$DOC_URL")
-      echo "  S3 URL: $REDIRECT"
-      CONTENT_TYPE=$(curl -s -o /dev/null -w "%{content_type}" "$REDIRECT")
-      echo "  Content-Type: $CONTENT_TYPE"
-    fi
-  fi
-  echo ""
-done
+--- FULL FILE (if .mcp.json does not exist yet) ---
+
+{
+  "mcpServers": {
+    "rag": {
+      "command": "node",
+      "args": ["I:\\terminai\\rag-mcp\\index.mjs"],
+      "env": {
+        "PG_HOST": "amelai.tail926601.ts.net",
+        "PG_PORT": "5432",
+        "PG_DATABASE": "openwebui_vectors",
+        "PG_USER": "openwebui",
+        "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
+        "EMBED_MODEL": "nomic-embed-text",
+        "RAG_TOP_K": "5"
+      }
+    }
+  }
+}
+
+--- MERGE BLOCK (if .mcp.json already has other servers) ---
+Add this inside your existing "mcpServers": { ... } object:
+
+    "rag": {
+      "command": "node",
+      "args": ["I:\\terminai\\rag-mcp\\index.mjs"],
+      "env": {
+        "PG_HOST": "amelai.tail926601.ts.net",
+        "PG_PORT": "5432",
+        "PG_DATABASE": "openwebui_vectors",
+        "PG_USER": "openwebui",
+        "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
+        "EMBED_MODEL": "nomic-embed-text",
+        "RAG_TOP_K": "5"
+      }
+    }
+
+--- NOTES ---
+* PGPASS is read from the Windows User environment variable you set above.
+* Knowledge base names will show as UUIDs on Windows (e.g. 1c973c09-...) because
+  the docker exec name lookup only runs locally on Amelai. Search results are
+  still fully correct - only the display label differs.
+* If Claude Code cannot find node_modules (unlikely - all packages are pure JS):
+  open a Command Prompt, cd to I:\terminai\rag-mcp and run: npm install
+* Tailscale must be connected for the tool to reach Amelai.
+  If Tailscale ACL restricts port traffic between devices, you may need to add
+  allow rules for ports 5432 (PostgreSQL) and 11434 (Ollama) in the Tailscale
+  admin console: https://login.tailscale.com/admin/acls

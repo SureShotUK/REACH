@@ -1,0 +1,1457 @@
+  $action = New-ScheduledTaskAction -Execute "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\pythonw.exe"
+  -Argument "C:\Users\SteveIrwin\stt\stt_client.py"
+  $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME"
+  $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+  $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -RunLevel Highest
+  Register-ScheduledTask -TaskName "STT Client" -Action $action -Trigger $trigger -Settings $settings -Principal
+  $principal
+  
+  Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+Loading personal and system profiles took 1287ms.
+PS C:\Users\SteveIrwin> ssh steve@100.79.83.113
+steve@100.79.83.113's password:
+Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.17.0-23-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Fri 15 May 11:16:58 BST 2026
+
+  System load:                   0.06
+  Usage of /home:                6.1% of 1.30TB
+  Memory usage:                  10%
+  Swap usage:                    0%
+  Temperature:                   46.0 C
+  Processes:                     452
+  Users logged in:               0
+  IPv4 address for ethernet2_5g: 192.168.1.192
+  IPv6 address for ethernet2_5g: fd4c:c90b:c97:9650:a2ad:9fff:fe1c:cfc9
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is enabled.
+
+0 updates can be applied immediately.
+
+
+Last login: Fri May 15 06:37:55 2026 from 192.168.1.152
+[1]+  Done                    > /tmp/paperclip.log 2>&1
+steve@amelai:~$ cd /docs/terminai/it/NewPC
+steve@amelai:/docs/terminai/it/NewPC$ claude --resume
+ ▐▛███▜▌   Claude Code v2.1.142
+▝▜█████▛▘  Sonnet 4.6 · Claude Pro
+  ▘▘ ▝▝    /docs/terminai/it/NewPC
+
+● All fixed. Once the service is running, next step is installing the Python packages on Windows and testing the client.
+
+✻ Worked for 22s
+
+※ recap: Setting up voice-to-text input for Claude Code terminal sessions. Server is running on amelai as a systemd
+  service. Next: install the Python client on the Windows 11 PC. (disable recaps in /config)
+
+❯ For part 2 I have change the filepath from C:\Users\steve\stt to C:\Users\SteveIrwin\stt and the filepath
+  \\path\to\repo\it\NewPC\stt\stt_client.py is I:\terminai\it\NewPC\stt - Please can you update the docs
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Update(STT_Voice_Input.md)
+  ⎿  Added 1 line, removed 1 line
+      126  ### 2.2 Create the client directory
+      127
+      128  ```powershell
+      129 -New-Item -ItemType Directory -Path "C:\Users\steve\stt" -Force
+      129 +New-Item -ItemType Directory -Path "C:\Users\SteveIrwin\stt" -Force
+      130  ```
+      131
+      132  ### 2.3 Copy the client script
+
+● Update(STT_Voice_Input.md)
+  ⎿  Added 3 lines, removed 4 lines
+      131
+      132  ### 2.3 Copy the client script
+      133
+      134 -Copy `stt_client.py` and `start_stt.bat` from the repo to `C:\Users\steve\stt\`.
+      134 +Copy `stt_client.py` and `start_stt.bat` from the repo to `C:\Users\SteveIrwin\stt\`.
+      135
+      136  ```powershell
+      137 -# If repo is accessible:
+      138 -Copy-Item "\\path\to\repo\it\NewPC\stt\stt_client.py" "C:\Users\steve\stt\"
+      139 -Copy-Item "\\path\to\repo\it\NewPC\stt\start_stt.bat" "C:\Users\steve\stt\"
+      137 +Copy-Item "I:\terminai\it\NewPC\stt\stt_client.py" "C:\Users\SteveIrwin\stt\"
+      138 +Copy-Item "I:\terminai\it\NewPC\stt\start_stt.bat" "C:\Users\SteveIrwin\stt\"
+      139  ```
+      140
+      141  ### 2.4 Test the client
+
+● Update(STT_Voice_Input.md)
+  ⎿  Added 1 line, removed 1 line
+      143  Run in a terminal (keep it visible for now):
+      144
+      145  ```powershell
+      146 -python C:\Users\steve\stt\stt_client.py
+      146 +python C:\Users\SteveIrwin\stt\stt_client.py
+      147  ```
+      148
+      149  Expected output:
+
+● Update(STT_Voice_Input.md)
+  ⎿  Added 2 lines, removed 2 lines
+      242  |---|---|---|
+      243  | `stt_server.py` | `/opt/stt/` on amelai | WebSocket server + Whisper + VAD |
+      244  | `stt_server.service` | `/etc/systemd/system/` on amelai | systemd unit |
+      245 -| `stt_client.py` | `C:\Users\steve\stt\` on Windows | Audio capture + text injection |
+      246 -| `start_stt.bat` | `C:\Users\steve\stt\` on Windows | Minimised launcher |
+      245 +| `stt_client.py` | `C:\Users\SteveIrwin\stt\` on Windows | Audio capture + text injection |
+      246 +| `start_stt.bat` | `C:\Users\SteveIrwin\stt\` on Windows | Minimised launcher |
+      247  | Source files | `/docs/terminai/it/NewPC/stt/` | Version-controlled originals |
+
+● All updated. The start_stt.bat uses %~dp0 (its own directory) so that file needs no changes — it picks up
+  stt_client.py from wherever the bat file lives.
+
+✻ Sautéed for 33s
+
+※ recap: Setting up voice-to-text input for Claude Code terminal sessions using Whisper on amelai. The server is
+  installed and running. Next: install the Python client packages on the Windows 11 PC. (disable recaps in /config)
+
+❯ OK so POwerShell doesn't like the network drive but you can get the filepath I have used below but the client didn't
+  work: PS Microsoft.PowerShell.Core\FileSystem::\\irwinnas\MyDocs\terminai\it\NewPC\stt> Copy-Item
+  "\\irwinnas\MyDocs\terminai\it\NewPC\stt\start_stt.bat" "C:\Users\SteveIrwin\stt\"
+  PS Microsoft.PowerShell.Core\FileSystem::\\irwinnas\MyDocs\terminai\it\NewPC\stt> python
+  C:\Users\SteveIrwin\stt\stt_client.py
+  Connecting to ws://amelai.tail926601.ts.net:9090 …
+  Traceback (most recent call last):
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\site-packages\websockets\asyncio\client.py",
+  line 544, in __await_impl__
+      self.connection = await self.create_connection()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\site-packages\websockets\asyncio\client.py",
+  line 470, in create_connection
+      _, connection = await loop.create_connection(factory, **kwargs)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py", line 1143, in
+  create_connection
+      sock = await self._connect_sock(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+          exceptions, addrinfo, laddr_infos)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py", line 1042, in
+  _connect_sock
+      await self.sock_connect(sock, address)
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py", line 728, in
+  sock_connect
+      return await self._proactor.connect(sock, address)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  asyncio.exceptions.CancelledError
+
+  The above exception was the direct cause of the following exception:
+
+  Traceback (most recent call last):
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\site-packages\websockets\asyncio\client.py",
+  line 542, in __await_impl__
+      async with asyncio_timeout(self.open_timeout):
+                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\asyncio\timeouts.py", line 114, in __aexit__
+      raise TimeoutError from exc_val
+  TimeoutError
+
+  The above exception was the direct cause of the following exception:
+
+  Traceback (most recent call last):
+    File "C:\Users\SteveIrwin\stt\stt_client.py", line 104, in <module>
+      main()
+      ~~~~^^
+    File "C:\Users\SteveIrwin\stt\stt_client.py", line 98, in main
+      asyncio.run(_run())
+      ~~~~~~~~~~~^^^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py", line 204, in run
+      return runner.run(main)
+             ~~~~~~~~~~^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py", line 127, in run
+      return self._loop.run_until_complete(task)
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py", line 719, in
+  run_until_complete
+      return future.result()
+             ~~~~~~~~~~~~~^^
+    File "C:\Users\SteveIrwin\stt\stt_client.py", line 81, in _run
+      async with websockets.connect(SERVER_URL, ping_interval=20) as ws:
+                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\site-packages\websockets\asyncio\client.py",
+  line 590, in __aenter__
+      return await self
+             ^^^^^^^^^^
+    File "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\Lib\site-packages\websockets\asyncio\client.py",
+  line 581, in __await_impl__
+      raise TimeoutError("timed out during opening handshake") from exc
+  TimeoutError: timed out during opening handshake
+
+● Connection timeout means the server isn't reachable. Most likely it's not running — the manual test was Ctrl+C'd and
+  the systemd service may not have been installed yet. Check on amelai:
+
+  sudo systemctl status stt_server
+
+  If it shows inactive or failed, start it:
+
+  sudo systemctl start stt_server
+  journalctl -u stt_server -n 20
+
+  Also confirm the UFW rule exists:
+
+  sudo ufw status numbered
+
+  Port 9090 should appear. If not, add it:
+
+  sudo ufw allow from 100.64.0.0/10 to any port 9090 proto tcp comment "STT server - Tailscale"
+
+  Once the server is confirmed running, retry the client on Windows.
+
+  ---
+  Also updating the docs with the correct NAS path:
+
+● Update(STT_Voice_Input.md)
+  ⎿  Added 2 lines, removed 2 lines
+      134  Copy `stt_client.py` and `start_stt.bat` from the repo to `C:\Users\SteveIrwin\stt\`.
+      135
+      136  ```powershell
+      137 -Copy-Item "I:\terminai\it\NewPC\stt\stt_client.py" "C:\Users\SteveIrwin\stt\"
+      138 -Copy-Item "I:\terminai\it\NewPC\stt\start_stt.bat" "C:\Users\SteveIrwin\stt\"
+      137 +Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\stt_client.py" "C:\Users\SteveIrwin\stt\"
+      138 +Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\start_stt.bat" "C:\Users\SteveIrwin\stt\"
+      139  ```
+      140
+      141  ### 2.4 Test the client
+
+✻ Brewed for 23s
+
+❯ I'll need to allow the service in on port 9090 on the tailscale admin console
+
+● Yes — if you've got custom ACLs defined in the Tailscale admin console, the default "allow all" rule won't apply and
+  you'll need to explicitly permit TCP port 9090 from your Windows PC to amelai.
+
+  Once that's in place alongside the UFW rule on amelai, the client should connect cleanly.
+
+✻ Baked for 9s
+
+❯ No that's not the issue here same result
+
+● Let's diagnose properly. Run these on amelai:
+
+  sudo systemctl status stt_server
+  ss -tlnp | grep 9090
+
+  And this on Windows (PowerShell):
+
+  Test-NetConnection amelai.tail926601.ts.net -Port 9090
+
+  That'll tell us whether the server is listening, and whether the port is reachable from Windows at all.
+
+✻ Churned for 13s
+
+❯ There's an issue with tailscale
+
+● OK — once that's sorted the client should connect fine since the server itself is working. Let me know what you find
+  and we can help troubleshoot if needed. The WebSocket connection is a plain TCP connection over Tailscale, so as long
+  as Tailscale is routing and the UFW rule is in place, it should just work.
+
+✻ Crunched for 18s
+
+❯ (venv) steve@amelai:~$ sudo systemctl status stt_server
+  ● stt_server.service - Whisper STT WebSocket Server
+       Loaded: loaded (/etc/systemd/system/stt_server.service; enabled; preset: enabled)
+       Active: active (running) since Thu 2026-05-14 15:31:16 BST; 38min ago
+     Main PID: 204081 (python)
+        Tasks: 29 (limit: 75860)
+       Memory: 333.3M (peak: 3.1G)
+          CPU: 4.532s
+       CGroup: /system.slice/stt_server.service
+               └─204081 /opt/stt/venv/bin/python stt_server.py
+
+  May 14 15:31:16 amelai systemd[1]: Started stt_server.service - Whisper STT WebSocket Server.
+  May 14 15:31:17 amelai python[204081]: 2026-05-14 15:31:17,158 INFO Loading faster-whisper large-v3 o>
+  May 14 15:31:17 amelai python[204081]: 2026-05-14 15:31:17,424 INFO HTTP Request: GET https://hugging>
+  May 14 15:31:18 amelai python[204081]: 2026-05-14 15:31:18,840 INFO Model ready — server starting.
+  May 14 15:31:18 amelai python[204081]: 2026-05-14 15:31:18,840 INFO Listening on 0.0.0.0:9090
+  May 14 15:31:18 amelai python[204081]: 2026-05-14 15:31:18,844 INFO server listening on 0.0.0.0:9090
+
+  (venv) steve@amelai:~$ ss -tlnp | grep 9090
+  LISTEN 0      100                        0.0.0.0:9090       0.0.0.0:*    users:(("python",pid=204081,fd=41))  The TCP
+   connection is trying IP address 176.58.88.82 :108 : 109 - I don't recognise any of those.PS
+  Microsoft.PowerShell.Core\FileSystem::\\irwinnas\MyDocs\terminai\it\NewPC\stt> Test-NetConnection
+  amelai.tail926601.ts.net -Port 9090
+  WARNING: TCP connect to (176.58.88.82 : 9090) failed
+  WARNING: TCP connect to (176.58.88.108 : 9090) failed
+  WARNING: TCP connect to (176.58.92.199 : 9090) failed
+
+
+  ComputerName           : amelai.tail926601.ts.net
+  RemoteAddress          : 176.58.88.82
+  RemotePort             : 9090
+  InterfaceAlias         : Ethernet
+  SourceAddress          : 192.168.1.152
+  PingSucceeded          : True
+  PingReplyDetails (RTT) : 15 ms
+  TcpTestSucceeded       : False
+
+● Those IPs (176.58.x.x) are public internet IPs, not Tailscale addresses. Tailscale IPs are always in the 100.x.x.x
+  range. Windows is bypassing Tailscale and resolving amelai.tail926601.ts.net via public DNS — which means Tailscale
+  isn't running or connected on the Windows PC.
+
+  Check the system tray for the Tailscale icon — it should be there and show as connected. If it's not running, start
+  it.
+
+  Once Tailscale is connected on Windows, verify the DNS is working:
+
+  Resolve-DnsName amelai.tail926601.ts.net
+
+  It should return a 100.x.x.x address, not a 176.x.x.x one.
+
+✻ Cogitated for 26s
+
+❯ I swapped account to update the Admin Consoile for my personal account and needed to change it back to my work
+  account
+
+● That explains it — once you're back on the work account, Tailscale will reconnect and the DNS will resolve correctly
+  to the 100.x.x.x address. Then retry the Test-NetConnection and the client should connect.
+
+✻ Baked for 4s
+
+❯ PS Microsoft.PowerShell.Core\FileSystem::\\irwinnas\MyDocs\terminai\it\NewPC\stt> python
+  C:\Users\SteveIrwin\stt\stt_client.py
+  Connecting to ws://amelai.tail926601.ts.net:9090 …
+  Connected.  Press F9 to toggle listening on/off.
+  [PAUSED]
+
+● Connected. Press F9, speak a sentence, pause for a second, and the text should appear pasted into whatever window you
+  have focused.
+
+✻ Worked for 3s
+
+❯ But that's brilliant. It works perfectly.Well, maybe not perfectly, as that should have said Claude. That's
+  brilliant.
+
+● Working! The "Claude" mishearing is a common Whisper quirk with proper nouns — it tends to default to common words
+  ("cloud" perhaps?). You can nudge it by adding an initial prompt in the server that hints at expected vocabulary. In
+  stt_server.py, change the transcribe call:
+
+  segments, _ = whisper.transcribe(
+      audio,
+      language="en",
+      beam_size=5,
+      vad_filter=True,
+      initial_prompt="Claude, Tailscale, amelai, ComfyUI, Python, Docker, systemd, Linux",
+  )
+
+  That gives Whisper context about domain-specific words it should expect, which improves accuracy on technical terms.
+  Copy the updated server script to amelai and restart the service to pick it up.
+
+✻ Worked for 9s
+
+※ recap: Setting up speech-to-text voice input for Claude Code terminals. The server is running on amelai and the
+  Windows client is connected and working. Next: add an initial_prompt to stt_server.py to improve transcription of
+  technical terms like "Claude".
+
+❯ Lord, I'm trying this with the updated command in the segments section.So close.
+
+● Copy it across and restart the service:
+
+  cp /docs/terminai/it/NewPC/stt/stt_server.py /opt/stt/stt_server.py
+  sudo systemctl restart stt_server
+
+✻ Cogitated for 5s
+
+❯ I have copied it across.
+
+● Then just restart the service:
+
+  sudo systemctl restart stt_server
+
+✻ Baked for 1s
+
+❯ I stopped the server, and then copied it across, and then started the server. I assume that does the same thing.
+
+● Yes, identical result. Give it a try now and see if "Claude" comes through correctly.
+
+✻ Churned for 2s
+
+❯ Will it pick up Claude?and need to speak pretty clearly.Claude, how are you?Claude, how are you?I think it's getting
+  better
+
+● Looks like "Claude" is coming through correctly now — the initial prompt is doing its job.
+
+  The energy VAD means it fires on any sound above the threshold, so speaking clearly and at a normal pace works best.
+  If you find it occasionally picks up background noise or cuts off the start of words, you can tune two values in
+  stt_server.py on amelai:
+
+  - ENERGY_THRESHOLD = 0.015 — raise it (e.g. 0.025) if background noise triggers false transcriptions
+  - SILENCE_FRAMES = 40 — raise it (e.g. 60 = 1.2s) if it cuts off before you finish speaking
+
+✻ Brewed for 7s
+
+❯ Okay Claude, so we'll try this one. I've just updated the energy threshold to 0.025 and the silence frames to 50.and
+  that looks like it's working fine. I'm just speaking normally here.
+
+● That's a solid baseline. The transcription is clean and you're not having to slow down or enunciate unnaturally.
+
+  Now you can use this for Claude Code sessions — press F9, dictate your prompt, F9 again to mute, then press Enter to
+  submit. The only thing left from the original plan is adding start_stt.bat to your Windows startup folder so it
+  connects automatically at login.
+
+✻ Cogitated for 7s
+
+❯ Yes please Let's do that!
+
+● Open the Windows startup folder:
+
+  1. Press Win+R, type shell:startup, press Enter
+  2. Copy start_stt.bat into that folder:
+
+  Copy-Item "C:\Users\SteveIrwin\stt\start_stt.bat" "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\"
+
+  That's it — next time you log into Windows the STT client will start minimised and connect to amelai automatically. F9
+   whenever you want to start dictating.
+
+✻ Baked for 4s
+
+❯ That's awesome.I'm going to have to restart my PC now just to check it all works.
+
+● Good test — that'll confirm the startup runs cleanly and connects before you need it. Let me know how it goes.
+
+✻ Brewed for 4s
+
+❯ Bye for now.
+
+● Catch you later! Let me quickly update the repo file with your tuned values so it stays in sync with what's running on
+   amelai.
+
+● Update(stt/stt_server.py)
+  ⎿  Added 2 lines, removed 2 lines
+      33
+      34  SAMPLE_RATE = 16_000
+      35  FRAME_SAMPLES = int(SAMPLE_RATE * 0.02)   # 20 ms frames = 320 samples
+      36 -SILENCE_FRAMES = 40                         # 40 × 20 ms = 800 ms silence → end utterance
+      36 +SILENCE_FRAMES = 50                         # 50 × 20 ms = 1000 ms silence → end utterance
+      37  MIN_SPEECH_SEC = 0.3                        # ignore blips shorter than this
+      38  PRE_ROLL_FRAMES = 5                         # frames to prepend before speech starts
+      39 -ENERGY_THRESHOLD = 0.015                    # RMS level; raise if background noise triggers
+      39 +ENERGY_THRESHOLD = 0.025                    # RMS level; raise if background noise triggers
+      40
+      41  log.info("Loading faster-whisper large-v3 on CUDA …")
+      42  whisper = WhisperModel("large-v3", device="cuda", compute_type="float16")
+
+  Recalled 1 memory, wrote 2 memories (ctrl+o to expand)
+
+● All tidied up. Good luck with the restart — speak to you next time!
+
+✻ Worked for 40s
+
+❯ /exit
+  ⎿  Bye!
+
+❯ I assume the result we expect is that I could restart the PC then once restarted open up notepad (for example) press
+  F9 and start transcribing? Unfortunately that hasn't happened
+
+● The most likely issue: the bat file was copied to the startup folder, so %~dp0 now points to the startup folder rather
+   than C:\Users\SteveIrwin\stt\ — meaning it can't find stt_client.py.
+
+  Fix the bat to use an absolute path:
+
+● Write(stt/start_stt.bat)
+  ⎿  Added 3 lines, removed 2 lines
+      1  @echo off
+      2  REM Start the STT client minimised so it does not steal focus.
+      3 -REM Add this file to shell:startup to run at login.
+      3 +REM This file can be placed anywhere (including shell:startup) because
+      4 +REM it uses an absolute path to stt_client.py.
+      5  REM F9 toggles listening on/off once the client is running.
+      5 -start "STT Client" /min python "%~dp0stt_client.py"
+      6 +start "STT Client" /min python "C:\Users\SteveIrwin\stt\stt_client.py"
+
+● Copy the updated bat from the NAS to both locations:
+
+  # Update the local copy
+  Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\start_stt.bat" "C:\Users\SteveIrwin\stt\" -Force
+
+  # Overwrite the startup folder copy
+  Copy-Item "C:\Users\SteveIrwin\stt\start_stt.bat" "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\" -Force
+
+  Then either restart again or just double-click start_stt.bat directly from C:\Users\SteveIrwin\stt\ to test it now
+  without a full reboot.
+
+✻ Baked for 1m 13s
+
+❯ Will open a terminal window when it reboots (as I have a python logo'd terminal window just opened). If so is there
+  any way to hide this, maybe minimise it to the system tray?
+
+● Two options:
+
+  Quick fix — use pythonw instead of python in the bat file. No window at all, F9 and text injection still work, just no
+   visual feedback:
+
+● Update(stt/start_stt.bat)
+  ⎿  Added 1 line, removed 1 line
+      3  REM This file can be placed anywhere (including shell:startup) because
+      4  REM it uses an absolute path to stt_client.py.
+      5  REM F9 toggles listening on/off once the client is running.
+      6 -start "STT Client" /min python "C:\Users\SteveIrwin\stt\stt_client.py"
+      6 +start "STT Client" /min pythonw "C:\Users\SteveIrwin\stt\stt_client.py"
+
+● Better option — add a proper system tray icon using pystray, showing PAUSED/LISTENING state and a right-click menu to
+  exit. Requires pip install pystray Pillow and a rework of stt_client.py. Worth doing if you want visibility without a
+  terminal window.
+
+  Which would you prefer? pythonw gets you hidden immediately, pystray gives you a proper tray presence.
+
+✻ Baked for 25s
+
+❯ I'd prefer the system tray icon please
+
+● I'll rewrite stt_client.py to run pystray in the main thread and asyncio in a daemon thread. First install the
+  dependencies on Windows:
+
+  pip install pystray Pillow
+
+● Write(stt/stt_client.py)
+  ⎿  Added 72 lines, removed 31 lines
+       2  """
+       3  STT client — runs on Windows 11.
+       4
+       5 -F9 toggles the microphone on/off. When listening, raw PCM audio is streamed
+       6 -in 100 ms chunks to the amelai STT server. When the server returns transcribed
+       7 -text it is pasted into the currently focused window via the clipboard.
+       5 +System tray icon shows PAUSED (grey) / LISTENING (green) state.
+       6 +F9 hotkey and the tray right-click menu both toggle listening.
+       7 +Transcribed text is pasted into the focused window via clipboard.
+       8
+       9 -Run with: python stt_client.py
+      10 -Or silently (no console): pythonw stt_client.py
+       9 +Run with: pythonw stt_client.py   (no console window)
+      10  """
+      11  import asyncio
+      12 +import os
+      13  import queue
+      14 +import threading
+      15  import time
+      16
+      17  import keyboard
+      18  import numpy as np
+      19  import pyperclip
+      20 +import pystray
+      21  import sounddevice as sd
+      22  import websockets
+      23 +from PIL import Image, ImageDraw
+      24
+      25  SERVER_URL = "ws://amelai.tail926601.ts.net:9090"
+      26  SAMPLE_RATE = 16_000
+      24 -CHUNK_DURATION = 0.1          # seconds per audio chunk sent to server
+      27 +CHUNK_DURATION = 0.1
+      28  CHUNK_SAMPLES = int(SAMPLE_RATE * CHUNK_DURATION)
+      29  TOGGLE_KEY = "F9"
+      30
+      31  _listening: bool = False
+      32  _audio_q: queue.Queue[np.ndarray] = queue.Queue()
+      33 +_tray_icon: pystray.Icon | None = None
+      34
+      35
+      32 -def _audio_callback(indata: np.ndarray, frames: int, time_info, status) -> None:
+      33 -    """sounddevice callback — enqueues mono audio chunks when listening."""
+      36 +def _make_icon(color: str) -> Image.Image:
+      37 +    img = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
+      38 +    draw = ImageDraw.Draw(img)
+      39 +    draw.ellipse([4, 4, 60, 60], fill=color)
+      40 +    return img
+      41 +
+      42 +
+      43 +_ICON_PAUSED = _make_icon("#888888")
+      44 +_ICON_LISTENING = _make_icon("#00cc44")
+      45 +
+      46 +
+      47 +def _update_tray() -> None:
+      48 +    if _tray_icon is None:
+      49 +        return
+      50      if _listening:
+      35 -        _audio_q.put(indata[:, 0].copy())
+      51 +        _tray_icon.icon = _ICON_LISTENING
+      52 +        _tray_icon.title = "STT — LISTENING"
+      53 +    else:
+      54 +        _tray_icon.icon = _ICON_PAUSED
+      55 +        _tray_icon.title = "STT — Paused  (F9 to start)"
+      56
+      57
+      58  def _toggle() -> None:
+      59      global _listening
+      60      _listening = not _listening
+      41 -    label = "LISTENING" if _listening else "PAUSED"
+      42 -    print(f"\r[{label}]          ", end="", flush=True)
+      61 +    _update_tray()
+      62
+      63
+      64 +def _audio_callback(indata: np.ndarray, frames: int, time_info, status) -> None:
+      65 +    if _listening:
+      66 +        _audio_q.put(indata[:, 0].copy())
+      67 +
+      68 +
+      69  def _inject(text: str) -> None:
+      46 -    """
+      47 -    Paste text into the focused window via clipboard then restore the
+      48 -    previous clipboard content so nothing is lost.
+      49 -    """
+      70      prev = pyperclip.paste()
+      71      pyperclip.copy(text)
+      72      keyboard.send("ctrl+v")
+     ...
+       88  async def _recv_text(ws) -> None:
+       89      async for message in ws:
+       90          text = str(message).strip()
+       71 -        if not text:
+       72 -            continue
+       73 -        state = "LISTENING" if _listening else "PAUSED"
+       74 -        print(f"\n[TEXT] {text}")
+       75 -        print(f"[{state}] ", end="", flush=True)
+       76 -        _inject(text)
+       91 +        if text:
+       92 +            _inject(text)
+       93
+       94
+       95  async def _run() -> None:
+       80 -    print(f"Connecting to {SERVER_URL} …")
+       96      async with websockets.connect(SERVER_URL, ping_interval=20) as ws:
+       82 -        print(f"Connected.  Press {TOGGLE_KEY} to toggle listening on/off.")
+       83 -        print("[PAUSED] ", end="", flush=True)
+       97          await asyncio.gather(_send_audio(ws), _recv_text(ws))
+       98
+       99
+       87 -def main() -> None:
+       88 -    keyboard.add_hotkey(TOGGLE_KEY, _toggle, suppress=False)
+       89 -
+      100 +def _start_asyncio() -> None:
+      101 +    """Runs in a daemon thread — connects to amelai and handles audio/text."""
+      102      with sd.InputStream(
+      103          samplerate=SAMPLE_RATE,
+      104          channels=1,
+     ...
+      106          blocksize=CHUNK_SAMPLES,
+      107          callback=_audio_callback,
+      108      ):
+       97 -        try:
+       98 -            asyncio.run(_run())
+       99 -        except KeyboardInterrupt:
+      100 -            print("\nExiting.")
+      109 +        asyncio.run(_run())
+      110
+      111
+      112 +def _on_tray_toggle(icon, item) -> None:
+      113 +    _toggle()
+      114 +
+      115 +
+      116 +def _on_tray_exit(icon, item) -> None:
+      117 +    icon.stop()
+      118 +    os._exit(0)
+      119 +
+      120 +
+      121 +def main() -> None:
+      122 +    global _tray_icon
+      123 +
+      124 +    keyboard.add_hotkey(TOGGLE_KEY, _toggle, suppress=False)
+      125 +
+      126 +    # Start audio + WebSocket connection in a background thread
+      127 +    t = threading.Thread(target=_start_asyncio, daemon=True)
+      128 +    t.start()
+      129 +
+      130 +    # Run pystray in the main thread (required on Windows)
+      131 +    menu = pystray.Menu(
+      132 +        pystray.MenuItem("Toggle Listening (F9)", _on_tray_toggle),
+      133 +        pystray.MenuItem("Exit", _on_tray_exit),
+      134 +    )
+      135 +    _tray_icon = pystray.Icon(
+      136 +        "stt",
+      137 +        _ICON_PAUSED,
+      138 +        "STT — Paused  (F9 to start)",
+      139 +        menu,
+      140 +    )
+      141 +    _tray_icon.run()
+      142 +
+      143 +
+      144  if __name__ == "__main__":
+      145      main()
+
+● Also update the bat to use pythonw (no console) and the requirements:
+
+● Update(stt/requirements_client.txt)
+  ⎿  Added 2 lines
+       5  keyboard>=0.13.5
+       6  pyperclip>=1.8.2
+       7  numpy>=1.24.0
+       8 +pystray>=0.19.0
+       9 +Pillow>=10.0.0
+      10  # pyaudio is not required; sounddevice handles PortAudio directly on Windows
+
+● Now copy the updated client from the NAS and test it:
+
+  Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\stt_client.py" "C:\Users\SteveIrwin\stt\" -Force
+  python C:\Users\SteveIrwin\stt\stt_client.py
+
+  You should see a grey circle appear in the system tray. Press F9 — it turns green. Speak — text pastes into the
+  focused window. Press F9 — back to grey.
+
+  Once confirmed working, copy the updated bat (which now uses pythonw) to the startup folder:
+
+  Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\start_stt.bat" "C:\Users\SteveIrwin\stt\" -Force
+  Copy-Item "C:\Users\SteveIrwin\stt\start_stt.bat" "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\" -Force
+
+✻ Crunched for 1m 3s
+
+※ recap: Setting up speech-to-text voice input for Claude Code terminals. The system tray client is updated and ready to
+   test — copy the new stt_client.py from the NAS, run it with python, and confirm the grey tray icon appears. (disable
+  recaps in /config)
+
+❯ Okay, I think the transcribing works, but it doesn't work when I try to run it from the start STT bat file.Sorry
+  about the spaces in the file name, but I'm transcribing this using the program.
+
+● pythonw is likely not in PATH even though python is. The most reliable fix for a hidden-window startup on Windows is a
+   small VBScript launcher — it runs Python completely silently:
+
+● Write(stt/start_stt.vbs)
+  ⎿  Wrote 3 lines to stt/start_stt.vbs
+      1 Set WshShell = CreateObject("WScript.Shell")
+      2 WshShell.Run "python C:\Users\SteveIrwin\stt\stt_client.py", 0, False
+      3 Set WshShell = Nothing
+
+● Copy it across and swap the startup folder entry to use the VBS instead of the bat:
+
+  # Copy VBS to local stt folder
+  Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\start_stt.vbs" "C:\Users\SteveIrwin\stt\" -Force
+
+  # Remove the old bat from startup, add the VBS instead
+  Remove-Item "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\start_stt.bat" -ErrorAction SilentlyContinue
+  Copy-Item "C:\Users\SteveIrwin\stt\start_stt.vbs" "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\" -Force
+
+  Test it now without rebooting — just double-click start_stt.vbs in C:\Users\SteveIrwin\stt\. The tray icon should
+  appear with no console window at all.
+
+✻ Cooked for 24s
+
+※ recap: Setting up speech-to-text voice input for Claude Code terminal sessions. The VBS launcher was just created to
+  silently start the system tray client at login. Next: test by double-clicking start_stt.vbs to confirm the tray icon
+  appears with no console window. (disable recaps in /config)
+
+❯ Okay, now when I use the BAT file or the VBS file the program will load up and come into the system tray but it
+  doesn't actually work. I can get it to switch on or switch off but it doesn't transcribe anything.I can go to the
+  terminal and type in this command 'pythonw C:\Users\SteveIrwin\stt\stt_client.py' and that then works how I would
+  expect it to work.
+
+● The asyncio thread is silently crashing — almost certainly because the WebSocket connection to amelai fails when
+  launched at startup (Tailscale isn't ready yet), and with no console there's nowhere for the error to appear. The tray
+   icon stays up (it's the main thread) but nothing works underneath.
+
+  The fix is a reconnection loop so it keeps retrying until amelai is reachable, plus a connection status in the tray
+  tooltip:
+
+● Update(stt/stt_client.py)
+  ⎿  Added 5 lines, removed 2 lines
+      44  _ICON_LISTENING = _make_icon("#00cc44")
+      45
+      46
+      47 -def _update_tray() -> None:
+      47 +def _update_tray(connected: bool = True) -> None:
+      48      if _tray_icon is None:
+      49          return
+      50 -    if _listening:
+      50 +    if not connected:
+      51 +        _tray_icon.icon = _ICON_PAUSED
+      52 +        _tray_icon.title = "STT — Connecting to amelai…"
+      53 +    elif _listening:
+      54          _tray_icon.icon = _ICON_LISTENING
+      55          _tray_icon.title = "STT — LISTENING"
+      56      else:
+
+● Update(stt/stt_client.py)
+  ⎿  Added 9 lines, removed 2 lines
+       96
+       97
+       98  async def _run() -> None:
+       99 -    async with websockets.connect(SERVER_URL, ping_interval=20) as ws:
+      100 -        await asyncio.gather(_send_audio(ws), _recv_text(ws))
+       99 +    while True:
+      100 +        _update_tray(connected=False)
+      101 +        try:
+      102 +            async with websockets.connect(SERVER_URL, ping_interval=20) as ws:
+      103 +                _update_tray(connected=True)
+      104 +                await asyncio.gather(_send_audio(ws), _recv_text(ws))
+      105 +        except Exception:
+      106 +            pass
+      107 +        await asyncio.sleep(5)  # wait before retrying
+      108
+      109
+      110  def _start_asyncio() -> None:
+
+● Copy and test:
+
+  Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\stt_client.py" "C:\Users\SteveIrwin\stt\" -Force
+
+  Then double-click start_stt.vbs. The tray tooltip should briefly say "Connecting to amelai…" then switch to "Paused
+  (F9 to start)" once connected. If it stays on "Connecting…" it means Tailscale isn't up yet — it'll keep retrying
+  every 5 seconds until it gets through.
+
+✻ Sautéed for 30s
+
+※ recap: Setting up speech-to-text voice input for Claude Code terminals, with a system tray client on Windows
+  connecting to Whisper on amelai. Next: test the updated stt_client.py by double-clicking start_stt.vbs and checking
+  the tray tooltip shows "Connecting" then "Paused". (disable recaps in /config)
+
+❯ Okay, I can load up the application, it shows in the system tray, but I can only switch it on or switch it off while
+  I've got the system tray viewed. Nothing happens at all, it doesn't transcribe anything in either case, whether it's
+  switched on or switched off.I can then run the terminal command it opens up in system tray and I can switch it on and
+   off without being in the system tray or without viewing the system tray and that works perfectly I'm transcribing
+  this at the moment after running it through the terminal.
+
+● The problem is the 0 (hidden) window style in the VBS — it launches the process without interactive desktop access,
+  which breaks the keyboard global hook and likely the audio device too. Using pythonw with window style 1 instead gives
+   the process proper desktop access with no console window. Also using the full path to pythonw.exe since VBS uses the
+  system PATH, not your user PATH:
+
+● Write(stt/start_stt.vbs)
+  ⎿  Added 1 line, removed 1 line
+      1  Set WshShell = CreateObject("WScript.Shell")
+      2 -WshShell.Run "python C:\Users\SteveIrwin\stt\stt_client.py", 0, False
+      2 +WshShell.Run """C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\pythonw.exe"" C:\Users\Steve
+        +Irwin\stt\stt_client.py", 1, False
+      3  Set WshShell = Nothing
+
+● Copy and test:
+
+  Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\start_stt.vbs" "C:\Users\SteveIrwin\stt\" -Force
+  Copy-Item "C:\Users\SteveIrwin\stt\start_stt.vbs" "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\" -Force
+
+  Then double-click C:\Users\SteveIrwin\stt\start_stt.vbs to test without rebooting. No console window should appear,
+  tray icon should appear, and F9 should work globally.
+
+✻ Brewed for 1m 17s
+
+※ recap: Setting up a speech-to-text system that transcribes voice into Claude Code terminal sessions. The VBS launcher
+  was just updated with the full pythonw.exe path — test it by double-clicking start_stt.vbs.
+
+❯ Okay, so that hasn't worked. I've got exactly the same behavior. So long as I've got the System Tray, Open, I can
+  switch the application on or off, but it doesn't matter what I do, I can't actually transcribe anything.When I run it
+   out of the terminal, it loads up fine, it runs properly. I'm wondering if that's because I've got the terminal
+  running in administrator mode
+
+● That's almost certainly it. The keyboard library needs elevated privileges to register global hooks on Windows 11, and
+   the audio device access can also be restricted. The VBS runs as a normal user.
+
+  The cleanest fix is Task Scheduler with "Run with highest privileges" — it matches the admin terminal environment
+  exactly. Set it up once from an admin terminal:
+
+  $action = New-ScheduledTaskAction -Execute "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\pythonw.exe"
+  -Argument "C:\Users\SteveIrwin\stt\stt_client.py"
+  $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME"
+  $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+  $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -RunLevel Highest
+  Register-ScheduledTask -TaskName "STT Client" -Action $action -Trigger $trigger -Settings $settings -Principal
+  $principal
+
+  Then remove the VBS from the startup folder since the task replaces it:
+
+  Remove-Item "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\start_stt.vbs" -ErrorAction SilentlyContinue
+
+  To test without rebooting:
+
+  Start-ScheduledTask -TaskName "STT Client"
+
+  If it works, the tray icon will appear and behave exactly as it does from the admin terminal.
+
+✻ Worked for 31s
+
+❯ PS C:\Users\SteveIrwin> $action = New-ScheduledTaskAction -Execute
+  New-ScheduledTaskAction : Missing an argument for parameter 'Execute'. Specify a parameter of type
+  'System.String' and try again.
+  At line:1 char:35
+  + $action = New-ScheduledTaskAction -Execute
+  +                                   ~~~~~~~~
+      + CategoryInfo          : InvalidArgument: (:) [New-ScheduledTaskAction], ParameterBindingExcept
+     ion
+      + FullyQualifiedErrorId : MissingArgument,New-ScheduledTaskAction
+
+● The command got cut off on paste. Run each line separately — paste and execute one at a time:
+
+  $action = New-ScheduledTaskAction -Execute "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python314\pythonw.exe"
+  -Argument "C:\Users\SteveIrwin\stt\stt_client.py"
+  $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME"
+  $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+  $principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -RunLevel Highest
+  Register-ScheduledTask -TaskName "STT Client" -Action $action -Trigger $trigger -Settings $settings -Principal
+  $principal
+
+✻ Crunched for 6s
+
+❯ Okay, that has worked. Now, do I need to delete the BAT file or the VPS file from the startup folder? Thanks Claude
+
+● Yes — remove the VBS from the startup folder so it doesn't launch a second instance at login:
+
+  Remove-Item "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\start_stt.vbs" -ErrorAction SilentlyContinue
+  Remove-Item "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\start_stt.bat" -ErrorAction SilentlyContinue
+
+  The Task Scheduler handles the startup now. Give it a reboot to confirm it all fires correctly.
+
+✻ Churned for 6s
+
+❯ Okay, see you soon.
+
+● Good luck with the reboot — speak to you on the other side! 😄
+
+✻ Churned for 2s
+
+❯ /exit
+  ⎿  See ya!
+
+❯ It worked! Thanks Claude. Now can we please update all the docs and also can we create a new doc so that we can
+  install this on other machines as well, please.
+
+● Let me read the current docs first to see what needs updating.
+
+  Read 1 file (ctrl+o to expand)
+
+● Now I have everything I need. I'll update STT_Voice_Input.md and create the new machine guide simultaneously:
+
+● Write(STT_Voice_Input.md)
+  ⎿  Added 60 lines, removed 83 lines
+      10  Windows 11 PC                           amelai (Tailscale / LAN)
+      11  ────────────────────                    ──────────────────────────────────
+      12  Mic → sounddevice                       stt_server.py (port 9090)
+      13 -stt_client.py  ──── WebSocket ────>     silero-vad + faster-whisper
+      13 +stt_client.py  ──── WebSocket ────>     RMS energy VAD + faster-whisper
+      14  clipboard paste <───── text ────────    systemd service, GPU 1
+      15 -F9 hotkey (global)
+      15 +F9 hotkey (global, elevated)
+      16 +System tray icon (grey/green)
+      17  ```
+      18
+      18 -**Flow**: Press F9 → speak → ~1 s pause → text is pasted into the focused window → press Enter to submi
+         -t.
+      19 +**Flow**: Press F9 → tray icon turns green → speak → ~1 s pause → text is pasted into the focused windo
+         +w → press Enter to submit.
+      20
+      21  Text is never auto-submitted. You can review and edit before pressing Enter.
+      22
+     ...
+      24
+      25  ## Prerequisites
+      26
+      26 -- Tailscale running on both machines
+      27 +- Tailscale running on both machines, connected to work account
+      28  - Python 3.11+ on the Windows 11 PC
+      29  - Python 3.10+ and CUDA 12.x on amelai (already installed)
+      30  - amelai reachable at `amelai.tail926601.ts.net`
+     ...
+      50  pip install --upgrade pip
+      51  # torch from the cu121 wheel — PyPI ships CUDA 13 builds which break on CUDA 12.x
+      52  pip install torch --index-url https://download.pytorch.org/whl/cu121
+      52 -# No silero-vad or torchaudio — the server uses simple RMS energy VAD (no extra deps).
+      53 +# No silero-vad or torchaudio — server uses simple RMS energy VAD (no extra deps)
+      54  pip install faster-whisper websockets numpy
+      55  ```
+      56
+      56 -PyTorch must be installed from the CUDA wheel (cu121) — the default PyPI wheel is CPU-only.
+      57 -
+      57  ### 1.3 Copy the server script
+      58
+      60 -From your Windows PC (adjust path to wherever the repo is cloned or copy-paste the contents):
+      61 -
+      59  ```bash
+      63 -# Option A — copy from repo if cloned on amelai
+      60  cp /docs/terminai/it/NewPC/stt/stt_server.py /opt/stt/
+      65 -
+      66 -# Option B — scp from Windows (run in Windows Terminal)
+      67 -# scp "C:\path\to\stt_server.py" steve@amelai.tail926601.ts.net:/opt/stt/
+      61  ```
+      62
+      63  ### 1.4 Test the server manually first
+     ...
+      67  CUDA_VISIBLE_DEVICES=1 python /opt/stt/stt_server.py
+      68  ```
+      69
+      77 -Expected output:
+      70 +Expected output (Whisper model downloads ~3 GB on first run):
+      71  ```
+      79 -2026-xx-xx INFO Loading silero-vad …
+      80 -2026-xx-xx INFO Loading faster-whisper large-v3 on CUDA …
+      81 -2026-xx-xx INFO Models ready — server starting.
+      82 -2026-xx-xx INFO Listening on 0.0.0.0:9090
+      72 +INFO Loading faster-whisper large-v3 on CUDA …
+      73 +INFO Model ready — server starting.
+      74 +INFO Listening on 0.0.0.0:9090
+      75  ```
+      76
+      85 -The Whisper model (~3 GB) downloads automatically on first run to `~/.cache/huggingface/`.
+      77 +No command prompt returns — the server blocks waiting for connections. Press Ctrl+C once confirmed.
+      78
+      87 -Press Ctrl+C when satisfied it starts correctly.
+      88 -
+      79  ### 1.5 Install as systemd service
+      80
+      81  ```bash
+     ...
+       83  sudo systemctl daemon-reload
+       84  sudo systemctl enable stt_server
+       85  sudo systemctl start stt_server
+       96 -```
+       97 -
+       98 -Check status:
+       99 -
+      100 -```bash
+       86  sudo systemctl status stt_server
+      102 -journalctl -u stt_server -f
+       87  ```
+       88
+       89  ### 1.6 Firewall rule
+       90
+      107 -Allow the Tailscale subnet to reach port 9090:
+      108 -
+       91  ```bash
+       92  sudo ufw allow from 100.64.0.0/10 to any port 9090 proto tcp comment "STT server - Tailscale"
+      111 -sudo ufw status numbered
+       93  ```
+       94
+       95  ---
+       96
+       97  ## Part 2 — Client Setup on Windows 11
+       98
+      118 -Open PowerShell or Windows Terminal on the Windows 11 PC.
+       99 +Open an **Administrator** PowerShell or Windows Terminal.
+      100
+      101  ### 2.1 Install Python packages
+      102
+      103  ```powershell
+      123 -pip install sounddevice websockets keyboard pyperclip numpy
+      104 +pip install sounddevice websockets keyboard pyperclip numpy pystray Pillow
+      105  ```
+      106
+      126 -### 2.2 Create the client directory
+      107 +### 2.2 Create the client directory and copy the script
+      108
+      109  ```powershell
+      110  New-Item -ItemType Directory -Path "C:\Users\SteveIrwin\stt" -Force
+      130 -```
+      131 -
+      132 -### 2.3 Copy the client script
+      133 -
+      134 -Copy `stt_client.py` and `start_stt.bat` from the repo to `C:\Users\SteveIrwin\stt\`.
+      135 -
+      136 -```powershell
+      111  Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\stt_client.py" "C:\Users\SteveIrwin\stt\"
+      138 -Copy-Item "\\irwinnas\MyDocs\terminai\it\NewPC\stt\start_stt.bat" "C:\Users\SteveIrwin\stt\"
+      112  ```
+      113
+      141 -### 2.4 Test the client
+      114 +### 2.3 Test the client
+      115
+      143 -Run in a terminal (keep it visible for now):
+      144 -
+      116  ```powershell
+      117  python C:\Users\SteveIrwin\stt\stt_client.py
+      118  ```
+      119
+      149 -Expected output:
+      150 -```
+      151 -Connecting to ws://amelai.tail926601.ts.net:9090 …
+      152 -Connected.  Press F9 to toggle listening on/off.
+      153 -[PAUSED]
+      154 -```
+      120 +A grey circle should appear in the system tray. Hover over it — tooltip should say **"STT — Connecting
+          + to amelai…"** briefly, then **"STT — Paused (F9 to start)"** once connected.
+      121
+      156 -Press F9 → status changes to `[LISTENING]` → speak a sentence → wait ~1 s → text should appear pasted
+          -into the focused window.
+      122 +Press F9 → icon turns green → speak → text appears pasted in the focused window.
+      123
+      158 -> **Note**: The `keyboard` library may require running as Administrator the first time, or if typing i
+          -nto an elevated (admin) window. Right-click `start_stt.bat` → Run as administrator if hotkeys don't re
+          -gister.
+      124 +### 2.4 Set up auto-start with elevated privileges
+      125
+      160 -### 2.5 Add to Windows startup (optional)
+      126 +> **Critical**: The `keyboard` global hook requires elevated privileges. VBS or BAT files launched wit
+          +h a hidden window (`WshShell.Run ... 0`) break the hook — the tray icon appears but F9 and transcripti
+          +on do not work. Task Scheduler with "Run with highest privileges" is the correct solution.
+      127
+      162 -So the client starts automatically at login:
+      128 +Run each line separately in an Administrator PowerShell:
+      129
+      164 -1. Press `Win+R` → type `shell:startup` → press Enter
+      165 -2. Copy `start_stt.bat` into that folder (or create a shortcut to it)
+      130 +```powershell
+      131 +$action = New-ScheduledTaskAction -Execute "C:\Users\SteveIrwin\AppData\Local\Programs\Python\Python31
+          +4\pythonw.exe" -Argument "C:\Users\SteveIrwin\stt\stt_client.py"
+      132 +```
+      133 +```powershell
+      134 +$trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME"
+      135 +```
+      136 +```powershell
+      137 +$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+      138 +```
+      139 +```powershell
+      140 +$principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -RunLevel Highest
+      141 +```
+      142 +```powershell
+      143 +Register-ScheduledTask -TaskName "STT Client" -Action $action -Trigger $trigger -Settings $settings -P
+          +rincipal $principal
+      144 +```
+      145
+      167 -The client will start minimised and connect to amelai automatically. Press F9 any time to begin dictat
+          -ing.
+      146 +To test without rebooting:
+      147 +```powershell
+      148 +Start-ScheduledTask -TaskName "STT Client"
+      149 +```
+      150
+      151 +> **Note**: The `pythonw.exe` path above is for Python 3.14. If your Python version differs, find the
+          +correct path with `where pythonw` in PowerShell.
+      152 +
+      153  ---
+      154
+      155  ## Usage
+      156
+      157  | Action | Result |
+      158  |---|---|
+      175 -| Press F9 | Mic on → `[LISTENING]` |
+      159 +| Press F9 | Tray icon turns green — mic active |
+      160  | Speak your prompt | Audio streams to amelai |
+      177 -| Pause ~0.8 s | Whisper transcribes, text is pasted into focused window |
+      161 +| Pause ~1 s | Whisper transcribes, text is pasted into focused window |
+      162  | Continue speaking | More text appears as each sentence is processed |
+      179 -| Press F9 again | Mic off → `[PAUSED]` |
+      163 +| Press F9 again | Tray icon turns grey — mic off |
+      164  | Press Enter in terminal | Submit the dictated prompt to Claude |
+      165
+      166  ### Tips
+      167
+      184 -- Keep the STT client minimised so it never has focus — text always lands in your terminal
+      185 -- Speak naturally; you don't need to pause excessively between words
+      186 -- If a word is wrong, just correct it in the terminal before pressing Enter
+      187 -- For long prompts, dictate in natural sentences — each ~0.8 s pause produces a transcript chunk
+      168 +- Speak naturally at normal pace — no need to slow down or pause between words
+      169 +- If a word is wrong, correct it in the terminal before pressing Enter
+      170 +- The tray tooltip shows connection status — if it stays on "Connecting…" check Tailscale is on the wo
+          +rk account
+      171 +- `ENERGY_THRESHOLD` and `SILENCE_FRAMES` in `stt_server.py` can be tuned if the VAD is too sensitive
+          +or cuts off early (current values: 0.025 and 50)
+      172
+      173  ---
+      174
+      175  ## VRAM usage
+      176
+      193 -Whisper large-v3 uses ~3 GB VRAM on GPU 1. It coexists with Ollama (which uses GPU 0 primarily). If Co
+          -mfyUI-Steve is also loaded on GPU 1, you may see contention.
+      177 +Whisper large-v3 uses ~3 GB VRAM on GPU 1. It coexists with Ollama. If ComfyUI-Steve is also loaded on
+          + GPU 1, there may be contention.
+      178
+      195 -To check current GPU memory:
+      196 -
+      179  ```bash
+      180  watch -n 2 nvidia-smi --query-gpu=index,memory.used,memory.free --format=csv
+      181  ```
+      182
+      201 -If VRAM is tight, switch to `medium` model in `stt_server.py`:
+      202 -
+      183 +Switch to `medium` (~1.5 GB) if needed in `stt_server.py`:
+      184  ```python
+      185  whisper = WhisperModel("medium", device="cuda", compute_type="float16")
+      186  ```
+      187
+      207 -`medium` uses ~1.5 GB VRAM and is still highly accurate for English.
+      208 -
+      188  ---
+      189
+      190  ## Troubleshooting
+      191
+      192  | Symptom | Fix |
+      193  |---|---|
+      215 -| Client can't connect | Check `sudo systemctl status stt_server` on amelai; verify port 9090 reachabl
+          -e via Tailscale |
+      216 -| Hotkey F9 doesn't work | Run `start_stt.bat` as Administrator |
+      217 -| Text types into wrong window | Minimise the STT client console; focus the target terminal before pre
+          -ssing F9 |
+      218 -| Transcription misses words | Increase `SILENCE_MS` in `stt_server.py` (try 1200) so more audio is ca
+          -ptured per utterance |
+      219 -| Server OOM on GPU | Switch to `medium` model; restart other GPU-heavy services |
+      220 -| `CUDA_VISIBLE_DEVICES` not honoured | Check the systemd service `Environment=` line; confirm with `n
+          -vidia-smi` |
+      194 +| Tray tooltip stuck on "Connecting…" | Check Tailscale is connected to work account; check `sudo syst
+          +emctl status stt_server` on amelai |
+      195 +| F9 does nothing | Task Scheduler task must use "Run with highest privileges" — VBS/BAT hidden window
+          + breaks keyboard hooks |
+      196 +| Tray icon appears but no transcription | Same as above — keyboard hook not elevated; recreate task w
+          +ith `RunLevel Highest` |
+      197 +| Transcription cuts off mid-sentence | Raise `SILENCE_FRAMES` in `stt_server.py` (try 60 = 1.2 s) |
+      198 +| Background noise triggers false transcriptions | Raise `ENERGY_THRESHOLD` in `stt_server.py` (try 0.
+          +035) |
+      199 +| Server OOM on GPU | Switch to `medium` model; free ComfyUI VRAM first |
+      200
+      201  ---
+      202
+     ...
+      208  sudo systemctl start stt_server
+      209  sudo systemctl restart stt_server
+      210  journalctl -u stt_server --since "10 minutes ago"
+      232 -
+      233 -# View live transcriptions
+      211  tail -f /opt/stt/stt.log
+      212  ```
+      213
+     ...
+      217
+      218  | File | Location | Purpose |
+      219  |---|---|---|
+      243 -| `stt_server.py` | `/opt/stt/` on amelai | WebSocket server + Whisper + VAD |
+      220 +| `stt_server.py` | `/opt/stt/` on amelai | WebSocket server + Whisper + energy VAD |
+      221  | `stt_server.service` | `/etc/systemd/system/` on amelai | systemd unit |
+      245 -| `stt_client.py` | `C:\Users\SteveIrwin\stt\` on Windows | Audio capture + text injection |
+      246 -| `start_stt.bat` | `C:\Users\SteveIrwin\stt\` on Windows | Minimised launcher |
+      247 -| Source files | `/docs/terminai/it/NewPC/stt/` | Version-controlled originals |
+      222 +| `stt_client.py` | `C:\Users\SteveIrwin\stt\` on Windows | Audio capture, tray icon, text injection |
+      223 +| `start_stt.vbs` | `C:\Users\SteveIrwin\stt\` on Windows | Legacy launcher (superseded by Task Schedu
+          +ler) |
+      224 +| Source files | `\\irwinnas\MyDocs\terminai\it\NewPC\stt\` | Version-controlled originals |
+
+● Write(STT_New_Machine_Guide.md)
+  ⎿  Wrote 136 lines to STT_New_Machine_Guide.md
+       2 # STT Client — New Machine Setup Guide
+       3 Install the speech-to-text client on any Windows machine in the tailnet. The server (amelai) is already
+         running — you only need to set up the client side.
+       4
+       5 ---
+       6
+       7 ## Prerequisites
+       8
+       9 - **Tailscale** installed and connected to the **work account** (not personal)
+      10 - **Python 3.11+** installed (note your `pythonw.exe` path — needed for Task Scheduler)
+     … +138 lines (ctrl+o to expand)
+
+● Done. Here's what was updated/created:
+
+  - STT_Voice_Input.md — overhauled: replaced VBS/startup folder approach with Task Scheduler, updated package list,
+  fixed architecture diagram, rewrote troubleshooting with the elevated privileges lesson
+  - STT_New_Machine_Guide.md — new clean guide for any future Windows machine, with the YourName placeholder and the
+  critical Task Scheduler warning front and centre
+
+✻ Sautéed for 3m 22s
+
+❯ /end-session
+
+● Bash(cd /docs/terminai && git log --oneline -20 --no-merges)
+  ⎿  3cd3f7c End of session — UK drone regulation guide and insurance research created
+     c78e517 End of session — Grain dust/gluten conditions risk assessment briefing created
+     8d31ed2 End of session — ComfyUI OOM fix (--reserve-vram 3 restored); ReActor face swap workflow created
+     … +15 lines (ctrl+o to expand)
+  ⎿  Shell cwd was reset to /docs/terminai/it/NewPC
+
+● Bash(cd /docs/terminai && git diff HEAD~3..HEAD --name-status)
+  ⎿  A  Briefings/Grain_Dust_Gluten_Risk_Briefing.md
+     M  hseea/CHANGELOG.md
+     M  hseea/PROJECT_STATUS.md
+     … +13 lines (ctrl+o to expand)
+  ⎿  Shell cwd was reset to /docs/terminai/it/NewPC
+
+  Read 3 files (ctrl+o to expand)
+
+● Now I'll update all three tracking files in parallel:
+
+● Update(SESSION_LOG.md)
+  ⎿  Added 49 lines
+       2
+       3  ---
+       4
+       5 +## Session 2026-05-14
+       6 +
+       7 +### Summary
+       8 +Built and deployed a complete speech-to-text voice input system for Claude Code terminal sessions. The
+         +system uses faster-whisper large-v3 running on amelai (GPU 1) as a WebSocket server, with a Windows cli
+         +ent that streams mic audio, displays a system tray icon, and pastes transcribed text into the focused t
+         +erminal window via clipboard. After several dependency and startup issues, the full stack is working en
+         +d-to-end with auto-start via Task Scheduler.
+       9 +
+      10 +### Work Completed
+      11 +- Created `/opt/stt/` Python venv on amelai with faster-whisper, websockets, numpy
+      12 +- Built `stt_server.py` — WebSocket server with RMS energy VAD and faster-whisper large-v3 on CUDA (GPU
+         + 1, port 9090); systemd service `stt_server` enabled and running
+      13 +- Built `stt_client.py` — Windows client with pystray system tray icon (grey=paused, green=listening),
+         +F9 global hotkey, clipboard paste into focused window, auto-reconnect loop
+      14 +- Resolved torchaudio CUDA 13 incompatibility: silero-vad pip package and torch.hub both import torchau
+         +dio which requires `libcudart.so.13` — CUDA 12.x only has `.so.12`; replaced with simple RMS energy thr
+         +eshold VAD
+      15 +- Added `initial_prompt` to Whisper transcribe call so proper nouns ("Claude", "amelai", etc.) are reco
+         +gnised correctly
+      16 +- Tuned `ENERGY_THRESHOLD=0.025` and `SILENCE_FRAMES=50` for natural speech in a quiet room
+      17 +- Added UFW rule for Tailscale subnet → port 9090
+      18 +- Resolved Windows auto-start: VBS with hidden window style (`0`) breaks `keyboard` global hooks; Task
+         +Scheduler with `RunLevel Highest` is the correct solution
+      19 +- Created `STT_Voice_Input.md` — full setup guide for this machine
+      20 +- Created `STT_New_Machine_Guide.md` — clean from-scratch guide for other Windows machines on the tailn
+         +et
+      21 +- Updated `CLAUDE.md` port table with STT service (port 9090, GPU 1)
+      22 +- Saved torchaudio CUDA lesson to persistent memory
+      23 +
+      24 +### Files Changed
+      25 +- `it/NewPC/stt/stt_server.py` — WebSocket server, energy VAD, faster-whisper large-v3, initial_prompt,
+         + tuned thresholds
+      26 +- `it/NewPC/stt/stt_client.py` — pystray tray icon, F9 hotkey, clipboard paste, auto-reconnect
+      27 +- `it/NewPC/stt/stt_server.service` — systemd unit, GPU 1, auto-restart
+      28 +- `it/NewPC/stt/requirements_server.txt` — server deps (no torchaudio/silero-vad)
+      29 +- `it/NewPC/stt/requirements_client.txt` — client deps including pystray, Pillow
+      30 +- `it/NewPC/stt/start_stt.bat` — legacy launcher (superseded by Task Scheduler)
+      31 +- `it/NewPC/stt/start_stt.vbs` — legacy VBS launcher (superseded by Task Scheduler)
+      32 +- `it/NewPC/STT_Voice_Input.md` — full setup and troubleshooting guide (created)
+      33 +- `it/NewPC/STT_New_Machine_Guide.md` — new machine installation guide (created)
+      34 +- `it/NewPC/CLAUDE.md` — STT service added to port/service table
+      35 +
+      36 +### Key Decisions
+      37 +- **RMS energy VAD over silero-vad**: silero-vad (pip and torch.hub) imports torchaudio which is built
+         +against CUDA 13; amelai has CUDA 12.x — incompatible. Simple `sqrt(mean(frame²)) > threshold` works wel
+         +l enough for a quiet room with Whisper's own `vad_filter=True` as backup
+      38 +- **Task Scheduler `RunLevel Highest` for auto-start**: VBS `WshShell.Run ... 0` (hidden window) runs w
+         +ithout interactive desktop access, breaking `keyboard`'s low-level hook; BAT with `/min` has same issue
+         +. Task Scheduler with highest privileges matches the admin terminal environment where everything works
+      39 +- **Pystray system tray over console**: console window steals focus and breaks text injection into othe
+         +r windows; tray icon with grey/green state is cleaner UX
+      40 +- **Auto-reconnect loop**: startup timing — Tailscale isn't always ready when the scheduled task fires;
+         + 5-second retry loop ensures eventual connection without user intervention
+      41 +- **initial_prompt for proper nouns**: Whisper defaults to common words; seeding with domain vocabulary
+         + ("Claude", "Tailscale", "amelai", "ComfyUI", etc.) significantly improves accuracy on technical terms
+      42 +
+      43 +### Reference Documents
+      44 +- `it/NewPC/STT_Voice_Input.md` — complete setup guide
+      45 +- `it/NewPC/STT_New_Machine_Guide.md` — new machine guide
+      46 +- `it/NewPC/stt/` — all source files
+      47 +
+      48 +### Next Actions
+      49 +- [ ] Verify STT auto-starts correctly after next reboot (Task Scheduler confirmed working in testing)
+      50 +- [ ] Consider adding more domain vocabulary to `initial_prompt` as usage reveals more misrecognised te
+         +rms
+      51 +
+      52 +---
+      53 +
+      54  ## Session 2026-05-04 (2)
+      55
+      56  ### Summary
+
+● Update(PROJECT_STATUS.md)
+  ⎿  Added 1 line, removed 1 line
+      1  # Project Status — NewPC AI Server
+      2
+      3 -**Last Updated**: 2026-05-04
+      3 +**Last Updated**: 2026-05-14
+      4
+      5  ---
+      6
+
+● Update(PROJECT_STATUS.md)
+  ⎿  Added 1 line
+      19  | FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` |
+           Running |
+      20  | MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
+      21  | n8n | `n8n` | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` | Running |
+      22 +| STT Server | systemd `stt_server` | — | `ws://amelai.tail926601.ts.net:9090` | Running |
+      23
+      24  ## Active Work Areas
+      25
+
+● Update(PROJECT_STATUS.md)
+  ⎿  Added 1 line
+      29
+      30  ## Recently Completed
+      31
+      32 +- **STT voice input system** — full end-to-end speech-to-text for Claude Code terminal sessions; faster
+         +-whisper large-v3 on amelai GPU 1 (port 9090 systemd service); Windows client with pystray tray icon, F
+         +9 hotkey, auto-start via Task Scheduler with elevated privileges; setup guides at `STT_Voice_Input.md`
+         +and `STT_New_Machine_Guide.md`
+      33  - **ComfyUI OOM fix** — diagnosed missing `--reserve-vram 3` from running container via `docker inspect
+          `; corrected in both `ComfyUI.md` and `Docker.md`; CLAUDE.md rule added to keep both files in sync
+      34  - **ReActor face swap workflow created** — basic two-image (body + face) → ReActorFaceSwap → SaveImage
+          workflow; widget values corrected for v0.6.2 node order
+      35  - **Docker.md overhaul** — `runlike` documented; ComfyUI Steve output moved to NAS (`/docs/Projects/Cla
+          ude Code Shared/Output`); FileBrowser workflows volume added; loopback port corrected to 18189; LAN bin
+          ding removed (Tailscale-only); port table fixed
+
+● Update(PROJECT_STATUS.md)
+  ⎿  Added 3 lines
+      77  | `ComfyUI.md` | ComfyUI setup, workflows, and model management |
+      78  | `FileWriter.py` | Open WebUI Tool — paste into Workspace → Tools to give models file write capability
+           |
+      79  | `N8N_Setup.md` | n8n workflow automation — Docker setup, Tailscale config, update and backup procedur
+          es |
+      80 +| `STT_Voice_Input.md` | Speech-to-text setup guide — server (amelai) and Windows client |
+      81 +| `STT_New_Machine_Guide.md` | STT client install guide for additional Windows machines on the tailnet
+         +|
+      82 +| `stt/` | STT source files — `stt_server.py`, `stt_client.py`, service unit, requirements |
+      83  | `wol/WOL_Setup.md` | Alexa Wake-on-LAN setup — full end-to-end guide including Lambda, Tailscale Funn
+          el, skill config |
+      84  | `CLAUDE.md` | Project-specific guidance for this directory |
+      85
+
+● Update(CHANGELOG.md)
+  ⎿  Added 20 lines
+       2
+       3  ---
+       4
+       5 +## [Unreleased] - 2026-05-14
+       6 +
+       7 +### Added
+       8 +- `stt/stt_server.py` — WebSocket STT server: faster-whisper large-v3 on CUDA GPU 1, RMS energy VAD, au
+         +to-reconnect, initial_prompt for proper nouns
+       9 +- `stt/stt_client.py` — Windows STT client: pystray system tray icon, F9 global hotkey, clipboard paste
+         +, reconnect loop
+      10 +- `stt/stt_server.service` — systemd unit for STT server (GPU 1, auto-restart)
+      11 +- `stt/requirements_server.txt` / `stt/requirements_client.txt` — dependency lists
+      12 +- `stt/start_stt.bat` / `stt/start_stt.vbs` — legacy launchers (superseded by Task Scheduler)
+      13 +- `STT_Voice_Input.md` — full setup and troubleshooting guide
+      14 +- `STT_New_Machine_Guide.md` — clean installation guide for additional Windows machines
+      15 +
+      16 +### Changed
+      17 +- `CLAUDE.md` — STT service added to port/service table (port 9090, GPU 1, systemd)
+      18 +
+      19 +### Fixed
+      20 +- torchaudio CUDA 13 incompatibility: replaced silero-vad with RMS energy threshold VAD — no torchaudio
+         + dependency
+      21 +- Windows auto-start keyboard hook failure: VBS hidden window (`style 0`) breaks `keyboard` global hook
+         +s; Task Scheduler `RunLevel Highest` is the correct solution
+      22 +
+      23 +---
+      24 +
+      25  ## [Unreleased] - 2026-05-04 (2)
+      26
+      27  ### Added
+
+● Now commit and push:
+
+● Bash(cd /docs/terminai && git add it/NewPC/SESSION_LOG.md it/NewPC/PROJECT_STATUS.md it/NewPC/CHANGELOG.md
+      it/NewPC/CLAUDE.md it/NewPC/STT_Voice_Input.md it/NewPC/ST…)
+  ⎿  warning: in the working copy of 'it/NewPC/stt/start_stt.bat', LF will be replaced by CRLF the next time Git to
+     uches it
+     [main 8e284ce] End of session — STT voice input system built and deployed on amelai + Windows
+     … +10 lines (ctrl+o to expand)
+  ⎿  Shell cwd was reset to /docs/terminai/it/NewPC
+
+● Bash(cd /docs/terminai && git push origin main)
+  ⎿  To https://github.com/SureShotUK/REACH.git
+        3cd3f7c..8e284ce  main -> main
+  ⎿  Shell cwd was reset to /docs/terminai/it/NewPC
+
+● Session documented and pushed. Commit 8e284ce.
+
+  Summary of what was recorded:
+  - SESSION_LOG, PROJECT_STATUS, and CHANGELOG all updated with the full STT setup story
+  - STT Server added to the service status table in PROJECT_STATUS
+  - Key lessons captured: torchaudio CUDA 13 incompatibility, Task Scheduler RunLevel Highest requirement
+
+✻ Churned for 4m 10s
+
+※ recap: Built a speech-to-text system so you can dictate prompts into Claude Code terminal sessions. Everything is
+  working and committed — next step is confirming it auto-starts correctly after your next reboot. (disable recaps in
+  /config)

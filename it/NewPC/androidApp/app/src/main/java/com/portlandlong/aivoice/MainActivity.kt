@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var chatContainer: LinearLayout
     private lateinit var scrollView: ScrollView
     private lateinit var micFab: FloatingActionButton
+    private lateinit var clearFab: FloatingActionButton
     private lateinit var ttsSwitch: SwitchMaterial
     private lateinit var statusText: TextView
 
@@ -85,6 +86,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         chatContainer = findViewById(R.id.chatContainer)
         scrollView = findViewById(R.id.scrollView)
         micFab = findViewById(R.id.micFab)
+        clearFab = findViewById(R.id.clearFab)
         ttsSwitch = findViewById(R.id.ttsSwitch)
         statusText = findViewById(R.id.statusText)
 
@@ -97,6 +99,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         tts = TextToSpeech(this, this)
         setupSpeechRecognizer()
+
+        clearFab.setOnClickListener {
+            conversationHistory.clear()
+            chatContainer.removeAllViews()
+        }
 
         micFab.setOnClickListener {
             when {

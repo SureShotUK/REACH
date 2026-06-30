@@ -1,0 +1,134 @@
+﻿using System.CommandLine;
+using Microsoft.Extensions.Configuration;
+using CompaniesHouseSearch.Helpers;
+using CompaniesHouseSearch.Models;
+using CompaniesHouseSearch.Services;
+
+var config = new ConfigurationBuilder()
+    .SetBasePath(AppContext.BaseDirectory)
+    .AddJsonFile("appsettings.json", optional: false)
+    .Build();
+
+var apiKey = config["CompaniesHouse:ApiKey"] ?? throw new InvalidOperationException(
+    "API key not found in appsettings.json. Add your Companies House API key under CompaniesHouse:ApiKey.");
+
+var baseUrl = config["CompaniesHouse:BaseUrl"] ?? "https://api.company-information.service.gov.uk";
+
+// --- Command-line arguments ---
+
+var sicOption = new Option<string>("--sic")
+{
+    Description = "Comma-separated SIC codes or prefixes to search (e.g. 49410,49310 or 49)",
+    Argument = new Argument<string>(() => "49")
+};
+
+var regionOption = new Option<string?>("--region")
+{
+    Description = "Town or city name to filter by (e.g. \"Norwich\", \"Manchester\"). Matches the locality field in the registered address.",
+    Argument = new Argument<string?>(() => "Yorkshire")
+};
+
+var postcodeOption = new Option<string?>("--postcode")
+{
+    Description = "Postcode prefix to filter results by after retrieval (e.g. \"NR\" for Norfolk, \"IP\" for Suffolk, \"CB\" for Cambridge). More reliable than --region for broad geographic areas."
+};
+
+var maxOption = new Option<int>("--max")
+{
+    Description = "Maximum number of results to return",
+    Argument = new Argument<int>(() => 1000)
+};
+
+var outputOption = new Option<string?>("--output")
+{
+    Description = "Output CSV file path (default: leads_YYYY-MM-DD.csv)"
+};
+
+var officersOption = new Option<bool>("--officers")
+{
+    Description = "Fetch director names for each company (slower — one extra API call per company)"
+};
+
+var rootCommand = new RootCommand("Companies House lead generation tool for Portland Fuel");
+rootCommand.AddOption(sicOption);
+rootCommand.AddOption(regionOption);
+rootCommand.AddOption(postcodeOption);
+rootCommand.AddOption(maxOption);
+rootCommand.AddOption(outputOption);
+rootCommand.AddOption(officersOption);
+
+rootCommand.SetHandler(async (sic, region, postcode, max, output, fetchOfficers) =>
+{
+    var outputFile = output ?? $"Leads_{DateTime.Now:yy_MM_dd_HH_mm_ss}.csv";
+    var sicCodes = SicCodeExpander.Expand(
+        sic.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
+    var postcodePrefix = postcode?.Trim().ToUpper();
+
+    Console.WriteLine("Portland Fuel — Companies House Lead Search");
+    Console.WriteLine(new string('-', 50));
+
+    var client = new CompaniesHouseClient(apiKey, baseUrl);
+    var scorer = new LeadScorer();
+    var exporter = new CsvExporter();
+
+    // 1. Search for companies
+    var companies = await client.SearchAsync(sicCodes, region, max);
+
+    // Post-filter by postcode prefix if specified
+    if (!string.IsNullOrEmpty(postcodePrefix))
+    {
+        var before = companies.Count;
+        companies = companies.Where(c =>
+            c.Address?.PostalCode?.StartsWith(postcodePrefix, StringComparison.OrdinalIgnoreCase) == true)
+            .ToList();
+        Console.WriteLine($"\nPostcode filter '{postcodePrefix}': {companies.Count} of {before} companies match.");
+    }
+    else
+    {
+        Console.WriteLine($"\nFound {companies.Count} companies.");
+    }
+
+    // 2. Score and enrich each company
+    var leads = new List<LeadRecord>();
+    int processed = 0;
+
+    foreach (var company in companies)
+    {
+        processed++;
+        var (productMatch, score) = scorer.Score(company);
+
+        var directors = "";
+        if (fetchOfficers)
+        {
+            Console.Write($"\r  Fetching directors: {processed}/{companies.Count}...");
+            var directorList = await client.GetDirectorsAsync(company.CompanyNumber);
+            directors = string.Join("; ", directorList);
+        }
+
+        leads.Add(new LeadRecord
+        {
+            CompanyNumber    = company.CompanyNumber,
+            CompanyName      = company.CompanyName,
+            RegisteredAddress = company.Address?.ToString() ?? "",
+            SICCodes         = string.Join(", ", company.SicCodes),
+            CompanyType      = company.CompanyType,
+            IncorporatedDate = company.DateOfCreation,
+            Directors        = directors,
+            ProductMatch     = productMatch,
+            MatchScore       = score,
+            CompaniesHouseURL = $"https://find-and-update.company-information.service.gov.uk/company/{company.CompanyNumber}"
+        });
+    }
+
+    if (fetchOfficers) Console.WriteLine();
+
+    // 3. Sort by score descending and export
+    var sorted = leads.OrderByDescending(l => l.MatchScore).ToList();
+    exporter.Export(sorted, outputFile);
+
+    Console.WriteLine($"\nDone. {sorted.Count} leads written to {outputFile}");
+    Console.WriteLine($"Top match: {sorted.FirstOrDefault()?.CompanyName ?? "none"} (score: {sorted.FirstOrDefault()?.MatchScore})");
+
+}, sicOption, regionOption, postcodeOption, maxOption, outputOption, officersOption);
+
+return await rootCommand.InvokeAsync(args);

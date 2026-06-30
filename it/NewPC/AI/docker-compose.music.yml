@@ -1,0 +1,65 @@
+# Music Generation Services — docker-compose
+# Usage on amelai: docker compose -f /home/steve/music-services/docker-compose.music.yml up -d
+#
+# Access from Windows browser:
+#   LAN:        http://192.168.1.192:<port>
+#   Tailscale:  https://amelai.tail926601.ts.net:<port>
+#
+# VRAM notes (48GB total, shared with Ollama):
+#   MusicGen alone:       ~4–12 GB VRAM
+#   Bark alone:           ~8–12 GB VRAM
+#   RVC inference:        ~2–4 GB VRAM
+#   Any 1–2 can coexist; all three simultaneously is tight.
+
+networks:
+  music-net:
+    driver: bridge
+
+services:
+  # ── MusicGen ───────────────────────────────────────────────────────
+  musicgen:
+    image: hypelaunchdev/musicgen:latest
+    container_name: musicgen
+    restart: unless-stopped
+    runtime: nvidia
+    networks:
+      - music-net
+    ports:
+      - "127.0.0.1:17860:7860"
+      - "192.168.1.192:7860:7860"
+    volumes:
+      - ./musicgen-data/checkpoints:/workspace/checkpoints
+    environment:
+      - HF_HUB_DISABLE_PROGRESS_BARS=1
+
+  # ── Bark + Gradio ──────────────────────────────────────────────────
+  bark:
+    build:
+      context: ./bark-gradio
+      dockerfile: Dockerfile
+    container_name: bark
+    restart: unless-stopped
+    runtime: nvidia
+    networks:
+      - music-net
+    ports:
+      - "127.0.0.1:17861:7861"
+      - "192.168.1.192:7861:7861"
+    volumes:
+      - ./bark-data:/workspace/.cache/bark
+
+  # ── RVC (Retrieval-based Voice Conversion) ─────────────────────────
+  rvc:
+    image: kamilake/rvc:latest
+    container_name: rvc
+    restart: unless-stopped
+    runtime: nvidia
+    networks:
+      - music-net
+    ports:
+      - "127.0.0.1:17865:7865"
+      - "192.168.1.192:7865:7865"
+      - "127.0.0.1:18081:8080"
+      - "192.168.1.192:8081:8080"
+    volumes:
+      - ./rvc-data:/data

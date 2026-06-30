@@ -161,34 +161,45 @@ These are the exact commands to recreate each service if its container is ever d
 
 ### Open WebUI
 
-Browser-based chat interface for Ollama models.
+Browser-based chat interface for Ollama models, with pgvector RAG support.
 
 ```bash
+# Set pgvector password (single quotes prevent bash special char issues with ! and $)
+PGPASS='your_postgresql_password'
+
 docker run -d \
   --name open-webui \
+  --network ai-network \
   --restart always \
   --gpus all \
   -p 127.0.0.1:3000:8080 \
   -p 192.168.1.192:3000:8080 \
   -v open-webui:/app/backend/data \
+  -v /home/steve/rag-documents:/app/backend/data/uploads \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
+  -e VECTOR_DB=pgvector \
+  -e PGVECTOR_DB_URL=postgresql://openwebui:${PGPASS}@192.168.1.192:5432/openwebui_vectors \
+  -e RAG_EMBEDDING_ENGINE=ollama \
+  -e RAG_EMBEDDING_MODEL=nomic-embed-text \
   ghcr.io/open-webui/open-webui:main
 ```
 
-**Then reconnect to ai-network** (required for SearXNG web search):
-
-```bash
-docker network connect ai-network open-webui
-```
+> **Pre-requisite**: `mkdir -p /home/steve/rag-documents` must exist before running (Docker will create it as root if missing, causing permission issues).
 
 | Option | Purpose |
 |---|---|
+| `--network ai-network` | Connects to SearXNG for web search (in-network, no port needed) |
 | `--restart always` | Auto-starts on server reboot |
 | `--gpus all` | Gives container access to both RTX 3090s |
 | `-p 127.0.0.1:3000:8080` | Loopback binding — Tailscale Serve proxies through here |
 | `-p 192.168.1.192:3000:8080` | LAN binding — direct local network access |
 | `-v open-webui:/app/backend/data` | Named volume — persists chat history, users, settings |
+| `-v /home/steve/rag-documents:...` | Bind mount — saves uploaded documents to host for backup |
 | `OLLAMA_BASE_URL` | Points to Ollama on the host — must use the LAN IP, not `localhost` |
+| `VECTOR_DB=pgvector` | Switches RAG storage from default ChromaDB to PostgreSQL |
+| `PGVECTOR_DB_URL` | PostgreSQL connection string for the vector database |
+| `RAG_EMBEDDING_ENGINE=ollama` | Use local Ollama to generate text embeddings |
+| `RAG_EMBEDDING_MODEL=nomic-embed-text` | Embedding model — must match the model used when documents were ingested |
 
 **Access**: `http://192.168.1.192:3000` (LAN) · `https://amelai.tail926601.ts.net` (Tailscale)
 
@@ -372,6 +383,62 @@ docker exec open-webui curl -s "http://searxng:8080/search?q=test&format=json" |
 
 ---
 
+### n8n
+
+Workflow automation — connects services, triggers on schedules or webhooks.
+
+```bash
+docker run -d \
+  --name n8n \
+  --restart unless-stopped \
+  -p 127.0.0.1:15678:5678 \
+  -p 192.168.1.192:5678:5678 \
+  -v n8n_data:/home/node/.n8n \
+  -e GENERIC_TIMEZONE=Europe/London \
+  -e N8N_HOST=amelai.tail926601.ts.net \
+  -e N8N_PORT=5678 \
+  -e N8N_PROTOCOL=https \
+  -e WEBHOOK_URL=https://amelai.tail926601.ts.net:5678 \
+  -e N8N_ENCRYPTION_KEY=<YOUR_ENCRYPTION_KEY> \
+  -e N8N_SECURE_COOKIE=false \
+  n8nio/n8n
+```
+
+> `N8N_ENCRYPTION_KEY` must match the key used when the container was first created. If the key changes, stored credentials become unreadable. See `n8n/N8N_Setup.md` for key management and backup.
+
+| Option | Purpose |
+|---|---|
+| `-v n8n_data:/home/node/.n8n` | Named volume — workflows, credentials, settings |
+| `N8N_ENCRYPTION_KEY` | Encrypts stored credentials — must be preserved across recreations |
+| `N8N_SECURE_COOKIE=false` | Required when Tailscale terminates TLS (container sees plain HTTP) |
+| `N8N_HOST` / `WEBHOOK_URL` | Ensures webhook URLs generated in the UI point to the Tailscale address |
+
+**No GPU dependency** — managed entirely by Docker's `--restart unless-stopped` policy; does not need the nvidia-wait systemd service.
+
+**Access**: `http://192.168.1.192:5678` (LAN) · `https://amelai.tail926601.ts.net:5678` (Tailscale)
+
+### pdf-to-image
+
+Converts PDF pages to base64-encoded PNG images for OCR/vision model processing. Used by the n8n Customer Profiler workflow to extract financial data from image-based Companies House accounts PDFs. Internal service only — not exposed on Tailscale.
+
+Build from source (files in `n8n/pdf-to-image/` in this repo — see `Temp.txt` for the exact commands):
+
+```bash
+docker build -t pdf-to-image /docs/terminai/it/NewPC/n8n/pdf-to-image/
+
+docker run -d \
+  --name pdf-to-image \
+  --restart unless-stopped \
+  -p 127.0.0.1:18086:8086 \
+  -p 192.168.1.192:8086:8086 \
+  pdf-to-image
+```
+
+**Access**: `http://192.168.1.192:8086` (LAN only — internal use by n8n)
+**Health check**: `curl http://192.168.1.192:8086/health`
+
+---
+
 ## Port Map — All Services
 
 | Service | Container | Container port | Loopback host port | LAN/Tailscale port |
@@ -380,7 +447,9 @@ docker exec open-webui curl -s "http://searxng:8080/search?q=test&format=json" |
 | ComfyUI (Steve) | `comfyui` | 8188 | 18189 | 8189 |
 | ComfyUI (Amelia) | `comfyui-amelia` | 8188 | 18188 | 8188 |
 | FileBrowser | `filebrowser` | 80 | 18087 | 8087 |
-| SearXNG | `searxng` | 8080 | — | 8080 (Tailscale IP) |
+| SearXNG | `searxng` | 8080 | 18080 | 8080 |
+| n8n | `n8n` | 5678 | 15678 | 5678 |
+| pdf-to-image | `pdf-to-image` | 8086 | 18086 | LAN only |
 
 ---
 
@@ -413,6 +482,7 @@ sudo tailscale serve --bg --https=443 http://localhost:3000    # Open WebUI
 sudo tailscale serve --bg --https=8087 http://localhost:18087  # FileBrowser
 sudo tailscale serve --bg --https=8188 http://localhost:18188  # ComfyUI (Amelia)
 sudo tailscale serve --bg --https=8189 http://localhost:18189  # ComfyUI (Steve)
+sudo tailscale serve --bg --https=5678 http://localhost:15678  # n8n
 ```
 
 Verify: `sudo tailscale serve status`

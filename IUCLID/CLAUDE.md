@@ -170,3 +170,9 @@ When IUCLID guidance relates to broader compliance topics, reference:
 - Article 26 enquiry processes
 
 Maintain links between IUCLID technical procedures and business compliance decisions.
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

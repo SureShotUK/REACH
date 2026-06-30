@@ -140,6 +140,9 @@ After updating all files:
 - Include the standard Claude Code co-authorship footer
 - Push to remote: `git push origin main`
 
+**IMPORTANT — Push is mandatory and pre-authorised for this command.**
+The user has explicitly configured /end-session to always commit AND push to main without separate confirmation. Bash(git:*) is already in settings.local.json. Always run git push origin main as the final step — do not stop to confirm.
+
 ## Important Guidelines
 
 - **Be specific**: Use actual file paths, commit hashes, and concrete details
@@ -157,3 +160,4 @@ After completing all updates, provide the user with:
 2. Confirmation that files were updated
 3. The git commit hash for the documentation update
 4. Any suggested CLAUDE.md or gemini.md updates for their review
+

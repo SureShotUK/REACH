@@ -135,3 +135,19 @@ docker run -d \
   -e RAG_EMBEDDING_ENGINE=ollama \
   -e RAG_EMBEDDING_MODEL=nomic-embed-text \
   ghcr.io/open-webui/open-webui:main
+
+
+
+Hi claude I have completed the changes and I have changed PCIEX16_1 and PCIEX16_2 to Gen 4 but it does not seem to
+have worked (see issue 5 on Linux_Troubleshooting.md) I got hte following results : steve@amelai:~$ sudo lspci -vvv -s
+01:00.0 | grep -E "LnkSta|LnkCap"
+[sudo] password for steve:
+                LnkCap: Port #0, Speed 16GT/s, Width x16, ASPM L0s L1, Exit Latency L0s <512ns, L1 <4us
+                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
+                LnkCap2: Supported Link Speeds: 2.5-16GT/s, Crosslink- Retimer+ 2Retimers+ DRS-
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+ EqualizationPhase1+
+steve@amelai:~$ sudo lspci -vvv -s 03:00.0 | grep -E "LnkSta|LnkCap"
+                LnkCap: Port #0, Speed 16GT/s, Width x16, ASPM L0s L1, Exit Latency L0s <512ns, L1 <4us
+                LnkSta: Speed 2.5GT/s (downgraded), Width x8 (downgraded)
+                LnkCap2: Supported Link Speeds: 2.5-16GT/s, Crosslink- Retimer+ 2Retimers+ DRS-
+                LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete+ EqualizationPhase1+

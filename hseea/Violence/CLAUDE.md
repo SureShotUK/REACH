@@ -64,3 +64,9 @@ All actions are captured in the risk assessment action table. Priority actions i
 ## Review and Maintenance
 
 The risk assessment should be reviewed annually (next due February 2027) and following any incident of violence or aggression. This CLAUDE.md should be updated whenever new documents are added or the business context changes materially.
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

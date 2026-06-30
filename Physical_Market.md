@@ -1,3 +1,5 @@
+<img src="Portland Long.png" alt="Portland Long Logo" style="width:40%; height:auto;" align="right">
+
 # Physical Oil & Products Market — Hormuz Disruption Analysis
 ### Portland Fuel — Internal Reference Document
 *Updated: 22 April 2026 | Scenario: Strait of Hormuz closed or severely restricted*

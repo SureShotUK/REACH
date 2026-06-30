@@ -50,6 +50,10 @@ it/troubleshooting/Backups_*/
 rag-mcp/node_modules/
 rag-mcp/package-lock.json
 
+# Synology NAS metadata directories
+@eaDir/
+**/@eaDir/
+
 # Specific temp/working files
 it/troubleshooting/inspect_output.txt
 it/NewPC/Log.txt

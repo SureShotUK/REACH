@@ -580,31 +580,48 @@ ollama rm <model-name>
 Open WebUI provides a polished, browser-based chat interface — similar to ChatGPT's interface but running entirely locally and connecting to Ollama.
 
 ```bash
+# Set pgvector password (single quotes prevent bash special char issues with ! and $)
+PGPASS='your_postgresql_password'
+
 docker run -d \
   --name open-webui \
+  --network ai-network \
   --restart always \
   --gpus all \
   -p 127.0.0.1:3000:8080 \
   -p 192.168.1.192:3000:8080 \
   -v open-webui:/app/backend/data \
+  -v /home/steve/rag-documents:/app/backend/data/uploads \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
+  -e VECTOR_DB=pgvector \
+  -e PGVECTOR_DB_URL=postgresql://openwebui:${PGPASS}@192.168.1.192:5432/openwebui_vectors \
+  -e RAG_EMBEDDING_ENGINE=ollama \
+  -e RAG_EMBEDDING_MODEL=nomic-embed-text \
   ghcr.io/open-webui/open-webui:main
 ```
 
 > **Note**: Use your server's actual IP address rather than `host.docker.internal`. On Ubuntu Server, `host.docker.internal` does not resolve reliably from within Docker containers, causing connection failures. Find your server's IP with `ip addr show | grep "inet " | grep -v 127`.
 >
 > **Port binding**: The two `-p` flags bind the container to loopback (`127.0.0.1`) for Tailscale serve, and to the LAN IP (`192.168.1.192`) for direct local network access. See `Tailscale.md` for a full explanation of this pattern.
+>
+> **pgvector pre-requisite**: PostgreSQL + pgvector must be installed and the `openwebui_vectors` database created before running this command (see `RAG_Setup.md`). If setting up for the first time without RAG, omit the four `VECTOR_DB`, `PGVECTOR_DB_URL`, `RAG_EMBEDDING_ENGINE`, and `RAG_EMBEDDING_MODEL` environment variables and the `rag-documents` volume line.
 
 **What each option does:**
 
 | Option | Purpose |
 |--------|---------|
 | `--name open-webui` | Names the container |
+| `--network ai-network` | Connects to SearXNG for web search |
 | `--restart always` | Auto-starts after reboot |
 | `--gpus all` | Gives container access to RTX 3090 |
-| `-p 3000:8080` | Maps port 3000 on your machine to port 8080 inside the container |
+| `-p 127.0.0.1:3000:8080` | Loopback binding — Tailscale Serve proxies through here |
+| `-p 192.168.1.192:3000:8080` | LAN binding — direct local network access |
 | `-v open-webui:/app/backend/data` | Persistent storage for chat history, settings |
+| `-v /home/steve/rag-documents:...` | Saves uploaded RAG documents to host for backup |
 | `-e OLLAMA_BASE_URL=...` | Tells Open WebUI where to find Ollama — use the server's actual IP address |
+| `VECTOR_DB=pgvector` | Switches RAG storage from ChromaDB to PostgreSQL |
+| `PGVECTOR_DB_URL` | PostgreSQL connection string for the vector database |
+| `RAG_EMBEDDING_ENGINE / MODEL` | Use nomic-embed-text via Ollama for generating embeddings |
 
 ### Access Open WebUI
 
@@ -1018,14 +1035,22 @@ If you see `Cannot connect to host host.docker.internal` in the logs, recreate t
 ```bash
 docker stop open-webui && docker rm open-webui
 
+PGPASS='your_postgresql_password'
+
 docker run -d \
   --name open-webui \
+  --network ai-network \
   --restart always \
   --gpus all \
   -p 127.0.0.1:3000:8080 \
   -p 192.168.1.192:3000:8080 \
   -v open-webui:/app/backend/data \
+  -v /home/steve/rag-documents:/app/backend/data/uploads \
   -e OLLAMA_BASE_URL=http://192.168.1.192:11434 \
+  -e VECTOR_DB=pgvector \
+  -e PGVECTOR_DB_URL=postgresql://openwebui:${PGPASS}@192.168.1.192:5432/openwebui_vectors \
+  -e RAG_EMBEDDING_ENGINE=ollama \
+  -e RAG_EMBEDDING_MODEL=nomic-embed-text \
   ghcr.io/open-webui/open-webui:main
 ```
 

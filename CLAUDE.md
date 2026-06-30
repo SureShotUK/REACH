@@ -155,6 +155,43 @@ Each project may have its own additional commands in `<project>/.claude/commands
 ### Project-Specific Agents
 Each project has specialized agents in `<project>/.claude/agents/` that are specific to that project's domain.
 
+## Document Logo Policy
+
+Every new markdown document in this repository must include the **Portland Long logo** as the
+very first element — before any heading — right-aligned, unless the Noxdown logo is explicitly
+requested instead. Only one logo per document.
+
+**Default logo** (use unless told otherwise — user may say "logo" or "Portland logo"):
+```html
+<img src="[relative-path]/Portland Long.png" alt="Portland Long" style="width:40%; height:auto;" align="right">
+```
+
+**Noxdown logo** (only when user explicitly requests "Noxdown logo"):
+```html
+<img src="[relative-path]/NoxdownPortlandLogo.png" alt="Noxdown Portland" style="width:40%; height:auto;" align="right">
+```
+
+Both logo files live at the terminai root (`/docs/terminai/`). Calculate the relative path
+based on how many directory levels the target document is below that root:
+
+| Document depth below terminai root | Relative path prefix |
+|---|---|
+| 1 level (e.g. `Briefings/`, `REACH/`, `hseea/`) | `../` |
+| 2 levels (e.g. `REACH/HVO/`, `hseea/Ladders/`) | `../../` |
+| 3 levels | `../../../` |
+
+**Example for a document in `REACH/HVO/`:**
+```html
+<img src="../../Portland Long.png" alt="Portland Long" style="width:40%; height:auto;" align="right">
+```
+
+**Rules:**
+- If the user specifies the Noxdown logo, do not add the Portland Long logo
+- If no logo is specified, always add the Portland Long logo
+- Do not add both logos to the same document
+
+---
+
 ## Briefings
 
 Standalone intelligence/research briefing papers live in `/docs/terminai/Briefings/`. All future briefings must be created there.
@@ -163,11 +200,8 @@ Standalone intelligence/research briefing papers live in `/docs/terminai/Briefin
 
 Every briefing must follow this structure and format:
 
-1. **Header image** — Always place the Portland Long logo at the very top, before any heading:
-   ```html
-   <img src="../Portland Long.png" alt="Alt Text" style="width:40%; height:auto;" align="right">
-   ```
-   *(The path uses `../` because briefings are one level below the root where the image lives.)*
+1. **Header image** — Add the Portland Long logo per the Document Logo Policy above. For
+   briefings (one level below terminai root), the path is `../Portland Long.png`.
 
 2. **Title and date** — `# Title: Strategic Briefing` followed by an italicised date line.
 

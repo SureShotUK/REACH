@@ -263,3 +263,9 @@ Based on IT project patterns:
 - `/terminai/it/CLAUDE.md` - IT-specific guidance
 - `/terminai/it/VPN_Benefits.md` - VPN security analysis (contrast with ZTNA)
 - `/terminai/it/L2TP_over_IPsec.md` - Traditional VPN approach (what we're moving away from)
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

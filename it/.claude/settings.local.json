@@ -28,7 +28,8 @@
       "WebFetch(domain:www.microsoft.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:vertexaisearch.cloud.google.com)",
-      "WebFetch(domain:support.apple.com)"
+      "WebFetch(domain:support.apple.com)",
+      "mcp__plugin_context-mode_context-mode__ctx_execute"
     ],
     "deny": [],
     "ask": []

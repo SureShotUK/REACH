@@ -132,3 +132,9 @@ Research and findings should be organized into:
 - `/templates/` - Template documents for compliance records
 - `/costs/` - Cost breakdowns and estimates
 - `/[SUBSTANCE_NAME]/` - Substance-specific compliance documentation
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

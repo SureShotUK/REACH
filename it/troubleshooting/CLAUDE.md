@@ -418,3 +418,9 @@ After each issue resolution:
 3. Improve the user experience
 4. Build organizational knowledge
 5. Continuously improve the troubleshooting process
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

@@ -1,0 +1,72 @@
+● All 18 files are written. Now to your Visual Studio question — here's the honest answer:
+
+  Visual Studio won't work with this Kotlin project. VS supports Android development only via .NET MAUI (the Xamarin successor), which requires C#. The project I just built is native Kotlin — it needs Android
+  Studio.
+
+  Your three options:
+
+  ┌───────────────────────────────┬─────────────────────────────┬──────────┬────────────────────────────────────────────────────────────────────────────┐
+  │            Option             │             IDE             │ Language │                                   Effort                                   │
+  ├───────────────────────────────┼─────────────────────────────┼──────────┼────────────────────────────────────────────────────────────────────────────┤
+  │ Open the project I just built │ Android Studio (free, ~1GB) │ Kotlin   │ Install AS → open folder → build APK                                       │
+  ├───────────────────────────────┼─────────────────────────────┼──────────┼────────────────────────────────────────────────────────────────────────────┤
+  │ Rewrite as MAUI app           │ Visual Studio (you have it) │ C#       │ I rewrite the app, but MAUI is considerably more complex for this use case │
+  ├───────────────────────────────┼─────────────────────────────┼──────────┼────────────────────────────────────────────────────────────────────────────┤
+  │ Command-line build            │ None                        │ Kotlin   │ Install JDK + Android SDK tools, run ./gradlew assembleDebug               │
+  └───────────────────────────────┴─────────────────────────────┴──────────┴────────────────────────────────────────────────────────────────────────────┘
+
+  Recommendation: Android Studio. You already have experience with IDEs, and AS is straightforward — it's essentially just "open folder, sync, build APK". The MAUI route adds real complexity because the voice
+  APIs (SpeechRecognizer, TextToSpeech) still need Android-specific platform code in MAUI anyway, so you don't escape the platform details.
+
+  Your Xamarin experience is actually useful here — AS feels similar to VS in terms of project structure and the debug/build cycle. Xamarin knowledge transfers reasonably well.
+
+  To get started on your personal PC:
+  1. Download Android Studio from developer.android.com/studio (~1GB)
+  2. Open androidApp/ folder → click Sync Project with Gradle Files
+  3. Build > Build Bundle(s)/APK(s) > Build APK(s)
+  4. APK lands in app/build/outputs/apk/debug/app-debug.apk
+  5. Transfer to phone, enable Install unknown apps for your file manager, install
+
+  Before first use: Open WebUI Settings → Account → API Keys → generate a key, then enter it in the app's Settings screen.
+
+✻ Churned for 7m 27s
+
+❯ No worries I'll stick with Android Studio for this one
+
+● Good choice. Here's everything you need to do, in order:
+
+  Step 1 — Get the project to your Windows PC
+
+  The project is already committed to your git repo at it/NewPC/androidApp/. Run the sync skill to push it, then pull on the Windows machine:
+  /sync-session
+  Then on the Windows PC: git pull
+
+  Step 2 — Install Android Studio
+
+  Download from developer.android.com/studio (~1GB). During first-run setup, accept all defaults — it installs the Android SDK automatically.
+
+  Step 3 — Get your Open WebUI API key
+
+  On amelai, go to https://amelai.tail926601.ts.net → Settings (top-right) → Account → API Keys → create one. Copy it.
+
+  Step 4 — Build the APK
+
+  1. Open Android Studio → Open → select the androidApp folder
+  2. If prompted about Gradle sync or missing wrapper, click Use embedded Gradle
+  3. Wait for sync to finish (downloads ~200MB of dependencies first time)
+  4. Build menu → Build Bundle(s)/APK(s) → Build APK(s)
+  5. APK will be at app/build/outputs/apk/debug/app-debug.apk
+
+  Step 5 — Sideload to S24 Ultra
+
+  1. Copy the APK to your phone (USB, email to yourself, whatever)
+  2. On the phone: Settings → Apps → Special app access → Install unknown apps → enable for Files app
+  3. Tap the APK to install
+
+  Step 6 — First run
+
+  1. Make sure Tailscale is connected on the phone
+  2. Open AI Voice → tap the gear icon → paste your API key, confirm URL and model → Save
+  3. Tap the blue mic button and speak
+
+  The FAB turns red while listening, orange while waiting for the AI response, then blue again when ready. The Speak toggle controls TTS.

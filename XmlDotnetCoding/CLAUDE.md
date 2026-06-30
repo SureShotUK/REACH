@@ -120,3 +120,9 @@ var elements = doc.Descendants("ElementName")
 - Follow the shared principles in `/terminai/CLAUDE.md`
 - Use the TodoWrite tool for tracking multi-step tasks
 - Ask clarifying questions before making assumptions about XML structure or requirements
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.
