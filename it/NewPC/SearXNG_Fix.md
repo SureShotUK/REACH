@@ -160,3 +160,5 @@ claude mcp list
 claude mcp remove searxng
 claude mcp add --transport sse --scope user searxng http://100.79.83.113:3001/sse
 ```
+
+> **Windows MCP config location**: Claude Code stores MCP server definitions in `%USERPROFILE%\.claude.json` (a single flat file in the home directory — e.g. `C:\Users\SteveIrwin\.claude.json`). This is **not** `~\.claude\.mcp.json` or `~\.claude\settings.json`. The `claude mcp add` command writes to this file automatically. To manually add or edit servers, open `.claude.json` directly in a text editor.

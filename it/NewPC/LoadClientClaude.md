@@ -81,6 +81,8 @@ claude mcp list
 
 You should see `searxng` listed.
 
+> **Windows MCP config location**: Claude Code stores MCP server definitions in `%USERPROFILE%\.claude.json` — a single flat file in the home directory (e.g. `C:\Users\SteveIrwin\.claude.json`). This is **not** `~\.claude\.mcp.json` or `~\.claude\settings.json`. The `claude mcp add` command writes to this file automatically. To manually add additional servers (e.g. the `rag` MCP), open `.claude.json` and add entries inside the `mcpServers` block alongside `searxng`.
+
 ---
 
 ### Step 3 — Set Up CLAUDE.md

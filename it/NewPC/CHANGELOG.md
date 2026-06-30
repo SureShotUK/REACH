@@ -2,6 +2,22 @@
 
 ---
 
+## [Unreleased] - 2026-06-30 (session 2)
+
+### Changed
+- `it/NewPC/SteveOP_MCP_Setup.md` — username corrected (`Steve` → `irwin`); UNC path fixed (`I:\terminai\` → `\\irwinnas\MyDocs\terminai\`); Step 5 rewritten from `.mcp.json` to `.claude.json` (correct Windows MCP config location)
+- `it/NewPC/Temp.txt` — username corrected (`Steve` → `SteveIrwin`); UNC path fixed; Section A rewritten to reference `.claude.json`
+- `it/NewPC/LocalModels.md` — installed models table sorted descending by model size
+- `it/NewPC/SearXNG_Fix.md` — added Windows MCP config location note (`.claude.json` is the correct file, not `.mcp.json`)
+- `it/NewPC/Local_CC.md` — Phase 4.1.2 corrected to reference user-scoped `.claude.json`
+- `it/NewPC/LoadClientClaude.md` — Step 2 note added explaining `.claude.json` and manual server additions
+- `it/NewPC/RAG_Setup.md` — new "Connecting from Windows Client Machines" section added with full MCP config block
+
+### Fixed
+- Windows MCP config location: previous documentation referenced `~\.claude\.mcp.json` — correct file is `%USERPROFILE%\.claude.json`; this caused RAG MCP to never appear in `/mcp` on SteveOP and StevesLenovo
+
+---
+
 ## [Unreleased] - 2026-06-30
 
 ### Added

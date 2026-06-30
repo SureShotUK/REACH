@@ -2,6 +2,46 @@
 
 ---
 
+## Session 2026-06-30 (2) — RAG MCP connected on SteveOP and StevesLenovo; Windows MCP config location corrected
+
+### Summary
+Diagnosed and fixed RAG MCP not appearing in Claude Code on either Windows machine. Root cause: Windows Claude Code stores MCP server config in `%USERPROFILE%\.claude.json` (flat file), not `~\.claude\.mcp.json` as documented. Both machines now have RAG MCP connected. Fixed username errors in SteveOP documentation, sorted LocalModels table, and updated four documentation files to record the correct Windows MCP config location.
+
+### Work Completed
+- **Diagnosed Windows MCP config file** — `.mcp.json` was the assumed location but `/mcp` never showed `rag`. Found the real config file at `C:\Users\SteveIrwin\.claude.json` (StevesLenovo) containing the existing `searxng` SSE entry. Claude Code on Windows uses this flat file, not the `.claude\` subfolder.
+- **Fixed RAG MCP on StevesLenovo** — added `rag` block to `C:\Users\SteveIrwin\.claude.json` alongside existing `searxng` entry; user confirmed `rag · connected` in `/mcp` output
+- **Fixed RAG MCP on SteveOP** — same approach: added `rag` to `C:\Users\irwin\.claude.json`; user confirmed working
+- **Fixed Claude Code version on SteveOP** — was 2.1.119; updated to 2.1.196 using `irm https://claude.ai/install.ps1 | iex` (winget offers 2.1.195 — one version behind)
+- **Corrected username in `SteveOP_MCP_Setup.md`** — was incorrectly using `Steve`; corrected to `irwin` throughout
+- **Corrected UNC path** — `I:\terminai\` was not mapped on SteveOP; changed all references to `\\irwinnas\MyDocs\terminai\` (UNC path confirmed working via `Test-Path`)
+- **Rewrote Step 5 of `SteveOP_MCP_Setup.md`** — replaced `.mcp.json` instructions with correct `.claude.json` instructions
+- **Updated `Temp.txt`** — StevesLenovo setup instructions corrected to reference `C:\Users\SteveIrwin\.claude.json` and UNC path
+- **Sorted `LocalModels.md` table** — installed models table reordered descending by model size
+- **Added Windows MCP config note to four documentation files** — `SearXNG_Fix.md`, `Local_CC.md`, `LoadClientClaude.md`, `RAG_Setup.md` all updated with the correct `.claude.json` location
+
+### Files Changed
+- `it/NewPC/SteveOP_MCP_Setup.md` — username corrected (`Steve` → `irwin`), UNC path fixed, Step 5 rewritten for `.claude.json`
+- `it/NewPC/Temp.txt` — username corrected (`Steve` → `SteveIrwin`), UNC path fixed, `.claude.json` references updated
+- `it/NewPC/LocalModels.md` — installed models table sorted descending by size
+- `it/NewPC/SearXNG_Fix.md` — added Windows MCP config location note in Quick Reference section
+- `it/NewPC/Local_CC.md` — corrected Phase 4.1.2 note to reference user-scoped `.claude.json`
+- `it/NewPC/LoadClientClaude.md` — added Windows MCP config note in Step 2 after `claude mcp add` command
+- `it/NewPC/RAG_Setup.md` — added new "Connecting from Windows Client Machines" section with full config block
+
+### Key Decisions
+- **`.claude.json` is the authoritative Windows MCP config** — not `.mcp.json` and not `settings.json`. The `claude mcp add` CLI command writes here; manual edits should be made here too.
+- **UNC path over mapped drive** — `I:` was not reliably mapped on SteveOP; `\\irwinnas\MyDocs\terminai\rag-mcp\index.mjs` is the stable reference.
+- **winget is one version behind** — always use `irm https://claude.ai/install.ps1 | iex` for the exact latest Claude Code version on Windows.
+- **PGPASS stays out of config files** — must be set in PowerShell `$PROFILE` or Windows User environment variables before launching Claude Code.
+
+### Next Actions
+- [ ] **SteveOP TradingView MCP** — Steps 3–8 of `SteveOP_MCP_Setup.md` still to do: clone repo, `npm install`, `rules.json`, debug-mode launch
+- [ ] **`/db` skill on SteveOP** — create `C:\Users\irwin\.claude\commands\db.md` (Step 7 of `SteveOP_MCP_Setup.md`)
+- [ ] **`/db` skill on StevesLenovo** — create `C:\Users\SteveIrwin\.claude\commands\db.md` (Step B of `Temp.txt`)
+- [ ] **Restart Claude Code on Amelai** — pick up updated `~/.claude/.mcp.json` (NAS path for rag, tradingview removed)
+
+---
+
 ## Session 2026-06-30 — RAG MCP consolidated to NAS; SteveOP MCP setup guide created
 
 ### Summary

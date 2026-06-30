@@ -501,6 +501,44 @@ RAG retrieves a fixed number of chunks per query (default: 5). With too many doc
 
 ---
 
+## Connecting from Windows Client Machines (Claude Code MCP)
+
+The RAG knowledge base is accessible from Claude Code on Windows via the Node.js MCP server at `\\irwinnas\MyDocs\terminai\rag-mcp\index.mjs`.
+
+**Windows MCP config location**: Claude Code stores MCP server definitions in `%USERPROFILE%\.claude.json` — a single flat file in the home directory. This is **not** `~\.claude\.mcp.json` or `~\.claude\settings.json`.
+
+To add the `rag` MCP, open `%USERPROFILE%\.claude.json` and add the `rag` block inside the existing `mcpServers` object alongside any other servers (e.g. `searxng`):
+
+```json
+"mcpServers": {
+  "searxng": {
+    "type": "sse",
+    "url": "http://100.79.83.113:3001/sse"
+  },
+  "rag": {
+    "command": "node",
+    "args": ["\\\\irwinnas\\MyDocs\\terminai\\rag-mcp\\index.mjs"],
+    "env": {
+      "PG_HOST": "amelai.tail926601.ts.net",
+      "PG_PORT": "5432",
+      "PG_DATABASE": "openwebui_vectors",
+      "PG_USER": "openwebui",
+      "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
+      "EMBED_MODEL": "nomic-embed-text",
+      "RAG_TOP_K": "5"
+    }
+  }
+}
+```
+
+**PGPASS**: The database password must be available as `PGPASS` in the environment when Claude Code launches. Set it in your PowerShell `$PROFILE` or as a Windows User environment variable — do not add it to `.claude.json`.
+
+After saving, restart Claude Code and verify with `/mcp` — `rag` should appear as connected. Use `/db list` to list available knowledge base collections, or `/db <query>` to search.
+
+For full per-machine setup instructions see `SteveOP_MCP_Setup.md` (SteveOP) or `Temp.txt` (StevesLenovo).
+
+---
+
 ## Resources
 
 - <a href="https://docs.openwebui.com/tutorials/features/rag" target="_blank">Open WebUI RAG Documentation</a>

@@ -1,57 +1,100 @@
-Windows Claude Code MCP configuration
-======================================
-Add this to: C:\Users\Steve\.claude\.mcp.json
+StevesLenovo — Claude Code MCP and /db Skill Setup
+====================================================
 
-If that file already exists, merge the "rag" block into the existing "mcpServers" object.
-If the file doesn't exist yet, create it with the full content below.
+TWO things to do on StevesLenovo:
+  A) Create the MCP config file
+  B) Create the /db skill file
 
-IMPORTANT: Before doing this, set PGPASS as a Windows User environment variable:
+
+========================================
+A) MCP CONFIG — C:\Users\SteveIrwin\.claude.json
+========================================
+
+Claude Code on Windows stores MCP config in C:\Users\SteveIrwin\.claude.json
+(a single file in the home directory, NOT the .claude\ folder).
+
+Open .claude.json and add the "rag" block inside the existing "mcpServers" object
+alongside any servers already there (e.g. searxng).
+
+Add this inside your existing "mcpServers": { ... } object:
+
+    "rag": {
+      "command": "node",
+      "args": ["\\\\irwinnas\\MyDocs\\terminai\\rag-mcp\\index.mjs"],
+      "env": {
+        "PG_HOST": "amelai.tail926601.ts.net",
+        "PG_PORT": "5432",
+        "PG_DATABASE": "openwebui_vectors",
+        "PG_USER": "openwebui",
+        "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
+        "EMBED_MODEL": "nomic-embed-text",
+        "RAG_TOP_K": "5"
+      }
+    }
+
+IMPORTANT: PGPASS must be set in the environment before launching Claude Code.
+Set it in your PowerShell $PROFILE or as a Windows User environment variable:
   1. Open Start, search "Edit the system environment variables"
   2. Click "Environment Variables..."
-  3. Under "User variables for Steve", click "New"
+  3. Under "User variables for SteveIrwin", click "New"
   4. Variable name:  PGPASS
   5. Variable value: [your PostgreSQL password - same value as on Amelai]
   6. Click OK, then OK again
   7. Restart Claude Code after setting it
 
---- FULL FILE (if .mcp.json does not exist yet) ---
 
-{
-  "mcpServers": {
-    "rag": {
-      "command": "node",
-      "args": ["I:\\terminai\\rag-mcp\\index.mjs"],
-      "env": {
-        "PG_HOST": "amelai.tail926601.ts.net",
-        "PG_PORT": "5432",
-        "PG_DATABASE": "openwebui_vectors",
-        "PG_USER": "openwebui",
-        "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
-        "EMBED_MODEL": "nomic-embed-text",
-        "RAG_TOP_K": "5"
-      }
-    }
-  }
-}
+========================================
+B) /db SKILL — C:\Users\SteveIrwin\.claude\commands\db.md
+========================================
 
---- MERGE BLOCK (if .mcp.json already has other servers) ---
-Add this inside your existing "mcpServers": { ... } object:
+1. Create the directory if it doesn't exist:
+   Open PowerShell and run:
+   New-Item -ItemType Directory -Force -Path "C:\Users\SteveIrwin\.claude\commands"
 
-    "rag": {
-      "command": "node",
-      "args": ["I:\\terminai\\rag-mcp\\index.mjs"],
-      "env": {
-        "PG_HOST": "amelai.tail926601.ts.net",
-        "PG_PORT": "5432",
-        "PG_DATABASE": "openwebui_vectors",
-        "PG_USER": "openwebui",
-        "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
-        "EMBED_MODEL": "nomic-embed-text",
-        "RAG_TOP_K": "5"
-      }
-    }
+2. Create the file C:\Users\SteveIrwin\.claude\commands\db.md with this exact content:
 
---- NOTES ---
+--- START OF db.md ---
+# /db — Query Amelai's Knowledge Base
+
+Search the local RAG knowledge base for information stored in Amelai's PostgreSQL vector database.
+
+## Usage
+
+```
+/db <query>
+/db #<collection-name> <query>
+```
+
+**Examples:**
+- `/db what are the requirements for DSEAR risk assessments?`
+- `/db HSE what are the working at height regulations?`
+- `/db list` — list all available knowledge base collections
+
+## How it works
+
+The `rag` MCP server is automatically active in every session. It exposes two tools:
+
+- **`rag_search(query, collection_name?)`** — embed the query via Ollama (nomic-embed-text), run a cosine similarity search against pgvector, return the top 5 matching document chunks with scores and source attribution
+- **`rag_list_collections()`** — list all knowledge base collections and their chunk counts
+
+## Using this skill
+
+When invoked as `/db <query>`, do the following:
+
+1. If the first word starts with `#`, extract it as the collection filter (e.g. `#HSE` → search only the HSE collection)
+2. Call `mcp__rag__rag_search` with the remaining text as `query` and the collection UUID (if known) as `collection_name`
+3. Format the results clearly, citing the source file and relevance score for each result
+4. If no results are found, say so and suggest the user check that documents have been uploaded via Open WebUI (Workspace → Knowledge)
+
+To list available collections, call `mcp__rag__rag_list_collections` and display the results in a table showing collection name and chunk count.
+
+The collection names from pgvector are UUIDs that map to knowledge bases in Open WebUI. The tool resolves them to human-readable names automatically via the Open WebUI SQLite database.
+--- END OF db.md ---
+
+
+========================================
+NOTES
+========================================
 * PGPASS is read from the Windows User environment variable you set above.
 * Knowledge base names will show as UUIDs on Windows (e.g. 1c973c09-...) because
   the docker exec name lookup only runs locally on Amelai. Search results are
@@ -59,6 +102,7 @@ Add this inside your existing "mcpServers": { ... } object:
 * If Claude Code cannot find node_modules (unlikely - all packages are pure JS):
   open a Command Prompt, cd to I:\terminai\rag-mcp and run: npm install
 * Tailscale must be connected for the tool to reach Amelai.
-  If Tailscale ACL restricts port traffic between devices, you may need to add
-  allow rules for ports 5432 (PostgreSQL) and 11434 (Ollama) in the Tailscale
-  admin console: https://login.tailscale.com/admin/acls
+* If Tailscale ACL restricts port traffic, add allow rules for ports 5432
+  (PostgreSQL) and 11434 (Ollama) at https://login.tailscale.com/admin/acls
+
+For SteveOP setup, see: I:\terminai\it\NewPC\SteveOP_MCP_Setup.md

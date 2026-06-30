@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-06-30
+**Last Updated**: 2026-06-30 (session 2)
 
 ---
 
@@ -24,8 +24,8 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Active Work Areas
 
-- **SteveOP MCP setup** — `SteveOP_MCP_Setup.md` created; user needs to follow the 9-step guide to install Node.js, clone TradingView MCP, create `.mcp.json`, PowerShell script, and `/db` skill on SteveOP
-- **StevesLenovo MCP setup** — Windows setup instructions in `it/NewPC/Temp.txt`; user needs to add PGPASS (single-quoted) to PowerShell script and create `C:\Users\Steve\.claude\.mcp.json`
+- **SteveOP MCP setup** — RAG MCP now connected (`rag` added to `C:\Users\irwin\.claude.json`). Remaining: TradingView MCP (Steps 3–8 of `SteveOP_MCP_Setup.md`) and `/db` skill (`C:\Users\irwin\.claude\commands\db.md`)
+- **StevesLenovo MCP setup** — RAG MCP now connected (`rag` added to `C:\Users\SteveIrwin\.claude.json`). Remaining: `/db` skill (`C:\Users\SteveIrwin\.claude\commands\db.md`)
 - **RAG MCP (Amelai)** — server consolidated to NAS at `/docs/terminai/rag-mcp/`; requires Claude Code restart on Amelai to pick up updated config pointing to NAS path
 - **n8n Company Name Lookup workflow** — `CompanyLookup_Workflow.json` working for multi-company processing and chat response; CSV attachment fix applied (Outlook node replaced with direct Graph API HTTP Request); needs test to confirm attachment now arrives
 - **n8n Customer Profiler workflow** — `CustomerProfilerWorkingEmail.json` working for PDF and iXBRL paths; needs final test confirming net assets extraction from iXBRL
@@ -63,8 +63,9 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
-- [ ] **SteveOP MCP setup** — follow `SteveOP_MCP_Setup.md`: install Node.js, clone TradingView MCP, create `.mcp.json`, PowerShell script with PGPASS, `/db` skill at `C:\Users\Steve\.claude\commands\db.md`
-- [ ] **StevesLenovo MCP setup** — add `$env:PGPASS = 'password'` (single quotes) to existing PowerShell Claude script; create `C:\Users\Steve\.claude\.mcp.json` with RAG config from `Temp.txt`
+- [ ] **SteveOP TradingView MCP** — Steps 3–8 of `SteveOP_MCP_Setup.md`: clone repo, `npm install`, `rules.json`, debug-mode launch (RAG is already working)
+- [ ] **`/db` skill on SteveOP** — create `C:\Users\irwin\.claude\commands\db.md` (Step 7 of `SteveOP_MCP_Setup.md`)
+- [ ] **`/db` skill on StevesLenovo** — create `C:\Users\SteveIrwin\.claude\commands\db.md` (Step B of `Temp.txt`)
 - [ ] **Restart Claude Code on Amelai** — pick up updated `~/.claude/.mcp.json` (NAS path for rag, tradingview removed)
 - [ ] **Company Lookup: verify CSV attachment** — import updated JSON, reselect `MyHotmailEmail` credential in "Send Results" node if needed, test that `company_lookup_results.csv` now arrives
 - [ ] **Company Lookup: medium/low confidence** — investigate why Amelai only returns high-confidence results; may need prompt tuning or model change

@@ -79,13 +79,13 @@ After installation, log in with your Anthropic account or configure the PowerShe
 Open PowerShell and run:
 
 ```powershell
-git clone https://github.com/LewisWJackson/tradingview-mcp-jackson.git C:\Users\Steve\tradingview-mcp-jackson
-cd C:\Users\Steve\tradingview-mcp-jackson
+git clone https://github.com/LewisWJackson/tradingview-mcp-jackson.git C:\Users\irwin\tradingview-mcp-jackson
+cd C:\Users\irwin\tradingview-mcp-jackson
 npm install
 ```
 
 This installs all dependencies locally. The MCP server entry point is:
-`C:\Users\Steve\tradingview-mcp-jackson\src\server.js`
+`C:\Users\irwin\tradingview-mcp-jackson\src\server.js`
 
 ---
 
@@ -94,7 +94,7 @@ This installs all dependencies locally. The MCP server entry point is:
 The TradingView MCP uses a `rules.json` file to define your watchlist, bias criteria, and risk rules. These are applied automatically during the morning brief.
 
 ```powershell
-cd C:\Users\Steve\tradingview-mcp-jackson
+cd C:\Users\irwin\tradingview-mcp-jackson
 copy rules.example.json rules.json
 notepad rules.json
 ```
@@ -108,39 +108,39 @@ The morning brief will fail with "No rules.json found" if this step is skipped.
 
 ---
 
-## Step 5 — Create the MCP Configuration File
+## Step 5 — Add MCP Servers to `.claude.json`
 
-Create (or update) `C:\Users\Steve\.claude\.mcp.json` with the following content.
+Claude Code on Windows stores MCP server configuration in `C:\Users\irwin\.claude.json` (a single file in the home directory, **not** the `.claude\` folder).
 
-**If the file does not exist yet**, create it with this full content:
+Open `C:\Users\irwin\.claude.json` and add the `mcpServers` block alongside any existing top-level keys. If other MCP servers are already present (e.g. `searxng`), add `tradingview` and `rag` inside the existing `mcpServers` object:
 
 ```json
-{
-  "mcpServers": {
-    "tradingview": {
-      "command": "node",
-      "args": ["C:\\Users\\Steve\\tradingview-mcp-jackson\\src\\server.js"]
-    },
-    "rag": {
-      "command": "node",
-      "args": ["I:\\terminai\\rag-mcp\\index.mjs"],
-      "env": {
-        "PG_HOST": "amelai.tail926601.ts.net",
-        "PG_PORT": "5432",
-        "PG_DATABASE": "openwebui_vectors",
-        "PG_USER": "openwebui",
-        "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
-        "EMBED_MODEL": "nomic-embed-text",
-        "RAG_TOP_K": "5"
-      }
+"mcpServers": {
+  "searxng": {
+    "type": "sse",
+    "url": "http://<amelai-tailscale-ip>:3001/sse"
+  },
+  "tradingview": {
+    "command": "node",
+    "args": ["C:\\Users\\irwin\\tradingview-mcp-jackson\\src\\server.js"]
+  },
+  "rag": {
+    "command": "node",
+    "args": ["\\\\irwinnas\\MyDocs\\terminai\\rag-mcp\\index.mjs"],
+    "env": {
+      "PG_HOST": "amelai.tail926601.ts.net",
+      "PG_PORT": "5432",
+      "PG_DATABASE": "openwebui_vectors",
+      "PG_USER": "openwebui",
+      "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
+      "EMBED_MODEL": "nomic-embed-text",
+      "RAG_TOP_K": "5"
     }
   }
 }
 ```
 
-**If the file already exists** with other servers, add both blocks inside the existing `"mcpServers": { }` object.
-
-> The `.claude` directory (`C:\Users\Steve\.claude\`) may be hidden. In File Explorer, enable "Show hidden items" under View → Show.
+> **Note:** `.claude.json` may be hidden in File Explorer. Enable "Show hidden items" under View → Show, or edit it directly in VS Code or Notepad.
 
 ---
 
@@ -148,7 +148,7 @@ Create (or update) `C:\Users\Steve\.claude\.mcp.json` with the following content
 
 Create a script to set environment variables before launching Claude Code. This keeps credentials out of config files.
 
-Save the following as `C:\Users\Steve\start-claude.ps1`:
+Save the following as `C:\Users\irwin\start-claude.ps1`:
 
 ```powershell
 # PostgreSQL password for Amelai RAG knowledge base (via Tailscale)
@@ -167,7 +167,7 @@ claude
 Run Claude Code by executing this script in PowerShell:
 
 ```powershell
-C:\Users\Steve\start-claude.ps1
+C:\Users\irwin\start-claude.ps1
 ```
 
 Or right-click the file → "Run with PowerShell".
@@ -184,10 +184,10 @@ The `/db` skill provides explicit knowledge base searches from the Claude Code p
 Create the directory if it doesn't exist:
 
 ```powershell
-New-Item -ItemType Directory -Force -Path "C:\Users\Steve\.claude\commands"
+New-Item -ItemType Directory -Force -Path "C:\Users\irwin\.claude\commands"
 ```
 
-Then create `C:\Users\Steve\.claude\commands\db.md` with this content:
+Then create `C:\Users\irwin\.claude\commands\db.md` with this content:
 
 ```markdown
 # /db — Query Amelai's Knowledge Base
@@ -233,7 +233,7 @@ The TradingView MCP communicates with TradingView Desktop via the Chrome DevTool
 **Always use this batch file to launch TradingView when you intend to use the MCP:**
 
 ```
-C:\Users\Steve\tradingview-mcp-jackson\scripts\launch_tv_debug.bat
+C:\Users\irwin\tradingview-mcp-jackson\scripts\launch_tv_debug.bat
 ```
 
 Create a desktop shortcut to this batch file for convenience.
@@ -303,10 +303,10 @@ Key tools available once connected:
 | `ECONNREFUSED` on port 9222 | TradingView not running, or another application is using port 9222 |
 | RAG MCP: connection refused | Tailscale not connected, or Amelai is asleep. Wake via Alexa: "Alexa, open wol machine" |
 | RAG MCP: PGPASS authentication failed | `PGPASS` env var not set or incorrect. Confirm the `start-claude.ps1` script ran before Claude Code |
-| MCP servers not listed at startup | Check `C:\Users\Steve\.claude\.mcp.json` syntax (no trailing commas). Restart Claude Code |
+| MCP servers not listed at startup | Check `C:\Users\irwin\.claude\.mcp.json` syntax (no trailing commas). Restart Claude Code |
 | `/db list` returns no collections | Documents not yet uploaded to Open WebUI. Add via Open WebUI → Workspace → Knowledge |
-| `morning_brief` — "No rules.json found" | Run `copy rules.example.json rules.json` in `C:\Users\Steve\tradingview-mcp-jackson\` and fill it in |
-| `tv` CLI command not found | Run `npm link` from `C:\Users\Steve\tradingview-mcp-jackson\` (optional — MCP tools work without it) |
+| `morning_brief` — "No rules.json found" | Run `copy rules.example.json rules.json` in `C:\Users\irwin\tradingview-mcp-jackson\` and fill it in |
+| `tv` CLI command not found | Run `npm link` from `C:\Users\irwin\tradingview-mcp-jackson\` (optional — MCP tools work without it) |
 | PowerShell script blocked | Run: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` |
 | RAG search returns stale/irrelevant results | Ollama on Amelai may be loading — wait 30 seconds and retry |
 

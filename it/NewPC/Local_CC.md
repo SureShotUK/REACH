@@ -777,7 +777,7 @@ Run this once in the **Windows PowerShell** terminal where Claude Code is launch
 claude mcp add --transport sse searxng http://100.79.83.113:3001/sse
 ```
 
-This saves to `C:\Users\SteveIrwin\.claude.json` for the `C:\Users\SteveIrwin\Claude` project scope.
+This saves to `C:\Users\SteveIrwin\.claude.json` — the user-scoped MCP config file (applies in all projects). This is a flat JSON file in the home directory; **not** `~\.claude\.mcp.json` or `~\.claude\settings.json`. To manually add additional servers, open `.claude.json` directly and add entries inside the `mcpServers` block.
 
 Restart Claude Code and verify the server is connected:
 
