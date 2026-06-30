@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-06-22 (Company Name Lookup workflow)
+**Last Updated**: 2026-06-30
 
 ---
 
@@ -24,6 +24,9 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Active Work Areas
 
+- **SteveOP MCP setup** — `SteveOP_MCP_Setup.md` created; user needs to follow the 9-step guide to install Node.js, clone TradingView MCP, create `.mcp.json`, PowerShell script, and `/db` skill on SteveOP
+- **StevesLenovo MCP setup** — Windows setup instructions in `it/NewPC/Temp.txt`; user needs to add PGPASS (single-quoted) to PowerShell script and create `C:\Users\Steve\.claude\.mcp.json`
+- **RAG MCP (Amelai)** — server consolidated to NAS at `/docs/terminai/rag-mcp/`; requires Claude Code restart on Amelai to pick up updated config pointing to NAS path
 - **n8n Company Name Lookup workflow** — `CompanyLookup_Workflow.json` working for multi-company processing and chat response; CSV attachment fix applied (Outlook node replaced with direct Graph API HTTP Request); needs test to confirm attachment now arrives
 - **n8n Customer Profiler workflow** — `CustomerProfilerWorkingEmail.json` working for PDF and iXBRL paths; needs final test confirming net assets extraction from iXBRL
 - **n8n Lead Generation workflow** — `LeadGen_Workflow.json` built and ready to import; needs "Companies House API" Basic Auth credential created in n8n before first test run
@@ -33,6 +36,7 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Recently Completed
 
+- **RAG MCP server built and consolidated** — Node.js MCP server at `/docs/terminai/rag-mcp/` (shared NAS) exposes `rag_search` and `rag_list_collections` tools; registered in `~/.claude/.mcp.json` on Amelai; `/db` global skill at `~/.claude/commands/db.md`; setup guide for SteveOP at `SteveOP_MCP_Setup.md`; setup instructions for StevesLenovo in `Temp.txt`
 - **Company Name Lookup workflow** — 11-node importable workflow (`CompanyLookup_Workflow.json`); accepts names one-per-line or comma-separated; CH search + Amelai confidence scoring + colour-coded email with CSV attachment + markdown chat response; multiple-company bug fixed (Code node batch-mode semantics); CSV attachment fixed (Graph API format)
 - **Customer Profiler iXBRL extraction** — dual-path architecture: PDF → pdf-to-image → qwen2.5vl:7b vision; iXBRL → text download → qwen3.5:27b (think:false); format detected from S3 URL before download; dual targeted extracts for P&L + balance sheet sections; `remove` command; profit after tax; parentheses negatives
 - **n8n Lead Generation workflow built** — 17-node importable workflow (`it/NewPC/n8n/LeadGen_Workflow.json`); SIC search + single company modes; CH officers + filing + PDF + SearXNG + Ollama qwen3.6:27b + HTML email digest to steve@portland-fuel.co.uk; full usage guide in `LeadGen_Workflow_Design.md`
@@ -59,6 +63,9 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
+- [ ] **SteveOP MCP setup** — follow `SteveOP_MCP_Setup.md`: install Node.js, clone TradingView MCP, create `.mcp.json`, PowerShell script with PGPASS, `/db` skill at `C:\Users\Steve\.claude\commands\db.md`
+- [ ] **StevesLenovo MCP setup** — add `$env:PGPASS = 'password'` (single quotes) to existing PowerShell Claude script; create `C:\Users\Steve\.claude\.mcp.json` with RAG config from `Temp.txt`
+- [ ] **Restart Claude Code on Amelai** — pick up updated `~/.claude/.mcp.json` (NAS path for rag, tradingview removed)
 - [ ] **Company Lookup: verify CSV attachment** — import updated JSON, reselect `MyHotmailEmail` credential in "Send Results" node if needed, test that `company_lookup_results.csv` now arrives
 - [ ] **Company Lookup: medium/low confidence** — investigate why Amelai only returns high-confidence results; may need prompt tuning or model change
 - [ ] **Customer Profiler: final iXBRL test** — confirm net assets extracted for Centrebus (03872099) after dual-section extraction fix
@@ -113,6 +120,8 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | `stt/` | STT source files — `stt_server.py`, `stt_client.py`, service unit, requirements |
 | `stt/STT_Documentation.md` | Comprehensive STT docs — server setup, client setup, VRAM lifecycle, update procedures, troubleshooting |
 | `wol/WOL_Setup.md` | Alexa Wake-on-LAN setup — full end-to-end guide including Lambda, Tailscale Funnel, skill config |
+| `SteveOP_MCP_Setup.md` | 9-step MCP setup guide for SteveOP — TradingView + RAG MCPs |
+| `rag-mcp/index.mjs` | RAG MCP server — shared NAS copy, used by Amelai and Windows machines |
 | `CLAUDE.md` | Project-specific guidance for this directory |
 
 ## Hardware

@@ -539,12 +539,60 @@ const name = parseNamesItems[idx] ? parseNamesItems[idx].json.companyName : '';
 
 ### Credential IDs and Names (this n8n instance)
 
-| Credential | n8n name | n8n id |
-|---|---|---|
-| Companies House Header Auth | `Header Auth account` | `PL9KCqe3GZ1iSIFZ` |
-| Microsoft Outlook OAuth2 | `MyHotmailEmail` | `Orgklv2FZdo5pC4V` |
+| Credential | Type | n8n name | n8n id | Used in |
+|---|---|---|---|---|
+| Companies House Header Auth | Header Auth | `Header Auth account` | `PL9KCqe3GZ1iSIFZ` | All 3 workflows |
+| Microsoft Outlook OAuth2 | OAuth2 | `MyHotmailEmail` | `Orgklv2FZdo5pC4V` | All 3 workflows |
+| Companies House Basic Auth | Basic Auth | `Companies House API` | `V6wt6a20FqZo4uwt` | Lead Gen only |
+| Companies House Header Auth 2 | Header Auth | `Header Auth account 2` | `oFsWFg5i7s9ZHUqg` | Lead Gen (Filing History node) |
+| Companies House Header Auth 3 | Header Auth | `Header Auth account 3` | `TYVrXSQwYfmVuieo` | Lead Gen (PDF Download node) |
+
+Lead Generation uses multiple CH credentials across its nodes (one per API call) to spread rate-limit exposure. The other two workflows use a single `Header Auth account` for all CH calls.
 
 **Important**: credential IDs are instance-specific. If n8n is reinstalled they will change — reconnect credentials in the UI after any fresh install.
+
+### Chat Trigger — Webhook IDs and Banner Text
+
+Each workflow's Chat Trigger node has a fixed `webhookId` that forms the public URL path. All three now use the `pfl-` prefix consistently.
+
+| Workflow | webhookId | Public URL path |
+|---|---|---|
+| Company Name Lookup | `pfl-company-lookup` | `/webhook/pfl-company-lookup/chat` |
+| Customer Profiler | `pfl-profiler` | `/webhook/pfl-profiler/chat` |
+| Lead Generation | `pfl-lead-gen` | `/webhook/pfl-lead-gen/chat` |
+
+The `options` block inside chat trigger parameters controls the banner title and subtitle shown in the chat UI:
+
+```json
+"options": {
+  "title": "Portland Company Reg No Lookup",
+  "subtitle": "Please enter a company name, a comma-separated list or a list with one per line."
+}
+```
+
+Current values per workflow:
+
+| Workflow | title | subtitle |
+|---|---|---|
+| Company Lookup | Portland Company Reg No Lookup | Please enter a company name, a comma-separated list or a list with one company name per line |
+| Customer Profiler | Portland Company Profiler Entry | Enter a Reg No, ranking and products in format: add \<Reg No\> \<Ranking\> \<Products\> |
+| Lead Generation | Portland Lead Generator | Enter the parameters required to start a Lead Generation search and the results will be emailed out to you |
+
+### Chat Trigger — AI Agent Name
+
+The AI's display name in the chat window (shown instead of "Nathan", which is n8n's default) is set via three top-level parameters on the Chat Trigger node — **not** inside `options`:
+
+```json
+"availableInChat": true,
+"agentName": "Amelai",
+"agentDescription": "Amelai is a privately hosted AI that can perform well enough for testing of AI concepts."
+```
+
+- `agentName` — the name shown for the AI in the chat bubble (replaces "Nathan")
+- `agentDescription` — a short description shown beneath the agent name in the chat header
+- `availableInChat` — must be `true` for the above fields to take effect
+
+**Current status**: Only Company Name Lookup has these fields set. Customer Profiler and Lead Generation do not — they will still show "Nathan" until `agentName` is added in the n8n UI and the workflows are re-exported.
 
 ### Microsoft Outlook Node (typeVersion 2) — Correct Structure
 
@@ -608,6 +656,10 @@ In all cases the email body arrives but no attachment is present. No error is ra
 
 The `predefinedCredentialType` + `microsoftOutlookOAuth2Api` combination tells n8n to inject the Bearer token automatically — the same credential used by the Outlook node works here without modification. Generate `csvBase64` upstream with `Buffer.from(csvContent, 'utf-8').toString('base64')` in a Code node.
 
+**When to use which email approach:**
+- **Outlook node** (`n8n-nodes-base.microsoftOutlook`): use when sending plain HTML email with no attachments (e.g. Customer Profiler confirmation emails)
+- **Graph API HTTP Request node**: use when the email must include file attachments (e.g. Company Lookup CSV results) — see workaround above
+
 ### IF Node (Route) — Simplified Condition
 
 The `"operation": "equal"` field can be omitted — it is the default. Minimal working structure:
@@ -624,6 +676,25 @@ The `"operation": "equal"` field can be omitted — it is the default. Minimal w
     }
   }
 }
+```
+
+### Customer Profiler — Input Modes
+
+The Customer Profiler has three input modes, routed by two sequential IF nodes:
+
+| Mode | Command format | Route |
+|---|---|---|
+| `add` | `add <RegNo> <Ranking> <Product1,Product2,...>` | Falls through both IF nodes (default branch) |
+| `list` | `list` | Caught by `Route` IF node (`mode == "list"`) |
+| `remove` | `remove <RegNo>` | Caught by `Route2` IF node (`mode == "remove"`) |
+
+Node chain:
+```
+Parse Input → Route (mode==list?) → [list branch] → Get All Profiles → Send Profile List
+                    ↓ (no)
+              Route2 (mode==remove?) → [remove branch] → Remove Profile → Format Remove Email → Send Remove Email
+                    ↓ (no)
+              [add branch] → CH: Company → CH: Officers → CH: Filing History → ... → Build & Save Profile → Send Confirmation
 ```
 
 ### Node IDs
@@ -648,9 +719,9 @@ Add `"binaryMode": "separate"` to the workflow settings object when the workflow
 
 Running via the "Chat" button inside the editor = test mode = no persistence.
 
-### Companies House Document Download — Three-Step Process (S3 Redirect)
+### Companies House Document Download — Customer Profiler: Three-Step Process (S3 Redirect)
 
-The filing history `links.document_metadata` URL does **not** directly serve the PDF. There are **three** required steps because the document API redirects to AWS S3:
+The Customer Profiler uses a three-step download process. The filing history `links.document_metadata` URL does **not** directly serve the PDF — there are **three** required steps because the document API redirects to AWS S3:
 
 1. **GET `document_metadata` URL** (with CH API key auth) → returns JSON:
    ```json
@@ -705,10 +776,66 @@ const s3Url = hdrs.location || hdrs.Location || null;
 return [{ json: { s3Url: s3Url } }];
 ```
 
+### Companies House Document Download — Lead Generation: Single-Step Direct Download
+
+The Lead Generation workflow uses a simpler one-step approach — it extracts the PDF URL directly from the filing history and fetches it in a single HTTP Request node with dual credentials and an explicit `Accept` header:
+
+```
+Add Filing URL  (Code: extracts links.document_metadata → pdfUrl)
+→ HTTP: Download PDF  (GET pdfUrl, genericCredentialType with httpBasicAuth + httpHeaderAuth, Accept: application/pdf, responseFormat: file → PDF binary)
+→ Extract PDF Text  (extractFromFile node)
+```
+
+This approach relies on n8n following the S3 redirect automatically. It works in practice but may fail if S3 rejects the forwarded Authorization header on the redirect. If PDF downloads start failing in Lead Gen, switch to the three-step pattern used by Customer Profiler.
+
 ### After Importing Any Workflow
 
 1. **CH header credential**: If the credential dropdown is empty, create it directly in the node (n8n may not match by ID on a fresh import)
 2. **Outlook credential**: If MyHotmailEmail is not auto-matched, reconnect in each Send Email node
+3. **Lead Gen extra credentials**: After importing Lead Generation, check that `Header Auth account 2`, `Header Auth account 3`, and `Companies House API` (Basic Auth) are all connected — these are used in the Filing History and PDF Download nodes
+
+---
+
+## RAG MCP Tool — Amelai Knowledge Base Access
+
+Claude Code has direct access to Amelai's pgvector knowledge base via a local MCP (Model Context Protocol) server. This gives Claude automatic access to Portland Fuel internal documents uploaded via Open WebUI.
+
+### Setup
+
+- **MCP server**: `/docs/terminai/rag-mcp/index.mjs` (shared on NAS — accessible from both Amelai and StevesLenovo)
+- **Amelai registration**: `~/.claude/.mcp.json` — runtime `/home/steve/.nvm/versions/node/v22.22.3/bin/node`, connects to `localhost`
+- **Windows registration**: `C:\Users\Steve\.claude\.mcp.json` — runtime `node` (in PATH), connects to `amelai.tail926601.ts.net`
+- **Database**: `openwebui_vectors` PostgreSQL database (pgvector extension)
+- **Embedding**: nomic-embed-text via Ollama — 768-dim vectors zero-padded to 1536 to match Open WebUI's schema
+- **Password**: `PGPASS` env var — `~/.bashrc` line 133 on Amelai; Windows User environment variable on StevesLenovo
+
+### How embeddings are stored (important)
+
+Open WebUI v0.10.1 creates a `document_chunk` table with `vector(1536)`. It stores nomic-embed-text embeddings (768 real dimensions) zero-padded to 1536. The MCP server replicates this exactly: generate 768-dim embedding → pad with zeros to 1536 → use cosine similarity search.
+
+### Available MCP tools
+
+| Tool | Description |
+|---|---|
+| `mcp__rag__rag_search` | Embed query via Ollama, cosine-similarity search pgvector, return top 5 chunks |
+| `mcp__rag__rag_list_collections` | List all KB collections with human-readable names and chunk counts |
+
+Claude calls these automatically when a question may be covered by stored documents. Use `/db` to invoke explicitly.
+
+### `/db` skill
+
+```
+/db what are the DSEAR requirements for LPG storage?
+/db list
+```
+
+Defined in `~/.claude/commands/db.md` (global — available in any Claude Code session on Amelai).
+
+### Troubleshooting
+
+- **"client password must be a string"**: PGPASS is not in the environment. Ensure Claude Code was launched from a terminal that sourced `~/.bashrc` (all interactive terminals do this automatically).
+- **"No relevant documents found"**: Upload documents via Open WebUI → Workspace → Knowledge first.
+- **MCP server not responding**: The server is spawned on demand by Claude Code — no manual start needed. If it fails at startup, run `node /home/steve/rag-mcp/index.mjs` to see the error.
 
 ---
 
@@ -722,3 +849,9 @@ This project will be successful when we have:
 - ✅ Documented in a way that is accessible to competent non-experts
 - ✅ Verified all links and references are current and working
 - ✅ Addressed AI-specific requirements with appropriate detail
+
+---
+
+## Logo
+
+Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

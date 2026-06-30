@@ -46,6 +46,10 @@ obj/
 # Outlook troubleshooting script backup directories (timestamped, auto-created)
 it/troubleshooting/Backups_*/
 
+# RAG MCP server dependencies (installed per-platform)
+rag-mcp/node_modules/
+rag-mcp/package-lock.json
+
 # Specific temp/working files
 it/troubleshooting/inspect_output.txt
 it/NewPC/Log.txt

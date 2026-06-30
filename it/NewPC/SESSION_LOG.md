@@ -2,6 +2,42 @@
 
 ---
 
+## Session 2026-06-30 — RAG MCP consolidated to NAS; SteveOP MCP setup guide created
+
+### Summary
+Continued from previous session where the RAG MCP server was built on Amelai. This session consolidated the MCP server code to the shared NAS location (`/docs/terminai/rag-mcp/`) so it is accessible from all machines, cleaned up Amelai's MCP config, and created a full setup guide for SteveOP covering both the TradingView MCP and RAG MCP.
+
+### Work Completed
+- **Consolidated RAG MCP to NAS** — moved server from `/home/steve/rag-mcp/` (Amelai-local) to `/docs/terminai/rag-mcp/` (shared NAS); updated Amelai's `~/.claude/.mcp.json` to point to new location; deleted old standalone directory
+- **Cleaned up Amelai MCP config** — removed dead `tradingview` entry from `~/.claude/.mcp.json` (TradingView desktop doesn't run on Linux; path `/home/steve/tradingview-mcp-jackson/` was non-existent)
+- **Identified SteveOP** — confirmed SteveOP is Steve's personal Windows 11 gaming desktop (Ryzen 7 9800X3D, RTX 5070 Ti); documented in `New_PC_Builds.md`; named "SteveOP" in WOL Alexa skill (`SteveOP_WOL_Skill` Lambda); WOL MAC `34:5A:60:BD:B1:5D`
+- **Created `SteveOP_MCP_Setup.md`** — 9-step guide covering Node.js install, Claude Code install, TradingView MCP clone + `npm install`, `rules.json` configuration, `.mcp.json` with both servers, PowerShell setup script with PGPASS, `/db` global skill install, TradingView debug-mode launch, and verification steps
+- **Answered user questions** — explained how to use RAG MCP (`/db` skill and automatic search); explained TradingView MCP architecture (CDP port 9222 ↔ TradingView Desktop); confirmed `$env:PGPASS` in PowerShell setup script with single quotes works correctly for passwords containing `$`
+
+### Files Changed
+- `it/NewPC/CLAUDE.md` — updated RAG MCP section: server now at `/docs/terminai/rag-mcp/`; added Amelai and Windows registration details; added PGPASS env var notes
+- `it/NewPC/SteveOP_MCP_Setup.md` — **new file**: full 9-step MCP setup guide for SteveOP
+- `/home/steve/.claude/.mcp.json` — removed `tradingview` entry; updated `rag` args to point to NAS path (`/docs/terminai/rag-mcp/index.mjs`)
+- `/home/steve/rag-mcp/` — **deleted** (superseded by NAS copy)
+
+### Key Decisions
+- **Single NAS copy for rag-mcp** — `pg` and `@modelcontextprotocol/sdk` are pure JS with no native binaries; Linux-installed `node_modules` work cross-platform on Windows via the mapped NAS drive. One copy of the code, maintained in one place.
+- **TradingView MCP on SteveOP, not StevesLenovo** — TradingView desktop and Claude Code need to be on the same machine (MCP server connects to local CDP port 9222); SteveOP is where TradingView runs
+- **Tradingview entry removed from Amelai** — TradingView desktop is Windows/Mac only; no point maintaining a dead config entry pointing to a non-existent path on Linux
+
+### Reference Documents
+- `it/NewPC/SteveOP_MCP_Setup.md` — new complete setup guide for SteveOP
+- `it/NewPC/wol/WOL_Setup.md` — identifies SteveOP MAC address and Alexa skill name
+- `it/NewPC/New_PC_Builds.md` — SteveOP hardware specification
+- <a href="https://github.com/LewisWJackson/tradingview-mcp-jackson" target="_blank">TradingView MCP Jackson repo</a> — 81 tools, CDP architecture, `rules.json` format
+
+### Next Actions
+- [ ] **SteveOP setup**: Install Node.js, clone TradingView MCP, create `.mcp.json`, create PowerShell script with PGPASS, install `/db` skill — follow `SteveOP_MCP_Setup.md`
+- [ ] **StevesLenovo setup**: Add `PGPASS` (single-quoted) to existing PowerShell setup script; create `C:\Users\Steve\.claude\.mcp.json` with RAG MCP config from `Temp.txt`
+- [ ] **Restart Claude Code on Amelai** — required for updated `~/.claude/.mcp.json` (consolidated NAS path, tradingview removed) to take effect
+
+---
+
 ## Session 2026-06-22 (2) — CSV attachment fix: Outlook node replaced with Graph API direct call
 
 ### Summary

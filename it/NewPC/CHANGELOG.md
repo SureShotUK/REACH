@@ -2,6 +2,20 @@
 
 ---
 
+## [Unreleased] - 2026-06-30
+
+### Added
+- `it/NewPC/SteveOP_MCP_Setup.md` — 9-step guide to configure Claude Code on SteveOP with TradingView MCP (chart analysis via CDP port 9222) and RAG MCP (Amelai knowledge base over Tailscale); includes PowerShell setup script, `.mcp.json` config, `/db` global skill install, and TradingView debug-mode launch instructions
+
+### Changed
+- `it/NewPC/CLAUDE.md` — RAG MCP server location updated from `/home/steve/rag-mcp/` to `/docs/terminai/rag-mcp/` (shared NAS); registration details added for both Amelai and Windows
+- `/home/steve/.claude/.mcp.json` — `rag` args updated to NAS path; dead `tradingview` entry removed (TradingView desktop does not run on Linux)
+
+### Removed
+- `/home/steve/rag-mcp/` — standalone Amelai-local RAG MCP directory deleted; superseded by shared NAS copy at `/docs/terminai/rag-mcp/`
+
+---
+
 ## [Unreleased] - 2026-06-22 (2)
 
 ### Fixed
