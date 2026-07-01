@@ -2,6 +2,23 @@
 
 ---
 
+## [Unreleased] - 2026-07-01
+
+### Added
+- `it/NewPC/n8n/Leadgen_Docs.md` — quick-reference for all three n8n workflows (Company Name Lookup, Customer Profiler, Lead Generation) with chat URLs, purposes, and doc links; includes "To Do — Customer-Benchmarked Lead Scoring" section with three-step pipeline design
+
+### Changed
+- `it/NewPC/n8n/Company_Profiler.md` — command syntax updated with optional `| <note>` field; syntax rules expanded; examples updated with realistic notes; What Gets Extracted table adds Region, Accounts Confidence, Ranking Note; account format detection explanation added
+- `it/NewPC/n8n/Portland Fuel - Customer Profiler.json` — Parse Input node splits on `|` to extract ranking note; Build & Save Profile node adds region (from CH address), accountsConfidence (iXBRL=high/PDF=low), rankingNote; Get All Profiles node produces 9-column HTML table with ranking note sub-rows and full CSV; Send Profile List node replaced from Outlook node to Graph API HTTP Request with CSV attachment
+- `it/NewPC/Software_Updates.md` — SearXNG section rewritten with full `docker run` command (was a placeholder); n8n section added with full command and encryption key retrieval step; pdf-to-image section restructured with quick-recreate path (image exists) as primary step, rebuild path as secondary
+
+### Fixed
+- n8n container had no port bindings — recreated with full `-p 127.0.0.1:15678:5678 -p 192.168.1.192:5678:5678` flags
+- SearXNG container had no port bindings — recreated with `--network ai-network`, `127.0.0.1:18080`, and `192.168.1.192:8080`
+- pdf-to-image container not exposing port 8086 (`ECONNREFUSED`) — recreated with `-p 127.0.0.1:18086:8086 -p 192.168.1.192:8086:8086`; Customer Profiler financial extraction restored
+
+---
+
 ## [Unreleased] - 2026-06-30 (session 2)
 
 ### Changed

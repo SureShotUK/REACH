@@ -70,6 +70,12 @@ Copy the output. You will use it as `N8N_ENCRYPTION_KEY` in the next step.
 
 > **Warning**: Store this key securely (e.g. a password manager). Do not save it in plain text on the server.
 
+> If you already have n8n setup and are looking to simply update it, you can extract your encryption key by running:
+
+```bash
+docker inspect n8n --format '{{range .Config.Env}}{{println .}}{{end}}' | grep N8N_ENCRYPTION_KEY
+```
+
 ### Step 3: Run the container
 
 Replace `<YOUR_ENCRYPTION_KEY>` with the value generated above.
@@ -86,7 +92,7 @@ docker run -d \
   -e N8N_PORT=5678 \
   -e N8N_PROTOCOL=https \
   -e WEBHOOK_URL=https://amelai.tail926601.ts.net:5678 \
-  -e N8N_ENCRYPTION_KEY=<YOUR_ENCRYPTION_KEY> \
+  -e N8N_ENCRYPTION_KEY=<YOUR_KEY_FROM_STEP_1> \
   -e N8N_SECURE_COOKIE=false \
   n8nio/n8n
 ```

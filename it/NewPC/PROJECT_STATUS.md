@@ -1,12 +1,12 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-06-30 (session 2)
+**Last Updated**: 2026-07-01
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16GT/s) under load — ASPM drops link to Gen 1 at idle, which is normal power-management behaviour. `GRUB_CMDLINE_LINUX_DEFAULT` is empty. All services running normally.
+Server (`amelai`) is fully operational. All services running with correct port bindings. Three containers (n8n, SearXNG, pdf-to-image) had lost port bindings during this session — all recreated and confirmed working. Customer Profiler workflow enhanced with notes, region, accounts confidence, and CSV attachment. Docker Compose identified as resilience solution but not yet implemented.
 
 ## Service Status
 
@@ -18,21 +18,21 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 | ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Running |
 | FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
 | MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
-| n8n | `n8n` | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` | Running |
+| SearXNG | `searxng` | `http://192.168.1.192:8080` | `https://amelai.tail926601.ts.net:8080` | Running (recreated 2026-07-01) |
+| n8n | `n8n` | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` | Running (recreated 2026-07-01) |
 | STT Server | systemd `stt_server` | — | `ws://amelai.tail926601.ts.net:9090` | Running |
-| pdf-to-image | `pdf-to-image` | `http://192.168.1.192:8086` | internal only | Running |
+| pdf-to-image | `pdf-to-image` | `http://192.168.1.192:8086` | internal only | Running (recreated 2026-07-01) |
 
 ## Active Work Areas
 
-- **SteveOP MCP setup** — RAG MCP now connected (`rag` added to `C:\Users\irwin\.claude.json`). Remaining: TradingView MCP (Steps 3–8 of `SteveOP_MCP_Setup.md`) and `/db` skill (`C:\Users\irwin\.claude\commands\db.md`)
-- **StevesLenovo MCP setup** — RAG MCP now connected (`rag` added to `C:\Users\SteveIrwin\.claude.json`). Remaining: `/db` skill (`C:\Users\SteveIrwin\.claude\commands\db.md`)
-- **RAG MCP (Amelai)** — server consolidated to NAS at `/docs/terminai/rag-mcp/`; requires Claude Code restart on Amelai to pick up updated config pointing to NAS path
-- **n8n Company Name Lookup workflow** — `CompanyLookup_Workflow.json` working for multi-company processing and chat response; CSV attachment fix applied (Outlook node replaced with direct Graph API HTTP Request); needs test to confirm attachment now arrives
-- **n8n Customer Profiler workflow** — `CustomerProfilerWorkingEmail.json` working for PDF and iXBRL paths; needs final test confirming net assets extraction from iXBRL
-- **n8n Lead Generation workflow** — `LeadGen_Workflow.json` built and ready to import; needs "Companies House API" Basic Auth credential created in n8n before first test run
-- **ComfyUI (Steve) rebuild required** — run command updated with `--reserve-vram 3` and correct workflows volume path; container must be recreated
-- **Alexa WOL skill** — submitted for Amazon certification; awaiting approval (3-5 business days)
-- **ReActor face swap workflow** — JSON in `Temp.txt`; needs saving to Workflows folder after container rebuild
+- **Docker Compose** — three containers lost port bindings this session when recreated without full flags; Docker Compose is the correct solution to prevent recurrence; `docker-compose.yml` not yet created
+- **n8n Customer Profiler** — workflow JSON updated with notes, region, confidence, CSV attachment; needs import to n8n and credential re-link on Send Profile List node (Graph API HTTP Request)
+- **Lead scoring model** — to be built as a new n8n workflow; requires 15–20 profiled customers per product first; design documented in `Leadgen_Docs.md`
+- **SteveOP MCP setup** — RAG MCP now connected; remaining: TradingView MCP (Steps 3–8 of `SteveOP_MCP_Setup.md`) and `/db` skill
+- **StevesLenovo MCP setup** — RAG MCP connected; remaining: `/db` skill (`C:\Users\SteveIrwin\.claude\commands\db.md`)
+- **n8n Lead Generation workflow** — `LeadGen_Workflow.json` built and ready to import; needs "Companies House API" Basic Auth credential in n8n before first test run
+- **ComfyUI (Steve) rebuild required** — run command updated with `--reserve-vram 3` and correct workflows volume path
+- **Alexa WOL skill** — submitted for Amazon certification; awaiting approval
 
 ## Recently Completed
 
@@ -63,38 +63,26 @@ Server (`amelai`) is fully operational. Both RTX 3090s running at PCIe Gen 4 (16
 
 ## Pending / Next Actions
 
-- [ ] **SteveOP TradingView MCP** — Steps 3–8 of `SteveOP_MCP_Setup.md`: clone repo, `npm install`, `rules.json`, debug-mode launch (RAG is already working)
-- [ ] **`/db` skill on SteveOP** — create `C:\Users\irwin\.claude\commands\db.md` (Step 7 of `SteveOP_MCP_Setup.md`)
-- [ ] **`/db` skill on StevesLenovo** — create `C:\Users\SteveIrwin\.claude\commands\db.md` (Step B of `Temp.txt`)
-- [ ] **Restart Claude Code on Amelai** — pick up updated `~/.claude/.mcp.json` (NAS path for rag, tradingview removed)
-- [ ] **Company Lookup: verify CSV attachment** — import updated JSON, reselect `MyHotmailEmail` credential in "Send Results" node if needed, test that `company_lookup_results.csv` now arrives
-- [ ] **Company Lookup: medium/low confidence** — investigate why Amelai only returns high-confidence results; may need prompt tuning or model change
-- [ ] **Customer Profiler: final iXBRL test** — confirm net assets extracted for Centrebus (03872099) after dual-section extraction fix
-- [ ] **Customer Profiler: bulk run** — profile a broader set of companies to validate robustness across different iXBRL and PDF account formats
+- [ ] **Import updated Customer Profiler JSON** — replace current workflow in n8n; re-link `MyHotmailEmail` credential on "Send Profile List" node (now a Graph API HTTP Request)
+- [ ] **Create Docker Compose file** — covers all services; prevents port binding loss when containers are recreated; see `Software_Updates.md` for all current run commands
+- [ ] **Profile 15–20 customers per product** — minimum dataset before lead scoring model is meaningful
+- [ ] **Build lead scoring n8n workflow** — weighted similarity model; design in `Leadgen_Docs.md` To Do section
+- [ ] **Consider per-product rankings** — evaluate whether "Bulk: 9, Cards: 6, Hedging: 3" would outperform single overall ranking for the scoring model
 - [ ] **Import and test lead gen workflow** — create "Companies House API" Basic Auth credential in n8n, import `it/NewPC/n8n/LeadGen_Workflow.json`, test with 1–2 known companies
+- [ ] **SteveOP TradingView MCP** — Steps 3–8 of `SteveOP_MCP_Setup.md`
+- [ ] **`/db` skill on SteveOP** — create `C:\Users\irwin\.claude\commands\db.md`
+- [ ] **`/db` skill on StevesLenovo** — create `C:\Users\SteveIrwin\.claude\commands\db.md`
+- [ ] **Company Lookup: medium/low confidence** — investigate why Amelai only returns high-confidence results
 - [ ] **Deploy STT server fix** — `scp stt/stt_server.py steve@amelai.tail926601.ts.net:/opt/stt/stt_server.py` then `sudo systemctl restart stt_server`
 - [ ] **Deploy STT client fix** — copy `stt/stt_client.py` to Steve's Windows 11 PC and restart via `restart_stt.bat`
-- [ ] Verify STT VRAM freed after 15 min idle: `nvidia-smi --query-gpu=memory.used --format=csv`
-- [ ] **Tailscale ACL** — replace hardcoded device IPs with Tailscale tags to prevent stale-IP breakage when devices are re-added
+- [ ] **Tailscale ACL** — replace hardcoded device IPs with Tailscale tags to prevent stale-IP breakage
 - [ ] **Rebuild and reinstall AI Voice APK** with dark theme + location changes
-- [ ] Grant location permission on first launch after reinstall
-- [ ] Test location-based queries: "weather here", "nearest Italian restaurant", "nearest car park"
-- [ ] Consider `--keep-alive 0` Ollama flag to prevent auto-reload after VRAM pressure incidents
-- [ ] **Recreate `comfyui` container** — `docker stop comfyui && docker rm comfyui` then run updated command from `Docker.md` (includes `--reserve-vram 3` and correct workflows path)
-- [ ] Verify Tailscale Serve: `sudo tailscale serve status` — confirm `8189 → localhost:18189`; add if missing
-- [ ] Test `https://amelai.tail926601.ts.net:8189` after rebuild
+- [ ] **Recreate `comfyui` container** — `docker stop comfyui && docker rm comfyui` then run updated command from `Docker.md` (includes `--reserve-vram 3`)
 - [ ] Save ReActor face swap workflow from `Temp.txt` to `/docs/Projects/Claude Code Shared/Workflows/FaceSwap.json`
 - [ ] Await Alexa skill certification approval; test on real Echo device once approved
-- [ ] Complete n8n first-login owner account setup
 - [ ] Store n8n encryption key in password manager
 - [ ] Run `sudo apt update && sudo apt upgrade` on amelai
-- [ ] Verify ComfyUI OOM fix — confirm first generation succeeds without click-OK-retry
 - [ ] Set static DHCP reservation on router for `192.168.1.192`
-- [ ] Install ai-toolkit for FLUX LoRA training (Workflow 1)
-- [ ] Create JSONL training dataset for LLM knowledge chatbot (Workflow 2)
-- [ ] Research and confirm current UK pricing for RTX 5070 Ti 16GB (AIB partner selection)
-- [ ] Verify Arctic Liquid Freezer III 360 compatibility with Corsair 4000D Airflow case
-- [ ] Confirm Ryzen 7 9800X3D UK street price and retailer availability
 
 ## Key Files
 

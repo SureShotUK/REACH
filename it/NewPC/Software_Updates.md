@@ -88,25 +88,88 @@ docker ps | grep open-webui
 
 ## SearXNG
 
-SearXNG runs in Docker on the `ai-network`. Updating it follows the same pattern as Open WebUI but does not require network reconnection steps as it was originally created on `ai-network`.
+SearXNG runs in Docker on the `ai-network`. Config is stored in a persistent bind mount at `/opt/searxng/` and is not affected by container rebuilds.
 
 ```bash
 # Stop and remove the existing container
-docker stop searxng
-docker rm searxng
+docker stop searxng && docker rm searxng
 
 # Pull the latest image
 docker pull searxng/searxng:latest
 
-# Recreate the container (add your original run flags here)
-# See the original setup command used to create the container:
-docker inspect searxng --format='{{.Name}} {{.Config.Image}}'
+# Recreate the container
+docker run -d \
+  --name searxng \
+  --restart unless-stopped \
+  --network ai-network \
+  -p 127.0.0.1:18080:8080 \
+  -p 192.168.1.192:8080:8080 \
+  -v /opt/searxng:/etc/searxng:rw \
+  searxng/searxng:latest
+
+# Verify the container is running
+docker ps | grep searxng
 ```
 
-> **Note**: Before removing the SearXNG container, capture its full run command if you are unsure of the original flags:
+**Verify after update**:
+```bash
+# Confirm Open WebUI can reach SearXNG over the internal network
+docker exec open-webui curl -s "http://searxng:8080/search?q=test&format=json" | head -c 200
+```
+
+> **Config note**: `/opt/searxng/settings.yml` must contain `formats: [html, json]` under the `search:` section, otherwise Open WebUI receives HTML instead of JSON and web search fails. This setting persists across rebuilds in the bind mount — no action needed unless the config file is manually reset.
+
+**Access**: `http://192.168.1.192:8080` (LAN) · `https://amelai.tail926601.ts.net:8080` (Tailscale)
+
+---
+
+## n8n
+
+n8n runs in Docker. Workflows, credentials, and settings are stored in the `n8n_data` named volume and are not affected by container rebuilds.
+
+> **Critical**: The `N8N_ENCRYPTION_KEY` must match the value used when the container was first created. If the key changes, all stored credentials become unreadable. Retrieve it from the running container before stopping it:
 > ```bash
-> docker inspect searxng --format='{{json .HostConfig}}' | python3 -m json.tool
+> docker inspect n8n --format='{{range .Config.Env}}{{println .}}{{end}}' | grep ENCRYPTION
 > ```
+
+```bash
+# Stop and remove the existing container
+docker stop n8n && docker rm n8n
+
+# Pull the latest image
+docker pull n8nio/n8n
+
+# Set your encryption key (single quotes prevent bash special char issues)
+N8N_KEY='your_encryption_key_here'
+
+# Recreate the container
+docker run -d \
+  --name n8n \
+  --restart unless-stopped \
+  -p 127.0.0.1:15678:5678 \
+  -p 192.168.1.192:5678:5678 \
+  -v n8n_data:/home/node/.n8n \
+  -e GENERIC_TIMEZONE=Europe/London \
+  -e N8N_HOST=amelai.tail926601.ts.net \
+  -e N8N_PORT=5678 \
+  -e N8N_PROTOCOL=https \
+  -e WEBHOOK_URL=https://amelai.tail926601.ts.net:5678 \
+  -e N8N_ENCRYPTION_KEY=${N8N_KEY} \
+  -e N8N_SECURE_COOKIE=false \
+  n8nio/n8n
+
+# Verify the container is running and ports are bound
+docker ps | grep n8n
+```
+
+**Verify after update**:
+- Browse to `http://192.168.1.192:5678` and confirm you can log in
+- Open a workflow and check that credentials are still showing as connected (not showing "Credential is not valid")
+- Confirm active workflows are still toggled on
+
+> **No GPU dependency** — n8n does not use GPU. The `--restart unless-stopped` policy is sufficient; it does not need the nvidia-wait systemd service.
+
+**Access**: `http://192.168.1.192:5678` (LAN) · `https://amelai.tail926601.ts.net:5678` (Tailscale)
 
 ---
 
@@ -367,13 +430,38 @@ A lightweight internal microservice that converts Companies House accounts PDFs 
 
 **Source files**: `/docs/terminai/it/NewPC/n8n/pdf-to-image/` (three files: `app.py`, `requirements.txt`, `Dockerfile`)
 
-Unlike other services on this server, pdf-to-image uses a **custom-built Docker image** rather than a pulled one. Updating it means modifying the source files and rebuilding.
+Unlike other services on this server, pdf-to-image uses a **custom-built Docker image** rather than a pulled one. The image must exist on the host before the container can be created.
 
-### Modify and rebuild
+### Recreate the container (image already built)
+
+Use this when the container has been deleted or lost its port bindings, but the source files have not changed.
 
 ```bash
-# After editing any file in /docs/terminai/it/NewPC/n8n/pdf-to-image/
+# Check the image exists first
+docker images | grep pdf-to-image
 
+# If the image is listed, recreate the container:
+docker stop pdf-to-image 2>/dev/null; docker rm pdf-to-image 2>/dev/null
+
+docker run -d \
+  --name pdf-to-image \
+  --restart unless-stopped \
+  -p 127.0.0.1:18086:8086 \
+  -p 192.168.1.192:8086:8086 \
+  pdf-to-image
+
+# Verify
+curl http://192.168.1.192:8086/health
+# Expected: {"status":"ok"}
+```
+
+> If `docker images | grep pdf-to-image` returns nothing (image was removed by `docker system prune` or similar), follow the **Rebuild the image** steps below instead.
+
+### Rebuild the image
+
+Use this when the source files have changed, or the image is no longer on the host.
+
+```bash
 # Stop and remove the existing container
 docker stop pdf-to-image && docker rm pdf-to-image
 

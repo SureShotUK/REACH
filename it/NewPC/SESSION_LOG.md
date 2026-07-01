@@ -2,6 +2,50 @@
 
 ---
 
+## Session 2026-07-01 — n8n service outages diagnosed and fixed; Customer Profiler enhanced with notes, region, and accounts confidence
+
+### Summary
+Diagnosed and fixed three Docker containers (n8n, SearXNG, pdf-to-image) that had lost their port bindings — a recurring failure where containers were recreated without full `docker run` flags. Enhanced the Customer Profiler workflow with a ranking note field, region extraction from Companies House, accounts confidence flagging (iXBRL = high, PDF = low), and CSV attachment on the list email via the Graph API. Created `Leadgen_Docs.md` as a quick-reference overview of all three workflows with a lead scoring to-do section.
+
+### Work Completed
+- **Fixed n8n 502 Bad Gateway** — container was running with no port bindings; stopped, removed, recreated with full `docker run` flags including both `-p` bindings and `N8N_ENCRYPTION_KEY`
+- **Fixed SearXNG 502** — same missing port bindings; recreated with `--network ai-network`, `127.0.0.1:18080`, and `192.168.1.192:8080`
+- **Fixed pdf-to-image ECONNREFUSED** — container was not exposing port 8086; recreated with both loopback and LAN port bindings; Customer Profiler financials now extracting again
+- **Created `Leadgen_Docs.md`** — quick-reference for all three workflows: Company Name Lookup, Customer Profiler, Lead Generation; HTML anchor chat URLs; links to full docs; lead scoring to-do section
+- **Updated `Company_Profiler.md`** — command syntax updated with `| <note>` field; syntax rules; examples with realistic notes; What Gets Extracted table with Region, Accounts Confidence, Ranking Note rows; account format detection explanation
+- **Modified `Portland Fuel - Customer Profiler.json`** — Parse Input: splits on `|` to extract note; Build & Save Profile: region from CH address fields, accounts confidence from iXBRL/PDF detection, rankingNote saved; Get All Profiles: 9-column HTML table, ranking note as italic sub-row, CSV with all new fields; Send Profile List: swapped from Outlook node to Graph API HTTP Request for CSV attachment; Chat Trigger: updated welcome message showing `| note` syntax
+- **Updated `Software_Updates.md`** — SearXNG section rewritten with full `docker run` command (was a placeholder); n8n section added with full command, encryption key retrieval step, and credential verification; pdf-to-image restructured with quick-recreate path (image exists) separate from full rebuild path
+
+### Files Changed
+- `it/NewPC/n8n/Leadgen_Docs.md` — **NEW**: Quick-reference overview of all three n8n workflows + lead scoring to-do
+- `it/NewPC/n8n/Company_Profiler.md` — Updated: `| note` syntax, region/confidence/rankingNote in What Gets Extracted, email content updated
+- `it/NewPC/n8n/Portland Fuel - Customer Profiler.json` — Modified: note parsing, region extraction, accounts confidence, CSV attachment via Graph API, welcome message
+- `it/NewPC/Software_Updates.md` — SearXNG section fixed; n8n section added; pdf-to-image restructured
+- `it/NewPC/n8n/N8N_Setup.md` — Updated by user
+
+### Key Decisions
+- **Ranking notes stored as free text** after `|` separator in the `add` command — purpose is human context for lead scoring model, not machine-parseable field
+- **Accounts confidence** is binary: `high` (iXBRL structured parse) / `low` (PDF vision extraction) / `none` (no accounts found); stored per profile
+- **Region** taken from `reg.county || reg.region || reg.locality` — best available field from CH registered address
+- **Send Profile List email** now uses Graph API HTTP Request node (not Outlook node) — Outlook node cannot send attachments; this matches the Company Name Lookup workflow approach
+- **Docker Compose** identified as the correct long-term resilience solution for port binding loss — not yet implemented; documented as next priority
+- **Why containers lose port bindings** — `--restart unless-stopped` preserves config on restart but not on recreation; containers recreated without full flags silently lose bindings
+
+### Reference Documents
+- `it/NewPC/n8n/Leadgen_Docs.md` — new quick-reference
+- `it/NewPC/n8n/Company_Profiler.md` — updated usage guide
+- `it/NewPC/CLAUDE.md` — n8n workflow generation patterns (credential IDs, port binding strategy)
+
+### Next Actions
+- [ ] **Import updated Customer Profiler JSON** — replace current workflow in n8n; re-link `MyHotmailEmail` credential on Send Profile List if not auto-matched
+- [ ] **Implement Docker Compose** — create `docker-compose.yml` covering all services to prevent port binding loss on container recreation
+- [ ] **Build lead scoring workflow** — weighted similarity model comparing new leads against profiled customers; see Leadgen_Docs.md To Do section
+- [ ] **Profile 15–20 customers per product** — minimum dataset before lead scoring model is meaningful
+- [ ] **Customer Profiler: bulk run** — profile a broader set of companies to validate robustness across iXBRL and PDF formats
+- [ ] Review whether per-product rankings (e.g. "Bulk: 9, Cards: 6") would outperform single overall ranking for scoring model
+
+---
+
 ## Session 2026-06-30 (2) — RAG MCP connected on SteveOP and StevesLenovo; Windows MCP config location corrected
 
 ### Summary
