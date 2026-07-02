@@ -535,6 +535,14 @@
 
 ---
 
+## [Unreleased] - 2026-07-02 (2)
+
+### Changed
+- `/docs/terminai/.claude/settings.local.json` — added wildcarded Edit/Write permissions for `SESSION_LOG.md`, `PROJECT_STATUS.md`, `CHANGELOG.md` across all projects (`/docs/terminai/**/<filename>`), so `/end-session` no longer prompts for authorisation on its own tracking-file edits in any project
+- `it/NewPC/.claude/settings.json` — reverted NewPC-only literal-path Edit permissions added in error the previous session (superseded by the root-level wildcard fix)
+
+---
+
 ## [Unreleased] - 2026-07-02
 
 ### Added

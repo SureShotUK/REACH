@@ -1287,6 +1287,29 @@ Created a comprehensive AI model training and LoRA creation guide covering two d
 
 ---
 
+## Session 2026-07-02 (4) — Permission-prompt fix generalised to repo root
+
+### Summary
+Fixed the previous session's permission fix: the Edit permissions for `SESSION_LOG.md`/`PROJECT_STATUS.md`/`CHANGELOG.md` had been added as NewPC-only literal paths in `it/NewPC/.claude/settings.json`, which would only stop prompts in this one project. Since `/end-session` is a shared command used across every project in the repo, moved the fix to the root `.claude/settings.local.json` using wildcard patterns so it applies everywhere `/end-session` runs.
+
+### Work Completed
+- Confirmed `SESSION_LOG.md`/`PROJECT_STATUS.md`/`CHANGELOG.md` exist in 9 locations across the repo (root, `it/`, `hseea/`, `REACH/`, `Nebosh/`, `Leads/`, `it/NewPC/`, `it/ZeroTrust/`, `hseea/Ladders/`), confirming the cross-project scope
+- Reverted the NewPC-specific `Edit(...)` entries from `it/NewPC/.claude/settings.json`
+- Added wildcarded `Edit`/`Write` permissions for all three filenames to `/docs/terminai/.claude/settings.local.json` (`Edit(/docs/terminai/**/SESSION_LOG.md)` etc.) — `Write` included in case a project runs `/end-session` before these files exist yet
+- Confirmed root `.claude/settings.local.json` is git-tracked (consistent with how `it/NewPC/.claude/settings.local.json` is also tracked in this repo, unlike the typical gitignored convention)
+
+### Files Changed
+- `../../.claude/settings.local.json` — added 6 wildcarded Edit/Write permissions covering `/end-session`'s three tracking files repo-wide
+- `it/NewPC/.claude/settings.json` — reverted the narrow NewPC-only entries added in error
+
+### Key Decisions
+- Permission fixes for genuinely shared/cross-project commands (like `/end-session`) belong in the root-level settings file with wildcard paths, not duplicated per-project with literal paths
+
+### Next Actions
+- [ ] Confirm this `/end-session` run completes without further Edit/Write authorisation prompts on the tracking files
+
+---
+
 ## Session 2026-07-02 (3) — Customer Profiler `update` command added
 
 ### Summary

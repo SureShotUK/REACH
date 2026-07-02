@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-07-02
+**Last Updated**: 2026-07-02 (permission-prompt fix generalised to repo root)
 
 ---
 
@@ -67,6 +67,7 @@ Server (`amelai`) is fully operational. All 7 Docker services now run via `docke
 
 ## Pending / Next Actions
 
+- [ ] **Watch for further Edit/Write prompts during `/end-session`** — root `.claude/settings.local.json` now has wildcarded permissions for `SESSION_LOG.md`/`PROJECT_STATUS.md`/`CHANGELOG.md` across all projects; confirm no further prompts occur on future runs
 - [ ] **Import `n8n/Main/NewCustomerProfiler.json` into n8n and activate it** — the `update` command only exists in this file, not in the previously-published workflow; re-link `MyHotmailEmail` credential on new/renamed nodes after import
 - [ ] **Run `docker image prune` on amelai** — cleans up the dangling old `pdf-to-image` image left behind by the Compose rebuild
 - [ ] **Run `sudo apt update && sudo apt upgrade`** on amelai — standing housekeeping item

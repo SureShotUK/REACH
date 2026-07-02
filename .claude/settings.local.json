@@ -46,7 +46,13 @@
       "Bash(curl -s -o DUKES_3.1.xlsx \"https://assets.publishing.service.gov.uk/media/688a0835a11f859994409229/DUKES_3.1.xlsx\")",
       "Bash(curl -s -o DUKES_3.2.xlsx \"https://assets.publishing.service.gov.uk/media/688a0852048fff613a4d5b90/DUKES_3.2.xlsx\")",
       "Skill(schedule)",
-      "mcp__searxng__read_memory"
+      "mcp__searxng__read_memory",
+      "Edit(/docs/terminai/**/SESSION_LOG.md)",
+      "Edit(/docs/terminai/**/PROJECT_STATUS.md)",
+      "Edit(/docs/terminai/**/CHANGELOG.md)",
+      "Write(/docs/terminai/**/SESSION_LOG.md)",
+      "Write(/docs/terminai/**/PROJECT_STATUS.md)",
+      "Write(/docs/terminai/**/CHANGELOG.md)"
     ],
     "deny": [],
     "ask": []
