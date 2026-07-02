@@ -535,6 +535,21 @@
 
 ---
 
+## [Unreleased] - 2026-07-02
+
+### Added
+- `update` chat command in the Customer Profiler workflow (`n8n/Main/NewCustomerProfiler.json`) — edits specific fields on an existing profile (Ranking, Products, Region, Company Name, SIC Codes, Turnover, Employees, Net Assets, Accounts Year, Confidence, Ranking Note, Profile Date) without re-running the Companies House/financials lookup
+- `Route3`, `Update Profile`, `Format Update Email`, `Send Update Email` nodes in the Customer Profiler workflow
+
+### Changed
+- `n8n/Company_Profiler.md` — documented the `update` command: syntax, field table, merge-vs-overwrite behaviour, examples, and email notification states
+
+### Documentation
+- Recorded that `Products` and `SIC Codes` fields merge (case-insensitive dedupe) while all other fields overwrite outright on `update`
+- Noted `update` is only available once `n8n/Main/NewCustomerProfiler.json` is imported and activated — not present in `Portland Fuel - Customer Profiler.json`
+
+---
+
 ## [Unreleased] - 2026-03-17
 
 ### Added

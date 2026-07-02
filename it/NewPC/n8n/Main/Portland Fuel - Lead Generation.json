@@ -1,0 +1,519 @@
+{
+  "name": "Portland Fuel - Lead Generation",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const msg=($input.first().json.chatInput||$input.first().json.input||'').trim();\nconst num=msg.replace(/\\s/g,'').toUpperCase();\nconst isNum=/^(SC|NI|OC|SO|NP|NV)?[0-9]{6,8}$/.test(num);\nif(isNum)return[{json:{mode:'single',chUrl:'https://api.company-information.service.gov.uk/company/'+num,max:1,location:'',sicCodes:[]}}];\nconst sics=(msg.match(/\\b\\d{4,5}\\b/g)||[]).filter(s=>+s>=1000);\nconst mx=(msg.match(/\\b(\\d+)\\s*comp/i)||[])[1];\nconst max=Math.min(mx?+mx:25,25);\nconst loc=msg.replace(/\\b\\d{4,5}\\b/g,'').replace(/\\b\\d+\\s*comp\\w*/gi,'').replace(/sic/gi,'').replace(/[,\\s]+/g,' ').trim();\nconst qp=['company_status=active','items_per_page='+String(max)];\n  if(sics.length)qp.push('sic_codes='+encodeURIComponent(sics.join(',')));\nif(loc)qp.push('location='+encodeURIComponent(loc));\nreturn[{json:{mode:'sic',chUrl:'https://api.company-information.service.gov.uk/advanced-search/companies?'+qp.join('&'),sicCodes:sics,location:loc,max}}];"
+      },
+      "id": "bbeb0ce3-07f5-404b-b00c-abbef0588265",
+      "name": "Parse Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.chUrl }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "78ab2488-3acd-4574-bfe9-96eebcf10426",
+      "name": "HTTP: Companies House",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        0
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "V6wt6a20FqZo4uwt",
+          "name": "Companies House API"
+        },
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const src=$('Parse Input').first().json;\nconst d=$input.first().json;\nconst addr=o=>[o?.address_line_1,o?.locality,o?.postal_code].filter(Boolean).join(', ');\nlet list=[];\nif(src.mode==='single'){\n  if(d.company_number)list=[{companyNumber:d.company_number,companyName:d.company_name||'',address:addr(d.registered_office_address),sicCodes:d.sic_codes||[],incorporated:d.date_of_creation||''}];\n}else{\n  list=(d.items||[]).map(c=>({companyNumber:c.company_number,companyName:c.company_name||'',address:addr(c.registered_office_address),sicCodes:c.sic_codes||[],incorporated:c.date_of_creation||''}));\n}\nreturn list.slice(0,src.max||25).map(c=>({json:c}));"
+      },
+      "id": "610f7f97-5ec0-46ab-b68c-96ca1187f814",
+      "name": "Normalize Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://api.company-information.service.gov.uk/company/'+$json.companyNumber+'/officers?items_per_page=5'}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "610aa063-513f-45e1-948c-86e650f06f2c",
+      "name": "HTTP: Officers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        0
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "V6wt6a20FqZo4uwt",
+          "name": "Companies House API"
+        },
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map((item,i)=>{\n  const co=$('Normalize Results').all()[i].json;\n  const dirs=(item.json.items||[]).filter(o=>!o.resigned_on).map(o=>o.name+' ('+o.officer_role+')').slice(0,3);\n  return{json:{...co,directors:dirs.join('; ')||'N/A'}};\n});"
+      },
+      "id": "24198ad9-2cc5-45b3-a54f-b85ef909a2e1",
+      "name": "Add Officers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://api.company-information.service.gov.uk/company/'+$json.companyNumber+'/filing-history?category=accounts&items_per_page=3'}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "0ffacc99-99ac-4c8f-93f4-0c548459fbb9",
+      "name": "HTTP: Filing History",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1440,
+        0
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "V6wt6a20FqZo4uwt",
+          "name": "Companies House API"
+        },
+        "httpHeaderAuth": {
+          "id": "oFsWFg5i7s9ZHUqg",
+          "name": "Header Auth account 2"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map((item,i)=>{\n  const co=$('Add Officers').all()[i].json;\n  const f=(item.json.items||[])[0];\n  const pdfUrl=f?.links?.document_metadata?f.links.document_metadata+'/content':null;\n  return{json:{...co,pdfUrl,filingDate:f?.date||null,filingType:f?.type||null}};\n});"
+      },
+      "id": "03954d4f-7af7-4b2c-a6e9-2f0b3008e466",
+      "name": "Add Filing URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.pdfUrl || 'https://api.company-information.service.gov.uk/nosuchfile' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/pdf"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "pdfData"
+            }
+          }
+        }
+      },
+      "id": "2cfef98d-6a4e-4879-9390-419e6aad51fb",
+      "name": "HTTP: Download PDF",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1920,
+        0
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "V6wt6a20FqZo4uwt",
+          "name": "Companies House API"
+        },
+        "httpHeaderAuth": {
+          "id": "TYVrXSQwYfmVuieo",
+          "name": "Header Auth account 3"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "pdfData",
+        "options": {}
+      },
+      "id": "b2d2998f-9b16-49e8-aef3-9ca2b7b1e337",
+      "name": "Extract PDF Text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        0
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map((item,i)=>{\n  const co=$('Add Filing URL').all()[i].json;\n  const txt=item.json.error?'':(item.json.text||item.json.data||'');\n  return{json:{...co,pdfText:String(txt).substring(0,2000)}};\n});"
+      },
+      "id": "deecf159-57e3-4453-ac14-1ed570085fe0",
+      "name": "Merge PDF",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{'http://192.168.1.192:8080/search?format=json&categories=general&q='+encodeURIComponent($json.companyName+' '+($json.directors||'').split(';')[0]+' fuel diesel')}}",
+        "options": {}
+      },
+      "id": "dd8e4678-d81f-46c9-ab3c-6ecb93f44ba3",
+      "name": "HTTP: SearXNG",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2640,
+        0
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map((item,i)=>{\n  const co=$('Merge PDF').all()[i].json;\n  const web=(item.json.results||[]).slice(0,3).map(r=>r.title+': '+(r.content||'')).join('\\n');\n  const prompt='Assess this UK company as a Portland Fuel B2B prospect. Return JSON only.\\n\\nCOMPANY: '+co.companyName+'\\nNO: '+co.companyNumber+'\\nADDRESS: '+co.address+'\\nSIC: '+(co.sicCodes||[]).join(',')+'\\nFOUNDED: '+co.incorporated+'\\nDIRECTORS: '+co.directors+'\\nACCOUNTS: '+co.filingDate+' ('+co.filingType+')\\n\\nACCOUNTS TEXT:\\n'+(co.pdfText||'Not available')+'\\n\\nWEB:\\n'+(web||'No results')+'\\n\\nPRODUCTS:\\n1.Fuel Cards (3+ vehicle fleets)\\n2.Bulk Delivery (farms,construction,fixed sites)\\n3.Bunker Networks (road freight,multi-site)\\n4.Fuel Hedging (large businesses,fuel as major cost)\\n5.Fuel Consultancy (complex procurement)\\n\\nReturn: {\"score\":1-10,\"products\":[\"product names\"],\"summary\":\"2 sentences\",\"size\":\"micro/small/medium/large\",\"approach\":\"who to contact and angle\",\"flags\":\"red flags or none\"}';\n  const body=JSON.stringify({model:'qwen3.6:27b',prompt,stream:false,format:'json'});\n  return{json:{...co,webSnippets:web,ollamaBody:body}};\n});"
+      },
+      "id": "93cd5f1c-9340-4f24-b3f7-bfa35e2b9138",
+      "name": "Build Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.1.192:11434/api/generate",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.ollamaBody }}",
+        "options": {
+          "timeout": 600000
+        }
+      },
+      "id": "b2b56feb-9ac7-4f78-a413-36d2faa612f6",
+      "name": "HTTP: Ollama Qualify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3120,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map((item,i)=>{\n  const co=$('Build Prompt').all()[i].json;\n  let ai={score:0,products:[],summary:'',size:'unknown',approach:'',flags:''};\n  try{Object.assign(ai,JSON.parse(item.json.response||'{}'));}catch(e){}\n  return{json:{...co,aiScore:Number(ai.score)||0,aiProducts:ai.products||[],aiSummary:ai.summary||'',aiSize:ai.size||'',aiApproach:ai.approach||'',aiFlags:ai.flags||''}};\n});"
+      },
+      "id": "34851eb6-30b1-42d4-8d24-ddb5b496a943",
+      "name": "Parse Score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3360,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const src=$('Parse Input').first().json;\nconst all=$input.all().map(i=>i.json).sort((a,b)=>b.aiScore-a.aiScore);\nconst leads=all.filter(c=>c.aiScore>=5);\nconst failed=all.filter(c=>c.aiScore<5);\nconst col=s=>s>=8?'#27ae60':s>=6?'#e67e22':'#e74c3c';\nconst ch=n=>'https://find-and-update.company-information.service.gov.uk/company/'+n;\nconst date=new Date().toLocaleDateString('en-GB');\nconst subj='Portland Fuel Leads — '+leads.length+' leads | '+(src.location||'Company lookup')+' | '+date;\nconst evalRows=all.map(c=>'<tr><td style=\"padding:8px;border-bottom:1px solid #ddd\"><strong><a href=\"'+ch(c.companyNumber)+'\" target=\"_blank\">'+c.companyName+'</a></strong><br><small style=\"color:#666\">'+c.companyNumber+'</small></td><td style=\"padding:8px;border-bottom:1px solid #ddd;text-align:center\"><span style=\"font-size:18px;font-weight:bold;color:'+col(c.aiScore)+'\">'+c.aiScore+'/10</span></td><td style=\"padding:8px;border-bottom:1px solid #ddd\">'+(c.aiProducts||[]).join(', ')+'</td><td style=\"padding:8px;border-bottom:1px solid #ddd;text-align:center\"><span style=\"background:'+(c.aiScore>=5?'#27ae60':'#e74c3c')+';color:#fff;padding:3px 8px;border-radius:3px;font-size:11px\">'+(c.aiScore>=5?'PASS':'FAIL')+'</span></td></tr>').join('');\nconst detailRows=leads.map(c=>'<tr><td style=\"padding:10px;border-bottom:1px solid #ddd\"><strong><a href=\"'+ch(c.companyNumber)+'\" target=\"_blank\">'+c.companyName+'</a></strong><br><small>'+c.address+'</small><br><small>Directors: '+c.directors+'</small></td><td style=\"padding:10px;border-bottom:1px solid #ddd;text-align:center\"><span style=\"font-size:22px;font-weight:bold;color:'+col(c.aiScore)+'\">'+c.aiScore+'</span></td><td style=\"padding:10px;border-bottom:1px solid #ddd\">'+(c.aiProducts||[]).join(', ')+'</td><td style=\"padding:10px;border-bottom:1px solid #ddd\">'+c.aiSummary+'<br><em>'+c.aiApproach+'</em>'+(c.aiFlags&&c.aiFlags!=='none'?'<br><b style=\"color:red\">'+c.aiFlags+'</b>':'')+'</td></tr>').join('');\nconst qualSection=leads.length?'<h3 style=\"color:#2c3e50;margin-top:30px\">Qualified Leads — Full Detail</h3><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\"><thead><tr style=\"background:#2c3e50;color:#fff\"><th style=\"padding:10px;text-align:left\">Company</th><th style=\"padding:10px;width:60px\">Score</th><th style=\"padding:10px;width:180px\">Products</th><th style=\"padding:10px;text-align:left\">Assessment</th></tr></thead><tbody>'+detailRows+'</tbody></table>':'<p style=\"color:#e74c3c;margin-top:20px\"><b>No companies scored 5 or above.</b></p>';\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:950px;margin:0 auto\"><h2 style=\"color:#2c3e50\">Portland Fuel Lead Digest</h2><p><b>'+leads.length+' passed</b> | <b>'+failed.length+' failed</b> | threshold: 5/10 | '+(src.location||'')+' | SIC: '+(src.sicCodes||[]).join(', ')+' | '+date+'</p><h3 style=\"color:#2c3e50\">All Companies Evaluated ('+all.length+')</h3><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\"><thead><tr style=\"background:#2c3e50;color:#fff\"><th style=\"padding:8px;text-align:left\">Company</th><th style=\"padding:8px;width:60px\">Score</th><th style=\"padding:8px;width:180px\">Products</th><th style=\"padding:8px;width:60px\">Result</th></tr></thead><tbody>'+evalRows+'</tbody></table>'+qualSection+'<p style=\"color:#999;font-size:11px\">Generated '+new Date().toISOString()+' via n8n / amelai</p></body></html>';\nreturn[{json:{subject:subj,htmlBody:html}}];"
+      },
+      "id": "1eb3b4f4-9816-4f3e-a3de-98e612e0d35b",
+      "name": "Format Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3600,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "toRecipients": "steve@portland-fuel.co.uk",
+        "subject": "={{ $json.subject }}",
+        "bodyContent": "={{ $json.htmlBody }}",
+        "additionalFields": {
+          "bodyContentType": "html"
+        }
+      },
+      "id": "959f1cd9-6134-48b9-af5e-3364e53ae28e",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        3840,
+        0
+      ],
+      "webhookId": "43fded37-b511-4e7b-a72f-c4de331db1cc",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "Orgklv2FZdo5pC4V",
+          "name": "MyHotmailEmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Welcome to the Portland Lead Generator \n\nPlease enter the SIC code(s) you would like, the region [optional] and the number of companies [optional] \n\n49410 Yorkshire\n49410 49310 North Yorkshire 15 companies",
+        "options": {
+          "subtitle": "Enter the parameters required to start a Lead Generation search and the results will be emailed out to you.",
+          "title": "Portland Lead Generator"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        64,
+        0
+      ],
+      "id": "63064288-b246-415e-b7bf-8bfd1286eeaa",
+      "name": "When chat message received",
+      "webhookId": "pfl-lead-gen"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Parse Input": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Companies House",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Companies House": {
+      "main": [
+        [
+          {
+            "node": "Normalize Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Results": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Officers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Officers": {
+      "main": [
+        [
+          {
+            "node": "Add Officers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Officers": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Filing History",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Filing History": {
+      "main": [
+        [
+          {
+            "node": "Add Filing URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Filing URL": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Download PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Download PDF": {
+      "main": [
+        [
+          {
+            "node": "Extract PDF Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PDF Text": {
+      "main": [
+        [
+          {
+            "node": "Merge PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge PDF": {
+      "main": [
+        [
+          {
+            "node": "HTTP: SearXNG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: SearXNG": {
+      "main": [
+        [
+          {
+            "node": "Build Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Prompt": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Ollama Qualify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Ollama Qualify": {
+      "main": [
+        [
+          {
+            "node": "Parse Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Score": {
+      "main": [
+        [
+          {
+            "node": "Format Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Email": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Parse Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "ce006f98-5576-40cf-a8e7-f59f94ee1de5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6e23109a98b6df358d89d07cb68f7791c431eec20aae3940902d07c181cc7d9a"
+  },
+  "id": "HsuyrilNNoemk4Ca",
+  "tags": []
+}

@@ -6,7 +6,7 @@
 
 ## Current State
 
-Server (`amelai`) is fully operational. All 7 Docker services now run via `docker-compose.yml` instead of individually-typed `docker run` commands — the fix for the recurring port-binding-loss failure mode (last hit n8n/SearXNG/pdf-to-image on 2026-07-01). Migration completed and verified service-by-service. Along the way, found and fixed a real Compose bug: a `$` in the Postgres password was silently corrupted by Compose's variable interpolation (confirmed to affect `env_file:`, not just top-level `.env`); fixed via percent-encoding. A separate n8n workflow bug (Loop node output wiring reversed in Customer Profiler) was also diagnosed and fixed this session. A follow-up permission-prompt audit confirmed `/end-session` itself was already fully unattended-capable; one new read-only permission (`git check-ignore *`) was added to `it/NewPC/.claude/settings.json`.
+Server (`amelai`) is fully operational. All 7 Docker services now run via `docker-compose.yml` instead of individually-typed `docker run` commands — the fix for the recurring port-binding-loss failure mode (last hit n8n/SearXNG/pdf-to-image on 2026-07-01). Migration completed and verified service-by-service. Along the way, found and fixed a real Compose bug: a `$` in the Postgres password was silently corrupted by Compose's variable interpolation (confirmed to affect `env_file:`, not just top-level `.env`); fixed via percent-encoding. A separate n8n workflow bug (Loop node output wiring reversed in Customer Profiler) was also diagnosed and fixed this session. A follow-up permission-prompt audit confirmed `/end-session` itself was already fully unattended-capable; one new read-only permission (`git check-ignore *`) was added to `it/NewPC/.claude/settings.json`. Most recently, a new `update` chat command was added to the Customer Profiler (`n8n/Main/NewCustomerProfiler.json`) for instant field-level edits without a full Companies House re-lookup, fully documented in `n8n/Company_Profiler.md`.
 
 ## Service Status
 
@@ -26,7 +26,7 @@ Server (`amelai`) is fully operational. All 7 Docker services now run via `docke
 ## Active Work Areas
 
 - **Docker Compose** — ✅ implemented and all 7 services migrated 2026-07-02; see `docker-compose.yml`, `DockerComposeDocs.md`, and `Docker.md` → "Docker Compose (Primary Method)". Remaining: `docker image prune` to clean up the dangling pre-Compose `pdf-to-image` image
-- **n8n Customer Profiler** — Loop node output wiring bug fixed 2026-07-02 (was sending every `add` command's completion to the `list` command's email node instead of to `CH: Company`); confirmed working by user directly in n8n UI. Still outstanding from 2026-07-01: workflow JSON updated with notes, region, confidence, CSV attachment; needs import to n8n and credential re-link on Send Profile List node (Graph API HTTP Request)
+- **n8n Customer Profiler** — Loop node output wiring bug fixed 2026-07-02 (was sending every `add` command's completion to the `list` command's email node instead of to `CH: Company`); confirmed working by user directly in n8n UI. New `update` command added 2026-07-02 to `n8n/Main/NewCustomerProfiler.json` (instant field edits — ranking, products, region, financials — without re-running Companies House lookup); documented in `n8n/Company_Profiler.md`; not yet imported/activated in n8n. Still outstanding from 2026-07-01: workflow JSON updated with notes, region, confidence, CSV attachment; needs import to n8n and credential re-link on Send Profile List node (Graph API HTTP Request)
 - **Lead scoring model** — to be built as a new n8n workflow; requires 15–20 profiled customers per product first; design documented in `Leadgen_Docs.md`
 - **SteveOP MCP setup** — RAG MCP now connected; remaining: TradingView MCP (Steps 3–8 of `SteveOP_MCP_Setup.md`) and `/db` skill
 - **StevesLenovo MCP setup** — RAG MCP connected; remaining: `/db` skill (`C:\Users\SteveIrwin\.claude\commands\db.md`)
@@ -35,6 +35,7 @@ Server (`amelai`) is fully operational. All 7 Docker services now run via `docke
 
 ## Recently Completed
 
+- **Customer Profiler `update` command** — new chat command in `n8n/Main/NewCustomerProfiler.json` for instant field-level edits (Ranking, Products, Region, Company Name, SIC Codes, Turnover, Employees, Net Assets, Accounts Year, Confidence, Ranking Note, Profile Date) on an existing profile, no Companies House re-lookup required; Products/SIC Codes merge additively, all other fields overwrite; validated with a standalone Node.js test harness; `Portland Fuel - Customer Profiler.json` left untouched; fully documented in `n8n/Company_Profiler.md`
 - **Docker Compose migration** — all 7 services (`open-webui`, `comfyui`, `comfyui-amelia`, `filebrowser`, `searxng`, `n8n`, `pdf-to-image`) migrated from standalone `docker run` containers to `docker-compose.yml`; existing named volumes and network preserved via `external: true`; GPU access via `deploy.resources.reservations.devices`; full reference in `DockerComposeDocs.md`
 - **Compose secrets/interpolation bug found and fixed** — a `$` in the Postgres password was silently corrupted by Compose's variable interpolation in both top-level `.env` and per-service `env_file:`; fixed by percent-encoding (`$` → `%24`) rather than rotating the credential; verified byte-for-byte via hash comparison against the running container
 - **n8n Customer Profiler Loop wiring bug fixed** — `Loop` node's `done`/`loop` outputs were connected backwards (verified against n8n's actual source, `outputNames: ['done', 'loop']`), causing every `add` command to trigger the `list` command's email with an empty result instead of processing the company; fixed in the n8n UI and confirmed working
@@ -66,6 +67,7 @@ Server (`amelai`) is fully operational. All 7 Docker services now run via `docke
 
 ## Pending / Next Actions
 
+- [ ] **Import `n8n/Main/NewCustomerProfiler.json` into n8n and activate it** — the `update` command only exists in this file, not in the previously-published workflow; re-link `MyHotmailEmail` credential on new/renamed nodes after import
 - [ ] **Run `docker image prune` on amelai** — cleans up the dangling old `pdf-to-image` image left behind by the Compose rebuild
 - [ ] **Run `sudo apt update && sudo apt upgrade`** on amelai — standing housekeeping item
 - [ ] **Consider rotating the shared Postgres password** to remove the `$` now that the immediate risk is fixed — would need coordinated update across Amelai's `~/.bashrc` `PGPASS`, StevesLenovo's Windows env var, and `secrets/openwebui.env`

@@ -1287,6 +1287,36 @@ Created a comprehensive AI model training and LoRA creation guide covering two d
 
 ---
 
+## Session 2026-07-02 (3) — Customer Profiler `update` command added
+
+### Summary
+Added a new `update` chat command to the Customer Profiler n8n workflow, letting the user change specific fields on an existing profile (ranking, products, region, financials, etc.) instantly without re-running the Companies House/financials lookup. Implemented only in the new working copy `n8n/Main/NewCustomerProfiler.json`, leaving the previously-published `Portland Fuel - Customer Profiler.json` untouched per explicit instruction. Documented the new command fully in `n8n/Company_Profiler.md`.
+
+### Work Completed
+- Added `update <regNo> <Field>=<Value> | <Field>=<Value>` parsing to the `Parse Input` Code node
+- Added `Route3` IF node, `Update Profile` Code node, `Format Update Email` Code node, and `Send Update Email` Outlook node; rewired `Route2`'s second output into the new branch
+- Field-name matching uses the exact column headings from the `list` command's CSV export (Ranking, Products, Region, Company Name, SIC Codes, Turnover, Employees, Net Assets, Accounts Year, Confidence, Ranking Note, Profile Date)
+- `Products` and `SIC Codes` merge (case-insensitive dedupe, additive); all other fields overwrite
+- Validated the new Code node logic with a standalone Node.js test harness mocking n8n's `$input`, `$`, and `$getWorkflowStaticData` APIs — covered the user's exact example plus unknown-field, missing-profile, and invalid-number edge cases
+- Updated `n8n/Company_Profiler.md`: new Commands table row, "Understanding the `update` command" section with full field table, updated Update examples, three new Email Notifications rows, and a flag that `update` requires `NewCustomerProfiler.json` specifically
+
+### Files Changed
+- `n8n/Main/NewCustomerProfiler.json` — **created** (working copy) — `update` command added
+- `n8n/Main/Portland Fuel - Customer Profiler.json` — untouched, verified via file size/mtime before and after
+- `n8n/Company_Profiler.md` — documented the `update` command end to end
+
+### Key Decisions
+- Field names must match the CSV export headers exactly (case-insensitive) rather than inventing new field names, so the command vocabulary is self-documenting from the `list` output the user already sees
+- Array fields (Products, SIC Codes) merge rather than overwrite, since the user's own example depended on this ("Hedging is already assigned... this would add Fuelcards")
+- Kept `update` entirely separate from `add`'s overwrite-everything semantics rather than overloading `add` further — `add` remains the "fresh lookup" path, `update` is the "instant edit" path
+
+### Next Actions
+- [ ] Import `n8n/Main/NewCustomerProfiler.json` into n8n and activate it — `update` will not work against the previously-published workflow
+- [ ] Re-link `MyHotmailEmail` credential on any new/renamed nodes after import (standard post-import step)
+- [ ] Test `update` against a real stored profile via the production chat URL (not the editor's Chat button — test mode doesn't persist static data)
+
+---
+
 ## Session 2026-03-14
 
 ### Summary

@@ -160,7 +160,10 @@
       "Bash(echo \"n8n.env.example ignored? exit=$? \\(0=ignored,1=not ignored\\)\")",
       "Bash(echo \"openwebui.env ignored? exit=$? \\(0=ignored,1=not ignored\\)\")",
       "Skill(fewer-permission-prompts)",
-      "Bash(awk '{print $2}')"
+      "Bash(awk '{print $2}')",
+      "Bash(command -v node)",
+      "Bash(node /tmp/claude-1000/-docs-terminai-it-NewPC/e77f7388-cdc1-464d-b696-f2a0263c2ae7/scratchpad/test_parse_input.js)",
+      "Bash(node /tmp/claude-1000/-docs-terminai-it-NewPC/e77f7388-cdc1-464d-b696-f2a0263c2ae7/scratchpad/test_update_profile.js)"
     ]
   }
 }
