@@ -2,6 +2,8 @@
 
 This guide covers the update procedure for each application running on the AmelAI server. Follow the steps in order for each application.
 
+> **Docker services now run via Docker Compose** (`docker-compose.yml`, see `Docker.md` → "Docker Compose (Primary Method)" and `DockerComposeDocs.md` for the full command reference). The `docker run` blocks below for each Docker-based service are **kept for reference only** — they show what each flag does, but are no longer the commands actually used to update or recreate a container. Use the `docker compose pull <service> && docker compose up -d <service>` pattern shown at the top of each Docker service section instead.
+
 ---
 
 ## Ollama
@@ -42,6 +44,15 @@ ollama ps
 ## Open WebUI
 
 Open WebUI runs in Docker using the `:main` rolling release tag. Updating it requires stopping and removing the container, pulling the new image, and recreating the container. Chat history and settings are stored in a persistent Docker volume and are not affected.
+
+**Current method (Docker Compose):**
+```bash
+cd /docs/terminai/it/NewPC
+docker compose pull open-webui
+docker compose up -d open-webui
+```
+
+> **OBSOLETE — kept for reference only.** The `docker run` command below is no longer how this container is recreated; `docker-compose.yml` is now authoritative. Shown here so each flag's purpose stays documented.
 
 ```bash
 # Stop and remove the existing container
@@ -90,6 +101,15 @@ docker ps | grep open-webui
 
 SearXNG runs in Docker on the `ai-network`. Config is stored in a persistent bind mount at `/opt/searxng/` and is not affected by container rebuilds.
 
+**Current method (Docker Compose):**
+```bash
+cd /docs/terminai/it/NewPC
+docker compose pull searxng
+docker compose up -d searxng
+```
+
+> **OBSOLETE — kept for reference only.** The `docker run` command below is no longer how this container is recreated; `docker-compose.yml` is now authoritative.
+
 ```bash
 # Stop and remove the existing container
 docker stop searxng && docker rm searxng
@@ -127,10 +147,16 @@ docker exec open-webui curl -s "http://searxng:8080/search?q=test&format=json" |
 
 n8n runs in Docker. Workflows, credentials, and settings are stored in the `n8n_data` named volume and are not affected by container rebuilds.
 
-> **Critical**: The `N8N_ENCRYPTION_KEY` must match the value used when the container was first created. If the key changes, all stored credentials become unreadable. Retrieve it from the running container before stopping it:
-> ```bash
-> docker inspect n8n --format='{{range .Config.Env}}{{println .}}{{end}}' | grep ENCRYPTION
-> ```
+> **Critical**: `N8N_ENCRYPTION_KEY` must match the value used when the container was first created. If the key changes, all stored credentials become unreadable. It now lives in `secrets/n8n.env` (see `DockerComposeDocs.md`) — check it there rather than retrieving it from the running container.
+
+**Current method (Docker Compose):**
+```bash
+cd /docs/terminai/it/NewPC
+docker compose pull n8n
+docker compose up -d n8n
+```
+
+> **OBSOLETE — kept for reference only.** The `docker run` command below is no longer how this container is recreated; `docker-compose.yml` is now authoritative. The encryption key it references via `${N8N_KEY}` is a bash shell variable pattern that predates the Compose migration — the real key is now in `secrets/n8n.env`.
 
 ```bash
 # Stop and remove the existing container
@@ -178,6 +204,15 @@ docker ps | grep n8n
 ComfyUI runs in Docker using the `yanwk/comfyui-boot:cu128-slim` image. Models, custom nodes, workflows, and ComfyUI Manager are stored in persistent volumes and are not affected by updates.
 
 There are two instances — yours (GPU 1, port 8189) and Amelia's (GPU 0, port 8188). Update each separately.
+
+**Current method (Docker Compose):**
+```bash
+cd /docs/terminai/it/NewPC
+docker compose pull comfyui comfyui-amelia
+docker compose up -d comfyui comfyui-amelia
+```
+
+> **OBSOLETE — kept for reference only.** Both `docker run` commands below (for `comfyui` and `comfyui-amelia`) are no longer how these containers are recreated; `docker-compose.yml` is now authoritative for both.
 
 ### Yours (comfyui)
 
@@ -278,6 +313,15 @@ docker pull filebrowser/filebrowser:latest
 ```
 
 ### Update File Browser
+
+**Current method (Docker Compose):**
+```bash
+cd /docs/terminai/it/NewPC
+docker compose pull filebrowser
+docker compose up -d filebrowser
+```
+
+> **OBSOLETE — kept for reference only.** The `docker run` command below is no longer how this container is recreated; `docker-compose.yml` is now authoritative.
 
 ```bash
 # Stop and remove the existing container
@@ -434,6 +478,14 @@ Unlike other services on this server, pdf-to-image uses a **custom-built Docker 
 
 ### Recreate the container (image already built)
 
+**Current method (Docker Compose):**
+```bash
+cd /docs/terminai/it/NewPC
+docker compose up -d pdf-to-image
+```
+
+> **OBSOLETE — kept for reference only.** The commands below are no longer how this container is recreated; `docker-compose.yml` is now authoritative (it builds from `./n8n/pdf-to-image` automatically).
+
 Use this when the container has been deleted or lost its port bindings, but the source files have not changed.
 
 ```bash
@@ -458,6 +510,14 @@ curl http://192.168.1.192:8086/health
 > If `docker images | grep pdf-to-image` returns nothing (image was removed by `docker system prune` or similar), follow the **Rebuild the image** steps below instead.
 
 ### Rebuild the image
+
+**Current method (Docker Compose):**
+```bash
+cd /docs/terminai/it/NewPC
+docker compose up -d --build pdf-to-image
+```
+
+> **OBSOLETE — kept for reference only.** The commands below are no longer how this container is rebuilt; `docker-compose.yml` is now authoritative.
 
 Use this when the source files have changed, or the image is no longer on the host.
 

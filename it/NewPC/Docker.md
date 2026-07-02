@@ -20,6 +20,84 @@ Docker is a **containerisation platform** — it packages an application and all
 
 ---
 
+## Docker Compose (Primary Method)
+
+**Use this instead of typing individual `docker run` commands.** All 7 services are defined once in `docker-compose.yml` (same folder as this file). This exists because containers recreated by hand with an incomplete `docker run` command silently lose flags — that's what caused the n8n, SearXNG, and pdf-to-image outages on 2026-07-01 (port bindings and the encryption key were dropped with no error). Compose reads the same file every time, so recreation is always complete.
+
+### One-time setup
+
+```bash
+cd /docs/terminai/it/NewPC
+cp secrets/openwebui.env.example secrets/openwebui.env
+cp secrets/n8n.env.example secrets/n8n.env
+nano secrets/openwebui.env   # fill in the real PGVECTOR_DB_URL (with password)
+nano secrets/n8n.env         # fill in the real N8N_ENCRYPTION_KEY
+```
+
+`secrets/*.env` are gitignored and wired into their services via `env_file:` in `docker-compose.yml`.
+
+**Any secret with a literal `$` will get silently corrupted — this affects `env_file:` too, not just a top-level `.env`.** Confirmed 2026-07-02: Compose's variable interpolation runs on values from *both* the top-level `.env` and per-service `env_file:` files (this repo initially assumed `env_file:` was exempt — it is not, at least on the Compose v2.x installed here). A literal `$` gets treated as the start of a variable reference and blanked out, with only an easy-to-miss `docker compose config` warning as a symptom — this took down Open WebUI's Postgres connection on first migration.
+
+**If a secret is embedded in a URL** (e.g. `PGVECTOR_DB_URL`), percent-encode any special characters in it — `$` becomes `%24` — using `urllib.parse.quote(password, safe="")` in Python. libpq/psycopg2 decode this back to the real password correctly; Compose never sees a literal `$` to misinterpret. This is the fix currently in place for `secrets/openwebui.env`.
+
+**If a secret is NOT part of a URL** (e.g. `N8N_ENCRYPTION_KEY`), the simplest safe option is to avoid `$` in the value entirely when it's generated/rotated.
+
+**After changing any secret, always verify it round-tripped correctly — don't assume:**
+```bash
+cd /docs/terminai/it/NewPC
+docker compose config --quiet   # must show no "variable not set" warnings
+# Compare the container's actual value against the source file, without ever printing the secret:
+docker exec <container> printenv <VAR_NAME> | sha256sum
+cat secrets/<file>.env | cut -d= -f2- | sha256sum   # must match exactly
+```
+
+Also confirm the host prerequisites still exist (Compose does not create these for you — a missing bind-mount **file** gets auto-created as a **directory** by Docker, which breaks these two services):
+
+```bash
+mkdir -p /home/steve/rag-documents
+mkdir -p /home/steve/filebrowser && touch /home/steve/filebrowser/filebrowser.db
+```
+
+### Migrating existing containers to Compose (one at a time)
+
+Do this per-service, not all at once, so you can verify each one before moving to the next. Data is safe — `open-webui` and `n8n_data` are existing named volumes (marked `external: true` in the compose file, so Compose attaches to them rather than creating new empty ones), and every other service uses bind mounts to host folders.
+
+```bash
+# Example: migrating n8n
+docker stop n8n
+docker rm n8n
+cd /docs/terminai/it/NewPC
+docker compose up -d n8n
+
+# Verify it came up correctly
+docker ps --filter name=n8n
+docker logs n8n --tail 50
+```
+
+Repeat for each service: `open-webui`, `comfyui`, `comfyui-amelia`, `filebrowser`, `searxng`, `n8n`, `pdf-to-image`.
+
+### Day-to-day commands
+
+```bash
+cd /docs/terminai/it/NewPC
+
+docker compose up -d              # (re)create every service exactly as defined
+docker compose up -d n8n          # (re)create just one service
+docker compose down               # stop and remove all compose-managed containers (volumes untouched)
+docker compose ps                 # status of all services
+docker compose logs -f n8n        # follow logs for one service
+docker compose pull               # pull latest images for all services
+docker compose up -d --build pdf-to-image   # rebuild pdf-to-image from its Dockerfile after editing app.py
+```
+
+`docker compose up -d` is now the correct way to recover from any container-lost-its-config situation — it always applies the full definition from the file, so a flag can no longer be silently dropped.
+
+### Updating `docker-compose.yml`
+
+If a service's configuration needs to change (new port, new environment variable, new volume), edit `docker-compose.yml` directly and re-run `docker compose up -d <service>` to apply it. Per the project convention below, also keep the corresponding entry in the **Service docker run Commands** section (further down this file) in sync — it's kept as a reference for understanding what each flag does and as a fallback if Compose is ever unavailable.
+
+---
+
 ## To Re-Create Running Container `Run` Commands
 
 If you need to reconstruct the `docker run` command for a container that is already running (e.g. inherited a container with no docs, or want to verify a container matches what's documented), use **`runlike`**:
@@ -154,6 +232,8 @@ docker network inspect ai-network
 ---
 
 ## Service docker run Commands
+
+> **Reference only.** `docker-compose.yml` (see **Docker Compose (Primary Method)** above) is now the primary way to (re)create these containers — use `docker compose up -d <service>` instead of copy-pasting from here. These commands are kept so each flag's purpose stays documented and as a manual fallback if Compose is ever unavailable.
 
 These are the exact commands to recreate each service if its container is ever deleted. Run them from the server as `steve`.
 

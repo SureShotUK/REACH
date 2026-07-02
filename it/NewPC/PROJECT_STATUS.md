@@ -1,41 +1,44 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-07-01
+**Last Updated**: 2026-07-02
 
 ---
 
 ## Current State
 
-Server (`amelai`) is fully operational. All services running with correct port bindings. Three containers (n8n, SearXNG, pdf-to-image) had lost port bindings during this session — all recreated and confirmed working. Customer Profiler workflow enhanced with notes, region, accounts confidence, and CSV attachment. Docker Compose identified as resilience solution but not yet implemented.
+Server (`amelai`) is fully operational. All 7 Docker services now run via `docker-compose.yml` instead of individually-typed `docker run` commands — the fix for the recurring port-binding-loss failure mode (last hit n8n/SearXNG/pdf-to-image on 2026-07-01). Migration completed and verified service-by-service. Along the way, found and fixed a real Compose bug: a `$` in the Postgres password was silently corrupted by Compose's variable interpolation (confirmed to affect `env_file:`, not just top-level `.env`); fixed via percent-encoding. A separate n8n workflow bug (Loop node output wiring reversed in Customer Profiler) was also diagnosed and fixed this session.
 
 ## Service Status
 
 | Service | Container | Local | Tailscale | Status |
 |---|---|---|---|---|
 | Ollama | host process | `http://192.168.1.192:11434` | via Open WebUI | Running |
-| Open WebUI | `open-webui` | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` | Running |
-| ComfyUI (Steve) | `comfyui` | Tailscale only | `https://amelai.tail926601.ts.net:8189` | **Needs rebuild** — run command updated |
-| ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Running |
-| FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running |
+| Open WebUI | `open-webui` | `http://192.168.1.192:3000` | `https://amelai.tail926601.ts.net` | Running (migrated to Compose 2026-07-02) |
+| ComfyUI (Steve) | `comfyui` | Tailscale only | `https://amelai.tail926601.ts.net:8189` | Running (migrated to Compose 2026-07-02) |
+| ComfyUI (Amelia) | `comfyui-amelia` | `http://192.168.1.192:8188` | `https://amelai.tail926601.ts.net:8188` | Running (migrated to Compose 2026-07-02) |
+| FileBrowser | `filebrowser` | `http://192.168.1.192:8087` | `https://amelai.tail926601.ts.net:8087` | Running (migrated to Compose 2026-07-02) |
 | MCP Server | systemd service | `http://100.79.83.113:3001` | port 3001 (ACL updated) | Running |
-| SearXNG | `searxng` | `http://192.168.1.192:8080` | `https://amelai.tail926601.ts.net:8080` | Running (recreated 2026-07-01) |
-| n8n | `n8n` | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` | Running (recreated 2026-07-01) |
+| SearXNG | `searxng` | `http://192.168.1.192:8080` | `https://amelai.tail926601.ts.net:8080` | Running (migrated to Compose 2026-07-02) |
+| n8n | `n8n` | `http://192.168.1.192:5678` | `https://amelai.tail926601.ts.net:5678` | Running (migrated to Compose 2026-07-02) |
 | STT Server | systemd `stt_server` | — | `ws://amelai.tail926601.ts.net:9090` | Running |
-| pdf-to-image | `pdf-to-image` | `http://192.168.1.192:8086` | internal only | Running (recreated 2026-07-01) |
+| pdf-to-image | `pdf-to-image` | `http://192.168.1.192:8086` | internal only | Running (migrated to Compose 2026-07-02, now builds via `docker compose up -d --build`) |
 
 ## Active Work Areas
 
-- **Docker Compose** — three containers lost port bindings this session when recreated without full flags; Docker Compose is the correct solution to prevent recurrence; `docker-compose.yml` not yet created
-- **n8n Customer Profiler** — workflow JSON updated with notes, region, confidence, CSV attachment; needs import to n8n and credential re-link on Send Profile List node (Graph API HTTP Request)
+- **Docker Compose** — ✅ implemented and all 7 services migrated 2026-07-02; see `docker-compose.yml`, `DockerComposeDocs.md`, and `Docker.md` → "Docker Compose (Primary Method)". Remaining: `docker image prune` to clean up the dangling pre-Compose `pdf-to-image` image
+- **n8n Customer Profiler** — Loop node output wiring bug fixed 2026-07-02 (was sending every `add` command's completion to the `list` command's email node instead of to `CH: Company`); confirmed working by user directly in n8n UI. Still outstanding from 2026-07-01: workflow JSON updated with notes, region, confidence, CSV attachment; needs import to n8n and credential re-link on Send Profile List node (Graph API HTTP Request)
 - **Lead scoring model** — to be built as a new n8n workflow; requires 15–20 profiled customers per product first; design documented in `Leadgen_Docs.md`
 - **SteveOP MCP setup** — RAG MCP now connected; remaining: TradingView MCP (Steps 3–8 of `SteveOP_MCP_Setup.md`) and `/db` skill
 - **StevesLenovo MCP setup** — RAG MCP connected; remaining: `/db` skill (`C:\Users\SteveIrwin\.claude\commands\db.md`)
 - **n8n Lead Generation workflow** — `LeadGen_Workflow.json` built and ready to import; needs "Companies House API" Basic Auth credential in n8n before first test run
-- **ComfyUI (Steve) rebuild required** — run command updated with `--reserve-vram 3` and correct workflows volume path
 - **Alexa WOL skill** — submitted for Amazon certification; awaiting approval
 
 ## Recently Completed
 
+- **Docker Compose migration** — all 7 services (`open-webui`, `comfyui`, `comfyui-amelia`, `filebrowser`, `searxng`, `n8n`, `pdf-to-image`) migrated from standalone `docker run` containers to `docker-compose.yml`; existing named volumes and network preserved via `external: true`; GPU access via `deploy.resources.reservations.devices`; full reference in `DockerComposeDocs.md`
+- **Compose secrets/interpolation bug found and fixed** — a `$` in the Postgres password was silently corrupted by Compose's variable interpolation in both top-level `.env` and per-service `env_file:`; fixed by percent-encoding (`$` → `%24`) rather than rotating the credential; verified byte-for-byte via hash comparison against the running container
+- **n8n Customer Profiler Loop wiring bug fixed** — `Loop` node's `done`/`loop` outputs were connected backwards (verified against n8n's actual source, `outputNames: ['done', 'loop']`), causing every `add` command to trigger the `list` command's email with an empty result instead of processing the company; fixed in the n8n UI and confirmed working
+- **ComfyUI (Steve) rebuilt** — run command updated with `--reserve-vram 3` and correct workflows volume path; now managed via Compose
 - **RAG MCP server built and consolidated** — Node.js MCP server at `/docs/terminai/rag-mcp/` (shared NAS) exposes `rag_search` and `rag_list_collections` tools; registered in `~/.claude/.mcp.json` on Amelai; `/db` global skill at `~/.claude/commands/db.md`; setup guide for SteveOP at `SteveOP_MCP_Setup.md`; setup instructions for StevesLenovo in `Temp.txt`
 - **Company Name Lookup workflow** — 11-node importable workflow (`CompanyLookup_Workflow.json`); accepts names one-per-line or comma-separated; CH search + Amelai confidence scoring + colour-coded email with CSV attachment + markdown chat response; multiple-company bug fixed (Code node batch-mode semantics); CSV attachment fixed (Graph API format)
 - **Customer Profiler iXBRL extraction** — dual-path architecture: PDF → pdf-to-image → qwen2.5vl:7b vision; iXBRL → text download → qwen3.5:27b (think:false); format detected from S3 URL before download; dual targeted extracts for P&L + balance sheet sections; `remove` command; profit after tax; parentheses negatives
@@ -63,8 +66,10 @@ Server (`amelai`) is fully operational. All services running with correct port b
 
 ## Pending / Next Actions
 
-- [ ] **Import updated Customer Profiler JSON** — replace current workflow in n8n; re-link `MyHotmailEmail` credential on "Send Profile List" node (now a Graph API HTTP Request)
-- [ ] **Create Docker Compose file** — covers all services; prevents port binding loss when containers are recreated; see `Software_Updates.md` for all current run commands
+- [ ] **Run `docker image prune` on amelai** — cleans up the dangling old `pdf-to-image` image left behind by the Compose rebuild
+- [ ] **Run `sudo apt update && sudo apt upgrade`** on amelai — standing housekeeping item
+- [ ] **Consider rotating the shared Postgres password** to remove the `$` now that the immediate risk is fixed — would need coordinated update across Amelai's `~/.bashrc` `PGPASS`, StevesLenovo's Windows env var, and `secrets/openwebui.env`
+- [ ] **Import updated Customer Profiler JSON** — confirm the exported JSON in the repo reflects the 2026-07-02 Loop wiring fix (made directly in n8n UI); replace current workflow in n8n; re-link `MyHotmailEmail` credential on "Send Profile List" node (now a Graph API HTTP Request)
 - [ ] **Profile 15–20 customers per product** — minimum dataset before lead scoring model is meaningful
 - [ ] **Build lead scoring n8n workflow** — weighted similarity model; design in `Leadgen_Docs.md` To Do section
 - [ ] **Consider per-product rankings** — evaluate whether "Bulk: 9, Cards: 6, Hedging: 3" would outperform single overall ranking for the scoring model
@@ -77,7 +82,6 @@ Server (`amelai`) is fully operational. All services running with correct port b
 - [ ] **Deploy STT client fix** — copy `stt/stt_client.py` to Steve's Windows 11 PC and restart via `restart_stt.bat`
 - [ ] **Tailscale ACL** — replace hardcoded device IPs with Tailscale tags to prevent stale-IP breakage
 - [ ] **Rebuild and reinstall AI Voice APK** with dark theme + location changes
-- [ ] **Recreate `comfyui` container** — `docker stop comfyui && docker rm comfyui` then run updated command from `Docker.md` (includes `--reserve-vram 3`)
 - [ ] Save ReActor face swap workflow from `Temp.txt` to `/docs/Projects/Claude Code Shared/Workflows/FaceSwap.json`
 - [ ] Await Alexa skill certification approval; test on real Echo device once approved
 - [ ] Store n8n encryption key in password manager
@@ -88,6 +92,9 @@ Server (`amelai`) is fully operational. All services running with correct port b
 
 | File | Purpose |
 |---|---|
+| `docker-compose.yml` | Authoritative definition for all 7 Docker services — primary way to (re)create containers |
+| `DockerComposeDocs.md` | Full Docker Compose command reference — per-service commands, migration steps, secrets gotcha |
+| `secrets/*.env.example` | Templates for the two Compose secrets (Postgres URL, n8n encryption key) |
 | `Final_Build.md` | Complete hardware specification — authoritative system spec reference |
 | `Software_Setup.md` | Complete server setup guide — OS through full AI stack |
 | `New_PC_Builds.md` | Personal Windows 11 PC build guide — component research and chosen configuration |

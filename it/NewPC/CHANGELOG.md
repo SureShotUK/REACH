@@ -2,6 +2,25 @@
 
 ---
 
+## [Unreleased] - 2026-07-02
+
+### Added
+- `it/NewPC/docker-compose.yml` — Compose definition for all 7 Docker services (Open WebUI, ComfyUI ×2, FileBrowser, SearXNG, n8n, pdf-to-image); existing named volumes/network marked `external: true`; GPU access via `deploy.resources.reservations.devices`
+- `it/NewPC/DockerComposeDocs.md` — full Compose command reference: per-service start/recreate commands, migration steps, verification checks, day-to-day operations, and the secrets/interpolation gotcha writeup
+- `it/NewPC/secrets/openwebui.env.example`, `it/NewPC/secrets/n8n.env.example` — templates for the two Compose secrets (real `.env` files gitignored)
+
+### Changed
+- `it/NewPC/Software_Updates.md` — every Docker-based service section (Open WebUI, SearXNG, n8n, ComfyUI ×2, FileBrowser, pdf-to-image) now leads with the current `docker compose pull/up` command; original `docker run` blocks retained in full but marked `OBSOLETE — kept for reference only`
+- `it/NewPC/Docker.md` — added "Docker Compose (Primary Method)" section (setup, migration, day-to-day commands); "Service docker run Commands" section marked reference-only; documented the secrets/interpolation bug and percent-encoding fix
+- `it/NewPC/CLAUDE.md` — "Docker Run Command Updates" rule rewritten to name `docker-compose.yml` as authoritative and record the secrets/interpolation gotcha
+- `.gitignore` — added rules for `.env` and `it/NewPC/secrets/*.env` while keeping `*.env.example` tracked
+
+### Fixed
+- **n8n Customer Profiler `Loop` node wiring** — `done`/`loop` outputs were swapped (`CH: Company` was on `done`, `Get All Profiles` was on `loop`), causing every `add` command to trigger the `list` command's email with a stale/empty result instead of processing the company. Verified the correct output order against n8n's actual source (`SplitInBatchesV3.node.ts`: `outputNames: ['done', 'loop']`); user corrected the wiring directly in the n8n UI.
+- **Compose secrets corruption** — a `$` in the Postgres password was silently blanked by Compose's variable interpolation, confirmed to affect per-service `env_file:` as well as a top-level `.env` (contrary to common assumption that `env_file:` is exempt). Fixed by percent-encoding the special character in the connection URL (`$` → `%24`); verified byte-for-byte via `sha256sum` comparison against the running container's actual environment variable. This briefly broke Open WebUI's database connection in production during the fix's first (incorrect) attempt.
+
+---
+
 ## [Unreleased] - 2026-07-01
 
 ### Added

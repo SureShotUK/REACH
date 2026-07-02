@@ -54,6 +54,11 @@ rag-mcp/package-lock.json
 @eaDir/
 **/@eaDir/
 
+# Environment files with secrets (Docker Compose, etc.) — keep *.env.example tracked
+.env
+it/NewPC/secrets/*.env
+!*.env.example
+
 # Specific temp/working files
 it/troubleshooting/inspect_output.txt
 it/NewPC/Log.txt

@@ -308,11 +308,14 @@ A nightly cron at 2am also restarts both ComfyUI containers as a safety net.
 
 ## Docker Run Command Updates
 
-**Always update `docker run` commands in both places:**
-1. The service-specific file (e.g. `ComfyUI.md`, `Software_Setup.md`)
-2. `Docker.md` — the "Service docker run Commands" section
+**`docker-compose.yml` (in this folder) is the primary, authoritative definition for every service** — added 2026-07-02 after the n8n/SearXNG/pdf-to-image port-binding outage (containers recreated by hand with an incomplete `docker run` silently lost flags). Recreate/update containers with `docker compose up -d <service>`, not by retyping a `docker run` command.
 
-Both files must stay in sync. If you update one, update the other in the same session.
+**When a service's configuration changes, update in all three places, same session:**
+1. `docker-compose.yml` — the file actually used to (re)create the container
+2. `Docker.md` — the "Service docker run Commands" section (kept as flag-by-flag reference/fallback only, per the note there)
+3. The service-specific file if one exists (e.g. `ComfyUI.md`, `Software_Setup.md`)
+
+Secrets (the Postgres connection string, n8n's encryption key) live in `secrets/*.env` (gitignored) wired in per-service via `env_file:`. **A literal `$` in any secret gets silently corrupted by Compose's interpolation — this applies to `env_file:` too, not just top-level `.env`** (confirmed 2026-07-02, took down Open WebUI's DB connection on first migration). Fix for URL-embedded secrets: percent-encode (`$` → `%24`) via `urllib.parse.quote`. Always re-verify after rotating a secret: `docker compose config --quiet` (no warnings) plus a hash comparison of the container's actual env var against the source file. Full details in the "Docker Compose" section of `Docker.md`. See `secrets/*.env.example` for templates.
 
 ---
 
@@ -506,6 +509,14 @@ A second build document (`New_PC_Builds.md`) covers a personal Windows 11 deskto
 ## n8n Workflow Generation Patterns
 
 This section records the differences between generated workflow JSON and what n8n actually requires, verified by comparing generated vs. imported/amended versions of the CustomerProfiler, LeadGen, and CompanyLookup workflows.
+
+### Loop Over Items (SplitInBatches) — Output Order (CRITICAL)
+
+The `Loop` node's two outputs are, **in this order**: index 0 = `done`, index 1 = `loop`. Verified directly against n8n's source (`SplitInBatchesV3.node.ts`: `outputNames: ['done', 'loop']`) — a paraphrased web search result claimed the opposite order and was wrong; always check the primary source for this specific fact, not a search summary.
+
+**Wire per-item processing to the `loop` output (index 1)** — this fires once per batch with the current item(s) to process, and its chain should loop back into the `Loop` node's own input. **Wire post-loop / summary logic to the `done` output (index 0)** — this fires once after all batches are processed.
+
+Getting this backwards (as the Customer Profiler's `Loop` node was found to be on 2026-07-02) causes the `done`-output chain to never fire at all (nothing ever loops back to trigger it) while the `loop`-output chain fires prematurely, before any per-item processing has happened — in that case, `Get All Profiles` was on `loop` and fired instantly with a stale/empty result, while `CH: Company` sat on `done` and never ran.
 
 ### Code Node Execution Model (CRITICAL)
 

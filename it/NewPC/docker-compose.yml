@@ -1,0 +1,179 @@
+name: amelai
+
+# Docker Compose file for all services on amelai (192.168.1.192).
+# See Docker.md -> "Docker Compose (Primary Method)" for setup, migration, and
+# day-to-day usage instructions.
+#
+# Secrets (the Postgres connection string, n8n's encryption key) live in
+# secrets/*.env and are wired in per-service via `env_file:`.
+#
+# IMPORTANT — this Compose version (v2.x, confirmed 2026-07-02) interpolates
+# values in BOTH the top-level .env AND per-service env_file: files. A literal
+# `$` anywhere in a secret gets treated as the start of a variable reference
+# and silently blanked out (no error — only a warning easy to miss). This bit
+# us for real: a `$` in the Postgres password broke Open WebUI's DB connection
+# on first migration to Compose.
+#
+# Fix used here: percent-encode special characters in values embedded inside
+# a URL (e.g. `$` -> `%24` in PGVECTOR_DB_URL) — libpq/psycopg2 decode it back
+# correctly, and Compose never sees a literal `$` to misinterpret. For a
+# secret that ISN'T part of a URL (e.g. N8N_ENCRYPTION_KEY), just avoid `$` in
+# the value, or double it to `$$` and verify with the check below — `$$` alone
+# is not reliably safe, always re-verify after any secret rotation:
+#
+#   docker compose config --quiet          # no "variable not set" warnings
+#   docker exec <container> printenv <VAR> | sha256sum   # compare against
+#   the source file's value hash to confirm an exact byte-for-byte match
+#
+# See secrets/*.env.example for templates. Never commit the real secrets/*.env
+# files (covered by .gitignore).
+
+networks:
+  ai-network:
+    external: true
+
+volumes:
+  open-webui:
+    external: true
+  n8n_data:
+    external: true
+
+services:
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: always
+    networks:
+      - ai-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "127.0.0.1:3000:8080"
+      - "192.168.1.192:3000:8080"
+    volumes:
+      - open-webui:/app/backend/data
+      - /home/steve/rag-documents:/app/backend/data/uploads
+    env_file:
+      - ./secrets/openwebui.env   # PGVECTOR_DB_URL (contains the password) — passed through raw, no interpolation
+    environment:
+      OLLAMA_BASE_URL: http://192.168.1.192:11434
+      VECTOR_DB: pgvector
+      RAG_EMBEDDING_ENGINE: ollama
+      RAG_EMBEDDING_MODEL: nomic-embed-text
+
+  comfyui:
+    image: yanwk/comfyui-boot:cu128-slim
+    container_name: comfyui
+    restart: unless-stopped
+    runtime: nvidia
+    networks:
+      - ai-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "127.0.0.1:18189:8188"
+    environment:
+      CUDA_VISIBLE_DEVICES: "1"
+      CLI_ARGS: "--disable-xformers --reserve-vram 3"
+      PYTORCH_CUDA_ALLOC_CONF: expandable_segments:True
+    volumes:
+      - /mnt/models/comfyui:/root/ComfyUI/models
+      - /opt/comfyui/storage:/root
+      - /opt/comfyui/input:/root/ComfyUI/input
+      - "/docs/Projects/Claude Code Shared/Output:/root/ComfyUI/output"
+      - "/docs/Projects/Claude Code Shared/Workflows:/root/ComfyUI/user/default/workflows"
+
+  comfyui-amelia:
+    image: yanwk/comfyui-boot:cu128-slim
+    container_name: comfyui-amelia
+    restart: unless-stopped
+    runtime: nvidia
+    networks:
+      - ai-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "127.0.0.1:18188:8188"
+      - "192.168.1.192:8188:8188"
+    environment:
+      CUDA_VISIBLE_DEVICES: "0"
+      CLI_ARGS: "--disable-xformers"
+      PYTORCH_CUDA_ALLOC_CONF: expandable_segments:True
+    volumes:
+      - /mnt/models/comfyui-amelia:/root/ComfyUI/models
+      - /opt/comfyui-amelia/storage:/root
+      - /opt/comfyui-amelia/input:/root/ComfyUI/input
+      - /opt/comfyui-amelia/output:/root/ComfyUI/output
+      - /opt/comfyui-amelia/workflows:/root/ComfyUI/user/default/workflows
+
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    restart: always
+    networks:
+      - ai-network
+    ports:
+      - "127.0.0.1:18087:80"
+      - "192.168.1.192:8087:80"
+    volumes:
+      - /home/steve/rag-output:/srv
+      - "/docs/Projects/Claude Code Shared/Output:/srv/comfyui-output"
+      - /opt/comfyui/workflows:/srv/comfyui-workflows
+      - /opt/comfyui-amelia/output:/srv/comfyui-amelia-output
+      - /home/steve/filebrowser/filebrowser.db:/database/filebrowser.db
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    networks:
+      - ai-network
+    ports:
+      - "127.0.0.1:18080:8080"
+      - "192.168.1.192:8080:8080"
+    volumes:
+      - /opt/searxng:/etc/searxng:rw
+
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:15678:5678"
+      - "192.168.1.192:5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    env_file:
+      - ./secrets/n8n.env   # N8N_ENCRYPTION_KEY — passed through raw, no interpolation
+    environment:
+      GENERIC_TIMEZONE: Europe/London
+      N8N_HOST: amelai.tail926601.ts.net
+      N8N_PORT: "5678"
+      N8N_PROTOCOL: https
+      WEBHOOK_URL: https://amelai.tail926601.ts.net:5678
+      N8N_SECURE_COOKIE: "false"
+
+  pdf-to-image:
+    build:
+      context: ./n8n/pdf-to-image
+    container_name: pdf-to-image
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:18086:8086"
+      - "192.168.1.192:8086:8086"

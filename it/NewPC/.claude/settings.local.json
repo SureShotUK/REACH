@@ -137,7 +137,28 @@
       "Bash(sudo mkdir -p /opt/rag-mcp)",
       "Bash(sudo chown steve:steve /opt/rag-mcp)",
       "Bash(mkdir -p /home/steve/rag-mcp)",
-      "Read(//home/steve/**)"
+      "Read(//home/steve/**)",
+      "Bash(claude --version)",
+      "Bash(ssh -o ConnectTimeout=3 amelai 'docker network inspect ai-network --format \"{{.Name}} exists\" 2>&1; docker volume ls --format \"{{.Name}}\" 2>&1 | grep -E \"open-webui|n8n_data\"')",
+      "Bash(command -v docker)",
+      "Bash(docker network *)",
+      "Bash(docker volume *)",
+      "Bash(mount)",
+      "Bash(docker compose *)",
+      "Bash(command -v psql)",
+      "Bash(bash -c '\nRUNNING_PW=$\\(docker inspect open-webui --format \"{{range .Config.Env}}{{println .}}{{end}}\" | grep \"^PGVECTOR_DB_URL=\" | sed -E \"s#^PGVECTOR_DB_URL=postgresql://openwebui:##; s#@.*##\"\\)\nCOMPOSE_PW=$\\(docker compose config 2>/dev/null | grep PGVECTOR_DB_URL | sed -E \"s#.*openwebui:##; s#@.*##\"\\)\n\nRUNNING_HASH=$\\(printf \"%s\" \"$RUNNING_PW\" | sha256sum | cut -d\" \" -f1\\)\nCOMPOSE_HASH=$\\(printf \"%s\" \"$COMPOSE_PW\" | sha256sum | cut -d\" \" -f1\\)\n\necho \"Running container password length: ${#RUNNING_PW}\"\necho \"Compose-interpolated password length: ${#COMPOSE_PW}\"\nif [ \"$RUNNING_HASH\" = \"$COMPOSE_HASH\" ]; then\n  echo \"MATCH: passwords are identical\"\nelse\n  echo \"MISMATCH: passwords differ\"\nfi\n')",
+      "Bash(umask 077)",
+      "Bash(chmod 600 secrets/*.env)",
+      "Bash(env)",
+      "Bash(env -u PGPASS docker compose config --quiet)",
+      "Bash(docker stop *)",
+      "Bash(docker rm *)",
+      "Bash(docker exec pdf-to-image *)",
+      "Bash(docker exec *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(echo \"openwebui.env.example ignored? exit=$? \\(0=ignored,1=not ignored\\)\")",
+      "Bash(echo \"n8n.env.example ignored? exit=$? \\(0=ignored,1=not ignored\\)\")",
+      "Bash(echo \"openwebui.env ignored? exit=$? \\(0=ignored,1=not ignored\\)\")"
     ]
   }
 }

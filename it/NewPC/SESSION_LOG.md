@@ -2,6 +2,56 @@
 
 ---
 
+## Session 2026-07-02 — n8n Loop wiring bug fixed; Docker Compose built and all 7 services migrated
+
+### Summary
+Diagnosed a genuine node-wiring bug in the Customer Profiler n8n workflow (the `Loop` node's `done`/`loop` outputs were swapped, causing every `add` command to trigger the `list` command's email instead of processing the company). Then built out the Docker Compose solution flagged as a to-do since 2026-07-01, migrated all 7 containers to it one at a time, and — along the way — found and fixed a real secret-corruption bug in Compose itself (a `$` in the Postgres password was silently blanked by Compose's variable interpolation, which affects `env_file:` as well as top-level `.env`, contrary to common assumption). Finished by creating `DockerComposeDocs.md` as the full command reference and marking the old `docker run` blocks in `Software_Updates.md` as obsolete rather than removing them.
+
+### Work Completed
+- **Diagnosed n8n Loop node wiring bug** — verified against n8n's actual source (`SplitInBatchesV3.node.ts`: `outputNames: ['done', 'loop']`) that the Customer Profiler's `Loop` node had `CH: Company` wired to the `done` output and `Get All Profiles` wired to the `loop` output — backwards. Result: every `add` command fired the list-all-profiles email (with an empty/stale store) instead of ever running `CH: Company` → `Build & Save Profile`. User fixed the wiring in the n8n UI directly based on this diagnosis and confirmed it now works.
+- **Built `docker-compose.yml`** — all 7 services (Open WebUI, ComfyUI ×2, FileBrowser, SearXNG, n8n, pdf-to-image) translated from the `docker run` commands in `Docker.md`; existing named volumes (`open-webui`, `n8n_data`) and the `ai-network` marked `external: true` so Compose attaches to them instead of creating new empty ones; GPU access via `deploy.resources.reservations.devices`
+- **Found and fixed a real Compose secrets bug** — a `$` in the Postgres password was silently blanked by Compose's `.env` variable interpolation (confirmed via `docker compose config` warning + hash comparison against the live container's actual password). Initially "fixed" by switching to per-service `env_file:` files on the (incorrect) assumption that `env_file:` bypasses interpolation — it does not on this Compose version, and it corrupted the password again after `open-webui` was already recreated, briefly breaking its DB connection in production. Root-caused and permanently fixed by percent-encoding the special character in the URL (`$` → `%24`); verified byte-for-byte via `sha256sum` comparison between the secrets file and the running container's actual environment variable.
+- **Migrated all 7 containers to Compose**, one at a time with verification after each: `pdf-to-image` (health endpoint), `searxng` (search query + JSON format), `filebrowser` (health check), `n8n` (all 3 workflows re-activated, no credential decryption errors), `comfyui-amelia` and `comfyui` (GPU visibility via `nvidia-smi` inside container), `open-webui` (health check + GPU + Postgres connection)
+- **Created `secrets/` folder** — `openwebui.env` and `n8n.env` (real secrets, gitignored) plus `.env.example` templates (tracked); removed the earlier top-level `.env`/`.env.example` approach entirely once it was shown to be unreliable
+- **Created `DockerComposeDocs.md`** — full Compose command reference: per-service start/recreate commands, the migration pattern for containers still running outside Compose, verification checks used during migration, day-to-day commands, and a complete writeup of the secrets/interpolation gotcha with the fix
+- **Updated `Software_Updates.md`** — every Docker-based service section now leads with the current `docker compose pull/up` command; the original `docker run` blocks are kept in full but marked `OBSOLETE — kept for reference only`
+- **Updated `Docker.md` and `CLAUDE.md`** — added "Docker Compose (Primary Method)" section, corrected the secrets-handling documentation after the `env_file:` interpolation discovery, and updated the standing "Docker Run Command Updates" rule to name `docker-compose.yml` as authoritative
+
+### Files Changed
+- `it/NewPC/docker-compose.yml` — **NEW**: Compose definition for all 7 services
+- `it/NewPC/DockerComposeDocs.md` — **NEW**: full Compose command reference
+- `it/NewPC/secrets/openwebui.env.example`, `it/NewPC/secrets/n8n.env.example` — **NEW**: secret templates (real `.env` files gitignored)
+- `it/NewPC/Docker.md` — added "Docker Compose (Primary Method)" section; marked "Service docker run Commands" section as reference-only; documented the secrets/interpolation gotcha and fix
+- `it/NewPC/Software_Updates.md` — added current Compose command + OBSOLETE marker to all 6 Docker-service sections; old `docker run` blocks retained
+- `it/NewPC/CLAUDE.md` — updated "Docker Run Command Updates" rule to reference Compose as authoritative and record the secrets/interpolation gotcha
+- `.gitignore` — added rules for `.env` and `it/NewPC/secrets/*.env` while keeping `*.env.example` tracked
+- `it/NewPC/n8n/Portland Fuel - Customer Profiler Test.json` — not modified by Claude; user corrected the `Loop` node's output wiring directly in the n8n UI based on the diagnosis in this session
+
+### Git Commits
+(pending — this session's documentation commit follows)
+
+### Key Decisions
+- **`docker-compose.yml` is now the single source of truth for container configuration** — the recurring failure mode (containers recreated by hand with an incomplete `docker run`, silently losing flags) is exactly what Compose eliminates. The 2026-07-01 outage (n8n/SearXNG/pdf-to-image) was the direct motivation.
+- **Secrets go in per-service `secrets/*.env` files wired via `env_file:`, not a top-level `.env` + `${VAR}` interpolation** — even though this session proved `env_file:` isn't fully exempt from interpolation either, keeping secrets in dedicated files (rather than inline in `docker-compose.yml`) is still correct practice; the interpolation risk is handled by percent-encoding rather than by file choice alone.
+- **Percent-encoding over password rotation** — when a secret contains a character Compose's interpolation misinterprets, percent-encoding it (for URL-embedded secrets) is less invasive than rotating the underlying credential, which would require coordinated updates across other machines/configs (e.g. the same Postgres password is also used by the separate RAG MCP's own `PGPASS` on Amelai and StevesLenovo).
+- **Never trust a secrets fix without byte-level verification** — `docker compose config --quiet` showing no warnings is necessary but not sufficient (the `env_file:` corruption produced no warning at all in one case). The reliable check is `docker exec <container> printenv <VAR> | sha256sum` compared against the source file's hash.
+- **Old `docker run` commands kept, not deleted** — per explicit instruction, `Software_Updates.md`'s original commands remain in full (marked obsolete) as flag-by-flag reference and manual fallback if Compose is ever unavailable.
+
+### Reference Documents
+- `it/NewPC/DockerComposeDocs.md` — new Compose command reference
+- `it/NewPC/Docker.md` — "Docker Compose (Primary Method)" section
+- n8n `SplitInBatchesV3.node.ts` source (`github.com/n8n-io/n8n`) — used to verify actual output order (`['done', 'loop']`) rather than relying on a paraphrased web search result, which was initially wrong
+- Docker official docs — `docs.docker.com/reference/compose-file/interpolation/` — confirmed `$$` escaping semantics (used to identify why the naive fix didn't fully work)
+
+### Next Actions
+- [ ] Run `docker image prune` on amelai — a dangling old `pdf-to-image` image was left behind by the Compose rebuild
+- [ ] Run `sudo apt update && sudo apt upgrade` on amelai (standing housekeeping item)
+- [ ] Consider rotating the shared Postgres password to remove the `$` entirely now that the immediate risk is fixed, to simplify future secret handling (would require coordinated update across Amelai's `~/.bashrc` PGPASS, StevesLenovo's Windows env var, and `secrets/openwebui.env`)
+- [ ] Import updated Customer Profiler JSON into production n8n if not already the active version (the `Loop` wiring fix was made directly in the n8n UI — confirm the exported JSON in the repo reflects it)
+- [ ] Carry forward all previously outstanding items from the 2026-07-01 session below (lead scoring model, Customer Profiler import, SteveOP/StevesLenovo MCP setup, etc.)
+
+---
+
 ## Session 2026-07-01 — n8n service outages diagnosed and fixed; Customer Profiler enhanced with notes, region, and accounts confidence
 
 ### Summary
