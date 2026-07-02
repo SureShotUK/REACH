@@ -6,7 +6,7 @@
 
 ## Current State
 
-Server (`amelai`) is fully operational. All 7 Docker services now run via `docker-compose.yml` instead of individually-typed `docker run` commands — the fix for the recurring port-binding-loss failure mode (last hit n8n/SearXNG/pdf-to-image on 2026-07-01). Migration completed and verified service-by-service. Along the way, found and fixed a real Compose bug: a `$` in the Postgres password was silently corrupted by Compose's variable interpolation (confirmed to affect `env_file:`, not just top-level `.env`); fixed via percent-encoding. A separate n8n workflow bug (Loop node output wiring reversed in Customer Profiler) was also diagnosed and fixed this session.
+Server (`amelai`) is fully operational. All 7 Docker services now run via `docker-compose.yml` instead of individually-typed `docker run` commands — the fix for the recurring port-binding-loss failure mode (last hit n8n/SearXNG/pdf-to-image on 2026-07-01). Migration completed and verified service-by-service. Along the way, found and fixed a real Compose bug: a `$` in the Postgres password was silently corrupted by Compose's variable interpolation (confirmed to affect `env_file:`, not just top-level `.env`); fixed via percent-encoding. A separate n8n workflow bug (Loop node output wiring reversed in Customer Profiler) was also diagnosed and fixed this session. A follow-up permission-prompt audit confirmed `/end-session` itself was already fully unattended-capable; one new read-only permission (`git check-ignore *`) was added to `it/NewPC/.claude/settings.json`.
 
 ## Service Status
 
@@ -92,6 +92,7 @@ Server (`amelai`) is fully operational. All 7 Docker services now run via `docke
 
 | File | Purpose |
 |---|---|
+| `.claude/settings.json` | Project-level permission allowlist (safe, read-only patterns only) — separate from the larger, historically-accumulated `.claude/settings.local.json` |
 | `docker-compose.yml` | Authoritative definition for all 7 Docker services — primary way to (re)create containers |
 | `DockerComposeDocs.md` | Full Docker Compose command reference — per-service commands, migration steps, secrets gotcha |
 | `secrets/*.env.example` | Templates for the two Compose secrets (Postgres URL, n8n encryption key) |

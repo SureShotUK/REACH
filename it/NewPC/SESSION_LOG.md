@@ -2,6 +2,35 @@
 
 ---
 
+## Session 2026-07-02 (2) — Permission-prompt audit via fewer-permission-prompts skill
+
+### Summary
+User asked why `/end-session` still required authorization for some steps despite wanting it to run unattended. Investigated by running the `fewer-permission-prompts` skill against ~30 recent session transcripts. Finding: `/end-session`'s own actions (file edits under `/docs/terminai/**`, `git add`/`commit`/`push`) were already fully pre-authorized before this session started — the prompts experienced were from the preceding Docker Compose migration work (`docker inspect`, `psql`, `mkdir`, `bash -c`, etc.), not from `/end-session` itself. One new safe, read-only permission was added.
+
+### Work Completed
+- **Scanned ~30 recent transcript files** (`~/.claude/projects/*/​*.jsonl`) for Bash and MCP tool-call frequency, filtered to read-only commands per the skill's rules
+- **Diagnosed why prompts still occur** — this project's `it/NewPC/.claude/settings.local.json` has accumulated dozens of ultra-narrow, literal one-off `Bash(...)` allow entries (exact `gemini -p "..."` prompts, exact `curl` URLs) rather than general patterns, so any new/slightly-different command still needs a fresh prompt; however the specific commands `/end-session` itself runs (Edit/Write for `/docs/terminai/**`, `git add:*`, `git commit:*`, `git push:*`) were already broadly covered
+- **Created `it/NewPC/.claude/settings.json`** (new — project-level, not `.claude/settings.local.json`) — added `Bash(git check-ignore *)`, the one genuinely new, safe, read-only pattern found in the scan; everything else from the scan was either already auto-allowed by Claude Code natively (`cd`, `ls`, `cat`, `git status/log/diff`, `docker ps/logs/inspect`, etc.) or already explicitly granted in this project (`git:*`, `docker compose *`, `docker exec *`, `python3 *`, `curl *`, `grep *`)
+- **Deliberately did not allowlist** `psql` (can run destructive SQL, not just `SELECT`), `bash -c` (arbitrary shell execution), `mkdir`/`rm` (mutate state) — these stay one-off approvals by design
+
+### Files Changed
+- `it/NewPC/.claude/settings.json` — **NEW**: `Bash(git check-ignore *)` added to `permissions.allow`
+
+### Key Decisions
+- **`/end-session`'s mandatory actions were already unattended-ready** — no further permission change was needed for the command itself. The user's experience of "still having to authorise steps" traces to general session work (Docker/Postgres debugging) preceding end-session, not to end-session's own file-edit + git-push sequence.
+- **Declined to broaden permissions for interpreters/shells/SQL clients** — per the `fewer-permission-prompts` skill's safety rule, `psql`, `bash -c`, and similar arbitrary-execution surfaces are not wildcarded even though they were used safely this session; this project's existing `python3 *` and `docker exec *` wildcards (granted in earlier sessions, left untouched) are already about as permissive as is advisable.
+
+### Reference Documents
+- `it/NewPC/.claude/settings.json` — new project permissions file
+- `it/NewPC/.claude/settings.local.json` — existing (large, historically accumulated) local allowlist, left untouched
+
+### Next Actions
+- [ ] If a future `/end-session` run hits an actual new prompt, report the exact command so a precise rule can be added
+- [ ] Consider reviewing whether the existing broad `python3 *` / `docker exec *` grants in `it/NewPC/.claude/settings.local.json` are still wanted, given they're equivalent to arbitrary code execution
+- [ ] Carry forward all outstanding items from the 2026-07-02 Docker Compose session below (image prune, apt upgrade, Postgres password rotation, Customer Profiler JSON import, etc.)
+
+---
+
 ## Session 2026-07-02 — n8n Loop wiring bug fixed; Docker Compose built and all 7 services migrated
 
 ### Summary

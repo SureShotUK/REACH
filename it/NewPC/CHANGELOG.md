@@ -2,6 +2,16 @@
 
 ---
 
+## [Unreleased] - 2026-07-02 (2)
+
+### Added
+- `it/NewPC/.claude/settings.json` — new project-level permission allowlist; added `Bash(git check-ignore *)` after scanning ~30 recent session transcripts via the `fewer-permission-prompts` skill
+
+### Documentation
+- Confirmed `/end-session`'s own actions (file edits, `git add`/`commit`/`push`) were already fully pre-authorized; the permission prompts experienced this session traced back to the preceding Docker Compose migration work, not to `/end-session` itself
+
+---
+
 ## [Unreleased] - 2026-07-02
 
 ### Added

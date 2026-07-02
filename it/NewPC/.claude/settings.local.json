@@ -158,7 +158,9 @@
       "Bash(echo \"exit: $?\")",
       "Bash(echo \"openwebui.env.example ignored? exit=$? \\(0=ignored,1=not ignored\\)\")",
       "Bash(echo \"n8n.env.example ignored? exit=$? \\(0=ignored,1=not ignored\\)\")",
-      "Bash(echo \"openwebui.env ignored? exit=$? \\(0=ignored,1=not ignored\\)\")"
+      "Bash(echo \"openwebui.env ignored? exit=$? \\(0=ignored,1=not ignored\\)\")",
+      "Skill(fewer-permission-prompts)",
+      "Bash(awk '{print $2}')"
     ]
   }
 }
