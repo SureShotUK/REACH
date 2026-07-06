@@ -2,7 +2,7 @@
 
 This file provides Canadian financial compliance-specific guidance to Claude Code when working in this project.
 
-> **Note**: This supplements the shared CLAUDE.md at `/terminai/CLAUDE.md`. Read both files for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
 
 ## Repository Purpose
 
@@ -168,7 +168,7 @@ Always verify that guidance reflects current legal requirements, as regulations 
 ## Project-Specific Agents
 
 This project has specialized agents available:
-- `gemini-canadian-financial-compliance-researcher` - Expert web research on Canadian securities regulation, particularly for international dealers using exemptions
+- `canadian-financial-researcher` - Expert web research on Canadian securities regulation, particularly for international dealers using exemptions (specialisation of the shared `deep-researcher`)
 
 ## Important Considerations
 
@@ -225,9 +225,3 @@ Always weigh compliance costs against business opportunity and regulatory risk.
 - Be specific about what the firm needs to do vs. what clients or counterparties should handle
 - Note multi-jurisdictional requirements and whether passport system applies
 - Consider UK-Canada regulatory coordination and equivalency issues
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

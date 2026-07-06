@@ -1,13 +1,26 @@
 # Project Status
 
-**Last Updated**: 2026-04-23
+**Last Updated**: 2026-07-06
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
 ## Current State
-The terminai repository contains seven specialized project folders plus standalone Iran War analysis documents. The Iran War Timeline now covers the full conflict from June 2025 through 22 April 2026 (2,300+ lines, 130+ sourced events). A new companion document `Physical_Market.md` analyses the physical oil products market under Hormuz closure. As of 22 April 2026: a ceasefire is in force (extended indefinitely); US naval blockade on Iranian commerce remains active; Iran's government is described as "fractured" under new Supreme Leader Mojtaba Khamenei; nuclear negotiations stalled (US: 20-year enrichment ban; Iran: offered 3–5 years).
+The terminai repository contains seven specialized project folders plus standalone Iran War analysis documents. As of 2026-07-06 the Claude Code infrastructure is fully restructured: master rules inherit automatically into every project, MCP servers (rag, searxng) are registered at user scope and work on both the Pro and local-Ollama backends, all agents are registered and domain-grounded (see `Claude_Structure.md` for the canonical setup description), and three QA checklists act as quality gates (risk assessments, briefings, code deployment). The Iran War Timeline now covers the full conflict from June 2025 through 22 April 2026 (2,300+ lines, 130+ sourced events). A new companion document `Physical_Market.md` analyses the physical oil products market under Hormuz closure. As of 22 April 2026: a ceasefire is in force (extended indefinitely); US naval blockade on Iranian commerce remains active; Iran's government is described as "fractured" under new Supreme Leader Mojtaba Khamenei; nuclear negotiations stalled (US: 20-year enrichment ban; Iran: offered 3–5 years).
 
 ## Active Work Areas
+
+- **Claude Code Infrastructure** — ✅ RESTRUCTURED (2026-07-06)
+  - `Claude_Structure.md` — canonical setup documentation (hierarchy, inheritance, MCP scopes, two-backends guide, permission test)
+  - MCP: `rag` + `searxng` at user scope in `~/.claude.json` on Amelai; Windows machines already correct; `~/.claude/.mcp.json` is NOT read — never use it
+  - Master CLAUDE.md carries: rule inheritance, authoritative-sources principle, MCP/skills all-projects policy, WebSearch→searxng backend fallback rule
+  - Agents: `deep-researcher` (shared, repo root) + 5 domain researchers; 6 project agents rewritten with business context and failure modes
+  - QA gates: `hseea/Risk_Assessment_QA_Checklist.md`, `Briefings/Briefing_Preflight_Checklist.md`, `it/Code_PreDeploy_Checklist.md`
+  - Permissions: consolidated in checked-in `.claude/settings.json` (36 entries); child settings.local.json files pruned
+  - **Verify next session**: `/agents` registration, hseea `git log` permission test, web search on both logins
+
+- **REACH Project** — ✅ CLOSED UNTIL ~2030 (2026-07-06)
+  - Registration COMPLETE; DUIN lodged; government delays pushed the next action to approximately 2030
+  - Earlier deadline references in this file (Oct 2026 / Oct 2028) are superseded — no active work
 
 - **Iran War Timeline** — CURRENT TO 22 APRIL 2026
   - `Iran_War_Timeline.md` — 2,300+ lines; June 2025–22 April 2026; 130+ sourced events; 79 Trump Truth Social posts
@@ -148,6 +161,13 @@ The terminai repository contains seven specialized project folders plus standalo
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **Claude Code setup review and durable scaffolding** (2026-07-06):
+  - Fixed silently-broken MCP registrations (rag, searxng) — both now user scope, verified connected
+  - Deduplicated all 14 project CLAUDE.md files against the master; hseea logo policy made an explicit Noxdown override
+  - Rewrote all 6 project agents (3 had no frontmatter and never registered); created `deep-researcher` + 5 domain research agents, replacing phantom `gemini-*` references
+  - Created 3 QA checklists wired into CLAUDE.md quality gates; created `Claude_Structure.md`
+  - Made web search backend-agnostic: WebSearch (Pro) → `mcp__searxng__web_search` fallback (local Ollama), rule lives in NAS-shared files so every machine/login behaves identically
+  - REACH project closed (registration complete, DUIN lodged, next action ~2030)
 - **Physical_Market.md sources verified and corrected** (2026-04-23):
   - All 17 sources converted to verified HTML anchor links with `target="_blank"`
   - 13/17 key statistics independently cross-checked against public sources — confirmed correct

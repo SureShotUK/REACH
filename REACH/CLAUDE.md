@@ -1,5 +1,7 @@
 # REACH Project - Claude Code Instructions
 
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
+
 ## Project Overview
 
 This project contains research and compliance guidance for UK REACH (Registration, Evaluation, Authorisation and Restriction of Chemicals) legislation requirements for a small business importing Urea into the UK.
@@ -113,7 +115,7 @@ When adding new substances, create dedicated directories:
 
 ### Research Agent Usage
 For new substance research:
-- Deploy gemini-researcher agent for comprehensive analysis
+- Deploy the shared `deep-researcher` agent for comprehensive analysis
 - Request specific coverage: registration status, deadlines, costs, pathways
 - Verify all weblinks to official sources (HSE, GOV.UK)
 - Cross-reference with existing REACH knowledge
@@ -132,9 +134,3 @@ Research and findings should be organized into:
 - `/templates/` - Template documents for compliance records
 - `/costs/` - Cost breakdowns and estimates
 - `/[SUBSTANCE_NAME]/` - Substance-specific compliance documentation
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-07-06
+
+### Added
+- **`Claude_Structure.md`** — canonical documentation of the Claude Code setup: configuration hierarchy, CLAUDE.md inheritance, MCP scopes, the hseea `git log` permission test, and "Two Backends, One Repo" (Pro vs local Ollama)
+- **`.claude/settings.json`** — checked-in consolidated permission allowlist (36 shared entries) for all terminai projects
+- **`.claude/agents/deep-researcher.md`** — shared research agent (verify-every-URL, primary-sources-first, Sources per section, Confidence & gaps) + 5 domain specialisations: `it-security-researcher`, `it-helpdesk-researcher` (it/troubleshooting), `car-researcher` (NewCar2026), `nebosh-researcher` (Nebosh), `canadian-financial-researcher` (Canada)
+- **QA checklists**: `hseea/Risk_Assessment_QA_Checklist.md` (Noxdown logo), `Briefings/Briefing_Preflight_Checklist.md`, `it/Code_PreDeploy_Checklist.md` — each wired into its CLAUDE.md as a quality gate
+
+### Changed
+- **`CLAUDE.md` (master)** — added: Rule Inheritance note; Cite Authoritative Sources principle; MCP Servers & Skills section (user-scope policy for new servers/skills); Web Search backend rule (WebSearch → searxng fallback; curl link-verification fallback); briefing pre-flight step
+- **All 14 project CLAUDE.md files** — deduplicated: restated master rules and identical logo boilerplate removed; one-line master pointer added; `hseea/CLAUDE.md` logo section reworded as an explicit Noxdown override (incl. `Violence/`)
+- **All 6 project agents rewritten** — hseea pair and windows-virtual-assistant-security grounded in actual business/site/environment context with failure-mode lists; XmlDotnetCoding trio gained missing YAML frontmatter (they had never registered as subagents) plus .NET 10/C# 14 and parser/testing conventions
+- **MCP registration** — `rag` and `searxng` moved to user scope in `~/.claude.json` on Amelai (previously broken: `~/.claude/.mcp.json` is not read by Claude Code; searxng was scoped to /home/steve only)
+- **~27 `settings.local.json` files** — duplicate permission entries pruned (now covered by root `.claude/settings.json`); 2 emptied files deleted
+
+### Fixed
+- 16 stale `gemini-*` agent references across 10 CLAUDE.md files — those agents never existed as files; now point to the real research agents
+- `it/NewPC/CLAUDE.md` + `SteveOP_MCP_Setup.md` — corrected references to the unread `~\.claude\.mcp.json` MCP config location
+- `hseea/Violence/CLAUDE.md` — HSE guidance links converted from markdown to HTML anchor format per master rules
+
+### Documentation
+- REACH project marked CLOSED (registration complete, DUIN lodged, next action ~2030); session memory updated accordingly
+
+---
+
 ## [Unreleased] - 2026-04-23
 
 ### Changed

@@ -2,7 +2,7 @@
 
 This file provides IT-specific guidance to Claude Code when working in this project.
 
-> **Note**: This supplements the shared CLAUDE.md at `/terminai/CLAUDE.md`. Read both files for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
 
 ## Repository Purpose
 
@@ -47,7 +47,6 @@ Always address when relevant:
 - Include visual separators (---) for major sections
 - Use emoji sparingly and only when explicitly requested
 - Provide file path references when discussing specific configurations
-- If creating a hyperlink always create it using HTML with the link opening in a new tab
 
 ## Current Repository Structure
 
@@ -269,8 +268,7 @@ Based on previous sessions, the user:
 - Appreciates honest assessment of legal/ethical implications
 - Is interested in homelab and virtualization technologies
 - Wants both theoretical understanding and practical implementation
-- Appreciates thorough research using specialized agents (gemini-it-security-researcher)
-- Values authoritative source citation (NIST, CISA, NSA, SANS, OWASP)
+- Appreciates thorough research using specialized agents (it-security-researcher)
 - Prefers comprehensive comparison tables with verified data
 - Wants both security theory and practical recommendations
 - Environment: Windows 11 with WSL2 access
@@ -289,7 +287,7 @@ Based on previous sessions, the user:
 
 ### VPN and Network Security Research
 When researching VPN or network security topics:
-- Use the `gemini-it-security-researcher` agent for authoritative information
+- Use the `it-security-researcher` agent for authoritative information
 - Cross-reference NIST, CISA, NSA, SANS Institute, OWASP guidance
 - Verify security claims through independent audit reports
 - Include both user-friendly and technical perspectives
@@ -301,23 +299,20 @@ When researching VPN or network security topics:
 - Verify independent security audits (Deloitte, KPMG, Securitum, Cure53)
 - Check court-tested no-logs policies where applicable
 - Include real-world incidents and transparency reports
-- Cross-reference multiple authoritative sources
 - Use current data (specify year: 2025)
 
 ## Project-Specific Agents
 
 This project has specialized agents available:
 - `windows-virtual-assistant-security` - Specialized assistance for Windows virtualization and security topics
-- `gemini-it-security-researcher` - Expert research agent for IT security topics, vulnerabilities, standards, and best practices
-- `gemini-it-helpdesk-researcher` - IT helpdesk research agent for Windows 11/Azure AD/M365 troubleshooting (in `troubleshooting/.claude/agents/`)
+- `it-security-researcher` - Expert research agent for IT security topics, vulnerabilities, standards, and best practices
+- `it-helpdesk-researcher` - IT helpdesk research agent for Windows 11/Azure AD/M365 troubleshooting (in `troubleshooting/.claude/agents/`)
 
 ## Project-Specific Commands
 
 This project has additional commands:
 - `/update-claude` - Update this CLAUDE.md file with session learnings and user preferences
 
----
+## Deployment Quality Gate
 
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.
+Before any application is deployed to production or made network-reachable (Nginx, Tailscale serve, scheduled task), it must pass `it/Code_PreDeploy_Checklist.md` — secrets, auth, input handling, error handling, transport, and end-to-end verification. Starred items block deployment.

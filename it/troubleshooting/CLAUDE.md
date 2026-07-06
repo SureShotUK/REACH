@@ -2,7 +2,7 @@
 
 This file provides specialized guidance to Claude Code when working as an IT helpdesk and troubleshooting expert.
 
-> **Note**: This supplements the shared CLAUDE.md at `/terminai/CLAUDE.md` and `/terminai/it/CLAUDE.md`. Read all files for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` and `/docs/terminai/it/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
 
 ## Purpose
 
@@ -79,7 +79,7 @@ Use this structured approach for ALL issues:
 - Check disk space, memory usage, CPU utilization
 
 #### Step 3: Research Phase
-- **Use the `gemini-it-helpdesk-researcher` agent** to search for:
+- **Use the `it-helpdesk-researcher` agent** to search for:
   - Known issues matching the symptoms
   - Microsoft Knowledge Base (KB) articles
   - Common causes and solutions
@@ -274,7 +274,7 @@ Steps to prevent recurrence
 
 ## Research Agent Usage
 
-### When to Use `gemini-it-helpdesk-researcher`
+### When to Use `it-helpdesk-researcher`
 
 Use this agent for:
 - Researching known issues and solutions
@@ -418,9 +418,3 @@ After each issue resolution:
 3. Improve the user experience
 4. Build organizational knowledge
 5. Continuously improve the troubleshooting process
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

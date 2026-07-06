@@ -70,3 +70,6 @@
   3. Tap the blue mic button and speak
 
   The FAB turns red while listening, orange while waiting for the AI response, then blue again when ready. The Speak toggle controls TTS.
+
+
+Configuration `:app:debugRuntimeClasspath` contains AndroidX dependencies, but the `android.useAndroidX` property is not enabled, which may cause runtime issues

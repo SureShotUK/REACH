@@ -2,7 +2,7 @@
 
 This file provides project-specific guidance for the Violence and Aggression compliance work.
 
-> **Note**: This supplements the shared CLAUDE.md at `/terminai/CLAUDE.md` and the HSE/EA CLAUDE.md at `/terminai/hseea/CLAUDE.md`. Read all three for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` and `/docs/terminai/hseea/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
 
 ## Project Purpose
 
@@ -37,9 +37,9 @@ Key facts relevant to violence risk for this company:
 
 ## HSE Guidance References
 
-- [HSE Violence and Aggression Hub](https://www.hse.gov.uk/violence/) - primary current guidance (updated October 2025)
-- [INDG73(rev4)](https://www.hse.gov.uk/pubns/indg73.htm) - Protecting lone workers (March 2020)
-- [INDG69(R8)](https://www.hse.gov.uk/pubns/indg69.pdf) - Violence at work: a guide for employers (2006/2010 - now supplemented by online hub)
+- <a href="https://www.hse.gov.uk/violence/" target="_blank">HSE Violence and Aggression Hub</a> - primary current guidance (updated October 2025)
+- <a href="https://www.hse.gov.uk/pubns/indg73.htm" target="_blank">INDG73(rev4)</a> - Protecting lone workers (March 2020)
+- <a href="https://www.hse.gov.uk/pubns/indg69.pdf" target="_blank">INDG69(R8)</a> - Violence at work: a guide for employers (2006/2010 - now supplemented by online hub)
 
 ## Scenarios Assessed
 
@@ -65,8 +65,4 @@ All actions are captured in the risk assessment action table. Priority actions i
 
 The risk assessment should be reviewed annually (next due February 2027) and following any incident of violence or aggression. This CLAUDE.md should be updated whenever new documents are added or the business context changes materially.
 
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.
+> **Logo note**: documents in this folder follow the hseea logo override (Noxdown logo — see `/docs/terminai/hseea/CLAUDE.md`), not the master Portland Long default.

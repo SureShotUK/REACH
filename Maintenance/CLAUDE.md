@@ -1,6 +1,6 @@
 # CLAUDE.md - Maintenance Administration System
 
-This file provides project-specific guidance for the Maintenance project. It supplements the shared guidance in `/terminai/CLAUDE.md`. In any conflict, these instructions take precedence.
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance; in any conflict, these instructions take precedence.
 
 ---
 
@@ -217,9 +217,3 @@ All project files to be stored in `/terminai/Maintenance/`:
 
 - `hseea/` - HSE compliance; overlaps with statutory maintenance (fire safety, COSHH, risk assessments)
 - `it/` - IT infrastructure; out of scope for this project's maintenance tracking
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

@@ -2,7 +2,7 @@
 
 This file provides NewCar2026-specific guidance to Claude Code when working in this project.
 
-> **Note**: This supplements the shared CLAUDE.md at `/terminai/CLAUDE.md`. Read both files for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
 
 ## Repository Purpose
 
@@ -94,7 +94,7 @@ Suggested structure (create as needed):
 
 ## Typical Workflows
 
-**Vehicle Research**: User identifies vehicle of interest → Use gemini-car-researcher to gather comprehensive information → Summarize key specs, pricing, safety, reliability → Organize findings in research folder → Identify any concerns or standout features
+**Vehicle Research**: User identifies vehicle of interest → Use car-researcher to gather comprehensive information → Summarize key specs, pricing, safety, reliability → Organize findings in research folder → Identify any concerns or standout features
 
 **Vehicle Comparison**: User requests comparison of multiple vehicles → Research each vehicle → Create structured comparison across key dimensions → Highlight differentiators → Provide objective analysis based on data
 
@@ -107,7 +107,7 @@ Suggested structure (create as needed):
 ## Project-Specific Agents
 
 This project has specialized agents available:
-- `gemini-car-researcher` - Expert web research for automotive information, reviews, pricing, and specifications
+- `car-researcher` - Expert web research for automotive information, reviews, pricing, and specifications
 
 ## Key Considerations for 2026 Purchase
 
@@ -132,9 +132,3 @@ This project has specialized agents available:
 - Used vehicle specific history requires VIN-specific research
 
 Always encourage the user to verify critical information with dealers, test drive vehicles, and consider their specific needs and circumstances when making the final decision.
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

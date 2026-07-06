@@ -4,6 +4,58 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-07-06
+
+### Summary
+Full Claude Code setup review and restructure across the repository, executed deliberately with Fable 5 before access ends: fixed broken MCP registrations, established master-rules inheritance conventions, deduplicated all project CLAUDE.md files, rewrote all agents with domain substance, created a shared research-agent family and three QA checklists, and made web search work identically on both backends (Pro/Anthropic and local Ollama).
+
+### Work Completed
+- **MCP servers fixed**: `rag` and `searxng` were silently unavailable in terminai (rag sat in `~/.claude/.mcp.json`, which Claude Code does not read; searxng was scoped to `/home/steve` only). Both re-registered at user scope in `~/.claude.json` and verified connecting. Windows machines were already correct (fixed March 2026).
+- **Master `CLAUDE.md` extended**: Rule Inheritance note (parents load first, project files only add/override); Cite Authoritative Sources principle; MCP Servers & Skills section with the "register at user scope so every project gets it" policy; Web Search backend rule (WebSearch → searxng fallback; curl status-check link verification).
+- **14 project CLAUDE.md files deduplicated**: restated master rules removed (link format, WebFetch verification, logo boilerplate); each now opens with a one-line master pointer. `hseea/CLAUDE.md` logo policy reworded as an explicit override (Noxdown), including `Violence/`.
+- **Permissions consolidated**: checked-in `/docs/terminai/.claude/settings.json` (36 shared allow entries); ~27 scattered `settings.local.json` files pruned of duplicates via backed-up script (Steve applied both — the auto-mode classifier blocks Claude writing permission rules directly).
+- **All 6 existing agents rewritten**: hseea pair + windows-virtual-assistant-security gained business context, repo anchors, house rules, and failure-mode lists; the 3 XmlDotnetCoding agents gained the YAML frontmatter they were missing (they were not registering as subagents at all) plus .NET 10/C# 14 and parser/testing conventions.
+- **Research agent family created**: shared `deep-researcher` at `/docs/terminai/.claude/agents/` (verify-every-URL methodology, Sources per section, Confidence & gaps) with 5 thin domain variants (it-security, it-helpdesk, car, nebosh, canadian-financial). All 16 stale `gemini-*` agent references across 10 CLAUDE.md files updated — those agents had never existed as files.
+- **3 QA checklists created and wired into CLAUDE.md quality gates**: `hseea/Risk_Assessment_QA_Checklist.md` (Noxdown logo), `Briefings/Briefing_Preflight_Checklist.md`, `it/Code_PreDeploy_Checklist.md` (written around the upcoming Nginx + M365 auth deployment).
+- **`Claude_Structure.md` created**: full documentation of the configuration hierarchy, inheritance, MCP scopes, the hseea `git log` permission test, and a "Two Backends, One Repo" section covering Pro vs local Ollama differences.
+- **Stale docs corrected**: `it/NewPC/CLAUDE.md` and `SteveOP_MCP_Setup.md` no longer point at the unread `~\.claude\.mcp.json` location.
+- **REACH project closed**: registration complete, DUIN lodged, government delays moved the next action to ~2030. Memory updated so future sessions stop suggesting REACH work.
+
+### Files Changed
+- `CLAUDE.md` — inheritance note, sources rule, MCP/skills section, web-search backend rule, briefing pre-flight step, agent convention update
+- `Claude_Structure.md` — NEW: setup documentation + two-backends guide
+- `.claude/settings.json` — NEW: consolidated shared permission allowlist (applied by Steve)
+- `.claude/agents/deep-researcher.md` — NEW shared research agent
+- `CITT|Canada|IUCLID|Maintenance|Nebosh|NewCar2026|REACH|XmlDotnetCoding|hseea|hseea/Violence|it|it/NewPC|it/troubleshooting|it/ZeroTrust /CLAUDE.md` — deduplication + reference updates
+- `hseea/.claude/agents/*` , `it/.claude/agents/*`, `XmlDotnetCoding/.claude/agents/*` — agent rewrites
+- `it/.claude/agents/it-security-researcher.md`, `it/troubleshooting/.claude/agents/it-helpdesk-researcher.md`, `NewCar2026/.claude/agents/car-researcher.md`, `Nebosh/.claude/agents/nebosh-researcher.md`, `Canada/.claude/agents/canadian-financial-researcher.md` — NEW domain researchers
+- `hseea/Risk_Assessment_QA_Checklist.md`, `Briefings/Briefing_Preflight_Checklist.md`, `it/Code_PreDeploy_Checklist.md` — NEW QA checklists
+- `it/NewPC/CLAUDE.md`, `it/NewPC/SteveOP_MCP_Setup.md` — MCP registration corrections
+- ~27 `*/.claude/settings.local.json` — duplicate permissions pruned (2 files deleted entirely)
+
+### Git Commits
+- *(single end-of-session commit — this one)*
+
+### Key Decisions
+- Shared MCP servers live at **user scope** (`claude mcp add --scope user`); new MCP/skills default to all-projects availability unless stated otherwise — now written into the master CLAUDE.md
+- Project CLAUDE.md files must only **add or explicitly override**, never restate master rules (restatement causes drift)
+- hseea deliberately **overrides** the logo policy (Noxdown), now explicit, including the Violence subfolder
+- Web-search portability handled via **NAS-shared instructions** (CLAUDE.md + deep-researcher), not per-machine hooks — WebSearch is server-side (Anthropic only), searxng MCP is client-side (works on any backend)
+- No user-level `~/.claude/CLAUDE.md` — the git-synced repo master remains the single source of truth
+
+### Reference Documents
+- `Claude_Structure.md` — the canonical description of this setup
+- Claude Code docs verified: claude-directory, memory, settings, mcp, skills, sub-agents (all at code.claude.com/docs)
+
+### Next Actions
+- [ ] Fresh session in `hseea/` and `XmlDotnetCoding/`: confirm `/agents` lists the new/fixed agents
+- [ ] Run the `git log` permission test from `hseea/` (see Claude_Structure.md) to confirm root settings reach subfolder launches
+- [ ] Test web search on both logins: "search the web for today's Brent crude price" (Pro → WebSearch; Ollama → searxng)
+- [ ] `claude mcp list` on SteveOP and StevesLenovo to confirm rag + searxng still ✔
+- [ ] Run `/ctx-upgrade` (context-mode v1.0.162 → v1.0.169)
+
+---
+
 ## Session 2026-04-23
 
 ### Summary

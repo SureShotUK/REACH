@@ -2,7 +2,7 @@
 
 This file provides Nebosh-specific guidance to Claude Code when working in this project.
 
-> **Note**: This supplements the shared CLAUDE.md at `/terminai/CLAUDE.md`. Read both files for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
 
 ## Repository Purpose
 
@@ -142,7 +142,7 @@ When conducting research for NGC study:
 ## Project-Specific Agents
 
 This project has specialized agents available:
-- `gemini-nebosh-researcher` - Web research for NEBOSH NGC study materials, regulations, and guidance
+- `nebosh-researcher` - Web research for NEBOSH NGC study materials, regulations, and guidance
 
 ## Study Tips
 
@@ -170,9 +170,3 @@ You'll be ready for NGC when you can:
 - Apply health and safety principles to workplace scenarios
 
 Good luck with your NEBOSH NGC studies!
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

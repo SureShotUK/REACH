@@ -6,6 +6,10 @@ This file provides shared guidance to Claude Code (claude.ai/code) when working 
 
 This terminai directory contains multiple project folders, each with their own specific focus. Each project has its own CLAUDE.md file with project-specific instructions that supplement these shared guidelines.
 
+### Rule Inheritance
+
+Claude Code automatically loads this master file **before** any project CLAUDE.md, in every subfolder — parent-directory CLAUDE.md files are always read first, then the project's own. Project CLAUDE.md files must therefore only **add** project-specific guidance, or **explicitly override** a master rule (stating clearly that they override it). They must never restate master rules — restatement creates drift when the master changes.
+
 ## Projects
 
 | Directory | Description |
@@ -27,6 +31,12 @@ Before providing any answer or implementing any solution:
 - When uncertain about implementation details, search for similar patterns in the codebase
 - Check for existing utilities, helpers, or patterns before creating new ones
 - Validate that your understanding matches the actual code structure
+
+### Cite Authoritative Sources
+- Ground all research, advice, and recommendations in authoritative sources (e.g. HSE, GOV.UK, legislation.gov.uk, ECHA, NIST, CISA, NSA, SANS, OWASP, official vendor documentation)
+- Cross-reference multiple authoritative sources before stating facts
+- Every statistic or external factual claim needs an inline citation with a verified HTML weblink (see Hyperlinks and External References below)
+- Prefer primary sources over secondary commentary; check publication dates and whether guidance has been superseded
 
 ### Always Ask Clarifying Questions First
 Before providing any advice, calculations, or recommendations, ALWAYS ask questions to gather all necessary information to provide the most accurate answer possible. Never make assumptions about:
@@ -153,7 +163,42 @@ Common slash commands available across all projects are stored in `/terminai/.cl
 Each project may have its own additional commands in `<project>/.claude/commands/`
 
 ### Project-Specific Agents
-Each project has specialized agents in `<project>/.claude/agents/` that are specific to that project's domain.
+Each project has specialized agents in `<project>/.claude/agents/` that are specific to that project's domain. A shared `deep-researcher` agent at `/docs/terminai/.claude/agents/deep-researcher.md` defines the repo's research methodology (verified sources, dated data, Sources per section); projects add thin `<domain>-researcher` specialisations of it (e.g. `it-security-researcher`, `car-researcher`, `nebosh-researcher`, `canadian-financial-researcher`).
+
+## MCP Servers & Skills
+
+### Available Everywhere (User Scope)
+
+These are registered at **user scope** in `~/.claude.json` and are available in every Claude Code project on this machine, regardless of which folder a session is launched from:
+
+| Name | Type | Purpose |
+|---|---|---|
+| `rag` | stdio — local node server at `/docs/terminai/rag-mcp/index.mjs` | Amelai pgvector knowledge base search; the `/db` skill invokes it explicitly |
+| `searxng` | SSE — `http://100.79.83.113:3001/sse` | Web search via local SearXNG |
+| `context-mode` | plugin — enabled in `~/.claude/settings.json` | Context-window protection and sandboxed analysis tools |
+
+Shared skills/commands: `/db` lives in `~/.claude/commands/` (machine-wide); the session commands (`/end-session`, `/sync-session`, `/session-*`, `/sync-files`) live in `/docs/terminai/.claude/commands/` and are inherited by sessions launched in any subfolder.
+
+### Policy: Adding New MCP Servers and Skills
+
+When a new MCP server or skill is added, it must be made available to **every project** unless explicitly stated otherwise:
+
+- **MCP servers**: register at user scope — `claude mcp add <name> --scope user ...` (stored in `~/.claude.json`). Do **not** use `~/.claude/.mcp.json`; Claude Code does not read that file.
+- **Skills/commands** for all terminai projects: add to `/docs/terminai/.claude/commands/` (or `.claude/skills/`); for machine-wide availability: `~/.claude/commands/`.
+- **Project-only additions** (the stated exception) go in `<project>/.claude/`.
+
+### Web Search: Works on Both Backends
+
+Claude Code here runs against two backends: the **Anthropic API** (Pro login) and the **local Ollama backend** on Amelai (usually from the Windows PC/laptop over Tailscale). They search the web differently:
+
+- `WebSearch` is a **server-side tool executed inside Anthropic's API** — it works on the Pro login but silently returns 0 results on the Ollama backend.
+- `mcp__searxng__web_search` is **client-side** (MCP over Tailscale to SearXNG on Amelai) — it works on every backend, from every machine on the tailnet.
+
+**The rule**: try `WebSearch` first; if it errors or returns 0 results, immediately retry with `mcp__searxng__web_search`. Never report "no results found" or "web search unavailable" without having tried searxng.
+
+**URL verification**: use WebFetch where available; the backend-independent fallback is a status check via Bash — `curl -s -o /dev/null -w "%{http_code}" -L <url>` (200 = link valid). Either method satisfies the link-verification requirement.
+
+**Pro-login-only features** (absent on the local backend — do not rely on them in shared workflows): claude.ai connectors (Gmail, Google Calendar, Google Drive).
 
 ## Document Logo Policy
 
@@ -222,7 +267,8 @@ When creating a new briefing:
 3. **Research first** — Use WebSearch/WebFetch to gather current data; verify all statistics and URLs before inclusion.
 4. **Draft section by section** — Write each section, cite sources inline, verify every link with WebFetch.
 5. **Place in `/docs/terminai/Briefings/`** — Named `<Topic>_Briefing.md` (e.g. `Canada_Oil_Briefing.md`).
-6. **Update the Projects table** in this CLAUDE.md if the briefing introduces a new subject area.
+6. **Pre-flight check** — Run the finished briefing through `Briefings/Briefing_Preflight_Checklist.md` before calling it done.
+7. **Update the Projects table** in this CLAUDE.md if the briefing introduces a new subject area.
 
 ## Important Notes
 

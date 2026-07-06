@@ -303,7 +303,7 @@ Key tools available once connected:
 | `ECONNREFUSED` on port 9222 | TradingView not running, or another application is using port 9222 |
 | RAG MCP: connection refused | Tailscale not connected, or Amelai is asleep. Wake via Alexa: "Alexa, open wol machine" |
 | RAG MCP: PGPASS authentication failed | `PGPASS` env var not set or incorrect. Confirm the `start-claude.ps1` script ran before Claude Code |
-| MCP servers not listed at startup | Check `C:\Users\irwin\.claude\.mcp.json` syntax (no trailing commas). Restart Claude Code |
+| MCP servers not listed at startup | Check `C:\Users\irwin\.claude.json` syntax (no trailing commas) — note: NOT `~\.claude\.mcp.json`, which Claude Code does not read. Restart Claude Code |
 | `/db list` returns no collections | Documents not yet uploaded to Open WebUI. Add via Open WebUI → Workspace → Knowledge |
 | `morning_brief` — "No rules.json found" | Run `copy rules.example.json rules.json` in `C:\Users\irwin\tradingview-mcp-jackson\` and fill it in |
 | `tv` CLI command not found | Run `npm link` from `C:\Users\irwin\tradingview-mcp-jackson\` (optional — MCP tools work without it) |

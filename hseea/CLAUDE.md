@@ -2,7 +2,7 @@
 
 This file provides HSE/EA-specific guidance to Claude Code when working in this project.
 
-> **Note**: This supplements the shared CLAUDE.md at `/terminai/CLAUDE.md`. Read both files for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance and explicitly stated overrides.
 
 ## Repository Purpose
 
@@ -131,9 +131,15 @@ This project has specialized agents available:
 - `ea-permit-consultant` - Expert assistance with Environment Agency permit applications
 - `hse-compliance-advisor` - Health and safety compliance guidance
 
+## Quality Assurance
+
+Every completed or revised risk assessment must pass `hseea/Risk_Assessment_QA_Checklist.md` before it is issued. The checklist enforces MHSWR sufficiency, the `Risk_Rating_Metrics.csv` scoring, the paragraph-citation rule, and action-table completeness.
+
 ---
 
-## Logo
+## Logo — Project Override
+
+> **This project deliberately OVERRIDES the master Document Logo Policy** (Portland Long by default). All hseea documents, including those in subfolders such as `Violence/`, use the **Noxdown Portland logo** instead.
 
 Always include the company logo at the top right of every formal document (SWPs, risk assessments, briefing papers, forms, checklists). Use this HTML snippet at the very first line of the file, before any heading:
 

@@ -2,11 +2,7 @@
 
 This file provides project-specific guidance to Claude Code when working on the AI PC build project.
 
-> **Note**: This supplements the shared CLAUDE.md files at:
-> - `/terminai/CLAUDE.md` (Repository-wide shared guidance)
-> - `/terminai/it/CLAUDE.md` (IT project-specific guidance)
->
-> Read all three files for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` and `/docs/terminai/it/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
 
 ---
 
@@ -68,14 +64,7 @@ Documentation should be aimed at users who are:
 ### Research Standards
 All research and recommendations must follow strict quality standards:
 
-**Link Verification (CRITICAL)**
-- **Every hyperlink must be tested** before inclusion using the WebFetch tool
-- If a URL returns 404 or fails to load, use WebSearch to find the current correct URL
-- **Never include broken links** - verify first, include second
-- All links must use HTML anchor format with `target="_blank"`: `<a href="URL" target="_blank">Link Text</a>`
-- Check for product page updates, moved documentation, or replaced resources
-
-**Source Requirements**
+**Source Requirements** (link format and verification rules per the master CLAUDE.md)
 - Cite authoritative sources:
   - Manufacturer specifications (NVIDIA, AMD, Intel)
   - Independent benchmark databases (PassMark, UserBenchmark, Tom's Hardware)
@@ -228,7 +217,7 @@ Use clear, descriptive names:
 When beginning research on a component or topic:
 
 1. **Use the appropriate research agent**:
-   - `gemini-it-security-researcher` for security-related aspects
+   - `it-security-researcher` for security-related aspects
    - General web research for hardware specifications and pricing
 
 2. **Verify all information**:
@@ -370,6 +359,8 @@ All Docker services on this server use **dual `-p` bindings** to allow access fr
 ### SearXNG as MCP Search Provider
 
 SearXNG is configured as an MCP (Model Context Protocol) server in Claude Code on the Windows 11 PC (`~\.claude\settings.json`). It provides web search capability to Claude Code when running against the local Ollama backend.
+
+On Amelai, searxng is registered at user scope in `~/.claude.json` (via `claude mcp add searxng --scope user --transport sse http://100.79.83.113:3001/sse`), so it is available in every Claude Code project on the machine.
 
 **Why this matters**: Claude Code's built-in `WebSearch` tool requires Anthropic's API infrastructure — it returns 0 results when `ANTHROPIC_BASE_URL` points to Ollama. The SearXNG MCP fills this gap: the model automatically falls back to `searxng - web_search (MCP)` when the built-in tool fails, giving fully functional web search without any dependency on Anthropic's servers.
 
@@ -814,8 +805,8 @@ Claude Code has direct access to Amelai's pgvector knowledge base via a local MC
 ### Setup
 
 - **MCP server**: `/docs/terminai/rag-mcp/index.mjs` (shared on NAS — accessible from both Amelai and StevesLenovo)
-- **Amelai registration**: `~/.claude/.mcp.json` — runtime `/home/steve/.nvm/versions/node/v22.22.3/bin/node`, connects to `localhost`
-- **Windows registration**: `C:\Users\Steve\.claude\.mcp.json` — runtime `node` (in PATH), connects to `amelai.tail926601.ts.net`
+- **Amelai registration**: user scope in `~/.claude.json`, registered via `claude mcp add rag --scope user` — runtime `/home/steve/.nvm/versions/node/v22.22.3/bin/node`, connects to `localhost`. Available in every project on Amelai regardless of launch directory. (Previously in `~/.claude/.mcp.json`, which Claude Code does not read — that file has been removed.)
+- **Windows registration**: user scope in each machine's `.claude.json`, registered via `claude mcp add rag --scope user ...` — runtime `node` (in PATH), connects to `amelai.tail926601.ts.net`. Do **not** use `C:\Users\<user>\.claude\.mcp.json` — Claude Code does not read that file. Per-machine commands are in `/docs/terminai/Claude_Structure.md` ("Two Backends, One Repo").
 - **Database**: `openwebui_vectors` PostgreSQL database (pgvector extension)
 - **Embedding**: nomic-embed-text via Ollama — 768-dim vectors zero-padded to 1536 to match Open WebUI's schema
 - **Password**: `PGPASS` env var — `~/.bashrc` line 133 on Amelai; Windows User environment variable on StevesLenovo
@@ -846,7 +837,7 @@ Defined in `~/.claude/commands/db.md` (global — available in any Claude Code s
 
 - **"client password must be a string"**: PGPASS is not in the environment. Ensure Claude Code was launched from a terminal that sourced `~/.bashrc` (all interactive terminals do this automatically).
 - **"No relevant documents found"**: Upload documents via Open WebUI → Workspace → Knowledge first.
-- **MCP server not responding**: The server is spawned on demand by Claude Code — no manual start needed. If it fails at startup, run `node /home/steve/rag-mcp/index.mjs` to see the error.
+- **MCP server not responding**: The server is spawned on demand by Claude Code — no manual start needed. If it fails at startup, run `node /docs/terminai/rag-mcp/index.mjs` to see the error.
 
 ---
 
@@ -860,9 +851,3 @@ This project will be successful when we have:
 - ✅ Documented in a way that is accessible to competent non-experts
 - ✅ Verified all links and references are current and working
 - ✅ Addressed AI-specific requirements with appropriate detail
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

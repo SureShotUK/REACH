@@ -2,7 +2,7 @@
 
 This file provides Zero Trust project-specific guidance to Claude Code when working in this project.
 
-> **Note**: This supplements the shared CLAUDE.md at `/terminai/CLAUDE.md` and the IT-specific CLAUDE.md at `/terminai/it/CLAUDE.md`. Read all three files for complete guidance.
+> **Master rules in `/docs/terminai/CLAUDE.md` and `/docs/terminai/it/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
 
 ## Project Overview
 
@@ -192,7 +192,7 @@ With **M365 Business Premium**, the following Azure AD/Entra ID features are ava
 ## Documentation Standards
 
 ### When Researching Solutions
-Use the `gemini-it-security-researcher` agent for:
+Use the `it-security-researcher` agent for:
 - ZTNA platform evaluations
 - Security architecture best practices
 - Azure AD integration patterns
@@ -225,8 +225,8 @@ See `PROJECT_STATUS.md` for current phase and progress tracking.
 ## Project-Specific Agents
 
 This project has specialized agents available:
-- `gemini-it-security-researcher` - Expert research agent for Zero Trust, ZTNA, security architectures
-- `gemini-researcher` - General web research for product comparisons, pricing, vendor analysis
+- `it-security-researcher` - Expert research agent for Zero Trust, ZTNA, security architectures
+- `deep-researcher` - General web research for product comparisons, pricing, vendor analysis (shared repo agent)
 
 ## User Preferences
 
@@ -263,9 +263,3 @@ Based on IT project patterns:
 - `/terminai/it/CLAUDE.md` - IT-specific guidance
 - `/terminai/it/VPN_Benefits.md` - VPN security analysis (contrast with ZTNA)
 - `/terminai/it/L2TP_over_IPsec.md` - Traditional VPN approach (what we're moving away from)
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

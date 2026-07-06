@@ -1,5 +1,7 @@
 # CLAUDE.md — CITT 2026 Fuel Briefing Project
 
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
+
 ## Project Overview
 
 Portland Fuel has been invited to present **Part 2** of CITT's "2026 Fuel Briefing" webinar.
@@ -50,9 +52,6 @@ CITT/
 
 ## Research Standards
 
-- All statistics must be sourced and verified
-- Links: HTML anchor format with `target="_blank"` only — no markdown links
-- Verify all URLs with WebFetch before including
 - Leverage `Canada_Oil_Briefing.md` for upstream crude context — do not duplicate
 
 ## Presentation Structure (30 min)
@@ -64,9 +63,3 @@ CITT/
 | Where it's going | 8 min | Forecasts and 3-scenario model |
 | What to do about it | 7 min | Hedging, FSC strategy, operational levers |
 | Key takeaways / Q&A setup | 2 min | Segue to Part 3 |
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.

@@ -1,16 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "WebFetch(domain:www.hse.gov.uk)",
-      "WebSearch",
-      "WebFetch(domain:ladderassociation.org.uk)",
-      "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index",
-      "mcp__searxng__web_search",
-      "mcp__plugin_context-mode_context-mode__ctx_execute",
-      "mcp__plugin_context-mode_context-mode__ctx_search"
+      "WebFetch(domain:ladderassociation.org.uk)"
     ],
     "deny": [],
     "ask": []

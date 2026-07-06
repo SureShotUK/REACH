@@ -1,5 +1,7 @@
 # IUCLID Project - Claude Code Instructions
 
+> **Master rules in `/docs/terminai/CLAUDE.md` apply and load automatically.** This file contains only project-specific guidance.
+
 ## Project Overview
 
 This project contains technical guidance, procedures, and documentation for IUCLID 6 Cloud software used in UK REACH chemical registration submissions.
@@ -170,9 +172,3 @@ When IUCLID guidance relates to broader compliance topics, reference:
 - Article 26 enquiry processes
 
 Maintain links between IUCLID technical procedures and business compliance decisions.
-
----
-
-## Logo
-
-Always add the Portland Long logo per the Document Logo Policy in the root CLAUDE.md. Use `../Portland Long.png` for documents one level below the terminai root, `../../Portland Long.png` for two levels deep, etc.
