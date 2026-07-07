@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-07-07 (Image → RAG pipeline)
+**Last Updated**: 2026-07-07 (permission-prompt elimination; CTX_Context.md canonical context-mode doc)
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.

@@ -1,32 +1,72 @@
-PROMPT 1 — FLOW CHARTS / PROCESS DIAGRAMS
-(paste into Open WebUI chat with the image attached)
---------------------------------------------------------------------
+Windows — user-scope permissions for /end-session (no prompts)
+================================================================
 
-This image is a flow chart describing a process. Convert it into a complete text representation so that someone who cannot see the image can follow the process exactly.
+THE RIGHT FILE
+--------------
+Permission rules go in:   C:\Users\<UserName>\.claude\settings.json
+                          (the .claude FOLDER, then settings.json)
 
-1. Start with a one-paragraph summary of what process the chart describes.
-2. Transcribe every box, label and annotation VERBATIM - do not paraphrase the wording inside boxes.
-3. Describe the flow as numbered steps in order, following the arrows. For every decision point, state the question and list each branch explicitly, e.g. "If YES -> step 6. If NO -> step 9."
-4. If there are swimlanes, parallel paths, loops back to earlier steps, or notes in the margins, describe them explicitly.
-5. Finish with a "Key facts" bullet list of the most important rules or thresholds shown in the chart.
+NOT in C:\Users\<UserName>\.claude.json - that file holds MCP server
+registrations and app state only. Leave it alone.
 
-Do not invent or assume any step that is not visible in the image. If any text is unreadable, write [unreadable] rather than guessing.
-
-Format the response as standard markdown: "#"-style headings, "-" for bullets, "1." for numbered steps, with lists starting at the left margin - never indent a list by four spaces (that renders as a code block).
+Note: "Yes, always allow" answers at prompts are saved to
+<launch folder>\.claude\settings.local.json - they only help that one
+folder. The user-scope file below works from every launch folder.
 
 
-PROMPT 2 — CHARTS, GRAPHS AND TABLES
-(for the ongoing use case)
---------------------------------------------------------------------
+WHAT TO DO
+----------
+1. Open C:\Users\<UserName>\.claude\settings.json (create it if missing).
 
-This image contains a chart, graph or table. Extract ALL of the data into text form.
+2. If the file already exists, MERGE the entries below into the existing
+   "allow" array - do not replace the file. If it already has rules like
+   Read(/docs/terminai/**) or Read(\\irwinnas\...) they are broken
+   (wrong path form) and can be replaced by these.
 
-1. State what the chart/table shows: title, axis labels, units, legend entries, time period covered.
-2. Reproduce tables as complete markdown tables with every row and column, values transcribed exactly.
-3. For graphs, list the plotted values as a markdown table. If exact figures are not printed, give best-read values and say they are estimated from the plot.
-4. Note any highlighted values, annotations, footnotes or data source lines.
-5. Finish with a "Key facts" bullet list: maximum, minimum, notable trends or outliers.
+3. If the file did not exist, paste this as the entire content:
 
-Transcribe numbers exactly as shown. If a value is unreadable, write [unreadable] rather than guessing.
+{
+  "permissions": {
+    "allow": [
+      "Read(//irwinnas/MyDocs/terminai/**)",
+      "Write(//irwinnas/MyDocs/terminai/**)",
+      "Edit(//irwinnas/MyDocs/terminai/**)",
+      "Read(//I:/terminai/**)",
+      "Write(//I:/terminai/**)",
+      "Edit(//I:/terminai/**)",
+      "Read(I:/terminai/**)",
+      "Write(I:/terminai/**)",
+      "Edit(I:/terminai/**)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git check-ignore:*)"
+    ]
+  }
+}
 
-Format the response as standard markdown: "#"-style headings, "-" for bullets, proper markdown table syntax, with lists starting at the left margin - never indent a list by four spaces (that renders as a code block).
+4. Restart Claude Code (settings load at session start), then re-test
+   /end-session.
+
+
+NOTES
+-----
+- Path rules always use FORWARD slashes, even on Windows.
+- A leading double slash means an absolute path; the UNC share
+  \\irwinnas\MyDocs\terminai becomes //irwinnas/MyDocs/terminai.
+- The I:/ drive-letter rules are included in two forms (//I:/ and I:/)
+  because the repo may be reached either via the mapped drive or the UNC
+  path depending on how the session is launched - unused variants are
+  harmless. If prompts still appear, note the exact path shown in the
+  prompt (UNC vs I:) and match a rule to it.
+- The "Unrecognized redirect shape" git commit prompt is fixed separately:
+  the /end-session command no longer uses a heredoc for the commit
+  message (pull the latest repo on the Windows machine to get the
+  updated command).
+- The .git\index.lock warning is a built-in safety check - it only
+  appeared because an earlier failed commit left a stale lock. Do not
+  add an allow rule for .git paths.

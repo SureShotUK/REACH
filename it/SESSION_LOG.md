@@ -4,6 +4,38 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-07-07 (later) — Permission-Prompt Elimination + context-mode Documented (CTX_Context.md)
+
+### Summary
+Continuation of the day's session in two parts. First, eliminated the permission prompts that `/end-session` triggered when run from subfolders: fixed silently-broken path rules in user-scope settings (single vs double leading slash), added user-scope git allows, removed the `cd`-before-git and heredoc-commit patterns from the command, and delivered Windows setup instructions after Steve's SteveOP test showed the same issues there. Second, created `CTX_Context.md` as the canonical documentation for the context-mode plugin — what it does, dependencies, how it works, Bun acceleration (recommended for the Windows machines; already installed on Amelai), and all setup/update/maintenance commands.
+
+### Work Completed
+- **Diagnosed why subfolder sessions prompt**: project settings only load for the exact launch directory — `/docs/terminai/.claude/settings.json` is never read by a session launched in e.g. `it/NewPC`; cross-folder permissions must live at user scope
+- **Fixed `~/.claude/settings.json` (Amelai)**: `Read(/docs/terminai/**)` etc. resolve relative to the settings dir and matched nothing — corrected all five rules to the absolute `//` form; added git subcommand allows (status/log/diff/add/commit/push/pull/check-ignore)
+- **Fixed `/end-session` command**: no `cd` before git (bypasses allow rules + triggers security warning; use absolute paths in `git add`); commit footer via second `-m` flag (heredoc fails Windows permission analysis with "Unrecognized redirect shape")
+- **Windows guidance delivered via `Temp.txt`**: rules go in `C:\Users\<User>\.claude\settings.json` (NOT `.claude.json`, which is MCP/app state); repo paths in UNC form `//irwinnas/MyDocs/terminai/**` plus `I:/` variants; `.git\index.lock` warning identified as a built-in safety heuristic not to be allowlisted
+- **Created `NewPC/CTX_Context.md`** — canonical context-mode doc: overview, sandbox/knowledge-base internals, tools table, dependencies (Node ≥22.5, SIGSEGV history), per-machine installation status, what Bun is and why to install it on Windows (3–5x sandbox speed + `bun:sqlite` backend), install steps for Amelai and Windows, fresh-install/update/maintenance commands, troubleshooting; all links verified
+- **Trimmed `NewPC/Software_Updates.md` context-mode section** to a quick-update summary pointing at `CTX_Context.md` (avoids two full copies drifting)
+
+### Files Changed
+- `it/NewPC/CTX_Context.md` — **NEW** — canonical context-mode + Bun documentation
+- `it/NewPC/Software_Updates.md` — context-mode section reduced to summary + pointer
+- `it/NewPC/Temp.txt` — Windows user-scope permissions instructions (delivery file)
+- `.claude/commands/end-session.md` — no-cd and no-heredoc rules (commits `387c534`, `55e5e85`)
+- `~/.claude/settings.json` (Amelai, not in repo) — path rules fixed, git allows added
+
+### Key Decisions
+- **User scope is the home for cross-folder permissions** — the repo-root consolidated settings.json cannot cover subfolder launches by design
+- **`CTX_Context.md` is canonical for context-mode**; `Software_Updates.md` links to it rather than duplicating
+- **Bun recommended on Windows machines** (SteveOP, StevesLenovo): user-level install, no admin, faster ctx_execute and a more robust SQLite backend; Amelai already has 1.3.14
+
+### Next Actions
+- [ ] Apply the Windows user-scope settings from `Temp.txt` on SteveOP and StevesLenovo, then re-test `/end-session` for zero prompts
+- [ ] Install Bun on SteveOP and StevesLenovo (steps in `CTX_Context.md`), verify with `/ctx-doctor`
+- [ ] Optionally remove the stale context-mode 1.0.162 cache dir on Amelai after next `/ctx-doctor` pass
+
+---
+
 ## Session 2026-07-07 — Image → RAG Pipeline Established + qwen2.5vl Troubleshooting Chain
 
 ### Summary

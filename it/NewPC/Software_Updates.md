@@ -362,51 +362,11 @@ docker ps | grep filebrowser
 
 ## context-mode MCP Plugin
 
-context-mode is a Claude Code plugin that manages the context window during AI sessions. It runs as a Node.js child process and uses SQLite (via `better-sqlite3`) as its knowledge base. Updates are released frequently and an outdated version can cause the MCP server to crash silently during sessions.
+context-mode is a Claude Code plugin that manages the context window during AI sessions (sandbox execution, FTS5 knowledge base, session continuity). Updates are released frequently and an outdated version can cause the MCP server to crash silently during sessions; Node.js ≥ 22.5 and context-mode ≥ v1.0.162 are required (older combinations hit a `better-sqlite3` SIGSEGV bug).
 
-**Why updates matter:** Versions below v1.0.162 are affected by a Linux kernel/V8 bug (`madvise MADV_DONTNEED SIGSEGV`) that causes `better-sqlite3` to crash the Node process 1–4 times per hour. Node.js ≥ 22.5 and context-mode ≥ v1.0.162 are both required to avoid this.
+**Quick update**: run `/ctx-upgrade` in a Claude Code session (or `context-mode upgrade` from the terminal), then restart Claude Code and verify with `/ctx-doctor`.
 
-**Current Node.js version required:** ≥ 22.5.0 (run `node -v` to check; use `nvm install 22 && nvm alias default 22` to upgrade if needed)
-
-### Check current version
-
-```bash
-node ~/.claude/plugins/cache/context-mode/context-mode/1.0.75/cli.bundle.mjs --version 2>/dev/null || \
-  node $(ls -d ~/.claude/plugins/cache/context-mode/context-mode/*/cli.bundle.mjs | tail -1) --version
-```
-
-### Update context-mode from the terminal
-
-```bash
-# Find the CLI path (the directory name reflects the installed version, not the latest)
-CLI=$(ls -d ~/.claude/plugins/cache/context-mode/context-mode/*/cli.bundle.mjs | tail -1)
-
-# Run the upgrade
-node "$CLI" upgrade
-```
-
-The upgrade command will:
-1. Pull the latest version from GitHub
-2. Build and install it in-place
-3. Rebuild native addons (`better-sqlite3`)
-4. Reconfigure Claude Code hooks
-5. Run a self-test (doctor) and report results
-
-### Verify after update
-
-```bash
-# Run the doctor check to confirm all systems pass
-node "$CLI" doctor
-```
-
-All items should show `PASS`. Key things to confirm:
-- **npm (MCP)** and **Claude Code** version numbers match and show the latest version
-- **FTS5 / SQLite: PASS** — confirms the native SQLite module is working
-- **Node.js** shown as ≥ v22.5.0
-
-### After updating
-
-Restart Claude Code (close the terminal and reopen, or start a new session) for the new version to take effect. The update installs files in-place but the running MCP server process must be restarted to pick up the changes.
+**Full documentation** — what it does, dependencies, Bun acceleration, fresh install, update and maintenance commands, troubleshooting — is in **`CTX_Context.md`** (this folder), which is the canonical context-mode document.
 
 ---
 

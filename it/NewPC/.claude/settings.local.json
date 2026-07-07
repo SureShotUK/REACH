@@ -159,7 +159,12 @@
       "Bash(nvidia-smi --query-gpu=index,memory.used,memory.total --format=csv,noheader)",
       "Bash(ollama --version)",
       "Bash(xargs ls -la)",
-      "Bash(journalctl -u ollama --since \"-2 hours\" --no-pager)"
+      "Bash(journalctl -u ollama --since \"-2 hours\" --no-pager)",
+      "Read(//proc/sys/kernel/**)",
+      "Read(//var/crash/**)",
+      "Read(//docs/terminai/.claude/**)",
+      "mcp__plugin_context-mode_context-mode__ctx_upgrade",
+      "mcp__plugin_context-mode_context-mode__ctx_doctor"
     ]
   }
 }

@@ -2,6 +2,22 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-07-07 — Permission-Prompt Elimination + context-mode Docs
+
+### Added
+- `it/NewPC/CTX_Context.md` — canonical context-mode plugin documentation: how it works (sandbox, FTS5 knowledge base, session continuity), dependencies, Bun acceleration and install steps (Amelai + Windows), setup/update/maintenance commands, troubleshooting
+- User-scope git allows and corrected `//`-form path rules in `~/.claude/settings.json` (Amelai) — `/end-session` now runs prompt-free from any launch folder
+
+### Changed
+- `.claude/commands/end-session.md` — git commands must not be prefixed with `cd` (use absolute paths); commit footer via second `-m` flag instead of heredoc (heredoc fails Windows permission analysis)
+- `it/NewPC/Software_Updates.md` — context-mode section trimmed to summary + pointer to `CTX_Context.md`
+
+### Documentation
+- Windows permission setup instructions delivered via `it/NewPC/Temp.txt`: rules belong in `C:\Users\<User>\.claude\settings.json` (not `.claude.json`), UNC path form `//irwinnas/MyDocs/terminai/**`
+- Bun recommended for SteveOP/StevesLenovo (3–5x faster ctx_execute, robust `bun:sqlite` backend); already installed on Amelai (1.3.14)
+
+---
+
 ## [Unreleased] - 2026-07-07 — Image → RAG Pipeline + qwen2.5vl Fixes
 
 ### Added
