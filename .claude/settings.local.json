@@ -22,7 +22,18 @@
       "Bash(curl -s -o DUKES_3.2.xlsx \"https://assets.publishing.service.gov.uk/media/688a0852048fff613a4d5b90/DUKES_3.2.xlsx\")",
       "Skill(schedule)",
       "mcp__searxng__read_memory",
-      "mcp__plugin_context-mode_context-mode__ctx_batch_execute"
+      "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+      "Bash(claude --version)",
+      "Bash(grep -iA2 \"agent\")",
+      "Bash(claude agents *)",
+      "Bash(claude -p \"Reply with only a comma-separated list of the agent type names available to your Agent tool. No other text.\")",
+      "Bash(grep -n \"run \\\\`/agents\\\\`\\\\|the \\\\`/agents\\\\`\" /docs/terminai/Claude_Structure.md)",
+      "Bash(grep *)",
+      "Read(//opt/searxng/**)",
+      "Bash(sudo -n grep -n -A4 \"formats\" /opt/searxng/settings.yml)",
+      "Bash(sudo -n systemctl restart mcp-searxng)",
+      "Bash(systemctl restart *)",
+      "Bash(systemctl is-active *)"
     ],
     "deny": [],
     "ask": []

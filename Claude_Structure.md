@@ -64,6 +64,10 @@ All shared MCP servers are registered at **user scope** in `~/.claude.json` so t
 
 The shared allowlist (git, common read-only shell commands, WebSearch, gov.uk/hse.gov.uk WebFetch, context-mode/rag/searxng tools, session-log file writes) lives in the checked-in `/docs/terminai/.claude/settings.json`. Project `settings.local.json` files should hold only genuinely project-specific entries (e.g. hseea's fire-safety WebFetch domains).
 
+**Path syntax in Edit/Write rules**: a single leading `/` means *relative to the project root*, not an absolute filesystem path (absolute is `//`). The session-log rules therefore use `Edit(/**/SESSION_LOG.md)` etc. — this also makes them work unchanged on Windows, where the repo root is a UNC path. See <a href="https://code.claude.com/docs/en/permissions" target="_blank">Permissions — Read and Edit rules</a>. (Fixed 7 July 2026 — the original rules used `/docs/terminai/**/...`, which resolved to a non-existent project-relative path and never matched.)
+
+**Because the settings file is checked into the repo on the NAS, it is already shared with every machine** — Windows included. There is nothing to copy into `C:\Users\<user>\.claude\`; the file applies automatically whenever Claude Code is **launched from inside the repo** (see the test below). Each machine's own `~/.claude/settings.json` is only for machine-wide preferences (plugins, hooks, model default), not for the shared allowlist.
+
 ---
 
 ## Two Backends, One Repo
@@ -90,7 +94,8 @@ claude mcp add rag --scope user --env PG_HOST=amelai.tail926601.ts.net -- node "
 
 Notes:
 - Do **not** put MCP servers in `~\.claude\.mcp.json` — Claude Code does not read that file (this was the original breakage on both Amelai and Windows).
-- The searxng chain is: Claude Code → mcp-searxng systemd service on Amelai (port 3001, SSE) → SearXNG Docker (port 8080). Port 3001 must have a Tailscale ACL entry — a missing ACL rule shows as `searxng · ✘ failed` in `/mcp` (see `it/NewPC/SearXNG_Fix.md`).
+- The searxng chain is: Claude Code → mcp-searxng systemd service on Amelai (port 3001, SSE) → SearXNG Docker at `http://127.0.0.1:18080` (local to Amelai). Port 3001 must have a Tailscale ACL entry — a missing ACL rule shows as `searxng · ✘ failed` in `/mcp` (see `it/NewPC/SearXNG_Fix.md`).
+- **Failure signature "Search error: Client error '400 Bad Request'"** (MCP connects, searches fail — seen 7 July 2026): the SearXNG URL in `/opt/mcp-searxng/server.py` pointed at `http://100.79.83.113:8080`, but `tailscale serve` now occupies 8080 on the tailnet IP as HTTPS, so plain HTTP gets 400 ("Client sent an HTTP request to an HTTPS server"). Fix: point `SEARXNG_URL` at `http://127.0.0.1:18080/search` and `sudo systemctl restart mcp-searxng`. This breaks every machine at once — it is a server-side fault on Amelai, not a client registration problem.
 - The rag command's PG/Ollama env vars must point at Amelai's Tailscale name from Windows (see `it/NewPC/CLAUDE.md` RAG section for the full env list); adjust the NAS path to how the share is mapped on that machine.
 
 ---
@@ -100,6 +105,15 @@ Notes:
 Official docs confirm CLAUDE.md/skills/commands inherit from parent directories, but are **ambiguous on whether a repo-root `settings.json` applies when launching from a subfolder**. This test settles it. It uses `git log` because it is in the root allowlist but **not** in `hseea/.claude/settings.local.json` — so the result can only come from the root file.
 
 **Prerequisite:** the consolidated `/docs/terminai/.claude/settings.json` must be in place.
+
+**Two conditions for a valid test** (the 7 July run on SteveOP/StevesLenovo missed both — see below):
+
+1. **The session's working directory must be inside the repo.** Claude Code only discovers project config (settings, CLAUDE.md, agents, commands) from the folder it is launched in and its parents. A session started in `C:\Users\<user>` that reaches the repo via `git -C '\\irwinnas\...'` loads **none** of the repo config — no allowlist, no master rules, no agents. On Windows, `cd` into the NAS repo first (PowerShell accepts UNC paths):
+   ```powershell
+   cd \\irwinnas\MyDocs\terminai\hseea    # or the mapped drive letter, e.g. T:\terminai\hseea
+   claude
+   ```
+2. **The command must literally start with `git log`.** The allow rule `Bash(git log:*)` is a prefix match — `git -C <path> log ...` or anything with `|| echo ...` appended does not match and will prompt even on a perfectly configured machine. Ask exactly: `run git log -1 --oneline`.
 
 **How to run:**
 
@@ -124,7 +138,15 @@ Do you want to proceed?
   3. No, and tell Claude what to do differently (esc)
 ```
 
-That prompt means the subfolder session did **not** pick up the repo-root settings file (only its own `.claude/` and `~/.claude/`). Fix: move the shared allowlist into `~/.claude/settings.json` (user level) instead — same effect, applies machine-wide. Ask Claude to do this and it will merge the list for you.
+That prompt means the subfolder session did **not** pick up the repo-root settings file (only its own `.claude/` and `~/.claude/`). Two fixes, in order of preference:
+
+1. **Point the session at the NAS settings file with `--settings`** (stays single-source, no per-machine copies): `claude --settings '\\irwinnas\MyDocs\terminai\.claude\settings.json'` (on Amelai: `claude --settings /docs/terminai/.claude/settings.json`). Make it automatic in the PowerShell profile (`notepad $PROFILE`):
+   ```powershell
+   function claude { & claude.exe --settings '\\irwinnas\MyDocs\terminai\.claude\settings.json' @args }
+   ```
+2. **Merge the allowlist into each machine's `~/.claude/settings.json`** — works, but it is then a per-machine copy that drifts when the shared list changes.
+
+Do **not** use `CLAUDE_CONFIG_DIR` pointed at a shared NAS folder to solve this — it relocates the whole config directory including credentials, history and session state, so the Pro and Ollama logins (and concurrent machines) would trample each other.
 
 ---
 
@@ -140,3 +162,32 @@ That prompt means the subfolder session did **not** pick up the repo-root settin
 ---
 
 *Sources: <a href="https://code.claude.com/docs/en/claude-directory" target="_blank">Claude Code docs — .claude directory</a>, <a href="https://code.claude.com/docs/en/settings" target="_blank">Settings</a>, <a href="https://code.claude.com/docs/en/mcp" target="_blank">MCP</a>. All links verified 6 July 2026.*
+
+---
+
+## Next Steps - July 6th
+
+Verification tests outstanding from the 6 July 2026 restructure (commit `1cdf3a4`). Run these in the next session(s) and tick them off; each says what success and failure look like.
+
+- [x] **Agent registration check** — ✅ verified 7 July 2026. Note: the `/agents` wizard has been removed from Claude Code; the check is now done by asking the session itself, e.g. from inside the project folder: `claude -p "Reply with only a comma-separated list of the agent type names available to your Agent tool"` (or ask the same in an interactive session).
+  *Result*: hseea returned `deep-researcher, ea-permit-consultant, hse-compliance-advisor` (plus built-ins); XmlDotnetCoding returned `csharp-reviewer, csharp-xml-expert, dotnet-tester, deep-researcher` — all expected agents registered.
+  *If one goes missing in future*: its YAML frontmatter didn't parse — check the file's opening `---` block in `<project>/.claude/agents/`.
+
+- [x] **Permission inheritance test (`git log` from hseea)** — ✅ passed 7 July 2026: launched from inside the repo, `git log -1 --oneline` ran with no permission prompt, confirming the repo-root `settings.json` reaches subfolder launches on Windows too. (The first attempt that day was invalid — the session wasn't started inside the repo, so Claude used `git -C '\\irwinnas\...'`, which loads no repo config and breaks the `Bash(git log:*)` prefix match. Full walkthrough and the two valid-test conditions are in the "Verification" section above.)
+  *If it ever regresses*: use `claude --settings` pointing at the NAS settings file (preferred) or merge into `~/.claude/settings.json` — details in the walkthrough section.
+
+- [ ] **Web search on the Pro login** — ask: *"search the web for today's Brent crude price"*.
+  *Pass*: answered via the built-in `WebSearch` tool.
+  *Fail*: falls back to searxng or reports no results — check Anthropic service status before changing anything.
+
+- [ ] **Web search on the local Ollama login** (from Windows PC or laptop) — same question.
+  *Pass*: answered via `searxng - web_search (MCP)` without manual steering.
+  *Fail*: "no search results" → run `/mcp`; if `searxng · ✘ failed`, check the Tailscale ACL for port 3001 and the `mcp-searxng` service on Amelai (see `it/NewPC/SearXNG_Fix.md`).
+
+- [ ] **Windows MCP health check** — on SteveOP and StevesLenovo run `claude mcp list`.
+  *Pass*: `rag` and `searxng` both show ✔ Connected.
+  *Fail*: re-register at user scope with the commands in "Two Backends, One Repo" above.
+
+- [ ] **context-mode upgrade** — run `/ctx-upgrade` on Amelai (v1.0.162 installed; v1.0.169 available as at 6 July 2026).
+
+- [ ] **Scaffolding live test** — ask the (post-Fable) model to run an existing risk assessment through `hseea/Risk_Assessment_QA_Checklist.md` and judge whether the output holds the quality bar; refine the checklist if not.

@@ -17,7 +17,14 @@
       "WebFetch(domain:firedoors.bwf.org.uk)",
       "WebFetch(domain:www.firesafe.org.uk)",
       "WebFetch(domain:www.bwf.org.uk)",
-      "WebFetch(domain:www.riba.org)"
+      "WebFetch(domain:www.riba.org)",
+      "WebSearch",
+      "mcp__searxng__web_search",
+      "mcp__plugin_context-mode_context-mode__ctx_execute",
+      "mcp__plugin_context-mode_context-mode__ctx_upgrade",
+      "Bash(node *)",
+      "mcp__searxng__list_models",
+      "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index"
     ],
     "deny": [],
     "ask": []

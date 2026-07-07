@@ -146,7 +146,15 @@
       "Bash(node /tmp/claude-1000/-docs-terminai-it-NewPC/e77f7388-cdc1-464d-b696-f2a0263c2ae7/scratchpad/test_update_profile.js)",
       "Bash(ping -c 1 amelai)",
       "Bash(ping -c 1 amelai.local)",
-      "Bash(ping -c 1 amelai.tail926601.ts.net)"
+      "Bash(ping -c 1 amelai.tail926601.ts.net)",
+      "mcp__searxng__web_search",
+      "WebSearch",
+      "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index",
+      "mcp__plugin_context-mode_context-mode__ctx_search",
+      "mcp__plugin_context-mode_context-mode__ctx_execute",
+      "Bash(node *)",
+      "Read(//c/Users/SteveIrwin/.claude/plugins/cache/context-mode/context-mode/**)",
+      "Bash(npm update *)"
     ]
   }
 }

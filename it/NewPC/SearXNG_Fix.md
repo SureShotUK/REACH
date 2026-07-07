@@ -162,3 +162,25 @@ claude mcp add --transport sse --scope user searxng http://100.79.83.113:3001/ss
 ```
 
 > **Windows MCP config location**: Claude Code stores MCP server definitions in `%USERPROFILE%\.claude.json` (a single flat file in the home directory — e.g. `C:\Users\SteveIrwin\.claude.json`). This is **not** `~\.claude\.mcp.json` or `~\.claude\settings.json`. The `claude mcp add` command writes to this file automatically. To manually add or edit servers, open `.claude.json` directly in a text editor.
+
+---
+
+## Update 7 July 2026 — 400 Bad Request after Tailscale serve reorganisation
+
+**Symptom**: `searxng` shows ✔ Connected in `claude mcp list` on every machine, but every search returns:
+
+```
+Search error: Client error '400 Bad Request' for url 'http://100.79.83.113:8080/search?...&format=json'
+```
+
+**Cause**: the SearXNG Docker container's port mapping changed to `127.0.0.1:18080` (plus LAN `192.168.1.192:8080`), and `tailscale serve` took over port 8080 on Amelai's tailnet IP as an **HTTPS** proxy (`https://amelai.tail926601.ts.net:8080` → `http://127.0.0.1:18080`). The MCP server's hardcoded `SEARXNG_URL = "http://100.79.83.113:8080/search"` then sent plain HTTP to an HTTPS listener → 400 ("Client sent an HTTP request to an HTTPS server").
+
+**Fix**: in `/opt/mcp-searxng/server.py` set:
+
+```python
+SEARXNG_URL = "http://127.0.0.1:18080/search"
+```
+
+then `sudo systemctl restart mcp-searxng`. Localhost is the right target — the MCP server runs on Amelai itself, so it needs neither Tailscale nor TLS to reach the container.
+
+**Diagnostic that separates this from the ACL failure**: ACL problems show as `searxng · ✘ failed` (client cannot reach port 3001); this fault shows as **connected but erroring searches**, identically on all machines, because it is server-side on Amelai. Confirm with `curl -s 'http://127.0.0.1:18080/search?q=test&format=json' -o /dev/null -w '%{http_code}'` on Amelai (expect 200).
