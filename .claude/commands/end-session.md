@@ -139,7 +139,10 @@ Suggest specific additions if relevant.
 After updating all files:
 - Run `git add` with **absolute paths** for the updated files (e.g. `git add /docs/terminai/it/SESSION_LOG.md`) — do not `cd` to the repo root first (see the warning in step 1)
 - Create a commit: `End of session documentation update - [brief session summary]`
-- Include the standard Claude Code co-authorship footer
+- Include the standard Claude Code co-authorship footer **using a second `-m` flag, not a heredoc** — heredoc commit messages (`-m "$(cat <<'EOF' ...)"`) fail permission analysis on Windows ("Unrecognized redirect shape") and force a manual prompt:
+  ```
+  git commit -m "End of session — [summary]" -m "Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+  ```
 - Push to remote: `git push origin main`
 
 **IMPORTANT — Push is mandatory and pre-authorised for this command.**
