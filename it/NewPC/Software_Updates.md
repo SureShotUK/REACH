@@ -360,6 +360,52 @@ docker ps | grep filebrowser
 
 ---
 
+## Node.js (nvm)
+
+Node.js on this system is managed by **nvm** (Node Version Manager), which installs versions side-by-side in `~/.nvm/versions/node/` — an update never overwrites anything, and switching back is one command. Node is a dependency of the rag MCP server and (indirectly) context-mode; both were made version-independent on 2026-07-07 (rag spawns PATH-resolved `node`, context-mode runs under Bun), so a Node update requires **no re-registration of anything**.
+
+> nvm is a shell **function** loaded by `~/.bashrc`, not a binary — it only exists in interactive shells. **Never run it with `sudo`** (root has no nvm and none is needed; everything installs to your own home directory). If a script or `!` command reports `nvm: command not found`, wrap it: `bash -ic 'nvm ...'`.
+
+### Update Node.js
+
+```bash
+# Install the new version and carry over global npm packages (e.g. the context-mode CLI link)
+nvm install 26 --reinstall-packages-from=26        # replace both numbers: new version, current version
+
+# Make it the default for all new shells
+nvm alias default 26
+```
+
+Real example from the 2026-07-07 update (v22.22.3 → v26.4.0):
+
+```bash
+nvm install 26 --reinstall-packages-from=22.22.3
+nvm alias default 26
+```
+
+### Verify after update
+
+Open a **fresh terminal** (the running one keeps the old PATH), then:
+
+```bash
+node -v                  # shows the new version
+npm ls -g context-mode   # global CLI link carried over to the new version's tree
+claude mcp list          # rag and context-mode both "✔ Connected"
+```
+
+In a new Claude Code session: `/ctx-doctor` (all PASS) and `/db list` (rag answering).
+
+### Remove old versions (optional cleanup)
+
+⚠️ Before uninstalling an old version, confirm nothing pins its absolute path: `grep -rl "v<old-version>" ~/.claude.json ~/.claude/settings.json ~/.claude/hooks/` and check `claude mcp list` output for the old path. As of 2026-07-07 nothing pins any Node path, but a future `claude mcp add` with an absolute runtime path would recreate one.
+
+```bash
+nvm ls                        # list installed versions
+nvm uninstall v22.22.3        # remove an old version (reversible — nvm install brings it back)
+```
+
+---
+
 ## context-mode MCP Plugin
 
 context-mode is a Claude Code plugin that manages the context window during AI sessions (sandbox execution, FTS5 knowledge base, session continuity). Updates are released frequently and an outdated version can cause the MCP server to crash silently during sessions; Node.js ≥ 22.5 and context-mode ≥ v1.0.162 are required (older combinations hit a `better-sqlite3` SIGSEGV bug).
@@ -529,4 +575,11 @@ docker inspect open-webui --format='{{.Config.Image}}'
 
 # All running containers and their images
 docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'
+
+# Node.js — current default and all installed versions
+node -v
+bash -ic 'nvm ls'
+
+# Bun version
+bun --version
 ```

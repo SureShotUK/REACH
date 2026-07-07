@@ -4,6 +4,35 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-07-07 (evening) — Node.js v22 → v26 on Amelai; All Runtime Pins Removed
+
+### Summary
+Updated Node.js on Amelai from v22.22.3 to v26.4.0 via nvm and removed every version-pinned runtime reference so future Node updates need zero reconfiguration. The rag MCP server was re-registered with PATH-resolved `node`; context-mode's plugin manifest pin was removed, whereupon its self-heal switched it to Bun (`~/.bun/bin/bun`) — the most robust backend. All old Node versions (v20.20.2, v22.22.3, v24.15.0) uninstalled after verifying nothing referenced them. The nvm update procedure is now documented in `Software_Updates.md`.
+
+### Work Completed
+- **Node updated** `nvm install 26 --reinstall-packages-from=22.22.3` + `nvm alias default 26` — global npm packages (context-mode CLI link) carried over
+- **Two nvm gotchas identified**: it's a shell function (absent in non-interactive shells — use `bash -ic 'nvm ...'`) and must never be run with sudo (root has no nvm; none is needed)
+- **rag MCP re-registered** at user scope with `command: "node"` (PATH-resolved) instead of the pinned v22 path — same env vars, verified ✔ Connected
+- **context-mode unpinned**: edited `command` in the plugin cache manifest; its self-heal then set `/home/steve/.bun/bin/bun` — no Node dependency at all now, verified ✔ Connected
+- **Confirmed zero remaining `v22.22.3` references** in `~/.claude.json`, settings, and hooks before Steve uninstalled v20/v22/v24 — single clean Node install (v26.4.0) remains
+- **`Software_Updates.md`**: new "Node.js (nvm)" section (how nvm works, sudo/shell-function warnings, update commands with the real v22→v26 example, verification, pre-uninstall pin check); Node/nvm/Bun added to "Checking Current Versions"
+- **`NewPC/CLAUDE.md`**: rag registration line updated to PATH-resolved `node`
+
+### Files Changed
+- `it/NewPC/Software_Updates.md` — Node.js (nvm) section added; version-check commands extended
+- `it/NewPC/CLAUDE.md` — rag MCP runtime note updated (no longer pinned)
+- `~/.claude.json`, plugin cache manifest (Amelai, not in repo) — runtime re-registrations
+
+### Key Decisions
+- **PATH-resolved runtimes over pinned absolute paths** for MCP servers — Node upgrades become zero-touch; acceptable because sessions are always launched from bashrc-sourced terminals (same precondition PGPASS already imposes)
+- **context-mode left on Bun** (its own self-heal choice) — faster and uses `bun:sqlite`, eliminating the native-module class of crashes entirely
+
+### Next Actions
+- [ ] Re-test `/end-session` on a Windows machine to confirm zero prompts (carried over)
+- [ ] Optionally remove the stale context-mode 1.0.162 cache dir on Amelai after next `/ctx-doctor` pass (carried over)
+
+---
+
 ## Session 2026-07-07 (final) — Windows Machines Fully Set Up for context-mode
 
 ### Summary

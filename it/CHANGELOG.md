@@ -2,6 +2,19 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-07-07 — Node.js v26 on Amelai, Runtime Pins Removed
+
+### Added
+- `it/NewPC/Software_Updates.md` — "Node.js (nvm)" section: update procedure (`nvm install <new> --reinstall-packages-from=<current>`), shell-function and no-sudo warnings, verification steps, pre-uninstall pin check; Node/nvm/Bun added to "Checking Current Versions"
+
+### Changed
+- Node.js on amelai updated v22.22.3 → v26.4.0 (nvm); all older versions (v20.20.2, v22.22.3, v24.15.0) uninstalled
+- rag MCP server re-registered with PATH-resolved `node` (was pinned to the v22 path) — future Node updates need no re-registration
+- context-mode MCP server now runs under Bun (`~/.bun/bin/bun`) after its manifest pin was removed — no Node dependency
+- `it/NewPC/CLAUDE.md` — rag registration note updated accordingly
+
+---
+
 ## [Unreleased] - 2026-07-07 — Permission-Prompt Elimination + context-mode Docs
 
 ### Changed (late update)

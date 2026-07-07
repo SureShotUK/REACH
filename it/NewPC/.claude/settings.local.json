@@ -164,7 +164,8 @@
       "Read(//var/crash/**)",
       "Read(//docs/terminai/.claude/**)",
       "mcp__plugin_context-mode_context-mode__ctx_upgrade",
-      "mcp__plugin_context-mode_context-mode__ctx_doctor"
+      "mcp__plugin_context-mode_context-mode__ctx_doctor",
+      "mcp__rag__rag_list_collections"
     ]
   }
 }

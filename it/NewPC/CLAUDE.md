@@ -815,7 +815,7 @@ Claude Code has direct access to Amelai's pgvector knowledge base via a local MC
 ### Setup
 
 - **MCP server**: `/docs/terminai/rag-mcp/index.mjs` (shared on NAS — accessible from both Amelai and StevesLenovo)
-- **Amelai registration**: user scope in `~/.claude.json`, registered via `claude mcp add rag --scope user` — runtime `/home/steve/.nvm/versions/node/v22.22.3/bin/node`, connects to `localhost`. Available in every project on Amelai regardless of launch directory. (Previously in `~/.claude/.mcp.json`, which Claude Code does not read — that file has been removed.)
+- **Amelai registration**: user scope in `~/.claude.json`, registered via `claude mcp add rag --scope user` — runtime `node` (PATH-resolved, so it follows nvm's default version across Node upgrades; re-registered 2026-07-07), connects to `localhost`. Available in every project on Amelai regardless of launch directory. (Previously in `~/.claude/.mcp.json`, which Claude Code does not read — that file has been removed.)
 - **Windows registration**: user scope in each machine's `.claude.json`, registered via `claude mcp add rag --scope user ...` — runtime `node` (in PATH), connects to `amelai.tail926601.ts.net`. Do **not** use `C:\Users\<user>\.claude\.mcp.json` — Claude Code does not read that file. Per-machine commands are in `/docs/terminai/Claude_Structure.md` ("Two Backends, One Repo").
 - **Database**: `openwebui_vectors` PostgreSQL database (pgvector extension)
 - **Embedding**: nomic-embed-text via Ollama — 768-dim vectors zero-padded to 1536 to match Open WebUI's schema
