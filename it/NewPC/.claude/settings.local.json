@@ -154,7 +154,12 @@
       "mcp__plugin_context-mode_context-mode__ctx_execute",
       "Bash(node *)",
       "Read(//c/Users/SteveIrwin/.claude/plugins/cache/context-mode/context-mode/**)",
-      "Bash(npm update *)"
+      "Bash(npm update *)",
+      "Read(//mnt/models/ollama/blobs/**)",
+      "Bash(nvidia-smi --query-gpu=index,memory.used,memory.total --format=csv,noheader)",
+      "Bash(ollama --version)",
+      "Bash(xargs ls -la)",
+      "Bash(journalctl -u ollama --since \"-2 hours\" --no-pager)"
     ]
   }
 }

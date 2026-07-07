@@ -2,6 +2,25 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-07-07 — Image → RAG Pipeline + qwen2.5vl Fixes
+
+### Added
+- `it/NewPC/RAG_Image_Input.md` — Process for importing pictures into Amelai's RAG knowledge base via qwen2.5vl interpretation: workflow, two reusable prompts (flow charts; charts/tables), reliability table, troubleshooting
+- `ISO/` folder — first two ISO 9001 figure transcriptions produced by the pipeline (single-process schematic; PDCA cycle), reformatted to proper markdown
+
+### Changed
+- Ollama on amelai updated 0.30.7 → 0.31.1 — fixes qwen2.5vl:32b CLIP metadata loading bug (`Key not found: clip.vision.n_wa_pattern`); note 0.31+ defaults to the model's full context when `num_ctx` is not sent
+- Open WebUI qwen2.5vl:32b model params — `num_ctx` explicitly set to 8192 (Admin Panel → Settings → Models) to prevent 128k-context VRAM exhaustion
+- Both image-interpretation prompts now instruct standard markdown output (left-margin lists) — model was producing 4-space-indented lists that render as code blocks
+- `it/NewPC/CLAUDE.md` — Ollama 0.31+ num_ctx default behaviour recorded
+
+### Fixed
+- qwen2.5vl:32b `does not support tools` error — caused by Open WebUI tool injection (Tools/Web Search toggles or Native function calling); vision chats kept tool-free
+- qwen2.5vl:32b `Failed to load CLIP model` — resolved by Ollama 0.31.1 update (blob verified uncorrupted; registry digest unchanged, so re-pull was correctly ruled out)
+- qwen2.5vl:32b `unexpected EOF` (llama-server segfault at image encode) — resolved by explicit `num_ctx` 8192; root cause was unset num_ctx defaulting to 128k → `cudaMalloc failed` → vision encoder crash
+
+---
+
 ## [Unreleased] - 2026-06-17 — GPU Docker Boot Fix
 
 ### Added

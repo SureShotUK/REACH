@@ -4,6 +4,41 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-07-07 — Image → RAG Pipeline Established + qwen2.5vl Troubleshooting Chain
+
+### Summary
+Established and documented the pipeline for importing pictures into Amelai's RAG knowledge base: the KB cannot ingest images directly (nomic-embed-text is text-only), so `qwen2.5vl` interprets each image into structured markdown which is then uploaded as a normal document. Troubleshot three successive errors on the 32b vision model — tool-injection rejection, a CLIP metadata loading bug (fixed by updating Ollama 0.30.7 → 0.31.1), and a VRAM-exhaustion segfault caused by Ollama 0.31+ defaulting to the model's full 128k context when Open WebUI sends no `num_ctx`. Pipeline verified working end-to-end; first two ISO 9001 figure transcriptions produced and reformatted.
+
+### Work Completed
+- **Created `NewPC/RAG_Image_Input.md`** — full image→RAG process doc: model comparison (32b vs 7b), 6-step workflow, photo quality guidance, two reusable prompts (flow charts; charts/graphs/tables), reliability-by-content-type table, troubleshooting table, future automation options
+- **Diagnosed `does not support tools` error** — Open WebUI was injecting a tool-calling request; the qwen2.5vl Ollama template has no tool support. Fix: clean chat with no Tools/Web Search toggled, Function Calling on "Default"; keep vision chats separate from KB-querying chats
+- **Diagnosed `Failed to load CLIP model` error** — Ollama 0.30.7 could not translate the 32b blob's vision-encoder metadata (`Key not found: clip.vision.n_wa_pattern`). Blob checksum verified good; 7b loaded fine, 32b failed deterministically; registry digest identical so re-pull pointless. Fix: Steve updated Ollama to v0.31.1
+- **Diagnosed `unexpected EOF` error** — llama-server segfaulted at image encode. Root cause: Open WebUI's greyed-out `num_ctx` 2048 placeholder means "not sent", and Ollama 0.31+ then defaults to the model's full 128k context → `cudaMalloc failed` at warmup → vision encoder crash. Fix: explicit `num_ctx` 8192 in Admin Panel → Settings → Models → qwen2.5vl:32b → Advanced Params. Verified via live API test with an image
+- **Reformatted two ISO transcriptions** in new `ISO/` folder — original model output used 4-space-indented lists (render as code blocks) and missing/malformed heading markers; both now proper markdown with heading hierarchy, numbered flow steps, and tables
+- **Hardened the prompts** — added an explicit markdown-formatting instruction to both prompts (in `RAG_Image_Input.md` and `Temp.txt`) so future outputs render correctly without cleanup
+- **Updated `NewPC/CLAUDE.md`** — Ollama 0.31+ num_ctx default behaviour recorded as an operational rule
+
+### Files Changed
+- `it/NewPC/RAG_Image_Input.md` — **NEW** — image→RAG pipeline process doc, prompts, and troubleshooting (all three of today's errors documented)
+- `ISO/Schematic_representation_of_the_elements_of_a_single_process.md` — **NEW folder + file** — ISO 9001 Figure 1 transcription, reformatted
+- `ISO/Representation_of_the_structure_of_this_International_Standard_in_the_PDCA_cycle.md` — **NEW** — ISO 9001 Figure 2 (PDCA) transcription, reformatted
+- `it/NewPC/Temp.txt` — replaced completed StevesLenovo setup notes with the two image-interpretation prompts
+- `it/NewPC/CLAUDE.md` — Ollama num_ctx default rule added
+
+### Key Decisions
+- **Vision-interpretation pipeline over direct image import** — nomic-embed-text cannot embed images; no image encoder exists in the KB pipeline, so text interpretation at capture time is the only viable route
+- **`qwen2.5vl:32b` as the standard interpretation model** (7b acceptable for quick checks only) — 32b reads fine print reliably
+- **Manual workflow first** (Open WebUI chat → verify → save .md → upload to Knowledge) — automation (watched folder / n8n) deferred until volume justifies it; manual verification of branch directions/figures is the quality gate
+- **`num_ctx` 8192 as the vision-model standard** — image transcription fits comfortably; 128k KV cache on a 32b model cannot fit in 48GB alongside the vision encoder
+- **Amelai system change**: Ollama updated 0.30.7 → 0.31.1 (fixes qwen2.5vl 32b CLIP loading; changes num_ctx default behaviour)
+
+### Next Actions
+- [ ] Upload the two reformatted ISO transcriptions to an Open WebUI Knowledge collection and test retrieval via `/db`
+- [ ] If the badly-formatted first version of the Figure 1 file was already uploaded, replace it in the collection
+- [ ] Check other Open WebUI models for the same unset-num_ctx risk now that Ollama 0.31+ defaults to model-max context
+
+---
+
 ## Session 2026-06-17 — GPU Docker Containers Boot Fix + Server Maintenance
 
 ### Summary

@@ -269,6 +269,16 @@ Source: `Comfy-Org/Wan_2.2_ComfyUI_Repackaged` on Hugging Face
 ### FLUX LoRA node behaviour
 The Load LoRA node in FLUX workflows has a **single model input/output** (no CLIP passthrough). Insert it between the checkpoint loader and KSampler. Recommended starting strength: 0.8.
 
+### Ollama 0.31+ Context Length Default (CRITICAL)
+
+Since the 0.31.x update (installed 2026-07-07), **Ollama defaults to the model's full trained context when a request does not include `num_ctx`** — for qwen2.5vl:32b that is 128,000 tokens, whose KV cache exhausts VRAM (`cudaMalloc failed` at warmup) and segfaults the vision encoder on image encode ("unexpected EOF" in Open WebUI). Open WebUI's greyed-out `num_ctx` placeholder (2048) means **not sent**, not 2048.
+
+**Rule**: every Open WebUI model entry must have `num_ctx` explicitly set (Admin Panel → Settings → Models → edit model → Advanced Params). qwen2.5vl:32b is set to 8192. When adding a new model, set `num_ctx` deliberately as part of setup.
+
+### Image → RAG Knowledge Base Pipeline
+
+Pictures cannot be imported into the RAG knowledge base directly (nomic-embed-text is text-only). The pipeline is: photo → `qwen2.5vl:32b` in Open WebUI with a structured prompt → verify output against the image → save as .md → upload to a Knowledge collection. Full process, reusable prompts, and troubleshooting (including all three known qwen2.5vl errors): `RAG_Image_Input.md`. Vision chats must be tool-free — qwen2.5vl's template does not support tool calling.
+
 ### VRAM Usage and Ollama Contention (CRITICAL)
 
 **ComfyUI holds models in VRAM indefinitely** — it does not unload on idle or when the browser tab is closed. Any model loaded during a session remains in VRAM until the container is restarted or the `/free` API is called.

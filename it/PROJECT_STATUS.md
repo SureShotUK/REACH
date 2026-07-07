@@ -1,11 +1,19 @@
 # IT Project Status
 
-**Last Updated**: 2026-06-17 (GPU boot fix)
+**Last Updated**: 2026-07-07 (Image → RAG pipeline)
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
 
 ## Active Work Areas
+
+### Image → RAG Knowledge Base Pipeline (NEW 2026-07-07)
+- **Status**: Working end-to-end and documented; first two documents produced
+- **Files**: `NewPC/RAG_Image_Input.md` (process, prompts, troubleshooting), `../ISO/` (first outputs: ISO 9001 single-process schematic + PDCA cycle transcriptions)
+- **Pipeline**: photo → `qwen2.5vl:32b` in Open WebUI (structured prompt) → verify against image → save as .md → upload to Knowledge collection → queryable via chat or `/db`
+- **Key config**: qwen2.5vl:32b `num_ctx` explicitly 8192 in Open WebUI model params — Ollama 0.31+ defaults to full 128k context when unset, which exhausts VRAM and segfaults the vision encoder
+- **System change**: Ollama updated 0.30.7 → 0.31.1 on amelai (fixes 32b CLIP metadata loading)
+- **Pending**: upload the two ISO transcriptions to a Knowledge collection and test `/db` retrieval; automate via watched folder or n8n if volume grows
 
 ### AI Tool Comparisons (NEW 2026-06-16)
 - **Status**: Three documents created; one outstanding item (File Browser workflows volume path in live container)

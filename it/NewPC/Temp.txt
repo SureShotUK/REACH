@@ -1,108 +1,32 @@
-StevesLenovo — Claude Code MCP and /db Skill Setup
-====================================================
+PROMPT 1 — FLOW CHARTS / PROCESS DIAGRAMS
+(paste into Open WebUI chat with the image attached)
+--------------------------------------------------------------------
 
-TWO things to do on StevesLenovo:
-  A) Create the MCP config file
-  B) Create the /db skill file
+This image is a flow chart describing a process. Convert it into a complete text representation so that someone who cannot see the image can follow the process exactly.
 
+1. Start with a one-paragraph summary of what process the chart describes.
+2. Transcribe every box, label and annotation VERBATIM - do not paraphrase the wording inside boxes.
+3. Describe the flow as numbered steps in order, following the arrows. For every decision point, state the question and list each branch explicitly, e.g. "If YES -> step 6. If NO -> step 9."
+4. If there are swimlanes, parallel paths, loops back to earlier steps, or notes in the margins, describe them explicitly.
+5. Finish with a "Key facts" bullet list of the most important rules or thresholds shown in the chart.
 
-========================================
-A) MCP CONFIG — C:\Users\SteveIrwin\.claude.json
-========================================
+Do not invent or assume any step that is not visible in the image. If any text is unreadable, write [unreadable] rather than guessing.
 
-Claude Code on Windows stores MCP config in C:\Users\SteveIrwin\.claude.json
-(a single file in the home directory, NOT the .claude\ folder).
-
-Open .claude.json and add the "rag" block inside the existing "mcpServers" object
-alongside any servers already there (e.g. searxng).
-
-Add this inside your existing "mcpServers": { ... } object:
-
-    "rag": {
-      "command": "node",
-      "args": ["\\\\irwinnas\\MyDocs\\terminai\\rag-mcp\\index.mjs"],
-      "env": {
-        "PG_HOST": "amelai.tail926601.ts.net",
-        "PG_PORT": "5432",
-        "PG_DATABASE": "openwebui_vectors",
-        "PG_USER": "openwebui",
-        "OLLAMA_BASE_URL": "http://amelai.tail926601.ts.net:11434",
-        "EMBED_MODEL": "nomic-embed-text",
-        "RAG_TOP_K": "5"
-      }
-    }
-
-IMPORTANT: PGPASS must be set in the environment before launching Claude Code.
-Set it in your PowerShell $PROFILE or as a Windows User environment variable:
-  1. Open Start, search "Edit the system environment variables"
-  2. Click "Environment Variables..."
-  3. Under "User variables for SteveIrwin", click "New"
-  4. Variable name:  PGPASS
-  5. Variable value: [your PostgreSQL password - same value as on Amelai]
-  6. Click OK, then OK again
-  7. Restart Claude Code after setting it
+Format the response as standard markdown: "#"-style headings, "-" for bullets, "1." for numbered steps, with lists starting at the left margin - never indent a list by four spaces (that renders as a code block).
 
 
-========================================
-B) /db SKILL — C:\Users\SteveIrwin\.claude\commands\db.md
-========================================
+PROMPT 2 — CHARTS, GRAPHS AND TABLES
+(for the ongoing use case)
+--------------------------------------------------------------------
 
-1. Create the directory if it doesn't exist:
-   Open PowerShell and run:
-   New-Item -ItemType Directory -Force -Path "C:\Users\SteveIrwin\.claude\commands"
+This image contains a chart, graph or table. Extract ALL of the data into text form.
 
-2. Create the file C:\Users\SteveIrwin\.claude\commands\db.md with this exact content:
+1. State what the chart/table shows: title, axis labels, units, legend entries, time period covered.
+2. Reproduce tables as complete markdown tables with every row and column, values transcribed exactly.
+3. For graphs, list the plotted values as a markdown table. If exact figures are not printed, give best-read values and say they are estimated from the plot.
+4. Note any highlighted values, annotations, footnotes or data source lines.
+5. Finish with a "Key facts" bullet list: maximum, minimum, notable trends or outliers.
 
---- START OF db.md ---
-# /db — Query Amelai's Knowledge Base
+Transcribe numbers exactly as shown. If a value is unreadable, write [unreadable] rather than guessing.
 
-Search the local RAG knowledge base for information stored in Amelai's PostgreSQL vector database.
-
-## Usage
-
-```
-/db <query>
-/db #<collection-name> <query>
-```
-
-**Examples:**
-- `/db what are the requirements for DSEAR risk assessments?`
-- `/db HSE what are the working at height regulations?`
-- `/db list` — list all available knowledge base collections
-
-## How it works
-
-The `rag` MCP server is automatically active in every session. It exposes two tools:
-
-- **`rag_search(query, collection_name?)`** — embed the query via Ollama (nomic-embed-text), run a cosine similarity search against pgvector, return the top 5 matching document chunks with scores and source attribution
-- **`rag_list_collections()`** — list all knowledge base collections and their chunk counts
-
-## Using this skill
-
-When invoked as `/db <query>`, do the following:
-
-1. If the first word starts with `#`, extract it as the collection filter (e.g. `#HSE` → search only the HSE collection)
-2. Call `mcp__rag__rag_search` with the remaining text as `query` and the collection UUID (if known) as `collection_name`
-3. Format the results clearly, citing the source file and relevance score for each result
-4. If no results are found, say so and suggest the user check that documents have been uploaded via Open WebUI (Workspace → Knowledge)
-
-To list available collections, call `mcp__rag__rag_list_collections` and display the results in a table showing collection name and chunk count.
-
-The collection names from pgvector are UUIDs that map to knowledge bases in Open WebUI. The tool resolves them to human-readable names automatically via the Open WebUI SQLite database.
---- END OF db.md ---
-
-
-========================================
-NOTES
-========================================
-* PGPASS is read from the Windows User environment variable you set above.
-* Knowledge base names will show as UUIDs on Windows (e.g. 1c973c09-...) because
-  the docker exec name lookup only runs locally on Amelai. Search results are
-  still fully correct - only the display label differs.
-* If Claude Code cannot find node_modules (unlikely - all packages are pure JS):
-  open a Command Prompt, cd to I:\terminai\rag-mcp and run: npm install
-* Tailscale must be connected for the tool to reach Amelai.
-* If Tailscale ACL restricts port traffic, add allow rules for ports 5432
-  (PostgreSQL) and 11434 (Ollama) at https://login.tailscale.com/admin/acls
-
-For SteveOP setup, see: I:\terminai\it\NewPC\SteveOP_MCP_Setup.md
+Format the response as standard markdown: "#"-style headings, "-" for bullets, proper markdown table syntax, with lists starting at the left margin - never indent a list by four spaces (that renders as a code block).
