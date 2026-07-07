@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-07-07
+
+### Added
+- `it/NewPC/SearXNG_Fix.md` — "Update 7 July 2026" section: the 400 Bad Request failure mode (tailscale serve HTTPS takeover of tailnet :8080) and how to distinguish it from the ACL failure
+- `Claude_Structure.md` — Windows rag runbook (local copy at `C:\Tools\rag-mcp`), `.claude.json` scope anatomy, valid-test conditions for the permission test, `claude --settings` redirect fallback, context-mode Windows upgrade procedure
+
+### Changed
+- `.claude/settings.json` — Edit/Write rules corrected to project-relative `/**/...` form (single leading `/` is project-relative per docs; the old `/docs/terminai/**` forms never matched)
+- `/opt/mcp-searxng/server.py` (Amelai, outside repo) — SEARXNG_URL now `http://127.0.0.1:18080/search`
+- context-mode upgraded v1.0.162 → v1.0.169 on Amelai; v1.0.75 → v1.0.169 on StevesLenovo
+- StevesLenovo MCP config — rag re-registered at user scope against `C:\Tools\rag-mcp`; searxng moved from project-local to user scope
+
+### Fixed
+- SearXNG search 400 error on every machine (mcp-searxng was sending plain HTTP to what is now an HTTPS listener)
+- rag MCP unable to connect from Windows (SMB/Tailscale node_modules loading exceeded the 30 s handshake — resolved with local copy)
+- Six permission allow-rules that had never matched due to path-syntax misunderstanding
+
+### Verified (6 July restructure)
+- Repo-root `.claude/settings.json` reaches subfolder launches, including on Windows (promptless `git log` from hseea)
+- All 7 project agents registered (hseea, XmlDotnetCoding, cross-machine on StevesLenovo)
+- Web search on both backends: Pro login via WebSearch; local login via searxng, both unsteered
+
+---
+
 ## [Unreleased] - 2026-07-06
 
 ### Added

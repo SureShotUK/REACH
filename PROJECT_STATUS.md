@@ -1,6 +1,6 @@
 # Project Status
 
-**Last Updated**: 2026-07-06
+**Last Updated**: 2026-07-07
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
@@ -9,14 +9,15 @@ The terminai repository contains seven specialized project folders plus standalo
 
 ## Active Work Areas
 
-- **Claude Code Infrastructure** — ✅ RESTRUCTURED (2026-07-06)
-  - `Claude_Structure.md` — canonical setup documentation (hierarchy, inheritance, MCP scopes, two-backends guide, permission test)
-  - MCP: `rag` + `searxng` at user scope in `~/.claude.json` on Amelai; Windows machines already correct; `~/.claude/.mcp.json` is NOT read — never use it
+- **Claude Code Infrastructure** — ✅ RESTRUCTURED (2026-07-06) & VERIFIED (2026-07-07)
+  - `Claude_Structure.md` — canonical setup documentation AND operational runbook (hierarchy, inheritance, MCP scopes, two-backends guide, Windows procedures, Next Steps checklist with results)
+  - MCP: `rag` + `searxng` at user scope on Amelai and StevesLenovo; **Windows machines run rag from a local copy** (`C:\Tools\rag-mcp`) because NAS/SMB startup blows the 30 s handshake; `~/.claude/.mcp.json` is NOT read — never use it
+  - Verified 7 July: repo-root settings reach subfolder launches incl. Windows (promptless `git log`); all 7 agents registered incl. cross-machine; web search works unsteered on both logins; SearXNG server-side 400 fixed (`/opt/mcp-searxng/server.py` → localhost:18080); context-mode v1.0.169 on Amelai + StevesLenovo
   - Master CLAUDE.md carries: rule inheritance, authoritative-sources principle, MCP/skills all-projects policy, WebSearch→searxng backend fallback rule
   - Agents: `deep-researcher` (shared, repo root) + 5 domain researchers; 6 project agents rewritten with business context and failure modes
   - QA gates: `hseea/Risk_Assessment_QA_Checklist.md`, `Briefings/Briefing_Preflight_Checklist.md`, `it/Code_PreDeploy_Checklist.md`
-  - Permissions: consolidated in checked-in `.claude/settings.json` (36 entries); child settings.local.json files pruned
-  - **Verify next session**: `/agents` registration, hseea `git log` permission test, web search on both logins
+  - Permissions: consolidated in checked-in `.claude/settings.json` (36 entries, path-rule syntax fixed 7 July); child settings.local.json files pruned
+  - **Remaining**: SteveOP (context-mode upgrade + rag local copy + searxng scope — runbook in Claude_Structure.md); StevesLenovo in-session rag search confirmation; scaffolding live test vs the RA QA checklist
 
 - **REACH Project** — ✅ CLOSED UNTIL ~2030 (2026-07-06)
   - Registration COMPLETE; DUIN lodged; government delays pushed the next action to approximately 2030

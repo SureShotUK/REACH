@@ -38,7 +38,9 @@
       "Bash(\"/home/steve/.bun/bin/bun\" \"/home/steve/.claude/plugins/cache/context-mode/context-mode/1.0.162/cli.bundle.mjs\" upgrade --platform claude-code)",
       "Bash(claude plugin *)",
       "Bash(npm view *)",
-      "Bash(echo \"=== exit $?\")"
+      "Bash(echo \"=== exit $?\")",
+      "Bash(sudo -n grep -vE \"^#|^$\" /etc/postgresql/*/main/pg_hba.conf)",
+      "Read(//etc/postgresql/**)"
     ],
     "deny": [],
     "ask": []

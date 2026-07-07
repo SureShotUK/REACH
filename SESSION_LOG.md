@@ -4,6 +4,46 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-07-07
+
+### Summary
+Verification day for the 6 July restructure: worked through the Next Steps checklist with Steve testing from the Windows machines (StevesLenovo, SteveOP) while Claude diagnosed from Amelai. Every infrastructure test now passes; three real faults were found and fixed along the way (a permission path-syntax bug, a server-side SearXNG breakage affecting all machines, and rag being unable to start over SMB on Windows).
+
+### Work Completed
+- **Permission path-rule bug fixed**: the six `Edit`/`Write` rules in `.claude/settings.json` used `/docs/terminai/**/...` — per the docs a single leading `/` is *project-relative* (absolute is `//`), so they never matched anything. Now `Edit(/**/SESSION_LOG.md)` etc., which also works unchanged on Windows.
+- **Permission inheritance test PASSED** (Windows): first run was invalid — the session was launched outside the repo, so no repo config loaded at all (Claude reached across with `git -C '\\irwinnas\...'`, which also breaks the `Bash(git log:*)` prefix match). Documented the two valid-test conditions; rerun from inside the repo passed promptless, settling the open question: **repo-root `settings.json` reaches subfolder launches, including on Windows**.
+- **Agent registration verified**: the `/agents` wizard has been removed from Claude Code — check is now done by asking the session (`claude -p "...list agent types..."`). hseea and XmlDotnetCoding both returned all expected agents; cross-machine confirmation on StevesLenovo proved NAS-hosted agent definitions load identically on Windows.
+- **SearXNG search fixed for every machine**: all searches were failing with 400 — during the Tailscale-serve reorganisation, `tailscale serve` took over tailnet port 8080 as HTTPS while mcp-searxng still called plain HTTP. Fixed `/opt/mcp-searxng/server.py` to `http://127.0.0.1:18080/search` (Steve restarted the service); verified end-to-end with a fresh MCP client and confirmed working from SteveOP.
+- **Both web-search paths verified**: Pro login answered the Brent crude test via built-in WebSearch ($72.89/bbl, sourced); StevesLenovo answered the same question via searxng with 4 sources, unsteered.
+- **context-mode upgraded to v1.0.169** on Amelai (via `/ctx-upgrade`) and StevesLenovo. Windows needed the manual path: `npm install -g context-mode@latest` + `claude plugin update context-mode@context-mode` — the full `plugin@marketplace` id is required (bare name fails "Plugin not found" everywhere), the old plugin's self-upgrade is broken on Windows (`spawnSync npm ENOENT`), and a full restart is needed before `/ctx-doctor` reports the new version.
+- **rag fixed on StevesLenovo**: found as a stale local-scope entry, then still timed out at user scope with a perfect config — root cause was node resolving hundreds of `node_modules` files over SMB/Tailscale, blowing the 30 s MCP handshake. Fixed by copying `rag-mcp/` to `C:\Tools\rag-mcp` and registering against the copy: connected instantly. searxng also moved from project-local to user scope on that machine.
+- **`Claude_Structure.md` grown into the operational runbook**: valid-test conditions, `--settings` redirect fallback, `.claude.json` scope anatomy (top-level `mcpServers` = user scope; `projects.<path>.mcpServers` = local scope), the Windows rag procedure, and Steve's exact PowerShell commands; Next Steps items ticked off as they passed.
+
+### Files Changed
+- `.claude/settings.json` — Edit/Write path-rule fix (`/**/...` project-relative form)
+- `Claude_Structure.md` — test conditions, fallbacks, runbooks, scope anatomy, Next Steps progress (plus Steve's own PowerShell additions)
+- `it/NewPC/SearXNG_Fix.md` — new "Update 7 July 2026" section: the 400/HTTPS-takeover failure mode and how it differs from the ACL failure
+- `/opt/mcp-searxng/server.py` (outside repo, on Amelai) — SEARXNG_URL → `http://127.0.0.1:18080/search`; change documented in SearXNG_Fix.md since git does not capture it
+- `*/.claude/settings.local.json` — session-approved permission entries
+
+### Git Commits
+- `6158f08` — Verification round 1: permission path-rule fix, /agents wizard removal, SearXNG 400 root cause
+- `38880c1` — context-mode upgrade procedure: Amelai done, Windows commands corrected
+- *(plus this end-of-session commit)*
+
+### Key Decisions
+- **Windows machines run rag from a local copy** (`C:\Tools\rag-mcp`), not the NAS — SMB latency makes NAS execution structurally unreliable for stdio MCP startup; re-copy on the rare occasion `rag-mcp/` changes
+- Single leading `/` in Edit/Write permission rules is project-relative — the repo standard is now `/**/file.md` forms, which are portable across OSes
+- Plugin updates on Windows: always the full `plugin@marketplace` id, always a full restart before judging the result
+
+### Next Actions
+- [ ] **SteveOP (this afternoon)**: context-mode upgrade (`npm install -g context-mode@latest`; `claude plugin update context-mode@context-mode`; restart), rag local copy (`robocopy` + user-scope re-add), searxng scope check — exact commands in `Claude_Structure.md`
+- [ ] **StevesLenovo**: confirm an in-session rag search returns chunks (exercises Postgres 5432 + Ollama 11434 over Tailscale; ACL is the suspect if it times out)
+- [ ] **Scaffolding live test**: run an existing risk assessment through `hseea/Risk_Assessment_QA_Checklist.md` with the post-Fable model and judge the quality bar
+- [ ] Delete stray empty `gitlogtest.txt` at repo root (test artifact)
+
+---
+
 ## Session 2026-07-06
 
 ### Summary
