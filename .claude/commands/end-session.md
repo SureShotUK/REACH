@@ -10,6 +10,8 @@ Follow these steps systematically:
 
 ### 1. Gather Session Information
 
+**Never prefix git commands with `cd`** — git works from any subdirectory of the repository, and a `cd ... && git ...` compound command both bypasses the `Bash(git ...)` allow rules and triggers an extra "changes directory before running git" security prompt. Run git from the session's current directory and use absolute paths for file arguments (e.g. `git add /docs/terminai/it/SESSION_LOG.md`).
+
 Run these commands in parallel to collect session data:
 - `git log --oneline -20 --no-merges` - Recent commits
 - `git log -1 --stat` - Last commit details with file changes
@@ -135,13 +137,13 @@ Suggest specific additions if relevant.
 ### 8. Commit and Push
 
 After updating all files:
-- Run `git add SESSION_LOG.md PROJECT_STATUS.md CHANGELOG.md` (and any other updated files)
+- Run `git add` with **absolute paths** for the updated files (e.g. `git add /docs/terminai/it/SESSION_LOG.md`) — do not `cd` to the repo root first (see the warning in step 1)
 - Create a commit: `End of session documentation update - [brief session summary]`
 - Include the standard Claude Code co-authorship footer
 - Push to remote: `git push origin main`
 
 **IMPORTANT — Push is mandatory and pre-authorised for this command.**
-The user has explicitly configured /end-session to always commit AND push to main without separate confirmation. Bash(git:*) is already in settings.local.json. Always run git push origin main as the final step — do not stop to confirm.
+The user has explicitly configured /end-session to always commit AND push to main without separate confirmation. The git subcommands used here (status/log/diff/add/commit/push/pull) are allowed at user scope in `~/.claude/settings.json`, so they run without prompting from any launch folder — provided the command starts with `git`, not `cd`. Always run git push origin main as the final step — do not stop to confirm.
 
 ## Important Guidelines
 
