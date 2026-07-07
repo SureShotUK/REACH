@@ -188,6 +188,16 @@ Verification tests outstanding from the 6 July 2026 restructure (commit `1cdf3a4
   *Pass*: `rag` and `searxng` both show ✔ Connected.
   *Fail*: re-register at user scope with the commands in "Two Backends, One Repo" above.
 
-- [ ] **context-mode upgrade** — run `/ctx-upgrade` on Amelai (v1.0.162 installed; v1.0.169 available as at 6 July 2026).
+- [x] **context-mode upgrade (Amelai)** — ✅ done 7 July 2026 via `/ctx-upgrade`: npm and plugin both v1.0.169, all doctor checks pass (restart the session to load it).
+- [ ] **context-mode upgrade (Windows — SteveOP, StevesLenovo)** — the old plugin's `/ctx-upgrade` self-upgrade is broken on Windows (`spawnSync npm ENOENT`: it spawns `npm` instead of `npm.cmd`), and `npm update -g` reports "up to date" without doing anything — known npm gotcha, and the npm global isn't the version `/ctx-doctor` reports anyway. Manual procedure in PowerShell:
+  ```powershell
+  npm install -g context-mode@latest              # updates the npm/MCP component (registry latest is 1.0.169)
+  claude plugin update context-mode@context-mode  # updates the Claude Code plugin cache — this is the "active" version
+  ```
+  The full `plugin@marketplace` id is required — bare `claude plugin update context-mode` fails with "Plugin not found" on every machine (verified on Amelai 7 July 2026).
+  then restart Claude Code.
+  *Pass*: `/ctx-doctor` shows both "npm (MCP)" and "Claude Code" at v1.0.169.
+  *If the plugin was never registered* (unlikely — both Windows machines already had marketplace + plugin at user scope): register it first with `claude plugin marketplace add mksglu/context-mode` then `claude plugin install context-mode@context-mode`.
+  **A plugin update only takes effect after fully closing every Claude Code window** — `/ctx-doctor` in an already-open session is answered by the old in-memory version and will keep reporting v1.0.75.
 
 - [ ] **Scaffolding live test** — ask the (post-Fable) model to run an existing risk assessment through `hseea/Risk_Assessment_QA_Checklist.md` and judge whether the output holds the quality bar; refine the checklist if not.

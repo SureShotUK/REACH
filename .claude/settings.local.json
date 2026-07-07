@@ -33,7 +33,12 @@
       "Bash(sudo -n grep -n -A4 \"formats\" /opt/searxng/settings.yml)",
       "Bash(sudo -n systemctl restart mcp-searxng)",
       "Bash(systemctl restart *)",
-      "Bash(systemctl is-active *)"
+      "Bash(systemctl is-active *)",
+      "mcp__plugin_context-mode_context-mode__ctx_upgrade",
+      "Bash(\"/home/steve/.bun/bin/bun\" \"/home/steve/.claude/plugins/cache/context-mode/context-mode/1.0.162/cli.bundle.mjs\" upgrade --platform claude-code)",
+      "Bash(claude plugin *)",
+      "Bash(npm view *)",
+      "Bash(echo \"=== exit $?\")"
     ],
     "deny": [],
     "ask": []
