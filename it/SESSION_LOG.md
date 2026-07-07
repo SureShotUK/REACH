@@ -39,6 +39,22 @@ Established and documented the pipeline for importing pictures into Amelai's RAG
 
 ---
 
+## Session 2026-07-07 — RAG Knowledge Base Exploration & PDCA Query
+
+### Summary
+Explored Amelai's /db RAG knowledge base: discovered the ISO9001 collection was missing from the initial named-knowledge-bases output, identified all four collections (NEBOSH-NGC, ISO9001, HSE-Fire, HSE-DSEAR), and extracted the PDCA cycle content from both the NEBOSH-NGC health & safety perspective and the ISO 9001 quality management perspective.
+
+### Work Completed
+- Listed all /db collections — discovered 4 named knowledge bases: **NEBOSH-NGC**, **ISO9001** (newly identified), **HSE-Fire**, **HSE-DSEAR**
+- Queried NEBOSH-NGC for PDCA content — found a high-level diagrammatic chunk with Plan/Do/Check/Act activities mapped to safety management tasks
+- Queried ISO9001 collection (via UUID `e8c951c9-f187-4ce6-9673-683e7e1b7c86`) — extracted the full clause-mapped PDCA cycle from ISO 9001 section 0.3.2 with risk-based thinking context
+- Verified ISO transcriptions uploaded to Knowledge collections are queryable via `/db` (the pending action from the previous session is resolved)
+
+### Next Actions
+- [ ] Consider creating a dedicated "Quality Management" knowledge base for broader standards beyond ISO 9001
+
+---
+
 ## Session 2026-06-17 — GPU Docker Containers Boot Fix + Server Maintenance
 
 ### Summary

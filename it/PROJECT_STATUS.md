@@ -13,7 +13,8 @@
 - **Pipeline**: photo → `qwen2.5vl:32b` in Open WebUI (structured prompt) → verify against image → save as .md → upload to Knowledge collection → queryable via chat or `/db`
 - **Key config**: qwen2.5vl:32b `num_ctx` explicitly 8192 in Open WebUI model params — Ollama 0.31+ defaults to full 128k context when unset, which exhausts VRAM and segfaults the vision encoder
 - **System change**: Ollama updated 0.30.7 → 0.31.1 on amelai (fixes 32b CLIP metadata loading)
-- **Pending**: upload the two ISO transcriptions to a Knowledge collection and test `/db` retrieval; automate via watched folder or n8n if volume grows
+- **Resolved**: ISO transcriptions uploaded to Open WebUI Knowledge collections and verified queryable via `/db` — ISO9001 collection (UUID `e8c951c9-f187-4ce6-9673-683e7e1b7c86`) returns PDCA cycle content correctly
+- **Automate**: watch for n8n automation if transcription volume grows; manual verification is the quality gate for now
 
 ### AI Tool Comparisons (NEW 2026-06-16)
 - **Status**: Three documents created; one outstanding item (File Browser workflows volume path in live container)
