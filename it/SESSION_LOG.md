@@ -4,6 +4,20 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-07-07 (final) — Windows Machines Fully Set Up for context-mode
+
+### Summary
+Steve completed the Windows-side actions: context-mode v1.0.169, Node v26.4.0, and Bun 1.3.14 confirmed on both SteveOP and StevesLenovo. `CTX_Context.md` updated to reflect all three machines fully set up — Installation Status table, Bun recommendation, and Windows install section (steps retained as rebuild reference).
+
+### Files Changed
+- `it/NewPC/CTX_Context.md` — Installation Status table now shows all three machines complete; consistency edits to the Bun sections
+
+### Next Actions
+- [ ] Re-test `/end-session` on a Windows machine to confirm zero prompts (user-scope settings from `Temp.txt` applied)
+- [ ] Optionally remove the stale context-mode 1.0.162 cache dir on Amelai after next `/ctx-doctor` pass
+
+---
+
 ## Session 2026-07-07 (later) — Permission-Prompt Elimination + context-mode Documented (CTX_Context.md)
 
 ### Summary

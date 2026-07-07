@@ -4,6 +4,9 @@ All notable changes to the IT infrastructure and security documentation project.
 
 ## [Unreleased] - 2026-07-07 — Permission-Prompt Elimination + context-mode Docs
 
+### Changed (late update)
+- `it/NewPC/CTX_Context.md` — Installation Status: SteveOP and StevesLenovo confirmed at context-mode v1.0.169 / Node v26.4.0 / Bun 1.3.14; all three machines fully set up, no actions outstanding
+
 ### Added
 - `it/NewPC/CTX_Context.md` — canonical context-mode plugin documentation: how it works (sandbox, FTS5 knowledge base, session continuity), dependencies, Bun acceleration and install steps (Amelai + Windows), setup/update/maintenance commands, troubleshooting
 - User-scope git allows and corrected `//`-form path rules in `~/.claude/settings.json` (Amelai) — `/end-session` now runs prompt-free from any launch folder

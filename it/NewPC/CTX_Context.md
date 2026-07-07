@@ -75,8 +75,8 @@ Claude uses these automatically (a session-start hook injects routing rules). Yo
 | Machine | context-mode | Node.js | Bun | Action needed |
 |---|---|---|---|---|
 | Amelai | v1.0.169 | v22.22.3 | 1.3.14 ✓ | None — fully set up |
-| SteveOP | updated 2026-07-07 | (check `node -v` ≥ 22.5) | **not installed** | Install Bun (steps below) |
-| StevesLenovo | (verify with `/ctx-doctor`) | (check `node -v` ≥ 22.5) | (check `bun --version`) | Verify, install Bun if absent |
+| SteveOP | v1.0.169 | v26.4.0 | 1.3.14 ✓ | None — fully set up |
+| StevesLenovo | v1.0.169 | v26.4.0 | 1.3.14 ✓ | None — fully set up |
 
 ---
 
@@ -84,12 +84,12 @@ Claude uses these automatically (a session-start hook injects routing rules). Yo
 
 **Bun** is a JavaScript runtime — an alternative to Node.js — written in the Zig language around Apple's JavaScriptCore engine instead of Node's V8. Its headline traits are much faster startup and execution for scripts, and a built-in SQLite driver (`bun:sqlite`). It installs entirely in your user profile, does not replace Node.js, and the two coexist without conflict. Home page: <a href="https://bun.sh" target="_blank">bun.sh</a>.
 
-**Recommendation: yes, install it on the Windows machines.** context-mode auto-detects Bun and uses it for two things:
+**Recommendation: yes — and as of 7 July 2026 it is installed on all three machines.** context-mode auto-detects Bun and uses it for two things:
 
 1. **Sandbox speed** — JS/TS code run via `ctx_execute` executes 3–5x faster (this is the message SteveOP displayed after the update)
 2. **SQLite backend** — with Bun present, the knowledge base uses `bun:sqlite`, the most robust backend option (no native-module compilation, and it sidesteps the `better-sqlite3` class of problems that caused the 2026-06 crashes)
 
-The cost is a ~100MB user-level install with no admin rights required. There is no configuration — context-mode simply detects it on the next session. Amelai already has it (1.3.14).
+The cost is a ~100MB user-level install with no admin rights required. There is no configuration — context-mode simply detects it on the next session. All three machines run Bun 1.3.14.
 
 ---
 
@@ -105,7 +105,9 @@ curl -fsSL https://bun.sh/install | bash
 
 Installs to `~/.bun/bin/bun` and adds itself to PATH via `~/.bashrc`. Verify with `bun --version`.
 
-### Windows (SteveOP / StevesLenovo)
+### Windows (SteveOP / StevesLenovo) — installed 7 July 2026
+
+Both machines are done. Steps recorded for future machines or rebuilds:
 
 1. Open a **PowerShell** window (no admin needed) and run:
 
