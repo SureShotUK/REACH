@@ -19,6 +19,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Documentation
 - Two-GitHub-accounts workflow documented in scaffold: origin account reported per repo in `/assess` Phase 0; `credential.github.com.useHttpPath true` as the wrong-account fix
 - PGPASS flagged: plaintext in OneDrive-synced profile; remediation options recorded in SESSION_LOG
+- claude.ai web "Instructions for Claude" populated (outside repo) from established Claude Code preferences — portable preferences only; repo-specific rules remain in CLAUDE.md; keep the two in sync when new durable feedback arrives
+
+### Removed
+- `gitlogtest.txt` (untracked leftover test file at repo root) — deleted by Steve
 
 ## [Unreleased] - 2026-07-07
 

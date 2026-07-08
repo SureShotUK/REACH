@@ -34,12 +34,16 @@ Planned and scaffolded the use of Claude Code on Steve's Windows C# repos folder
 - **No git repo at the repos root** — `terminai/csharp/` is the master copy; repos-root files are deployed copies (avoids a `git add .` swallowing gitlinks to ~100 embedded repos)
 - Claude Code works per-task via on-demand search, so app size is not the constraint — discoverability is; per-repo CLAUDE.md is the enabler
 
+### Addendum (same day, after first end-session commit `b60055e`)
+- **claude.ai web "Instructions for Claude" populated**: drafted a comprehensive instruction block from Steve's established preferences (background, response style — direct/objective, reasoning shown openly, clarifying questions first, sourced statistics with verified links, UK context, warnings before destructive commands, exact literal values, tables for stats, 80-line one-pagers, first-person internal docs). Steve pasted it into the web version, removing only the REACH line (Claude Code-only concern, documented here). Repo-specific mechanics (HTML link format, logo policy, session commands) deliberately excluded — they stay in CLAUDE.md.
+- **Memory files updated** (outside repo, `~/.claude/projects/-docs-terminai/memory/`): C# scaffolding plan + deployment state, Windows backend toggle, and a new note that the web profile now mirrors these preferences — future portable feedback should be saved to memory AND mirrored to the web instructions.
+- `gitlogtest.txt` removed by Steve — working tree clean.
+
 ### Next Actions
 - [ ] Run first `/assess` on the auth NuGet trio (launch `claude` at repos root, Pro login, all three folders in one call)
 - [ ] Let that session fill the two TODOs in the repos-root CLAUDE.md (package names, conventions)
 - [ ] Steve: relocate PGPASS out of the OneDrive-synced profile (per-machine env var recommended)
 - [ ] Optional: run the repo→account inventory one-liner at the repos root
-- [ ] Untracked `gitlogtest.txt` at repo root (pre-existing, not from this session) — delete or commit as appropriate
 
 ---
 
