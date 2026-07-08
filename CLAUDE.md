@@ -20,6 +20,7 @@ Claude Code automatically loads this master file **before** any project CLAUDE.m
 | `Canada/` | Canadian financial regulation research |
 | `REACH/` | REACH chemical regulation documentation |
 | `insurance/` | Insurance documentation |
+| `csharp/` | Claude Code scaffolding for the Windows C# repos folder — `/assess` workflow, repos-root CLAUDE.md draft |
 
 
 ## Core Principles (All Projects)

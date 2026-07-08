@@ -1,6 +1,6 @@
 # Project Status
 
-**Last Updated**: 2026-07-07
+**Last Updated**: 2026-07-08
 
 **GitHub Repository**: https://github.com/SureShotUK/REACH.git
 
@@ -8,6 +8,14 @@
 The terminai repository contains seven specialized project folders plus standalone Iran War analysis documents. As of 2026-07-06 the Claude Code infrastructure is fully restructured: master rules inherit automatically into every project, MCP servers (rag, searxng) are registered at user scope and work on both the Pro and local-Ollama backends, all agents are registered and domain-grounded (see `Claude_Structure.md` for the canonical setup description), and three QA checklists act as quality gates (risk assessments, briefings, code deployment). The Iran War Timeline now covers the full conflict from June 2025 through 22 April 2026 (2,300+ lines, 130+ sourced events). A new companion document `Physical_Market.md` analyses the physical oil products market under Hormuz closure. As of 22 April 2026: a ceasefire is in force (extended indefinitely); US naval blockade on Iranian commerce remains active; Iran's government is described as "fractured" under new Supreme Leader Mojtaba Khamenei; nuclear negotiations stalled (US: 20-year enrichment ban; Iran: offered 3–5 years).
 
 ## Active Work Areas
+
+- **C# Repos Scaffolding (`csharp/`)** — 🆕 CREATED & DEPLOYED (2026-07-08)
+  - Purpose: scaffold the Windows C# repos folder (~100 console apps/services + NuGet packages) with Fable 5 before best-model access ends, so weaker fallback models stay effective
+  - Masters in `csharp/`: `repos-CLAUDE.md` (→ deployed as repos-root `CLAUDE.md`), `commands/assess.md` (→ deployed to `.claude\commands\`), README with install/usage
+  - `/assess` = 6-phase deep assessment: git sync (reports origin account) → build + vulnerable/outdated package baseline → severity-ranked `REVIEW.md` (report-only, approval gate) → xUnit exemplar tests → docs + Mermaid flow/sequence diagrams → commit/push
+  - Working rules: one app at a time (Steve names it); related NuGet package groups assessed together; per-app outputs commit into each app's own repo; no git repo at the repos root (csharp/ is master)
+  - Windows backend toggle live and verified: `claude` = Pro, `claude-local` = Ollama on Amelai (functions in both PowerShell profiles)
+  - **Next**: first `/assess` on the auth NuGet trio (Key Vault credentials → sign-in → DbContext provider) under the Pro login; fill the two CLAUDE.md TODOs; Steve to relocate PGPASS out of the OneDrive-synced profile
 
 - **Claude Code Infrastructure** — ✅ RESTRUCTURED (2026-07-06) & VERIFIED (2026-07-07)
   - `Claude_Structure.md` — canonical setup documentation AND operational runbook (hierarchy, inheritance, MCP scopes, two-backends guide, Windows procedures, Next Steps checklist with results)
@@ -162,6 +170,11 @@ The terminai repository contains seven specialized project folders plus standalo
 - **Session Management**: Slash commands configured for /end-session and /sync-session
 
 ## Recently Completed
+- **C# repos scaffolding created and deployed** (2026-07-08):
+  - New `csharp/` folder: repos-root CLAUDE.md master, `/assess` 6-phase assessment command, install README; deployed to the Windows repos folder same day
+  - Windows backend toggle (`claude` = Pro / `claude-local` = Ollama) built into both PowerShell profiles and verified
+  - Two-GitHub-accounts uncertainty resolved (`git remote get-url origin`; `/assess` reports the account per repo; GCM `useHttpPath` fix documented)
+  - PGPASS plaintext-in-synced-profile flagged with free remediation options
 - **Claude Code setup review and durable scaffolding** (2026-07-06):
   - Fixed silently-broken MCP registrations (rag, searxng) — both now user scope, verified connected
   - Deduplicated all 14 project CLAUDE.md files against the master; hseea logo policy made an explicit Noxdown override

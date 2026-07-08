@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased] - 2026-07-08
+
+### Added
+- `csharp/` project folder — scaffolding masters for the Windows C# repos folder (~100 apps): `repos-CLAUDE.md` (repos-root master CLAUDE.md), `commands/assess.md` (6-phase deep-assessment slash command with report-only review gate, xUnit exemplar tests, Mermaid architecture diagrams, git pull-first/push-last), `README.md` (install mapping + usage)
+- Windows PowerShell backend toggle (outside repo): `claude-local`/`claude-pro` functions in both 5.1 and 7.x profiles; plain `claude` now reaches the Pro login — verified
+
+### Changed
+- `CLAUDE.md` — Projects table: `csharp/` row added
+- Windows repos root (outside repo) — `CLAUDE.md` and `.claude\commands\assess.md` deployed from the `csharp/` masters
+
+### Documentation
+- Two-GitHub-accounts workflow documented in scaffold: origin account reported per repo in `/assess` Phase 0; `credential.github.com.useHttpPath true` as the wrong-account fix
+- PGPASS flagged: plaintext in OneDrive-synced profile; remediation options recorded in SESSION_LOG
+
 ## [Unreleased] - 2026-07-07
 
 ### Added

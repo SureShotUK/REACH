@@ -4,6 +4,45 @@ This file tracks all Claude Code sessions in the terminai repository, documentin
 
 ---
 
+## Session 2026-07-08
+
+### Summary
+Planned and scaffolded the use of Claude Code on Steve's Windows C# repos folder (~100 console apps/services and NuGet package libraries) — the goal being to have Fable 5 create the durable assets (CLAUDE.md, review workflow, tests, docs) that keep weaker fallback models effective after best-model access ends. Also fixed the Windows backend-selection problem (Ollama vs Pro was hardwired via PowerShell profile env vars) and resolved the two-GitHub-accounts uncertainty.
+
+### Work Completed
+- **New `csharp/` project folder** — scaffolding masters for the Windows repos folder:
+  - `csharp/repos-CLAUDE.md` — master CLAUDE.md for the repos root (dotnet CLI only, git pull-first/push-last, scope discipline, origin-account reporting, two TODOs for the first on-site session)
+  - `csharp/commands/assess.md` — `/assess` slash command: 6-phase deep assessment (git sync → build/vulnerability baseline → severity-ranked `REVIEW.md` with approval gate → xUnit exemplar tests → docs + Mermaid flow/sequence diagrams → commit/push)
+  - `csharp/README.md` — install mapping and usage
+- **Deployed**: Steve copied `repos-CLAUDE.md` → repos-root `CLAUDE.md` and `commands/` → `.claude\commands\` on the Windows PC
+- **Backend toggle built and verified**: bare `$env:ANTHROPIC_*` lines removed from PowerShell profiles; `claude-local` (Ollama on Amelai) / `claude-pro` functions added to both the 5.1 and 7.x profiles (OneDrive-redirected). Verified: new tab shows no `ANTHROPIC_BASE_URL`; plain `claude` = Pro login
+- **Two-GitHub-accounts handling**: `git remote get-url origin` identifies the account (no login needed); `/assess` Phase 0 reports it per repo; PowerShell inventory one-liner provided; `credential.github.com.useHttpPath true` noted as the fix if GCM caches the wrong account
+- **PGPASS security flag**: password currently plaintext in a company-OneDrive-synced profile; two free relocation options given (per-machine user env var — recommended — or PowerShell SecretManagement/SecretStore)
+- Azure Key Vault pricing verified for the personal-vault question (no monthly fee, per-operation only — pennies but not zero, so local options recommended)
+
+### Files Changed
+- `csharp/repos-CLAUDE.md` - New: master CLAUDE.md draft for the Windows repos root
+- `csharp/commands/assess.md` - New: 6-phase `/assess` deep-assessment command
+- `csharp/README.md` - New: install/usage for the scaffold
+- `CLAUDE.md` - Projects table: `csharp/` row added
+
+### Key Decisions
+- **One application at a time**, named by Steve — no tiering, no batch/multi-app sweeps (his explicit correction to the initial plan)
+- **Exception**: related NuGet package groups assessed together; first engagement is the auth trio (Key Vault credential retrieval → user sign-in → DB login/DbContext provider) as one system, with an end-to-end Mermaid sequence diagram
+- `/assess` **Phase 2 is report-only** — product-code fixes need approval; tests/docs are additive and automatic
+- **Per-app outputs (CLAUDE.md, REVIEW.md, ARCHITECTURE.md, tests) commit into each app's own repo** — they travel with the code when apps are handed to other Claude-using developers
+- **No git repo at the repos root** — `terminai/csharp/` is the master copy; repos-root files are deployed copies (avoids a `git add .` swallowing gitlinks to ~100 embedded repos)
+- Claude Code works per-task via on-demand search, so app size is not the constraint — discoverability is; per-repo CLAUDE.md is the enabler
+
+### Next Actions
+- [ ] Run first `/assess` on the auth NuGet trio (launch `claude` at repos root, Pro login, all three folders in one call)
+- [ ] Let that session fill the two TODOs in the repos-root CLAUDE.md (package names, conventions)
+- [ ] Steve: relocate PGPASS out of the OneDrive-synced profile (per-machine env var recommended)
+- [ ] Optional: run the repo→account inventory one-liner at the repos root
+- [ ] Untracked `gitlogtest.txt` at repo root (pre-existing, not from this session) — delete or commit as appropriate
+
+---
+
 ## Session 2026-07-07
 
 ### Summary
