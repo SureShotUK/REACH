@@ -1,6 +1,6 @@
 # IT Project Status
 
-**Last Updated**: 2026-07-07 (Node v26.4.0 on Amelai; MCP runtime pins removed — rag on PATH `node`, context-mode on Bun)
+**Last Updated**: 2026-07-09 ("don't ask again" UNC bug fixed at user scope; searxng + ctx_fetch_and_index prompt-free; dual-backend session constraints documented in `Dont_Ask_Again_Fix.md`)
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.

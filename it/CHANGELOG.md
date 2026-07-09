@@ -2,6 +2,19 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-07-09 — "Don't Ask Again" UNC Fix + Dual-Backend Constraints
+
+### Added
+- `it/Dont_Ask_Again_Fix.md` — why "don't ask again" never sticks on the `\\irwinnas` UNC share (project-path normalisation `\\` vs `//` means saved rules are never matched), the user-scope solution, and MCP permission rule syntax
+- User-scope MCP allows in `C:\Users\SteveIrwin\.claude\settings.json` (StevesLenovo): `mcp__searxng`, `mcp__searxng__web_search`, `mcp__plugin_context-mode_context-mode__ctx_fetch_and_index` — searxng and ctx_fetch_and_index now prompt-free in all sessions and subagents
+- Session memories (StevesLenovo): UNC-permissions-user-scope, claude-local/claude-pro launcher functions, PGPASS accepted-risk decision
+
+### Documentation
+- Dual-backend concurrency constraints verified against official docs (via claude-code-guide agent): per-window env vars are the only per-session credential isolation; settings-file `env` blocks leak into all sessions and override shell exports; mapped-drive vs UNC paths are distinct project identities; "claude.ai connectors are disabled" banner is expected for `claude-local`/Amelai sessions
+- Habit established: resume online sessions with `claude-pro -c`, never bare `claude`, in windows that have run `claude-local` (env vars outlive Claude Code)
+
+---
+
 ## [Unreleased] - 2026-07-07 — Node.js v26 on Amelai, Runtime Pins Removed
 
 ### Added

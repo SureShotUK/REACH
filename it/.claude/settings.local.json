@@ -21,7 +21,14 @@
       "WebFetch(domain:www.microsoft.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:vertexaisearch.cloud.google.com)",
-      "WebFetch(domain:support.apple.com)"
+      "WebFetch(domain:support.apple.com)",
+      "mcp__searxng__web_search",
+      "mcp__plugin_context-mode_context-mode__ctx_fetch_and_index",
+      "Skill(update-config)",
+      "PowerShell($names = \"ANTHROPIC_API_KEY\",\"ANTHROPIC_AUTH_TOKEN\",\"ANTHROPIC_BASE_URL\",\"ANTHROPIC_MODEL\",\"CLAUDE_CODE_OAUTH_TOKEN\"; foreach \\($n in $names\\) { $proc = [Environment]::GetEnvironmentVariable\\($n, \"Process\"\\); $user = [Environment]::GetEnvironmentVariable\\($n, \"User\"\\); $mach = [Environment]::GetEnvironmentVariable\\($n, \"Machine\"\\); \"{0,-25} Process={1}  User={2}  Machine={3}\" -f $n, \\($proc -ne $null -and $proc -ne ''\\), \\($user -ne $null -and $user -ne ''\\), \\($mach -ne $null -and $mach -ne ''\\) })",
+      "PowerShell($cj = \"$env:USERPROFILE\\\\.claude.json\"; if \\(Test-Path $cj\\) { $j = Get-Content $cj -Raw | ConvertFrom-Json; \"Top-level keys mentioning auth/key:\"; $j.PSObject.Properties.Name | Where-Object { $_ -match 'key|auth|oauth|token|login' } } ; $cred = \"$env:USERPROFILE\\\\.claude\\\\.credentials.json\"; if \\(Test-Path $cred\\) { \"`n.credentials.json exists. Keys:\"; \\(Get-Content $cred -Raw | ConvertFrom-Json\\).PSObject.Properties.Name } else { \"`n.credentials.json not found\" })",
+      "WebSearch",
+      "PowerShell(Get-Command *)"
     ],
     "deny": [],
     "ask": []

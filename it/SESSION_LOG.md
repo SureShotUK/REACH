@@ -4,6 +4,43 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-07-09 — "Don't Ask Again" UNC Fix + Dual-Backend Session Constraints (StevesLenovo)
+
+### Summary
+Diagnosed and fixed the recurring permission prompts in Amelai sessions: "don't ask again" writes correctly to the project's `.claude/settings.local.json`, but on the `\\irwinnas` UNC share the project path is normalised inconsistently (`\\` vs `//`) so the saved rules never match — the same class of bug fixed at user scope on 2026-07-07 (`9c40588`). Moved the MCP allows to user scope where they work for every project, model, and subagent. Also verified the constraints for running `claude-local` (Amelai/Ollama) and `claude-pro` sessions concurrently from the same UNC folder, and confirmed the "claude.ai connectors are disabled" warning is expected behaviour of the launcher setup.
+
+### Work Completed
+- **User-scope permissions added** to `C:\Users\SteveIrwin\.claude\settings.json`: `mcp__searxng` (whole server), `mcp__searxng__web_search`, `mcp__plugin_context-mode_context-mode__ctx_fetch_and_index` — searxng and ctx_fetch_and_index now prompt-free everywhere, including research subagents
+- **Created `Dont_Ask_Again_Fix.md`** (repo root) — symptom, root cause, user-scope solution, exact rules, MCP rule syntax (`mcp__<server>` vs `mcp__<server>__<tool>`, plugin server naming)
+- **Dual-session constraints verified** (via claude-code-guide agent against official docs): env vars (`ANTHROPIC_AUTH_TOKEN`/`ANTHROPIC_BASE_URL`) outrank the stored OAuth login without touching it; settings-file `env` blocks leak into ALL sessions and override shell exports — per-window `$env:` is the only true isolation; mapped drive letter vs UNC path = different project identities (Steve confirmed all paths entered as UNC, so no split)
+- **Connectors warning explained**: expected banner for any `claude-local` session (connectors are tied to the claude.ai login); also fires when bare `claude` is run in a window where `claude-local` previously set env vars (they outlive Claude Code). Verified no auth env vars at any scope and only `claudeAiOauth` in stored credentials — nothing to fix; habit: always resume via `claude-pro -c` / `claude-local -c`
+- **Profile launchers confirmed**: `claude-local`/`claude-pro` functions in the PowerShell 7 profile; `claude-pro` already removes the env vars before launching
+- **Permissions JSON explained** (model-agnostic): `"model"` and `"permissions"` are sibling top-level keys; permission rules are enforced by the harness locally and apply to every model/backend — no per-model scoping exists
+- **Git worktrees explained** as the mitigation for two sessions editing the same tree (separate checkout, shared history, no `index.lock` collisions)
+- **Session memories saved** (`C:\Users\SteveIrwin\.claude\projects\--irwinnas-MyDocs-terminai\memory\`): UNC-permissions-need-user-scope, claude-local/claude-pro launchers + bare-`claude` gotcha, PGPASS plaintext accepted-risk decision (do not re-flag)
+
+### Files Changed
+- `it/Dont_Ask_Again_Fix.md` — NEW: full write-up of the UNC permission bug, solution, and rule syntax
+- `C:\Users\SteveIrwin\.claude\settings.json` (StevesLenovo, not in repo) — `permissions.allow` block added (3 MCP rules)
+- `it/.claude/settings.local.json` — `Skill(update-config)` approval added during the session
+- `it/SESSION_LOG.md`, `it/PROJECT_STATUS.md`, `it/CHANGELOG.md` — session documentation
+
+### Key Decisions
+- **User scope is the standing rule for permissions on this share** — "don't ask again" can't be trusted under `\\irwinnas\...`; add rules to `C:\Users\SteveIrwin\.claude\settings.json` directly
+- **PGPASS plaintext in the PowerShell profile is an accepted risk** (Tailscale-gated local DB, low-risk public reference data, rotatable) — recorded in memory so it is not raised again
+- **Whole-server allow (`mcp__searxng`) chosen over per-tool rules** — Steve wants zero prompts for his own local search server; can be narrowed later if needed
+
+### Reference Documents
+- `it/Dont_Ask_Again_Fix.md` (created)
+- Official docs verified via claude-code-guide agent: code.claude.com/docs authentication, llm-gateway-connect, sessions pages
+
+### Next Actions
+- [ ] Restart running Amelai sessions so they pick up the user-scope rules (one-time)
+- [ ] Optionally remove the stale context-mode 1.0.162 cache dir on Amelai after next `/ctx-doctor` pass (carried over)
+- [x] Re-test `/end-session` on a Windows machine to confirm zero prompts — this session ran it from StevesLenovo
+
+---
+
 ## Session 2026-07-07 (evening) — Node.js v22 → v26 on Amelai; All Runtime Pins Removed
 
 ### Summary
