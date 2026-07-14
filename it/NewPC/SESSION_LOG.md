@@ -2,6 +2,50 @@
 
 ---
 
+## Session 2026-07-14 — qwen3-vl:32b promoted to production; two-stage page selection for long filings; parser hardening; n8n API management
+
+### Summary
+Marathon session on the Customer Profiler's PDF/vision path. Promoted `qwen3-vl:32b` (validated in the vision tester) to production with the `num_ctx` sizing and timeout changes the tester docs required; hardened `Parse Input` (flattened multi-add pastes, canonical zero-padded company numbers, specific missing-ranking errors, parse report in the chat reply); removed everything that could fabricate user-entered data (the `ranking:5` fallback). Built a full two-stage page-selection pipeline so filings over 42 pages (one test company has 73) can be processed: cheap `/pageinfo` routing, low-DPI survey pass, page-number banner stamping (fixes vision-model image-index miscounting), full-DPI conversion of only the selected pages. Established direct n8n API management (live workflow updates pushed and verified from Claude Code; stale duplicate workflow deleted). Every change was coding-critic reviewed before applying, and node code was simulation-tested against real inputs before deployment.
+
+### Work Completed
+- **qwen3-vl:32b promotion** — production `Prep Vision Prompt` gained the tester's `num_ctx` sizing block (bucketed, capped 65,536) + over-cap degrade with `debug`; Ollama timeout 120 s → 300 s → 3,600 s (thinking models are slow); prompt column rule ported from tester ("take the column with the later date" replaces "left column is current year"); `PDF_Vision_Tester.md` brought up to date (models, prompt, promotion caveat closed, stale file flagged)
+- **Root-caused two "no financials" failures** — (1) old duplicate workflow taking test runs after import-without-delete; (2) production converter timeout (30 s) and missing num_ctx, both documented tester caveats never ported
+- **Parse Input hardening** — chat UI flattens multi-line pastes: newline re-insertion before each `add <RegNo>` (critic-tightened lookahead); ranking stays mandatory per user's fail-over-fabricate rule, with per-line "missing ranking after company number X" errors; parse report (adds parsed / lines skipped) attached and surfaced in the chat reply via `Build Chat Response`
+- **Fabricated-data removal** — `Build & Save Profile`'s `ranking:5` fallback replaced with descriptive throws (plus no-company guard); company numbers canonicalised (all-digit → zero-padded 8-char) in add/update/remove; lazy store-key migration added to all four profile-store nodes so legacy unpadded entries stay reachable
+- **Two-stage page selection for >42-page filings** — pdf-to-image gained `POST /pageinfo` (pdfinfo, no rendering), `?dpi=40–400`, `?pages=n,n` (max 20, per-page failure skip), `?label=1` (48px black banner "PAGE n OF m" above the page, DejaVu Bold, `fonts-dejavu-core` added to Dockerfile); workflow gained 8 nodes routing >42-page filings through a 75-DPI labeled survey (qwen3-vl picks statement pages, strict `PAGES:` reply parsing with range expansion) then full-DPI conversion of only those pages into the unchanged extraction
+- **Survey debugging via live execution data (n8n API)** — diagnosed `done_reason:length` with empty response: this qwen3-vl:32b build is an **always-thinking** variant (`think:false` accepted but ignored) — budget raised to `num_predict:6144`; measured real cost ~537 tokens/page at dpi 75 (constants retuned); diagnosed wrong-page selection: the model reads pages correctly but cannot count its position in a 73-image stack — fixed by banner stamping (verified visually with a synthetic PDF); balance-sheet continuation pages (where Net assets lives) addressed with heading-based + include-next-page survey rules
+- **n8n API management established** — user created an API key; live workflow now updated via `PUT /api/v1/workflows/:id` (settings filtered to API-allowed keys) with node-by-node file↔live sync verification after every push; stale duplicate workflow (17-node June version) safety-checked and deleted via API
+- **73-page filing end-to-end**: extraction now returns correct figures; only Net assets (balance-sheet page 2) missed on the last run — final survey-rule fix applied, awaiting one more test run
+
+### Files Changed
+- `n8n/Portland Fuel - Customer Profiler.json` — all workflow changes above (8 new nodes; Parse Input, Build & Save Profile, Build Chat Response, Prep Vision Prompt, Prep Survey Prompt, Pick Pages, store nodes)
+- `n8n/pdf-to-image/app.py` — `/pageinfo`, `dpi`/`pages`/`label` params, banner stamping, per-page failure tolerance
+- `n8n/pdf-to-image/Dockerfile` — `fonts-dejavu-core` added (slim image ships no fonts; banner text needs DejaVu Bold)
+- `n8n/PDF_Vision_Tester.md` — updated for qwen3-vl:32b era (new; previously untracked)
+- `Software_Updates.md` — pdf-to-image section: stale "100 DPI" prose fixed (actual: 200), new endpoints/params/constants documented
+
+### Key Decisions
+- **Fail over fabricate** (user rule, twice confirmed): no default rankings, no invented data presented as entered; parser errors loudly and per-line instead. Honest `null` financials (rendered "—") remain acceptable degrade behaviour
+- **Ranking mandatory** — reverted an approved optional-ranking design on user instruction; missing rankings now produce specific per-line errors
+- **Accommodate, don't fight, the always-thinking model** — `think:false` retained but ineffective on this build; budgets sized for full thinking transcripts; extraction call deliberately left thinking (accuracy validated with it)
+- **Banner stamping over positional counting** — vision models read pixel text reliably but cannot index large image stacks; page numbers are now physically stamped on survey images
+- **File is source of truth** — every live n8n change is pushed from the JSON file via API and verified in sync, ending the file/live drift that caused two duplicate-workflow incidents
+
+### Reference Documents
+- `n8n/PDF_Vision_Tester.md` — tester usage + A/B methodology
+- `Software_Updates.md` → pdf-to-image section — converter API reference
+- n8n API: key created 2026-07-14 (held by user, not stored in repo); base `http://192.168.1.192:5678/api/v1`
+
+### Next Actions
+- [ ] Re-run the 73-page filing to confirm Net assets now extracts (survey continuation-page rules applied, awaiting test)
+- [ ] Run the other three >42-page companies from the 13-company consultancy batch
+- [ ] Mirror the two-stage survey chain into the vision tester so the test loop covers long filings
+- [ ] A/B `think:false` on the extraction call via the tester — thinking is the likely cause of slow 25-page extractions; if accuracy holds, extraction gets dramatically faster
+- [ ] Decide whether to store the n8n API key in docs (PGPASS-style accepted risk) or keep it session-only
+- [ ] Delete the superseded `n8n/PDF Vision Tester.json` (stale pre-import copy; current export is `Portland Fuel - PDF Vision Tester.json`)
+
+---
+
 ## Session 2026-07-02 (2) — Permission-prompt audit via fewer-permission-prompts skill
 
 ### Summary

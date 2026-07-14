@@ -3,15 +3,15 @@
   "nodes": [
     {
       "parameters": {
-        "jsCode": "const json=$input.first().json;\nconst raw=(json.chatInput||json.input||json.message||json.text||json.userMessage||'').trim();\nconst msg=raw.replace(/^\\[\\s*/,'').replace(/\\s*\\]$/,'').trim();\nif(msg.toLowerCase()==='list')return[{json:{mode:'list'}}];\nconst rem=msg.match(/^remove\\s+([A-Z0-9]{6,8})$/i);\nif(rem)return[{json:{mode:'remove',companyNumber:rem[1].toUpperCase()}}];\nconst lines=msg.split(/\\r?\\n/).map(function(l){return l.trim();}).filter(Boolean);\nconst results=[];\nconst errors=[];\nfor(let i=0;i<lines.length;i++){\n  const line=lines[i];\n  const parts=line.match(/^add\\s+([A-Z0-9]{6,8})\\s+(\\d{1,2})\\s+(.+)$/i);\n  if(!parts){errors.push('Line '+(i+1)+': cannot parse \"'+line+'\"');continue;}\n  const pipeParts=parts[3].split('|');\n  const products=pipeParts[0].split(',').map(function(p){return p.trim();}).filter(Boolean);\n  const note=pipeParts.length>1?pipeParts.slice(1).join('|').trim():'';\n  results.push({json:{mode:'add',companyNumber:parts[1].toUpperCase(),ranking:Number(parts[2]),products:products,note:note}});\n}\nif(results.length===0){\n  const hint=errors.length>0?errors.join('; '):'No valid commands found.';\n  throw new Error(hint+' Format: add <RegNo> <Ranking> <Products> | <Note>');\n}\nreturn results;"
+        "jsCode": "const json=$input.first().json;\nconst raw=(json.chatInput||json.input||json.message||json.text||json.userMessage||'').trim();\nconst msg=raw.replace(/^\\[\\s*/,'').replace(/\\s*\\]$/,'').trim();\nconst canon=function(s){s=s.toUpperCase();return /^\\d+$/.test(s)?s.padStart(8,'0'):s;};\nif(msg.toLowerCase()==='list')return[{json:{mode:'list'}}];\nconst rem=msg.match(/^remove\\s+([A-Z0-9]{6,8})$/i);\nif(rem)return[{json:{mode:'remove',companyNumber:canon(rem[1])}}];\nconst upd=msg.match(/^update\\s+([A-Z0-9]{6,8})\\s+(.+)$/i);\nif(upd){\n  const companyNumber=canon(upd[1]);\n  const fieldsRaw=upd[2].split('|').map(function(s){return s.trim();}).filter(Boolean);\n  const updates=[];\n  const fieldErrors=[];\n  for(let i=0;i<fieldsRaw.length;i++){\n    const fm=fieldsRaw[i].match(/^([^=]+?)\\s*=\\s*(.+)$/);\n    if(!fm){fieldErrors.push('Cannot parse field \"'+fieldsRaw[i]+'\"');continue;}\n    updates.push({field:fm[1].trim(),value:fm[2].trim()});\n  }\n  if(updates.length===0){\n    throw new Error((fieldErrors.length?fieldErrors.join('; '):'No valid field updates found.')+' Format: update <RegNo> <Field>=<Value> | <Field>=<Value>');\n  }\n  return[{json:{mode:'update',companyNumber:companyNumber,updates:updates}}];\n}\nconst expanded=msg.replace(/\\s+(?=add\\s+[A-Z]{0,2}\\d{6,8}\\s)/gi,'\\n');\nconst lines=expanded.split(/\\r?\\n/).map(function(l){return l.trim();}).filter(Boolean);\nconst results=[];\nconst errors=[];\nfor(let i=0;i<lines.length;i++){\n  const line=lines[i];\n  const parts=line.match(/^add\\s+([A-Z0-9]{6,8})\\s+(\\d{1,2})\\s+(.+)$/i);\n  if(!parts){const noRank=line.match(/^add\\s+([A-Z0-9]{6,8})(?:\\s|$)/i);errors.push('Line '+(i+1)+': '+(noRank?'missing ranking (1-2 digits) after company number '+canon(noRank[1]):'cannot parse \"'+line+'\"'));continue;}\n  const pipeParts=parts[3].split('|');\n  const products=pipeParts[0].split(',').map(function(p){return p.trim();}).filter(Boolean);\n  const note=pipeParts.length>1?pipeParts.slice(1).join('|').trim():'';\n  results.push({json:{mode:'add',companyNumber:canon(parts[1]),ranking:Number(parts[2]),products:products,note:note}});\n}\nif(results.length===0){\n  const hint=errors.length>0?errors.join('; '):'No valid commands found.';\n  throw new Error(hint+' Format: add <RegNo> <Ranking> <Products> | <Note>');\n}\nresults[0].json.parseReport='Adds parsed ('+results.length+'): '+results.map(function(r){return r.json.companyNumber;}).join(', ')+(errors.length?' | SKIPPED '+errors.length+': '+errors.join('; '):'');\nreturn results;"
       },
-      "id": "1b8a7b3f-0ce4-4b22-b0b8-96d67ccd0e81",
+      "id": "f2758152-fad2-41ed-8bd5-4abd2734db78",
       "name": "Parse Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        55328,
-        14816
+        3168,
+        1360
       ]
     },
     {
@@ -25,13 +25,13 @@
           ]
         }
       },
-      "id": "80a94a64-6a42-4eb1-bce7-7e47d5aee8c1",
+      "id": "e88f8fb1-2404-49c9-b820-70d446695d98",
       "name": "Route",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        55520,
-        14816
+        3360,
+        1360
       ]
     },
     {
@@ -41,13 +41,13 @@
         "genericAuthType": "httpHeaderAuth",
         "options": {}
       },
-      "id": "22cab0d3-4d9c-4e9d-989c-4d16e6d1d2a2",
+      "id": "338e1235-ce1b-4793-823f-7cc5ba60b2e2",
       "name": "CH: Company",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        55968,
-        15104
+        4272,
+        1488
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -63,13 +63,13 @@
         "genericAuthType": "httpHeaderAuth",
         "options": {}
       },
-      "id": "f7a932f8-8b16-4260-911a-5b8c890b74cc",
+      "id": "cde64b72-c025-4aff-a713-c25cf643deed",
       "name": "CH: Officers",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        56208,
-        15104
+        4512,
+        1488
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -85,13 +85,13 @@
         "genericAuthType": "httpHeaderAuth",
         "options": {}
       },
-      "id": "5630081d-a041-406a-ac6c-87cb67033a02",
+      "id": "2cdf1e5c-2b08-42a9-9378-13f1ebabb6f5",
       "name": "CH: Filing History",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        56448,
-        15104
+        4752,
+        1488
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -105,13 +105,13 @@
       "parameters": {
         "jsCode": "const d=$input.first().json;\nconst f=(d.items||[])[0];\nconst metaUrl=f&&f.links&&f.links.document_metadata?f.links.document_metadata:null;\nreturn[{json:{metaUrl:metaUrl,filingDate:f?f.date:null,filingType:f?f.type:null}}];"
       },
-      "id": "29eef1e1-2b9b-4637-9374-142219f40bfb",
+      "id": "6664ad14-c88e-45b5-9b30-01e37462a91a",
       "name": "Get Filing URL",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        56688,
-        15104
+        4992,
+        1488
       ]
     },
     {
@@ -121,13 +121,13 @@
         "genericAuthType": "httpHeaderAuth",
         "options": {}
       },
-      "id": "2fa05aa8-cdbc-485d-af21-6c1f64b5cb75",
+      "id": "9a158bb4-3ca0-495b-8f11-6d4be46ddc67",
       "name": "CH: Doc Metadata",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        56928,
-        15104
+        5232,
+        1488
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -141,13 +141,13 @@
       "parameters": {
         "jsCode": "const meta=$input.first().json;\nconst downloadUrl=meta.links&&meta.links.document?meta.links.document:null;\nreturn[{json:{downloadUrl:downloadUrl}}];"
       },
-      "id": "7c2472a5-1fcc-4637-9bf8-3e04dbd880a0",
+      "id": "3b631e42-c75c-45cc-97a4-4450ab0df7f2",
       "name": "Extract PDF URL",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        57168,
-        15104
+        5472,
+        1488
       ]
     },
     {
@@ -169,13 +169,13 @@
           }
         }
       },
-      "id": "6e53f921-6d7d-42f4-9ce8-3971c64823fc",
+      "id": "30bd0020-9afd-457d-8fe3-02834a2c6ef3",
       "name": "CH: Get Redirect",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        57408,
-        15104
+        5712,
+        1488
       ],
       "credentials": {
         "httpHeaderAuth": {
@@ -189,13 +189,13 @@
       "parameters": {
         "jsCode": "const resp=$input.first().json;\nconst hdrs=resp.headers||{};\nconst s3Url=hdrs.location||hdrs.Location||null;\nreturn[{json:{s3Url:s3Url}}];"
       },
-      "id": "ae67559d-e318-4db2-b58e-c174fd8591b4",
+      "id": "3c5c227b-f7b9-480c-9ffa-47418d18c973",
       "name": "Extract S3 URL",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        57648,
-        15104
+        5952,
+        1488
       ]
     },
     {
@@ -219,13 +219,13 @@
           }
         }
       },
-      "id": "fb35347a-b4ba-4bbc-a3ec-b9f8518c95ad",
+      "id": "bd672939-c359-4e17-a620-0f5ea0158f76",
       "name": "CH: Download PDF",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        58288,
-        14992
+        6592,
+        1376
       ],
       "continueOnFail": true
     },
@@ -233,13 +233,13 @@
       "parameters": {
         "jsCode": "const s3Url=($input.first().json.s3Url||'').toLowerCase();const format=s3Url.includes('xhtml')||s3Url.includes('xml')?'ixbrl':'pdf';return[{json:{...$input.first().json,format}}];"
       },
-      "id": "d8c55f5c-2af2-4868-ac7e-4ad1039f7895",
+      "id": "89af381c-b4d9-4dbc-8284-8c79df4c400d",
       "name": "Detect Format",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        57824,
-        15104
+        6128,
+        1488
       ]
     },
     {
@@ -253,13 +253,13 @@
           ]
         }
       },
-      "id": "ca2e0281-1990-416c-a4ee-95fa1debb683",
+      "id": "4569ca1e-797e-4744-a804-30e9ff0bbf1a",
       "name": "Route: Format",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        58016,
-        15104
+        6320,
+        1488
       ]
     },
     {
@@ -274,27 +274,27 @@
           }
         }
       },
-      "id": "57096dd4-05a2-4774-a90d-e120c064b9e8",
+      "id": "96bfd7a1-e5df-47c5-a670-0631ac809c1e",
       "name": "CH: Download iXBRL",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        58336,
-        15200
+        6640,
+        1584
       ],
       "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "try {\n  const raw = $input.first().json.data;\n  if (!raw) return [{json:{ollamaBody:null,hasImages:false,debug:'no data from download'}}];\n  const content = String(raw).substring(0, 500000);\n\n  // 1. Build context map from xbrli:context blocks\n  const ctxMap = {};\n  const ctxRe = /<xbrli:context\\s+id=\"([^\"]+)\"([\\s\\S]*?)<\\/xbrli:context>/gi;\n  let cm;\n  while ((cm = ctxRe.exec(content)) !== null) {\n    const id = cm[1];\n    const body = cm[2];\n    const em = body.match(/<xbrli:endDate>\\s*([^<]+?)\\s*<\\/xbrli:endDate>/i);\n    const im = body.match(/<xbrli:instant>\\s*([^<]+?)\\s*<\\/xbrli:instant>/i);\n    ctxMap[id] = {end:em?em[1].trim():null, instant:im?im[1].trim():null, hasSegment:/<xbrli:segment/i.test(body)};\n  }\n\n  // Latest year-end date across all contexts\n  let latestEnd = null;\n  for (const c of Object.values(ctxMap)) {\n    const d = c.end || c.instant;\n    if (d && (!latestEnd || d > latestEnd)) latestEnd = d;\n  }\n\n  // Parent-preferred context IDs: no segment dimension, latest end date\n  const periodCtxIds = Object.entries(ctxMap).filter(function([,c]){return c.end===latestEnd&&!c.hasSegment;}).map(function([id]){return id;});\n  const instantCtxIds = Object.entries(ctxMap).filter(function([,c]){return c.instant===latestEnd&&!c.hasSegment;}).map(function([id]){return id;});\n\n  // 2. Parse all ix:nonFraction and ix:nonNumeric elements (handles any attribute order)\n  const elements = [];\n  const reOpen = /<ix:(nonFraction|nonNumeric)\\b([^>]*)>/gi;\n  let om;\n  while ((om = reOpen.exec(content)) !== null) {\n    const tagType = om[1];\n    const attrs = om[2];\n    const nameM  = attrs.match(/\\bname=\"([^\"]+)\"/i);\n    const ctxM   = attrs.match(/\\bcontextRef=\"([^\"]+)\"/i);\n    const signM  = attrs.match(/\\bsign=\"([^\"]+)\"/i);\n    const scaleM = attrs.match(/\\bscale=\"(-?[0-9]+)\"/i);\n    if (!nameM || !ctxM) continue;\n    const closeTag = '</ix:' + tagType + '>';\n    const start = om.index + om[0].length;\n    const end = content.indexOf(closeTag, start);\n    if (end === -1) continue;\n    const inner = content.substring(start, end).replace(/<[^>]+>/g,'').replace(/\\s+/g,' ').trim();\n    elements.push({name:nameM[1], ctx:ctxM[1], sign:signM?signM[1]:null, scale:scaleM?parseInt(scaleM[1]):0, text:inner});\n  }\n\n  // 3. Helper functions\n  function parseNum(el) {\n    if (!el || !el.text) return null;\n    const t = el.text.trim();\n    const isNeg = el.sign === '-' || /^\\(.*\\)$/.test(t);\n    const clean = t.replace(/[£$€,\\s()]/g, '');\n    const n = parseFloat(clean);\n    if (isNaN(n)) return null;\n    return (isNeg ? -n : n) * Math.pow(10, el.scale || 0);\n  }\n  function findVal(ctxIds, concepts) {\n    for (const name of concepts) {\n      const el = elements.find(function(e){return e.name===name&&ctxIds.includes(e.ctx);});\n      if (el) {const v = parseNum(el); if (v !== null) return v;}\n    }\n    return null;\n  }\n\n  // 4. Extract key financial values directly from XBRL tags\n  const yearEndEl = elements.find(function(e){return e.name==='bus:EndDateForPeriodCoveredByReport';});\n  const yearEndRaw = yearEndEl ? yearEndEl.text.trim() : latestEnd;\n  const yearEnd = yearEndRaw ? ((yearEndRaw.match(/\\d{4}/)||[])[0]||yearEndRaw) : null;\n\n  const xbrl = {\n    turnover:      findVal(periodCtxIds,  ['core:TurnoverRevenue','core:Turnover','bus:Turnover','core:Revenue']),\n    employees:     findVal(periodCtxIds,  ['core:AverageNumberEmployeesDuringPeriod','bus:AverageNumberEmployeesDuringPeriod','core:EmployeesNumber']),\n    netAssets:     findVal(instantCtxIds, ['core:NetAssetsLiabilities','core:Equity','core:TotalEquity','bus:NetAssetsLiabilities']),\n    profitAfterTax:findVal(periodCtxIds,  ['core:ProfitLoss','core:ProfitLossForPeriod','core:ProfitLossAttributableToOwnersOfParent']),\n    yearEnd\n  };\n\n  // 5. If all numeric fields found, skip Ollama entirely\n  const foundFields   = Object.entries(xbrl).filter(function([,v]){return v!==null;});\n  const missingFields = Object.entries(xbrl).filter(function([k,v]){return v===null&&k!=='yearEnd';});\n  if (missingFields.length === 0) {\n    return [{json:{ollamaBody:null, hasImages:false, xbrlExtracted:xbrl}}];\n  }\n\n  // 6. Fallback: full-document Ollama analysis for any missing fields\n  const cleanText = content\n    .replace(/<[^>]{0,500}>/g,' ')\n    .replace(/&nbsp;/g,' ')\n    .replace(/&amp;/g,'&')\n    .replace(/&pound;/gi,'£')\n    .replace(/&#[0-9]+;/g,' ')\n    .replace(/[ \\t]{2,}/g,' ')\n    .replace(/\\n{3,}/g,'\\n\\n');\n\n  const fmt = function(v){return v==null?'null':(v<0?'-£'+Math.abs(Math.round(v)).toLocaleString():'£'+Math.round(v).toLocaleString());};\n  const preContext = foundFields.length > 0\n    ? 'The following were already extracted from XBRL tags (high confidence — use these unless the document clearly contradicts them):\\n'\n      + foundFields.map(function([k,v]){\n          if (k==='yearEnd') return 'Year: '+v;\n          if (k==='employees') return 'Employees: '+v;\n          if (k==='turnover') return 'Turnover: '+fmt(v);\n          if (k==='netAssets') return 'Net assets: '+fmt(v);\n          if (k==='profitAfterTax') return 'Profit: '+fmt(v);\n          return k+': '+v;\n        }).join('\\n') + '\\n\\n'\n    : '';\n\n  const prompt = 'You are reading UK company accounts from an iXBRL filing. Find these five figures for the CURRENT YEAR from the PARENT COMPANY (not group/consolidated if both are shown).\\n\\n'\n    + preContext\n    + 'Find or confirm:\\n1. Annual turnover or revenue (GBP)\\n2. Average number of employees\\n3. Net assets or total equity (GBP)\\n4. Profit after tax (GBP) — negative if a loss\\n5. Financial year end date\\n\\n'\n    + 'In UK accounts, figures in parentheses e.g. (45,000) are negative. Always output negatives with a minus sign.\\n\\n'\n    + 'Respond with ONLY these five lines:\\nTurnover: £2,450,000\\nEmployees: 45\\nNet assets: £890,000\\nProfit: £123,456\\nYear: 2023\\n\\n'\n    + 'If a loss: Profit: -£45,000\\nIf not found: write null.\\n\\nACCOUNTS TEXT:\\n' + cleanText;\n\n  const body = JSON.stringify({model:'qwen3.5:27b', prompt, stream:false, think:false});\n  return [{json:{ollamaBody:body, hasImages:false, xbrlExtracted:xbrl}}];\n} catch(e) {\n  return [{json:{ollamaBody:null, hasImages:false, debug:'error: '+String(e)}}];\n}"
+        "jsCode": "try {\n  const raw = ($input.first().json || {}).data;\n  if (!raw) return [{ json: { ollamaBody: null, hasImages: false, debug: 'no data from download' } }];\n  const content = String(raw).substring(0, 800000);\n\n  // ---- 1. Parse contexts, capturing any dimension members ----\n  const ctxMap = {};\n  const ctxRe = /<xbrli:context\\s+id=\"([^\"]+)\"([\\s\\S]*?)<\\/xbrli:context>/gi;\n  let cm;\n  while ((cm = ctxRe.exec(content)) !== null) {\n    const id = cm[1];\n    const bodyc = cm[2];\n    const em = bodyc.match(/<xbrli:endDate>\\s*([^<]+?)\\s*<\\/xbrli:endDate>/i);\n    const im = bodyc.match(/<xbrli:instant>\\s*([^<]+?)\\s*<\\/xbrli:instant>/i);\n    const dims = [];\n    const dre = /dimension=\"([^\"]+)\"[^>]*>\\s*([^<]+?)\\s*<\\/xbrldi:explicitMember>/gi;\n    let dm;\n    while ((dm = dre.exec(bodyc)) !== null) {\n      dims.push({ dim: dm[1].split(':').pop(), member: dm[2].split(':').pop() });\n    }\n    ctxMap[id] = { end: em ? em[1].trim() : null, instant: im ? im[1].trim() : null, dims: dims };\n  }\n\n  // ---- 2. Group-parent detection: presence of a Consolidated member ----\n  let isGroupParent = false;\n  for (const id in ctxMap) {\n    for (const d of ctxMap[id].dims) {\n      if (/Consolidated/i.test(d.member)) { isGroupParent = true; break; }\n    }\n    if (isGroupParent) break;\n  }\n\n  // ---- 3. Latest period end across all contexts ----\n  let latestEnd = null;\n  for (const id in ctxMap) {\n    const d = ctxMap[id].end || ctxMap[id].instant;\n    if (d && (!latestEnd || d > latestEnd)) latestEnd = d;\n  }\n\n  // A context is usable for a headline figure only if it carries no breakdown\n  // dimension. The group/company split and currency are allowed; anything else\n  // (equity class, PPE class, subsidiary, maturity, ...) is a partial breakdown.\n  function classify(c) {\n    for (const d of c.dims) {\n      if (!/GroupCompanyData|Currencies/i.test(d.dim)) return null;\n    }\n    for (const d of c.dims) {\n      if (/GroupCompanyData/i.test(d.dim)) return /Consolidated/i.test(d.member) ? 'group' : 'company';\n    }\n    return 'undim';\n  }\n  function rankedCtxIds(isInstant) {\n    const buckets = { group: [], undim: [], company: [] };\n    for (const id in ctxMap) {\n      const c = ctxMap[id];\n      const d = isInstant ? c.instant : c.end;\n      if (d !== latestEnd) continue;\n      const k = classify(c);\n      if (k) buckets[k].push(id);\n    }\n    const order = isGroupParent ? ['group', 'undim', 'company'] : ['company', 'undim', 'group'];\n    let out = [];\n    for (const k of order) out = out.concat(buckets[k]);\n    return out;\n  }\n  const periodIds = rankedCtxIds(false);\n  const instantIds = rankedCtxIds(true);\n\n  // ---- 4. Parse ix:nonFraction / ix:nonNumeric facts ----\n  const elements = [];\n  const reOpen = /<ix:(nonFraction|nonNumeric)\\b([^>]*)>/gi;\n  let om;\n  while ((om = reOpen.exec(content)) !== null) {\n    const tagType = om[1];\n    const attrs = om[2];\n    const nameM = attrs.match(/\\bname=\"([^\"]+)\"/i);\n    const ctxM = attrs.match(/\\bcontextRef=\"([^\"]+)\"/i);\n    if (!nameM || !ctxM) continue;\n    const signM = attrs.match(/\\bsign=\"([^\"]+)\"/i);\n    const scaleM = attrs.match(/\\bscale=\"(-?[0-9]+)\"/i);\n    const closeTag = '</ix:' + tagType + '>';\n    const start = om.index + om[0].length;\n    const end = content.indexOf(closeTag, start);\n    if (end === -1) continue;\n    const inner = content.substring(start, end).replace(/<[^>]+>/g, '').replace(/\\s+/g, ' ').trim();\n    // store by LOCAL concept name (prefix varies per filer: core:, ns5:, uk-core: ...)\n    elements.push({ local: nameM[1].split(':').pop(), ctx: ctxM[1], sign: signM ? signM[1] : null, scale: scaleM ? parseInt(scaleM[1]) : 0, text: inner });\n  }\n\n  function parseNum(el) {\n    if (!el || !el.text) return null;\n    const t = el.text.trim();\n    const isNeg = el.sign === '-' || /^\\(.*\\)$/.test(t);\n    const clean = t.replace(/[£$€,\\s()]/g, '');\n    const n = parseFloat(clean);\n    if (isNaN(n)) return null;\n    // Some filers mis-tag whole-number facts with a negative scale (Centrebus tags\n    // employees text 704 with scale -2, which would parse as 7.04). Negative scale is\n    // only legitimate on Pure-unit percentages, which are displayed with decimals\n    // (e.g. 100.00) and so keep their scale via the dot check below; the headline GBP\n    // and headcount concepts extracted here never legitimately use it. A mis-tagged\n    // integer displayed as 704.00 would still slip through this check.\n    let scale = el.scale || 0;\n    if (scale < 0 && !clean.includes('.')) scale = 0;\n    return (isNeg ? -n : n) * Math.pow(10, scale);\n  }\n  // pick the first fact matching any concept, honouring the context preference order\n  function findVal(rankedIds, concepts) {\n    for (const id of rankedIds) {\n      for (const localName of concepts) {\n        const el = elements.find(function (e) { return e.local === localName && e.ctx === id; });\n        if (el) { const v = parseNum(el); if (v !== null) return v; }\n      }\n    }\n    return null;\n  }\n\n  // ---- 5. Narrative fallback (turnover & pre-tax profit are frequently untagged) ----\n  const plain = content\n    .replace(/<[^>]+>/g, ' ')\n    .replace(/&#160;|&nbsp;/gi, ' ')\n    .replace(/&#163;|&pound;/gi, '£')\n    .replace(/&amp;/gi, '&')\n    .replace(/\\s+/g, ' ');\n  function narr(regexes) {\n    for (const re of regexes) {\n      const m = plain.match(re);\n      if (m && m[1]) {\n        const neg = /loss/i.test(m[0]);\n        const n = parseFloat(m[1].replace(/,/g, ''));\n        if (!isNaN(n)) return neg ? -n : n;\n      }\n    }\n    return null;\n  }\n  const narrTurnover = narr([\n    /turnover(?:\\s+for the year)?\\s+(?:of|was|were|totalled|amounted to|increased to|decreased to)\\s*£?\\s*([0-9]{1,3}(?:,[0-9]{3})+)/i,\n    /(?:turnover|revenue)\\s*£?\\s*([0-9]{1,3}(?:,[0-9]{3})+)/i\n  ]);\n  const narrPBT = narr([\n    /(?:pre-?tax\\s*(?:profit|loss)?|(?:profit|loss)\\s+before\\s+tax(?:ation)?)\\s*of\\s*£?\\s*([0-9]{1,3}(?:,[0-9]{3})+)/i,\n    /(?:profit|loss)\\s+before\\s+tax(?:ation)?\\s*£?\\s*([0-9]{1,3}(?:,[0-9]{3})+)/i\n  ]);\n\n  // ---- 6. Assemble figures ----\n  const yearEndEl = elements.find(function (e) { return e.local === 'EndDateForPeriodCoveredByReport'; });\n  const yearEndText = yearEndEl ? yearEndEl.text.trim() : null;\n  // prefer a 4-digit year from the structured context end date (e.g. 2024-04-30),\n  // then the tagged free-text date (which may be \"30.4.24\")\n  const yr4 = function (s) { if (!s) return null; const m = String(s).match(/\\d{4}/); return m ? m[0] : null; };\n  const yearEnd = yr4(latestEnd) || yr4(yearEndText) || latestEnd || yearEndText || null;\n\n  const xbrl = {\n    turnover:        findVal(periodIds, ['TurnoverRevenue', 'Turnover', 'Revenue', 'TurnoverGross']),\n    employees:       findVal(periodIds, ['AverageNumberEmployeesDuringPeriod', 'AverageNumberEmployees', 'EmployeesTotal']),\n    netAssets:       findVal(instantIds, ['NetAssetsLiabilities', 'Equity', 'TotalEquity']),\n    profitBeforeTax: findVal(periodIds, ['ProfitLossOnOrdinaryActivitiesBeforeTax', 'ProfitLossBeforeTax', 'ProfitLossBeforeTaxation']),\n    profitAfterTax:  findVal(periodIds, ['ProfitLoss', 'ProfitLossForPeriod', 'ProfitLossAttributableToOwnersOfParent']),\n    yearEnd: yearEnd,\n    basis: isGroupParent ? 'group' : 'company'\n  };\n  if (xbrl.turnover == null && narrTurnover != null) xbrl.turnover = narrTurnover;\n  if (xbrl.profitBeforeTax == null && narrPBT != null) xbrl.profitBeforeTax = narrPBT;\n\n  const numericKeys = ['turnover', 'employees', 'netAssets', 'profitBeforeTax', 'profitAfterTax'];\n  const foundFields = numericKeys.filter(function (k) { return xbrl[k] != null; }).map(function (k) { return [k, xbrl[k]]; });\n  const missing = numericKeys.filter(function (k) { return xbrl[k] == null; });\n\n  // ---- 7. All present -> skip Ollama ----\n  if (missing.length === 0) {\n    return [{ json: { ollamaBody: null, hasImages: false, xbrlExtracted: xbrl } }];\n  }\n\n  // ---- 8. Ollama fallback for any missing fields ----\n  const fmt = function (v) { return v == null ? 'null' : (v < 0 ? '-£' + Math.abs(Math.round(v)).toLocaleString() : '£' + Math.round(v).toLocaleString()); };\n  const labels = { turnover: 'Turnover', employees: 'Employees', netAssets: 'Net assets', profitBeforeTax: 'Profit before tax', profitAfterTax: 'Profit after tax' };\n  const preContext = foundFields.length\n    ? 'Already extracted from XBRL tags / narrative (high confidence — keep unless the document clearly contradicts them):\\n'\n      + foundFields.map(function (kv) { return labels[kv[0]] + ': ' + (kv[0] === 'employees' ? kv[1] : fmt(kv[1])); }).join('\\n') + '\\n\\n'\n    : '';\n  const basisWord = isGroupParent ? 'GROUP / CONSOLIDATED' : 'individual COMPANY (not group)';\n  const prompt = 'You are reading UK company accounts from an iXBRL filing. These are ' + (isGroupParent ? 'CONSOLIDATED GROUP accounts' : 'individual COMPANY accounts') + '. Where both group and company figures are shown, use the ' + basisWord + ' figures for the CURRENT YEAR.\\n\\n'\n    + preContext\n    + 'Find or confirm these six figures:\\n1. Annual turnover or revenue (GBP)\\n2. Average number of employees\\n3. Net assets or total equity (GBP)\\n4. Profit BEFORE tax (GBP) — negative if a loss\\n5. Profit AFTER tax (GBP) — negative if a loss\\n6. Financial year end date\\n\\n'\n    + 'In UK accounts, figures in parentheses e.g. (45,000) are negative. Always output negatives with a minus sign.\\n\\n'\n    + 'Respond with ONLY these six lines:\\nTurnover: £2,450,000\\nEmployees: 45\\nNet assets: £890,000\\nProfit before tax: £150,000\\nProfit after tax: £123,456\\nYear: 2023\\n\\nIf a figure is not found, write null for that line.\\n\\nACCOUNTS TEXT:\\n' + plain.substring(0, 120000);\n\n  const body = JSON.stringify({ model: 'qwen3.6:27b', prompt: prompt, stream: false, think: false });\n  return [{ json: { ollamaBody: body, hasImages: false, xbrlExtracted: xbrl } }];\n} catch (e) {\n  return [{ json: { ollamaBody: null, hasImages: false, debug: 'error: ' + String(e) } }];\n}\n"
       },
-      "id": "e52d9175-6de4-421a-a772-f8d50b300ae0",
+      "id": "91ee9027-a664-4597-80f4-b11950c27c3b",
       "name": "Extract iXBRL Text",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        58544,
-        15200
+        6848,
+        1584
       ],
       "continueOnFail": true
     },
@@ -306,31 +306,99 @@
         "contentType": "binaryData",
         "inputDataFieldName": "pdfData",
         "options": {
-          "timeout": 30000
+          "timeout": 120000
         }
       },
-      "id": "4a6b55b3-f4dd-4d98-b89f-f8b04c96e4bd",
+      "id": "0a9c5157-1827-49fe-8e96-4b89494ff982",
       "name": "Convert PDF to Images",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        58464,
-        14992
+        6768,
+        1376
       ],
       "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "const imgData=($input.first().json||{}).images||[];\nif(imgData.length===0)return[{json:{ollamaBody:null,hasImages:false}}];\nconst prompt='You are reading pages from UK company accounts filed at Companies House. Look carefully at every page and find these four figures.\\n\\nIn UK accounts, tables always show TWO columns: the LEFT column is the CURRENT YEAR and the RIGHT column is the prior year. Always take figures from the LEFT (current year) column only.\\n\\n1. Annual turnover or revenue (in GBP) - LEFT column only\\n2. Average number of employees - LEFT column only, single total figure\\n3. Net assets or total equity (in GBP) - LEFT column only\\n4. Profit after tax (in GBP) - LEFT column only. This may be negative (a loss).\\n5. Financial year end date\\n\\nIMPORTANT: If column headings show figures are in thousands (e.g. £000 or £ 000), multiply each figure by 1000 to give the full amount. Preserve the sign for profit — use a minus sign if it is a loss. In UK accounts, figures shown in parentheses e.g. (£45,000) are negative. Always output negative values with a minus sign, not parentheses.\\n\\nState each figure on its own line in exactly this format:\\nTurnover: £2,450,000\\nEmployees: 45\\nNet assets: £890,000\\nProfit: £123,456\\nYear: 2023\\n\\nIf a figure is a loss, write it as: Profit: -£45,000\\nIf you cannot find a figure, write null for that line. Do not list multiple values for the same field.';\nconst body=JSON.stringify({model:'qwen2.5vl:7b',prompt:prompt,images:imgData,stream:false});\nreturn[{json:{ollamaBody:body,hasImages:true}}];"
+        "jsCode": "const imgData = (($input.first().json) || {}).images || [];\nif (imgData.length === 0) return [{ json: { ollamaBody: null, hasImages: false } }];\nconst prompt = 'You are reading pages from UK company accounts filed at Companies House. Look carefully at every page and find these figures.\\n\\n'\n  + 'In UK accounts, tables usually show TWO columns: read the year in each column heading and take the column with the later date.\\n\\n'\n  + 'If the accounts show BOTH group/consolidated and individual company figures (for example a \"Group\" and a \"Company\" balance sheet, or consolidated and company columns), use the GROUP / CONSOLIDATED figures.\\n\\n'\n  + '1. Annual turnover or revenue (GBP) - current year\\n'\n  + '2. Average number of employees - single total figure\\n'\n  + '3. Net assets or total equity (GBP) - current year\\n'\n  + '4. Profit BEFORE tax (GBP) - current year, negative if a loss\\n'\n  + '5. Profit AFTER tax (GBP) - current year, negative if a loss\\n'\n  + '6. Financial year end date\\n\\n'\n  + 'IMPORTANT: If column headings show figures are in thousands (e.g. £000 or £ 000), multiply each figure by 1000 to give the full amount. In UK accounts, figures shown in parentheses e.g. (£45,000) are negative. Always output negative values with a minus sign, not parentheses.\\n\\n'\n  + 'State each figure on its own line in exactly this format:\\nTurnover: £2,450,000\\nEmployees: 45\\nNet assets: £890,000\\nProfit before tax: £150,000\\nProfit after tax: £123,456\\nYear: 2023\\n\\n'\n  + 'If a figure is a loss, write it with a minus sign e.g. Profit after tax: -£45,000\\nIf you cannot find a figure, write null for that line. Do not list multiple values for the same field.';\nconst TOKENS_PER_PAGE = 1400; // measured for the converter's A4 page output; scales with pixel area\nconst CTX_HEADROOM = 6500; // prompt + response margin (matches tester so bucketed num_ctx values are identical)\nconst CTX_CAP = 65536; // ~40 GB total footprint on the 32b model - fits Amelai's GPUs\nconst CTX_STEP = 8192; // bucketed so similar-sized requests reuse the loaded runner\nconst maxPages = Math.floor((CTX_CAP - CTX_HEADROOM) / TOKENS_PER_PAGE);\nif (imgData.length > maxPages) return [{ json: { ollamaBody: null, hasImages: false, debug: 'filing has ' + imgData.length + ' pages; vision cap is ' + maxPages } }];\nconst numCtx = Math.min(CTX_CAP, Math.max(8192, Math.ceil((imgData.length * TOKENS_PER_PAGE + CTX_HEADROOM) / CTX_STEP) * CTX_STEP));\nconst body = JSON.stringify({ model: 'qwen3-vl:32b', prompt: prompt, images: imgData, stream: false, options: { num_ctx: numCtx } });\nreturn [{ json: { ollamaBody: body, hasImages: true } }];\n"
       },
-      "id": "7be29597-534d-4906-a044-6ffd0d9e683c",
+      "id": "0a7b3efb-b46f-487b-8c05-ed73b981ddab",
       "name": "Prep Vision Prompt",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        58624,
-        14992
+        6960,
+        1376
       ]
+    },
+    {
+      "parameters": {"method": "POST", "url": "http://192.168.1.192:8086/pageinfo", "sendBody": true, "contentType": "binaryData", "inputDataFieldName": "pdfData", "options": {"timeout": 30000}},
+      "id": "3f8c1a72-9d41-4e2a-8b0f-52e7a1c90201",
+      "name": "Get Page Count",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [6592, 1568],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {"jsCode": "const pages=(($input.first().json)||{}).pages||0;\nconst src=$('CH: Download PDF').first();\nconst bin=(src.binary||{}).pdfData;\nif(!bin)return[{json:{pages:0,debug:'No PDF binary available'}}];\nreturn[{json:{pages:pages},binary:{pdfData:bin}}];"},
+      "id": "3f8c1a72-9d41-4e2a-8b0f-52e7a1c90202",
+      "name": "Reattach PDF",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [6752, 1568]
+    },
+    {
+      "parameters": {"conditions": {"number": [{"value1": "={{ $json.pages || 0 }}", "operation": "larger", "value2": 42}]}},
+      "id": "3f8c1a72-9d41-4e2a-8b0f-52e7a1c90203",
+      "name": "Route: Page Count",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [6912, 1568]
+    },
+    {
+      "parameters": {"method": "POST", "url": "http://192.168.1.192:8086/convert?dpi=75&label=1", "sendBody": true, "contentType": "binaryData", "inputDataFieldName": "pdfData", "options": {"timeout": 120000}},
+      "id": "3f8c1a72-9d41-4e2a-8b0f-52e7a1c90204",
+      "name": "Convert Survey Images",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [7072, 1568],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {"jsCode": "const j=($input.first().json)||{};\nconst images=j.images||[];\nif(images.length===0)return[{json:{surveyBody:null,debug:'survey conversion returned no images'}}];\nconst SURVEY_TOKENS_PER_PAGE=600; // measured 537 at dpi=75 on A4 portrait (prompt_eval_count 39218 / 73 pages) + ~5.5% for the 48px page-number banner; landscape or larger pages cost more\nconst CTX_HEADROOM=8192; // prompt text + thinking transcript + answer\nconst CTX_CAP=65536;\nconst CTX_STEP=8192;\nconst maxSurveyPages=Math.floor((CTX_CAP-CTX_HEADROOM)/SURVEY_TOKENS_PER_PAGE);\nif(images.length>maxSurveyPages)return[{json:{surveyBody:null,debug:'filing has '+images.length+' pages; survey cap is '+maxSurveyPages}}];\nconst prompt='These images are the pages of a UK company accounts filing from Companies House, in their original order. Every image has a black banner at the very top reading PAGE n OF m. Banner numbers are the ONLY page numbers you may use. Page numbers printed inside the document pages (headers or footers) are DIFFERENT numbers - never report them.\\n\\nIdentify the pages containing:\\n1. The profit and loss account or income statement (both group/consolidated AND company versions if both exist)\\n2. EVERY page whose heading includes \"Balance sheet\" or \"Statement of financial position\" - list them all: group AND company versions, and any page where the statement continues (net current assets, net assets, and capital and reserves often appear on the second page). If a balance sheet page is selected, ALSO include the page immediately after it, unless that next page clearly starts a different statement or note.\\n3. The note stating the average number of employees\\n4. The cover or title page showing the financial year end date\\n\\nRespond with a single line in exactly this format:\\nPAGES: <first>,<second>,<third>\\nThe PAGES: line must contain banner numbers only, each listed once, separated by commas. No ranges. No other text.';\nconst numCtx=Math.min(CTX_CAP,Math.max(8192,Math.ceil((images.length*SURVEY_TOKENS_PER_PAGE+CTX_HEADROOM)/CTX_STEP)*CTX_STEP));\n// think:false is currently ignored by this qwen3-vl:32b build (always-thinking variant) - num_predict must budget the full thinking transcript\nreturn[{json:{surveyBody:JSON.stringify({model:'qwen3-vl:32b',prompt:prompt,images:images,stream:false,think:false,options:{num_ctx:numCtx,num_predict:6144}}),pageCount:images.length}}];"},
+      "id": "3f8c1a72-9d41-4e2a-8b0f-52e7a1c90205",
+      "name": "Prep Survey Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [7232, 1568]
+    },
+    {
+      "parameters": {"method": "POST", "url": "http://192.168.1.192:11434/api/generate", "sendBody": true, "contentType": "raw", "rawContentType": "application/json", "body": "={{ $json.surveyBody }}", "options": {"timeout": 3600000}},
+      "id": "3f8c1a72-9d41-4e2a-8b0f-52e7a1c90206",
+      "name": "HTTP: Survey Pages",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [7392, 1568],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {"jsCode": "const j=($input.first().json)||{};\nconst resp=j.response||'';\nconst lenStop=j.done_reason==='length'?' [generation hit num_predict limit - page list may be truncated]':'';\nlet pageCount=0;try{pageCount=$('Prep Survey Prompt').first().json.pageCount||0;}catch(e){}\nconst m=resp.match(/PAGES:\\s*([0-9,\\s\\-]+)/i);\nif(!m||!pageCount)return[{json:{images:[],debug:'survey gave no usable PAGES line'+lenStop+': '+resp.slice(0,200)}}];\nconst nums=[];\nm[1].split(',').forEach(function(tok){tok=tok.trim();if(!tok)return;const r=tok.match(/^(\\d+)\\s*-\\s*(\\d+)$/);if(r){const a=parseInt(r[1],10);const b=parseInt(r[2],10);if(b>=a&&b-a<=5){for(let p=a;p<=b;p++)nums.push(p);}return;}const n=parseInt(tok,10);if(!isNaN(n))nums.push(n);});\nconst valid=nums.filter(function(n){return n>=1&&n<=pageCount;});\nconst uniq=[];for(let i=0;i<valid.length;i++){if(uniq.indexOf(valid[i])===-1)uniq.push(valid[i]);}\nuniq.sort(function(a,b){return a-b;});\nif(uniq.length===0)return[{json:{images:[],debug:'survey PAGES line had no valid page numbers: '+resp.slice(0,200)}}];\nif(uniq.length>12)return[{json:{images:[],debug:'survey selected '+uniq.length+' pages (max 12)'}}];\nconst src=$('CH: Download PDF').first();\nconst bin=(src.binary||{}).pdfData;\nif(!bin)return[{json:{images:[],debug:'No PDF binary available for key-page conversion'}}];\nconst okOut={selectedPages:uniq.join(',')};\nif(lenStop)okOut.debug='survey'+lenStop;\nreturn[{json:okOut,binary:{pdfData:bin}}];"},
+      "id": "3f8c1a72-9d41-4e2a-8b0f-52e7a1c90207",
+      "name": "Pick Pages",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [7552, 1568]
+    },
+    {
+      "parameters": {"method": "POST", "url": "=http://192.168.1.192:8086/convert?dpi=200&pages={{ $json.selectedPages }}", "sendBody": true, "contentType": "binaryData", "inputDataFieldName": "pdfData", "options": {"timeout": 120000}},
+      "id": "3f8c1a72-9d41-4e2a-8b0f-52e7a1c90208",
+      "name": "Convert Key Pages",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [7712, 1568],
+      "continueOnFail": true
     },
     {
       "parameters": {
@@ -341,16 +409,16 @@
         "rawContentType": "application/json",
         "body": "={{ $json.ollamaBody }}",
         "options": {
-          "timeout": 120000
+          "timeout": 3600000
         }
       },
-      "id": "5f0c1ee3-c6ee-4f1b-8ff0-8abb4d7d81b7",
+      "id": "49a92b86-f72e-4a73-bef0-5386e485c8fd",
       "name": "HTTP: Extract Financials",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        58960,
-        15088
+        7264,
+        1472
       ],
       "continueOnFail": true
     },
@@ -359,40 +427,40 @@
         "url": "={{'http://192.168.1.192:8080/search?format=json&categories=general&q='+encodeURIComponent($('CH: Company').first().json.company_number+' '+($('CH: Company').first().json.company_name||'')+' employees fleet vehicles')}}",
         "options": {}
       },
-      "id": "b2d23e7c-0eec-443a-8758-91c9a806f8ef",
+      "id": "9d9f99d0-f1e1-4442-b391-cfd6f57f1228",
       "name": "Web Search",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        59200,
-        15088
+        7504,
+        1472
       ],
       "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "const companyNumber=$('CH: Company').first().json.company_number;\nconst parseItems=$('Parse Input').all();\nconst matched=parseItems.find(function(item){return item.json.companyNumber&&item.json.companyNumber.toUpperCase()===companyNumber.toUpperCase();});\nconst input=matched?matched.json:{companyNumber:companyNumber,ranking:5,products:[],note:''};\nconst company=$('CH: Company').first().json;\nconst officers=$('CH: Officers').first().json;\nconst webData=$input.first().json;\nlet financials={turnover:null,employees:null,netAssets:null,profitAfterTax:null,accountsYear:null};\ntry {\n  let xbrlDirect = null;\n  try {\n    const xbrlNode = $('Extract iXBRL Text').first();\n    if (xbrlNode && xbrlNode.json && xbrlNode.json.xbrlExtracted && xbrlNode.json.ollamaBody === null) {\n      xbrlDirect = xbrlNode.json.xbrlExtracted;\n    }\n  } catch(xe) {}\n\n  if (xbrlDirect) {\n    financials = {\n      turnover:      xbrlDirect.turnover,\n      employees:     xbrlDirect.employees,\n      netAssets:     xbrlDirect.netAssets,\n      profitAfterTax:xbrlDirect.profitAfterTax,\n      accountsYear:  xbrlDirect.yearEnd\n    };\n  } else {\n    const finRaw = $('HTTP: Extract Financials').first().json;\n    if (finRaw && finRaw.response) {\n      const text = finRaw.response;\n      try {\n        const parsed = JSON.parse(text);\n        financials = {\n          turnover:      parsed.turnover||null,\n          employees:     parsed.employees||null,\n          netAssets:     parsed.netAssets||null,\n          profitAfterTax:parsed.profitAfterTax||parsed.profit||null,\n          accountsYear:  parsed.year||null\n        };\n      } catch(e) {\n        const lines = text.split(/\\r?\\n/);\n        const getNum = function(key){\n          const line = lines.find(function(l){return l.toLowerCase().startsWith(key.toLowerCase());});\n          if (!line) return null;\n          const neg = line.includes('-') || line.includes('(');\n          const n = parseInt(line.slice(key.length).replace(/[^0-9]/g,''));\n          return isNaN(n) ? null : (neg ? -n : n);\n        };\n        const yearLine = lines.find(function(l){return l.toLowerCase().startsWith('year:');});\n        const yM = yearLine ? yearLine.match(/(20\\d\\d|19\\d\\d)/) : null;\n        financials = {\n          turnover:      getNum('Turnover:'),\n          employees:     getNum('Employees:'),\n          netAssets:     getNum('Net assets:'),\n          profitAfterTax:getNum('Profit:'),\n          accountsYear:  yM?yM[1]:null\n        };\n      }\n    }\n  }\n} catch(e) {}\nconst webResults=(webData.results||[]).slice(0,3);\nconst webSnippets=webResults.map(function(r){return(r.title||'')+': '+(r.content||'').substring(0,150);});\nconst reg=company.registered_office_address||{};\nconst address=[reg.address_line_1,reg.locality,reg.postal_code].filter(Boolean).join(', ');\nconst region=reg.county||reg.region||reg.locality||'';\nconst dirs=(officers.items||[]).filter(function(o){return!o.resigned_on;}).map(function(o){return o.name+' ('+o.officer_role+')';}).slice(0,5);\nlet accountsConfidence='none';\ntry{const metaUrl=$('Get Filing URL').first().json.metaUrl;if(metaUrl){const fmt=$('Detect Format').first().json.format;accountsConfidence=fmt==='ixbrl'?'high':'low';}}catch(e){}\nconst profile={companyNumber:input.companyNumber,companyName:company.company_name||'',address:address,region:region,sicCodes:company.sic_codes||[],incorporated:company.date_of_creation||null,status:company.company_status||'',directors:dirs,customerRanking:input.ranking,products:input.products,financials:financials,accountsConfidence:accountsConfidence,rankingNote:input.note||'',webSnippets:webSnippets,profileDate:new Date().toISOString().split('T')[0]};\nconst store=$getWorkflowStaticData('global');\nif(!store.profiles)store.profiles={};\nstore.profiles[input.companyNumber]=profile;\nreturn[{json:profile}];"
+        "jsCode": "const companyNumber=$('CH: Company').first().json.company_number;\nconst parseItems=$('Parse Input').all();\nif(!companyNumber)throw new Error('Companies House returned no company for this entry - check the number.');\nconst matched=parseItems.find(function(item){return item.json.companyNumber&&item.json.companyNumber.toUpperCase()===companyNumber.toUpperCase();});\nif(!matched)throw new Error('Company '+companyNumber+' returned by Companies House does not match any parsed input entry - aborting rather than inventing ranking/products.');\nconst input=matched.json;\nconst company=$('CH: Company').first().json;\nconst officers=$('CH: Officers').first().json;\nconst webData=$input.first().json;\nlet financials={turnover:null,employees:null,netAssets:null,profitBeforeTax:null,profitAfterTax:null,accountsYear:null,basis:null};\ntry {\n  let xbrlDirect = null;\n  try {\n    const xbrlNode = $('Extract iXBRL Text').first();\n    if (xbrlNode && xbrlNode.json && xbrlNode.json.xbrlExtracted && xbrlNode.json.ollamaBody === null) {\n      xbrlDirect = xbrlNode.json.xbrlExtracted;\n    }\n  } catch(xe) {}\n\n  if (xbrlDirect) {\n    financials = {\n      turnover:      xbrlDirect.turnover,\n      employees:     xbrlDirect.employees,\n      netAssets:     xbrlDirect.netAssets,\n      profitBeforeTax:xbrlDirect.profitBeforeTax,\n      profitAfterTax:xbrlDirect.profitAfterTax,\n      accountsYear:  xbrlDirect.yearEnd,\n      basis:         (xbrlDirect.basis||null)\n    };\n  } else {\n    const finRaw = $('HTTP: Extract Financials').first().json;\n    if (finRaw && finRaw.response) {\n      const text = finRaw.response;\n      try {\n        const parsed = JSON.parse(text);\n        financials = {\n          turnover:      parsed.turnover||null,\n          employees:     parsed.employees||null,\n          netAssets:     parsed.netAssets||null,\n          profitBeforeTax:parsed.profitBeforeTax||parsed.pretaxProfit||null,\n          profitAfterTax:parsed.profitAfterTax||parsed.profit||null,\n          accountsYear:  parsed.year||null\n        };\n      } catch(e) {\n        const lines = text.split(/\\r?\\n/);\n        const getNum = function(key){\n          const line = lines.find(function(l){return l.toLowerCase().startsWith(key.toLowerCase());});\n          if (!line) return null;\n          const neg = line.includes('-') || line.includes('(');\n          const n = parseInt(line.slice(key.length).replace(/[^0-9]/g,''));\n          return isNaN(n) ? null : (neg ? -n : n);\n        };\n        const yearLine = lines.find(function(l){return l.toLowerCase().startsWith('year:');});\n        const yM = yearLine ? yearLine.match(/(20\\d\\d|19\\d\\d)/) : null;\n        financials = {\n          turnover:      getNum('Turnover:'),\n          employees:     getNum('Employees:'),\n          netAssets:     getNum('Net assets:'),\n          profitBeforeTax:getNum('Profit before tax:'),\n          profitAfterTax:(getNum('Profit after tax:')!==null?getNum('Profit after tax:'):getNum('Profit:')),\n          accountsYear:  yM?yM[1]:null\n        };\n      }\n    }\n  }\n} catch(e) {}\nconst webResults=(webData.results||[]).slice(0,3);\nconst webSnippets=webResults.map(function(r){return(r.title||'')+': '+(r.content||'').substring(0,150);});\nconst reg=company.registered_office_address||{};\nconst address=[reg.address_line_1,reg.locality,reg.postal_code].filter(Boolean).join(', ');\nconst region=reg.county||reg.region||reg.locality||'';\nconst dirs=(officers.items||[]).filter(function(o){return!o.resigned_on;}).map(function(o){return o.name+' ('+o.officer_role+')';}).slice(0,5);\nlet accountsConfidence='none';\ntry{const metaUrl=$('Get Filing URL').first().json.metaUrl;if(metaUrl){const fmt=$('Detect Format').first().json.format;accountsConfidence=fmt==='ixbrl'?'high':'low';}}catch(e){}\nif(financials&&!financials.basis){try{const _xn=$('Extract iXBRL Text').first();if(_xn&&_xn.json&&_xn.json.xbrlExtracted&&_xn.json.xbrlExtracted.basis)financials.basis=_xn.json.xbrlExtracted.basis;}catch(_e){}}\nconst profile={companyNumber:input.companyNumber,companyName:company.company_name||'',address:address,region:region,sicCodes:company.sic_codes||[],incorporated:company.date_of_creation||null,status:company.company_status||'',directors:dirs,customerRanking:input.ranking,products:input.products,financials:financials,accountsConfidence:accountsConfidence,rankingNote:input.note||'',webSnippets:webSnippets,profileDate:new Date().toISOString().split('T')[0]};\nconst store=$getWorkflowStaticData('global');\nObject.keys(store.profiles||{}).forEach(function(k){var ck=/^\\d{1,7}$/.test(k)?k.padStart(8,'0'):k;if(ck!==k){if(!store.profiles[ck]){store.profiles[ck]=store.profiles[k];store.profiles[ck].companyNumber=ck;}delete store.profiles[k];}});\nif(!store.profiles)store.profiles={};\nstore.profiles[input.companyNumber]=profile;\nreturn[{json:profile}];"
       },
-      "id": "750f5064-992b-4ee0-8ab3-965e4568b75c",
+      "id": "0ae18801-32ed-41e8-9d72-4692d242ed84",
       "name": "Build & Save Profile",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        59440,
-        15088
+        7744,
+        1472
       ]
     },
     {
       "parameters": {
-        "jsCode": "const store=$getWorkflowStaticData('global');\nconst profiles=store.profiles||{};\nconst list=Object.values(profiles).sort(function(a,b){return b.customerRanking-a.customerRanking;});\nconst date=new Date().toLocaleDateString('en-GB');\nconst subj='Portland Fuel Customer Profiles — '+list.length+' companies | '+date;\nconst ch=function(n){return 'https://find-and-update.company-information.service.gov.uk/company/'+n;};\nconst confBadge=function(c){if(c==='high')return '<span style=\"color:#27ae60;font-weight:bold\">High</span>';if(c==='low')return '<span style=\"color:#e67e22;font-weight:bold\">Low</span>';return '<span style=\"color:#999\">—</span>';};\nconst rows=list.map(function(p){const fin=p.financials||{};const bd='border-bottom:'+(p.rankingNote?'none':'1px solid #ddd');const noteRow=p.rankingNote?'<tr><td colspan=\"9\" style=\"padding:4px 8px 10px;color:#666;font-style:italic;font-size:12px;border-bottom:1px solid #ddd\"><em>Note: '+p.rankingNote+'</em></td></tr>':'';return '<tr>'+'<td style=\"padding:8px;'+bd+'\"><strong><a href=\"'+ch(p.companyNumber)+'\" target=\"_blank\">'+p.companyName+'</a></strong><br><small>'+p.companyNumber+'</small></td>'+'<td style=\"padding:8px;'+bd+';text-align:center\"><strong>'+p.customerRanking+'/10</strong></td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.region||'—')+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.products||[]).join(', ')+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.sicCodes||[]).join(', ')+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(fin.turnover!=null?'£'+Math.round(fin.turnover).toLocaleString():'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:center\">'+(fin.employees!=null?fin.employees:'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:center\">'+confBadge(p.accountsConfidence)+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.profileDate||'')+'</td>'+'</tr>'+noteRow;}).join('');\nconst avgRanking=list.length?(list.reduce(function(s,p){return s+p.customerRanking;},0)/list.length).toFixed(1):'0';\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:1200px;margin:0 auto\">'+'<h2 style=\"color:#2c3e50\">Portland Fuel Customer Profiles</h2>'+'<p><b>'+list.length+' companies</b> | Average ranking: '+avgRanking+'/10 | '+date+(list.length===0?' — No profiles saved yet.':'')+'</p>'+'<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\">'+'<thead><tr style=\"background:#2c3e50;color:#fff\">'+'<th style=\"padding:8px;text-align:left\">Company</th>'+'<th style=\"padding:8px;width:60px\">Rank</th>'+'<th style=\"padding:8px;width:110px\">Region</th>'+'<th style=\"padding:8px;width:160px\">Products</th>'+'<th style=\"padding:8px;width:80px\">SIC</th>'+'<th style=\"padding:8px;width:100px\">Turnover</th>'+'<th style=\"padding:8px;width:80px\">Employees</th>'+'<th style=\"padding:8px;width:80px\">Confidence</th>'+'<th style=\"padding:8px;width:90px\">Profiled</th>'+'</tr></thead><tbody>'+rows+'</tbody></table>'+'<p style=\"color:#999;font-size:11px\">Generated '+new Date().toISOString()+' via n8n / amelai</p>'+'</body></html>';\nconst esc=function(v){return '\"'+(String(v||'')).replace(/\"/g,'\"\"')+'\"';};\nconst csvHeader='Company Number,Company Name,Region,Ranking,Products,SIC Codes,Turnover,Employees,Net Assets,Accounts Year,Confidence,Ranking Note,Profile Date';\nconst csvRows=list.map(function(p){const fin=p.financials||{};return [esc(p.companyNumber),esc(p.companyName),esc(p.region||''),p.customerRanking,esc((p.products||[]).join('; ')),esc((p.sicCodes||[]).join('; ')),fin.turnover!=null?Math.round(fin.turnover):'',fin.employees!=null?fin.employees:'',fin.netAssets!=null?Math.round(fin.netAssets):'',esc(fin.accountsYear||''),esc(p.accountsConfidence||''),esc(p.rankingNote||''),esc(p.profileDate||'')].join(',');});\nconst csvContent=csvHeader+'\\n'+csvRows.join('\\n');\nconst csvBase64=Buffer.from(csvContent,'utf-8').toString('base64');\nreturn[{json:{subject:subj,htmlBody:html,csvBase64:csvBase64}}];"
+        "jsCode": "const store=$getWorkflowStaticData('global');\nObject.keys(store.profiles||{}).forEach(function(k){var ck=/^\\d{1,7}$/.test(k)?k.padStart(8,'0'):k;if(ck!==k){if(!store.profiles[ck]){store.profiles[ck]=store.profiles[k];store.profiles[ck].companyNumber=ck;}delete store.profiles[k];}});\nconst profiles=store.profiles||{};\nconst list=Object.values(profiles).sort(function(a,b){return b.customerRanking-a.customerRanking;});\nconst date=new Date().toLocaleDateString('en-GB');\nconst subj='Portland Fuel Customer Profiles — '+list.length+' companies | '+date;\nconst ch=function(n){return 'https://find-and-update.company-information.service.gov.uk/company/'+n;};\nconst confBadge=function(c){if(c==='high')return '<span style=\"color:#27ae60;font-weight:bold\">High</span>';if(c==='low')return '<span style=\"color:#e67e22;font-weight:bold\">Low</span>';return '<span style=\"color:#999\">—</span>';};\nconst rows=list.map(function(p){const fin=p.financials||{};const bd='border-bottom:'+(p.rankingNote?'none':'1px solid #ddd');const noteRow=p.rankingNote?'<tr><td colspan=\"12\" style=\"padding:4px 8px 10px;color:#666;font-style:italic;font-size:12px;border-bottom:1px solid #ddd\"><em>Note: '+p.rankingNote+'</em></td></tr>':'';return '<tr>'+'<td style=\"padding:8px;'+bd+'\"><strong><a href=\"'+ch(p.companyNumber)+'\" target=\"_blank\">'+p.companyName+'</a></strong><br><small>'+p.companyNumber+'</small></td>'+'<td style=\"padding:8px;'+bd+';text-align:center\"><strong>'+p.customerRanking+'/10</strong></td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.region||'—')+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.products||[]).join(', ')+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.sicCodes||[]).join(', ')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:right\">'+(fin.turnover!=null?'£'+Math.round(fin.turnover).toLocaleString():'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:right\">'+(fin.profitBeforeTax!=null?(fin.profitBeforeTax<0?'-£'+Math.abs(Math.round(fin.profitBeforeTax)).toLocaleString():'£'+Math.round(fin.profitBeforeTax).toLocaleString()):'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:right\">'+(fin.profitAfterTax!=null?(fin.profitAfterTax<0?'-£'+Math.abs(Math.round(fin.profitAfterTax)).toLocaleString():'£'+Math.round(fin.profitAfterTax).toLocaleString()):'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:right\">'+(fin.netAssets!=null?(fin.netAssets<0?'-£'+Math.abs(Math.round(fin.netAssets)).toLocaleString():'£'+Math.round(fin.netAssets).toLocaleString()):'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:center\">'+(fin.employees!=null?fin.employees:'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:center\">'+confBadge(p.accountsConfidence)+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.profileDate||'')+'</td>'+'</tr>'+noteRow;}).join('');\nconst avgRanking=list.length?(list.reduce(function(s,p){return s+p.customerRanking;},0)/list.length).toFixed(1):'0';\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:1200px;margin:0 auto\">'+'<h2 style=\"color:#2c3e50\">Portland Fuel Customer Profiles</h2>'+'<p><b>'+list.length+' companies</b> | Average ranking: '+avgRanking+'/10 | '+date+(list.length===0?' — No profiles saved yet.':'')+'</p>'+'<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\">'+'<thead><tr style=\"background:#2c3e50;color:#fff\">'+'<th style=\"padding:8px;text-align:left\">Company</th>'+'<th style=\"padding:8px;width:60px\">Rank</th>'+'<th style=\"padding:8px;width:110px\">Region</th>'+'<th style=\"padding:8px;width:160px\">Products</th>'+'<th style=\"padding:8px;width:80px\">SIC</th>'+'<th style=\"padding:8px;width:100px\">Turnover</th>'+'<th style=\"padding:8px;width:110px\">Pre-tax Profit</th>'+'<th style=\"padding:8px;width:110px\">Post-tax Profit</th>'+'<th style=\"padding:8px;width:100px\">Net Assets</th>'+'<th style=\"padding:8px;width:80px\">Employees</th>'+'<th style=\"padding:8px;width:80px\">Confidence</th>'+'<th style=\"padding:8px;width:90px\">Profiled</th>'+'</tr></thead><tbody>'+rows+'</tbody></table>'+'<p style=\"color:#999;font-size:11px\">Generated '+new Date().toISOString()+' via n8n / amelai</p>'+'</body></html>';\nconst esc=function(v){return '\"'+(String(v||'')).replace(/\"/g,'\"\"')+'\"';};\nconst csvHeader='Company Number,Company Name,Region,Ranking,Products,SIC Codes,Turnover,Pre-tax Profit,Post-tax Profit,Employees,Net Assets,Accounts Year,Confidence,Ranking Note,Profile Date';\nconst csvRows=list.map(function(p){const fin=p.financials||{};return [esc(p.companyNumber),esc(p.companyName),esc(p.region||''),p.customerRanking,esc((p.products||[]).join('; ')),esc((p.sicCodes||[]).join('; ')),fin.turnover!=null?Math.round(fin.turnover):'',fin.profitBeforeTax!=null?Math.round(fin.profitBeforeTax):'',fin.profitAfterTax!=null?Math.round(fin.profitAfterTax):'',fin.employees!=null?fin.employees:'',fin.netAssets!=null?Math.round(fin.netAssets):'',esc(fin.accountsYear||''),esc(p.accountsConfidence||''),esc(p.rankingNote||''),esc(p.profileDate||'')].join(',');});\nconst csvContent=csvHeader+'\\n'+csvRows.join('\\n');\nconst csvBase64=Buffer.from(csvContent,'utf-8').toString('base64');\nconst chatMessage=list.length+' '+(list.length===1?'Company':'Companies')+' Found. Check your email.';\nreturn[{json:{subject:subj,htmlBody:html,csvBase64:csvBase64,chatMessage:chatMessage}}];"
       },
-      "id": "00a5e907-50e9-47e8-834b-0d2c863db57e",
+      "id": "c3744cc0-4cbd-4765-afb3-58410ab26b72",
       "name": "Get All Profiles",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        55696,
-        14688
+        4272,
+        1136
       ]
     },
     {
@@ -409,13 +477,13 @@
           "timeout": 30000
         }
       },
-      "id": "6d1c9cc9-7b4b-4306-a7ad-7d723cf0c3f0",
+      "id": "b876a6fd-b61a-412b-ad12-f882ef67a1d3",
       "name": "Send Profile List",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        55936,
-        14688
+        4512,
+        1136
       ],
       "credentials": {
         "microsoftOutlookOAuth2Api": {
@@ -435,39 +503,39 @@
           ]
         }
       },
-      "id": "5f268840-f744-4298-af36-6a1e352265ad",
+      "id": "5c7026a9-a230-4cb9-be2b-8151395ee69a",
       "name": "Route2",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        55664,
-        14944
+        3600,
+        1408
       ]
     },
     {
       "parameters": {
-        "jsCode": "const input=$('Parse Input').first().json;\nconst store=$getWorkflowStaticData('global');\nif(!store.profiles)store.profiles={};\nconst existing=store.profiles[input.companyNumber];\nif(!existing)return[{json:{companyNumber:input.companyNumber,companyName:'Unknown',removed:false}}];\nconst name=existing.companyName||input.companyNumber;\ndelete store.profiles[input.companyNumber];\nreturn[{json:{companyNumber:input.companyNumber,companyName:name,removed:true}}];"
+        "jsCode": "const input=$('Parse Input').first().json;\nconst store=$getWorkflowStaticData('global');\nObject.keys(store.profiles||{}).forEach(function(k){var ck=/^\\d{1,7}$/.test(k)?k.padStart(8,'0'):k;if(ck!==k){if(!store.profiles[ck]){store.profiles[ck]=store.profiles[k];store.profiles[ck].companyNumber=ck;}delete store.profiles[k];}});\nif(!store.profiles)store.profiles={};\nconst existing=store.profiles[input.companyNumber];\nif(!existing)return[{json:{companyNumber:input.companyNumber,companyName:'Unknown',removed:false}}];\nconst name=existing.companyName||input.companyNumber;\ndelete store.profiles[input.companyNumber];\nreturn[{json:{companyNumber:input.companyNumber,companyName:name,removed:true}}];"
       },
-      "id": "4e1d677e-90d9-4658-a8d2-af1c913e7606",
+      "id": "f758a104-e580-4ffc-8132-698b2f3637af",
       "name": "Remove Profile",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        55888,
-        14864
+        4272,
+        960
       ]
     },
     {
       "parameters": {
-        "jsCode": "const p=$input.first().json;\nconst date=new Date().toLocaleDateString('en-GB');\nconst subj=p.removed?'Profile Removed: '+p.companyName+' ('+p.companyNumber+')':'Profile Not Found: '+p.companyNumber;\nconst msg=p.removed?'<p>The profile for <strong>'+p.companyName+'</strong> ('+p.companyNumber+') has been removed from the customer database.</p>':'<p>No profile was found for company number <strong>'+p.companyNumber+'</strong>. Nothing was deleted.</p>';\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:700px;margin:0 auto\"><h2 style=\"color:#2c3e50\">'+(p.removed?'Profile Removed':'Profile Not Found')+'</h2>'+msg+'<p style=\"color:#999;font-size:11px\">'+date+' via n8n / amelai</p></body></html>';\nreturn[{json:{subject:subj,htmlBody:html}}];"
+        "jsCode": "const p=$input.first().json;\nconst date=new Date().toLocaleDateString('en-GB');\nconst subj=p.removed?'Profile Removed: '+p.companyName+' ('+p.companyNumber+')':'Profile Not Found: '+p.companyNumber;\nconst msg=p.removed?'<p>The profile for <strong>'+p.companyName+'</strong> ('+p.companyNumber+') has been removed from the customer database.</p>':'<p>No profile was found for company number <strong>'+p.companyNumber+'</strong>. Nothing was deleted.</p>';\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:700px;margin:0 auto\"><h2 style=\"color:#2c3e50\">'+(p.removed?'Profile Removed':'Profile Not Found')+'</h2>'+msg+'<p style=\"color:#999;font-size:11px\">'+date+' via n8n / amelai</p></body></html>';\nconst chatMessage=(p.removed?'1 Company Removed. ':'Company Not Found. ')+'Check your email.';\nreturn[{json:{subject:subj,htmlBody:html,chatMessage:chatMessage}}];"
       },
-      "id": "991821f9-811a-4070-a02b-7aa649531f72",
+      "id": "55e6eee5-3047-47e8-9921-fec372516533",
       "name": "Format Remove Email",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        56128,
-        14864
+        4512,
+        960
       ]
     },
     {
@@ -479,13 +547,13 @@
           "bodyContentType": "html"
         }
       },
-      "id": "5b3ccd8c-065b-423a-b936-3d9df4d1d960",
+      "id": "dc23cb97-35f7-49d1-979c-3dcb8e868c86",
       "name": "Send Remove Email",
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        56368,
-        14864
+        4752,
+        960
       ],
       "webhookId": "b0a57654-2d95-4f0a-b966-51eb19c00b02",
       "credentials": {
@@ -497,40 +565,162 @@
     },
     {
       "parameters": {
-        "batchSize": 1,
         "options": {}
       },
-      "id": "b7d4e9a2-f1c3-4875-9d6e-2a8f0c34b1e7",
+      "id": "66d33f7a-b577-426e-b9c4-fd8a41346eb1",
       "name": "Loop",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        55776,
-        15104
+        4064,
+        1440
       ]
     },
     {
       "parameters": {
         "public": true,
-        "initialMessages": "Hi there welcome to the Portland Company Profiler.\n\nAdd one or more companies (one per line):\nadd 06880902 10 Hedging, Bulk | large arable farm, consistent volumes\nadd 12345678 8 HVO, Cards | regional haulier, growing fleet\n\nThe note after '|' is optional but recommended for lead scoring.\nWithout a note:\nadd 06880902 8 Bulk\n\nOther commands (single line only):\nremove 06880902\nlist\n\n(Using 'add' on an existing company number will overwrite the existing entry)",
+        "initialMessages": "Hi there welcome to the Portland Company Profiler.\n\nAdd one or more companies (one per line):\nadd 06880902 10 Hedging, Bulk | large arable farm, consistent volumes\nadd 12345678 8 HVO, Cards | regional haulier, growing fleet\n\nThe note after '|' is optional but recommended for lead scoring.\nWithout a note:\nadd 06880902 8 Bulk\n\nUpdate fields on an existing company without re-searching financials:\nupdate 06880902 Products=Hedging, Fuelcards | Ranking=10\n(Products/SIC Codes are added to the existing list, not replaced. Other fields are overwritten. Field names must match a CSV column: Company Name, Region, Ranking, Products, SIC Codes, Turnover, Employees, Net Assets, Accounts Year, Confidence, Ranking Note, Profile Date)\n\nOther commands (single line only):\nremove 06880902\nlist\n\n(Using 'add' on an existing company number will overwrite the existing entry)",
         "options": {
-          "subtitle": "Enter one or more add commands (one per line): add <RegNo> <Ranking> <Products>. Or: list / remove <RegNo>",
+          "subtitle": "Enter one or more add commands (one per line): add <RegNo> <Ranking> <Products>. Or: update <RegNo> <Field>=<Value> | <Field>=<Value> / list / remove <RegNo>",
           "title": "Portland Company Profiler Entry"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.4,
       "position": [
-        55104,
-        14816
+        2944,
+        1360
       ],
-      "id": "b96b8ef0-feb1-4d16-af72-d5e7d59f9790",
+      "id": "36c1d51f-f9ed-415b-9ad3-c681c36f4bc8",
       "name": "When chat message received",
       "webhookId": "pfl-profiler"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.mode }}",
+              "value2": "update"
+            }
+          ]
+        }
+      },
+      "id": "d420bcb4-c3c9-4bb8-9a9e-02f4f9cde09c",
+      "name": "Route3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        3824,
+        1424
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const input=$('Parse Input').first().json;\nconst store=$getWorkflowStaticData('global');\nObject.keys(store.profiles||{}).forEach(function(k){var ck=/^\\d{1,7}$/.test(k)?k.padStart(8,'0'):k;if(ck!==k){if(!store.profiles[ck]){store.profiles[ck]=store.profiles[k];store.profiles[ck].companyNumber=ck;}delete store.profiles[k];}});\nif(!store.profiles)store.profiles={};\nconst existing=store.profiles[input.companyNumber];\nif(!existing){\n  return[{json:{companyNumber:input.companyNumber,companyName:'Unknown',updated:false,changes:[],errors:['No profile found for '+input.companyNumber+'. Use \"add\" to create one first.']}}];\n}\nif(!existing.financials)existing.financials={};\n\nconst fieldMap={\n  'company name':{obj:'root',prop:'companyName',type:'string'},\n  'region':{obj:'root',prop:'region',type:'string'},\n  'ranking':{obj:'root',prop:'customerRanking',type:'number'},\n  'products':{obj:'root',prop:'products',type:'array-merge'},\n  'sic codes':{obj:'root',prop:'sicCodes',type:'array-merge'},\n  'turnover':{obj:'financials',prop:'turnover',type:'number'},\n  'employees':{obj:'financials',prop:'employees',type:'number'},\n  'net assets':{obj:'financials',prop:'netAssets',type:'number'},\n  'accounts year':{obj:'financials',prop:'accountsYear',type:'string'},\n  'confidence':{obj:'root',prop:'accountsConfidence',type:'string'},\n  'ranking note':{obj:'root',prop:'rankingNote',type:'string'},\n  'profile date':{obj:'root',prop:'profileDate',type:'string'}\n};\n\nconst changes=[];\nconst errors=[];\n\n(input.updates||[]).forEach(function(upd){\n  const def=fieldMap[upd.field.trim().toLowerCase()];\n  if(!def){errors.push('Unknown field \"'+upd.field+'\" — must match a CSV column (e.g. Ranking, Products, Region, Ranking Note).');return;}\n  const target=def.obj==='financials'?existing.financials:existing;\n\n  if(def.type==='number'){\n    const num=Number(upd.value);\n    if(isNaN(num)){errors.push('\"'+upd.field+'\" must be a number, got \"'+upd.value+'\"');return;}\n    const before=target[def.prop];\n    target[def.prop]=num;\n    changes.push(upd.field+': '+(before==null?'—':before)+' → '+num);\n  } else if(def.type==='array-merge'){\n    const additions=upd.value.split(',').map(function(v){return v.trim();}).filter(Boolean);\n    const current=target[def.prop]||[];\n    const before=current.slice();\n    const merged=current.slice();\n    additions.forEach(function(a){\n      if(!merged.some(function(m){return m.toLowerCase()===a.toLowerCase();})){merged.push(a);}\n    });\n    target[def.prop]=merged;\n    changes.push(upd.field+': '+(before.join(', ')||'—')+' → '+merged.join(', '));\n  } else {\n    const before=target[def.prop];\n    target[def.prop]=upd.value;\n    changes.push(upd.field+': '+(before||'—')+' → '+upd.value);\n  }\n});\n\nstore.profiles[input.companyNumber]=existing;\nreturn[{json:{companyNumber:existing.companyNumber,companyName:existing.companyName,updated:changes.length>0,changes:changes,errors:errors}}];"
+      },
+      "id": "107a57b8-9a4f-47ea-b371-c49955b22e4e",
+      "name": "Update Profile",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4272,
+        1312
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p=$input.first().json;\nconst date=new Date().toLocaleDateString('en-GB');\nconst notFound=p.companyName==='Unknown';\nconst subj=notFound?'Profile Not Found: '+p.companyNumber:(p.updated?'Profile Updated: '+p.companyName+' ('+p.companyNumber+')':'Profile Update Issue: '+p.companyName+' ('+p.companyNumber+')');\nconst changesList=(p.changes||[]).map(function(c){return '<li>'+c+'</li>';}).join('');\nconst errorsList=(p.errors||[]).map(function(e){return '<li style=\"color:#c0392b\">'+e+'</li>';}).join('');\nlet msg;\nif(notFound){\n  msg='<p>No profile was found for company number <strong>'+p.companyNumber+'</strong>. Use <code>add</code> to create it first.</p>';\n} else {\n  msg='<p>Profile for <strong>'+p.companyName+'</strong> ('+p.companyNumber+') updated.</p>'+(changesList?'<ul>'+changesList+'</ul>':'<p>No fields were changed.</p>')+(errorsList?'<p><strong>Issues:</strong></p><ul>'+errorsList+'</ul>':'');\n}\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:700px;margin:0 auto\"><h2 style=\"color:#2c3e50\">'+(notFound?'Profile Not Found':(p.updated?'Profile Updated':'Update Issue'))+'</h2>'+msg+'<p style=\"color:#999;font-size:11px\">'+date+' via n8n / amelai</p></body></html>';\nconst chatMessage=(notFound?'Company Not Found. ':'1 Company Processed. ')+'Check your email.';\nreturn[{json:{subject:subj,htmlBody:html,chatMessage:chatMessage}}];"
+      },
+      "id": "0cbb552f-4a1e-4228-a155-b0c6e17cfd77",
+      "name": "Format Update Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4512,
+        1312
+      ]
+    },
+    {
+      "parameters": {
+        "toRecipients": "steve@portland-fuel.co.uk",
+        "subject": "={{ $json.subject }}",
+        "bodyContent": "={{ $json.htmlBody }}",
+        "additionalFields": {
+          "bodyContentType": "html"
+        }
+      },
+      "id": "a34462f7-9479-4444-b3b6-f193e20e8033",
+      "name": "Send Update Email",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        4752,
+        1312
+      ],
+      "webhookId": "1247a42b-ddf1-4c83-b336-c0944b323069",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "Orgklv2FZdo5pC4V",
+          "name": "MyHotmailEmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const list=$input.all().map(function(i){return i.json;}).filter(function(p){return p&&p.companyNumber;}).sort(function(a,b){return b.customerRanking-a.customerRanking;});\nconst date=new Date().toLocaleDateString('en-GB');\nconst subj='Portland Fuel — '+list.length+' '+(list.length===1?'company':'companies')+' profiled | '+date;\nconst ch=function(n){return 'https://find-and-update.company-information.service.gov.uk/company/'+n;};\nconst confBadge=function(c){if(c==='high')return '<span style=\"color:#27ae60;font-weight:bold\">High</span>';if(c==='low')return '<span style=\"color:#e67e22;font-weight:bold\">Low</span>';return '<span style=\"color:#999\">—</span>';};\nconst rows=list.map(function(p){const fin=p.financials||{};const bd='border-bottom:'+(p.rankingNote?'none':'1px solid #ddd');const noteRow=p.rankingNote?'<tr><td colspan=\"12\" style=\"padding:4px 8px 10px;color:#666;font-style:italic;font-size:12px;border-bottom:1px solid #ddd\"><em>Note: '+p.rankingNote+'</em></td></tr>':'';return '<tr>'+'<td style=\"padding:8px;'+bd+'\"><strong><a href=\"'+ch(p.companyNumber)+'\" target=\"_blank\">'+p.companyName+'</a></strong><br><small>'+p.companyNumber+'</small></td>'+'<td style=\"padding:8px;'+bd+';text-align:center\"><strong>'+p.customerRanking+'/10</strong></td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.region||'—')+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.products||[]).join(', ')+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.sicCodes||[]).join(', ')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:right\">'+(fin.turnover!=null?'£'+Math.round(fin.turnover).toLocaleString():'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:right\">'+(fin.profitBeforeTax!=null?(fin.profitBeforeTax<0?'-£'+Math.abs(Math.round(fin.profitBeforeTax)).toLocaleString():'£'+Math.round(fin.profitBeforeTax).toLocaleString()):'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:right\">'+(fin.profitAfterTax!=null?(fin.profitAfterTax<0?'-£'+Math.abs(Math.round(fin.profitAfterTax)).toLocaleString():'£'+Math.round(fin.profitAfterTax).toLocaleString()):'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:right\">'+(fin.netAssets!=null?(fin.netAssets<0?'-£'+Math.abs(Math.round(fin.netAssets)).toLocaleString():'£'+Math.round(fin.netAssets).toLocaleString()):'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:center\">'+(fin.employees!=null?fin.employees:'—')+'</td>'+'<td style=\"padding:8px;'+bd+';text-align:center\">'+confBadge(p.accountsConfidence)+'</td>'+'<td style=\"padding:8px;'+bd+'\">'+(p.profileDate||'')+'</td>'+'</tr>'+noteRow;}).join('');\nconst avgRanking=list.length?(list.reduce(function(s,p){return s+p.customerRanking;},0)/list.length).toFixed(1):'0';\nconst html='<!DOCTYPE html><html><body style=\"font-family:Arial,sans-serif;max-width:1200px;margin:0 auto\">'+'<h2 style=\"color:#2c3e50\">Companies profiled in this run</h2>'+'<p><b>'+list.length+' '+(list.length===1?'company':'companies')+' profiled</b> | Average ranking: '+avgRanking+'/10 | '+date+'</p>'+'<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse\">'+'<thead><tr style=\"background:#2c3e50;color:#fff\">'+'<th style=\"padding:8px;text-align:left\">Company</th>'+'<th style=\"padding:8px;width:60px\">Rank</th>'+'<th style=\"padding:8px;width:110px\">Region</th>'+'<th style=\"padding:8px;width:160px\">Products</th>'+'<th style=\"padding:8px;width:80px\">SIC</th>'+'<th style=\"padding:8px;width:100px\">Turnover</th>'+'<th style=\"padding:8px;width:110px\">Pre-tax Profit</th>'+'<th style=\"padding:8px;width:110px\">Post-tax Profit</th>'+'<th style=\"padding:8px;width:100px\">Net Assets</th>'+'<th style=\"padding:8px;width:80px\">Employees</th>'+'<th style=\"padding:8px;width:80px\">Confidence</th>'+'<th style=\"padding:8px;width:90px\">Profiled</th>'+'</tr></thead><tbody>'+rows+'</tbody></table>'+'<p style=\"color:#999;font-size:11px\">Generated '+new Date().toISOString()+' via n8n / amelai</p>'+'</body></html>';\nconst esc=function(v){return '\"'+(String(v||'')).replace(/\"/g,'\"\"')+'\"';};\nconst csvHeader='Company Number,Company Name,Region,Ranking,Products,SIC Codes,Turnover,Pre-tax Profit,Post-tax Profit,Employees,Net Assets,Accounts Year,Confidence,Ranking Note,Profile Date';\nconst csvRows=list.map(function(p){const fin=p.financials||{};return [esc(p.companyNumber),esc(p.companyName),esc(p.region||''),p.customerRanking,esc((p.products||[]).join('; ')),esc((p.sicCodes||[]).join('; ')),fin.turnover!=null?Math.round(fin.turnover):'',fin.profitBeforeTax!=null?Math.round(fin.profitBeforeTax):'',fin.profitAfterTax!=null?Math.round(fin.profitAfterTax):'',fin.employees!=null?fin.employees:'',fin.netAssets!=null?Math.round(fin.netAssets):'',esc(fin.accountsYear||''),esc(p.accountsConfidence||''),esc(p.rankingNote||''),esc(p.profileDate||'')].join(',');});\nconst csvContent=csvHeader+'\\n'+csvRows.join('\\n');\nconst csvBase64=Buffer.from(csvContent,'utf-8').toString('base64');\nconst chatMessage=list.length+' '+(list.length===1?'Company':'Companies')+' Processed. Check your email.';\nreturn[{json:{subject:subj,htmlBody:html,csvBase64:csvBase64,chatMessage:chatMessage}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4272,
+        1328
+      ],
+      "id": "78cc24b6-62ee-456c-adcc-71c673e7584b",
+      "name": "Collate Run Profiles"
+    },
+    {
+      "parameters": {
+        "jsCode": "function pick(node){try{const j=$(node).first().json;return j?j.chatMessage:undefined;}catch(e){return undefined;}}\nlet msg=pick('Collate Run Profiles')||pick('Get All Profiles')||pick('Format Remove Email')||pick('Format Update Email')||'Done. Check your email.';\ntry{const pi=$('Parse Input').first().json;if(pi&&pi.parseReport)msg=msg+'\\n'+pi.parseReport;}catch(e){}\nreturn[{json:{output:msg}}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4736,
+        1136
+      ],
+      "id": "5c460a2e-0132-4cf5-abc6-e742e8dbca21",
+      "name": "Build Chat Response"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {output: $json.output} }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        4960,
+        1136
+      ],
+      "id": "59f0746f-9a82-4894-9189-df1d88ada34f",
+      "name": "Respond to Chat"
     }
   ],
   "pinData": {},
   "connections": {
+    "Collate Run Profiles": {
+      "main": [
+        [
+          {
+            "node": "Send Profile List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Parse Input": {
       "main": [
         [
@@ -571,7 +761,7 @@
         ],
         [
           {
-            "node": "Loop",
+            "node": "Route3",
             "type": "main",
             "index": 0
           }
@@ -582,14 +772,14 @@
       "main": [
         [
           {
-            "node": "CH: Company",
+            "node": "Collate Run Profiles",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Get All Profiles",
+            "node": "CH: Company",
             "type": "main",
             "index": 0
           }
@@ -739,12 +929,39 @@
       "main": [
         [
           {
-            "node": "Convert PDF to Images",
+            "node": "Get Page Count",
             "type": "main",
             "index": 0
           }
         ]
       ]
+    },
+    "Get Page Count": {
+      "main": [[{"node": "Reattach PDF", "type": "main", "index": 0}]]
+    },
+    "Reattach PDF": {
+      "main": [[{"node": "Route: Page Count", "type": "main", "index": 0}]]
+    },
+    "Route: Page Count": {
+      "main": [
+        [{"node": "Convert Survey Images", "type": "main", "index": 0}],
+        [{"node": "Convert PDF to Images", "type": "main", "index": 0}]
+      ]
+    },
+    "Convert Survey Images": {
+      "main": [[{"node": "Prep Survey Prompt", "type": "main", "index": 0}]]
+    },
+    "Prep Survey Prompt": {
+      "main": [[{"node": "HTTP: Survey Pages", "type": "main", "index": 0}]]
+    },
+    "HTTP: Survey Pages": {
+      "main": [[{"node": "Pick Pages", "type": "main", "index": 0}]]
+    },
+    "Pick Pages": {
+      "main": [[{"node": "Convert Key Pages", "type": "main", "index": 0}]]
+    },
+    "Convert Key Pages": {
+      "main": [[{"node": "Prep Vision Prompt", "type": "main", "index": 0}]]
     },
     "CH: Download iXBRL": {
       "main": [
@@ -844,6 +1061,90 @@
           }
         ]
       ]
+    },
+    "Route3": {
+      "main": [
+        [
+          {
+            "node": "Update Profile",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Profile": {
+      "main": [
+        [
+          {
+            "node": "Format Update Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Update Email": {
+      "main": [
+        [
+          {
+            "node": "Send Update Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Profile List": {
+      "main": [
+        [
+          {
+            "node": "Build Chat Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Remove Email": {
+      "main": [
+        [
+          {
+            "node": "Build Chat Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Update Email": {
+      "main": [
+        [
+          {
+            "node": "Build Chat Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Chat Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -856,7 +1157,7 @@
     "availableInMCP": false,
     "timeSavedPerExecution": 15
   },
-  "versionId": "9de739cc-311b-4ba5-9601-2224204f0d29",
+  "versionId": "f2738b58-5199-4ee0-80cf-a0495176bdad",
   "meta": {
     "instanceId": "6e23109a98b6df358d89d07cb68f7791c431eec20aae3940902d07c181cc7d9a"
   },

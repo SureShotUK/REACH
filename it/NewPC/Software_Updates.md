@@ -476,7 +476,14 @@ If the file exists, a reboot is needed and the second command lists which packag
 
 A lightweight internal microservice that converts Companies House accounts PDFs into base64-encoded PNG images for processing by Ollama's vision model. Used exclusively by the n8n Customer Profiler workflow.
 
-**How it works**: When n8n sends a PDF binary to `http://192.168.1.192:8086/convert`, the service uses poppler's `pdftoppm` to render each page to PNG at 100 DPI, encodes them as base64 strings, and returns them in a JSON response. Images are **never saved to disk permanently** — poppler writes temporary files to `/tmp` inside the container during rendering, which are deleted immediately once loaded into memory. Nothing persists between requests.
+**How it works**: When n8n sends a PDF binary to `http://192.168.1.192:8086/convert`, the service uses poppler's `pdftoppm` to render each page to PNG at 200 DPI (default), encodes them as base64 strings, and returns them in a JSON response (`{"images": [...], "pages": N}`). Images are **never saved to disk permanently** — poppler writes temporary files to `/tmp` inside the container during rendering, which are deleted immediately once loaded into memory. Nothing persists between requests.
+
+**Endpoints and parameters** (added July 2026 for the two-stage page-selection flow in the Customer Profiler):
+
+- `POST /convert?dpi=<40-400>` — optional rendering resolution override; default 200. The profiler's survey pass uses `dpi=75` to fit very long filings into the vision model's context.
+- `POST /convert?dpi=200&pages=3,14,15` — optional comma-separated 1-based page numbers (max 20); converts only those pages, skipping any that fail or are out of range, and adds `"page_numbers": [...]` to the response listing the pages actually converted.
+- `POST /pageinfo` — returns `{"pages": N}` using poppler's `pdfinfo` without rendering anything; cheap page-count check used to route long filings down the survey path before any conversion happens.
+- Calls with no parameters behave exactly as before.
 
 **Source files**: `/docs/terminai/it/NewPC/n8n/pdf-to-image/` (three files: `app.py`, `requirements.txt`, `Dockerfile`)
 
@@ -553,10 +560,12 @@ curl http://192.168.1.192:8086/health
 
 | Constant | Current value | Purpose |
 |---|---|---|
-| `DPI` | 200 | Rendering resolution — lower = fewer tokens per page for the vision model; higher = more detail but larger images |
+| `DPI` | 200 | Default rendering resolution (overridable per request via `?dpi=`) — lower = fewer tokens per page for the vision model; higher = more detail but larger images |
 | `MAX_DIM` | 2000 | Maximum pixel dimension per axis — images larger than this are scaled down before encoding |
+| `MIN_DPI` / `MAX_DPI` | 40 / 400 | Accepted range for the `?dpi=` parameter |
+| `MAX_SELECTED_PAGES` | 20 | Maximum number of pages accepted in the `?pages=` parameter |
 
-> Increasing `DPI` improves readability for very dense financial tables but significantly increases the token count sent to Ollama, which can overflow the model's context window. 100 DPI is the recommended balance for A4 accounts documents.
+> Increasing `DPI` improves readability for very dense financial tables but significantly increases the token count sent to Ollama, which can overflow the model's context window. The vision workflows assume ~1,400 tokens/page at the default 200 DPI (`TOKENS_PER_PAGE` in the n8n workflows) and ~400 tokens/page at `dpi=75` — if you change the default DPI or `MAX_DIM`, retune those constants too.
 
 ### What is preserved across rebuilds
 

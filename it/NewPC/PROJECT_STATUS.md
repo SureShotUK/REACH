@@ -1,6 +1,6 @@
 # Project Status — NewPC AI Server
 
-**Last Updated**: 2026-07-02 (permission-prompt fix generalised to repo root)
+**Last Updated**: 2026-07-14 (qwen3-vl:32b promoted to production; two-stage page selection for long filings; n8n API management established)
 
 ---
 
@@ -26,7 +26,7 @@ Server (`amelai`) is fully operational. All 7 Docker services now run via `docke
 ## Active Work Areas
 
 - **Docker Compose** — ✅ implemented and all 7 services migrated 2026-07-02; see `docker-compose.yml`, `DockerComposeDocs.md`, and `Docker.md` → "Docker Compose (Primary Method)". Remaining: `docker image prune` to clean up the dangling pre-Compose `pdf-to-image` image
-- **n8n Customer Profiler** — Loop node output wiring bug fixed 2026-07-02 (was sending every `add` command's completion to the `list` command's email node instead of to `CH: Company`); confirmed working by user directly in n8n UI. New `update` command added 2026-07-02 to `n8n/Main/NewCustomerProfiler.json` (instant field edits — ranking, products, region, financials — without re-running Companies House lookup); documented in `n8n/Company_Profiler.md`; not yet imported/activated in n8n. Still outstanding from 2026-07-01: workflow JSON updated with notes, region, confidence, CSV attachment; needs import to n8n and credential re-link on Send Profile List node (Graph API HTTP Request)
+- **n8n Customer Profiler** — major upgrade 2026-07-14: PDF branch runs `qwen3-vl:32b` (correct figures where qwen2.5vl mis-read columns) with page-sized `num_ctx`; filings over 42 pages route through a two-stage survey (banner-labeled 75-DPI pass picks statement pages, then only those convert at full DPI) — 73-page filing extracts correctly except Net assets, fix applied and awaiting one re-run. Parser accepts flattened multi-add pastes, zero-pads company numbers, reports skipped lines in chat, and never invents data (ranking:5 fallback removed — errors instead). Live workflow now managed via the n8n API from `n8n/Portland Fuel - Customer Profiler.json` (source of truth, sync-verified); stale June duplicate deleted. Loop node output wiring bug fixed 2026-07-02. New `update` command added 2026-07-02 to `n8n/Main/NewCustomerProfiler.json`; documented in `n8n/Company_Profiler.md`; not yet imported/activated in n8n
 - **Lead scoring model** — to be built as a new n8n workflow; requires 15–20 profiled customers per product first; design documented in `Leadgen_Docs.md`
 - **SteveOP MCP setup** — RAG MCP now connected; remaining: TradingView MCP (Steps 3–8 of `SteveOP_MCP_Setup.md`) and `/db` skill
 - **StevesLenovo MCP setup** — RAG MCP connected; remaining: `/db` skill (`C:\Users\SteveIrwin\.claude\commands\db.md`)
@@ -35,6 +35,7 @@ Server (`amelai`) is fully operational. All 7 Docker services now run via `docke
 
 ## Recently Completed
 
+- **qwen3-vl:32b promotion + long-filing support (2026-07-14)** — production PDF extraction on the stronger model with measured `num_ctx` sizing; two-stage page selection (pdf-to-image `/pageinfo`, `dpi`/`pages`/`label` params, page-number banner stamping) lets 42+-page filings extract within existing GPU memory; parser hardened (flattened pastes, canonical numbers, fail-over-fabricate); live n8n workflow managed via API from the repo JSON with sync verification
 - **Customer Profiler `update` command** — new chat command in `n8n/Main/NewCustomerProfiler.json` for instant field-level edits (Ranking, Products, Region, Company Name, SIC Codes, Turnover, Employees, Net Assets, Accounts Year, Confidence, Ranking Note, Profile Date) on an existing profile, no Companies House re-lookup required; Products/SIC Codes merge additively, all other fields overwrite; validated with a standalone Node.js test harness; `Portland Fuel - Customer Profiler.json` left untouched; fully documented in `n8n/Company_Profiler.md`
 - **Docker Compose migration** — all 7 services (`open-webui`, `comfyui`, `comfyui-amelia`, `filebrowser`, `searxng`, `n8n`, `pdf-to-image`) migrated from standalone `docker run` containers to `docker-compose.yml`; existing named volumes and network preserved via `external: true`; GPU access via `deploy.resources.reservations.devices`; full reference in `DockerComposeDocs.md`
 - **Compose secrets/interpolation bug found and fixed** — a `$` in the Postgres password was silently corrupted by Compose's variable interpolation in both top-level `.env` and per-service `env_file:`; fixed by percent-encoding (`$` → `%24`) rather than rotating the credential; verified byte-for-byte via hash comparison against the running container

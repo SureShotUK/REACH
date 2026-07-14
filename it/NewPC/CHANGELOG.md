@@ -2,6 +2,31 @@
 
 ---
 
+## [Unreleased] - 2026-07-14
+
+### Added
+- **Two-stage page selection** for >42-page filings in the Customer Profiler: 8 new workflow nodes (page-count routing → 75-DPI labeled survey via qwen3-vl:32b → strict `PAGES:` parsing → full-DPI conversion of selected pages only)
+- pdf-to-image: `POST /pageinfo` endpoint (page count without rendering); `?dpi=` (40–400), `?pages=` (selective conversion, max 20), `?label=1` (stamps "PAGE n OF m" banner above each page — fixes vision-model image-index miscounting); `fonts-dejavu-core` in the Docker image
+- Parse Input: flattened multi-line paste handling (newline re-insertion before each `add <RegNo>`), per-line "missing ranking" errors, parse report (adds parsed / skipped lines) surfaced in the chat reply
+- n8n API management: live workflow updates now pushed from the JSON file via `PUT /api/v1/workflows/:id` with node-by-node sync verification (API key created by user, not stored in repo)
+
+### Changed
+- Production PDF branch promoted to `qwen3-vl:32b` with page-sized `num_ctx` (bucketed, capped 65,536), Ollama timeout 120 s → 3,600 s (always-thinking model), converter timeout 30 s → 120 s, and the tester-validated column rule ("take the column with the later date")
+- Company numbers canonicalised to 8-char zero-padded form in add/update/remove; lazy store-key migration re-keys legacy unpadded profile entries
+- Survey call budgets sized from measured data (537 tokens/page at dpi 75; `num_predict` 6144 to cover the un-disableable thinking transcript)
+
+### Fixed
+- Customer Profiler returning no financials after model swap — missing `num_ctx` caused instant GPU OOM, swallowed by `continueOnFail` (the documented tester caveat, never ported)
+- `Build & Save Profile` silently inventing `ranking:5` profiles when Companies House's canonical number didn't match user input (e.g. unpadded numbers) — now throws descriptively instead (user rule: fail over fabricate)
+- Multi-entry pastes failing when the chat UI collapsed line breaks
+- Stale duplicate "Portland Fuel - Customer Profiler" workflow (June 17-node version) deleted via API — ends the recurring wrong-workflow-executes hazard
+
+### Documentation
+- `n8n/PDF_Vision_Tester.md` updated for the qwen3-vl:32b promotion (models, prompt, closed caveats)
+- `Software_Updates.md` pdf-to-image section: stale "100 DPI" prose corrected (actual default 200), new endpoints and tuning constants documented
+
+---
+
 ## [Unreleased] - 2026-07-02 (2)
 
 ### Added

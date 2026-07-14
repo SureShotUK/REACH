@@ -1,0 +1,520 @@
+{
+  "name": "Portland Fuel - PDF Vision Tester",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "PDF Vision Tester\n\nSend a company number to fetch its latest accounts as a PDF, convert the pages to images and run the vision model (qwen2.5vl:7b) with the production extraction prompt:\n\nload 06880902\n\nThe reply is the model's raw output. Then chat naturally to interrogate it, e.g.:\nEmployees looks wrong - the accounts say 704. Which page and table did you read it from?\n\nEach follow-up re-sends the same page images plus the conversation so far, so the model must justify or correct itself.\n\nCommands: reset - clear the session | load <RegNo> or a bare company number - start a new test",
+        "options": {
+          "title": "PDF Vision Tester",
+          "subtitle": "Send a company number to test the PDF vision extraction, then chat to interrogate the figures"
+        }
+      },
+      "id": "b7f1a2c3-0001-4e5f-9a01-1a2b3c4d5e01",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [0, 0],
+      "webhookId": "pfl-pdf-vision-tester"
+    },
+    {
+      "parameters": {
+        "jsCode": "const json = $input.first().json;\nconst raw = (json.chatInput || json.message || json.text || '').trim();\nconst sid = json.sessionId || 'default';\nconst sd = $getWorkflowStaticData('global');\nif (!sd.pdfTestSessions) sd.pdfTestSessions = {};\nconst sessions = sd.pdfTestSessions;\nconst ids = Object.keys(sessions);\nif (ids.length >= 10) {\n  ids.sort(function(a, b) { return (sessions[a].t || 0) - (sessions[b].t || 0); });\n  while (ids.length > 9) delete sessions[ids.shift()];\n}\nif (/^reset$/i.test(raw)) {\n  delete sessions[sid];\n  return [{ json: { proceed: 'no', reply: 'Session cleared. Send a company number (e.g. load 06880902) to start a new test.' } }];\n}\nlet lm = raw.match(/^load\\s+([A-Za-z0-9]{6,8})$/i);\nif (!lm) lm = raw.match(/^(\\d{6,8}|[A-Za-z]{2}\\d{6})$/);\nif (lm) {\n  let companyNumber = lm[1].toUpperCase();\n  if (/^\\d+$/.test(companyNumber)) companyNumber = companyNumber.padStart(8, '0');\n  sessions[sid] = { companyNumber: companyNumber, turns: [], t: Date.now() };\n  return [{ json: { proceed: 'yes', mode: 'start', companyNumber: companyNumber, feedback: '' } }];\n}\nconst s = sessions[sid];\nif (!s || !s.companyNumber) {\n  return [{ json: { proceed: 'no', reply: 'No active test session. Start one by sending a company number, e.g. load 06880902' } }];\n}\ns.t = Date.now();\nreturn [{ json: { proceed: 'yes', mode: 'feedback', companyNumber: s.companyNumber, feedback: raw } }];"
+      },
+      "id": "b7f1a2c3-0002-4e5f-9a01-1a2b3c4d5e02",
+      "name": "Parse & Session",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [208, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.proceed }}",
+              "value2": "yes"
+            }
+          ]
+        }
+      },
+      "id": "b7f1a2c3-0003-4e5f-9a01-1a2b3c4d5e03",
+      "name": "Proceed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [416, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.found }}",
+              "value2": "yes"
+            }
+          ]
+        }
+      },
+      "id": "b7f1a2c3-0017-4e5f-9a01-1a2b3c4d5e17",
+      "name": "Filing Found?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [936, -160]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.hasBody }}",
+              "value2": "yes"
+            }
+          ]
+        }
+      },
+      "id": "b7f1a2c3-0018-4e5f-9a01-1a2b3c4d5e18",
+      "name": "Have Body?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [2392, -160]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { output: $input.first().json.reply || 'Nothing to do.' } }];"
+      },
+      "id": "b7f1a2c3-0004-4e5f-9a01-1a2b3c4d5e04",
+      "name": "Short Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [624, 192]
+    },
+    {
+      "parameters": {
+        "url": "={{'https://api.company-information.service.gov.uk/company/'+$json.companyNumber+'/filing-history?category=accounts&items_per_page=1'}}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "b7f1a2c3-0005-4e5f-9a01-1a2b3c4d5e05",
+      "name": "CH: Filing History",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [624, -32],
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const d=$input.first().json;\nconst f=(d.items||[])[0];\nconst metaUrl=f&&f.links&&f.links.document_metadata?f.links.document_metadata:null;\nconst cn=$('Parse & Session').first().json.companyNumber;\nreturn[{json:{metaUrl:metaUrl,filingDate:f?f.date:null,filingType:f?f.type:null,found:metaUrl?'yes':'no',reply:metaUrl?'':'No accounts filing with a document found for company '+cn+'. Check the number and any leading zeros (e.g. 06880902).'}}];"
+      },
+      "id": "b7f1a2c3-0006-4e5f-9a01-1a2b3c4d5e06",
+      "name": "Get Filing URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [832, -32]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.metaUrl || 'https://api.company-information.service.gov.uk/nosuchfile' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "b7f1a2c3-0007-4e5f-9a01-1a2b3c4d5e07",
+      "name": "CH: Doc Metadata",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1040, -32],
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const meta=$input.first().json;\nconst downloadUrl=meta.links&&meta.links.document?meta.links.document:null;\nreturn[{json:{downloadUrl:downloadUrl}}];"
+      },
+      "id": "b7f1a2c3-0008-4e5f-9a01-1a2b3c4d5e08",
+      "name": "Extract PDF URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1248, -32]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.downloadUrl || 'https://document-api.company-information.service.gov.uk/nosuchfile' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/pdf"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {
+              "followRedirects": false
+            }
+          },
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "b7f1a2c3-0009-4e5f-9a01-1a2b3c4d5e09",
+      "name": "CH: Get Redirect",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1456, -32],
+      "continueOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "PL9KCqe3GZ1iSIFZ",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const resp=$input.first().json;\nconst hdrs=resp.headers||{};\nconst s3Url=hdrs.location||hdrs.Location||null;\nreturn[{json:{s3Url:s3Url}}];"
+      },
+      "id": "b7f1a2c3-0010-4e5f-9a01-1a2b3c4d5e10",
+      "name": "Extract S3 URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1664, -32]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.s3Url || 'https://document-api.company-information.service.gov.uk/nosuchfile' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "pdfData"
+            }
+          }
+        }
+      },
+      "id": "b7f1a2c3-0011-4e5f-9a01-1a2b3c4d5e11",
+      "name": "CH: Download PDF",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1872, -32],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.1.192:8086/convert",
+        "sendBody": true,
+        "contentType": "binaryData",
+        "inputDataFieldName": "pdfData",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "b7f1a2c3-0012-4e5f-9a01-1a2b3c4d5e12",
+      "name": "Convert PDF to Images",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2080, -32],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const images = (($input.first().json) || {}).images || [];\nif (images.length === 0) return [{ json: { hasBody: 'no', reply: 'PDF conversion returned no images. Is the converter at 192.168.1.192:8086 running? The download may also have failed - check the execution log.' } }];\nconst TOKENS_PER_PAGE = 1400; // measured for the converter's A4 page output (~1240x1754); token cost scales with pixel area\nconst CTX_HEADROOM = 6500; // ~1.5k prompt + up to ~2.4k chat history + response margin\nconst CTX_CAP = 65536; // ~40 GB total footprint on the 32b model - fits Amelai's GPUs\nconst CTX_STEP = 8192; // bucketed so similar-sized requests reuse the loaded runner (a num_ctx change forces a model reload)\nconst maxPages = Math.floor((CTX_CAP - CTX_HEADROOM) / TOKENS_PER_PAGE);\nif (images.length > maxPages) return [{ json: { hasBody: 'no', reply: 'This filing has ' + images.length + ' pages; the vision model handles up to ' + maxPages + ' per request at the current context cap.' } }];\nconst parse = $('Parse & Session').first().json;\nconst sid = $('When chat message received').first().json.sessionId || 'default';\nconst sd = $getWorkflowStaticData('global');\nconst session = (sd.pdfTestSessions || {})[sid] || { turns: [] };\nconst prompt = 'You are reading pages from UK company accounts filed at Companies House. Look carefully at every page and find these figures.\\n\\n'\n  + 'In UK accounts, tables usually show TWO columns: the LEFT column is the CURRENT YEAR and the RIGHT column is the prior year. Always take figures from the LEFT (current year) column only.\\n\\n'\n  + 'If the accounts show BOTH group/consolidated and individual company figures (for example a \"Group\" and a \"Company\" balance sheet, or consolidated and company columns), use the GROUP / CONSOLIDATED figures.\\n\\n'\n  + '1. Annual turnover or revenue (GBP) - current year\\n'\n  + '2. Average number of employees - single total figure\\n'\n  + '3. Net assets or total equity (GBP) - current year\\n'\n  + '4. Profit BEFORE tax (GBP) - current year, negative if a loss\\n'\n  + '5. Profit AFTER tax (GBP) - current year, negative if a loss\\n'\n  + '6. Financial year end date\\n\\n'\n  + 'IMPORTANT: If column headings show figures are in thousands (e.g. £000 or £ 000), multiply each figure by 1000 to give the full amount. In UK accounts, figures shown in parentheses e.g. (£45,000) are negative. Always output negative values with a minus sign, not parentheses.\\n\\n'\n  + 'State each figure on its own line in exactly this format:\\nTurnover: £2,450,000\\nEmployees: 45\\nNet assets: £890,000\\nProfit before tax: £150,000\\nProfit after tax: £123,456\\nYear: 2023\\n\\n'\n  + 'If a figure is a loss, write it with a minus sign e.g. Profit after tax: -£45,000\\nIf you cannot find a figure, write null for that line. Do not list multiple values for the same field.';\nconst messages = [];\nif (parse.mode === 'feedback') {\n  messages.push({ role: 'system', content: 'The user is auditing the figures you extracted from these account pages. When they challenge a figure or ask why, re-examine the attached pages and justify each figure by citing the page number, the statement or note it came from, and the exact row label and column heading you read it from. If you discover you made an error, say so plainly and give the corrected figure. Do not invent page references.' });\n}\nmessages.push({ role: 'user', content: prompt, images: images });\nfor (const t of (session.turns || [])) messages.push({ role: t.role, content: t.content });\nif (parse.mode === 'feedback') messages.push({ role: 'user', content: parse.feedback });\nconst numCtx = Math.min(CTX_CAP, Math.max(8192, Math.ceil((images.length * TOKENS_PER_PAGE + CTX_HEADROOM) / CTX_STEP) * CTX_STEP));\nconst model = 'qwen2.5vl:7b'; // flip to qwen2.5vl:32b for A/B testing\nconst body = JSON.stringify({ model: model, messages: messages, stream: false, options: { num_ctx: numCtx } });\nreturn [{ json: { hasBody: 'yes', ollamaBody: body, pageCount: images.length } }];"
+      },
+      "id": "b7f1a2c3-0013-4e5f-9a01-1a2b3c4d5e13",
+      "name": "Build Chat Body",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2288, -32]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.1.192:11434/api/chat",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.ollamaBody }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "b7f1a2c3-0014-4e5f-9a01-1a2b3c4d5e14",
+      "name": "Ollama Vision Chat",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2496, -32],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const resp = $input.first().json || {};\nconst content = (resp.message && resp.message.content) || resp.response || null;\nif (!content) return [{ json: { output: 'No response from the vision model. Raw: ' + JSON.stringify(resp).substring(0, 500) } }];\nconst parse = $('Parse & Session').first().json;\nconst sid = $('When chat message received').first().json.sessionId || 'default';\nconst sd = $getWorkflowStaticData('global');\nconst sessions = sd.pdfTestSessions || {};\nconst session = sessions[sid];\nif (session) {\n  if (parse.mode === 'feedback') session.turns.push({ role: 'user', content: parse.feedback });\n  session.turns.push({ role: 'assistant', content: content });\n  if (session.turns.length > 12) session.turns = session.turns.slice(-12);\n}\nconst filing = $('Get Filing URL').first().json;\nconst pages = $('Build Chat Body').first().json.pageCount;\nconst header = parse.mode === 'start' ? 'Company ' + parse.companyNumber + ' | accounts filed ' + (filing.filingDate || '?') + ' | ' + pages + ' pages sent to qwen2.5vl:7b\\n\\n' : '';\nconst footer = '\\n\\n---\\nReply in plain English to challenge the figures (e.g. Employees is wrong, the accounts say 704 - which page and table did you read it from?). Send another company number to switch, or reset to clear.';\nreturn [{ json: { output: header + content + footer } }];"
+      },
+      "id": "b7f1a2c3-0015-4e5f-9a01-1a2b3c4d5e15",
+      "name": "Save & Format Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2704, -32]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ {output: $json.output} }}",
+        "options": {}
+      },
+      "id": "b7f1a2c3-0016-4e5f-9a01-1a2b3c4d5e16",
+      "name": "Respond to Chat",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [2912, 0]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Parse & Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse & Session": {
+      "main": [
+        [
+          {
+            "node": "Proceed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Proceed?": {
+      "main": [
+        [
+          {
+            "node": "CH: Filing History",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Short Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Short Reply": {
+      "main": [
+        [
+          {
+            "node": "Respond to Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CH: Filing History": {
+      "main": [
+        [
+          {
+            "node": "Get Filing URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Filing URL": {
+      "main": [
+        [
+          {
+            "node": "Filing Found?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filing Found?": {
+      "main": [
+        [
+          {
+            "node": "CH: Doc Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Short Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CH: Doc Metadata": {
+      "main": [
+        [
+          {
+            "node": "Extract PDF URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PDF URL": {
+      "main": [
+        [
+          {
+            "node": "CH: Get Redirect",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CH: Get Redirect": {
+      "main": [
+        [
+          {
+            "node": "Extract S3 URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract S3 URL": {
+      "main": [
+        [
+          {
+            "node": "CH: Download PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CH: Download PDF": {
+      "main": [
+        [
+          {
+            "node": "Convert PDF to Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert PDF to Images": {
+      "main": [
+        [
+          {
+            "node": "Build Chat Body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Chat Body": {
+      "main": [
+        [
+          {
+            "node": "Have Body?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Have Body?": {
+      "main": [
+        [
+          {
+            "node": "Ollama Vision Chat",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Short Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Vision Chat": {
+      "main": [
+        [
+          {
+            "node": "Save & Format Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save & Format Reply": {
+      "main": [
+        [
+          {
+            "node": "Respond to Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true
+  },
+  "meta": {
+    "instanceId": "6e23109a98b6df358d89d07cb68f7791c431eec20aae3940902d07c181cc7d9a"
+  },
+  "tags": []
+}
