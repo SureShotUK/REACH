@@ -2,6 +2,36 @@
 
 ---
 
+## Session 2026-07-15 (2) — IMG banner deploy verified in production; padding proven load-bearing; slow-survey diagnosis; Amelai reboot readiness
+
+### Summary
+Verification segment, no code changes. The IMG banner deploy went live (user rebuilt pdf-to-image on Amelai, published the workflow) and the 73-page GXO filing again extracted **all figures** (execution 273). Diagnosed the run's 12m48s survey step from the execution API: pure thinking volume, not hardware — and discovered via the new `rawPicks` breadcrumb that the IMG rename did **not** cure the page-number conflation; the deterministic padding is the load-bearing fix. Confirmed Amelai will recover cleanly from the pending reboot.
+
+### Work Completed
+- **IMG-banner production run verified (exec 273)** — all six figures correct; `rawPicks=29,32,55` shows the model *still* reports printed footer numbers for the statements pages under IMG banners; padding (29→30,31; 32→33,34) captured the real P&L (file 31) and net-assets (file 33) pages. Conclusion recorded: the rename is at best a partial helper; do NOT retire the padding
+- **Slow-survey diagnosis** — 12m48s = 74s prompt ingestion + 688s of thinking at normal speed (23.7 tok/s vs 25–26 on faster runs; identical prompt-eval rate) — no CPU offload occurred. Thinking volume varies 8× run-to-run on the same input (2,043 / 6,205 / 16,301 tokens). Answered the nvtop question: the process-table CPU% is host CPU (100% = one core), normally saturated by llama.cpp's sampling/dispatch loop during fully-on-GPU inference
+- **Budget warning recorded** — exec 273 used 16,301 of 16,384 `num_predict` (83 tokens spare). If truncation recurs, levers: brevity instruction in the survey prompt, or drop the cover-page checklist item; the budget itself cannot rise without pushing the 73-page filing over the survey cap
+- **User decision: overnight runs** — long-filing surveys are slow but thorough; user will run big batches overnight rather than tune for speed now
+- **Amelai reboot readiness confirmed** — all 7 compose containers have restart policies; GPU-container/NVIDIA race covered by the enabled `docker-gpu-containers.service`; Ollama/STT/wol-webhook/postgresql/nvidia-power-limit are enabled systemd units; Tailscale serve rules persist; `/docs` NFS is `_netdev,nofail`. One watch-item: FileBrowser/ComfyUI bind-mount `/docs` paths and can win the boot race against NFS — if they show empty dirs after reboot, `docker restart filebrowser comfyui`
+- **Office-network quirk noted** — user's laptop (office, not home LAN) cannot reach `192.168.1.192` directly; all API diagnostics this segment ran over Tailscale (`https://amelai.tail926601.ts.net:5678`)
+
+### Files Changed
+- (tracking files only — no code changes this segment)
+
+### Key Decisions
+- **Padding stays permanently on current evidence** — `rawPicks` proves conflation survives the IMG rename; revisit only if future breadcrumbs show raw picks landing on true pages
+- **Slow is acceptable** — overnight batches instead of latency tuning; extraction accuracy is the priority
+
+### Next Actions
+- [ ] **User**: reboot Amelai for updates (recovery verified; glance at FileBrowser/ComfyUI mounts after)
+- [ ] Run the other three >42-page companies from the consultancy batch (overnight)
+- [ ] If a survey hits `num_predict` again (debug marker will say so): add brevity instruction or drop the cover-page checklist item
+- [ ] Mirror the two-stage survey chain into the vision tester; A/B `think:false` on extraction
+- [ ] User decision: store the n8n API key in docs or keep session-only
+- [ ] Delete superseded `n8n/PDF Vision Tester.json` (stale export)
+
+---
+
 ## Session 2026-07-15 — survey stage debugged to full accuracy: thinking budget, deterministic page padding, IMG banner rename
 
 ### Summary

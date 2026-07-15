@@ -2,6 +2,16 @@
 
 ---
 
+## [Unreleased] - 2026-07-15 (2)
+
+### Verified
+- IMG banner deploy live in production (container rebuilt, workflow published); 73-page filing extracts all figures (execution 273)
+- `rawPicks` breadcrumb shows page-number conflation **survives** the IMG rename — deterministic +1/+2 padding confirmed as the load-bearing fix, not to be retired
+- 12m48s survey diagnosed as thinking volume (16,301 tokens at normal 23.7 tok/s; 8× run-to-run variance), not CPU offload; nvtop process CPU% = host sampling/dispatch loop, normal at 100% of one core
+- Amelai reboot recovery paths confirmed (compose restart policies, `docker-gpu-containers.service`, enabled systemd units, NFS `nofail`); watch-item: `/docs` bind-mount boot race in FileBrowser/ComfyUI
+
+---
+
 ## [Unreleased] - 2026-07-15
 
 ### Added
