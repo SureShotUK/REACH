@@ -2,6 +2,46 @@
 
 ---
 
+## Session 2026-07-15 — survey stage debugged to full accuracy: thinking budget, deterministic page padding, IMG banner rename
+
+### Summary
+Iterative whack-a-mole on the two-stage survey until the 73-page GXO filing extracted **all figures correctly** (user-confirmed). Three root causes fixed in sequence, each diagnosed from live execution data via the n8n API: (1) the balance-sheet survey rules inflated the model's thinking past `num_predict` (empty response, `done_reason:length`); (2) the model applied the "include the next page" rule inconsistently, so it moved from the prompt into deterministic code padding in `Pick Pages`; (3) the model conflates the stamped banner numbers with printed footer page numbers — inconsistently per page and per run (user's diagnosis, confirmed by set arithmetic across runs) — absorbed by depth-2 forward padding, then fixed structurally by renaming the banner token `PAGE n OF m` → `IMG n OF m`. Every change critic-reviewed before applying; file and live workflow verified in sync after each push.
+
+### Work Completed
+- **Survey thinking budget** (exec 269 autopsy) — `num_predict` 6,144 → 16,384 with `CTX_HEADROOM=NUM_PREDICT+2048` (critic blocked the naive raise: the old formula only *guaranteed* 8,192 free tokens, so 12,288 would overflow at some page counts and silently evict image tokens via context shifting); survey page cap 95 → 78 as the accepted trade
+- **Deterministic page padding** (exec 270 autopsy) — survey found only one balance-sheet heading and applied the next-page rule to 31→32 but not 32→33; prompt item 2 simplified to heading-matching only, and `Pick Pages` now pads every selected page with its successors in code (`CONVERTER_MAX_PAGES=20` guard with graceful degradation and debug notes)
+- **Footer/banner conflation** (exec 271 autopsy) — run gained Net assets but lost Turnover/PBT; set arithmetic across runs 270/271 proved the P&L is file page 31 while the survey keeps reporting 29 (the printed footer number), yet banner-reads the employees page correctly — no fixed offset exists; padding extended to depth 2 (+1, +2), exploiting the one-sided error (printed footers never exceed file position). Simulation showed both runs' divergent picks expand to the same 12-page set containing every figure-bearing page — **next run extracted all six figures correctly**
+- **IMG banner rename** (structural fix, user-proposed) — `app.py` stamps `IMG n OF m`; survey prompt rewritten to demand IMG numbers and dismiss printed page numbers explicitly; `PAGES:` reply format unchanged (parser untouched); padding deliberately retained pending A/B evidence (+1 also covers unheaded continuation pages, a numbering-independent failure mode)
+- **Autopsy breadcrumbs** — `Pick Pages` output now carries `padDepth` and `rawPicks` (the model's unpadded answer) so future misses read straight off the execution record and padding can be retired on evidence
+- **Extraction stage validated under fire** — given pages without the P&L it returned `Turnover: null` rather than inventing a number; fail-over-fabricate holding in production
+
+### Files Changed
+- `n8n/Portland Fuel - Customer Profiler.json` — `Prep Survey Prompt` (NUM_PREDICT/CTX_HEADROOM coupling, simplified item 2, IMG wording), `Pick Pages` (depth-2 padding, converter cap, padDepth/rawPicks)
+- `n8n/pdf-to-image/app.py` — banner text `PAGE` → `IMG` (stamp + fallback comment); **container rebuild on Amelai still pending**
+
+### Git Commits
+- (this commit) — see below
+
+### Key Decisions
+- **Mechanical rules live in code, not prompts** — the model demonstrably applies arithmetic rules inconsistently against its own reasoning; padding/ranges/caps moved to post-processing (critic-saved practice)
+- **Forward-only padding** — printed footer numbers never exceed file position, so the true page is always at or ≤2 after the reported one; pad forward, never back
+- **Keep the safety net until A/B proof** — IMG rename and padding removal are separate deploys; `rawPicks` captures the evidence needed to retire padding later
+- **Deployment order** — rebuild pdf-to-image *before* publishing the workflow; the transient window (IMG banners + old PAGE prompt) degrades toward padded/null, not corruption
+
+### Reference Documents
+- n8n executions API (`?includeData=true`) — every diagnosis this session came from node-by-node autopsies of live runs 269–271
+
+### Next Actions
+- [ ] **User**: rebuild pdf-to-image on Amelai (`docker compose up -d --build pdf-to-image`), then publish the workflow, then one GXO confirmation run under IMG banners
+- [ ] Run the other three >42-page companies from the consultancy batch
+- [ ] After several clean IMG-banner runs, compare `rawPicks` against figure-bearing pages and retire/reduce padding on evidence
+- [ ] Mirror the two-stage survey chain into the vision tester (deferred until profiler proven — close)
+- [ ] A/B `think:false` on the extraction call via the tester (extraction still thinks; slow but accurate)
+- [ ] User decision: store the n8n API key in docs (PGPASS-style accepted risk) or keep session-only
+- [ ] Delete superseded `n8n/PDF Vision Tester.json` (stale export, still flagged)
+
+---
+
 ## Session 2026-07-14 — qwen3-vl:32b promoted to production; two-stage page selection for long filings; parser hardening; n8n API management
 
 ### Summary

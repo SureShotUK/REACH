@@ -33,7 +33,7 @@ def _stamp(img, page_num, total):
     stamped = Image.new("RGB", (img.width, img.height + BANNER_HEIGHT), "black")
     stamped.paste(img, (0, BANNER_HEIGHT))
     draw = ImageDraw.Draw(stamped)
-    text = f"PAGE {page_num} OF {total}" if total else f"PAGE {page_num}"
+    text = f"IMG {page_num} OF {total}" if total else f"IMG {page_num}"
     draw.text((12, 8), text, fill="white", font=_banner_font())
     return stamped
 
@@ -85,7 +85,7 @@ async def convert_pdf(request: Request):
         try:
             doc_total = int(pdfinfo_from_bytes(pdf_bytes).get("Pages", 0)) or None
         except Exception:
-            doc_total = None  # banner degrades to "PAGE n" without the total
+            doc_total = None  # banner degrades to "IMG n" without the total
 
     if page_numbers:
         page_images = []

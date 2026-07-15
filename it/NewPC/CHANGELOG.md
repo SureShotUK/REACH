@@ -2,6 +2,23 @@
 
 ---
 
+## [Unreleased] - 2026-07-15
+
+### Added
+- Pick Pages: deterministic page padding (+1 continuation cover, +2 footer-number cover; `CONVERTER_MAX_PAGES=20` guard with graceful depth-1/unpadded degradation) and `padDepth`/`rawPicks` breadcrumbs for execution autopsies and future A/B retirement of the padding
+
+### Changed
+- Survey generation budget: `num_predict` 6,144 → 16,384 with coupled `CTX_HEADROOM=NUM_PREDICT+2048` (guaranteed free space now provably exceeds the generation budget at every page count; survey cap 95 → 78 pages)
+- Survey prompt: next-page rule removed (moved to code), balance-sheet item reduced to heading matching; banner references reworded for IMG numbers
+- pdf-to-image banner token: `PAGE n OF m` → `IMG n OF m` so the survey model cannot conflate stamped image positions with printed page numbers (**Amelai container rebuild pending**)
+
+### Fixed
+- Survey returning empty (`done_reason:length`) — thinking transcript outgrew `num_predict` after the balance-sheet rules were added
+- Net assets missed (page 33 never selected) — model applied the prompt-side next-page rule inconsistently; now deterministic in code
+- Turnover/Profit-before-tax missed (P&L page 31 reported as "29") — model reads printed footer numbers instead of banner numbers, inconsistently per page/run; absorbed by depth-2 forward padding. **Result: 73-page GXO filing now extracts all figures correctly (user-confirmed)**
+
+---
+
 ## [Unreleased] - 2026-07-14
 
 ### Added
