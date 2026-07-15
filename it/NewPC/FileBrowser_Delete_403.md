@@ -1,6 +1,6 @@
 # FileBrowser — 403 Forbidden on Delete
 
-**Status (2026-07-15): DIAGNOSED, FIX NOT YET APPLIED.** Root cause identified with evidence; the `chown` has not been run or verified.
+**Status (2026-07-15): FIXED AND VERIFIED.** Root cause confirmed, `chown` applied, delete confirmed working in the FileBrowser UI. No restart was needed.
 
 ## Symptom
 
@@ -92,10 +92,13 @@ docker exec filebrowser rm '/srv/<path>/<file>'
 Before chowning a source directory, **check what UID the writing container runs as**:
 
 ```bash
-docker exec comfyui-amelia id
+docker exec comfyui-amelia id    # -> uid=0(root) gid=0(root)
+docker exec comfyui id           # -> uid=0(root) gid=0(root)
 ```
 
-If it is root (`uid=0`), chowning the directory to steve is free — root ignores permission bits and keeps writing as before. If it runs as some *other* non-root UID, handing the directory to steve could break its writes, and a shared group is the correct fix instead.
+If it is root (`uid=0`), chowning the directory to steve is free — root ignores permission bits and keeps writing as before. If it runs as some *other* non-root UID, handing the directory to steve could break its writes, and a shared group (`chgrp` + `chmod g+w`) is the correct fix instead.
+
+**On this host both ComfyUI containers run as root**, so the chown is safe and cannot affect their writes.
 
 ## Fix
 
@@ -106,6 +109,17 @@ sudo chown steve:steve /home/steve/rag-output/comfyui-input /home/steve/rag-outp
 ```
 
 No restart needed — permissions are read live at unlink time.
+
+### Verified 2026-07-15
+
+```
+drwxr-xr-x 2 1000 1000  /opt/comfyui-amelia/output
+drwxr-xr-x 2 1000 1000  /opt/comfyui/workflows
+drwxr-xr-x 2 1000 1000  /home/steve/rag-output/comfyui-input
+drwxr-xr-x 2 1000 1000  /home/steve/rag-output/comfyui-amelia-input
+```
+
+`docker exec filebrowser touch /srv/comfyui-amelia-output/.perm-test` → **WRITE OK**, and deleting a file through the FileBrowser web UI now succeeds.
 
 ### Why no `-R`
 
@@ -118,4 +132,21 @@ It works, and it also means anything able to reach that path can rewrite the RAG
 ## Notes
 
 - `comfyui-output` is the CIFS share from irwinnas. CIFS enforces the permissions of the account used to mount the share — being root inside the container buys nothing there. Needs `uid=1000` in the mount options rather than a `chown`.
-- The `docker exec filebrowser touch /srv/.deleteme` diagnostic leaves a `.deleteme` file in `/home/steve/rag-output` — remove it.
+- `/opt/comfyui/workflows` is the **stale** path — there is a standing action to repoint that volume at `/docs/Projects/Claude Code Shared/Workflows`. Once that happens it becomes a CIFS mount and the `chown` above stops applying, exactly as for `comfyui-output`.
+- The diagnostics leave litter: `.deleteme` in `/home/steve/rag-output` and `.perm-test` in `/opt/comfyui-amelia/output`. Remove them.
+
+### Gotcha: don't test container writes using host paths
+
+```bash
+# WRONG — /opt/... is the HOST path; the container has never heard of it
+docker exec comfyui-amelia touch /opt/comfyui-amelia/output/.write-test
+# touch: cannot touch '...': No such file or directory
+```
+
+This fails with `ENOENT` ("No such file or directory"), **not** `EACCES` ("Permission denied") — which makes it look like a broken fix when it is a broken test. Same bind-mount indirection as the rest of this document, one level up. Get the real container path first:
+
+```bash
+docker inspect comfyui-amelia --format '{{range .Mounts}}{{.Source}} -> {{.Destination}}{{"\n"}}{{end}}'
+```
+
+**Read the errno, not the exit code.** `ENOENT` and `EACCES` mean completely different things here, and a `&& echo OK || echo BROKEN` wrapper flattens both into "BROKEN".

@@ -1,20 +1,20 @@
 # IT Project Status
 
-**Last Updated**: 2026-07-15 (FileBrowser 403-on-delete root-caused to Linux directory ownership + Docker bind-mount stubs — fix identified, NOT yet applied; see `NewPC/FileBrowser_Delete_403.md`)
+**Last Updated**: 2026-07-15 (FileBrowser 403-on-delete FIXED and verified — Linux directory ownership + Docker bind-mount stubs; see `NewPC/FileBrowser_Delete_403.md`)
 
 ## Current State
 **Local AI stack fully operational with persistent memory and multi-client support.** Claude Code runs against local Ollama backend. MCP server provides web search, model listing, and full workspace management tools. Workspace git repo live at `https://github.com/SureShotUK/local-cc-workspace`. Any new Windows client can be set up in minutes using `LoadClientClaude.md`. Web search auto-invokes on general-purpose models; CLAUDE.md strengthened to override coding model bias. Open WebUI system prompt (Phase 3.3) and security hardening (Phase 5) remain.
 
 ## Active Work Areas
 
-### FileBrowser — 403 on Delete ⚠️ (NEW 2026-07-15 — Diagnosed, Fix Pending)
-- **Status**: Root cause confirmed with evidence. **Fix identified but NOT applied or verified.** No system changes made.
-- **Files**: `NewPC/FileBrowser_Delete_403.md` (full write-up), `NewPC/Docker.md` (FileBrowser container definition)
-- **Root cause**: Not a FileBrowser permission problem. Container runs as `uid=1000`; the ComfyUI output directories are root-owned `755`, so FileBrowser gets `r-x` and can list/download but not unlink. Deleting a file requires write on the **parent directory**, not the file.
-- **Why it looked like an auth problem**: `errToStatus` (`http/utils.go:34`) maps a Linux `EACCES` to the same 403 as a missing `Perm.Delete` bit — indistinguishable from the browser. The greyed-out Delete tick is a UI quirk (`:disabled="admin"` in `Permissions.vue`) and confirms `perm.delete` is genuinely `true`.
-- **Bind-mount trap**: the root-owned `comfyui-*` dirs under `rag-output` are Docker-created mountpoint stubs — chowning them does nothing. Real sources: `/opt/comfyui-amelia/output`, `/opt/comfyui/workflows`, and the CIFS share `/docs/Projects/Claude Code Shared/Output`.
-- **Blocked on**: `docker exec comfyui-amelia id` — the fix (`sudo chown steve:steve /opt/comfyui-amelia/output`, no `-R`) is only safe if ComfyUI runs as root
-- **Related**: supersedes/overlaps the stale `comfyui-workflows` volume item under AI Tool Comparisons below
+### FileBrowser — 403 on Delete ✅ (Resolved 2026-07-15)
+- **Status**: **Fixed and verified.** `chown` applied to all four source directories; delete confirmed working in the FileBrowser web UI. No restart needed.
+- **Files**: `NewPC/FileBrowser_Delete_403.md` (full write-up), `NewPC/Docker.md` (FileBrowser container definition, now cross-referenced)
+- **Root cause**: Not a FileBrowser permission problem. Container runs as `uid=1000`; the ComfyUI output directories were root-owned `755`, so FileBrowser got `r-x` and could list/download but not unlink. Deleting a file requires write on the **parent directory**, not the file.
+- **Why it looked like an auth problem**: `errToStatus` (`http/utils.go:34`) maps a Linux `EACCES` to the same 403 as a missing `Perm.Delete` bit — indistinguishable from the browser. The greyed-out Delete tick is a UI quirk (`:disabled="admin"` in `Permissions.vue`) and confirmed `perm.delete` was genuinely `true`.
+- **Bind-mount trap**: the root-owned `comfyui-*` dirs under `rag-output` are Docker-created mountpoint stubs — chowning them does nothing. Real sources fixed: `/opt/comfyui-amelia/output`, `/opt/comfyui/workflows`, `rag-output/comfyui-input`, `rag-output/comfyui-amelia-input`.
+- **Both ComfyUI containers run as root** (`uid=0`), so the chown cannot affect their writes — verified after the fact
+- **Still outstanding**: `comfyui-output` is the CIFS share from irwinnas — `chown` will not stick there, needs `uid=1000` in the mount options if deletes are wanted. Also `/opt/comfyui/workflows` is the stale path (see the repoint item under AI Tool Comparisons below); once repointed to CIFS, its chown stops applying.
 
 ### Image → RAG Knowledge Base Pipeline (NEW 2026-07-07)
 - **Status**: Working end-to-end and documented; first two documents produced
@@ -313,20 +313,19 @@
 - ✅ Homelab Type 1 hypervisor setup guides
 
 ## Blocked/Pending
-- **FileBrowser delete fix** — gated on `docker exec comfyui-amelia id`. The fix (`sudo chown steve:steve /opt/comfyui-amelia/output`) is only safe if ComfyUI runs as root; if it runs as another non-root UID, chowning the directory could break its writes and a shared group is the correct approach instead. See `NewPC/FileBrowser_Delete_403.md`.
+None currently. All active documentation areas progressing as planned.
 
 ## Next Priorities
 
 ### High Priority
-1. **Apply the FileBrowser delete fix** — run `docker exec comfyui-amelia id` first; if `uid=0`, then `sudo chown steve:steve /opt/comfyui-amelia/output` (no `-R`) and retry the delete. Same for `/opt/comfyui/workflows`. See `NewPC/FileBrowser_Delete_403.md`
-2. **Finish Qwen-Image-Edit download** — text encoder (~7GB) + VAE (~254MB) still needed; commands in `NewPC/HuggingFace.md` §Download commands
-3. **Install `lenML/comfyui_qwen_image_edit_adv`** — via ComfyUI Manager; fixes known offset bug in native node
-4. **Change FileBrowser default password** — `https://amelai.tail926601.ts.net:8087` → Settings → User Management (default is admin/admin)
-5. **Recreate Open WebUI container with document backup mount** — add `-v /home/steve/rag-output:/app/backend/data/uploads` and use PGPASS pattern for password
-6. **Test RAG end-to-end** — upload a document to a Knowledge Base, attach with `#` in chat, confirm Sources section appears in response
-7. **Download Wan2.2 video model files** (~18GB total, 3 wget commands) — see `NewPC/ComfyUI.md` §Video Generation
-8. **Install ComfyUI-WanVideoWrapper** — via ComfyUI Manager; search `WanVideoWrapper`
-9. **Configure Open WebUI → ComfyUI integration** — Admin → Settings → Images → ComfyUI → `http://comfyui:8188`
+1. **Finish Qwen-Image-Edit download** — text encoder (~7GB) + VAE (~254MB) still needed; commands in `NewPC/HuggingFace.md` §Download commands
+2. **Install `lenML/comfyui_qwen_image_edit_adv`** — via ComfyUI Manager; fixes known offset bug in native node
+3. **Change FileBrowser default password** — `https://amelai.tail926601.ts.net:8087` → Settings → User Management (default is admin/admin)
+4. **Recreate Open WebUI container with document backup mount** — add `-v /home/steve/rag-output:/app/backend/data/uploads` and use PGPASS pattern for password
+5. **Test RAG end-to-end** — upload a document to a Knowledge Base, attach with `#` in chat, confirm Sources section appears in response
+6. **Download Wan2.2 video model files** (~18GB total, 3 wget commands) — see `NewPC/ComfyUI.md` §Video Generation
+7. **Install ComfyUI-WanVideoWrapper** — via ComfyUI Manager; search `WanVideoWrapper`
+8. **Configure Open WebUI → ComfyUI integration** — Admin → Settings → Images → ComfyUI → `http://comfyui:8188`
 
 ### Medium Priority
 3. **ZTNA pilot deployment** — Start Tailscale free tier testing at Office3 (3 users)

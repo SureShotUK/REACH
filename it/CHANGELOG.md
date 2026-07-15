@@ -2,10 +2,15 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
-## [Unreleased] - 2026-07-15 — FileBrowser 403 on Delete Root-Caused (Fix Pending)
+## [Unreleased] - 2026-07-15 — FileBrowser 403 on Delete: Fixed
+
+### Fixed
+- **FileBrowser delete now works.** `sudo chown steve:steve` applied to the four real source directories — `/opt/comfyui-amelia/output`, `/opt/comfyui/workflows`, `/home/steve/rag-output/comfyui-input`, `/home/steve/rag-output/comfyui-amelia-input` (all now `1000 1000`). Verified: `docker exec filebrowser touch /srv/comfyui-amelia-output/.perm-test` → WRITE OK, and deleting via the web UI succeeds. No restart required — permissions are read live at unlink time.
+- Both ComfyUI containers confirmed running as `uid=0(root)`, so the chown cannot affect their writes (root ignores permission bits)
 
 ### Added
-- `it/NewPC/FileBrowser_Delete_403.md` — why FileBrowser returns 403 on delete for an admin user: the two indistinguishable causes (`!d.user.Perm.Delete` in `http/resource.go` with no admin override, vs `errToStatus` in `http/utils.go:34` mapping a Linux `EACCES` to the same 403), the Unix rule that unlinking needs write on the *parent directory*, the Docker bind-mount stub trap, per-mount fix table, and diagnosis commands
+- `it/NewPC/FileBrowser_Delete_403.md` — why FileBrowser returns 403 on delete for an admin user: the two indistinguishable causes (`!d.user.Perm.Delete` in `http/resource.go` with no admin override, vs `errToStatus` in `http/utils.go:34` mapping a Linux `EACCES` to the same 403), the Unix rule that unlinking needs write on the *parent directory*, the Docker bind-mount stub trap, per-mount fix table, diagnosis commands, and a gotcha section on testing container writes with host paths (`ENOENT` vs `EACCES`)
+- `it/NewPC/Docker.md` — cross-reference from the FileBrowser section to the 403 write-up
 
 ### Documentation
 - Root cause established with evidence from the live container: FileBrowser runs as `uid=1000`; `/home/steve/rag-output` is `drwxrwxr-x 1000 1000` (writable, verified), but every `comfyui-*` subdirectory is root-owned `755` — so the container can list and download but cannot unlink. `HSE` (`1000`-owned) deletes fine and serves as the control case.
@@ -13,8 +18,9 @@ All notable changes to the IT infrastructure and security documentation project.
 - Docker bind-mount targets are auto-created as `root:root`; the root-owned `comfyui-*` dirs under `rag-output` are mountpoint stubs and chowning them has no effect — real sources are `/opt/comfyui-amelia/output`, `/opt/comfyui/workflows`, and the CIFS share `/docs/Projects/Claude Code Shared/Output`
 
 ### Notes
-- **No system changes were made** — no `chown` was run and the fix is unverified. Gated on `docker exec comfyui-amelia id`: chowning is only safe if ComfyUI runs as root.
-- Fix will be `sudo chown steve:steve /opt/comfyui-amelia/output` with **no `-R`** — unlinking checks the parent directory, so root-owned files inside stay deletable and future root-written ComfyUI output keeps working; `chown -R` would rot on the next generation
+- Fix deliberately used **no `-R`** — unlinking checks the parent directory, so root-owned files inside stay deletable and future root-written ComfyUI output keeps working; `chown -R` would have rotted on the next generation
+- `chmod 777` rejected — same result, but would let anything reaching the path rewrite the RAG output
+- **Still outstanding**: `comfyui-output` is the CIFS share from irwinnas, where `chown` will not stick — needs `uid=1000` in the mount options if deletes are wanted there. `/opt/comfyui/workflows` is also the stale path; once repointed to `/docs/Projects/Claude Code Shared/Workflows` (a CIFS mount) its chown stops applying.
 
 ---
 
