@@ -2,6 +2,22 @@
 
 All notable changes to the IT infrastructure and security documentation project.
 
+## [Unreleased] - 2026-07-15 — FileBrowser 403 on Delete Root-Caused (Fix Pending)
+
+### Added
+- `it/NewPC/FileBrowser_Delete_403.md` — why FileBrowser returns 403 on delete for an admin user: the two indistinguishable causes (`!d.user.Perm.Delete` in `http/resource.go` with no admin override, vs `errToStatus` in `http/utils.go:34` mapping a Linux `EACCES` to the same 403), the Unix rule that unlinking needs write on the *parent directory*, the Docker bind-mount stub trap, per-mount fix table, and diagnosis commands
+
+### Documentation
+- Root cause established with evidence from the live container: FileBrowser runs as `uid=1000`; `/home/steve/rag-output` is `drwxrwxr-x 1000 1000` (writable, verified), but every `comfyui-*` subdirectory is root-owned `755` — so the container can list and download but cannot unlink. `HSE` (`1000`-owned) deletes fine and serves as the control case.
+- Greyed-out Delete checkbox explained as a UI quirk (`:disabled="admin"` in `Permissions.vue`); the `admin` setter never forces other perms true, so a greyed tick means `perm.delete` genuinely IS `true` — which is what ruled out the permission-bit theory
+- Docker bind-mount targets are auto-created as `root:root`; the root-owned `comfyui-*` dirs under `rag-output` are mountpoint stubs and chowning them has no effect — real sources are `/opt/comfyui-amelia/output`, `/opt/comfyui/workflows`, and the CIFS share `/docs/Projects/Claude Code Shared/Output`
+
+### Notes
+- **No system changes were made** — no `chown` was run and the fix is unverified. Gated on `docker exec comfyui-amelia id`: chowning is only safe if ComfyUI runs as root.
+- Fix will be `sudo chown steve:steve /opt/comfyui-amelia/output` with **no `-R`** — unlinking checks the parent directory, so root-owned files inside stay deletable and future root-written ComfyUI output keeps working; `chown -R` would rot on the next generation
+
+---
+
 ## [Unreleased] - 2026-07-09 — "Don't Ask Again" UNC Fix + Dual-Backend Constraints
 
 ### Added

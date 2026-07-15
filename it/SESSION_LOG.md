@@ -4,6 +4,51 @@ This log tracks all Claude Code sessions for the IT infrastructure and security 
 
 ---
 
+## Session 2026-07-15 — FileBrowser 403 on Delete: Root-Caused (Fix NOT Yet Applied)
+
+### Summary
+Diagnosed why FileBrowser returns 403 Forbidden on delete while logged in as admin. **The fix has been identified but not applied or verified** — the confirming diagnostic was issued and Steve had not yet run it when the session ended. Root cause is a Linux directory-ownership problem, not a FileBrowser permission problem: the container runs as uid 1000, and the ComfyUI output directories are root-owned `755`, so FileBrowser can list and download but cannot unlink. Steve's own hypothesis ("could it be an actual Linux file permissions issue rather than a FileBrowser permissions issue?") was correct and overturned the first working theory.
+
+### Work Completed
+- **Two false leads eliminated with source evidence** rather than guesswork — both produce an identical, indistinguishable 403:
+  - `http/resource.go` `resourceDeleteHandler` checks `!d.user.Perm.Delete` with **no admin override** — `Perm.Admin` grants only the Settings/User Management UI, never delete rights. Initially suspected; ruled out.
+  - `http/utils.go:34` `errToStatus` maps `os.IsPermission(err)` → `http.StatusForbidden`, so a Linux `EACCES` surfaces as the *same* 403 as a missing permission bit. This turned out to be the actual path.
+- **Greyed-out checkbox explained**: `frontend/src/components/settings/Permissions.vue` sets `:disabled="admin"` on all sub-permission checkboxes; the `admin` setter only assigns `perm.admin` and never forces the others true — so a greyed tick on Delete means `perm.delete` genuinely IS `true` in the DB. This is what killed the permission-bit theory.
+- **Evidence gathered from the live container** (Steve ran, LAN direct to 192.168.1.192):
+  - `docker exec filebrowser id` → `uid=1000(user) gid=1000(user)`
+  - `/home/steve/rag-output` → `drwxrwxr-x 12 1000 1000`, write test **WRITE OK** (top level healthy)
+  - all `comfyui-*` subdirs → `drwxr-xr-x 0 0` (root-owned, uid 1000 falls into "other", gets `r-x` only)
+  - `HSE` → `drwxr-x--- 1000 1000`, deletes fine — the control case proving the rest of the setup is sound
+- **Target file located**: inside `comfyui-amelia-output`, which is a **bind-mount target**, so the root-owned stub visible under `rag-output` is a decoy — the real source is `/opt/comfyui-amelia/output`
+- **Created `NewPC/FileBrowser_Delete_403.md`** — symptom, the two indistinguishable 403 causes with source citations, the Unix directory-write rule, the Docker bind-mount trap, per-mount fix table, diagnosis commands
+
+### Files Changed
+- `it/NewPC/FileBrowser_Delete_403.md` — NEW: full root-cause write-up
+- `it/SESSION_LOG.md`, `it/PROJECT_STATUS.md`, `it/CHANGELOG.md` — session documentation
+- **No system changes were made on amelai** — no `chown` was run
+
+### Key Decisions
+- **`chown` the directory only, never `-R`** — unlinking checks the *parent directory*, so files inside can stay root-owned and still delete. ComfyUI runs as root and writes root-owned files every generation; owning the directory keeps deletes working permanently, whereas `chown -R` fixes today's files and rots on the next write.
+- **Rejected `chmod 777`** (the common internet answer) — works, but means anything reaching that path can rewrite the RAG output. Matching the UID gets the same result without the exposure.
+- **Check the writing container's UID before chowning** — safe only if ComfyUI runs as root (root ignores permission bits); if it runs as another non-root UID, a shared group is the correct fix instead. This check is the gate on the fix.
+- **Diagnose from source, not memory** — the first answer (permission bit) was plausible and wrong; reading `resource.go`, `utils.go`, and `Permissions.vue` is what identified the real cause and explained the greyed checkbox.
+
+### Reference Documents
+- `it/NewPC/FileBrowser_Delete_403.md` (created)
+- `it/NewPC/Docker.md` — FileBrowser section (container definition, volume mounts) used to map container paths to real sources
+- FileBrowser source verified directly: `http/resource.go`, `http/utils.go`, `users/users.go`, `frontend/src/components/settings/Permissions.vue`
+
+### Next Actions
+- [ ] **Run the gating diagnostic**: `docker exec comfyui-amelia id` — confirm ComfyUI is `uid=0` before chowning
+- [ ] **Apply the fix** (assuming root): `sudo chown steve:steve /opt/comfyui-amelia/output` — then retry the delete in the web UI (no restart needed)
+- [ ] Same fix for `/opt/comfyui/workflows` — deleting a workflow will hit the identical problem
+- [ ] `comfyui-output` (CIFS share from irwinnas) needs `uid=1000` in its mount options — `chown` will not stick
+- [ ] Remove the `.deleteme` file left in `/home/steve/rag-output` by the write test
+- [ ] Restart running Amelai sessions so they pick up the user-scope rules (carried over)
+- [ ] Optionally remove the stale context-mode 1.0.162 cache dir on Amelai after next `/ctx-doctor` pass (carried over)
+
+---
+
 ## Session 2026-07-09 — "Don't Ask Again" UNC Fix + Dual-Backend Session Constraints (StevesLenovo)
 
 ### Summary

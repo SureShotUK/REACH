@@ -391,6 +391,8 @@ docker run -d \
 
 Web-based file manager. Serves `/home/steve/rag-output/` plus ComfyUI output folders.
 
+> **Deleting a file returns 403 Forbidden?** See [`FileBrowser_Delete_403.md`](FileBrowser_Delete_403.md). It is a Linux directory-ownership problem (the container runs as uid 1000; the ComfyUI output directories are root-owned `755`), not a FileBrowser permission problem — and the `-v` targets below are auto-created by Docker as `root:root`, so chowning them under `rag-output` has no effect.
+
 ```bash
 # Pre-create the database file first (only needed once — must be a file, not a directory)
 mkdir -p /home/steve/filebrowser
